@@ -1,0 +1,1 @@
+ D:\\Projects\\SRIT\\QC_Patient\\.dart_tool\\flutter_build\\bb70b8959958685c450b1aee3282f79c\\native_assets.yaml: 
