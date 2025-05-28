@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
@@ -68,51 +67,6 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
       TextEditingController();
   TextEditingController InsuranceTypeTextController = TextEditingController();
   TextEditingController CoverageLimitController = TextEditingController();
-  ConnectivityService connectivityservice = ConnectivityService();
-
-  String? errorMessage;
-  bool isValid = false;
-  bool hasStartedTyping = false;
-
-  String? nationalIDerrorMessage;
-  bool nationalIDisValid = false;
-  bool nationalIDhasStartedTyping = false;
-
-  String? policynameerrorMessage;
-  bool policynameisValid = false;
-  bool policynamehasStartedTyping = false;
-
-  String? startDateerrorMessage;
-  bool startDateisValid = false;
-  bool startDatehasStartedTyping = false;
-
-  String? expiryDateerrorMessage;
-  bool expiryDateisValid = false;
-  bool expiryDatehasStartedTyping = false;
-
-  bool _isSubmitButtonEnabled = false;
-
-  void checkSubmitButtonEnabled() {
-    String input = InsurnceProviderTextController.text.trim();
-    String input2 = NationalIDTextController.text.trim();
-    String input3 = PolicyNameEditTextController.text.trim();
-    String input4 = StartDateController.text.trim();
-    String input5 = ExpiryDateTextController.text.trim();
-
-    if (input.isNotEmpty &&
-        input2.isNotEmpty &&
-        input3.isNotEmpty &&
-        input4.isNotEmpty &&
-        input5.isNotEmpty) {
-      setState(() {
-        _isSubmitButtonEnabled = true;
-      });
-    } else {
-      setState(() {
-        _isSubmitButtonEnabled = false;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -475,30 +429,8 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                                       BorderSide(color: Color(0xFFF1F1F1)),
                                 ),
                               ),
-                              onChanged: (value) {
-                                checkSubmitButtonEnabled();
-                              },
                             ),
                           ),
-                          if (errorMessage != null)
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.01,
-                                left: MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  errorMessage ?? '',
-                                  style: TextStyle(
-                                    color: isValid ? Colors.green : Colors.red,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.012,
-                                  ),
-                                ),
-                              ),
-                            ),
 
                           //National ID or Iqama *
                           Padding(
@@ -547,8 +479,8 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                               keyboardType: TextInputType.number,
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(15),
-                                // FilteringTextInputFormatter.allow(
-                                //     RegExp('[0-9]'))
+                                FilteringTextInputFormatter.allow(
+                                    RegExp('[0-9]'))
                               ],
                               style: TextStyle(
                                 color: Color(0xFF111111),
@@ -588,32 +520,8 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                                       BorderSide(color: Color(0xFFF1F1F1)),
                                 ),
                               ),
-                              onChanged: (value) {
-                                checkSubmitButtonEnabled();
-                              },
                             ),
                           ),
-                          if (nationalIDerrorMessage != null)
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.01,
-                                left: MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  nationalIDerrorMessage ?? '',
-                                  style: TextStyle(
-                                    color: nationalIDisValid
-                                        ? Colors.green
-                                        : Colors.red,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.012,
-                                  ),
-                                ),
-                              ),
-                            ),
 
                           //Policy Name *
                           Padding(
@@ -702,32 +610,8 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                                       BorderSide(color: Color(0xFFF1F1F1)),
                                 ),
                               ),
-                              onChanged: (value) {
-                                checkSubmitButtonEnabled();
-                              },
                             ),
                           ),
-                          if (policynameerrorMessage != null)
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.01,
-                                left: MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  policynameerrorMessage ?? '',
-                                  style: TextStyle(
-                                    color: policynameisValid
-                                        ? Colors.green
-                                        : Colors.red,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.012,
-                                  ),
-                                ),
-                              ),
-                            ),
 
                           //Start Date *
                           Padding(
@@ -775,8 +659,8 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                               keyboardType: TextInputType.datetime,
                               inputFormatters: [
                                 // LengthLimitingTextInputFormatter(15),
-                                FilteringTextInputFormatter.allow(
-                                    RegExp('[0-9]'))
+                                // FilteringTextInputFormatter.allow(
+                                //     RegExp('[0-9]'))
                               ],
                               style: TextStyle(
                                 color: Color(0xFF111111),
@@ -816,32 +700,8 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                                       BorderSide(color: Color(0xFFF1F1F1)),
                                 ),
                               ),
-                              onChanged: (value) {
-                                checkSubmitButtonEnabled();
-                              },
                             ),
                           ),
-                          if (startDateerrorMessage != null)
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.01,
-                                left: MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  startDateerrorMessage ?? '',
-                                  style: TextStyle(
-                                    color: startDateisValid
-                                        ? Colors.green
-                                        : Colors.red,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.012,
-                                  ),
-                                ),
-                              ),
-                            ),
 
                           //Expiry Date *
                           Padding(
@@ -886,7 +746,7 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                             ),
                             child: new TextFormField(
                               controller: ExpiryDateTextController,
-                              keyboardType: TextInputType.datetime,
+                              keyboardType: TextInputType.text,
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(15),
                                 FilteringTextInputFormatter.allow(
@@ -930,32 +790,8 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                                       BorderSide(color: Color(0xFFF1F1F1)),
                                 ),
                               ),
-                              onChanged: (value) {
-                                checkSubmitButtonEnabled();
-                              },
                             ),
                           ),
-                          if (expiryDateerrorMessage != null)
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.01,
-                                left: MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  expiryDateerrorMessage ?? '',
-                                  style: TextStyle(
-                                    color: expiryDateisValid
-                                        ? Colors.green
-                                        : Colors.red,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.012,
-                                  ),
-                                ),
-                              ),
-                            ),
 
                           //Primary Insured Name
                           Padding(
@@ -988,8 +824,8 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                               keyboardType: TextInputType.text,
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(15),
-                                // FilteringTextInputFormatter.allow(
-                                //     RegExp('[0-9]'))
+                                FilteringTextInputFormatter.allow(
+                                    RegExp('[0-9]'))
                               ],
                               style: TextStyle(
                                 color: Color(0xFF111111),
@@ -1063,8 +899,8 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                               keyboardType: TextInputType.text,
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(15),
-                                // FilteringTextInputFormatter.allow(
-                                //     RegExp('[0-9]'))
+                                FilteringTextInputFormatter.allow(
+                                    RegExp('[0-9]'))
                               ],
                               style: TextStyle(
                                 color: Color(0xFF111111),
@@ -1137,8 +973,8 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                               controller: CoverageLimitController,
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(50),
-                                // FilteringTextInputFormatter.allow(
-                                //     RegExp('[a-zA-Z ]'))
+                                FilteringTextInputFormatter.allow(
+                                    RegExp('[a-zA-Z ]'))
                               ],
                               style: TextStyle(
                                 color: Color(0xFF111111),
@@ -1394,11 +1230,7 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
 
                           // Submit Button
                           GestureDetector(
-                            onTap: () async {
-                              if (_isSubmitButtonEnabled) {
-                                saveInsurance();
-                              }
-                            },
+                            onTap: () async {},
                             child: Container(
                                 alignment: Alignment.centerRight,
                                 padding: EdgeInsets.only(
@@ -1436,24 +1268,18 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                                               gradient: LinearGradient(
                                                   begin: Alignment.centerRight,
                                                   end: Alignment.center,
-                                                  stops: [0.5, 0.9],
-                                                  colors: _isSubmitButtonEnabled
-                                                      ? [
-                                                          Color(0xFF126086),
-                                                          Color(0xFF126086),
-                                                        ]
-                                                      : [
-                                                          Color(0x99909090),
-                                                          Color(0x99909090),
-                                                        ])),
+                                                  stops: [
+                                                    0.5,
+                                                    0.9
+                                                  ],
+                                                  colors: [
+                                                    Color(0x99909090),
+                                                    Color(0x99909090),
+                                                  ])),
                                           alignment: Alignment.center,
                                           padding: EdgeInsets.only(left: 0.0),
                                           child: TextButton(
-                                            onPressed: () async {
-                                              if (_isSubmitButtonEnabled) {
-                                                saveInsurance();
-                                              }
-                                            },
+                                            onPressed: () async {},
                                             child: Text("Submit",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
@@ -2248,92 +2074,4 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
           ),
         ),
       );
-
-  void saveInsurance() {
-    print("saveInsurance");
-
-    connectivityservice.checkconnectivity().then((intenet) async {
-      if (intenet != null && intenet) {
-        String input = InsurnceProviderTextController.text.trim();
-        if (input.isEmpty) {
-          setState(() {
-            hasStartedTyping = true;
-            errorMessage = "Please enter your Insurance Provider";
-            isValid = false;
-          });
-        } else {
-          setState(() {
-            hasStartedTyping = false;
-            errorMessage = null;
-            isValid = true;
-          });
-        }
-
-        String input2 = NationalIDTextController.text.trim();
-        if (input2.isEmpty) {
-          setState(() {
-            nationalIDhasStartedTyping = true;
-            nationalIDerrorMessage = "Please enter your National ID or Iqama";
-            nationalIDisValid = false;
-          });
-        } else {
-          setState(() {
-            nationalIDhasStartedTyping = false;
-            nationalIDerrorMessage = null;
-            nationalIDisValid = true;
-          });
-        }
-
-        String input3 = PolicyNameEditTextController.text.trim();
-        if (input3.isEmpty) {
-          setState(() {
-            policynamehasStartedTyping = true;
-            policynameerrorMessage = "Please enter your Policy Name";
-            policynameisValid = false;
-          });
-        } else {
-          setState(() {
-            policynamehasStartedTyping = false;
-            policynameerrorMessage = null;
-            policynameisValid = true;
-          });
-        }
-
-        String input4 = StartDateController.text.trim();
-        if (input4.isEmpty) {
-          setState(() {
-            startDatehasStartedTyping = true;
-            startDateerrorMessage = "Please enter your Start Date";
-            startDateisValid = false;
-          });
-        } else {
-          setState(() {
-            startDatehasStartedTyping = false;
-            startDateerrorMessage = null;
-            startDateisValid = true;
-          });
-        }
-
-        String input5 = ExpiryDateTextController.text.trim();
-        if (input5.isEmpty) {
-          setState(() {
-            expiryDatehasStartedTyping = true;
-            expiryDateerrorMessage = "Please enter your Expiry Date";
-            expiryDateisValid = false;
-          });
-        } else {
-          setState(() {
-            expiryDatehasStartedTyping = false;
-            expiryDateerrorMessage = null;
-            expiryDateisValid = true;
-          });
-        }
-      } else {
-        final snackBar = SnackBar(
-            content: Text("No Internet, Check Connectivity!"),
-            backgroundColor: Colors.red[600]);
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      }
-    });
-  }
 }

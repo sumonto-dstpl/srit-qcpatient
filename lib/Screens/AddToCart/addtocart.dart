@@ -338,9 +338,14 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                     print('else if');
                                     setState(() {
                                       // Swiped Left to Right (Move to another list)
-                                      endtextbottomlist.insert(
-                                          0, uploadfilestime[index]);
-                                      // .add(uploadfilestime[index]);
+                                      if (endtextbottomlist.length > 0)
+                                        endtextbottomlist.insert(
+                                            0, uploadfilestime[index]);
+                                      else {
+                                        endtextbottomlist
+                                            .add(uploadfilestime[index]);
+                                      }
+
                                       uploadfilestime.removeAt(index);
                                       print(
                                           'lenght : ${endtextbottomlist.length}');
