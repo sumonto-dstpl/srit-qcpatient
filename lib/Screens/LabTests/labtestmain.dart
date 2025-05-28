@@ -1324,8 +1324,8 @@ class LabTestsMainstate extends State<LabTestsMain> {
                             bottom: MediaQuery.of(context).size.height * 0.00,
                           ),
                           crossAxisCount: 4,
-                          crossAxisSpacing: screenHeight * 0.02,
-                          mainAxisSpacing: screenHeight * 0.01,
+                          // crossAxisSpacing: screenHeight * 0.02,
+                          // mainAxisSpacing: screenHeight * 0.01,
                           children: List.generate(
                             mybrowsebyhealthcond.length,
                                 (index) => Column(
@@ -2042,8 +2042,8 @@ class LabTestsMainstate extends State<LabTestsMain> {
                             bottom: MediaQuery.of(context).size.height * 0.00,
                           ),
                           crossAxisCount: 4,
-                          crossAxisSpacing: screenHeight * 0.02,
-                          mainAxisSpacing: screenHeight * 0.01,
+                          // crossAxisSpacing: 10,
+                          // mainAxisSpacing: 10,
                           children: List.generate(
                             myhealthpackages.length,
                                 (index) => Column(

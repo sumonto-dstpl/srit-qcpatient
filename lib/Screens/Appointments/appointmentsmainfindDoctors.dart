@@ -1155,8 +1155,8 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                             bottom: MediaQuery.of(context).size.height * 0.0,
                           ),
                           crossAxisCount: 4,
-                          crossAxisSpacing: screenHeight * 0.02,
-                          mainAxisSpacing: screenHeight * 0.01,
+                          // crossAxisSpacing: screenHeight * 0.02,
+                          // mainAxisSpacing: screenHeight * 0.01,
                           children: [
                             ...mytopspecialities.map(
                               (i) => Column(
@@ -1191,7 +1191,7 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(height : screenHeight * 0.004),
+                                  SizedBox(height : screenHeight * 0.001),
                                   Expanded(
                                     child: Padding(
                                       padding:
@@ -1280,7 +1280,7 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
 
                       // Browse by Symptoms Grid
                       Container(
-
+                        color: Colors.white,
                         child: GridView.count(
                           shrinkWrap:
                               true, // This ensures the GridView takes up as much space as needed
@@ -1293,8 +1293,8 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                             bottom: MediaQuery.of(context).size.height * 0.00,
                           ),
                           crossAxisCount: 4,
-                          crossAxisSpacing: screenHeight * 0.02,
-                          mainAxisSpacing: screenHeight * 0.01,
+                          // crossAxisSpacing: screenHeight * 0.02,
+                          // mainAxisSpacing: screenHeight * 0.01,
                           children: [
                             ...mybrowsebysymptoms.map(
                               (i) => Column(
