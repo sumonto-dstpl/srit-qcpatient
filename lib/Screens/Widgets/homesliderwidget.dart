@@ -30,9 +30,19 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
     return Stack(
       alignment: AlignmentDirectional.bottomEnd,
       children: <Widget>[
-        CarouselSlider(
+      Container(
+          width: screenWidth,
+           margin: EdgeInsets.only(
+                    right: screenHeight * 0.02,
+                    top: screenHeight * 0.0,
+                    bottom: screenHeight * 0.0,
+                    left: screenHeight * 0.02,
+                  ),
+          child: CarouselSlider(
           options: CarouselOptions(
-            height: carouselItemHeight,
+            // height: carouselItemHeight,
+           
+            aspectRatio: 256/125,
             autoPlay: true,
             autoPlayInterval: Duration(seconds: 2),
             viewportFraction: 1.0,
@@ -46,22 +56,32 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
           items: [
             Builder(
               builder: (BuildContext context) {
-                return Container(
+                return Padding(
+                padding: EdgeInsets.only(
+                  right: screenHeight * 0.00,
+                  top: screenHeight * 0.0,
+                  bottom: screenHeight * 0.0,
+                  left: screenHeight * 0.0,
+                ), // Responsive margin outside of the container
+                child: AspectRatio(
+                aspectRatio: 256 / 125, // Use the actual aspect ratio of your image
+                child: Container(
                   margin: EdgeInsets.only(
-                    right: screenHeight * 0.03,
+                    right: screenHeight * 0.0,
                     top: screenHeight * 0.0,
-                    bottom: screenHeight * 0.01,
-                    left: screenHeight * 0.03,
+                    bottom: screenHeight * 0.0,
+                    left: screenHeight * 0.0,
                   ), // Responsive margin
-                  height: carouselItemHeight,
+                  // height: carouselItemHeight,
                   decoration: BoxDecoration(
-                    color: Color(
-                        0xFFC80000), // Fallback color if image fails to load
+                    // color: Color(
+                    //     0xFFC80000), // Fallback color if image fails to load
+                    color: Colors.blue,
                     borderRadius: BorderRadius.circular(6),
                     image: DecorationImage(
                       image: AssetImage(
                           'assets/homebanner1.png'), // Path to your banner image
-                      fit: BoxFit.fill,
+                      // fit: BoxFit.fill,
 
                     ),
                     boxShadow: [
@@ -126,6 +146,8 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                       ),
                     ],
                   ),
+                ),
+                ),
                 );
               },
             ),
@@ -146,7 +168,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                     image: DecorationImage(
                       image: AssetImage(
                           'assets/homebanner2.png'), // Path to your banner image
-                      fit: BoxFit.fill,
+                      // fit: BoxFit.fill,
                       // Adjust to cover the entire container
                     ),
                     boxShadow: [
@@ -388,6 +410,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
 
           ],
         ),
+        ),
         // Carousel Indicator
         Positioned(
           bottom: screenHeight * 0.01, // 5% from the bottom of the screen
@@ -425,6 +448,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
             ],
           ),
         ),
+      
       ],
     );
   }

@@ -401,29 +401,36 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
               ),
 
               // Main Content Section
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.00,
-                      right: MediaQuery.of(context).size.height * 0.00,
-                      top: MediaQuery.of(context).size.height * 0.015,
-                      bottom: MediaQuery.of(context).size.height * 0.00),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(screenHeight * 0.03),
-                      topRight: Radius.circular(screenHeight * 0.03),
+              Container(
+                padding: EdgeInsets.only(
+                        left: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                        right: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                        top: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                        bottom: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.01),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(screenHeight * 0.03),
+                        topRight: Radius.circular(screenHeight * 0.03),
+                      ),
                     ),
-                  ),
-                  child: ListView(
-                      padding: EdgeInsets.zero,
-                    shrinkWrap: true,
+                child:
+                  Column(
                     children: [
-                      // Search Input Field
-
-                      // Search Animation
-                      GestureDetector(
+               GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -435,16 +442,6 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                         },
                         child:
                         Container(
-                          height: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.05,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFA8B1CE).withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-
-                          alignment: Alignment.centerRight,
                           padding: EdgeInsets.only(
                             top: MediaQuery
                                 .of(context)
@@ -463,23 +460,31 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                                 .size
                                 .height * 0.00,
                           ),
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.05,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFA8B1CE).withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+
+                          alignment: Alignment.centerRight,
+                          
                           margin: EdgeInsets.only(
                             right: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             top: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.01,
-                            bottom: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.02,
+                                .height * 0.0,
+                            bottom: 10,
                             left: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                           ),
                           child: Row(
                             // mainAxisAlignment: MainAxisAlignment.center,
@@ -638,6 +643,32 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                           ),
                         ),
                       ),
+              ]
+                  ),
+              ),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.height * 0.02,
+                      right: MediaQuery.of(context).size.height * 0.02,
+                      top: MediaQuery.of(context).size.height * 0.0,
+                      bottom: MediaQuery.of(context).size.height * 0.025),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    // borderRadius: BorderRadius.only(
+                    //   topLeft: Radius.circular(screenHeight * 0.03),
+                    //   topRight: Radius.circular(screenHeight * 0.03),
+                    // ),
+                  ),
+                  child: ListView(
+                      padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    children: [
+                      // Search Input Field
+
+                      // Search Animation
+                     
 
                      /* GestureDetector(
                         onTap: () {
@@ -729,16 +760,21 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                           color: Color(0x99F7F5F6),
                           borderRadius: BorderRadius.circular(10),
                         ),
+                        // width: 100,
+                        // color: Colors.blue,
 
                         padding: EdgeInsets.only(
                             left: MediaQuery.of(context).size.height * 0.01,
                           top : MediaQuery.of(context).size.height * 0.005,
                           bottom : MediaQuery.of(context).size.height * 0.005,
+                          right : MediaQuery.of(context).size.height * 0.01,
 
                         ),
                         margin: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.02,
-                            right :MediaQuery.of(context).size.height * 0.28,
+                            left: MediaQuery.of(context).size.height * 0.0,
+                            right :MediaQuery.of(context).size.width * 0.5,
+                            top : MediaQuery.of(context).size.height * 0.02,
+                          bottom : MediaQuery.of(context).size.height * 0.02,
 
                         ),
                         child: Row(
@@ -787,24 +823,26 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                       // General Physician Grid
                       Container(
                         color: Colors.white,
+                        width: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.005,
-                            right: MediaQuery.of(context).size.height * 0.005,
+                            left: MediaQuery.of(context).size.height * 0.00,
+                            top: MediaQuery.of(context).size.height * 0.00,
+                            right: MediaQuery.of(context).size.height * 0.00,
                             bottom: MediaQuery.of(context).size.height * 0.0),
-                        margin: EdgeInsets.only(bottom: 0.0),
+                        margin: EdgeInsets.only(bottom: 0),
                         child: GridView.count(
-                          childAspectRatio: 1.2,
+                          childAspectRatio: 1.4,
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           padding: EdgeInsets.only(
-                            left: screenHeight * 0.01,
-                            right: screenHeight * 0.01,
-                            top: screenHeight * 0.02,
+                            left: screenHeight * 0.0,
+                            right: screenHeight * 0.0,
+                            top: screenHeight * 0.0,
                             bottom: 0.0,
                           ),
                           crossAxisCount: 2,
-                          crossAxisSpacing: screenHeight * 0.01,
-                          mainAxisSpacing: screenHeight * 0.0,
+                          crossAxisSpacing: screenHeight * 0.015,
+                          mainAxisSpacing: screenHeight * 0.015,
                           children: [
                             ...myphysicians.map(
                               (i) => Column(
@@ -1033,9 +1071,11 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                       // Top Specialties
                       Padding(
                         padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.02,
-                            right: MediaQuery.of(context).size.height * 0.02,
-                            bottom: MediaQuery.of(context).size.height * 0.016),
+                            left: MediaQuery.of(context).size.height * 0.0,
+                            right: MediaQuery.of(context).size.height * 0.0,
+                            top: MediaQuery.of(context).size.height * 0.015,
+                            bottom: MediaQuery.of(context).size.height * 0.015),
+                            
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1109,14 +1149,14 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                           physics:
                               NeverScrollableScrollPhysics(), // Disable scrolling inside GridView
                           padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.01,
-                            right: MediaQuery.of(context).size.height * 0.01,
-                            top: MediaQuery.of(context).size.height * 0.005,
-                            bottom: MediaQuery.of(context).size.height * 0.00,
+                            left: MediaQuery.of(context).size.height * 0.0,
+                            right: MediaQuery.of(context).size.height * 0.0,
+                            top: MediaQuery.of(context).size.height * 0.0,
+                            bottom: MediaQuery.of(context).size.height * 0.0,
                           ),
                           crossAxisCount: 4,
                           crossAxisSpacing: screenHeight * 0.02,
-                          mainAxisSpacing: screenHeight * 0.015,
+                          mainAxisSpacing: screenHeight * 0.01,
                           children: [
                             ...mytopspecialities.map(
                               (i) => Column(
@@ -1184,9 +1224,9 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                       Padding(
                         padding: EdgeInsets.only(
                            top :MediaQuery.of(context).size.height * 0.015,
-                            left: MediaQuery.of(context).size.height * 0.02,
-                            right: MediaQuery.of(context).size.height * 0.02,
-                            bottom: MediaQuery.of(context).size.height * 0.016),
+                            left: MediaQuery.of(context).size.height * 0.0,
+                            right: MediaQuery.of(context).size.height * 0.0,
+                            bottom: MediaQuery.of(context).size.height * 0.015),
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

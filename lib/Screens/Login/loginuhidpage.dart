@@ -239,7 +239,8 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
                                 ],
                                 textCapitalization:
                                     TextCapitalization.characters,
-                                style: TextStyle(color: Colors.black45),
+                                style: TextStyle(color: Colors.black45,fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontWeight: FontWeight.w500,),
                                 keyboardType: TextInputType.emailAddress,
                                 // onSaved: (input) => loginRequestModel.email = input,
                                 validator: (input) => input!.length < 3
@@ -291,19 +292,17 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
                             //     ),
                                 decoration: InputDecoration(
                                   isDense: true,
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                    MediaQuery.of(context).size.height * 0.02,
-                                    MediaQuery.of(context).size.height * 0.012,
-                                    MediaQuery.of(context).size.height * 0.012,
-                                    MediaQuery.of(context).size.height * 0.012,
-                                  ),
+                                   contentPadding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context).size.height * 0.02,
+                                              vertical: MediaQuery.of(context).size.height * 0.012,
+                                            ),
                                   filled: true,
                                   fillColor: Color(0xFFFFFFFF),
                                   hintText: "Enter the UHID",
                                   hintStyle: TextStyle(
                                       color: Color(0x4D111111),
                                       fontSize: MediaQuery.of(context).size.height * 0.012,
-                                      fontWeight: FontWeight.w500
+                                      fontWeight: FontWeight.w400
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.0),
@@ -364,7 +363,8 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(15),
                                 ],
-                                style: TextStyle(color: Colors.black45),
+                                style: TextStyle(color: Colors.black45,fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontWeight: FontWeight.w500,),
                                 keyboardType: TextInputType.text,
                                 /* onSaved: (input) => loginRequestModel.password =
                           base64.encode(utf8.encode(input)),*/
@@ -374,19 +374,17 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
                                 obscureText: hidePassword,
                                 decoration: InputDecoration(
                                   isDense: true,
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                    MediaQuery.of(context).size.height * 0.02,
-                                    MediaQuery.of(context).size.height * 0.012,
-                                    MediaQuery.of(context).size.height * 0.012,
-                                    MediaQuery.of(context).size.height * 0.012,
-                                  ),
+                                   contentPadding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context).size.height * 0.02,
+                                              vertical: MediaQuery.of(context).size.height * 0.012,
+                                            ),
                                   filled: true,
                                   fillColor: Color(0xFFFFFFFF),
                                   hintText: "Enter the OTP",
                                   hintStyle: TextStyle(
                                       color: Color(0x4D111111),
                                       fontSize: MediaQuery.of(context).size.height * 0.012,
-                                      fontWeight: FontWeight.w500
+                                      fontWeight: FontWeight.w400
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.0),

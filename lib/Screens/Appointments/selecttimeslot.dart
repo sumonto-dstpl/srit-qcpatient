@@ -56,6 +56,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
   String doctornameval = "";
   String completedSpecialityString = "";
   String qualificationval = "";
+  bool _isSharing = false;
 
 
 
@@ -264,7 +265,19 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                               InkWell(
                                 onTap: () async {
                                   // Navigator.pop(context);
+                                  if (_isSharing) return;
+                                  _isSharing = true;
+                                 try {
+                                  // Call your static method that wraps Share.share()
                                   ShareToOtherApp.share();
+
+                                  // Add a delay because Share.share() returns immediately
+                                  await Future.delayed(Duration(seconds: 2));
+                                } catch (e) {
+                                  print('Sharing failed: $e');
+                                } finally {
+                                  _isSharing = false;
+                                }
                                 },
                                 onDoubleTap: (){
                                 },

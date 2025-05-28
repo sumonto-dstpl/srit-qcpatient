@@ -1569,9 +1569,27 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                   // Ensures it occupies full height
                                   width: double
                                       .infinity,
+                                      // width: 100,
+                                   padding: EdgeInsets.only(
+                                            left: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                    0.02,
+                                            right: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                    0.02,
+                                            bottom: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                    0.025,
+                                            top: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                    0.02),
                                   // Ensures it occupies full width
                                   color: Colors
-                                      .white,
+                                      .blue,
                                   // You can change the background color
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment
@@ -1598,8 +1616,8 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                             ),
 
                                             margin: EdgeInsets.only(
-                                                left: MediaQuery.of(context).size.height * 0.01,
-                                                right: MediaQuery.of(context).size.height * 0.01,
+                                                left: MediaQuery.of(context).size.height * 0.0,
+                                                right: MediaQuery.of(context).size.height * 0.0,
                                                 bottom: MediaQuery.of(context).size.height * 0.00,
                                                 top: MediaQuery.of(context).size.height * 0.00
                                             ),
@@ -1684,7 +1702,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                       children: <Widget>[
 
                                                         Expanded(
-                                                          flex: 6,
+                                                          flex: 4,
                                                           child: Column(
                                                             crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -1827,6 +1845,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
 
                                                         Expanded(
                                                           flex: 2,
+
                                                           child:
                                                           Column(
                                                             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1856,7 +1875,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                                       ),
                                                                       SizedBox(width: 6),
                                                                       Text(  
-                                                                        "Approed",
+                                                                        "Approved",
                                                                         style: TextStyle(color:Color(0xFF027A48) , fontSize: 12, fontWeight: FontWeight.w500),
                                                                       ),
                                                                     ]),
@@ -1966,8 +1985,8 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                             ),
 
                                             margin: EdgeInsets.only(
-                                                left: MediaQuery.of(context).size.height * 0.01,
-                                                right: MediaQuery.of(context).size.height * 0.01,
+                                                left: MediaQuery.of(context).size.height * 0.0,
+                                                right: MediaQuery.of(context).size.height * 0.0,
                                                 bottom: MediaQuery.of(context).size.height * 0.00,
                                                 top: MediaQuery.of(context).size.height * 0.00
                                             ),
@@ -2052,7 +2071,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                 children: <Widget>[
 
                                                   Expanded(
-                                                    flex: 6,
+                                                    flex: 4,
                                                     child: Column(
                                                       crossAxisAlignment:
                                                       CrossAxisAlignment
@@ -2224,7 +2243,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                                 ),
                                                                 SizedBox(width: 6),
                                                                 Text(
-                                                                  "Approed",
+                                                                  "Approved",
                                                                   style: TextStyle(color:Color(0xFF027A48) , fontSize: 12, fontWeight: FontWeight.w500),
                                                                 ),
                                                               ]),
@@ -2334,8 +2353,8 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                             ),
 
                                             margin: EdgeInsets.only(
-                                                left: MediaQuery.of(context).size.height * 0.01,
-                                                right: MediaQuery.of(context).size.height * 0.01,
+                                                left: MediaQuery.of(context).size.height * 0.0,
+                                                right: MediaQuery.of(context).size.height * 0.0,
                                                 bottom: MediaQuery.of(context).size.height * 0.00,
                                                 top: MediaQuery.of(context).size.height * 0.00
                                             ),
@@ -2420,7 +2439,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                 children: <Widget>[
 
                                                   Expanded(
-                                                    flex: 6,
+                                                    flex: 4,
                                                     child: Column(
                                                       crossAxisAlignment:
                                                       CrossAxisAlignment
@@ -2592,7 +2611,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                                 ),
                                                                 SizedBox(width: 6), 
                                                                 Text(
-                                                                  "Approed",
+                                                                  "Rejected",
                                                                   style: TextStyle(color:Color(0xFFFF0000) , fontSize: 12, fontWeight: FontWeight.w500),
                                                                 ),
                                                               ]),
@@ -2702,8 +2721,8 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                             ),
 
                                             margin: EdgeInsets.only(
-                                                left: MediaQuery.of(context).size.height * 0.01,
-                                                right: MediaQuery.of(context).size.height * 0.01,
+                                                left: MediaQuery.of(context).size.height * 0.0,
+                                                right: MediaQuery.of(context).size.height * 0.0,
                                                 bottom: MediaQuery.of(context).size.height * 0.00,
                                                 top: MediaQuery.of(context).size.height * 0.00
                                             ),
@@ -2788,7 +2807,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                 children: <Widget>[
 
                                                   Expanded(
-                                                    flex: 6,
+                                                    flex: 4,
                                                     child: Column(
                                                       crossAxisAlignment:
                                                       CrossAxisAlignment
@@ -2960,7 +2979,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                                 ),
                                                                 SizedBox(width: 6),
                                                                 Text(
-                                                                  "Approed",
+                                                                  "Pending",
                                                                   style: TextStyle(color:Color(0xFFFF9500) , fontSize: 12, fontWeight: FontWeight.w500),
                                                                 ),
                                                               ]),
@@ -3070,8 +3089,8 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                             ),
 
                                             margin: EdgeInsets.only(
-                                                left: MediaQuery.of(context).size.height * 0.01,
-                                                right: MediaQuery.of(context).size.height * 0.01,
+                                                left: MediaQuery.of(context).size.height * 0.0,
+                                                right: MediaQuery.of(context).size.height * 0.0,
                                                 bottom: MediaQuery.of(context).size.height * 0.00,
                                                 top: MediaQuery.of(context).size.height * 0.00
                                             ),
@@ -3156,7 +3175,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                 children: <Widget>[
 
                                                   Expanded(
-                                                    flex: 6,
+                                                    flex: 4,
                                                     child: Column(
                                                       crossAxisAlignment:
                                                       CrossAxisAlignment
@@ -3328,7 +3347,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                                 ),
                                                                 SizedBox(width: 6),
                                                                 Text(
-                                                                  "Approed",
+                                                                  "Approved",
                                                                   style: TextStyle(color:Color(0xFF027A48) , fontSize: 12, fontWeight: FontWeight.w500),
                                                                 ),
                                                               ]),
@@ -3438,8 +3457,8 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                             ),
 
                                             margin: EdgeInsets.only(
-                                                left: MediaQuery.of(context).size.height * 0.01,
-                                                right: MediaQuery.of(context).size.height * 0.01,
+                                                left: MediaQuery.of(context).size.height * 0.0,
+                                                right: MediaQuery.of(context).size.height * 0.0,
                                                 bottom: MediaQuery.of(context).size.height * 0.00,
                                                 top: MediaQuery.of(context).size.height * 0.00
                                             ),
@@ -3524,7 +3543,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                 children: <Widget>[
 
                                                   Expanded(
-                                                    flex: 6,
+                                                    flex: 4,
                                                     child: Column(
                                                       crossAxisAlignment:
                                                       CrossAxisAlignment
@@ -3696,7 +3715,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                                 ),
                                                                 SizedBox(width: 6),
                                                                 Text(
-                                                                  "Approed",
+                                                                  "Approved",
                                                                   style: TextStyle(color:Color(0xFF027A48) , fontSize: 12, fontWeight: FontWeight.w500),
                                                                 ),
                                                               ]),

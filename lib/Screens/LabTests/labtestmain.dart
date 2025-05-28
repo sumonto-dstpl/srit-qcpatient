@@ -351,118 +351,36 @@ class LabTestsMainstate extends State<LabTestsMain> {
               ),
 
               // Main Content Section
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.00,
-                      right: MediaQuery.of(context).size.height * 0.00,
-                      top: MediaQuery.of(context).size.height * 0.025,
-                      bottom: MediaQuery.of(context).size.height * 0.00),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(screenHeight * 0.03),
-                      topRight: Radius.circular(screenHeight * 0.03),
+              Container(
+                padding: EdgeInsets.only(
+                        left: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                        right: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                        top: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                        bottom: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.01),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(screenHeight * 0.03),
+                        topRight: Radius.circular(screenHeight * 0.03),
+                      ),
                     ),
-                  ),
-                  child: ListView(
-                      padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    children: [
-                      // Search Input Field
-
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     Navigator.of(context).push(
-                      //       MaterialPageRoute(
-                      //         builder: (BuildContext context) {
-                      //           return QuickSearchWithoutData();
-                      //         },
-                      //       ),
-                      //     );
-                      //     print('Navigating to QuickSearchWithData!');
-                      //   },
-                      //   child: Container(
-                      //     alignment: Alignment.centerRight,
-                      //     padding: EdgeInsets.only(
-                      //       top: MediaQuery.of(context).size.height * 0.0,
-                      //       bottom: MediaQuery.of(context).size.height * 0.00,
-                      //       left: MediaQuery.of(context).size.height * 0.00,
-                      //       right: MediaQuery.of(context).size.height * 0.00,
-                      //     ),
-                      //     margin: EdgeInsets.only(
-                      //       right: MediaQuery.of(context).size.height * 0.02,
-                      //       top: MediaQuery.of(context).size.height * 0.0,
-                      //       bottom: MediaQuery.of(context).size.height * 0.01,
-                      //       left: MediaQuery.of(context).size.height * 0.02,
-                      //     ),
-                      //     child: AbsorbPointer(
-                      //       // Prevents the field from gaining focus or triggering gestures
-                      //       child: TextFormField(
-                      //         readOnly: true,
-                      //         controller: SearchEditTextController,
-                      //         inputFormatters: [
-                      //           LengthLimitingTextInputFormatter(15),
-                      //           FilteringTextInputFormatter.allow(
-                      //               RegExp('[a-zA-Z0-9]')),
-                      //         ],
-                      //         textCapitalization: TextCapitalization.characters,
-                      //         style: TextStyle(color: Colors.black45),
-                      //         keyboardType: TextInputType.emailAddress,
-                      //         validator: (input) => input!.length < 3
-                      //             ? "Search should be more than 3 characters"
-                      //             : null,
-                      //         decoration: InputDecoration(
-                      //           isDense: true,
-                      //           contentPadding:
-                      //           EdgeInsets.all(screenHeight * 0.012),
-                      //           filled: true,
-                      //           fillColor: Colors.grey[200],
-                      //           hintText: "Search for Lab tests",
-                      //           hintStyle: TextStyle(
-                      //             color: Colors.black26,
-                      //             fontSize: screenHeight * 0.016,
-                      //           ),
-                      //           focusedBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(5.0),
-                      //             borderSide: BorderSide(color: Colors.grey),
-                      //           ),
-                      //           enabledBorder: OutlineInputBorder(
-                      //             borderRadius:
-                      //             BorderRadius.all(Radius.circular(5.0)),
-                      //             borderSide: BorderSide(color: Colors.white),
-                      //           ),
-                      //           suffixIcon: IconButton(
-                      //             icon: Icon(
-                      //               Icons.search,
-                      //               color: Colors.black45,
-                      //               size: MediaQuery
-                      //                   .of(context)
-                      //                   .size
-                      //                   .height * 0.02,
-                      //             ),
-                      //             onPressed: () {
-                      //               Navigator.of(context).push(
-                      //                 MaterialPageRoute(
-                      //                   builder: (BuildContext context) {
-                      //                     return QuickSearchWithData();
-                      //                   },
-                      //                 ),
-                      //               );
-                      //               print('Search icon clicked!');
-                      //             },
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-
-
-                      // Previous Orders
-
-                      GestureDetector(
+                child:
+                  Column(
+                    children: [ 
+                       GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -506,19 +424,19 @@ class LabTestsMainstate extends State<LabTestsMain> {
                             right: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             top: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.01,
+                                .height * 0.0,
                             bottom: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             left: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                           ),
                           child: Row(
                             // mainAxisAlignment: MainAxisAlignment.center,
@@ -677,23 +595,139 @@ class LabTestsMainstate extends State<LabTestsMain> {
                           ),
                         ),
                       ),
+                    ]
+                  ),
+              ),
+
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.height * 0.02,
+                      right: MediaQuery.of(context).size.height * 0.02,
+                      top: MediaQuery.of(context).size.height * 0.0,
+                      bottom: MediaQuery.of(context).size.height * 0.025),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    // borderRadius: BorderRadius.only(
+                    //   topLeft: Radius.circular(screenHeight * 0.03),
+                    //   topRight: Radius.circular(screenHeight * 0.03),
+                    // ),
+                  ),
+                  child: ListView(
+                      padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    children: [
+                      // Search Input Field
+
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     Navigator.of(context).push(
+                      //       MaterialPageRoute(
+                      //         builder: (BuildContext context) {
+                      //           return QuickSearchWithoutData();
+                      //         },
+                      //       ),
+                      //     );
+                      //     print('Navigating to QuickSearchWithData!');
+                      //   },
+                      //   child: Container(
+                      //     alignment: Alignment.centerRight,
+                      //     padding: EdgeInsets.only(
+                      //       top: MediaQuery.of(context).size.height * 0.0,
+                      //       bottom: MediaQuery.of(context).size.height * 0.00,
+                      //       left: MediaQuery.of(context).size.height * 0.00,
+                      //       right: MediaQuery.of(context).size.height * 0.00,
+                      //     ),
+                      //     margin: EdgeInsets.only(
+                      //       right: MediaQuery.of(context).size.height * 0.02,
+                      //       top: MediaQuery.of(context).size.height * 0.0,
+                      //       bottom: MediaQuery.of(context).size.height * 0.01,
+                      //       left: MediaQuery.of(context).size.height * 0.02,
+                      //     ),
+                      //     child: AbsorbPointer(
+                      //       // Prevents the field from gaining focus or triggering gestures
+                      //       child: TextFormField(
+                      //         readOnly: true,
+                      //         controller: SearchEditTextController,
+                      //         inputFormatters: [
+                      //           LengthLimitingTextInputFormatter(15),
+                      //           FilteringTextInputFormatter.allow(
+                      //               RegExp('[a-zA-Z0-9]')),
+                      //         ],
+                      //         textCapitalization: TextCapitalization.characters,
+                      //         style: TextStyle(color: Colors.black45),
+                      //         keyboardType: TextInputType.emailAddress,
+                      //         validator: (input) => input!.length < 3
+                      //             ? "Search should be more than 3 characters"
+                      //             : null,
+                      //         decoration: InputDecoration(
+                      //           isDense: true,
+                      //           contentPadding:
+                      //           EdgeInsets.all(screenHeight * 0.012),
+                      //           filled: true,
+                      //           fillColor: Colors.grey[200],
+                      //           hintText: "Search for Lab tests",
+                      //           hintStyle: TextStyle(
+                      //             color: Colors.black26,
+                      //             fontSize: screenHeight * 0.016,
+                      //           ),
+                      //           focusedBorder: OutlineInputBorder(
+                      //             borderRadius: BorderRadius.circular(5.0),
+                      //             borderSide: BorderSide(color: Colors.grey),
+                      //           ),
+                      //           enabledBorder: OutlineInputBorder(
+                      //             borderRadius:
+                      //             BorderRadius.all(Radius.circular(5.0)),
+                      //             borderSide: BorderSide(color: Colors.white),
+                      //           ),
+                      //           suffixIcon: IconButton(
+                      //             icon: Icon(
+                      //               Icons.search,
+                      //               color: Colors.black45,
+                      //               size: MediaQuery
+                      //                   .of(context)
+                      //                   .size
+                      //                   .height * 0.02,
+                      //             ),
+                      //             onPressed: () {
+                      //               Navigator.of(context).push(
+                      //                 MaterialPageRoute(
+                      //                   builder: (BuildContext context) {
+                      //                     return QuickSearchWithData();
+                      //                   },
+                      //                 ),
+                      //               );
+                      //               print('Search icon clicked!');
+                      //             },
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+
+
+                      // Previous Orders
+
+                     
 
                       Padding(
                         padding: EdgeInsets.only(
                             left: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             top: MediaQuery.of(context).size.height *
-                                0.01,
+                                0.015,
                             right: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             bottom: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.005),
+                                .height * 0.015),
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -768,8 +802,8 @@ class LabTestsMainstate extends State<LabTestsMain> {
 
                             margin:EdgeInsets.only(
                                 left: MediaQuery.of(context).size.height * 0.00,
-                                right: MediaQuery.of(context).size.height * 0.015,
-                                bottom: MediaQuery.of(context).size.height * 0.01,
+                                right: MediaQuery.of(context).size.height * 0.0,
+                                bottom: MediaQuery.of(context).size.height * 0.0,
                                 top: MediaQuery.of(context).size.height * 0.00),
                             height: MediaQuery.of(context).size.height * 0.160,
                             child: ListView.builder(
@@ -1184,17 +1218,17 @@ class LabTestsMainstate extends State<LabTestsMain> {
                             left: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             top: MediaQuery.of(context).size.height *
-                                0.01,
+                                0.015,
                             right: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             bottom: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.005),
+                                .height * 0.015),
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1266,17 +1300,17 @@ class LabTestsMainstate extends State<LabTestsMain> {
                             left: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             top: MediaQuery.of(context).size.height *
                                 0.00,
                             right: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             bottom: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.005
+                                .height * 0.00
                         ),
                         child: GridView.count(
                           shrinkWrap:
@@ -1286,7 +1320,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                           padding: EdgeInsets.only(
                             left: MediaQuery.of(context).size.height * 0.00,
                             right: MediaQuery.of(context).size.height * 0.00,
-                            top: MediaQuery.of(context).size.height * 0.005,
+                            top: MediaQuery.of(context).size.height * 0.00,
                             bottom: MediaQuery.of(context).size.height * 0.00,
                           ),
                           crossAxisCount: 4,
@@ -1398,17 +1432,17 @@ class LabTestsMainstate extends State<LabTestsMain> {
                             left: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             top: MediaQuery.of(context).size.height *
-                                0.01,
+                                0.015,
                             right: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             bottom: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.005),
+                                .height * 0.015),
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1482,8 +1516,8 @@ class LabTestsMainstate extends State<LabTestsMain> {
 
                             margin:EdgeInsets.only(
                                 left: MediaQuery.of(context).size.height * 0.00,
-                                right: MediaQuery.of(context).size.height * 0.015,
-                                bottom: MediaQuery.of(context).size.height * 0.01,
+                                right: MediaQuery.of(context).size.height * 0.0,
+                                bottom: MediaQuery.of(context).size.height * 0.0,
                                 top: MediaQuery.of(context).size.height * 0.00),
                             height: MediaQuery.of(context).size.height * 0.135,
                             child: ListView.builder(
@@ -1902,17 +1936,17 @@ class LabTestsMainstate extends State<LabTestsMain> {
                             left: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             top: MediaQuery.of(context).size.height *
-                                0.01,
+                                0.015,
                             right: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             bottom: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.005),
+                                .height * 0.015),
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1984,7 +2018,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                             left: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             top: MediaQuery.of(context).size.height *
                                 0.00,
                             right: MediaQuery
@@ -1994,7 +2028,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                             bottom: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.005
+                                .height * 0.00
                         ),
                         child: GridView.count(
                           shrinkWrap:
@@ -2004,7 +2038,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                           padding: EdgeInsets.only(
                             left: MediaQuery.of(context).size.height * 0.00,
                             right: MediaQuery.of(context).size.height * 0.00,
-                            top: MediaQuery.of(context).size.height * 0.005,
+                            top: MediaQuery.of(context).size.height * 0.00,
                             bottom: MediaQuery.of(context).size.height * 0.00,
                           ),
                           crossAxisCount: 4,
@@ -2117,17 +2151,17 @@ class LabTestsMainstate extends State<LabTestsMain> {
                             left: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             top: MediaQuery.of(context).size.height *
-                                0.01,
+                                0.015,
                             right: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.02,
+                                .height * 0.0,
                             bottom: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.005),
+                                .height * 0.015),
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -2194,7 +2228,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
 
                      Container(
                   margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.015,
+                    top: MediaQuery.of(context).size.height * 0.0,
                     bottom: MediaQuery.of(context).size.height * 0.0,
                     left: MediaQuery.of(context).size.height * 0.015,
                     right: MediaQuery.of(context).size.height * 0.015,

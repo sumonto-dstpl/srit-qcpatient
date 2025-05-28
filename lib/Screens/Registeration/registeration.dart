@@ -694,8 +694,8 @@ class Registrationstate extends State<Registration> {
                                       bottom: MediaQuery.of(context).size.height * 0.008,
                                     ),
                                     child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      // mainAxisSize: MainAxisSize.min,
+                                      // crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         TextFormField(
                                           controller: FirstNameEditTextController,
@@ -705,8 +705,10 @@ class Registrationstate extends State<Registration> {
                                           ],
                                           style: TextStyle(
                                             color: Colors.black45,
-                                            fontSize: MediaQuery.of(context).size.height * 0.02,
-                                          ),
+                                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontWeight: FontWeight.w500,
+                                                                                     ),
+                                         
                                           keyboardType:  TextInputType.text,
                                           onChanged: (value) {
                                            /* if (!hasStartedTyping) {
@@ -718,13 +720,15 @@ class Registrationstate extends State<Registration> {
                                           },
                                           decoration: InputDecoration(
                                             isDense: true,
-                                            contentPadding: EdgeInsets.only(
+                                            contentPadding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context).size.height * 0.02,
+                                              vertical: MediaQuery.of(context).size.height * 0.012,
                                               //  left :  MediaQuery.of(context).size.height * 0.02,
                                               //  top :  MediaQuery.of(context).size.height * 0.012,
                                               // bottom :  MediaQuery.of(context).size.height * 0.012,
-                                              top: MediaQuery.of(context).size.height * 0.01, // Slightly higher top padding
-                                              bottom: MediaQuery.of(context).size.height * 0.02 ,
-                                              left: MediaQuery.of(context).size.height * 0.02,
+                                              // top: MediaQuery.of(context).size.height * 0.014, // Slightly higher top padding
+                                              // bottom: MediaQuery.of(context).size.height * 0.08 ,
+                                              // left: MediaQuery.of(context).size.height * 0.02,
 
                                             ),
 
@@ -734,7 +738,7 @@ class Registrationstate extends State<Registration> {
                                             hintStyle: TextStyle(
                                                 color: Color(0x4D111111),
                                                 fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w500,
+                                                fontWeight: FontWeight.w400,
 
 
                                             ),
@@ -830,7 +834,8 @@ class Registrationstate extends State<Registration> {
                                           ],
                                           style: TextStyle(
                                             color: Colors.black45,
-                                            fontSize: MediaQuery.of(context).size.height * 0.02,
+                                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                           keyboardType:  TextInputType.text,
                                           onChanged: (value) {
@@ -843,11 +848,9 @@ class Registrationstate extends State<Registration> {
                                           },
                                           decoration: InputDecoration(
                                             isDense: true,
-                                            contentPadding: EdgeInsets.fromLTRB(
-                                              MediaQuery.of(context).size.height * 0.02,
-                                              MediaQuery.of(context).size.height * 0.012,
-                                              MediaQuery.of(context).size.height * 0.012,
-                                              MediaQuery.of(context).size.height * 0.012,
+                                            contentPadding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context).size.height * 0.02,
+                                              vertical: MediaQuery.of(context).size.height * 0.012,
                                             ),
                                             filled: true,
                                             fillColor: Color(0xFFFFFFFF),
@@ -855,7 +858,7 @@ class Registrationstate extends State<Registration> {
                                             hintStyle: TextStyle(
                                                 color: Color(0x4D111111),
                                                 fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w500
+                                                fontWeight: FontWeight.w400
                                             ),
                                             focusedBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.circular(5.0),
@@ -956,7 +959,8 @@ class Registrationstate extends State<Registration> {
                                           ],
                                           style: TextStyle(
                                             color: Colors.black45,
-                                            fontSize: MediaQuery.of(context).size.height * 0.02,
+                                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                           keyboardType:  TextInputType.number,
                                           onChanged: (value) {
@@ -969,11 +973,9 @@ class Registrationstate extends State<Registration> {
                                           },
                                           decoration: InputDecoration(
                                             isDense: true,
-                                            contentPadding: EdgeInsets.fromLTRB(
-                                              MediaQuery.of(context).size.height * 0.02,
-                                              MediaQuery.of(context).size.height * 0.012,
-                                              MediaQuery.of(context).size.height * 0.012,
-                                              MediaQuery.of(context).size.height * 0.012,
+                                           contentPadding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context).size.height * 0.02,
+                                              vertical: MediaQuery.of(context).size.height * 0.012,
                                             ),
                                             filled: true,
                                             fillColor: Color(0xFFFFFFFF),
@@ -981,7 +983,7 @@ class Registrationstate extends State<Registration> {
                                             hintStyle: TextStyle(
                                                 color: Color(0x4D111111),
                                                 fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w500
+                                                fontWeight: FontWeight.w400
                                             ),
                                             focusedBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.circular(5.0),
@@ -1080,7 +1082,8 @@ class Registrationstate extends State<Registration> {
                                           ],
                                           style: TextStyle(
                                             color: Colors.black45,
-                                            fontSize: MediaQuery.of(context).size.height * 0.02,
+                                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                           keyboardType: TextInputType.emailAddress,
                                           onChanged: (value) {
@@ -1093,11 +1096,9 @@ class Registrationstate extends State<Registration> {
                                           },
                                           decoration: InputDecoration(
                                             isDense: true,
-                                            contentPadding: EdgeInsets.fromLTRB(
-                                              MediaQuery.of(context).size.height * 0.02,
-                                              MediaQuery.of(context).size.height * 0.012,
-                                              MediaQuery.of(context).size.height * 0.012,
-                                              MediaQuery.of(context).size.height * 0.012,
+                                            contentPadding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context).size.height * 0.02,
+                                              vertical: MediaQuery.of(context).size.height * 0.012,
                                             ),
                                             filled: true,
                                             fillColor: Color(0xFFFFFFFF),
@@ -1105,7 +1106,7 @@ class Registrationstate extends State<Registration> {
                                             hintStyle: TextStyle(
                                                 color: Color(0x4D111111),
                                                 fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w500
+                                                fontWeight: FontWeight.w400
                                             ),
                                             focusedBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.circular(5.0),
@@ -1206,18 +1207,19 @@ class Registrationstate extends State<Registration> {
                                       ),
                                       style: TextStyle(
                                         color: Colors.black45,
-                                        fontSize: MediaQuery.of(context).size.height * 0.018,
+                                        fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontWeight: FontWeight.w500,
                                       ),
                                       decoration: InputDecoration(
                                         contentPadding: EdgeInsets.symmetric(
-                                          vertical: 0,
-                                          horizontal: MediaQuery.of(context).size.height * 0.015,
-                                        ),
+                                              horizontal: MediaQuery.of(context).size.height * 0.02,
+                                              vertical: MediaQuery.of(context).size.height * 0.012,
+                                            ),
                                         hintText: "Enter your Gender",
                                         hintStyle: TextStyle(
                                             color: Color(0x4D111111),
                                             fontSize: MediaQuery.of(context).size.height * 0.012,
-                                            fontWeight: FontWeight.w500
+                                            fontWeight: FontWeight.w400
                                         ),
 
                                         border: OutlineInputBorder(
@@ -1477,7 +1479,8 @@ class Registrationstate extends State<Registration> {
                                           ],
                                           style: TextStyle(
                                             color: Colors.black45,
-                                            fontSize: MediaQuery.of(context).size.height * 0.02,
+                                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                           keyboardType: TextInputType.text,
                                           onChanged: (value) {
@@ -1490,11 +1493,9 @@ class Registrationstate extends State<Registration> {
                                           },
                                           decoration: InputDecoration(
                                             isDense: true,
-                                            contentPadding: EdgeInsets.fromLTRB(
-                                              MediaQuery.of(context).size.height * 0.02,
-                                              MediaQuery.of(context).size.height * 0.012,
-                                              MediaQuery.of(context).size.height * 0.012,
-                                              MediaQuery.of(context).size.height * 0.012,
+                                            contentPadding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context).size.height * 0.02,
+                                              vertical: MediaQuery.of(context).size.height * 0.012,
                                             ),
                                             filled: true,
                                             fillColor: Color(0xFFFFFFFF),
@@ -1502,7 +1503,7 @@ class Registrationstate extends State<Registration> {
                                             hintStyle: TextStyle(
                                                 color: Color(0x4D111111),
                                                 fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w500
+                                                fontWeight: FontWeight.w400
                                             ),
                                             focusedBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.circular(5.0),
@@ -1601,7 +1602,8 @@ class Registrationstate extends State<Registration> {
                                           ],
                                           style: TextStyle(
                                             color: Colors.black45,
-                                            fontSize: MediaQuery.of(context).size.height * 0.02,
+                                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontWeight: FontWeight.w500
                                           ),
                                           keyboardType: TextInputType.text,
                                           onChanged: (value) {
@@ -1614,11 +1616,9 @@ class Registrationstate extends State<Registration> {
                                           },
                                           decoration: InputDecoration(
                                             isDense: true,
-                                            contentPadding: EdgeInsets.fromLTRB(
-                                              MediaQuery.of(context).size.height * 0.02,
-                                              MediaQuery.of(context).size.height * 0.012,
-                                              MediaQuery.of(context).size.height * 0.012,
-                                              MediaQuery.of(context).size.height * 0.012,
+                                            contentPadding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context).size.height * 0.02,
+                                              vertical: MediaQuery.of(context).size.height * 0.012,
                                             ),
                                             filled: true,
                                             fillColor: Color(0xFFFFFFFF),
@@ -1626,7 +1626,7 @@ class Registrationstate extends State<Registration> {
                                             hintStyle: TextStyle(
                                                 color: Color(0x4D111111),
                                                 fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w500
+                                                fontWeight: FontWeight.w400
                                             ),
                                             focusedBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.circular(5.0),

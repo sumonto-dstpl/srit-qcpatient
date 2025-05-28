@@ -654,7 +654,8 @@ class ForgotPasswordstate extends State<ForgotPassword> {
                   ],
                   style: TextStyle(
                     color: Colors.black45,
-                    fontSize: MediaQuery.of(context).size.height * 0.02,
+                    fontSize: MediaQuery.of(context).size.height * 0.016,
+                    fontWeight: FontWeight.w500,
                   ),
                   keyboardType: TextInputType.emailAddress,
                   onChanged: (value) {
@@ -668,19 +669,17 @@ class ForgotPasswordstate extends State<ForgotPassword> {
                   },
                   decoration: InputDecoration(
                     isDense: true,
-                    contentPadding: EdgeInsets.fromLTRB(
-                      MediaQuery.of(context).size.height * 0.02,
-                      MediaQuery.of(context).size.height * 0.012,
-                      MediaQuery.of(context).size.height * 0.012,
-                      MediaQuery.of(context).size.height * 0.012,
-                    ),
+                     contentPadding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context).size.height * 0.02,
+                                              vertical: MediaQuery.of(context).size.height * 0.012,
+                                            ),
                     filled: true,
                     fillColor: Color(0xFFFFFFFF),
                     hintText: "Enter your email or mobile number",
                     hintStyle: TextStyle(
                         color: Color(0x4D111111),
                         fontSize: MediaQuery.of(context).size.height * 0.012,
-                        fontWeight: FontWeight.w500
+                        fontWeight: FontWeight.w400
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
@@ -1305,7 +1304,8 @@ class ForgotPasswordstate extends State<ForgotPassword> {
 
               style: TextStyle(
                 color: Colors.black45,
-                fontSize: MediaQuery.of(context).size.height * 0.02,
+                fontSize: MediaQuery.of(context).size.height * 0.016,
+                fontWeight: FontWeight.w500,
               ),
               keyboardType: TextInputType.emailAddress,
 
@@ -1315,19 +1315,17 @@ class ForgotPasswordstate extends State<ForgotPassword> {
 
               decoration: new InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.fromLTRB(
-                  MediaQuery.of(context).size.height * 0.02,
-                  MediaQuery.of(context).size.height * 0.012,
-                  MediaQuery.of(context).size.height * 0.012,
-                  MediaQuery.of(context).size.height * 0.012,
-                ),
+                contentPadding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context).size.height * 0.02,
+                                              vertical: MediaQuery.of(context).size.height * 0.012,
+                                            ),
                 filled: true,
                 fillColor: Color(0xFFFFFFFF),
                 hintText: "Enter the New Password",
                 hintStyle: TextStyle(
                     color: Color(0x4D111111),
                     fontSize: MediaQuery.of(context).size.height * 0.012,
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w400
                 ),
                 /* // below code for rectangular box even without touching
                       border: OutlineInputBorder(
@@ -1395,7 +1393,8 @@ class ForgotPasswordstate extends State<ForgotPassword> {
                 FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]'))
               ],
               textCapitalization: TextCapitalization.characters,*/
-              style: TextStyle(color: Colors.black45),
+              style: TextStyle(color: Colors.black45,fontSize: MediaQuery.of(context).size.height * 0.016,
+                fontWeight: FontWeight.w500,),
               keyboardType: TextInputType.emailAddress,
               // onSaved: (input) => loginRequestModel.email = input,
               validator: (input) => input!.length < 3
@@ -1406,19 +1405,17 @@ class ForgotPasswordstate extends State<ForgotPassword> {
                         : null,*/
               decoration: new InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.fromLTRB(
-                  MediaQuery.of(context).size.height * 0.02,
-                  MediaQuery.of(context).size.height * 0.012,
-                  MediaQuery.of(context).size.height * 0.012,
-                  MediaQuery.of(context).size.height * 0.012,
-                ),
+                contentPadding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context).size.height * 0.02,
+                                              vertical: MediaQuery.of(context).size.height * 0.012,
+                                            ),
                 filled: true,
                 fillColor: Color(0xFFFFFFFF),
                 hintText: "Re-enter the Password",
                 hintStyle: TextStyle(
                     color: Color(0x4D111111),
                     fontSize: MediaQuery.of(context).size.height * 0.012,
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w400
                 ),
                 /* // below code for rectangular box even without touching
                       border: OutlineInputBorder(

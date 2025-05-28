@@ -460,7 +460,8 @@ class LoginPagestate extends State<LoginPage> {
                                     ],
                                     style: TextStyle(
                                       color: Colors.black45,
-                                      fontSize: MediaQuery.of(context).size.height * 0.02,
+                                      fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontWeight: FontWeight.w500,
                                     ),
                                     keyboardType: TextInputType.emailAddress,
                                     onChanged: (value) {
@@ -468,19 +469,17 @@ class LoginPagestate extends State<LoginPage> {
                                     },
                                     decoration: InputDecoration(
                                       isDense: true,
-                                      contentPadding: EdgeInsets.fromLTRB(
-                                        MediaQuery.of(context).size.height * 0.02,
-                                        MediaQuery.of(context).size.height * 0.012,
-                                        MediaQuery.of(context).size.height * 0.012,
-                                        MediaQuery.of(context).size.height * 0.012,
-                                      ),
+                                       contentPadding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context).size.height * 0.02,
+                                              vertical: MediaQuery.of(context).size.height * 0.012,
+                                            ),
                                       filled: true,
                                       fillColor: Color(0xFFFFFFFF),
                                       hintText: "Enter your email or mobile number",
                                       hintStyle: TextStyle(
                                           color: Color(0x4D111111),
                                           fontSize: MediaQuery.of(context).size.height * 0.012,
-                                          fontWeight: FontWeight.w500
+                                          fontWeight: FontWeight.w400
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(5.0),
@@ -684,7 +683,8 @@ class LoginPagestate extends State<LoginPage> {
                                     ],
                                     style: TextStyle(
                                       color: Colors.black45,
-                                      fontSize: MediaQuery.of(context).size.height * 0.02,
+                                      fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontWeight: FontWeight.w500,
                                     ),
                                     keyboardType: TextInputType.text,
                                     obscureText: hidePassword,
@@ -699,14 +699,17 @@ class LoginPagestate extends State<LoginPage> {
                                       //   MediaQuery.of(context).size.height * 0.012,
                                       //   MediaQuery.of(context).size.height * 0.012,
                                       // ),
-                                      contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+                                       contentPadding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context).size.height * 0.02,
+                                              vertical: MediaQuery.of(context).size.height * 0.012,
+                                            ),
                                       filled: true,
                                       fillColor: Colors.white60,
                                       hintText: "Enter the password",
                                       hintStyle: TextStyle(
                                           color: Color(0x4D111111),
                                           fontSize: MediaQuery.of(context).size.height * 0.012,
-                                          fontWeight: FontWeight.w500
+                                          fontWeight: FontWeight.w400
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(5.0),
