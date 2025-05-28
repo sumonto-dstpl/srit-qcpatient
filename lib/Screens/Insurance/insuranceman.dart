@@ -1684,7 +1684,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                       children: <Widget>[
 
                                                         Expanded(
-                                                          flex: 6,
+                                                          flex: 4,
                                                           child: Column(
                                                             crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -2052,7 +2052,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                 children: <Widget>[
 
                                                   Expanded(
-                                                    flex: 6,
+                                                    flex: 4,
                                                     child: Column(
                                                       crossAxisAlignment:
                                                       CrossAxisAlignment
@@ -2420,7 +2420,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                 children: <Widget>[
 
                                                   Expanded(
-                                                    flex: 6,
+                                                    flex: 4,
                                                     child: Column(
                                                       crossAxisAlignment:
                                                       CrossAxisAlignment
@@ -2788,7 +2788,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                 children: <Widget>[
 
                                                   Expanded(
-                                                    flex: 6,
+                                                    flex: 4,
                                                     child: Column(
                                                       crossAxisAlignment:
                                                       CrossAxisAlignment
@@ -3156,7 +3156,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                 children: <Widget>[
 
                                                   Expanded(
-                                                    flex: 6,
+                                                    flex: 4,
                                                     child: Column(
                                                       crossAxisAlignment:
                                                       CrossAxisAlignment
@@ -3524,7 +3524,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                 children: <Widget>[
 
                                                   Expanded(
-                                                    flex: 6,
+                                                    flex: 4,
                                                     child: Column(
                                                       crossAxisAlignment:
                                                       CrossAxisAlignment

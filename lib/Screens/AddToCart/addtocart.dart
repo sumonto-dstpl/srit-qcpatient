@@ -310,7 +310,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                 key: UniqueKey(), // Unique key for each item
                                 direction: DismissDirection.horizontal, // Allow both left & right swipes
                                 background: Container(
-                                  color: Colors.green,
+                                  color: Colors.white,
                                   alignment: Alignment.centerLeft,
                                   padding: EdgeInsets.symmetric(horizontal: 20),
                                   child: Row(
@@ -319,7 +319,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                         "assets/addtofoldersaveicon.png", // Path to your local image
                                         width: 24, // Adjust width
                                         height: 24, // Adjust height
-                                        color: Colors.white, // Apply white color
+                                        color: Colors.green, // Apply white color
                                         colorBlendMode: BlendMode.srcIn, // Blend mode to colorize
                                       ),
                                       SizedBox(width: 10),
@@ -331,7 +331,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                   ),
                                 ),
                                 secondaryBackground: Container(
-                                  color: Colors.red,
+                                  color: Colors.white,
                                   alignment: Alignment.centerRight,
                                   padding: EdgeInsets.symmetric(horizontal: 20),
                                   child: Row(
@@ -339,7 +339,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                     children: [
                                       Text("Delete", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                                       SizedBox(width: 10),
-                                      Icon(Icons.delete, color: Colors.white),
+                                      Icon(Icons.delete, color: Colors.red),
                                     ],
                                   ),
                                 ),
@@ -355,7 +355,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                   else if (direction == DismissDirection.startToEnd) {
                                     if (index >= uploadfilestime.length) {
                                       print('lenght : ${uploadfilestime.length}');
-                                      endtextbottomlist.add(uploadfilestime.last);
+                                      endtextbottomlist.add(uploadfilestime.first);
                                       print('lenght : ${endtextbottomlist.length}');
                                       uploadfilestime.removeLast();
                                       setState(() {
@@ -1222,12 +1222,12 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                   key: UniqueKey(), // Unique key for each item
                                   direction: DismissDirection.endToStart, // Allow swipe from right to left
                                   background: Container(
-                                    color: Colors.red,
+                                    color: Colors.white,
                                     alignment: Alignment.centerRight,
                                     padding: EdgeInsets.symmetric(horizontal: 20),
                                     child: Icon(
                                       Icons.delete,
-                                      color: Colors.white,
+                                      color: Colors.red,
                                     ),
                                   ),
                                   onDismissed: (direction) {

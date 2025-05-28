@@ -2518,12 +2518,12 @@ class NotificationMainstate extends State<NotificationMain> {
                                               key:  Key(file), // Unique key for each item
                                               direction: DismissDirection.endToStart, // Allow swipe from right to left
                                               background: Container(
-                                                color: Colors.red,
+                                                color: Colors.white,
                                                 alignment: Alignment.centerRight,
                                                 padding: EdgeInsets.symmetric(horizontal: 20),
                                                 child: Icon(
                                                   Icons.delete,
-                                                  color: Colors.white,
+                                                  color: Colors.red,
                                                 ),
                                               ),
                                               onDismissed: (direction) {
@@ -2983,12 +2983,12 @@ class NotificationMainstate extends State<NotificationMain> {
                                               key : UniqueKey(),// Unique key for each item
                                               direction: DismissDirection.endToStart, // Allow swipe from right to left
                                               background: Container(
-                                                color: Colors.red,
+                                                color: Colors.white,
                                                 alignment: Alignment.centerRight,
                                                 padding: EdgeInsets.symmetric(horizontal: 20),
                                                 child: Icon(
                                                   Icons.delete,
-                                                  color: Colors.white,
+                                                  color: Colors.red,
                                                 ),
                                               ),
                                               onDismissed: (direction) {

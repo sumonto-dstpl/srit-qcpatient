@@ -637,7 +637,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                                             context)
                                                             .size
                                                             .height *
-                                                            0.01),
+                                                            0.009),
                                                     child: ClipRRect(
                                                       borderRadius:
                                                       BorderRadius.circular(
@@ -1087,6 +1087,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
 
         if (user.message != null) {
           progressDialog.hide();
+          // print("getDoctorDetails"+ user.message);
           final snackBar = SnackBar(content: Text(user.message));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
