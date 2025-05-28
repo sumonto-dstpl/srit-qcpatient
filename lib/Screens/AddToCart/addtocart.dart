@@ -1,41 +1,13 @@
-import 'dart:convert';
-import 'dart:ui';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
-import 'package:newfolder/Screens/Appointments/appointmentsfindspecialities.dart';
 import 'package:newfolder/Screens/Appointments/bottomsheet_for_payment.dart';
-import 'package:newfolder/Screens/Appointments/finddoctorslist.dart';
-import 'package:newfolder/Screens/Appointments/quicksearchwithdata.dart';
-import 'package:newfolder/Screens/Appointments/quicksearchwithoutdata.dart';
-import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
-import 'package:newfolder/Screens/Home/homemainscreen.dart';
-import 'package:newfolder/Screens/HomeCare/diagnosticmain.dart';
-import 'package:newfolder/Screens/HomeCare/doctorhcmain.dart';
-import 'package:newfolder/Screens/HomeCare/medicalequipmentshcmain.dart';
-import 'package:newfolder/Screens/HomeCare/nursehcmain.dart';
-import 'package:newfolder/Screens/HomeCare/physiohcmain.dart';
-import 'package:newfolder/Screens/Login/loginhome.dart';
-import 'package:newfolder/Screens/Notifications/notifications.dart';
-import 'package:newfolder/Screens/Registeration/registeration.dart';
-import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
-import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
-import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
-import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
-import 'package:newfolder/Screens/Widgets/badge.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
-import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
+import 'package:newfolder/Screens/Home/homemainscreen.dart';
+import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
+import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
 import 'package:newfolder/Screens/Widgets/dotteddivider.dart';
-import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
-import 'package:swipeable_tile/swipeable_tile.dart';
-
 
 class AddToCartMain extends StatefulWidget {
   int selectedIndex = 4;
@@ -61,7 +33,6 @@ class AddToCartMainstate extends State<AddToCartMain> {
     "QR 1009",
   ];
 
-
   final List<String> cartnametoplist = [
     "QCT Superior Health Plan",
     "QCT Diabetic Health Plan",
@@ -71,16 +42,14 @@ class AddToCartMainstate extends State<AddToCartMain> {
   final List<String> endtextbottomlist = [
     "QR 1999",
     "QR 1999",
-    "QR 1999",
+    "QR 999",
   ];
-
 
   final List<String> cartnameottomlist = [
     "QCT Master Health Check Package",
     "QCT Diabetic Health Plan",
     "QCT Master Health Check Package",
   ];
-
 
   EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
   AppointmentCancel appointmentcancelalert = new AppointmentCancel();
@@ -207,11 +176,6 @@ class AddToCartMainstate extends State<AddToCartMain> {
                       //   ,
                       // ),
 
-
-
-
-
-
                       // Top ListView
 
                       // Inkwell & Cart Text
@@ -226,7 +190,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                           right: screenHeight * 0.0,
                           top: screenHeight * 0.0,
                           bottom: screenHeight * 0.01,
-                          left: screenHeight * 0.01 ,
+                          left: screenHeight * 0.01,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -236,7 +200,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                               onTap: () => Navigator.pop(context),
                               child: Container(
                                 margin: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.height * 0.01,
+                                  left:
+                                      MediaQuery.of(context).size.height * 0.01,
                                 ),
                                 height: screenHeight * 0.035,
                                 width: screenHeight * 0.035,
@@ -258,7 +223,9 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                 child: Text(
                                   "Cart",
                                   style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.018,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.018,
                                     color: Colors.black,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -269,10 +236,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
 
                             // Placeholder to Balance Row (Keeps Help Text Centered)
                             SizedBox(width: screenHeight * 0.035),
-
                           ],
-                        )
-                        ,
+                        ),
                       ),
 
                       // Top 3 Cards
@@ -281,7 +246,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                           right: screenHeight * 0.015,
                           top: screenHeight * 0.0,
                           bottom: screenHeight * 0.0,
-                          left: screenHeight * 0.015 ,
+                          left: screenHeight * 0.015,
                         ),
                         padding: EdgeInsets.only(
                           top: MediaQuery.of(context).size.height *
@@ -295,20 +260,16 @@ class AddToCartMainstate extends State<AddToCartMain> {
                         ),
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
-                          shrinkWrap:
-                          true, // Prevents infinite height
+                          shrinkWrap: true, // Prevents infinite height
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: uploadfilestime.length,
                           itemBuilder: (context, index) {
-
-
                             final file = uploadfilestime[index];
-
-
 
                             return Dismissible(
                                 key: UniqueKey(), // Unique key for each item
-                                direction: DismissDirection.horizontal, // Allow both left & right swipes
+                                direction: DismissDirection
+                                    .horizontal, // Allow both left & right swipes
                                 background: Container(
                                   color: Colors.green,
                                   alignment: Alignment.centerLeft,
@@ -319,13 +280,17 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                         "assets/addtofoldersaveicon.png", // Path to your local image
                                         width: 24, // Adjust width
                                         height: 24, // Adjust height
-                                        color: Colors.white, // Apply white color
-                                        colorBlendMode: BlendMode.srcIn, // Blend mode to colorize
+                                        color:
+                                            Colors.white, // Apply white color
+                                        colorBlendMode: BlendMode
+                                            .srcIn, // Blend mode to colorize
                                       ),
                                       SizedBox(width: 10),
                                       Text(
                                         "Saved",
-                                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ],
                                   ),
@@ -337,406 +302,443 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Text("Delete", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                      Text("Delete",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold)),
                                       SizedBox(width: 10),
                                       Icon(Icons.delete, color: Colors.white),
                                     ],
                                   ),
                                 ),
                                 onDismissed: (direction) {
-                                  if (direction == DismissDirection.endToStart) {
+                                  if (direction ==
+                                      DismissDirection.endToStart) {
                                     print('if');
                                     print('index : $index');
                                     uploadfilestime.removeAt(index);
-                                   /* ScaffoldMessenger.of(context).showSnackBar(
+                                    /* ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(content: Text("$file deleted"), duration: Duration(seconds: 2)),
                                     );*/
-                                  }
-                                  else if (direction == DismissDirection.startToEnd) {
+                                  } else if (direction ==
+                                      DismissDirection.startToEnd) {
+                                    print("DismissDirection.startToEnd");
                                     if (index >= uploadfilestime.length) {
-                                      print('lenght : ${uploadfilestime.length}');
-                                      endtextbottomlist.add(uploadfilestime.last);
-                                      print('lenght : ${endtextbottomlist.length}');
+                                      print("index >= uploadfilestime.length");
+                                      print(
+                                          'lenght : ${uploadfilestime.length}');
+                                      endtextbottomlist
+                                          .add(uploadfilestime.last);
+                                      print(
+                                          'lenght : ${endtextbottomlist.length}');
                                       uploadfilestime.removeLast();
-                                      setState(() {
-
-                                      });
+                                      setState(() {});
                                       return;
                                     }
                                     print('else if');
                                     setState(() {
-
-                                        // Swiped Left to Right (Move to another list)
-                                        endtextbottomlist.add(uploadfilestime[index]);
-                                        uploadfilestime.removeAt(index);
-                                        print('lenght : ${endtextbottomlist.length}');
+                                      // Swiped Left to Right (Move to another list)
+                                      endtextbottomlist.insert(
+                                          0, uploadfilestime[index]);
+                                      // .add(uploadfilestime[index]);
+                                      uploadfilestime.removeAt(index);
+                                      print(
+                                          'lenght : ${endtextbottomlist.length}');
                                     });
                                     // Mark item as "Saved" when swiped left to right
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
                                           "$file Saved",
-                                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                        backgroundColor: Colors.green, // Set background color to green
+                                        backgroundColor: Colors
+                                            .green, // Set background color to green
                                         duration: Duration(seconds: 2),
                                       ),
                                     );
                                   }
                                 },
-                                  child:
-
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Card(
-                                      elevation: 0.0,
-                                      color: Colors.white,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white, // Background color of the container
-                                          border: Border.all(
-                                            color: Colors.black.withOpacity(0.1), // Border color
-                                            width: 1, // Border width
-                                          ),
-                                          borderRadius: BorderRadius.circular(8), // Optional: Rounded corners
+                                child: GestureDetector(
+                                  onTap: () {},
+                                  child: Card(
+                                    elevation: 0.0,
+                                    color: Colors.white,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors
+                                            .white, // Background color of the container
+                                        border: Border.all(
+                                          color: Colors.black
+                                              .withOpacity(0.1), // Border color
+                                          width: 1, // Border width
                                         ),
+                                        borderRadius: BorderRadius.circular(
+                                            8), // Optional: Rounded corners
+                                      ),
 
-                                        padding: EdgeInsets.only(
+                                      padding: EdgeInsets.only(
+                                          left: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.00,
+                                          right:
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.00,
+                                          bottom: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.01,
+                                          top: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.01),
+                                      // color: Colors.white,
+                                      child: Container(
+                                        // color: Colors.white,
+
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            gradient: LinearGradient(
+                                                begin: Alignment.centerLeft,
+                                                end: Alignment.centerRight,
+                                                stops: [
+                                                  0.5,
+                                                  0.9
+                                                ],
+                                                colors: [
+                                                  Color(0xFFffffff),
+                                                  Color(0xFFffffff)
+                                                ])),
+                                        margin: EdgeInsets.only(
                                             left: MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                                    .size
+                                                    .height *
                                                 0.00,
                                             right: MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                                    .size
+                                                    .height *
                                                 0.00,
                                             bottom: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.01,
+                                                    .size
+                                                    .height *
+                                                0.00,
                                             top: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.01),
-                                        // color: Colors.white,
-                                        child: Container(
-                                          // color: Colors.white,
+                                                    .size
+                                                    .height *
+                                                0.00),
+                                        padding: EdgeInsets.only(
+                                            left: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.005,
+                                            right: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.005,
+                                            bottom: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.005,
+                                            top: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.005),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Container(
+                                              padding: EdgeInsets.only(
+                                                left: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.015,
+                                                right: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.015,
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.005,
+                                                bottom: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.005,
+                                              ),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      padding: EdgeInsets.only(
+                                                        left: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.00,
+                                                      ),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    130.0),
+                                                        child: Image.asset(
+                                                          'assets/Harmonebackground.png',
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.02),
+                                                  Expanded(
+                                                    flex: 6,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                        Container(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                            left: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.00,
+                                                            right: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.00,
+                                                            top: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.0,
+                                                            bottom: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.00,
+                                                          ),
+                                                          child: Text(
+                                                            cartnametoplist[
+                                                                index],
+                                                            style: TextStyle(
+                                                              color: Colors
+                                                                  .black87,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontSize: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  0.014,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: screenHeight *
+                                                              0.005,
+                                                        ),
+                                                        Container(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                            left: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.00,
+                                                            right: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.00,
+                                                            top: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.00,
+                                                            bottom: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.00,
+                                                          ),
+                                                          child: Text(
+                                                            "100 Tests Included",
+                                                            style: TextStyle(
+                                                              color: Colors
+                                                                  .black54,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              fontSize: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  0.012,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  // Adding the side arrow at the end
 
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                              BorderRadius.circular(10),
-                                              gradient: LinearGradient(
-                                                  begin:
-                                                  Alignment.centerLeft,
-                                                  end:
-                                                  Alignment.centerRight,
-                                                  stops: [
-                                                    0.5,
-                                                    0.9
-                                                  ],
-                                                  colors: [
-                                                    Color(0xFFffffff),
-                                                    Color(0xFFffffff)
-                                                  ])),
-                                          margin: EdgeInsets.only(
-                                              left: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              right: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00),
-                                          padding: EdgeInsets.only(
-                                              left: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.005,
-                                              right: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.005,
-                                              bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.005,
-                                              top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.005),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Container(
-
-                                                padding: EdgeInsets.only(
-                                                  left:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.015,
-                                                  right:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.015,
-                                                  top:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.005,
-                                                  bottom:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.005,
-                                                ),
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment
-                                                      .center,
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .start,
-                                                  children: <Widget>[
-                                                    Expanded(
-                                                      flex: 1,
-                                                      child: Container(
-                                                        padding:
-                                                        EdgeInsets.only(
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        // color:Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(15),
+                                                      ),
+                                                      // color:Colors.green[100],
+                                                      padding: EdgeInsets.only(
                                                           left: MediaQuery.of(
-                                                              context)
-                                                              .size
-                                                              .height *
-                                                              0.00,
-                                                        ),
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                              130.0),
-                                                          child:
-                                                          Image.asset(
-                                                            'assets/Harmonebackground.png',
-                                                            fit:
-                                                            BoxFit.fill,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                        width: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .height *
-                                                            0.02),
-                                                    Expanded(
-                                                      flex: 6,
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                        children: <Widget>[
-                                                          Container(
-                                                            padding:
-                                                            EdgeInsets
-                                                                .only(
-                                                              left: MediaQuery.of(
-                                                                  context)
+                                                                      context)
                                                                   .size
                                                                   .height *
-                                                                  0.00,
-                                                              right: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
-                                                                  0.00,
-                                                              top: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
+                                                              0.0,
+                                                          right:
+                                                              MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
                                                                   0.0,
-                                                              bottom: MediaQuery.of(
-                                                                  context)
+                                                          top: MediaQuery.of(
+                                                                      context)
                                                                   .size
                                                                   .height *
-                                                                  0.00,
-                                                            ),
-                                                            child: Text(
-                                                              cartnametoplist[index],
-                                                              style:
-                                                              TextStyle(
-                                                                color: Colors
-                                                                    .black87,
-                                                                overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .w600,
-                                                                fontSize: MediaQuery.of(context)
-                                                                    .size
-                                                                    .height *
-                                                                    0.014,
+                                                              0.00,
+                                                          bottom: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              0.00),
+                                                      child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .end,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: <Widget>[
+                                                            Container(
+                                                              margin: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          2),
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  0.005,
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  0.005,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Color(
+                                                                    0xFF12B76A),
+                                                                shape: BoxShape
+                                                                    .circle,
                                                               ),
                                                             ),
-                                                          ),
-                                                          SizedBox(height: screenHeight * 0.005,),
-                                                          Container(
-                                                            padding:
-                                                            EdgeInsets
-                                                                .only(
-                                                              left: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
-                                                                  0.00,
-                                                              right: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
-                                                                  0.00,
-                                                              top: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
-                                                                  0.00,
-                                                              bottom: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
-                                                                  0.00,
-                                                            ),
-                                                            child: Text(
-                                                              "100 Tests Included",
-                                                              style:
-                                                              TextStyle(
-                                                                color: Colors
-                                                                    .black54,
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .w500,
-                                                                overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                                fontSize: MediaQuery.of(context)
-                                                                    .size
-                                                                    .height *
-                                                                    0.012,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    // Adding the side arrow at the end
-
-                                                    Expanded(
-                                                      flex: 2,
-                                                      child:
-                                                      Container(
-                                                        decoration: BoxDecoration(
-                                                          // color:Colors.white,
-                                                          borderRadius: BorderRadius.circular(15),
-                                                        ),
-                                                        // color:Colors.green[100],
-                                                        padding: EdgeInsets.only(
-                                                            left:
-                                                            MediaQuery.of(context).size.height * 0.0,
-                                                            right:
-                                                            MediaQuery.of(context).size.height * 0.0,
-                                                            top:
-                                                            MediaQuery.of(context).size.height * 0.00,
-                                                            bottom: MediaQuery.of(context).size.height *
-                                                                0.00),
-                                                        child: Row(
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment.end,
-                                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                                            children: <Widget>[
-                                                              Container(
-                                                                margin:
-                                                                EdgeInsets.symmetric(horizontal: 2),
-                                                                height:
-                                                                MediaQuery.of(context).size.height *
-                                                                    0.005,
-                                                                width:
-                                                                MediaQuery.of(context).size.height *
-                                                                    0.005,
-                                                                decoration: BoxDecoration(
-                                                                  color: Color(0xFF12B76A),
-                                                                  shape: BoxShape.circle,
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                padding: EdgeInsets.only(
-                                                                  top: MediaQuery.of(context)
-                                                                      .size
-                                                                      .height *
-                                                                      0.00,
-                                                                  bottom: MediaQuery.of(context)
-                                                                      .size
-                                                                      .height *
-                                                                      0.00,
-                                                                  left: MediaQuery.of(context)
-                                                                      .size
-                                                                      .height *
-                                                                      0.002,
-                                                                  right: MediaQuery.of(context)
-                                                                      .size
-                                                                      .height *
-                                                                      0.00,
-                                                                ),
-                                                                child: Text(
-                                                                  uploadfilestime[index],
-                                                                  style: TextStyle(
-                                                                    fontSize: MediaQuery.of(context)
+                                                            Container(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .only(
+                                                                top: MediaQuery.of(
+                                                                            context)
                                                                         .size
                                                                         .height *
-                                                                        0.014,
-                                                                    color: Color(0xFF12B76A),
-                                                                    fontWeight: FontWeight.w500,
-                                                                  ),
-                                                                  overflow: TextOverflow.ellipsis,
-                                                                  textAlign: TextAlign.right,
-                                                                ),
+                                                                    0.00,
+                                                                bottom: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height *
+                                                                    0.00,
+                                                                left: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height *
+                                                                    0.002,
+                                                                right: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height *
+                                                                    0.00,
                                                               ),
-                                                            ]),
-                                                      ),
+                                                              child: Text(
+                                                                uploadfilestime[
+                                                                    index],
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .height *
+                                                                      0.014,
+                                                                  color: Color(
+                                                                      0xFF12B76A),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .right,
+                                                              ),
+                                                            ),
+                                                          ]),
                                                     ),
-
-
-
-
-
-
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  )
-
-                              );
+                                  ),
+                                ));
                           },
                         ),
                       ),
-
 
                       // Price Details
                       Padding(
@@ -751,7 +753,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                             "Price Details",
                             style: TextStyle(
                               fontSize:
-                              MediaQuery.of(context).size.height * 0.016,
+                                  MediaQuery.of(context).size.height * 0.016,
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
@@ -777,9 +779,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             // color: Color(0xFF126086).withOpacity(0.1),
-                            color : Colors.white,
-                            borderRadius: BorderRadius.circular(
-                                8),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -789,826 +790,987 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                     // color: Color(0xFFA8B1CE).withOpacity(0.1),
-                                    color : Color(0xFFF8F8F8),
+                                    color: Color(0xFFF8F8F8),
                                     borderRadius: BorderRadius.circular(
                                         8), // Optional: Rounded corners
                                   ),
-                                  child: Column(children: [
-
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: MediaQuery.of(context).size.height * 0.01,
-                                          right: MediaQuery.of(context).size.height * 0.01,
-                                          top :  MediaQuery.of(context).size.height * 0.005,
-                                          bottom: MediaQuery.of(context).size.height * 0.005),
-                                      child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Container(
-                                              padding: EdgeInsets.only(
-                                                  left:
-                                                  MediaQuery.of(context).size.height * 0.00,
-                                                  right:
-                                                  MediaQuery.of(context).size.height * 0.00,
-                                                  top:
-                                                  MediaQuery.of(context).size.height * 0.00,
-                                                  bottom: MediaQuery.of(context).size.height *
-                                                      0.00),
-                                              child: Text(
-                                                "Price (3 Package)",
-                                                style: TextStyle(
-                                                  color: Color(0x80000000),
-                                                  fontWeight: FontWeight.w400,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  fontSize:
-                                                  MediaQuery.of(context).size.height * 0.014,
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            left: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.01,
+                                            right: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.01,
+                                            top: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.005,
+                                            bottom: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.005),
+                                        child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Container(
                                                 padding: EdgeInsets.only(
                                                     left: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.005,
-                                                    right: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
+                                                            .size
+                                                            .height *
                                                         0.00,
+                                                    right:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.00,
                                                     top: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
+                                                            .size
+                                                            .height *
                                                         0.00,
-                                                    bottom: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.00),
+                                                    bottom:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.00),
                                                 child: Text(
-                                                  'QR 1999',
+                                                  "Price (3 Package)",
                                                   style: TextStyle(
-                                                    // color: Colors.blue[600],
-                                                      color: Color(0xFF000000),
-                                                      fontWeight: FontWeight.w400,
-                                                      overflow:
-                                                      TextOverflow.ellipsis,
-                                                      // decoration: TextDecoration.lineThrough,
-                                                      // decorationThickness: 2,
-                                                      fontSize:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.014),
-                                                )),
-                                          ]),
-                                    ),
-
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: MediaQuery.of(context).size.height * 0.01,
-                                          right: MediaQuery.of(context).size.height * 0.01,
-                                          top :  MediaQuery.of(context).size.height * 0.005,
-                                          bottom: MediaQuery.of(context).size.height * 0.005),
-                                      child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Container(
-                                              padding: EdgeInsets.only(
-                                                  left:
-                                                  MediaQuery.of(context).size.height * 0.00,
-                                                  right:
-                                                  MediaQuery.of(context).size.height * 0.00,
-                                                  top:
-                                                  MediaQuery.of(context).size.height * 0.00,
-                                                  bottom: MediaQuery.of(context).size.height *
-                                                      0.00),
-                                              child: Text(
-                                                "Discount",
-                                                style: TextStyle(
-                                                  color: Color(0x80000000),
-                                                  fontWeight: FontWeight.w400,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  fontSize:
-                                                  MediaQuery.of(context).size.height * 0.014,
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                                padding: EdgeInsets.only(
-                                                    left: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.005,
-                                                    right: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.00,
-                                                    top: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.00,
-                                                    bottom: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.00),
-                                                child: Text(
-                                                  '- QR 99',
-                                                  style: TextStyle(
-                                                    // color: Colors.blue[600],
-                                                      color: Color(0xFF12B76A),
-                                                      fontWeight: FontWeight.w400,
-                                                      overflow:
-                                                      TextOverflow.ellipsis,
-                                                      // decoration: TextDecoration.lineThrough,
-                                                      // decorationThickness: 2,
-                                                      fontSize:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.014),
-                                                )),
-                                          ]),
-                                    ),
-
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: MediaQuery.of(context).size.height * 0.01,
-                                          right: MediaQuery.of(context).size.height * 0.01,
-                                          top :  MediaQuery.of(context).size.height * 0.005,
-                                          bottom: MediaQuery.of(context).size.height * 0.005),
-                                      child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Container(
-                                              padding: EdgeInsets.only(
-                                                  left:
-                                                  MediaQuery.of(context).size.height * 0.00,
-                                                  right:
-                                                  MediaQuery.of(context).size.height * 0.00,
-                                                  top:
-                                                  MediaQuery.of(context).size.height * 0.00,
-                                                  bottom: MediaQuery.of(context).size.height *
-                                                      0.00),
-                                              child: Text(
-                                                "Platform Fee",
-                                                style: TextStyle(
-                                                  color: Color(0x80000000),
-                                                  fontWeight: FontWeight.w400,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  fontSize:
-                                                  MediaQuery.of(context).size.height * 0.014,
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                                padding: EdgeInsets.only(
-                                                    left: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.005,
-                                                    right: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.00,
-                                                    top: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.00,
-                                                    bottom: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.00),
-                                                child: Text(
-                                                  'QR 9',
-                                                  style: TextStyle(
-                                                    // color: Colors.blue[600],
-                                                      color: Color(0xFF000000),
-                                                      fontWeight: FontWeight.w400,
-                                                      overflow:
-                                                      TextOverflow.ellipsis,
-                                                      // decoration: TextDecoration.lineThrough,
-                                                      // decorationThickness: 2,
-                                                      fontSize:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.014),
-                                                )),
-                                          ]),
-                                    ),
-
-                                    Container(
-                                      padding: EdgeInsets.only(
-                                          left: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height *
-                                              0.01,
-                                          right:
-                                          MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height *
-                                              0.01,
-                                          top: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height *
-                                              0.01,
-                                          bottom:
-                                          MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height *
-                                              0.01),
-
-                                      child:
-                                      DottedDivider(
-                                        color: Color(0x4D000000),
-                                        strokeWidth:0.5,
-                                        gap: 5.0,
-                                        height: 0.0, // Specify the height of the divider
-                                      ),
-                                    ),
-
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: MediaQuery.of(context).size.height * 0.01,
-                                          right: MediaQuery.of(context).size.height * 0.01,
-                                          top :  MediaQuery.of(context).size.height * 0.005,
-                                          bottom: MediaQuery.of(context).size.height * 0.005),
-                                      child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Container(
-                                              padding: EdgeInsets.only(
-                                                  left:
-                                                  MediaQuery.of(context).size.height * 0.00,
-                                                  right:
-                                                  MediaQuery.of(context).size.height * 0.00,
-                                                  top:
-                                                  MediaQuery.of(context).size.height * 0.00,
-                                                  bottom: MediaQuery.of(context).size.height *
-                                                      0.00),
-                                              child:Text(
-                                                'Total Amount',
-                                                style: TextStyle(
-                                                  // color: Colors.blue[600],
-                                                    color: Color(0xFF000000),
-                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0x80000000),
+                                                    fontWeight: FontWeight.w400,
                                                     overflow:
-                                                    TextOverflow.ellipsis,
-
+                                                        TextOverflow.ellipsis,
                                                     fontSize:
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.014),
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.014,
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                            Container(
+                                              Container(
+                                                  padding: EdgeInsets.only(
+                                                      left:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.005,
+                                                      right:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.00,
+                                                      top:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.00,
+                                                      bottom:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.00),
+                                                  child: Text(
+                                                    'QR 1999',
+                                                    style: TextStyle(
+                                                        // color: Colors.blue[600],
+                                                        color:
+                                                            Color(0xFF000000),
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        // decoration: TextDecoration.lineThrough,
+                                                        // decorationThickness: 2,
+                                                        fontSize: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.014),
+                                                  )),
+                                            ]),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            left: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.01,
+                                            right: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.01,
+                                            top: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.005,
+                                            bottom: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.005),
+                                        child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Container(
                                                 padding: EdgeInsets.only(
                                                     left: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.005,
-                                                    right: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
+                                                            .size
+                                                            .height *
                                                         0.00,
+                                                    right:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.00,
                                                     top: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
+                                                            .size
+                                                            .height *
                                                         0.00,
-                                                    bottom: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.00),
+                                                    bottom:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.00),
                                                 child: Text(
-                                                  'QR 1909',
+                                                  "Discount",
                                                   style: TextStyle(
-                                                    // color: Colors.blue[600],
+                                                    color: Color(0x80000000),
+                                                    fontWeight: FontWeight.w400,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    fontSize:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.014,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                  padding: EdgeInsets.only(
+                                                      left:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.005,
+                                                      right:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.00,
+                                                      top:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.00,
+                                                      bottom:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.00),
+                                                  child: Text(
+                                                    '- QR 99',
+                                                    style: TextStyle(
+                                                        // color: Colors.blue[600],
+                                                        color:
+                                                            Color(0xFF12B76A),
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        // decoration: TextDecoration.lineThrough,
+                                                        // decorationThickness: 2,
+                                                        fontSize: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.014),
+                                                  )),
+                                            ]),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            left: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.01,
+                                            right: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.01,
+                                            top: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.005,
+                                            bottom: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.005),
+                                        child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(
+                                                    left: MediaQuery.of(context)
+                                                            .size
+                                                            .height *
+                                                        0.00,
+                                                    right:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.00,
+                                                    top: MediaQuery.of(context)
+                                                            .size
+                                                            .height *
+                                                        0.00,
+                                                    bottom:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.00),
+                                                child: Text(
+                                                  "Platform Fee",
+                                                  style: TextStyle(
+                                                    color: Color(0x80000000),
+                                                    fontWeight: FontWeight.w400,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    fontSize:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.014,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                  padding: EdgeInsets.only(
+                                                      left:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.005,
+                                                      right:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.00,
+                                                      top:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.00,
+                                                      bottom:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.00),
+                                                  child: Text(
+                                                    'QR 9',
+                                                    style: TextStyle(
+                                                        // color: Colors.blue[600],
+                                                        color:
+                                                            Color(0xFF000000),
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        // decoration: TextDecoration.lineThrough,
+                                                        // decorationThickness: 2,
+                                                        fontSize: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.014),
+                                                  )),
+                                            ]),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                            left: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.01,
+                                            right: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.01,
+                                            top: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.01,
+                                            bottom: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.01),
+                                        child: DottedDivider(
+                                          color: Color(0x4D000000),
+                                          strokeWidth: 0.5,
+                                          gap: 5.0,
+                                          height:
+                                              0.0, // Specify the height of the divider
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            left: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.01,
+                                            right: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.01,
+                                            top: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.005,
+                                            bottom: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.005),
+                                        child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(
+                                                    left: MediaQuery.of(context)
+                                                            .size
+                                                            .height *
+                                                        0.00,
+                                                    right:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.00,
+                                                    top: MediaQuery.of(context)
+                                                            .size
+                                                            .height *
+                                                        0.00,
+                                                    bottom:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.00),
+                                                child: Text(
+                                                  'Total Amount',
+                                                  style: TextStyle(
+                                                      // color: Colors.blue[600],
                                                       color: Color(0xFF000000),
-                                                      fontWeight: FontWeight.w500,
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                       overflow:
-                                                      TextOverflow.ellipsis,
-                                                      // decoration: TextDecoration.lineThrough,
-                                                      // decorationThickness: 2,
+                                                          TextOverflow.ellipsis,
                                                       fontSize:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.014),
-                                                )),
-                                          ]),
-                                    ),
-                                  ],)
-
-                              ),
-
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.014),
+                                                ),
+                                              ),
+                                              Container(
+                                                  padding: EdgeInsets.only(
+                                                      left:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.005,
+                                                      right:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.00,
+                                                      top:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.00,
+                                                      bottom:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.00),
+                                                  child: Text(
+                                                    'QR 1909',
+                                                    style: TextStyle(
+                                                        // color: Colors.blue[600],
+                                                        color:
+                                                            Color(0xFF000000),
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        // decoration: TextDecoration.lineThrough,
+                                                        // decorationThickness: 2,
+                                                        fontSize: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.014),
+                                                  )),
+                                            ]),
+                                      ),
+                                    ],
+                                  )),
                             ],
                           ),
                         ),
                       ),
 
-
-                      isSavedForLater == false ? Container() :
-                      Container(
-
-                        margin: EdgeInsets.only(
-                          top : MediaQuery.of(context).size.height * 0.01,
-                          left : MediaQuery.of(context).size.height * 0.01,
-                        ),  // Removed margin
-                        padding: EdgeInsets.all(0),  // Removed padding
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,  // Ensures alignment starts from the left
-                          children: <Widget>[
-                            Expanded(
-                              flex: 2,
-                              child: InkWell(
-                                onTap: () => Navigator.pop(context),
-                                child: Container(
-                                  height: screenHeight * 0.02,
-                                  width: screenHeight * 0.02,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Image.asset(
-                                    'assets/addcartFolder.png',
-                                    height: screenHeight * 0.015,
-                                    width: screenHeight * 0.015,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 15,
-                              child:  Padding(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height * 0.0,
-                                    right: MediaQuery.of(context).size.height * 0.0,
-                                    top: MediaQuery.of(context).size.height * 0.008,
-                                    bottom: MediaQuery.of(context).size.height * 0.01),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Saved For Later ",
-                                        style: TextStyle(
-                                          fontSize:
-                                          MediaQuery.of(context).size.height * 0.014,
-                                          color: Color(0xFF000000),
-                                          fontWeight: FontWeight.w500,
+                      isSavedForLater == false
+                          ? Container()
+                          : Container(
+                              margin: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.01,
+                                left: MediaQuery.of(context).size.height * 0.01,
+                              ), // Removed margin
+                              padding: EdgeInsets.all(0), // Removed padding
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment
+                                    .start, // Ensures alignment starts from the left
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 2,
+                                    child: InkWell(
+                                      onTap: () => Navigator.pop(context),
+                                      child: Container(
+                                        height: screenHeight * 0.02,
+                                        width: screenHeight * 0.02,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
                                         ),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                      Text(
-                                        "($saveForLaterCount)",
-                                        style: TextStyle(
-                                          fontSize:
-                                          MediaQuery.of(context).size.height * 0.014,
-                                          color: Color(0xFF000000),
-                                          fontWeight: FontWeight.w500,
+                                        child: Image.asset(
+                                          'assets/addcartFolder.png',
+                                          height: screenHeight * 0.015,
+                                          width: screenHeight * 0.015,
                                         ),
-                                        textAlign: TextAlign.start,
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-
-
-                      // Bottom ListView
-                      isSavedForLater == false ? Container() :
-                      Container(
-                        margin: EdgeInsets.only(
-                          right: screenHeight * 0.015,
-                          left: screenHeight * 0.015 ,
-                        ),
-                        padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height *
-                              0.0, // Dynamic top padding
-                          bottom: MediaQuery.of(context).size.height *
-                              0.0, // Dynamic bottom padding
-                          left: MediaQuery.of(context).size.height *
-                              0.0, // Dynamic left padding
-                          right: MediaQuery.of(context).size.height *
-                              0.0, // Dynamic right padding
-                        ),
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap:
-                          true, // Prevents infinite height
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: endtextbottomlist.length,
-                          itemBuilder: (context, index) {
-
-
-                            final file = endtextbottomlist[index];
-
-                            return
-
-                              Dismissible(
-                                  key: UniqueKey(), // Unique key for each item
-                                  direction: DismissDirection.endToStart, // Allow swipe from right to left
-                                  background: Container(
-                                    color: Colors.red,
-                                    alignment: Alignment.centerRight,
-                                    padding: EdgeInsets.symmetric(horizontal: 20),
-                                    child: Icon(
-                                      Icons.delete,
-                                      color: Colors.white,
                                     ),
                                   ),
-                                  onDismissed: (direction) {
-                                    // Remove the item immediately from the list
-                                    // endtextbottomlist.removeAt(index);
+                                  Expanded(
+                                    flex: 15,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          left: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.0,
+                                          right: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.0,
+                                          top: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.008,
+                                          bottom: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.01),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              "Saved For Later ",
+                                              style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.014,
+                                                color: Color(0xFF000000),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            Text(
+                                              "($saveForLaterCount)",
+                                              style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.014,
+                                                color: Color(0xFF000000),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
 
-                                    setState(() {
-                                      endtextbottomlist.removeAt(index);
-                                    });
-                                    // If the list is empty, show a message
-                                    if (endtextbottomlist.isEmpty) {
-                                      print('endtextbottomlist.isEmpty');
+                      // Bottom ListView
+                      isSavedForLater == false
+                          ? Container()
+                          : Container(
+                              margin: EdgeInsets.only(
+                                right: screenHeight * 0.015,
+                                left: screenHeight * 0.015,
+                              ),
+                              padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height *
+                                    0.0, // Dynamic top padding
+                                bottom: MediaQuery.of(context).size.height *
+                                    0.0, // Dynamic bottom padding
+                                left: MediaQuery.of(context).size.height *
+                                    0.0, // Dynamic left padding
+                                right: MediaQuery.of(context).size.height *
+                                    0.0, // Dynamic right padding
+                              ),
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true, // Prevents infinite height
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: endtextbottomlist.length,
+                                itemBuilder: (context, index) {
+                                  final file = endtextbottomlist[index];
 
-                                      isSavedForLater = false;
+                                  return Dismissible(
+                                      key:
+                                          UniqueKey(), // Unique key for each item
+                                      direction: DismissDirection
+                                          .endToStart, // Allow swipe from right to left
+                                      background: Container(
+                                        color: Colors.red,
+                                        alignment: Alignment.centerRight,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Icon(
+                                          Icons.delete,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      onDismissed: (direction) {
+                                        // Remove the item immediately from the list
+                                        // endtextbottomlist.removeAt(index);
 
-                                    }
-                                   /* setState(() {
+                                        setState(() {
+                                          endtextbottomlist.removeAt(index);
+                                        });
+                                        // If the list is empty, show a message
+                                        if (endtextbottomlist.isEmpty) {
+                                          print('endtextbottomlist.isEmpty');
+
+                                          isSavedForLater = false;
+                                        }
+                                        /* setState(() {
 
                                     });*/
 
-                                    // Show a snackbar for feedback
-                                    /* ScaffoldMessenger.of(context).showSnackBar(
+                                        // Show a snackbar for feedback
+                                        /* ScaffoldMessenger.of(context).showSnackBar(
                                                                 SnackBar(
                                                                   content: Text("$file deleted"),
                                                                   duration: Duration(seconds: 2),
                                                                 ),
                                                               );*/
-                                  },
-                                  child:
+                                      },
+                                      child: GestureDetector(
+                                        onTap: () {},
+                                        child: Card(
+                                          elevation: 0.0,
+                                          color: Colors.white,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors
+                                                  .white, // Background color of the container
+                                              border: Border.all(
+                                                color: Colors.black.withOpacity(
+                                                    0.1), // Border color
+                                                width: 1, // Border width
+                                              ),
+                                              borderRadius: BorderRadius.circular(
+                                                  8), // Optional: Rounded corners
+                                            ),
 
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Card(
-                                      elevation: 0.0,
-                                      color: Colors.white,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white, // Background color of the container
-                                          border: Border.all(
-                                            color: Colors.black.withOpacity(0.1), // Border color
-                                            width: 1, // Border width
-                                          ),
-                                          borderRadius: BorderRadius.circular(8), // Optional: Rounded corners
-                                        ),
+                                            padding: EdgeInsets.only(
+                                                left: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.00,
+                                                right: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.00,
+                                                bottom: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.01,
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.01),
+                                            // color: Colors.white,
+                                            child: Container(
+                                              // color: Colors.white,
 
-                                        padding: EdgeInsets.only(
-                                            left: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.00,
-                                            right: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.00,
-                                            bottom: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.01,
-                                            top: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.01),
-                                        // color: Colors.white,
-                                        child: Container(
-                                          // color: Colors.white,
-
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                              BorderRadius.circular(10),
-                                              gradient: LinearGradient(
-                                                  begin:
-                                                  Alignment.centerLeft,
-                                                  end:
-                                                  Alignment.centerRight,
-                                                  stops: [
-                                                    0.5,
-                                                    0.9
-                                                  ],
-                                                  colors: [
-                                                    Color(0xFFffffff),
-                                                    Color(0xFFffffff)
-                                                  ])),
-                                          margin: EdgeInsets.only(
-                                              left: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              right: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00),
-                                          padding: EdgeInsets.only(
-                                              left: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.005,
-                                              right: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.005,
-                                              bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.005,
-                                              top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.005),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Container(
-                                                padding: EdgeInsets.only(
-                                                  left:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.015,
-                                                  right:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.015,
-                                                  top:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  gradient: LinearGradient(
+                                                      begin:
+                                                          Alignment.centerLeft,
+                                                      end:
+                                                          Alignment.centerRight,
+                                                      stops: [
+                                                        0.5,
+                                                        0.9
+                                                      ],
+                                                      colors: [
+                                                        Color(0xFFffffff),
+                                                        Color(0xFFffffff)
+                                                      ])),
+                                              margin: EdgeInsets.only(
+                                                  left: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.00,
+                                                  right: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.00,
+                                                  bottom: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.00,
+                                                  top: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.00),
+                                              padding: EdgeInsets.only(
+                                                  left: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
                                                       0.005,
-                                                  bottom:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                  right: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
                                                       0.005,
-                                                ),
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment
-                                                      .center,
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .start,
-                                                  children: <Widget>[
-                                                    Expanded(
-                                                      flex: 1,
-                                                      child: Container(
-                                                        padding:
-                                                        EdgeInsets.only(
-                                                          left: MediaQuery.of(
-                                                              context)
-                                                              .size
-                                                              .height *
-                                                              0.00,
-                                                        ),
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                              130.0),
-                                                          child:
-                                                          Image.asset(
-                                                            'assets/Harmonebackground.png',
-                                                            fit:
-                                                            BoxFit.fill,
-                                                          ),
-                                                        ),
-                                                      ),
+                                                  bottom: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.005,
+                                                  top: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.005),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Container(
+                                                    padding: EdgeInsets.only(
+                                                      left:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.015,
+                                                      right:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.015,
+                                                      top:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.005,
+                                                      bottom:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.005,
                                                     ),
-                                                    SizedBox(
-                                                        width: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .height *
-                                                            0.02),
-                                                    Expanded(
-                                                      flex: 6,
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                        children: <Widget>[
-                                                          Container(
+                                                    child: Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Expanded(
+                                                          flex: 1,
+                                                          child: Container(
                                                             padding:
-                                                            EdgeInsets
-                                                                .only(
+                                                                EdgeInsets.only(
                                                               left: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
-                                                                  0.00,
-                                                              right: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
-                                                                  0.00,
-                                                              top: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
-                                                                  0.0,
-                                                              bottom: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
+                                                                          context)
+                                                                      .size
+                                                                      .height *
                                                                   0.00,
                                                             ),
-                                                            child: Text(
-                                                              "QCT Master Health Check Package",
-                                                              style:
-                                                              TextStyle(
-                                                                color: Colors
-                                                                    .black87,
-                                                                overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .w600,
-                                                                fontSize: MediaQuery.of(context)
-                                                                    .size
-                                                                    .height *
-                                                                    0.014,
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          130.0),
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/Harmonebackground.png',
+                                                                fit:
+                                                                    BoxFit.fill,
                                                               ),
                                                             ),
                                                           ),
-                                                          SizedBox(height: screenHeight * 0.005,),
-                                                          Container(
-                                                            padding:
-                                                            EdgeInsets
-                                                                .only(
-                                                              left: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
-                                                                  0.00,
-                                                              right: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
-                                                                  0.00,
-                                                              top: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
-                                                                  0.00,
-                                                              bottom: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
-                                                                  0.00,
-                                                            ),
-                                                            child: Text(
-                                                              "100 Tests Included",
-                                                              style:
-                                                              TextStyle(
-                                                                color: Colors
-                                                                    .black54,
-                                                                fontWeight:
-                                                                FontWeight
-                                                                    .w500,
-                                                                overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                                fontSize: MediaQuery.of(context)
+                                                        ),
+                                                        SizedBox(
+                                                            width: MediaQuery.of(
+                                                                        context)
                                                                     .size
                                                                     .height *
-                                                                    0.012,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    // Adding the side arrow at the end
-
-                                                    Expanded(
-                                                      flex: 2,
-                                                      child:
-                                                      Container(
-                                                        decoration: BoxDecoration(
-                                                          // color:Colors.white,
-                                                          borderRadius: BorderRadius.circular(15),
-                                                        ),
-                                                        // color:Colors.green[100],
-                                                        padding: EdgeInsets.only(
-                                                            left:
-                                                            MediaQuery.of(context).size.height * 0.0,
-                                                            right:
-                                                            MediaQuery.of(context).size.height * 0.0,
-                                                            top:
-                                                            MediaQuery.of(context).size.height * 0.00,
-                                                            bottom: MediaQuery.of(context).size.height *
-                                                                0.00),
-                                                        child: Row(
+                                                                0.02),
+                                                        Expanded(
+                                                          flex: 6,
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
                                                             mainAxisAlignment:
-                                                            MainAxisAlignment.end,
-                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                                MainAxisAlignment
+                                                                    .center,
                                                             children: <Widget>[
                                                               Container(
-                                                                margin:
-                                                                EdgeInsets.symmetric(horizontal: 2),
-                                                                height:
-                                                                MediaQuery.of(context).size.height *
-                                                                    0.005,
-                                                                width:
-                                                                MediaQuery.of(context).size.height *
-                                                                    0.005,
-                                                                decoration: BoxDecoration(
-                                                                  color: Color(0xFF12B76A),
-                                                                  shape: BoxShape.circle,
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                padding: EdgeInsets.only(
-                                                                  top: MediaQuery.of(context)
-                                                                      .size
-                                                                      .height *
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .only(
+                                                                  left: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .height *
                                                                       0.00,
-                                                                  bottom: MediaQuery.of(context)
-                                                                      .size
-                                                                      .height *
+                                                                  right: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .height *
                                                                       0.00,
-                                                                  left: MediaQuery.of(context)
-                                                                      .size
-                                                                      .height *
-                                                                      0.002,
-                                                                  right: MediaQuery.of(context)
-                                                                      .size
-                                                                      .height *
+                                                                  top: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .height *
+                                                                      0.0,
+                                                                  bottom: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .height *
                                                                       0.00,
                                                                 ),
                                                                 child: Text(
-                                                                  endtextbottomlist[index],
-                                                                  style: TextStyle(
+                                                                  "QCT Master Health Check Package",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black87,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
                                                                     fontSize: MediaQuery.of(context)
-                                                                        .size
-                                                                        .height *
+                                                                            .size
+                                                                            .height *
                                                                         0.014,
-                                                                    color: Color(0xFF12B76A),
-                                                                    fontWeight: FontWeight.w500,
                                                                   ),
-                                                                  overflow: TextOverflow.ellipsis,
-                                                                  textAlign: TextAlign.right,
                                                                 ),
                                                               ),
-                                                            ]),
-                                                      ),
+                                                              SizedBox(
+                                                                height:
+                                                                    screenHeight *
+                                                                        0.005,
+                                                              ),
+                                                              Container(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .only(
+                                                                  left: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .height *
+                                                                      0.00,
+                                                                  right: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .height *
+                                                                      0.00,
+                                                                  top: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .height *
+                                                                      0.00,
+                                                                  bottom: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .height *
+                                                                      0.00,
+                                                                ),
+                                                                child: Text(
+                                                                  "100 Tests Included",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black54,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    fontSize: MediaQuery.of(context)
+                                                                            .size
+                                                                            .height *
+                                                                        0.012,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        // Adding the side arrow at the end
+
+                                                        Expanded(
+                                                          flex: 2,
+                                                          child: Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              // color:Colors.white,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          15),
+                                                            ),
+                                                            // color:Colors.green[100],
+                                                            padding: EdgeInsets.only(
+                                                                left: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height *
+                                                                    0.0,
+                                                                right: MediaQuery
+                                                                            .of(
+                                                                                context)
+                                                                        .size
+                                                                        .height *
+                                                                    0.0,
+                                                                top: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height *
+                                                                    0.00,
+                                                                bottom: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height *
+                                                                    0.00),
+                                                            child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .end,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .center,
+                                                                children: <Widget>[
+                                                                  Container(
+                                                                    margin: EdgeInsets
+                                                                        .symmetric(
+                                                                            horizontal:
+                                                                                2),
+                                                                    height: MediaQuery.of(context)
+                                                                            .size
+                                                                            .height *
+                                                                        0.005,
+                                                                    width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .height *
+                                                                        0.005,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: Color(
+                                                                          0xFF12B76A),
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .only(
+                                                                      top: MediaQuery.of(context)
+                                                                              .size
+                                                                              .height *
+                                                                          0.00,
+                                                                      bottom: MediaQuery.of(context)
+                                                                              .size
+                                                                              .height *
+                                                                          0.00,
+                                                                      left: MediaQuery.of(context)
+                                                                              .size
+                                                                              .height *
+                                                                          0.002,
+                                                                      right: MediaQuery.of(context)
+                                                                              .size
+                                                                              .height *
+                                                                          0.00,
+                                                                    ),
+                                                                    child: Text(
+                                                                      endtextbottomlist[
+                                                                          index],
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontSize:
+                                                                            MediaQuery.of(context).size.height *
+                                                                                0.014,
+                                                                        color: Color(
+                                                                            0xFF12B76A),
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .right,
+                                                                    ),
+                                                                  ),
+                                                                ]),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-
-
-
-
-
-
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  )
-
-                              );
-                          },
-                        ),
-                      ),
-
-
+                                      ));
+                                },
+                              ),
+                            ),
                     ],
                   ),
                 ),
@@ -1618,10 +1780,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
         ]),
       ),
 
-
-
       // Bottom Navigation with another  positioned on the right
-      bottomNavigationBar:Container(
+      bottomNavigationBar: Container(
         height: MediaQuery.of(context).size.height * 0.1,
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
         child: Column(
@@ -1631,37 +1791,24 @@ class AddToCartMainstate extends State<AddToCartMain> {
             Container(
                 alignment: Alignment.centerRight,
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height *
-                        0.01,
-                    bottom: MediaQuery.of(context).size.height *
-                        0.00,
-                    left: MediaQuery.of(context).size.height *
-                        0.00,
-                    right: MediaQuery.of(context).size.height *
-                        0.00),
+                    top: MediaQuery.of(context).size.height * 0.01,
+                    bottom: MediaQuery.of(context).size.height * 0.00,
+                    left: MediaQuery.of(context).size.height * 0.00,
+                    right: MediaQuery.of(context).size.height * 0.00),
                 margin: EdgeInsets.only(
-                    right: MediaQuery.of(context).size.height *
-                        0.04,
-                    top: MediaQuery.of(context).size.height *
-                        0.01,
-                    bottom: MediaQuery.of(context).size.height *
-                        0.01,
-                    left: MediaQuery.of(context).size.height *
-                        0.04),
+                    right: MediaQuery.of(context).size.height * 0.04,
+                    top: MediaQuery.of(context).size.height * 0.01,
+                    bottom: MediaQuery.of(context).size.height * 0.01,
+                    left: MediaQuery.of(context).size.height * 0.04),
                 child: Row(
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Expanded(
                         child: Container(
                           decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.circular(
-                                  MediaQuery.of(context)
-                                      .size
-                                      .height *
-                                      0.012),
+                              borderRadius: BorderRadius.circular(
+                                  MediaQuery.of(context).size.height * 0.012),
                               gradient: LinearGradient(
                                   begin: Alignment.centerRight,
                                   end: Alignment.center,
@@ -1682,18 +1829,19 @@ class AddToCartMainstate extends State<AddToCartMain> {
                             child: Text("Next",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize:
-                                    MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.018,
+                                  color: Colors.white,
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.018,
                                   fontWeight: FontWeight.w600,
                                 )),
                             style: TextButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: 9.5, horizontal: 12.0), // ← Adjust this
-                              minimumSize: Size(0, 0), // Removes minimum button constraints
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Removes extra tap padding
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 9.5,
+                                  horizontal: 12.0), // ← Adjust this
+                              minimumSize: Size(
+                                  0, 0), // Removes minimum button constraints
+                              tapTargetSize: MaterialTapTargetSize
+                                  .shrinkWrap, // Removes extra tap padding
                             ),
                           ),
                         ),
@@ -1712,7 +1860,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
       if (selected == 0) {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => HomePageMain()),
-                (Route<dynamic> route) => false);
+            (Route<dynamic> route) => false);
       } else if (selected == 1) {
         Navigator.of(context).push(
           MaterialPageRoute(
@@ -1750,21 +1898,21 @@ class AddToCartMainstate extends State<AddToCartMain> {
   }
 
   void showBottomSheet() => showModalBottomSheet(
-    enableDrag: false,
-    isScrollControlled: true,
-    isDismissible: true,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(24),
-        topRight: Radius.circular(24),
-      ),
-    ),
-    barrierColor: Colors.grey.withOpacity(0.9),
-    context: context,
-    builder: (context) => StatefulBuilder(
-      builder: (BuildContext context,
-          StateSetter setState /*You can rename this!*/) =>
-          Padding(
+        enableDrag: false,
+        isScrollControlled: true,
+        isDismissible: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
+        ),
+        barrierColor: Colors.grey.withOpacity(0.9),
+        context: context,
+        builder: (context) => StatefulBuilder(
+          builder: (BuildContext context,
+                  StateSetter setState /*You can rename this!*/) =>
+              Padding(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Column(
@@ -1805,7 +1953,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                               height: 0,
                               indent: 0,
                               thickness:
-                              MediaQuery.of(context).size.height * 0.008,
+                                  MediaQuery.of(context).size.height * 0.008,
                               color: Color(0xFF95C8D6).withOpacity(0.3),
                             ),
                           ),
@@ -1815,28 +1963,28 @@ class AddToCartMainstate extends State<AddToCartMain> {
                             padding: EdgeInsets.only(
                                 left: MediaQuery.of(context).size.height * 0.0,
                                 right:
-                                MediaQuery.of(context).size.height * 0.02,
+                                    MediaQuery.of(context).size.height * 0.02,
                                 bottom:
-                                MediaQuery.of(context).size.height * 0.00),
+                                    MediaQuery.of(context).size.height * 0.00),
                             child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Container(
                                     padding: EdgeInsets.only(
                                         left:
-                                        MediaQuery.of(context).size.height *
-                                            0.00,
+                                            MediaQuery.of(context).size.height *
+                                                0.00,
                                         right:
-                                        MediaQuery.of(context).size.height *
-                                            0.00,
+                                            MediaQuery.of(context).size.height *
+                                                0.00,
                                         top:
-                                        MediaQuery.of(context).size.height *
-                                            0.00,
+                                            MediaQuery.of(context).size.height *
+                                                0.00,
                                         bottom:
-                                        MediaQuery.of(context).size.height *
-                                            0.00),
+                                            MediaQuery.of(context).size.height *
+                                                0.00),
                                     child: Text(
                                       "Select the Type of Appointment",
                                       style: TextStyle(
@@ -1844,8 +1992,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                         fontWeight: FontWeight.bold,
                                         overflow: TextOverflow.ellipsis,
                                         fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.02,
+                                            MediaQuery.of(context).size.height *
+                                                0.02,
                                       ),
                                     ),
                                   ),
@@ -1893,11 +2041,11 @@ class AddToCartMainstate extends State<AddToCartMain> {
 
                               padding: EdgeInsets.only(
                                   left:
-                                  MediaQuery.of(context).size.height * 0.00,
+                                      MediaQuery.of(context).size.height * 0.00,
                                   right:
-                                  MediaQuery.of(context).size.height * 0.00,
+                                      MediaQuery.of(context).size.height * 0.00,
                                   bottom:
-                                  MediaQuery.of(context).size.height * 0.0,
+                                      MediaQuery.of(context).size.height * 0.0,
                                   top: MediaQuery.of(context).size.height *
                                       0.00),
                               // color: Colors.white,
@@ -1933,59 +2081,59 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                     Container(
                                       padding: EdgeInsets.only(
                                         left:
-                                        MediaQuery.of(context).size.height *
-                                            0.005,
+                                            MediaQuery.of(context).size.height *
+                                                0.005,
                                         right:
-                                        MediaQuery.of(context).size.height *
-                                            0.005,
+                                            MediaQuery.of(context).size.height *
+                                                0.005,
                                         top:
-                                        MediaQuery.of(context).size.height *
-                                            0.00,
+                                            MediaQuery.of(context).size.height *
+                                                0.00,
                                         bottom:
-                                        MediaQuery.of(context).size.height *
-                                            0.00,
+                                            MediaQuery.of(context).size.height *
+                                                0.00,
                                       ),
                                       child: Row(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                         children: <Widget>[
                                           Expanded(
                                             flex: 1,
                                             child: Container(
                                               padding: EdgeInsets.only(
                                                 left: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
+                                                        .size
+                                                        .height *
                                                     0.00,
                                               ),
                                               child: Container(
                                                 margin: EdgeInsets.only(
                                                   left: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.01,
                                                   right: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.01,
                                                   top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.01,
                                                   bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.01,
                                                 ),
                                                 height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
+                                                        .size
+                                                        .height *
                                                     0.025,
                                                 width: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
+                                                        .size
+                                                        .height *
                                                     0.025,
                                                 child: Image.asset(
                                                   'assets/AppointmentBs.png',
@@ -1996,51 +2144,51 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                           ),
                                           SizedBox(
                                               width: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
+                                                      .size
+                                                      .height *
                                                   0.010),
                                           Expanded(
                                             flex: 8,
                                             child: Column(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Container(
                                                   padding: EdgeInsets.only(
                                                     left: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
+                                                            .size
+                                                            .height *
                                                         0.00,
                                                     right:
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.00,
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.00,
                                                     top: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
+                                                            .size
+                                                            .height *
                                                         0.0,
                                                     bottom:
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.00,
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.00,
                                                   ),
                                                   child: Text(
                                                     "Appointments",
                                                     style: TextStyle(
                                                       color: Color(0xFF126086),
                                                       overflow:
-                                                      TextOverflow.ellipsis,
+                                                          TextOverflow.ellipsis,
                                                       fontWeight:
-                                                      FontWeight.bold,
+                                                          FontWeight.bold,
                                                       fontSize:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.014,
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.014,
                                                     ),
                                                   ),
                                                 ),
@@ -2051,8 +2199,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                           Icon(
                                             Icons.arrow_forward_ios,
                                             size: MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                                    .size
+                                                    .height *
                                                 0.018,
                                             // Dynamic icon size
                                             color: Color(0xFF126086),
@@ -2107,11 +2255,11 @@ class AddToCartMainstate extends State<AddToCartMain> {
 
                               padding: EdgeInsets.only(
                                   left:
-                                  MediaQuery.of(context).size.height * 0.00,
+                                      MediaQuery.of(context).size.height * 0.00,
                                   right:
-                                  MediaQuery.of(context).size.height * 0.00,
+                                      MediaQuery.of(context).size.height * 0.00,
                                   bottom:
-                                  MediaQuery.of(context).size.height * 0.0,
+                                      MediaQuery.of(context).size.height * 0.0,
                                   top: MediaQuery.of(context).size.height *
                                       0.00),
                               // color: Colors.white,
@@ -2147,59 +2295,59 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                     Container(
                                       padding: EdgeInsets.only(
                                         left:
-                                        MediaQuery.of(context).size.height *
-                                            0.005,
+                                            MediaQuery.of(context).size.height *
+                                                0.005,
                                         right:
-                                        MediaQuery.of(context).size.height *
-                                            0.005,
+                                            MediaQuery.of(context).size.height *
+                                                0.005,
                                         top:
-                                        MediaQuery.of(context).size.height *
-                                            0.00,
+                                            MediaQuery.of(context).size.height *
+                                                0.00,
                                         bottom:
-                                        MediaQuery.of(context).size.height *
-                                            0.00,
+                                            MediaQuery.of(context).size.height *
+                                                0.00,
                                       ),
                                       child: Row(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                         children: <Widget>[
                                           Expanded(
                                             flex: 1,
                                             child: Container(
                                               padding: EdgeInsets.only(
                                                 left: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
+                                                        .size
+                                                        .height *
                                                     0.00,
                                               ),
                                               child: Container(
                                                 margin: EdgeInsets.only(
                                                   left: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.01,
                                                   right: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.01,
                                                   top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.01,
                                                   bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.01,
                                                 ),
                                                 height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
+                                                        .size
+                                                        .height *
                                                     0.025,
                                                 width: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
+                                                        .size
+                                                        .height *
                                                     0.025,
                                                 child: Image.asset(
                                                   'assets/TestServicesBs.png',
@@ -2210,51 +2358,51 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                           ),
                                           SizedBox(
                                               width: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
+                                                      .size
+                                                      .height *
                                                   0.010),
                                           Expanded(
                                             flex: 8,
                                             child: Column(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Container(
                                                   padding: EdgeInsets.only(
                                                     left: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
+                                                            .size
+                                                            .height *
                                                         0.00,
                                                     right:
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.00,
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.00,
                                                     top: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
+                                                            .size
+                                                            .height *
                                                         0.0,
                                                     bottom:
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.00,
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.00,
                                                   ),
                                                   child: Text(
                                                     "Test & Services",
                                                     style: TextStyle(
                                                       color: Color(0xFF126086),
                                                       overflow:
-                                                      TextOverflow.ellipsis,
+                                                          TextOverflow.ellipsis,
                                                       fontWeight:
-                                                      FontWeight.bold,
+                                                          FontWeight.bold,
                                                       fontSize:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.014,
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.014,
                                                     ),
                                                   ),
                                                 ),
@@ -2265,8 +2413,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                           Icon(
                                             Icons.arrow_forward_ios,
                                             size: MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                                    .size
+                                                    .height *
                                                 0.018,
                                             // Dynamic icon size
                                             color: Color(0xFF126086),
@@ -2287,8 +2435,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
               ],
             ),
           ),
-    ),
-  );
+        ),
+      );
 
   // Payment methods
   // void showPaymentmethodsBottomSheet() => showModalBottomSheet(
@@ -2769,516 +2917,515 @@ class AddToCartMainstate extends State<AddToCartMain> {
         return BottomSheetForPayment();
       }
 
-
-    //     StatefulBuilder(
-    //   builder: (BuildContext context,
-    //           StateSetter setState /*You can rename this!*/) =>
-    //       Padding(
-    //     padding: EdgeInsets.only(
-    //         bottom: MediaQuery.of(context).viewInsets.bottom),
-    //     child: Column(
-    //       mainAxisSize: MainAxisSize.min,
-    //       children: <Widget>[
-    //         GestureDetector(
-    //
-    //
-    //           child: Center(
-    //             child: Container(
-    //
-    //               padding: EdgeInsets.only(
-    //                 top: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height * 0.01 ,
-    //                 bottom: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height * 0.03,
-    //                 left: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height * 0.18,
-    //                 right: MediaQuery
-    //                     .of(context)
-    //                     .size
-    //                     .height * 0.18,
-    //               ),
-    //
-    //
-    //               width: MediaQuery
-    //                   .of(context)
-    //                   .size
-    //                   .width * 0.23,
-    //               // Same thickness as Divider
-    //               height: MediaQuery
-    //                   .of(context)
-    //                   .size
-    //                   .height * 0.006,
-    //               // Same thickness as Divider
-    //               decoration: BoxDecoration(
-    //                 color: Color(0xFFD9D9D9), // Divider color
-    //                 borderRadius: BorderRadius.circular(
-    //                     10), // Rounded edges
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //         SizedBox(height : MediaQuery.of(context).size.height * 0.02),
-    //
-    //         Container(
-    //           padding: EdgeInsets.only(
-    //               left: MediaQuery.of(context).size.height * 0.020,
-    //               right: MediaQuery.of(context).size.height * 0.020,
-    //               top: MediaQuery.of(context).size.height * 0.030,
-    //               bottom: MediaQuery.of(context).size.height * 0.00),
-    //           child: Row(
-    //             crossAxisAlignment: CrossAxisAlignment.center,
-    //             mainAxisAlignment: MainAxisAlignment.start,
-    //             children: <Widget>[
-    //               Expanded(
-    //                 child: Column(
-    //                   crossAxisAlignment: CrossAxisAlignment.start,
-    //                   mainAxisAlignment: MainAxisAlignment.center,
-    //                   children: <Widget>[
-    //                     Text(
-    //                       "Payment Methods",
-    //                       style: TextStyle(
-    //                           color: Colors.black,
-    //                           fontWeight: FontWeight.bold,
-    //                           fontSize: MediaQuery.of(context).size.height *
-    //                               0.024),
-    //                     ),
-    //                     Container(
-    //                       padding: EdgeInsets.only(
-    //                         top: MediaQuery.of(context).size.height * 0.00,
-    //                         bottom:
-    //                             MediaQuery.of(context).size.height * 0.02,
-    //                         left: MediaQuery.of(context).size.height * 0.00,
-    //                         right:
-    //                             MediaQuery.of(context).size.height * 0.00,
-    //                       ),
-    //                       child: Text(
-    //                         "Please Select a payment method",
-    //                         textAlign: TextAlign.center,
-    //                         style: TextStyle(
-    //                             color: Colors.black54,
-    //                             fontSize:
-    //                                 MediaQuery.of(context).size.height *
-    //                                     0.018),
-    //                       ),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ),
-    //
-    //               // SizedBox(width: MediaQuery.of(context).size.height * 0.040),
-    //             ],
-    //           ),
-    //         ),
-    //
-    //         // Payment mode
-    //         // 1
-    //         Container(
-    //           margin: EdgeInsets.only(
-    //             top: MediaQuery.of(context).size.height * 0.00,
-    //             bottom: MediaQuery.of(context).size.height * 0.01,
-    //             left: MediaQuery.of(context).size.height * 0.01,
-    //             right: MediaQuery.of(context).size.height * 0.01,
-    //           ),
-    //           padding: EdgeInsets.only(
-    //             top: MediaQuery.of(context).size.height * 0.00,
-    //             bottom: MediaQuery.of(context).size.height * 0.00,
-    //             left: MediaQuery.of(context).size.height * 0.01,
-    //             right: MediaQuery.of(context).size.height * 0.00,
-    //           ),
-    //           decoration: BoxDecoration(
-    //             border: Border.all(
-    //               color: Colors.grey,
-    //               width: 1.0,
-    //             ),
-    //             borderRadius: BorderRadius.circular(8.0),
-    //           ),
-    //           child: Row(
-    //             mainAxisAlignment: MainAxisAlignment.start,
-    //             crossAxisAlignment: CrossAxisAlignment.center,
-    //             children: [
-    //               // Image from assets
-    //               Container(
-    //                 width: MediaQuery.of(context).size.height * 0.07,
-    //                 height: MediaQuery.of(context).size.height * 0.07,
-    //                 margin: EdgeInsets.only(
-    //                   top: MediaQuery.of(context).size.height * 0.01,
-    //                   bottom: MediaQuery.of(context).size.height * 0.01,
-    //                   left: MediaQuery.of(context).size.height * 0.01,
-    //                   right: MediaQuery.of(context).size.height * 0.01,
-    //                 ),
-    //                 decoration: BoxDecoration(
-    //                   borderRadius: BorderRadius.circular(4.0),
-    //                   image: DecorationImage(
-    //                     image: AssetImage(
-    //                         'assets/visapay.png'), // Replace with your asset path
-    //                     fit: BoxFit.cover,
-    //                   ),
-    //                 ),
-    //               ),
-    //               // Column with two Text widgets
-    //               Expanded(
-    //                 child: Column(
-    //                   crossAxisAlignment: CrossAxisAlignment.start,
-    //                   children: [
-    //                     Text(
-    //                       '**** **** 3434',
-    //                       style: TextStyle(
-    //                         fontWeight: FontWeight.bold,
-    //                         fontSize:
-    //                             MediaQuery.of(context).size.height * 0.018,
-    //                         color: Colors.black,
-    //                       ),
-    //                     ),
-    //                     Text(
-    //                       'Visa',
-    //                       style: TextStyle(
-    //                         fontSize:
-    //                             MediaQuery.of(context).size.height * 0.016,
-    //                         color: Colors.black,
-    //                       ),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ),
-    //               // Circular Radio Button
-    //               Radio<int>(
-    //                 value: 1, // The value for this radio button
-    //                 groupValue: 0, // The currently selected value
-    //                 onChanged: (int? value) {
-    //                   // Handle radio button change
-    //                 },
-    //               ),
-    //             ],
-    //           ),
-    //         ),
-    //
-    //         // 2
-    //         Container(
-    //           margin: EdgeInsets.only(
-    //             top: MediaQuery.of(context).size.height * 0.00,
-    //             bottom: MediaQuery.of(context).size.height * 0.01,
-    //             left: MediaQuery.of(context).size.height * 0.01,
-    //             right: MediaQuery.of(context).size.height * 0.01,
-    //           ),
-    //           padding: EdgeInsets.only(
-    //             top: MediaQuery.of(context).size.height * 0.00,
-    //             bottom: MediaQuery.of(context).size.height * 0.00,
-    //             left: MediaQuery.of(context).size.height * 0.01,
-    //             right: MediaQuery.of(context).size.height * 0.00,
-    //           ),
-    //           decoration: BoxDecoration(
-    //             border: Border.all(
-    //               color: Colors.grey,
-    //               width: 1.0,
-    //             ),
-    //             borderRadius: BorderRadius.circular(8.0),
-    //           ),
-    //           child: Row(
-    //             mainAxisAlignment: MainAxisAlignment.start,
-    //             crossAxisAlignment: CrossAxisAlignment.center,
-    //             children: [
-    //               // Image from assets
-    //               Container(
-    //                 width: MediaQuery.of(context).size.height * 0.07,
-    //                 height: MediaQuery.of(context).size.height * 0.07,
-    //                 margin: EdgeInsets.only(
-    //                   top: MediaQuery.of(context).size.height * 0.01,
-    //                   bottom: MediaQuery.of(context).size.height * 0.01,
-    //                   left: MediaQuery.of(context).size.height * 0.01,
-    //                   right: MediaQuery.of(context).size.height * 0.01,
-    //                 ),
-    //                 decoration: BoxDecoration(
-    //                   borderRadius: BorderRadius.circular(4.0),
-    //                   image: DecorationImage(
-    //                     image: AssetImage(
-    //                         'assets/paypalpay.png'), // Replace with your asset path
-    //                     fit: BoxFit.cover,
-    //                   ),
-    //                 ),
-    //               ),
-    //               // Column with two Text widgets
-    //               Expanded(
-    //                 child: Column(
-    //                   crossAxisAlignment: CrossAxisAlignment.start,
-    //                   children: [
-    //                     Text(
-    //                       '**** **** 3434',
-    //                       style: TextStyle(
-    //                         fontWeight: FontWeight.bold,
-    //                         fontSize:
-    //                             MediaQuery.of(context).size.height * 0.018,
-    //                         color: Colors.black,
-    //                       ),
-    //                     ),
-    //                     Text(
-    //                       'Paypal',
-    //                       style: TextStyle(
-    //                         fontSize:
-    //                             MediaQuery.of(context).size.height * 0.016,
-    //                         color: Colors.black,
-    //                       ),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ),
-    //               // Circular Radio Button
-    //               Radio<int>(
-    //                 value: 1, // The value for this radio button
-    //                 groupValue: 0, // The currently selected value
-    //                 onChanged: (int? value) {
-    //                   // Handle radio button change
-    //                 },
-    //               ),
-    //             ],
-    //           ),
-    //         ),
-    //
-    //         // 3
-    //         Container(
-    //           margin: EdgeInsets.only(
-    //             top: MediaQuery.of(context).size.height * 0.00,
-    //             bottom: MediaQuery.of(context).size.height * 0.01,
-    //             left: MediaQuery.of(context).size.height * 0.01,
-    //             right: MediaQuery.of(context).size.height * 0.01,
-    //           ),
-    //           padding: EdgeInsets.only(
-    //             top: MediaQuery.of(context).size.height * 0.00,
-    //             bottom: MediaQuery.of(context).size.height * 0.00,
-    //             left: MediaQuery.of(context).size.height * 0.01,
-    //             right: MediaQuery.of(context).size.height * 0.00,
-    //           ),
-    //           decoration: BoxDecoration(
-    //             border: Border.all(
-    //               color: Colors.grey,
-    //               width: 1.0,
-    //             ),
-    //             borderRadius: BorderRadius.circular(8.0),
-    //           ),
-    //           child: Row(
-    //             mainAxisAlignment: MainAxisAlignment.start,
-    //             crossAxisAlignment: CrossAxisAlignment.center,
-    //             children: [
-    //               // Image from assets
-    //               Container(
-    //                 width: MediaQuery.of(context).size.height * 0.07,
-    //                 height: MediaQuery.of(context).size.height * 0.07,
-    //                 margin: EdgeInsets.only(
-    //                   top: MediaQuery.of(context).size.height * 0.01,
-    //                   bottom: MediaQuery.of(context).size.height * 0.01,
-    //                   left: MediaQuery.of(context).size.height * 0.01,
-    //                   right: MediaQuery.of(context).size.height * 0.01,
-    //                 ),
-    //                 decoration: BoxDecoration(
-    //                   borderRadius: BorderRadius.circular(4.0),
-    //                   image: DecorationImage(
-    //                     image: AssetImage(
-    //                         'assets/applepay.png'), // Replace with your asset path
-    //                     fit: BoxFit.cover,
-    //                   ),
-    //                 ),
-    //               ),
-    //               // Column with two Text widgets
-    //               Expanded(
-    //                 child: Column(
-    //                   crossAxisAlignment: CrossAxisAlignment.start,
-    //                   children: [
-    //                     Text(
-    //                       'Priya Krishamurty',
-    //                       style: TextStyle(
-    //                         fontWeight: FontWeight.bold,
-    //                         fontSize:
-    //                             MediaQuery.of(context).size.height * 0.018,
-    //                         color: Colors.black,
-    //                       ),
-    //                     ),
-    //                     Text(
-    //                       'Apple Pay',
-    //                       style: TextStyle(
-    //                         fontSize:
-    //                             MediaQuery.of(context).size.height * 0.016,
-    //                         color: Colors.black,
-    //                       ),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ),
-    //               // Circular Radio Button
-    //               Radio<int>(
-    //                 value: 1, // The value for this radio button
-    //                 groupValue: 0, // The currently selected value
-    //                 onChanged: (int? value) {
-    //                   // Handle radio button change
-    //                 },
-    //               ),
-    //             ],
-    //           ),
-    //         ),
-    //
-    //         // 4
-    //         Container(
-    //           margin: EdgeInsets.only(
-    //             top: MediaQuery.of(context).size.height * 0.00,
-    //             bottom: MediaQuery.of(context).size.height * 0.00,
-    //             left: MediaQuery.of(context).size.height * 0.01,
-    //             right: MediaQuery.of(context).size.height * 0.01,
-    //           ),
-    //           padding: EdgeInsets.only(
-    //             top: MediaQuery.of(context).size.height * 0.00,
-    //             bottom: MediaQuery.of(context).size.height * 0.00,
-    //             left: MediaQuery.of(context).size.height * 0.01,
-    //             right: MediaQuery.of(context).size.height * 0.00,
-    //           ),
-    //           decoration: BoxDecoration(
-    //             border: Border.all(
-    //               color: Colors.grey,
-    //               width: 1.0,
-    //             ),
-    //             borderRadius: BorderRadius.circular(8.0),
-    //           ),
-    //           child: Row(
-    //             mainAxisAlignment: MainAxisAlignment.start,
-    //             crossAxisAlignment: CrossAxisAlignment.center,
-    //             children: [
-    //               // Image from assets
-    //               Container(
-    //                 width: MediaQuery.of(context).size.height * 0.07,
-    //                 height: MediaQuery.of(context).size.height * 0.07,
-    //                 margin: EdgeInsets.only(
-    //                   top: MediaQuery.of(context).size.height * 0.01,
-    //                   bottom: MediaQuery.of(context).size.height * 0.01,
-    //                   left: MediaQuery.of(context).size.height * 0.01,
-    //                   right: MediaQuery.of(context).size.height * 0.01,
-    //                 ),
-    //                 decoration: BoxDecoration(
-    //                   borderRadius: BorderRadius.circular(4.0),
-    //                   image: DecorationImage(
-    //                     image: AssetImage(
-    //                         'assets/googlepay.png'), // Replace with your asset path
-    //                     fit: BoxFit.cover,
-    //                   ),
-    //                 ),
-    //               ),
-    //               // Column with two Text widgets
-    //               Expanded(
-    //                 child: Column(
-    //                   crossAxisAlignment: CrossAxisAlignment.start,
-    //                   children: [
-    //                     Text(
-    //                       'Priya Krishamurty',
-    //                       style: TextStyle(
-    //                         fontWeight: FontWeight.bold,
-    //                         fontSize:
-    //                             MediaQuery.of(context).size.height * 0.018,
-    //                         color: Colors.black,
-    //                       ),
-    //                     ),
-    //                     Text(
-    //                       'Google Pay',
-    //                       style: TextStyle(
-    //                         fontSize:
-    //                             MediaQuery.of(context).size.height * 0.016,
-    //                         color: Colors.black,
-    //                       ),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ),
-    //               // Circular Radio Button
-    //               Radio<int>(
-    //                 value: 1, // The value for this radio button
-    //                 groupValue: 0, // The currently selected value
-    //                 onChanged: (int? value) {
-    //                   // Handle radio button change
-    //                 },
-    //               ),
-    //             ],
-    //           ),
-    //         ),
-    //
-    //         // Continue
-    //         GestureDetector(
-    //           onTap: () async {
-    //             showsucessalertBottomSheet();
-    //           },
-    //           child: Container(
-    //               alignment: Alignment.centerRight,
-    //               padding: EdgeInsets.only(
-    //                   top: MediaQuery.of(context).size.height * 0.01,
-    //                   bottom: MediaQuery.of(context).size.height * 0.00,
-    //                   left: MediaQuery.of(context).size.height * 0.00,
-    //                   right: MediaQuery.of(context).size.height * 0.00),
-    //               margin: EdgeInsets.only(
-    //                   right: MediaQuery.of(context).size.height * 0.03,
-    //                   top: MediaQuery.of(context).size.height * 0.01,
-    //                   bottom: MediaQuery.of(context).size.height * 0.01,
-    //                   left: MediaQuery.of(context).size.height * 0.03),
-    //               child: Row(
-    //                   crossAxisAlignment: CrossAxisAlignment.start,
-    //                   mainAxisAlignment: MainAxisAlignment.center,
-    //                   children: <Widget>[
-    //                     Expanded(
-    //                       child: Container(
-    //                         decoration: BoxDecoration(
-    //                             borderRadius: BorderRadius.circular(
-    //                                 MediaQuery.of(context).size.height *
-    //                                     0.012),
-    //                             gradient: LinearGradient(
-    //                                 begin: Alignment.centerRight,
-    //                                 end: Alignment.center,
-    //                                 stops: [
-    //                                   0.5,
-    //                                   0.9
-    //                                 ],
-    //                                 colors: [
-    //                                   Color(0xFF126086),
-    //                                   Color(0xFF126086),
-    //                                 ])),
-    //                         alignment: Alignment.center,
-    //                         padding: EdgeInsets.only(left: 0.0),
-    //                         child: TextButton(
-    //                           onPressed: () async {
-    //                             showsucessalertBottomSheet();
-    //                           },
-    //                           child: Text("Continue",
-    //                               textAlign: TextAlign.center,
-    //                               style: TextStyle(
-    //                                   color: Colors.white,
-    //                                   fontSize: MediaQuery.of(context)
-    //                                           .size
-    //                                           .height *
-    //                                       0.02)),
-    //                         ),
-    //                       ),
-    //                     ),
-    //                   ])),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // ),
-  );
+      //     StatefulBuilder(
+      //   builder: (BuildContext context,
+      //           StateSetter setState /*You can rename this!*/) =>
+      //       Padding(
+      //     padding: EdgeInsets.only(
+      //         bottom: MediaQuery.of(context).viewInsets.bottom),
+      //     child: Column(
+      //       mainAxisSize: MainAxisSize.min,
+      //       children: <Widget>[
+      //         GestureDetector(
+      //
+      //
+      //           child: Center(
+      //             child: Container(
+      //
+      //               padding: EdgeInsets.only(
+      //                 top: MediaQuery
+      //                     .of(context)
+      //                     .size
+      //                     .height * 0.01 ,
+      //                 bottom: MediaQuery
+      //                     .of(context)
+      //                     .size
+      //                     .height * 0.03,
+      //                 left: MediaQuery
+      //                     .of(context)
+      //                     .size
+      //                     .height * 0.18,
+      //                 right: MediaQuery
+      //                     .of(context)
+      //                     .size
+      //                     .height * 0.18,
+      //               ),
+      //
+      //
+      //               width: MediaQuery
+      //                   .of(context)
+      //                   .size
+      //                   .width * 0.23,
+      //               // Same thickness as Divider
+      //               height: MediaQuery
+      //                   .of(context)
+      //                   .size
+      //                   .height * 0.006,
+      //               // Same thickness as Divider
+      //               decoration: BoxDecoration(
+      //                 color: Color(0xFFD9D9D9), // Divider color
+      //                 borderRadius: BorderRadius.circular(
+      //                     10), // Rounded edges
+      //               ),
+      //             ),
+      //           ),
+      //         ),
+      //         SizedBox(height : MediaQuery.of(context).size.height * 0.02),
+      //
+      //         Container(
+      //           padding: EdgeInsets.only(
+      //               left: MediaQuery.of(context).size.height * 0.020,
+      //               right: MediaQuery.of(context).size.height * 0.020,
+      //               top: MediaQuery.of(context).size.height * 0.030,
+      //               bottom: MediaQuery.of(context).size.height * 0.00),
+      //           child: Row(
+      //             crossAxisAlignment: CrossAxisAlignment.center,
+      //             mainAxisAlignment: MainAxisAlignment.start,
+      //             children: <Widget>[
+      //               Expanded(
+      //                 child: Column(
+      //                   crossAxisAlignment: CrossAxisAlignment.start,
+      //                   mainAxisAlignment: MainAxisAlignment.center,
+      //                   children: <Widget>[
+      //                     Text(
+      //                       "Payment Methods",
+      //                       style: TextStyle(
+      //                           color: Colors.black,
+      //                           fontWeight: FontWeight.bold,
+      //                           fontSize: MediaQuery.of(context).size.height *
+      //                               0.024),
+      //                     ),
+      //                     Container(
+      //                       padding: EdgeInsets.only(
+      //                         top: MediaQuery.of(context).size.height * 0.00,
+      //                         bottom:
+      //                             MediaQuery.of(context).size.height * 0.02,
+      //                         left: MediaQuery.of(context).size.height * 0.00,
+      //                         right:
+      //                             MediaQuery.of(context).size.height * 0.00,
+      //                       ),
+      //                       child: Text(
+      //                         "Please Select a payment method",
+      //                         textAlign: TextAlign.center,
+      //                         style: TextStyle(
+      //                             color: Colors.black54,
+      //                             fontSize:
+      //                                 MediaQuery.of(context).size.height *
+      //                                     0.018),
+      //                       ),
+      //                     ),
+      //                   ],
+      //                 ),
+      //               ),
+      //
+      //               // SizedBox(width: MediaQuery.of(context).size.height * 0.040),
+      //             ],
+      //           ),
+      //         ),
+      //
+      //         // Payment mode
+      //         // 1
+      //         Container(
+      //           margin: EdgeInsets.only(
+      //             top: MediaQuery.of(context).size.height * 0.00,
+      //             bottom: MediaQuery.of(context).size.height * 0.01,
+      //             left: MediaQuery.of(context).size.height * 0.01,
+      //             right: MediaQuery.of(context).size.height * 0.01,
+      //           ),
+      //           padding: EdgeInsets.only(
+      //             top: MediaQuery.of(context).size.height * 0.00,
+      //             bottom: MediaQuery.of(context).size.height * 0.00,
+      //             left: MediaQuery.of(context).size.height * 0.01,
+      //             right: MediaQuery.of(context).size.height * 0.00,
+      //           ),
+      //           decoration: BoxDecoration(
+      //             border: Border.all(
+      //               color: Colors.grey,
+      //               width: 1.0,
+      //             ),
+      //             borderRadius: BorderRadius.circular(8.0),
+      //           ),
+      //           child: Row(
+      //             mainAxisAlignment: MainAxisAlignment.start,
+      //             crossAxisAlignment: CrossAxisAlignment.center,
+      //             children: [
+      //               // Image from assets
+      //               Container(
+      //                 width: MediaQuery.of(context).size.height * 0.07,
+      //                 height: MediaQuery.of(context).size.height * 0.07,
+      //                 margin: EdgeInsets.only(
+      //                   top: MediaQuery.of(context).size.height * 0.01,
+      //                   bottom: MediaQuery.of(context).size.height * 0.01,
+      //                   left: MediaQuery.of(context).size.height * 0.01,
+      //                   right: MediaQuery.of(context).size.height * 0.01,
+      //                 ),
+      //                 decoration: BoxDecoration(
+      //                   borderRadius: BorderRadius.circular(4.0),
+      //                   image: DecorationImage(
+      //                     image: AssetImage(
+      //                         'assets/visapay.png'), // Replace with your asset path
+      //                     fit: BoxFit.cover,
+      //                   ),
+      //                 ),
+      //               ),
+      //               // Column with two Text widgets
+      //               Expanded(
+      //                 child: Column(
+      //                   crossAxisAlignment: CrossAxisAlignment.start,
+      //                   children: [
+      //                     Text(
+      //                       '**** **** 3434',
+      //                       style: TextStyle(
+      //                         fontWeight: FontWeight.bold,
+      //                         fontSize:
+      //                             MediaQuery.of(context).size.height * 0.018,
+      //                         color: Colors.black,
+      //                       ),
+      //                     ),
+      //                     Text(
+      //                       'Visa',
+      //                       style: TextStyle(
+      //                         fontSize:
+      //                             MediaQuery.of(context).size.height * 0.016,
+      //                         color: Colors.black,
+      //                       ),
+      //                     ),
+      //                   ],
+      //                 ),
+      //               ),
+      //               // Circular Radio Button
+      //               Radio<int>(
+      //                 value: 1, // The value for this radio button
+      //                 groupValue: 0, // The currently selected value
+      //                 onChanged: (int? value) {
+      //                   // Handle radio button change
+      //                 },
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //
+      //         // 2
+      //         Container(
+      //           margin: EdgeInsets.only(
+      //             top: MediaQuery.of(context).size.height * 0.00,
+      //             bottom: MediaQuery.of(context).size.height * 0.01,
+      //             left: MediaQuery.of(context).size.height * 0.01,
+      //             right: MediaQuery.of(context).size.height * 0.01,
+      //           ),
+      //           padding: EdgeInsets.only(
+      //             top: MediaQuery.of(context).size.height * 0.00,
+      //             bottom: MediaQuery.of(context).size.height * 0.00,
+      //             left: MediaQuery.of(context).size.height * 0.01,
+      //             right: MediaQuery.of(context).size.height * 0.00,
+      //           ),
+      //           decoration: BoxDecoration(
+      //             border: Border.all(
+      //               color: Colors.grey,
+      //               width: 1.0,
+      //             ),
+      //             borderRadius: BorderRadius.circular(8.0),
+      //           ),
+      //           child: Row(
+      //             mainAxisAlignment: MainAxisAlignment.start,
+      //             crossAxisAlignment: CrossAxisAlignment.center,
+      //             children: [
+      //               // Image from assets
+      //               Container(
+      //                 width: MediaQuery.of(context).size.height * 0.07,
+      //                 height: MediaQuery.of(context).size.height * 0.07,
+      //                 margin: EdgeInsets.only(
+      //                   top: MediaQuery.of(context).size.height * 0.01,
+      //                   bottom: MediaQuery.of(context).size.height * 0.01,
+      //                   left: MediaQuery.of(context).size.height * 0.01,
+      //                   right: MediaQuery.of(context).size.height * 0.01,
+      //                 ),
+      //                 decoration: BoxDecoration(
+      //                   borderRadius: BorderRadius.circular(4.0),
+      //                   image: DecorationImage(
+      //                     image: AssetImage(
+      //                         'assets/paypalpay.png'), // Replace with your asset path
+      //                     fit: BoxFit.cover,
+      //                   ),
+      //                 ),
+      //               ),
+      //               // Column with two Text widgets
+      //               Expanded(
+      //                 child: Column(
+      //                   crossAxisAlignment: CrossAxisAlignment.start,
+      //                   children: [
+      //                     Text(
+      //                       '**** **** 3434',
+      //                       style: TextStyle(
+      //                         fontWeight: FontWeight.bold,
+      //                         fontSize:
+      //                             MediaQuery.of(context).size.height * 0.018,
+      //                         color: Colors.black,
+      //                       ),
+      //                     ),
+      //                     Text(
+      //                       'Paypal',
+      //                       style: TextStyle(
+      //                         fontSize:
+      //                             MediaQuery.of(context).size.height * 0.016,
+      //                         color: Colors.black,
+      //                       ),
+      //                     ),
+      //                   ],
+      //                 ),
+      //               ),
+      //               // Circular Radio Button
+      //               Radio<int>(
+      //                 value: 1, // The value for this radio button
+      //                 groupValue: 0, // The currently selected value
+      //                 onChanged: (int? value) {
+      //                   // Handle radio button change
+      //                 },
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //
+      //         // 3
+      //         Container(
+      //           margin: EdgeInsets.only(
+      //             top: MediaQuery.of(context).size.height * 0.00,
+      //             bottom: MediaQuery.of(context).size.height * 0.01,
+      //             left: MediaQuery.of(context).size.height * 0.01,
+      //             right: MediaQuery.of(context).size.height * 0.01,
+      //           ),
+      //           padding: EdgeInsets.only(
+      //             top: MediaQuery.of(context).size.height * 0.00,
+      //             bottom: MediaQuery.of(context).size.height * 0.00,
+      //             left: MediaQuery.of(context).size.height * 0.01,
+      //             right: MediaQuery.of(context).size.height * 0.00,
+      //           ),
+      //           decoration: BoxDecoration(
+      //             border: Border.all(
+      //               color: Colors.grey,
+      //               width: 1.0,
+      //             ),
+      //             borderRadius: BorderRadius.circular(8.0),
+      //           ),
+      //           child: Row(
+      //             mainAxisAlignment: MainAxisAlignment.start,
+      //             crossAxisAlignment: CrossAxisAlignment.center,
+      //             children: [
+      //               // Image from assets
+      //               Container(
+      //                 width: MediaQuery.of(context).size.height * 0.07,
+      //                 height: MediaQuery.of(context).size.height * 0.07,
+      //                 margin: EdgeInsets.only(
+      //                   top: MediaQuery.of(context).size.height * 0.01,
+      //                   bottom: MediaQuery.of(context).size.height * 0.01,
+      //                   left: MediaQuery.of(context).size.height * 0.01,
+      //                   right: MediaQuery.of(context).size.height * 0.01,
+      //                 ),
+      //                 decoration: BoxDecoration(
+      //                   borderRadius: BorderRadius.circular(4.0),
+      //                   image: DecorationImage(
+      //                     image: AssetImage(
+      //                         'assets/applepay.png'), // Replace with your asset path
+      //                     fit: BoxFit.cover,
+      //                   ),
+      //                 ),
+      //               ),
+      //               // Column with two Text widgets
+      //               Expanded(
+      //                 child: Column(
+      //                   crossAxisAlignment: CrossAxisAlignment.start,
+      //                   children: [
+      //                     Text(
+      //                       'Priya Krishamurty',
+      //                       style: TextStyle(
+      //                         fontWeight: FontWeight.bold,
+      //                         fontSize:
+      //                             MediaQuery.of(context).size.height * 0.018,
+      //                         color: Colors.black,
+      //                       ),
+      //                     ),
+      //                     Text(
+      //                       'Apple Pay',
+      //                       style: TextStyle(
+      //                         fontSize:
+      //                             MediaQuery.of(context).size.height * 0.016,
+      //                         color: Colors.black,
+      //                       ),
+      //                     ),
+      //                   ],
+      //                 ),
+      //               ),
+      //               // Circular Radio Button
+      //               Radio<int>(
+      //                 value: 1, // The value for this radio button
+      //                 groupValue: 0, // The currently selected value
+      //                 onChanged: (int? value) {
+      //                   // Handle radio button change
+      //                 },
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //
+      //         // 4
+      //         Container(
+      //           margin: EdgeInsets.only(
+      //             top: MediaQuery.of(context).size.height * 0.00,
+      //             bottom: MediaQuery.of(context).size.height * 0.00,
+      //             left: MediaQuery.of(context).size.height * 0.01,
+      //             right: MediaQuery.of(context).size.height * 0.01,
+      //           ),
+      //           padding: EdgeInsets.only(
+      //             top: MediaQuery.of(context).size.height * 0.00,
+      //             bottom: MediaQuery.of(context).size.height * 0.00,
+      //             left: MediaQuery.of(context).size.height * 0.01,
+      //             right: MediaQuery.of(context).size.height * 0.00,
+      //           ),
+      //           decoration: BoxDecoration(
+      //             border: Border.all(
+      //               color: Colors.grey,
+      //               width: 1.0,
+      //             ),
+      //             borderRadius: BorderRadius.circular(8.0),
+      //           ),
+      //           child: Row(
+      //             mainAxisAlignment: MainAxisAlignment.start,
+      //             crossAxisAlignment: CrossAxisAlignment.center,
+      //             children: [
+      //               // Image from assets
+      //               Container(
+      //                 width: MediaQuery.of(context).size.height * 0.07,
+      //                 height: MediaQuery.of(context).size.height * 0.07,
+      //                 margin: EdgeInsets.only(
+      //                   top: MediaQuery.of(context).size.height * 0.01,
+      //                   bottom: MediaQuery.of(context).size.height * 0.01,
+      //                   left: MediaQuery.of(context).size.height * 0.01,
+      //                   right: MediaQuery.of(context).size.height * 0.01,
+      //                 ),
+      //                 decoration: BoxDecoration(
+      //                   borderRadius: BorderRadius.circular(4.0),
+      //                   image: DecorationImage(
+      //                     image: AssetImage(
+      //                         'assets/googlepay.png'), // Replace with your asset path
+      //                     fit: BoxFit.cover,
+      //                   ),
+      //                 ),
+      //               ),
+      //               // Column with two Text widgets
+      //               Expanded(
+      //                 child: Column(
+      //                   crossAxisAlignment: CrossAxisAlignment.start,
+      //                   children: [
+      //                     Text(
+      //                       'Priya Krishamurty',
+      //                       style: TextStyle(
+      //                         fontWeight: FontWeight.bold,
+      //                         fontSize:
+      //                             MediaQuery.of(context).size.height * 0.018,
+      //                         color: Colors.black,
+      //                       ),
+      //                     ),
+      //                     Text(
+      //                       'Google Pay',
+      //                       style: TextStyle(
+      //                         fontSize:
+      //                             MediaQuery.of(context).size.height * 0.016,
+      //                         color: Colors.black,
+      //                       ),
+      //                     ),
+      //                   ],
+      //                 ),
+      //               ),
+      //               // Circular Radio Button
+      //               Radio<int>(
+      //                 value: 1, // The value for this radio button
+      //                 groupValue: 0, // The currently selected value
+      //                 onChanged: (int? value) {
+      //                   // Handle radio button change
+      //                 },
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //
+      //         // Continue
+      //         GestureDetector(
+      //           onTap: () async {
+      //             showsucessalertBottomSheet();
+      //           },
+      //           child: Container(
+      //               alignment: Alignment.centerRight,
+      //               padding: EdgeInsets.only(
+      //                   top: MediaQuery.of(context).size.height * 0.01,
+      //                   bottom: MediaQuery.of(context).size.height * 0.00,
+      //                   left: MediaQuery.of(context).size.height * 0.00,
+      //                   right: MediaQuery.of(context).size.height * 0.00),
+      //               margin: EdgeInsets.only(
+      //                   right: MediaQuery.of(context).size.height * 0.03,
+      //                   top: MediaQuery.of(context).size.height * 0.01,
+      //                   bottom: MediaQuery.of(context).size.height * 0.01,
+      //                   left: MediaQuery.of(context).size.height * 0.03),
+      //               child: Row(
+      //                   crossAxisAlignment: CrossAxisAlignment.start,
+      //                   mainAxisAlignment: MainAxisAlignment.center,
+      //                   children: <Widget>[
+      //                     Expanded(
+      //                       child: Container(
+      //                         decoration: BoxDecoration(
+      //                             borderRadius: BorderRadius.circular(
+      //                                 MediaQuery.of(context).size.height *
+      //                                     0.012),
+      //                             gradient: LinearGradient(
+      //                                 begin: Alignment.centerRight,
+      //                                 end: Alignment.center,
+      //                                 stops: [
+      //                                   0.5,
+      //                                   0.9
+      //                                 ],
+      //                                 colors: [
+      //                                   Color(0xFF126086),
+      //                                   Color(0xFF126086),
+      //                                 ])),
+      //                         alignment: Alignment.center,
+      //                         padding: EdgeInsets.only(left: 0.0),
+      //                         child: TextButton(
+      //                           onPressed: () async {
+      //                             showsucessalertBottomSheet();
+      //                           },
+      //                           child: Text("Continue",
+      //                               textAlign: TextAlign.center,
+      //                               style: TextStyle(
+      //                                   color: Colors.white,
+      //                                   fontSize: MediaQuery.of(context)
+      //                                           .size
+      //                                           .height *
+      //                                       0.02)),
+      //                         ),
+      //                       ),
+      //                     ),
+      //                   ])),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
+      );
   void showsucessalertBottomSheet() => showModalBottomSheet(
-    enableDrag: false,
-    isScrollControlled: true,
-    isDismissible: true,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(24),
-        topRight: Radius.circular(24),
-      ),
-    ),
-    barrierColor: Colors.grey.withOpacity(0.9),
-    context: context,
-    builder: (context) => StatefulBuilder(
-      builder: (BuildContext context,
-          StateSetter setState /*You can rename this!*/) =>
-          Padding(
+        enableDrag: false,
+        isScrollControlled: true,
+        isDismissible: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
+        ),
+        barrierColor: Colors.grey.withOpacity(0.9),
+        context: context,
+        builder: (context) => StatefulBuilder(
+          builder: (BuildContext context,
+                  StateSetter setState /*You can rename this!*/) =>
+              Padding(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Column(
@@ -3316,10 +3463,10 @@ class AddToCartMainstate extends State<AddToCartMain> {
                               padding: EdgeInsets.only(
                                 top: MediaQuery.of(context).size.height * 0.00,
                                 bottom:
-                                MediaQuery.of(context).size.height * 0.02,
+                                    MediaQuery.of(context).size.height * 0.02,
                                 left: MediaQuery.of(context).size.height * 0.00,
                                 right:
-                                MediaQuery.of(context).size.height * 0.00,
+                                    MediaQuery.of(context).size.height * 0.00,
                               ),
                               child: Text(
                                 "Payment Done Successfully",
@@ -3327,8 +3474,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                 style: TextStyle(
                                     color: Colors.black54,
                                     fontSize:
-                                    MediaQuery.of(context).size.height *
-                                        0.018),
+                                        MediaQuery.of(context).size.height *
+                                            0.018),
                               ),
                             ),
                           ],
@@ -3419,7 +3566,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                       MaterialPageRoute(
                         builder: (BuildContext context) => HomePageMain(),
                       ),
-                          (Route route) => false,
+                      (Route route) => false,
                     );
                   },
                   child: Container(
@@ -3464,7 +3611,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                         builder: (BuildContext context) =>
                                             HomePageMain(),
                                       ),
-                                          (Route route) => false,
+                                      (Route route) => false,
                                     );
                                   },
                                   child: Text("Back to Home",
@@ -3472,8 +3619,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.02)),
                                 ),
                               ),
@@ -3483,6 +3630,6 @@ class AddToCartMainstate extends State<AddToCartMain> {
               ],
             ),
           ),
-    ),
-  );
+        ),
+      );
 }

@@ -2,11 +2,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
+
 class DescriptionTextWidget extends StatefulWidget {
   final String? text;
   int maxLength;
 
-  DescriptionTextWidget({@required this.text,this.maxLength = 40});
+  DescriptionTextWidget({@required this.text, this.maxLength = 40});
 
   @override
   _DescriptionTextWidgetState createState() => _DescriptionTextWidgetState();
@@ -42,9 +43,8 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
   Future getSharedPrefs() async {
     // CheckSession();
     getDoctorDetails();
-
-
   }
+
   ConnectivityService connectivityservice = ConnectivityService();
   APIService apiService = new APIService();
   void getDoctorDetails() {
@@ -54,45 +54,32 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
         dynamic user = await apiService.findDoctorsdetails(widget.text);
 
         if (user.message != null) {
+          // final snackBar = SnackBar(content: Text(user.message),);
+          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        } else if (user.response != null) {
+          var responsedetails = user.response;
+          about = responsedetails!.about != null ? responsedetails!.about! : "";
+          print("About in Read More: ${responsedetails!.about}");
+          setState(() {
+            if (about != null) {
+              List<String> words = about.split(" ");
 
-          final snackBar = SnackBar(content: Text(user.message));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
-
-
-
-        else if (user.response != null) {
-
-
-
-            var responsedetails = user.response;
-            about =
-            responsedetails!.about != null ? responsedetails!.about! : "";
-            print("About in Read More: ${responsedetails!.about}");
-            setState(() {
-              if (about != null) {
-                List<String> words = about.split(" ");
-
-                // Setting approximately 4-5 lines in firstHalf
-                if (words.length > 40) {
-                  firstHalf = words.sublist(0, 40).join(" ");
-                  secondHalf = words.sublist(40).join(" ");
-                } else {
-                  firstHalf = about;
-                  secondHalf = "";
-                }
+              // Setting approximately 4-5 lines in firstHalf
+              if (words.length > 40) {
+                firstHalf = words.sublist(0, 40).join(" ");
+                secondHalf = words.sublist(40).join(" ");
               } else {
-                firstHalf = "";
+                firstHalf = about;
                 secondHalf = "";
               }
+            } else {
+              firstHalf = "";
+              secondHalf = "";
+            }
 
-              print( "firstHalf : $firstHalf");
-              print( "secondHalf : $secondHalf");
-            });
-
-
-
-
+            print("firstHalf : $firstHalf");
+            print("secondHalf : $secondHalf");
+          });
         }
       } else {
         // No-Internet Case
@@ -106,77 +93,68 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return
-      Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         RichText(
           text: TextSpan(
-            style :TextStyle(
-              fontSize: MediaQuery.of(context).size.height * 0.014,
-              fontFamily: 'OpenSans',
-              color: Color(0xCC1F1F1F),
-              fontWeight: FontWeight.w400,
-              height: 1.5,
-            ),
-            children: [
-              TextSpan(
-                  text : firstHalf
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.height * 0.014,
+                fontFamily: 'OpenSans',
+                color: Color(0xCC1F1F1F),
+                fontWeight: FontWeight.w400,
+                height: 1.5,
               ),
-              if(!flag && (((firstHalf+secondHalf).length) > 40))
-                TextSpan(
-                  text: " Read more...",
-                  style: TextStyle(
-                    color: Color(0xff1bb273),
-                    fontFamily: 'Quicksand',
-                    fontWeight: FontWeight.w400,
-                    fontSize: MediaQuery.of(context).size.height * 0.014,
-                    height: 1.5,
+              children: [
+                TextSpan(text: firstHalf),
+                if (!flag && (((firstHalf + secondHalf).length) > 40))
+                  TextSpan(
+                    text: " Read more...",
+                    style: TextStyle(
+                      color: Color(0xff1bb273),
+                      fontFamily: 'Quicksand',
+                      fontWeight: FontWeight.w400,
+                      fontSize: MediaQuery.of(context).size.height * 0.014,
+                      height: 1.5,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        setState(() {
+                          flag = true;
+                        });
+                      },
                   ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      setState(() {
-                        flag = true;
-                      });
-                    },
-                ),
-              if(flag)
-                TextSpan(
-                  text: " "+secondHalf,
-                  style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.height * 0.014,
-                    fontFamily: 'OpenSans',
-                    fontWeight: FontWeight.w400,
-                    height: 1.5,
-
+                if (flag)
+                  TextSpan(
+                    text: " " + secondHalf,
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * 0.014,
+                      fontFamily: 'OpenSans',
+                      fontWeight: FontWeight.w400,
+                      height: 1.5,
+                    ),
                   ),
-
-                ),
-              if (flag)
-                TextSpan(
-                  text: " Read less",
-                  style: TextStyle(
-                    color: Color(0xff1bb273),
-                    fontFamily: 'Quicksand',
-                    fontWeight: FontWeight.w400,
-                    fontSize: MediaQuery.of(context).size.height * 0.014,
-                    height: 1.5,
-
+                if (flag)
+                  TextSpan(
+                    text: " Read less",
+                    style: TextStyle(
+                      color: Color(0xff1bb273),
+                      fontFamily: 'Quicksand',
+                      fontWeight: FontWeight.w400,
+                      fontSize: MediaQuery.of(context).size.height * 0.014,
+                      height: 1.5,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        setState(() {
+                          flag = false;
+                        });
+                      },
                   ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      setState(() {
-                        flag = false;
-                      });
-                    },
-                ),
-            ]
-          ),
+              ]),
         ),
-
       ],
     );
 
