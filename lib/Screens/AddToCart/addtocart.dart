@@ -128,7 +128,98 @@ class AddToCartMainstate extends State<AddToCartMain> {
                   children: [],
                 ),
               ),
+               Container(
+                padding: EdgeInsets.only(
+                        left: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                        right: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                        top: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                        bottom: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.01),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(screenHeight * 0.03),
+                        topRight: Radius.circular(screenHeight * 0.03),
+                      ),
+                    ),
+                child:
+                  Column(
+                    children: [
+   // Inkwell & Cart Text
+                      Container(
+                        padding: EdgeInsets.only(
+                          top: screenHeight * 0.0,
+                          left: screenWidth * 0.0,
+                          right: screenWidth * 0.0,
+                          bottom: screenWidth * 0.01,
+                        ),
+                        margin: EdgeInsets.only(
+                          right: screenHeight * 0.0,
+                          top: screenHeight * 0.0,
+                          bottom: screenHeight * 0.01,
+                          left: screenHeight * 0.01 ,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // Back Button
+                            InkWell(
+                              onTap: () => Navigator.pop(context),
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                  left: MediaQuery.of(context).size.height * 0.01,
+                                ),
+                                height: screenHeight * 0.035,
+                                width: screenHeight * 0.035,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFF7F5F6),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.arrow_back_ios_sharp,
+                                  color: Color(0xFF999999),
+                                  size: screenHeight * 0.018,
+                                ),
+                              ),
+                            ),
 
+                            // Help Text (Centered)
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  "Cart",
+                                  style: TextStyle(
+                                    fontSize: MediaQuery.of(context).size.height * 0.018,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+
+                            // Placeholder to Balance Row (Keeps Help Text Centered)
+                            SizedBox(width: screenHeight * 0.035),
+
+                          ],
+                        )
+                        ,
+                      ),
+                    ]
+                  ),
+              ),
               // Main Content Section
               Expanded(
                 child: Container(
@@ -140,10 +231,10 @@ class AddToCartMainstate extends State<AddToCartMain> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(screenHeight * 0.03),
-                      topRight: Radius.circular(screenHeight * 0.03),
-                    ),
+                    // borderRadius: BorderRadius.only(
+                    //   topLeft: Radius.circular(screenHeight * 0.03),
+                    //   topRight: Radius.circular(screenHeight * 0.03),
+                    // ),
                   ),
                   child: ListView(
                     children: [
@@ -214,66 +305,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
 
                       // Top ListView
 
-                      // Inkwell & Cart Text
-                      Container(
-                        padding: EdgeInsets.only(
-                          top: screenHeight * 0.0,
-                          left: screenWidth * 0.0,
-                          right: screenWidth * 0.0,
-                          bottom: screenWidth * 0.01,
-                        ),
-                        margin: EdgeInsets.only(
-                          right: screenHeight * 0.0,
-                          top: screenHeight * 0.0,
-                          bottom: screenHeight * 0.01,
-                          left: screenHeight * 0.01 ,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Back Button
-                            InkWell(
-                              onTap: () => Navigator.pop(context),
-                              child: Container(
-                                margin: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.height * 0.01,
-                                ),
-                                height: screenHeight * 0.035,
-                                width: screenHeight * 0.035,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFF7F5F6),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  Icons.arrow_back_ios_sharp,
-                                  color: Color(0xFF999999),
-                                  size: screenHeight * 0.018,
-                                ),
-                              ),
-                            ),
-
-                            // Help Text (Centered)
-                            Expanded(
-                              child: Center(
-                                child: Text(
-                                  "Cart",
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.018,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-
-                            // Placeholder to Balance Row (Keeps Help Text Centered)
-                            SizedBox(width: screenHeight * 0.035),
-
-                          ],
-                        )
-                        ,
-                      ),
+                   
 
                       // Top 3 Cards
                       Container(
