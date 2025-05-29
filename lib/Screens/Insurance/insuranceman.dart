@@ -1589,7 +1589,8 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                     0.02),
                                   // Ensures it occupies full width
                                   color: Colors
-                                      .blue,
+                                      .white,
+                                 child: SingleChildScrollView(
                                   // You can change the background color
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment
@@ -1700,9 +1701,11 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                       MainAxisAlignment
                                                           .start,
                                                       children: <Widget>[
-
+                                                                //  Wrap(
+                                                                // spacing: 4.0, // horizontal space between children
+                                                                // runSpacing: 4.0, // vertical space between runs (if needed)
                                                         Expanded(
-                                                          flex: 4,
+                                                          flex: 4,                                                          
                                                           child: Column(
                                                             crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -1711,6 +1714,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                             MainAxisAlignment
                                                                 .center,
                                                             children: <Widget>[
+                                                            
                                                               Container(
                                                                 padding:
                                                                 EdgeInsets
@@ -1797,50 +1801,43 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                                   ),
                                                                 ),
                                                               ),
-                                                              Row(
-                                                                mainAxisAlignment: MainAxisAlignment.start, // Adjust alignment as needed
+                                                             Wrap(
+                                                                spacing: 4.0, // horizontal space between children
+                                                                runSpacing: 4.0, // vertical space between runs (if needed)
                                                                 children: [
                                                                   Container(
-                                                                    padding: EdgeInsets.only(
-                                                                      left: MediaQuery.of(context).size.height * 0.00,
-                                                                      right: MediaQuery.of(context).size.height * 0.00,
-                                                                      top: MediaQuery.of(context).size.height * 0.00,
-                                                                      bottom: MediaQuery.of(context).size.height * 0.00,
-                                                                    ),
+                                                                    padding: EdgeInsets.zero,
                                                                     child: Text(
                                                                       "December, 20  2023",
                                                                       style: TextStyle(
                                                                         color: Color(0xFF126086),
                                                                         fontWeight: FontWeight.w600,
-                                                                        overflow: TextOverflow.ellipsis,
                                                                         fontSize: MediaQuery.of(context).size.height * 0.012,
                                                                       ),
                                                                     ),
                                                                   ),
-
-
                                                                   Container(
                                                                     padding: EdgeInsets.only(
                                                                       left: MediaQuery.of(context).size.height * 0.005,
-                                                                      right: MediaQuery.of(context).size.height * 0.00,
-                                                                      top: MediaQuery.of(context).size.height * 0.00,
-                                                                      bottom: MediaQuery.of(context).size.height * 0.00,
                                                                     ),
                                                                     child: Text(
                                                                       "(Claim Number : 832787203098)",
                                                                       style: TextStyle(
                                                                         color: Color(0xFF126086),
                                                                         fontWeight: FontWeight.w500,
-                                                                        overflow: TextOverflow.ellipsis,
                                                                         fontSize: MediaQuery.of(context).size.height * 0.01,
                                                                       ),
                                                                     ),
                                                                   ),
                                                                 ],
                                                               ),
+
+                                                            
                                                             ],
                                                           ),
+                                                          
                                                         ),
+                                          // ),
                                                         // Adding the side arrow at the end
 
                                                         Expanded(
@@ -2166,8 +2163,9 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.start, // Adjust alignment as needed
+                                                         Wrap(
+                                                          spacing: 4.0, // horizontal space between children
+                                                          runSpacing: 4.0, // vertical space between runs (if needed)
                                                           children: [
                                                             Container(
                                                               padding: EdgeInsets.only(
@@ -2534,8 +2532,9 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.start, // Adjust alignment as needed
+                                                         Wrap(
+                                                          spacing: 4.0, // horizontal space between children
+                                                          runSpacing: 4.0, // vertical space between runs (if needed)
                                                           children: [
                                                             Container(
                                                               padding: EdgeInsets.only(
@@ -2902,8 +2901,9 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.start, // Adjust alignment as needed
+                                                        Wrap(
+                                                          spacing: 4.0, // horizontal space between children
+                                                          runSpacing: 4.0, // vertical space between runs (if needed)
                                                           children: [
                                                             Container(
                                                               padding: EdgeInsets.only(
@@ -3270,8 +3270,9 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.start, // Adjust alignment as needed
+                                                        Wrap(
+                                                          spacing: 4.0, // horizontal space between children
+                                                          runSpacing: 4.0, // vertical space between runs (if needed)
                                                           children: [
                                                             Container(
                                                               padding: EdgeInsets.only(
@@ -3638,8 +3639,9 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.start, // Adjust alignment as needed
+                                                         Wrap(
+                                                          spacing: 4.0, // horizontal space between children
+                                                          runSpacing: 4.0, // vertical space between runs (if needed)
                                                           children: [
                                                             Container(
                                                               padding: EdgeInsets.only(
@@ -3813,6 +3815,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
 
                                     ],
                                   ),
+                                 ),
                                 ),
                               ],
                             ),
