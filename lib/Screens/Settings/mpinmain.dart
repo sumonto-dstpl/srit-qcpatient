@@ -397,6 +397,7 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
   TextEditingController Otp4thdigitTextController = TextEditingController();
 
 
+  FocusNode? pin1FocusNode;
   FocusNode? pin2FocusNode;
   FocusNode? pin3FocusNode;
   FocusNode? pin4FocusNode;
@@ -413,6 +414,7 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
   void initState() {
 
     super.initState();
+    pin1FocusNode = FocusNode();
     pin2FocusNode = FocusNode();
     pin3FocusNode = FocusNode();
     pin4FocusNode = FocusNode();
@@ -422,6 +424,7 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
   @override
   void dispose() {
     super.dispose();
+    pin1FocusNode!.dispose();
     pin2FocusNode!.dispose();
     pin3FocusNode!.dispose();
     pin4FocusNode!.dispose();
@@ -434,6 +437,16 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
       focusNode.requestFocus();
     }
   }
+
+  final rawFocus1 = FocusNode();
+  final rawFocus2 = FocusNode();
+  final rawFocus3 = FocusNode();
+  final rawFocus4 = FocusNode();
+
+  final rawFocusv1 = FocusNode();
+  final rawFocusv2 = FocusNode();
+  final rawFocusv3 = FocusNode();
+  final rawFocusv4 = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -536,6 +549,7 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                   ),
                 ),
                 child: SingleChildScrollView(
+                  physics: NeverScrollableScrollPhysics(),
                   child: Column(
                     children: [
                       // Logo Image
@@ -641,216 +655,311 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SizedBox(
-                                  width: SizeConfig.blockSizeHorizontal! * 09,
-                                  height: SizeConfig.blockSizeHorizontal! * 12,
-                                  child: TextFormField(
-
-                                    style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.034),
-
-                                    controller: Otp1stdigitTextController,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                      FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-                                    ],
-                                    // keyboardType: TextInputType.number,
-                                    textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.only(
-                                        // left : screenHeight * 0.005,
-                                        // top : screenHeight * 0.005,
-                                        // right : screenHeight * 0.005,
-                                        // bottom: screenHeight * 0.005,
-                                      ),
-                                      filled: false, // Remove background color
-                                      hintText: '0', // Example hint text
-                                      hintStyle: TextStyle(color: Colors.white70),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
-                                        borderSide: BorderSide(
-                                          color: Otp1stdigithasStartedTyping
-                                              ?  Colors.red
-                                              : Color(0xFFF1F1F1), // Initially grey, turns red or green
-                                        ), // Set border color
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.height * 0.005)),
-                                        borderSide: BorderSide(
-                                          color: Otp1stdigithasStartedTyping
-                                              ?  Colors.red
-                                              : Color(0xFFF1F1F1), // Initially grey, turns red or green
-                                        ), // Set border color
-                                      ),
-                                    ),
-                                    onChanged: (value) {
-                                      nextField(value, pin2FocusNode!);
-                                      // check1stDigitEmpty(Otp1stdigitTextController.text.toString());
+                                RawKeyboardListener(
+                                  focusNode: rawFocus1, // Use a dedicated focus node for RawKeyboardListener
+                                  onKey: (RawKeyEvent event) {
+                                    if (event is RawKeyDownEvent && event.logicalKey == LogicalKeyboardKey.backspace) {
+                                      if (Otp1stdigitTextController.text.isEmpty) {
+                                        // Move to previous field and clear it
+                                        pin1FocusNode!.requestFocus();
+                                        Otp1stdigitTextController.clear();
+                                      } else {
+                                        // Just clear this field
+                                        Otp1stdigitTextController.clear();
+                                      }
                                       setState(() {
                                         Otp1stdigithasStartedTyping = false;
                                       });
-                                    },
+                                    }
+                                  },
+                                  child: SizedBox(
+                                    width: SizeConfig.blockSizeHorizontal! * 09,
+                                    height: SizeConfig.blockSizeHorizontal! * 12,
+                                    child: TextFormField(
+                                      focusNode: pin1FocusNode,
+
+                                      controller: Otp1stdigitTextController,
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(1),
+                                        FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                                      ],
+
+                                      keyboardType: TextInputType.number,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize:
+                                        MediaQuery.of(context).size.height * 0.034,
+                                        height: 1.0,
+
+                                      ),
+                                      cursorHeight: MediaQuery.of(context).size.height * 0.034, // smaller height
+                                      cursorWidth: 2.0,
+                                      decoration: InputDecoration(
+                                        isDense: true,
+                                        contentPadding: EdgeInsets.symmetric(
+                                          vertical: MediaQuery.of(context).size.height * 0.012, // balanced top-bottom padding
+                                          horizontal: MediaQuery.of(context).size.height * 0.01,
+                                        ),
+                                        filled: false, // Remove background color
+                                        hintStyle: TextStyle(color: Colors.white70),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
+                                          borderSide: BorderSide(
+                                            color: Otp1stdigithasStartedTyping
+                                                ?  Colors.red
+                                                : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                          ),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.height * 0.005)),
+                                          borderSide: BorderSide(
+                                            color: Otp1stdigithasStartedTyping
+                                                ?  Colors.red
+                                                : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                          ),
+                                        ),
+                                      ),
+                                      onChanged: (value) {
+                                        if (value.length == 1) {
+                                          FocusScope.of(context).requestFocus(pin2FocusNode); // move to 2nd field
+                                          setState(() {
+                                            Otp1stdigithasStartedTyping = false;
+                                          });
+                                        }
+                                      },
+                                    ),
                                   ),
                                 ),
 
-                                SizedBox(
-                                  width: SizeConfig.blockSizeHorizontal! * 09,
-                                  height: SizeConfig.blockSizeHorizontal! * 12,
-                                  child: TextFormField(
-                                    focusNode: pin2FocusNode,
-                                    style: TextStyle(
-                                      fontSize: MediaQuery.of(context).size.height * 0.034,
-                                    ),
-                                    controller: Otp2nddigitTextController,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                      FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-                                    ],
-                                    // keyboardType: TextInputType.number,
-                                    textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.only(
-                                        // left : screenHeight * 0.005,
-                                        // top : screenHeight * 0.005,
-                                        // right : screenHeight * 0.005,
-                                        // bottom: screenHeight * 0.005,
-                                      ),
-                                      filled: false, // Remove background color
-                                      hintStyle: TextStyle(color: Colors.white70),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
-                                        borderSide: BorderSide(
-                                          color: Otp2nddigithasStartedTyping
-                                              ?  Colors.red
-                                              : Color(0xFFF1F1F1), // Initially grey, turns red or green
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.height * 0.005)),
-                                        borderSide: BorderSide(
-                                          color: Otp2nddigithasStartedTyping
-                                              ?  Colors.red
-                                              : Color(0xFFF1F1F1), // Initially grey, turns red or green
-                                        ),
-                                      ),
-                                    ),
-                                    onChanged: (value) {
-                                      nextField(value, pin3FocusNode!);
+                                RawKeyboardListener(
+                                  focusNode: rawFocus2, // Use a dedicated focus node for RawKeyboardListener
+                                  onKey: (RawKeyEvent event) {
+                                    if (event is RawKeyDownEvent && event.logicalKey == LogicalKeyboardKey.backspace) {
+                                      if (Otp2nddigitTextController.text.isEmpty) {
+                                        // Move to previous field and clear it
+                                        pin1FocusNode!.requestFocus();
+                                        Otp1stdigitTextController.clear();
+                                      } else {
+                                        // Just clear this field
+                                        Otp2nddigitTextController.clear();
+                                      }
                                       setState(() {
                                         Otp2nddigithasStartedTyping = false;
                                       });
-                                    },
+                                    }
+                                  },
+                                  child: SizedBox(
+                                    width: SizeConfig.blockSizeHorizontal! * 09,
+                                    height: SizeConfig.blockSizeHorizontal! * 12,
+                                    child: TextFormField(
+                                      focusNode: pin2FocusNode,
+
+                                      controller: Otp2nddigitTextController,
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(1),
+                                        FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                                      ],
+
+                                      keyboardType: TextInputType.number,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize:
+                                        MediaQuery.of(context).size.height * 0.034,
+                                        height: 1.0,
+
+                                      ),
+                                      cursorHeight: MediaQuery.of(context).size.height * 0.034, // smaller height
+                                      cursorWidth: 2.0,
+                                      decoration: InputDecoration(
+                                        isDense: true,
+                                        contentPadding: EdgeInsets.symmetric(
+                                          vertical: MediaQuery.of(context).size.height * 0.012, // balanced top-bottom padding
+                                          horizontal: MediaQuery.of(context).size.height * 0.01,
+                                        ),
+                                        filled: false, // Remove background color
+                                        hintStyle: TextStyle(color: Colors.white70),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
+                                          borderSide: BorderSide(
+                                            color: Otp2nddigithasStartedTyping
+                                                ?  Colors.red
+                                                : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                          ),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.height * 0.005)),
+                                          borderSide: BorderSide(
+                                            color: Otp2nddigithasStartedTyping
+                                                ?  Colors.red
+                                                : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                          ),
+                                        ),
+                                      ),
+                                      onChanged: (value) {
+                                        if (value.length == 1) {
+                                          FocusScope.of(context).requestFocus(pin3FocusNode); // move to 3rd field
+                                          setState(() {
+                                            Otp2nddigithasStartedTyping = false;
+                                          });
+                                          // Then you need to check is the code is correct or not
+                                        }
+                                      },
+                                    ),
                                   ),
                                 ),
 
-                                SizedBox(
-                                  width: SizeConfig.blockSizeHorizontal! * 09,
-                                  height: SizeConfig.blockSizeHorizontal! * 12,
-                                  child: TextFormField(
-                                    focusNode: pin3FocusNode,
-                                    style: TextStyle(
-                                      fontSize: MediaQuery.of(context).size.height * 0.034,
-                                    ),
-                                    controller: Otp3rddigitTextController,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                      FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-                                    ],
-                                    // keyboardType: TextInputType.number,
-                                    textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.only(
-                                        // left : screenHeight * 0.005,
-                                        // top : screenHeight * 0.005,
-                                        // right : screenHeight * 0.005,
-                                        // bottom: screenHeight * 0.005,
-                                      ),
-                                      filled: false, // Remove background color
-                                      hintStyle: TextStyle(color: Colors.white70),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
-                                        borderSide: BorderSide(
-                                          color: Otp3rddigithasStartedTyping
-                                              ?  Colors.red
-                                              : Color(0xFFF1F1F1), // Initially grey, turns red or green
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.height * 0.005)),
-                                        borderSide: BorderSide(
-                                          color: Otp3rddigithasStartedTyping
-                                              ?  Colors.red
-                                              : Color(0xFFF1F1F1), // Initially grey, turns red or green
-                                        ),
-                                      ),
-                                    ),
-                                    onChanged: (value) {
-                                      nextField(value, pin4FocusNode!);
-
+                                RawKeyboardListener(
+                                  focusNode: rawFocus3, // Use a dedicated focus node for RawKeyboardListener
+                                  onKey: (RawKeyEvent event) {
+                                    if (event is RawKeyDownEvent && event.logicalKey == LogicalKeyboardKey.backspace) {
+                                      if (Otp3rddigitTextController.text.isEmpty) {
+                                        // Move to previous field and clear it
+                                        pin2FocusNode!.requestFocus();
+                                        Otp2nddigitTextController.clear();
+                                      } else {
+                                        // Just clear this field
+                                        Otp3rddigitTextController.clear();
+                                      }
                                       setState(() {
                                         Otp3rddigithasStartedTyping = false;
                                       });
-                                    },
+                                    }
+                                  },
+                                  child: SizedBox(
+                                    width: SizeConfig.blockSizeHorizontal! * 09,
+                                    height: SizeConfig.blockSizeHorizontal! * 12,
+                                    child: TextFormField(
+                                      focusNode: pin3FocusNode,
+
+                                      controller: Otp3rddigitTextController,
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(1),
+                                        FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                                      ],
+
+                                      keyboardType: TextInputType.number,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize:
+                                        MediaQuery.of(context).size.height * 0.034,
+                                        height: 1.0,
+
+                                      ),
+                                      cursorHeight: MediaQuery.of(context).size.height * 0.034, // smaller height
+                                      cursorWidth: 2.0,
+                                      decoration: InputDecoration(
+                                        isDense: true,
+                                        contentPadding: EdgeInsets.symmetric(
+                                          vertical: MediaQuery.of(context).size.height * 0.012, // balanced top-bottom padding
+                                          horizontal: MediaQuery.of(context).size.height * 0.01,
+                                        ),
+                                        filled: false, // Remove background color
+                                        hintStyle: TextStyle(color: Colors.white70),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
+                                          borderSide: BorderSide(
+                                            color: Otp3rddigithasStartedTyping
+                                                ?  Colors.red
+                                                : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                          ),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.height * 0.005)),
+                                          borderSide: BorderSide(
+                                            color: Otp3rddigithasStartedTyping
+                                                ?  Colors.red
+                                                : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                          ),
+                                        ),
+                                      ),
+                                      onChanged: (value) {
+                                        if (value.length == 1) {
+                                          FocusScope.of(context).requestFocus(pin4FocusNode); // move to 4th field
+                                          setState(() {
+                                            Otp3rddigithasStartedTyping = false;
+                                          });
+                                        }
+                                      },
+                                    ),
                                   ),
                                 ),
 
-                                SizedBox(
-                                  width: SizeConfig.blockSizeHorizontal! * 09,
-                                  height: SizeConfig.blockSizeHorizontal! * 12,
-                                  child: TextFormField(
-                                    focusNode: pin4FocusNode,
-                                    style: TextStyle(
-                                      fontSize: MediaQuery.of(context).size.height * 0.034,
-                                    ),
-                                    controller: Otp4thdigitTextController,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                      FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-                                    ],
-
-                                    // keyboardType: TextInputType.number,
-                                    textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.only(
-                                        // left : screenHeight * 0.005,
-                                        // top : screenHeight * 0.005,
-                                        // right : screenHeight * 0.005,
-                                        // bottom: screenHeight * 0.005,
-                                      ),
-                                      filled: false, // Remove background color
-                                      hintStyle: TextStyle(color: Colors.white70),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
-                                        borderSide: BorderSide(
-                                          color: Otp4thdigithasStartedTyping
-                                              ?  Colors.red
-                                              : Color(0xFFF1F1F1), // Initially grey, turns red or green
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.height * 0.005)),
-                                        borderSide: BorderSide(
-                                          color: Otp4thdigithasStartedTyping
-                                              ?  Colors.red
-                                              : Color(0xFFF1F1F1), // Initially grey, turns red or green
-                                        ),
-                                      ),
-                                    ),
-                                    onChanged: (value) {
-                                      if (value.length == 1) {
-                                        pin4FocusNode!.unfocus();
-                                        setState(() {
-                                          Otp4thdigithasStartedTyping = false;
-                                        });
-                                        mpinCheck();
+                                RawKeyboardListener(
+                                  focusNode: rawFocus4, // Use a dedicated focus node for RawKeyboardListener
+                                  onKey: (RawKeyEvent event) {
+                                    if (event is RawKeyDownEvent && event.logicalKey == LogicalKeyboardKey.backspace) {
+                                      if (Otp4thdigitTextController.text.isEmpty) {
+                                        // Move to previous field and clear it
+                                        pin3FocusNode!.requestFocus();
+                                        Otp3rddigitTextController.clear();
+                                      } else {
+                                        // Just clear this field
+                                        Otp4thdigitTextController.clear();
                                       }
-                                    },
-                                  ),
-                                ),
+                                      setState(() {
+                                        Otp4thdigithasStartedTyping = false;
+                                      });
+                                    }
+                                  },
+                                  child: SizedBox(
+                                    width: SizeConfig.blockSizeHorizontal! * 09,
+                                    height: SizeConfig.blockSizeHorizontal! * 12,
+                                    child: TextFormField(
+                                      focusNode: pin4FocusNode,
 
+                                      controller: Otp4thdigitTextController,
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(1),
+                                        FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                                      ],
+
+                                      keyboardType: TextInputType.number,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize:
+                                        MediaQuery.of(context).size.height * 0.034,
+                                        height: 1.0,
+
+                                      ),
+                                      cursorHeight: MediaQuery.of(context).size.height * 0.034, // smaller height
+                                      cursorWidth: 2.0,
+                                      decoration: InputDecoration(
+                                        isDense: true,
+                                        contentPadding: EdgeInsets.symmetric(
+                                          vertical: MediaQuery.of(context).size.height * 0.012, // balanced top-bottom padding
+                                          horizontal: MediaQuery.of(context).size.height * 0.01,
+                                        ),
+                                        filled: false, // Remove background color
+                                        hintStyle: TextStyle(color: Colors.white70),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
+                                          borderSide: BorderSide(
+                                            color: Otp4thdigithasStartedTyping
+                                                ?  Colors.red
+                                                : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                          ),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.height * 0.005)),
+                                          borderSide: BorderSide(
+                                            color: Otp4thdigithasStartedTyping
+                                                ?  Colors.red
+                                                : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                          ),
+                                        ),
+                                      ),
+                                      onChanged: (value) {
+                                        if (value.length == 1) {
+                                          pin4FocusNode!.unfocus(); // Last field, can unfocus
+                                          setState(() {
+                                            Otp4thdigithasStartedTyping = false;
+                                          });
+                                          mpinCheck();
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                )
                               ],
                             ),
                           ),
@@ -890,8 +999,6 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
 
                         ]),
                       ),
-
-
 
                     ],
                   ),
