@@ -509,6 +509,7 @@ class FeedbackMainstate extends State<FeedbackMain> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+
                                 Container(
                                   padding: EdgeInsets.only(
                                       left: MediaQuery.of(context).size.height *
@@ -534,25 +535,27 @@ class FeedbackMainstate extends State<FeedbackMain> {
                                 ),
 
                                 Container(
+                                  // color: Colors.yellow,
 
                                   padding: EdgeInsets.only(
                                     top:
                                       MediaQuery.of(context).size.height * 0.0,
                                     bottom:
-            MediaQuery.of(context).size.height * 0.00,
-            left:
-            MediaQuery.of(context).size.height * 0.02,
-            right: MediaQuery.of(context).size.height *
-                0.02),
-                                  margin: EdgeInsets.only(
-            right:
-            MediaQuery.of(context).size.height * 0.02,
-            top:
-            MediaQuery.of(context).size.height * 0.01,
-            bottom:
-            MediaQuery.of(context).size.height * 0.02,
-            left: MediaQuery.of(context).size.height *
-                0.02),
+                                    MediaQuery.of(context).size.height * 0.00,
+                                    left:
+                                    MediaQuery.of(context).size.height * 0.02,
+                                    right: MediaQuery.of(context).size.height *
+                                        0.02),
+                                                          margin: EdgeInsets.only(
+                                    right:
+                                    MediaQuery.of(context).size.height * 0.02,
+                                    top:
+                                    MediaQuery.of(context).size.height * 0.01,
+                                    bottom:
+                                    MediaQuery.of(context).size.height * 0.02,
+                                    left: MediaQuery.of(context).size.height *
+                                        0.02),
+
                                   child:
                                       EmojiFeedback(
                                       showLabel : false,
@@ -784,7 +787,10 @@ class FeedbackMainstate extends State<FeedbackMain> {
                                         ),
                                       ),
                                     ])),
-                          )
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.045,
+                          ),
 
                         ],
                       ),
