@@ -30,386 +30,428 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
     return Stack(
       alignment: AlignmentDirectional.bottomEnd,
       children: <Widget>[
-      Container(
+        Container(
           width: screenWidth,
-           margin: EdgeInsets.only(
-                    right: screenHeight * 0.02,
-                    top: screenHeight * 0.0,
-                    bottom: screenHeight * 0.0,
-                    left: screenHeight * 0.02,
-                  ),
-          child: CarouselSlider(
-          options: CarouselOptions(
-            // height: carouselItemHeight,
-           
-            aspectRatio: 256/125,
-            autoPlay: true,
-            autoPlayInterval: Duration(seconds: 2),
-            viewportFraction: 1.0,
-            // Reverse the order by changing how items are added
-            onPageChanged: (index, reason) {
-              setState(() {
-                _current = index;
-              });
-            },
+          margin: EdgeInsets.only(
+            right: screenHeight * 0.02,
+            top: screenHeight * 0.0,
+            bottom: screenHeight * 0.0,
+            left: screenHeight * 0.02,
           ),
-          items: [
-            Builder(
-              builder: (BuildContext context) {
-                return Padding(
-                padding: EdgeInsets.only(
-                  right: screenHeight * 0.00,
-                  top: screenHeight * 0.0,
-                  bottom: screenHeight * 0.0,
-                  left: screenHeight * 0.0,
-                ), // Responsive margin outside of the container
-                child: AspectRatio(
-                aspectRatio: 256 / 125, // Use the actual aspect ratio of your image
-                child: Container(
-                  margin: EdgeInsets.only(
-                    right: screenHeight * 0.0,
-                    top: screenHeight * 0.0,
-                    bottom: screenHeight * 0.0,
-                    left: screenHeight * 0.0,
-                  ), // Responsive margin
-                  // height: carouselItemHeight,
-                  decoration: BoxDecoration(
-                    // color: Color(
-                    //     0xFFC80000), // Fallback color if image fails to load
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(6),
-                    image: DecorationImage(
-                      image: AssetImage(
-                          'assets/homebanner1.png'), // Path to your banner image
-                      // fit: BoxFit.fill,
+          child: CarouselSlider(
+            options: CarouselOptions(
+              // height: carouselItemHeight,
 
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(context).hintColor.withOpacity(0.0),
-                        offset: Offset(0, 4),
-                        blurRadius: 9,
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: <Widget>[
-                      Flexible(
-                        flex: 4, // 6 out of 10 for the text section
-                        child: Container(),
-                      ),
-                      Flexible(
-                        flex: 6, // 6 out of 10 for the text section
-                        child: Padding(
-                          padding: EdgeInsets.all(verticalPadding),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.only(
-                                  top: screenHeight * 0.01,
-                                  bottom: screenHeight * 0.00,
-                                  left: screenHeight * 0.00,
-                                  right: screenHeight * 0.00,
-                                ),
-                                child: Text(
-                                  "Patient Mobile App",
-                                  style: TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    fontSize: screenHeight * 0.014,
-                                    color: Colors.white,
-                                  ),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(
-                                  top: screenHeight * 0.00,
-                                  bottom: screenHeight * 0.00,
-                                  left: screenHeight * 0.00,
-                                  right: screenHeight * 0.00,
-                                ),
-                                child: Text(
-                                  "Caring for you, every step of the way",
-                                  style: TextStyle(
-                                    fontSize: screenHeight * 0.018,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                ),
-                );
+              aspectRatio: 256 / 125,
+              autoPlay: true,
+              autoPlayInterval: Duration(seconds: 2),
+              viewportFraction: 1.0,
+              // Reverse the order by changing how items are added
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _current = index;
+                });
               },
             ),
-            Builder(
-              builder: (BuildContext context) {
-                return Container(
-                  margin: EdgeInsets.only(
-                    right: screenHeight * 0.03,
-                    top: screenHeight * 0.0,
-                    bottom: screenHeight * 0.01,
-                    left: screenHeight * 0.03,
-                  ), // Responsive margin
-                  height: carouselItemHeight,
-                  decoration: BoxDecoration(
-                    color: Color(
-                        0xFFC80000), // Fallback color if image fails to load
-                    borderRadius: BorderRadius.circular(6),
-                    image: DecorationImage(
-                      image: AssetImage(
-                          'assets/homebanner2.png'), // Path to your banner image
-                      // fit: BoxFit.fill,
-                      // Adjust to cover the entire container
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(context).hintColor.withOpacity(0.0),
-                        offset: Offset(0, 4),
-                        blurRadius: 9,
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: <Widget>[
-                      Flexible(
-                        flex: 6, // 6 out of 10 for the text section
-                        child: Padding(
-                          padding: EdgeInsets.all(verticalPadding),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.only(
-                                  top: screenHeight * 0.01,
-                                  bottom: screenHeight * 0.00,
-                                  left: screenHeight * 0.00,
-                                  right: screenHeight * 0.00,
-                                ),
-                                child: Text(
-                                  "Patient Mobile App",
-                                  style: TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    fontSize: screenHeight * 0.014,
-                                    color: Colors.white,
-                                  ),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(
-                                  top: screenHeight * 0.00,
-                                  bottom: screenHeight * 0.00,
-                                  left: screenHeight * 0.00,
-                                  right: screenHeight * 0.00,
-                                ),
-                                child: Text(
-                                  "Caring for you, every step of the way",
-                                  style: TextStyle(
-                                    fontSize: screenHeight * 0.018,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                            ],
+            items: [
+              Builder(
+                builder: (BuildContext context) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      right: screenHeight * 0.01,
+                      top: screenHeight * 0.0,
+                      bottom: screenHeight * 0.0,
+                      left: screenHeight * 0.01,
+                    ), // Responsive margin outside of the container
+                    child: AspectRatio(
+                      aspectRatio: 256 /
+                          125, // Use the actual aspect ratio of your image
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          right: screenHeight * 0.0,
+                          top: screenHeight * 0.0,
+                          bottom: screenHeight * 0.0,
+                          left: screenHeight * 0.0,
+                        ), // Responsive margin
+                        // height: carouselItemHeight,
+                        decoration: BoxDecoration(
+                          // color: Color(
+                          //     0xFFC80000), // Fallback color if image fails to load
+                          // color: Colors.blue,
+                          borderRadius: BorderRadius.circular(6),
+                          image: DecorationImage(
+                            image: AssetImage(
+                                'assets/B2_ls.png'), // Path to your banner image
+                            // fit: BoxFit.fill,
                           ),
+                          boxShadow: [
+                            BoxShadow(
+                              color:
+                                  Theme.of(context).hintColor.withOpacity(0.0),
+                              offset: Offset(0, 4),
+                              blurRadius: 9,
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Flexible(
+                              flex: 4, // 6 out of 10 for the text section
+                              child: Container(),
+                            ),
+                            Flexible(
+                              flex: 6, // 6 out of 10 for the text section
+                              child: Padding(
+                                padding: EdgeInsets.all(verticalPadding),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        top: screenHeight * 0.04,
+                                        bottom: screenHeight * 0.00,
+                                        left: screenHeight * 0.00,
+                                        right: screenHeight * 0.00,
+                                      ),
+                                      child: Text(
+                                        "Patient Mobile App",
+                                        style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                          fontSize: screenHeight * 0.014,
+                                          color: Colors.white,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        top: screenHeight * 0.00,
+                                        bottom: screenHeight * 0.00,
+                                        left: screenHeight * 0.00,
+                                        right: screenHeight * 0.00,
+                                      ),
+                                      child: Text(
+                                        "Caring for you, every step of the way",
+                                        style: TextStyle(
+                                          fontSize: screenHeight * 0.018,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Flexible(
-                        flex: 4, // 6 out of 10 for the text section
-                        child: Container(),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
+                    ),
+                  );
+                },
+              ),
+              Builder(
+                builder: (BuildContext context) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      right: screenHeight * 0.01,
+                      top: screenHeight * 0.0,
+                      bottom: screenHeight * 0.0,
+                      left: screenHeight * 0.01,
+                    ), // Responsive margin
+                    // height: carouselItemHeight,
+                    child: AspectRatio(
+                      aspectRatio: 256 /
+                          125, // Use the actual aspect ratio of your image
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          right: screenHeight * 0.0,
+                          top: screenHeight * 0.0,
+                          bottom: screenHeight * 0.0,
+                          left: screenHeight * 0.0,
+                        ), // Responsive margin
+                        // height: carouselItemHeight,
 
-            Builder(
-              builder: (BuildContext context) {
-                return Container(
-                  margin: EdgeInsets.only(
-                    right: screenHeight * 0.03,
-                    top: screenHeight * 0.0,
-                    bottom: screenHeight * 0.01,
-                    left: screenHeight * 0.03,
-                  ), // Responsive margin
-                  height: carouselItemHeight,
-                  decoration: BoxDecoration(
-                    color: Color(
-                        0xFFC80000), // Fallback color if image fails to load
-                    borderRadius: BorderRadius.circular(6),
-                    image: DecorationImage(
-                      image: AssetImage(
-                          'assets/homebanner1.png'), // Path to your banner image
-                      fit: BoxFit.fill,
-                      alignment: Alignment.centerLeft,// Adjust to cover the entire container
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(context).hintColor.withOpacity(0.0),
-                        offset: Offset(0, 4),
-                        blurRadius: 9,
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: <Widget>[
-                      Flexible(
-                        flex: 4, // 6 out of 10 for the text section
-                        child: Container(),
-                      ),
-                      Flexible(
-                        flex: 6, // 6 out of 10 for the text section
-                        child: Padding(
-                          padding: EdgeInsets.all(verticalPadding),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.only(
-                                  top: screenHeight * 0.01,
-                                  bottom: screenHeight * 0.00,
-                                  left: screenHeight * 0.00,
-                                  right: screenHeight * 0.00,
-                                ),
-                                child: Text(
-                                  "Patient Mobile App",
-                                  style: TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    fontSize: screenHeight * 0.014,
-                                    color: Colors.white,
-                                  ),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(
-                                  top: screenHeight * 0.00,
-                                  bottom: screenHeight * 0.00,
-                                  left: screenHeight * 0.00,
-                                  right: screenHeight * 0.00,
-                                ),
-                                child: Text(
-                                  "Caring for you, every step of the way",
-                                  style: TextStyle(
-                                    fontSize: screenHeight * 0.018,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                            ],
+                        decoration: BoxDecoration(
+                          // color: Color(
+                          //     0xFFC80000), // Fallback color if image fails to load
+                          borderRadius: BorderRadius.circular(6),
+                          image: DecorationImage(
+                            image: AssetImage(
+                                'assets/B3_ls.png'), // Path to your banner image
+                            // fit: BoxFit.fill,
+                            // Adjust to cover the entire container
                           ),
+                          boxShadow: [
+                            BoxShadow(
+                              color:
+                                  Theme.of(context).hintColor.withOpacity(0.0),
+                              offset: Offset(0, 4),
+                              blurRadius: 9,
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Flexible(
+                              flex: 6, // 6 out of 10 for the text section
+                              child: Padding(
+                                padding: EdgeInsets.all(verticalPadding),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        top: screenHeight * 0.04,
+                                        bottom: screenHeight * 0.00,
+                                        left: screenHeight * 0.00,
+                                        right: screenHeight * 0.00,
+                                      ),
+                                      child: Text(
+                                        "Patient Mobile App",
+                                        style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                          fontSize: screenHeight * 0.014,
+                                          color: Colors.white,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        top: screenHeight * 0.00,
+                                        bottom: screenHeight * 0.00,
+                                        left: screenHeight * 0.00,
+                                        right: screenHeight * 0.00,
+                                      ),
+                                      child: Text(
+                                        "Caring for you, every step of the way",
+                                        style: TextStyle(
+                                          fontSize: screenHeight * 0.018,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              flex: 4, // 6 out of 10 for the text section
+                              child: Container(),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                );
-              },
-            ),
-            Builder(
-              builder: (BuildContext context) {
-                return Container(
-                  margin: EdgeInsets.only(
-                    right: screenHeight * 0.03,
-                    top: screenHeight * 0.0,
-                    bottom: screenHeight * 0.01,
-                    left: screenHeight * 0.03,
-                  ), // Responsive margin
-                  height: carouselItemHeight,
-                  decoration: BoxDecoration(
-                    color: Color(
-                        0xFFC80000), // Fallback color if image fails to load
-                    borderRadius: BorderRadius.circular(6),
-                    image: DecorationImage(
-                      image: AssetImage(
-                          'assets/homebanner2.png'), // Path to your banner image
-                      fit: BoxFit.fill,
-                      // Adjust to cover the entire container
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(context).hintColor.withOpacity(0.0),
-                        offset: Offset(0, 4),
-                        blurRadius: 9,
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: <Widget>[
-                      Flexible(
-                        flex: 6, // 6 out of 10 for the text section
-                        child: Padding(
-                          padding: EdgeInsets.all(verticalPadding),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.only(
-                                  top: screenHeight * 0.01,
-                                  bottom: screenHeight * 0.00,
-                                  left: screenHeight * 0.00,
-                                  right: screenHeight * 0.00,
-                                ),
-                                child: Text(
-                                  "Patient Mobile App",
-                                  style: TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    fontSize: screenHeight * 0.014,
-                                    color: Colors.white,
-                                  ),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(
-                                  top: screenHeight * 0.00,
-                                  bottom: screenHeight * 0.00,
-                                  left: screenHeight * 0.00,
-                                  right: screenHeight * 0.00,
-                                ),
-                                child: Text(
-                                  "Caring for you, every step of the way",
-                                  style: TextStyle(
-                                    fontSize: screenHeight * 0.018,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                            ],
+                  );
+                },
+              ),
+              Builder(
+                builder: (BuildContext context) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      right: screenHeight * 0.01,
+                      top: screenHeight * 0.0,
+                      bottom: screenHeight * 0.0,
+                      left: screenHeight * 0.01,
+                    ), // Responsive margin outside of the container
+                    child: AspectRatio(
+                      aspectRatio: 256 /
+                          125, // Use the actual aspect ratio of your image
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          right: screenHeight * 0.0,
+                          top: screenHeight * 0.0,
+                          bottom: screenHeight * 0.0,
+                          left: screenHeight * 0.0,
+                        ), // Responsive margin
+                        // height: carouselItemHeight,
+                        decoration: BoxDecoration(
+                          // color: Color(
+                          //     0xFFC80000), // Fallback color if image fails to load
+                          // color: Colors.blue,
+                          borderRadius: BorderRadius.circular(6),
+                          image: DecorationImage(
+                            image: AssetImage(
+                                'assets/B2_ls.png'), // Path to your banner image
+                            // fit: BoxFit.fill,
                           ),
+                          boxShadow: [
+                            BoxShadow(
+                              color:
+                                  Theme.of(context).hintColor.withOpacity(0.0),
+                              offset: Offset(0, 4),
+                              blurRadius: 9,
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Flexible(
+                              flex: 4, // 6 out of 10 for the text section
+                              child: Container(),
+                            ),
+                            Flexible(
+                              flex: 6, // 6 out of 10 for the text section
+                              child: Padding(
+                                padding: EdgeInsets.all(verticalPadding),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        top: screenHeight * 0.04,
+                                        bottom: screenHeight * 0.00,
+                                        left: screenHeight * 0.00,
+                                        right: screenHeight * 0.00,
+                                      ),
+                                      child: Text(
+                                        "Patient Mobile App",
+                                        style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                          fontSize: screenHeight * 0.014,
+                                          color: Colors.white,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        top: screenHeight * 0.00,
+                                        bottom: screenHeight * 0.00,
+                                        left: screenHeight * 0.00,
+                                        right: screenHeight * 0.00,
+                                      ),
+                                      child: Text(
+                                        "Caring for you, every step of the way",
+                                        style: TextStyle(
+                                          fontSize: screenHeight * 0.018,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Flexible(
-                        flex: 4, // 6 out of 10 for the text section
-                        child: Container(),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
+                    ),
+                  );
+                },
+              ),
+              Builder(
+                builder: (BuildContext context) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      right: screenHeight * 0.01,
+                      top: screenHeight * 0.0,
+                      bottom: screenHeight * 0.0,
+                      left: screenHeight * 0.01,
+                    ), // Responsive margin
+                    // height: carouselItemHeight,
+                    child: AspectRatio(
+                      aspectRatio: 256 /
+                          125, // Use the actual aspect ratio of your image
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          right: screenHeight * 0.0,
+                          top: screenHeight * 0.0,
+                          bottom: screenHeight * 0.0,
+                          left: screenHeight * 0.0,
+                        ), // Responsive margin
+                        // height: carouselItemHeight,
 
-          ],
-        ),
+                        decoration: BoxDecoration(
+                          // color: Color(
+                          //     0xFFC80000), // Fallback color if image fails to load
+                          borderRadius: BorderRadius.circular(6),
+                          image: DecorationImage(
+                            image: AssetImage(
+                                'assets/B3_ls.png'), // Path to your banner image
+                            // fit: BoxFit.fill,
+                            // Adjust to cover the entire container
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color:
+                                  Theme.of(context).hintColor.withOpacity(0.0),
+                              offset: Offset(0, 4),
+                              blurRadius: 9,
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Flexible(
+                              flex: 6, // 6 out of 10 for the text section
+                              child: Padding(
+                                padding: EdgeInsets.all(verticalPadding),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        top: screenHeight * 0.04,
+                                        bottom: screenHeight * 0.00,
+                                        left: screenHeight * 0.00,
+                                        right: screenHeight * 0.00,
+                                      ),
+                                      child: Text(
+                                        "Patient Mobile App",
+                                        style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                          fontSize: screenHeight * 0.014,
+                                          color: Colors.white,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        top: screenHeight * 0.00,
+                                        bottom: screenHeight * 0.00,
+                                        left: screenHeight * 0.00,
+                                        right: screenHeight * 0.00,
+                                      ),
+                                      child: Text(
+                                        "Caring for you, every step of the way",
+                                        style: TextStyle(
+                                          fontSize: screenHeight * 0.018,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              flex: 4, // 6 out of 10 for the text section
+                              child: Container(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
         // Carousel Indicator
         Positioned(
@@ -421,34 +463,36 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
               // Custom indicators for each screen
               for (int i = 0; i < 4; i++)
                 Container(
-                  width: _current == i ? dotWidth : screenWidth * 0.01, // Dynamic width based on screen size
+                  width: _current == i
+                      ? dotWidth
+                      : screenWidth *
+                          0.01, // Dynamic width based on screen size
                   height: dotHeight, // Fixed height for the dot
                   margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      // color: _current == i
-                      //     ? Color(0xFFFFFFFF)
-                      //     : Theme.of(context).hintColor.withOpacity(0.3),
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    // color: _current == i
+                    //     ? Color(0xFFFFFFFF)
+                    //     : Theme.of(context).hintColor.withOpacity(0.3),
 
-                      gradient: LinearGradient(
-                        colors: _current == i
-                            ? [
-                                Color(0xFFFFFFFF),
-                                Color(0xFFFFFFFF),
-                             ]
-                          :  [
-                                Color(0xFFFFFFFF), // White
-                                Color(0xFF999999), // Gray
-                             ],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
+                    gradient: LinearGradient(
+                      colors: _current == i
+                          ? [
+                              Color(0xFFFFFFFF),
+                              Color(0xFFFFFFFF),
+                            ]
+                          : [
+                              Color(0xFFFFFFFF), // White
+                              Color(0xFF999999), // Gray
+                            ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
                   ),
                 ),
             ],
           ),
         ),
-      
       ],
     );
   }

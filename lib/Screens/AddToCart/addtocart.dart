@@ -97,97 +97,81 @@ class AddToCartMainstate extends State<AddToCartMain> {
                   children: [],
                 ),
               ),
-               Container(
+              Container(
                 padding: EdgeInsets.only(
-                        left: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.02,
-                        right: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.02,
-                        top: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.02,
-                        bottom: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.01),
+                    left: MediaQuery.of(context).size.height * 0.02,
+                    right: MediaQuery.of(context).size.height * 0.02,
+                    top: MediaQuery.of(context).size.height * 0.02,
+                    bottom: MediaQuery.of(context).size.height * 0.01),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(screenHeight * 0.03),
-                        topRight: Radius.circular(screenHeight * 0.03),
-                      ),
-                    ),
-                child:
-                  Column(
-                    children: [
-   // Inkwell & Cart Text
-                      Container(
-                        padding: EdgeInsets.only(
-                          top: screenHeight * 0.0,
-                          left: screenWidth * 0.0,
-                          right: screenWidth * 0.0,
-                          bottom: screenWidth * 0.01,
-                        ),
-                        margin: EdgeInsets.only(
-                          right: screenHeight * 0.0,
-                          top: screenHeight * 0.0,
-                          bottom: screenHeight * 0.01,
-                          left: screenHeight * 0.01 ,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Back Button
-                            InkWell(
-                              onTap: () => Navigator.pop(context),
-                              child: Container(
-                                margin: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.height * 0.01,
-                                ),
-                                height: screenHeight * 0.035,
-                                width: screenHeight * 0.035,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFF7F5F6),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  Icons.arrow_back_ios_sharp,
-                                  color: Color(0xFF999999),
-                                  size: screenHeight * 0.018,
-                                ),
-                              ),
-                            ),
-
-                            // Help Text (Centered)
-                            Expanded(
-                              child: Center(
-                                child: Text(
-                                  "Cart",
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height * 0.018,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-
-                            // Placeholder to Balance Row (Keeps Help Text Centered)
-                            SizedBox(width: screenHeight * 0.035),
-
-                          ],
-                        )
-                        ,
-                      ),
-                    ]
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(screenHeight * 0.03),
+                    topRight: Radius.circular(screenHeight * 0.03),
                   ),
+                ),
+                child: Column(children: [
+                  // Inkwell & Cart Text
+                  Container(
+                    padding: EdgeInsets.only(
+                      top: screenHeight * 0.0,
+                      left: screenWidth * 0.0,
+                      right: screenWidth * 0.0,
+                      bottom: screenWidth * 0.01,
+                    ),
+                    margin: EdgeInsets.only(
+                      right: screenHeight * 0.0,
+                      top: screenHeight * 0.0,
+                      bottom: screenHeight * 0.01,
+                      left: screenHeight * 0.01,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Back Button
+                        InkWell(
+                          onTap: () => Navigator.pop(context),
+                          child: Container(
+                            margin: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.height * 0.01,
+                            ),
+                            height: screenHeight * 0.035,
+                            width: screenHeight * 0.035,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFF7F5F6),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.arrow_back_ios_sharp,
+                              color: Color(0xFF999999),
+                              size: screenHeight * 0.018,
+                            ),
+                          ),
+                        ),
+
+                        // Help Text (Centered)
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              "Cart",
+                              style: TextStyle(
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.018,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+
+                        // Placeholder to Balance Row (Keeps Help Text Centered)
+                        SizedBox(width: screenHeight * 0.035),
+                      ],
+                    ),
+                  ),
+                ]),
               ),
               // Main Content Section
               Expanded(
@@ -269,8 +253,6 @@ class AddToCartMainstate extends State<AddToCartMain> {
 
                       // Top ListView
 
-                   
-
                       // Top 3 Cards
                       Container(
                         margin: EdgeInsets.only(
@@ -311,8 +293,10 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                         "assets/addtofoldersaveicon.png", // Path to your local image
                                         width: 24, // Adjust width
                                         height: 24, // Adjust height
-                                        color: Colors.green, // Apply white color
-                                        colorBlendMode: BlendMode.srcIn, // Blend mode to colorize
+                                        color:
+                                            Colors.green, // Apply white color
+                                        colorBlendMode: BlendMode
+                                            .srcIn, // Blend mode to colorize
                                       ),
                                       SizedBox(width: 10),
                                       Text(
@@ -367,13 +351,13 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                     print('else if');
                                     setState(() {
                                       // Swiped Left to Right (Move to another list)
-                                      if (endtextbottomlist.length > 0)
-                                        endtextbottomlist.insert(
-                                            0, uploadfilestime[index]);
-                                      else {
-                                        endtextbottomlist
-                                            .add(uploadfilestime[index]);
-                                      }
+                                      // if (endtextbottomlist.length > 0)
+                                      endtextbottomlist.insert(
+                                          0, uploadfilestime[index]);
+                                      // else {
+                                      //   endtextbottomlist
+                                      //       .add(uploadfilestime[index]);
+                                      // }
 
                                       uploadfilestime.removeAt(index);
                                       print(
@@ -1382,23 +1366,24 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                 itemBuilder: (context, index) {
                                   final file = endtextbottomlist[index];
 
-                            return
-
-                              Dismissible(
-                                  key: UniqueKey(), // Unique key for each item
-                                  direction: DismissDirection.endToStart, // Allow swipe from right to left
-                                  background: Container(
-                                    color: Colors.white,
-                                    alignment: Alignment.centerRight,
-                                    padding: EdgeInsets.symmetric(horizontal: 20),
-                                    child: Icon(
-                                      Icons.delete,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                  onDismissed: (direction) {
-                                    // Remove the item immediately from the list
-                                    // endtextbottomlist.removeAt(index);
+                                  return Dismissible(
+                                      key:
+                                          UniqueKey(), // Unique key for each item
+                                      direction: DismissDirection
+                                          .endToStart, // Allow swipe from right to left
+                                      background: Container(
+                                        color: Colors.white,
+                                        alignment: Alignment.centerRight,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                      onDismissed: (direction) {
+                                        // Remove the item immediately from the list
+                                        // endtextbottomlist.removeAt(index);
 
                                         setState(() {
                                           endtextbottomlist.removeAt(index);

@@ -64,9 +64,9 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   AuthFailed customalert = new AuthFailed();
 
   final myCatagories = [
-    ["assets/CategoryAppoinment.png", "Appoinment"],
+    ["assets/AppoinmentLS.png", "Appoinment"],
     ["assets/CategoryHomeCare.png", "Home Care"],
-    ["assets/CategoryMedications.png", "Medications"],
+    ["assets/Medications_ls.png", "Medications"],
     ["assets/CategoryLab.png", "Lab"],
     ["assets/CategoryRadiology.png", "Radiology"],
     ["assets/CategoryTimelin.png", "Timeline"],
@@ -4061,7 +4061,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                               .height * 0.005,
                         ), // Add padding
                         child: Image.asset(
-                          'assets/Homeactive.png',
+                          'assets/Home_ls.png',
                           width: MediaQuery
                               .of(context)
                               .size
@@ -4102,7 +4102,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                               .height * 0.005,
                         ), // Add padding
                         child: Image.asset(
-                          'assets/MyReports.png',
+                          'assets/MyReports_ls.png',
                           width: MediaQuery
                               .of(context)
                               .size
@@ -4172,7 +4172,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                               .height * 0.005,
                         ), // Add padding
                         child: Image.asset(
-                          'assets/Appoinments.png',
+                          'assets/Appointments_ls.png',
                           width: MediaQuery
                               .of(context)
                               .size
@@ -4213,7 +4213,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                               .height * 0.005,
                         ), // Add padding
                         child: Image.asset(
-                          'assets/MyHealth.png',
+                          'assets/MyHealthls.png',
                           width: MediaQuery
                               .of(context)
                               .size
@@ -4927,7 +4927,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                             .height * 0.025,
                                                         child:
                                                         Image.asset(
-                                                          'assets/AppointmentBs.png',
+                                                          'assets/Appointments_ls.png',
                                                           fit:
                                                           BoxFit.fill,
                                                         ),
