@@ -1,30 +1,27 @@
 import 'dart:convert';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:newfolder/Screens/HRecommendedDoctors/home_doctordetails.dart';
-import 'package:newfolder/Screens/HRecommendedDoctors/home_mybockings.dart';
-import 'package:newfolder/Screens/Widgets/ShareToOtherApp.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:newfolder/Data/APIServices/api_service.dart';
+import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Data/Models/appointmentselectime.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
-import 'package:newfolder/Screens/Appointments/appointmentsfindspecialities.dart';
-import 'package:newfolder/Screens/Appointments/appointmentsmainfindDoctors.dart';
-import 'package:newfolder/Screens/Appointments/doctordetailpage.dart';
-import 'package:newfolder/Screens/Appointments/mybockingsmain.dart';
+import 'package:newfolder/Screens/HRecommendedDoctors/home_doctordetails.dart';
+import 'package:newfolder/Screens/HRecommendedDoctors/home_mybockings.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
+import 'package:newfolder/Screens/Widgets/ShareToOtherApp.dart';
+import 'package:progress_dialog2/progress_dialog2.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import 'package:progress_dialog2/progress_dialog2.dart';
-import 'package:newfolder/Data/APIServices/api_service.dart';
-import 'package:newfolder/Data/APIServices/connectivity_service.dart';
+import '../../constants/time_slot_constants.dart';
+import '../../utils/TimeSlotSelector.dart';
+import '../../utils/custom_calendar.dart';
 
 class HomeSelectTimeSlot extends StatefulWidget {
   // final String? doctoridval;
 
- /* HomeSelectTimeSlot(
+  /* HomeSelectTimeSlot(
       this.doctoridval,
       {Key? key}) : super(key: key);*/
 
@@ -37,6 +34,7 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
   String useraddressValue = "Reg: TSMC/FMR/09823";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
+
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -68,6 +66,9 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
     getBookingDetails(formattedDate);
   }
 
+  final today = DateTime.now();
+  String selectedSlot = "";
+
   @override
   Widget build(BuildContext context) {
     progressDialog = ProgressDialog(context,
@@ -95,6 +96,7 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     TextEditingController SearchEditTextController = TextEditingController();
+    String slectedDateSlot = DateFormat('dd-MM-yyyy').format(today);
 
     return Scaffold(
       body: Container(
@@ -142,7 +144,7 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                         color: Color(0xFF126086).withOpacity(0.2),
                         shape: BoxShape.circle,
                         border:
-                        Border.all(width: 0.0, color: Color(0xFF126086)),
+                            Border.all(width: 0.0, color: Color(0xFF126086)),
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(130.0),
@@ -155,39 +157,39 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                   ),
                   userprofilepValue != "NA"
                       ? Container(
-                    height: MediaQuery.of(context).size.height * 0.250,
-                    width: MediaQuery.of(context).size.height * 0.200,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1.0,
-                        color: Colors.white,
-                      ),
-                      shape: BoxShape.circle,
-                      image: new DecorationImage(
-                        fit: BoxFit.fill,
-                        image:
-                        Image.memory(base64Decode(userprofilepValue))
-                            .image,
-                      ),
-                    ),
-                  )
+                          height: MediaQuery.of(context).size.height * 0.250,
+                          width: MediaQuery.of(context).size.height * 0.200,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1.0,
+                              color: Colors.white,
+                            ),
+                            shape: BoxShape.circle,
+                            image: new DecorationImage(
+                              fit: BoxFit.fill,
+                              image:
+                                  Image.memory(base64Decode(userprofilepValue))
+                                      .image,
+                            ),
+                          ),
+                        )
                       : Container(
-                    margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.05,
-                        right: MediaQuery.of(context).size.height * 0.00,
-                        top: MediaQuery.of(context).size.height * 0.00,
-                        bottom:
-                        MediaQuery.of(context).size.height * 0.00),
-                    height: MediaQuery.of(context).size.height * 0.250,
-                    width: MediaQuery.of(context).size.height * 0.20,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(0.0),
-                      child: Image.asset(
-                        'assets/bookappointmentdoc.png',
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
+                          margin: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.height * 0.05,
+                              right: MediaQuery.of(context).size.height * 0.00,
+                              top: MediaQuery.of(context).size.height * 0.00,
+                              bottom:
+                                  MediaQuery.of(context).size.height * 0.00),
+                          height: MediaQuery.of(context).size.height * 0.250,
+                          width: MediaQuery.of(context).size.height * 0.20,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(0.0),
+                            child: Image.asset(
+                              'assets/bookappointmentdoc.png',
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.250,
                     padding: EdgeInsets.only(
@@ -233,8 +235,8 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                                           fontWeight: FontWeight.bold,
                                           overflow: TextOverflow.ellipsis,
                                           fontSize: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.02),
                                     )
                                   ],
@@ -246,20 +248,19 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                                   // Navigator.pop(context);
                                   ShareToOtherApp.share();
                                 },
-                                onDoubleTap: (){
-                                },
+                                onDoubleTap: () {},
                                 child: Container(
                                   margin: EdgeInsets.only(
                                       left: MediaQuery.of(context).size.height *
                                           0.020,
                                       right:
-                                      MediaQuery.of(context).size.height *
-                                          0.00,
+                                          MediaQuery.of(context).size.height *
+                                              0.00,
                                       top: MediaQuery.of(context).size.height *
                                           0.00,
                                       bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.00),
+                                          MediaQuery.of(context).size.height *
+                                              0.00),
                                   height: screenHeight * 0.035,
                                   width: screenHeight * 0.035,
                                   decoration: BoxDecoration(
@@ -290,7 +291,7 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                             style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               fontSize:
-                              MediaQuery.of(context).size.height * 0.012,
+                                  MediaQuery.of(context).size.height * 0.012,
                               color: Colors.white,
                             ),
                             // textAlign: TextAlign.left,
@@ -319,102 +320,90 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                     topRight: Radius.circular(screenHeight * 0.03),
                   ),
                 ),
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  physics: AlwaysScrollableScrollPhysics(),
+                // child: ListView(
+                //   padding: EdgeInsets.zero,
+                //   shrinkWrap: true,
+                //   physics: AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Doctor's Information
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-
-
                         Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-
                               Text(
                                 "Dr. Nutan Bhatt",
                                 style: TextStyle(
                                   color: Color(0xFF126086),
                                   fontWeight: FontWeight.bold,
-                                  fontSize: MediaQuery.of(context).size.height * 0.02,
+                                  fontSize:
+                                      MediaQuery.of(context).size.height * 0.02,
                                 ),
                               ),
-
                               GestureDetector(
                                 onTap: () async {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder:
-                                          (BuildContext context) {
+                                      builder: (BuildContext context) {
                                         return HomeDoctorDetilPage();
                                       },
                                     ),
                                   );
                                 },
-                                child:
-                                Container(
+                                child: Container(
                                   margin: EdgeInsets.only(
-                                      left:
-                                      MediaQuery.of(context).size.height *
+                                      left: MediaQuery.of(context).size.height *
                                           0.01,
                                       right:
-                                      MediaQuery.of(context).size.height *
-                                          0.0,
+                                          MediaQuery.of(context).size.height *
+                                              0.0,
                                       bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.0,
-                                      top:
-                                      MediaQuery.of(context).size.height *
+                                          MediaQuery.of(context).size.height *
+                                              0.0,
+                                      top: MediaQuery.of(context).size.height *
                                           0.002),
                                   padding: EdgeInsets.only(
                                     left: MediaQuery.of(context).size.height *
                                         0.00,
                                   ),
                                   child: ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.circular(130.0),
+                                    borderRadius: BorderRadius.circular(130.0),
                                     child: Image.asset(
                                       'assets/Infodocdetails.png',
                                       height:
-                                      MediaQuery.of(context).size.height *
-                                          0.02, // Adjust height
+                                          MediaQuery.of(context).size.height *
+                                              0.02, // Adjust height
                                       width:
-                                      MediaQuery.of(context).size.height *
-                                          0.02, // Adjust width
+                                          MediaQuery.of(context).size.height *
+                                              0.02, // Adjust width
                                       fit: BoxFit.fill,
                                     ),
                                   ),
                                 ),
                               ),
-                            ]
-                        ),
-
-
+                            ]),
                         Container(
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.height * 0.01,
                               right: MediaQuery.of(context).size.height * 0.01,
                               top: MediaQuery.of(context).size.height * 0.00,
                               bottom:
-                              MediaQuery.of(context).size.height * 0.005),
-                          child:
-                        Text(
-                          "General physician / Internal Medicine",
-                          // completedSpecialityString,
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontWeight: FontWeight.bold,
-                            fontSize:
-                            MediaQuery.of(context).size.height * 0.018,
+                                  MediaQuery.of(context).size.height * 0.005),
+                          child: Text(
+                            "General physician / Internal Medicine",
+                            // completedSpecialityString,
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontWeight: FontWeight.bold,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.018,
+                            ),
                           ),
                         ),
-                        ),
-
-
                         Text(
                           "41 YEARS Experience- MBBS, DIPLOMA IN FAMILY MEDICINE (123 Reviews)",
                           // qualificationval,
@@ -422,252 +411,279 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                             color: Color(0xFF126086),
                             fontWeight: FontWeight.bold,
                             fontSize:
-                            MediaQuery.of(context).size.height * 0.013,
+                                MediaQuery.of(context).size.height * 0.013,
                           ),
                         ),
                       ],
                     ),
 
                     // Select Your Date
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.height * 0.02,
-                          right: MediaQuery.of(context).size.height * 0.00,
-                          top: MediaQuery.of(context).size.height * 0.005,
-                          bottom: MediaQuery.of(context).size.height * 0.00),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Select Your Date",
-                          style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.height * 0.018,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(
+                    //       left: MediaQuery.of(context).size.height * 0.02,
+                    //       right: MediaQuery.of(context).size.height * 0.00,
+                    //       top: MediaQuery.of(context).size.height * 0.005,
+                    //       bottom: MediaQuery.of(context).size.height * 0.00),
+                    //   child: Align(
+                    //     alignment: Alignment.centerLeft,
+                    //     child: Text(
+                    //       "Select Your Date",
+                    //       style: TextStyle(
+                    //         fontSize:
+                    //             MediaQuery.of(context).size.height * 0.018,
+                    //         fontWeight: FontWeight.bold,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
 
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.height * 0.0,
-                      ),
-                      child: GestureDetector(
-                        onPanUpdate: (details) {
-                          // Pass swipe gestures to parent ListView
-                          Scrollable.ensureVisible(context);
-                        },
-                        child:TableCalendar(
-                          firstDay: DateTime.utc(2010, 10, 20),
-                          lastDay: DateTime.utc(2040, 10, 20),
-                          focusedDay: _focusedDay,
-                          calendarFormat: _calendarFormat,
-                          rowHeight: MediaQuery.of(context).size.height * 0.04,
-                          availableCalendarFormats: const {
-                            CalendarFormat.month: 'Month',
-                          },
-                          headerStyle: const HeaderStyle(
-                            formatButtonVisible: false, // Hide format button
-                            titleCentered: false, // Align title to the left
-                            headerPadding: EdgeInsets.symmetric(vertical: 4.0),
-                            leftChevronVisible: false, // Hide default left chevron
-                            rightChevronVisible: false, // Hide default right chevron
-                          ),
-                          calendarBuilders: CalendarBuilders(
+                    // Padding(
+                    //   padding: EdgeInsets.symmetric(
+                    //     horizontal: MediaQuery.of(context).size.height * 0.0,
+                    //   ),
+                    //   child: GestureDetector(
+                    //     onPanUpdate: (details) {
+                    //       // Pass swipe gestures to parent ListView
+                    //       Scrollable.ensureVisible(context);
+                    //     },
+                    //     child: TableCalendar(
+                    //       firstDay: DateTime.utc(2010, 10, 20),
+                    //       lastDay: DateTime.utc(2040, 10, 20),
+                    //       focusedDay: _focusedDay,
+                    //       calendarFormat: _calendarFormat,
+                    //       rowHeight: MediaQuery.of(context).size.height * 0.04,
+                    //       availableCalendarFormats: const {
+                    //         CalendarFormat.month: 'Month',
+                    //       },
+                    //       headerStyle: const HeaderStyle(
+                    //         formatButtonVisible: false, // Hide format button
+                    //         titleCentered: false, // Align title to the left
+                    //         headerPadding: EdgeInsets.symmetric(vertical: 4.0),
+                    //         leftChevronVisible:
+                    //             false, // Hide default left chevron
+                    //         rightChevronVisible:
+                    //             false, // Hide default right chevron
+                    //       ),
+                    //       calendarBuilders: CalendarBuilders(
+                    //         defaultBuilder: (context, date, _) {
+                    //           return Container(
+                    //             margin: const EdgeInsets.all(3.0),
+                    //             alignment: Alignment.center,
+                    //             child: Text(
+                    //               '${date.day}',
+                    //               style: TextStyle(
+                    //                 color: Color(0xFF126086),
+                    //                 fontSize:
+                    //                     MediaQuery.of(context).size.height *
+                    //                         0.02,
+                    //               ),
+                    //             ),
+                    //           );
+                    //         },
+                    //         selectedBuilder: (context, date, _) {
+                    //           return Container(
+                    //             margin: const EdgeInsets.all(3.0),
+                    //             decoration: BoxDecoration(
+                    //               color: Color(0xFF116A94).withOpacity(0.2),
+                    //               shape: BoxShape.circle,
+                    //             ),
+                    //             alignment: Alignment.center,
+                    //             child: Text(
+                    //               '${date.day}',
+                    //               style: TextStyle(
+                    //                 color: Color(0xFF126086),
+                    //                 fontSize:
+                    //                     MediaQuery.of(context).size.height *
+                    //                         0.02,
+                    //                 fontWeight: FontWeight.bold,
+                    //               ),
+                    //             ),
+                    //           );
+                    //         },
+                    //         todayBuilder: (context, date, _) {
+                    //           if (!isSameDay(_selectedDay, date)) {
+                    //             return Container(
+                    //               margin: EdgeInsets.all(3.0),
+                    //               decoration: BoxDecoration(
+                    //                 color: Colors.transparent,
+                    //                 shape: BoxShape.circle,
+                    //               ),
+                    //               alignment: Alignment.center,
+                    //               child: Text(
+                    //                 '${date.day}',
+                    //                 style: TextStyle(
+                    //                   color: Color(0xFF126086),
+                    //                   fontSize:
+                    //                       MediaQuery.of(context).size.height *
+                    //                           0.02,
+                    //                 ),
+                    //               ),
+                    //             );
+                    //           }
+                    //
+                    //           return Container(
+                    //             margin: EdgeInsets.all(3.0),
+                    //             decoration: BoxDecoration(
+                    //               color: Color(0xFF116A94).withOpacity(0.2),
+                    //               shape: BoxShape.circle,
+                    //             ),
+                    //             alignment: Alignment.center,
+                    //             child: Text(
+                    //               '${date.day}',
+                    //               style: TextStyle(
+                    //                 color: Color(0xFF126086),
+                    //                 fontSize:
+                    //                     MediaQuery.of(context).size.height *
+                    //                         0.02,
+                    //                 fontWeight: FontWeight.bold,
+                    //               ),
+                    //             ),
+                    //           );
+                    //         },
+                    //         headerTitleBuilder: (context, date) {
+                    //           return Row(
+                    //             mainAxisAlignment:
+                    //                 MainAxisAlignment.spaceBetween,
+                    //             children: [
+                    //               Padding(
+                    //                 padding: EdgeInsets.only(
+                    //                   left: MediaQuery.of(context).size.height *
+                    //                       0.02,
+                    //                 ),
+                    //                 child: Text(
+                    //                   DateFormat.MMMM().format(date),
+                    //                   // DateFormat.yMMMM().format(date), // Display month name
+                    //                   style: TextStyle(
+                    //                     fontSize:
+                    //                         MediaQuery.of(context).size.height *
+                    //                             0.017,
+                    //                     fontWeight: FontWeight.bold,
+                    //                     color: Colors.black87,
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //               Row(
+                    //                 children: [
+                    //                   IconButton(
+                    //                     icon: Icon(
+                    //                       Icons.chevron_left,
+                    //                       size: MediaQuery.of(context)
+                    //                               .size
+                    //                               .height *
+                    //                           0.03,
+                    //                     ),
+                    //                     onPressed: () {
+                    //                       setState(() {
+                    //                         _focusedDay = DateTime(
+                    //                           _focusedDay.year,
+                    //                           _focusedDay.month - 1,
+                    //                           _focusedDay.day,
+                    //                         );
+                    //                       });
+                    //                     },
+                    //                   ),
+                    //                   IconButton(
+                    //                     icon: Icon(
+                    //                       Icons.chevron_right,
+                    //                       size: MediaQuery.of(context)
+                    //                               .size
+                    //                               .height *
+                    //                           0.03,
+                    //                     ),
+                    //                     onPressed: () {
+                    //                       setState(() {
+                    //                         _focusedDay = DateTime(
+                    //                           _focusedDay.year,
+                    //                           _focusedDay.month + 1,
+                    //                           _focusedDay.day,
+                    //                         );
+                    //                       });
+                    //                     },
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //             ],
+                    //           );
+                    //         },
+                    //       ),
+                    //       selectedDayPredicate: (day) {
+                    //         return isSameDay(_selectedDay, day);
+                    //       },
+                    //       onDaySelected: (selectedDay, focusedDay) async {
+                    //         setState(() {
+                    //           // Update the selected day and focused day
+                    //           _selectedDay = selectedDay;
+                    //           _focusedDay = focusedDay;
+                    //         });
+                    //
+                    //         // Format the selected date in the desired format
+                    //         formattedDate =
+                    //             DateFormat('dd-MM-yyyy').format(selectedDay);
+                    //         print('Selected Date: $formattedDate');
+                    //         // getBookingDetails(formattedDate);
+                    //       },
+                    //       onFormatChanged: (format) {
+                    //         if (_calendarFormat != format) {
+                    //           setState(() {
+                    //             _calendarFormat = format;
+                    //           });
+                    //         }
+                    //       },
+                    //       onPageChanged: (focusedDay) {
+                    //         _focusedDay = focusedDay;
+                    //       },
+                    //       enabledDayPredicate: (day) {
+                    //         return day.isAfter(DateTime.now()
+                    //             .subtract(const Duration(days: 1)));
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            CustomCalendar(
+                              onDateSelected: (date) {
+                                setState(() {
+                                  _selectedDay = date;
+                                  slectedDateSlot =
+                                      DateFormat('dd-MM-yyyy').format(date);
+                                });
 
-                            defaultBuilder: (context, date, _) {
-                              return Container(
-                                margin: const EdgeInsets.all(3.0),
-                                alignment: Alignment.center,
+                                print(
+                                    "Selected Date: ${DateFormat('dd-MM-yyyy').format(date)}");
+                                // Call your getBookingDetails() function here if needed
+                              },
+                            ),
+                            // Select Your Time
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                  right:
+                                      MediaQuery.of(context).size.height * 0.00,
+                                  top:
+                                      MediaQuery.of(context).size.height * 0.03,
+                                  bottom: MediaQuery.of(context).size.height *
+                                      0.02),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
                                 child: Text(
-                                  '${date.day}',
+                                  "Select Your Time",
                                   style: TextStyle(
-                                    color: Color(0xFF126086),
                                     fontSize:
-                                    MediaQuery.of(context).size.height *
-                                        0.02,
+                                        MediaQuery.of(context).size.height *
+                                            0.014,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                              );
-                            },
-                            selectedBuilder: (context, date, _) {
-                              return Container(
-                                margin: const EdgeInsets.all(3.0),
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF116A94).withOpacity(0.2),
-                                  shape: BoxShape.circle,
-                                ),
-                                alignment: Alignment.center,
-                                child: Text(
-                                  '${date.day}',
-                                  style: TextStyle(
-                                    color: Color(0xFF126086),
-                                    fontSize:
-                                    MediaQuery.of(context).size.height *
-                                        0.02,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              );
-                            },
-                            todayBuilder: (context, date, _) {
-                              if (!isSameDay(_selectedDay, date)) {
-                                return Container(
-                                  margin: EdgeInsets.all(3.0),
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    '${date.day}',
-                                    style: TextStyle(
-                                      color: Color(0xFF126086),
-                                      fontSize:
-                                      MediaQuery.of(context).size.height *
-                                          0.02,
-                                    ),
-                                  ),
-                                );
-                              }
+                              ),
+                            ),
 
-                              return Container(
-                                margin: EdgeInsets.all(3.0),
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF116A94).withOpacity(0.2),
-                                  shape: BoxShape.circle,
-                                ),
-                                alignment: Alignment.center,
-                                child: Text(
-                                  '${date.day}',
-                                  style: TextStyle(
-                                    color: Color(0xFF126086),
-                                    fontSize:
-                                    MediaQuery.of(context).size.height *
-                                        0.02,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              );
-                            },
+                            // Top timeslot Grid
 
-                            headerTitleBuilder: (context, date) {
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left : MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.02,
-                                    ),
-                                    child:
-                                    Text(
-                                      DateFormat.MMMM().format(date),
-                                      // DateFormat.yMMMM().format(date), // Display month name
-                                      style: TextStyle(
-                                        fontSize: MediaQuery.of(context).size.height * 0.017,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                  ),
-
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.chevron_left,
-                                          size: MediaQuery.of(context).size.height * 0.03,
-                                        ),
-                                        onPressed: () {
-                                          setState(() {
-                                            _focusedDay = DateTime(
-                                              _focusedDay.year,
-                                              _focusedDay.month - 1,
-                                              _focusedDay.day,
-                                            );
-                                          });
-                                        },
-                                      ),
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.chevron_right,
-                                          size: MediaQuery.of(context).size.height * 0.03,
-                                        ),
-                                        onPressed: () {
-                                          setState(() {
-                                            _focusedDay = DateTime(
-                                              _focusedDay.year,
-                                              _focusedDay.month + 1,
-                                              _focusedDay.day,
-                                            );
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                          selectedDayPredicate: (day) {
-                            return isSameDay(_selectedDay, day);
-                          },
-                          onDaySelected: (selectedDay, focusedDay) async {
-                            setState(() {
-                              // Update the selected day and focused day
-                              _selectedDay = selectedDay;
-                              _focusedDay = focusedDay;
-                            });
-
-                            // Format the selected date in the desired format
-                            formattedDate =
-                                DateFormat('dd-MM-yyyy').format(selectedDay);
-                            print('Selected Date: $formattedDate');
-                            // getBookingDetails(formattedDate);
-                          },
-                          onFormatChanged: (format) {
-                            if (_calendarFormat != format) {
-                              setState(() {
-                                _calendarFormat = format;
-                              });
-                            }
-                          },
-                          onPageChanged: (focusedDay) {
-                            _focusedDay = focusedDay;
-                          },
-                          enabledDayPredicate: (day) {
-                            return day.isAfter(DateTime.now()
-                                .subtract(const Duration(days: 1)));
-                          },
-
-                        ),
-                      ),
-                    ),
-
-                    // Select Your Time
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.height * 0.02,
-                          right: MediaQuery.of(context).size.height * 0.00,
-                          top: MediaQuery.of(context).size.height * 0.01,
-                          bottom: MediaQuery.of(context).size.height * 0.00),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Select Your Time",
-                          style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.height * 0.018,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    // Top timeslot Grid
-
-                    /*Column(
+                            /*Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Container(
@@ -765,251 +781,23 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                       ],
                     ),*/
 
-                    // Static  Time slots
-                    Container(
-                      padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.00,
-                        bottom: MediaQuery.of(context).size.height * 0.00,
-                        left: MediaQuery.of(context).size.height * 0.00,
-                        right: MediaQuery.of(context).size.height * 0.00,
+                            // Static  Time slots
+
+                            TimeSlotSelector(
+                              timeSlots: timeSlots,
+                              selectedDate: _selectedDay ?? DateTime.now(),
+                              onSelected: (selectedTime) {
+                                setState(() {
+                                  selectedSlot = selectedTime;
+                                });
+                                print("Selected Slot: $selectedSlot");
+                                print("Selected Slot: $selectedSlot");
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                bottom:
-                                MediaQuery.of(context).size.height * 0.00,
-                                left: MediaQuery.of(context).size.height * 0.00,
-                                right:
-                                MediaQuery.of(context).size.height * 0.00,
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize
-                                    .max, // Ensure the Row takes up the full available width
-                                children: <Widget>[
-                                  Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.06,
-                                    width: MediaQuery.of(context).size.width *
-                                        0.20, // Increase width
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF999999).withOpacity(0.3),
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .center, // Center the content
-                                      children: <Widget>[
-                                        Text(
-                                          "06:00",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.black38,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.014,
-                                          ),
-                                        ),
-                                        SizedBox(height: 0),
-                                        Text(
-                                          "PM",
-                                          style: TextStyle(
-                                            color: Colors.black38,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.012,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                bottom:
-                                MediaQuery.of(context).size.height * 0.00,
-                                left: MediaQuery.of(context).size.height * 0.00,
-                                right:
-                                MediaQuery.of(context).size.height * 0.00,
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize
-                                    .max, // Ensure the Row takes up the full available width
-                                children: <Widget>[
-                                  Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.06,
-                                    width: MediaQuery.of(context).size.width *
-                                        0.20, // Increase width
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF999999).withOpacity(0.3),
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .center, // Center the content
-                                      children: <Widget>[
-                                        Text(
-                                          "06:30",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.black38,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.014,
-                                          ),
-                                        ),
-                                        SizedBox(height: 0),
-                                        Text(
-                                          "PM",
-                                          style: TextStyle(
-                                            color: Colors.black38,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.012,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                bottom:
-                                MediaQuery.of(context).size.height * 0.00,
-                                left: MediaQuery.of(context).size.height * 0.00,
-                                right:
-                                MediaQuery.of(context).size.height * 0.00,
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize
-                                    .max, // Ensure the Row takes up the full available width
-                                children: <Widget>[
-                                  Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.06,
-                                    width: MediaQuery.of(context).size.width *
-                                        0.20, // Increase width
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF126086),
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .center, // Center the content
-                                      children: <Widget>[
-                                        Text(
-                                          "07:00",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.014,
-                                          ),
-                                        ),
-                                        SizedBox(height: 0),
-                                        Text(
-                                          "PM",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.012,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                bottom:
-                                MediaQuery.of(context).size.height * 0.00,
-                                left: MediaQuery.of(context).size.height * 0.00,
-                                right:
-                                MediaQuery.of(context).size.height * 0.00,
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize
-                                    .max, // Ensure the Row takes up the full available width
-                                children: <Widget>[
-                                  Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.06,
-                                    width: MediaQuery.of(context).size.width *
-                                        0.20, // Increase width
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF13668E).withOpacity(0.3),
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                        color:
-                                        Color(0xFF126086), // Black border
-                                        width: 1.0, // Set the border width
-                                      ),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .center, // Center the content
-                                      children: <Widget>[
-                                        Text(
-                                          "07:30",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Color(0xFF126086),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.014,
-                                          ),
-                                        ),
-                                        SizedBox(height: 0),
-                                        Text(
-                                          "PM",
-                                          style: TextStyle(
-                                            color: Color(0xFF126086),
-                                            fontSize: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.012,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ]),
                     ),
-
-
-
-
                   ],
                 ),
               ),
@@ -1018,17 +806,14 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
         ),
       ),
 
-
-
       // Bottom Navigation with another  positioned on the right
-      bottomNavigationBar:Container(
+      bottomNavigationBar: Container(
         // height: MediaQuery.of(context).size.height * 0.150,
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-
             // Consultation Fees
             Padding(
               padding: EdgeInsets.only(
@@ -1045,8 +830,7 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize:
-                      MediaQuery.of(context).size.height * 0.018,
+                      fontSize: MediaQuery.of(context).size.height * 0.018,
                     ),
                   ),
                   Container(
@@ -1059,19 +843,15 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                         left: MediaQuery.of(context).size.height * 0.0,
                         right: MediaQuery.of(context).size.height * 0.0,
                         top: MediaQuery.of(context).size.height * 0.00,
-                        bottom:
-                        MediaQuery.of(context).size.height * 0.00),
+                        bottom: MediaQuery.of(context).size.height * 0.00),
                     child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 2),
-                            height: MediaQuery.of(context).size.height *
-                                0.01,
-                            width: MediaQuery.of(context).size.height *
-                                0.01,
+                            height: MediaQuery.of(context).size.height * 0.01,
+                            width: MediaQuery.of(context).size.height * 0.01,
                             decoration: BoxDecoration(
                               color: Colors.black,
                               shape: BoxShape.circle,
@@ -1081,66 +861,49 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                             children: <Widget>[
                               Container(
                                   padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context)
-                                          .size
-                                          .height *
+                                      left: MediaQuery.of(context).size.height *
                                           0.005,
-                                      right: MediaQuery.of(context)
-                                          .size
-                                          .height *
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.00,
+                                      top: MediaQuery.of(context).size.height *
                                           0.00,
-                                      top: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.00,
-                                      bottom: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.00),
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.00),
                                   child: Text(
                                     'QR 999',
                                     style: TextStyle(
-                                      // color: Colors.blue[600],
+                                        // color: Colors.blue[600],
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
                                         overflow: TextOverflow.ellipsis,
-                                        decoration:
-                                        TextDecoration.lineThrough,
+                                        decoration: TextDecoration.lineThrough,
                                         decorationThickness: 2,
-                                        fontSize: MediaQuery.of(context)
-                                            .size
-                                            .height *
-                                            0.016),
+                                        fontSize:
+                                            MediaQuery.of(context).size.height *
+                                                0.016),
                                   )),
                               Container(
                                 padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context)
-                                        .size
-                                        .height *
+                                    left: MediaQuery.of(context).size.height *
                                         0.005,
-                                    right: MediaQuery.of(context)
-                                        .size
-                                        .height *
+                                    right: MediaQuery.of(context).size.height *
                                         0.00,
-                                    top: MediaQuery.of(context)
-                                        .size
-                                        .height *
+                                    top: MediaQuery.of(context).size.height *
                                         0.00,
-                                    bottom: MediaQuery.of(context)
-                                        .size
-                                        .height *
+                                    bottom: MediaQuery.of(context).size.height *
                                         0.00),
                                 child: Text(
                                   "Free",
                                   style: TextStyle(
-                                    // color: Colors.blue[600],
+                                      // color: Colors.blue[600],
                                       color: Color(0xFF12B76A),
                                       fontWeight: FontWeight.bold,
                                       overflow: TextOverflow.ellipsis,
-                                      fontSize: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.016),
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.016),
                                 ),
                               ),
                             ],
@@ -1161,41 +924,27 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                   ),
                 );
               },
-              child:
-              Container(
+              child: Container(
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height *
-                          0.0,
-                      bottom: MediaQuery.of(context).size.height *
-                          0.00,
-                      left: MediaQuery.of(context).size.height *
-                          0.00,
-                      right: MediaQuery.of(context).size.height *
-                          0.00),
+                      top: MediaQuery.of(context).size.height * 0.0,
+                      bottom: MediaQuery.of(context).size.height * 0.00,
+                      left: MediaQuery.of(context).size.height * 0.00,
+                      right: MediaQuery.of(context).size.height * 0.00),
                   margin: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.height *
-                          0.04,
-                      top: MediaQuery.of(context).size.height *
-                          0.01,
-                      bottom: MediaQuery.of(context).size.height *
-                          0.01,
-                      left: MediaQuery.of(context).size.height *
-                          0.04),
+                      right: MediaQuery.of(context).size.height * 0.04,
+                      top: MediaQuery.of(context).size.height * 0.01,
+                      bottom: MediaQuery.of(context).size.height * 0.01,
+                      left: MediaQuery.of(context).size.height * 0.04),
                   child: Row(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Expanded(
                           child: Container(
                             decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.circular(
-                                    MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.012),
+                                borderRadius: BorderRadius.circular(
+                                    MediaQuery.of(context).size.height * 0.012),
                                 gradient: LinearGradient(
                                     begin: Alignment.centerRight,
                                     end: Alignment.center,
@@ -1222,10 +971,8 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize:
-                                      MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.02)),
+                                          MediaQuery.of(context).size.height *
+                                              0.02)),
                             ),
                           ),
                         ),
@@ -1260,7 +1007,7 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
           setState(() {
             responsedetails = user.response;
             doctornameval =
-            responsedetails!.name != null ? responsedetails!.name! : "";
+                responsedetails!.name != null ? responsedetails!.name! : "";
             qualificationval = responsedetails!.qualification != null
                 ? responsedetails!.qualification!
                 : "";
@@ -1311,21 +1058,21 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
 
   // Success alert bottomsheet
   void showsucessalertBottomSheet() => showModalBottomSheet(
-    enableDrag: false,
-    isScrollControlled: true,
-    isDismissible: true,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(24),
-        topRight: Radius.circular(24),
-      ),
-    ),
-    barrierColor: Colors.grey.withOpacity(0.9),
-    context: context,
-    builder: (context) => StatefulBuilder(
-      builder: (BuildContext context,
-          StateSetter setState /*You can rename this!*/) =>
-          Padding(
+        enableDrag: false,
+        isScrollControlled: true,
+        isDismissible: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
+        ),
+        barrierColor: Colors.grey.withOpacity(0.9),
+        context: context,
+        builder: (context) => StatefulBuilder(
+          builder: (BuildContext context,
+                  StateSetter setState /*You can rename this!*/) =>
+              Padding(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Column(
@@ -1363,10 +1110,10 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                               padding: EdgeInsets.only(
                                 top: MediaQuery.of(context).size.height * 0.00,
                                 bottom:
-                                MediaQuery.of(context).size.height * 0.02,
+                                    MediaQuery.of(context).size.height * 0.02,
                                 left: MediaQuery.of(context).size.height * 0.00,
                                 right:
-                                MediaQuery.of(context).size.height * 0.00,
+                                    MediaQuery.of(context).size.height * 0.00,
                               ),
                               child: Text(
                                 "Payment Done Successfully",
@@ -1374,8 +1121,8 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                                 style: TextStyle(
                                     color: Colors.black54,
                                     fontSize:
-                                    MediaQuery.of(context).size.height *
-                                        0.018),
+                                        MediaQuery.of(context).size.height *
+                                            0.018),
                               ),
                             ),
                           ],
@@ -1450,7 +1197,7 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                       MaterialPageRoute(
                         builder: (BuildContext context) => HomePageMain(),
                       ),
-                          (Route route) => false,
+                      (Route route) => false,
                     );
                   },
                   child: Container(
@@ -1495,7 +1242,7 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                                         builder: (BuildContext context) =>
                                             HomePageMain(),
                                       ),
-                                          (Route route) => false,
+                                      (Route route) => false,
                                     );
                                   },
                                   child: Text("Back to Home",
@@ -1503,8 +1250,8 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.026)),
                                 ),
                               ),
@@ -1514,7 +1261,6 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
               ],
             ),
           ),
-    ),
-  );
+        ),
+      );
 }
-

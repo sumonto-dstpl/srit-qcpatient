@@ -1,18 +1,19 @@
 import 'dart:convert';
+// import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'dart:math';
+
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:newfolder/Data/APIServices/api_service.dart';
+import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
-import 'package:newfolder/Screens/Appointments/quicksearchwithdata.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
-import 'package:newfolder/Screens/Appointments/appointmentsfindspecialities.dart';
 import 'package:newfolder/Screens/Appointments/appointmentsmainfindDoctors.dart';
 import 'package:newfolder/Screens/Appointments/quicksearchwithoutdata.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
-import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:newfolder/Screens/HRecommendedDoctors/home_doctordetails.dart';
 import 'package:newfolder/Screens/HRecommendedDoctors/home_selecttimeslot.dart';
 import 'package:newfolder/Screens/HomeCare/diagnosticmain.dart';
@@ -24,35 +25,20 @@ import 'package:newfolder/Screens/HomeCare/physiohcmain.dart';
 import 'package:newfolder/Screens/Insurance/insuranceman.dart';
 import 'package:newfolder/Screens/LabTests/labtestmain.dart';
 import 'package:newfolder/Screens/Loader/loader.dart';
-import 'package:newfolder/Screens/Login/loginhome.dart';
-import 'package:newfolder/Screens/Maps/google_map_screen.dart';
 import 'package:newfolder/Screens/Medications/medicationsmain.dart';
 import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
 import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
 import 'package:newfolder/Screens/Radiology/radiologymain.dart';
-import 'package:newfolder/Screens/Registeration/registeration.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
 import 'package:newfolder/Screens/Timeline/timelinemain.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
-import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/authfail.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:progress_dialog2/progress_dialog2.dart';
-import 'package:newfolder/Data/APIServices/api_service.dart';
-import 'package:newfolder/Data/APIServices/connectivity_service.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
-
-import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
-// import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'dart:math';
-
-import 'package:shimmer/shimmer.dart';
 
 class HomePageMain extends StatefulWidget {
   int selectedIndex = 0;
@@ -108,7 +94,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   bool _isDialogShowing = false;
 
   double rating = 3;
-  bool _isLoading = true;
+  bool _isLoading = false;
 
   late final AnimationController _rotateController;
   double _pullDistance = 0;
@@ -116,12 +102,12 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   @override
   void initState() {
     getSharedPrefs();
-    _loadData();
+    // _loadData();
     super.initState();
-    _rotateController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    )..repeat();
+    // _rotateController = AnimationController(
+    //   vsync: this,
+    //   duration: const Duration(seconds: 1),
+    // )..repeat();
   }
   void _loadData() async {
     await Future.delayed(const Duration(seconds: 2)); // Simulating API call
@@ -241,7 +227,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                   print("_pullDistance : ${!_isRefreshing}");
                   if (_pullDistance < 1 && !_isRefreshing) {
                     print(">>>>>>>>>>>>>.");
-                    _refreshData();
+                    // _refreshData();
                   }
                 });
               }
@@ -3770,13 +3756,13 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                                             context)
                                                                                             .size
                                                                                             .height *
-                                                                                            0.005,
+                                                                                            0.007,
                                                                                         bottom: MediaQuery
                                                                                             .of(
                                                                                             context)
                                                                                             .size
                                                                                             .height *
-                                                                                            0.005),
+                                                                                            0.007),
                                                                                     decoration: BoxDecoration(
                                                                                       color: Color(
                                                                                           0xFF126086),

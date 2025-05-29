@@ -8,13 +8,11 @@ import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
-import 'package:newfolder/Screens/Login/loginhome.dart';
 import 'package:newfolder/Screens/OnBoarding/onboarding_screen.dart';
 import 'package:newfolder/Screens/Registeration/registeration.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({
@@ -40,11 +38,8 @@ class LoginPagestate extends State<LoginPage> {
     super.initState();
 
     setState(() {
-
       UserNumberEditTextController?.text = "babureddy921234567@gmail.com";
       PasswordEditTextController?.text = "Test@123456";
-
-
     });
   }
 
@@ -52,9 +47,9 @@ class LoginPagestate extends State<LoginPage> {
   bool isValid = false;
   bool hasStartedTyping = false; // Track if the user has started typing
 
-  void checkUserIdEmpty(String text){
+  void checkUserIdEmpty(String text) {
     print("text : ${text}");
-    if(text.isEmpty){
+    if (text.isEmpty) {
       setState(() {
         hasStartedTyping = false;
         errorMessage = null;
@@ -62,6 +57,7 @@ class LoginPagestate extends State<LoginPage> {
       });
     }
   }
+
   void validateInput() {
     String input = UserNumberEditTextController.text.trim();
 
@@ -88,9 +84,9 @@ class LoginPagestate extends State<LoginPage> {
   bool passisValid = false;
   bool passhasStartedTyping = false; // Track if the user has started typing
 
-  void checkPasswordEmpty(String text){
+  void checkPasswordEmpty(String text) {
     print("text : ${text}");
-    if(text.isEmpty){
+    if (text.isEmpty) {
       setState(() {
         passhasStartedTyping = false;
         passerrorMessage = null;
@@ -98,6 +94,7 @@ class LoginPagestate extends State<LoginPage> {
       });
     }
   }
+
   void passvalidateInput() {
     String input = PasswordEditTextController.text.trim();
 
@@ -106,9 +103,12 @@ class LoginPagestate extends State<LoginPage> {
         passerrorMessage = "Please enter Password";
         passisValid = false;
       });
-    } else if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$').hasMatch(input)) {
+    } else if (!RegExp(
+            r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$')
+        .hasMatch(input)) {
       setState(() {
-        passerrorMessage = "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character, and must not contain spaces.";
+        passerrorMessage =
+            "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character, and must not contain spaces.";
         passisValid = false;
       });
     } else {
@@ -118,7 +118,6 @@ class LoginPagestate extends State<LoginPage> {
       });
     }
   }
-
 
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -184,18 +183,16 @@ class LoginPagestate extends State<LoginPage> {
                 children: [
                   // Back Arrow
 
-
                   InkWell(
-
-                    onTap :()
-                     { FocusScope.of(context).unfocus();
-                     Timer(Duration(seconds: 1), () {
-                       Navigator.of(context).push(
-                         MaterialPageRoute(builder: (context) => OnboardingScreen()),);
-                     });
-
-                       },
-
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+                      Timer(Duration(seconds: 1), () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => OnboardingScreen()),
+                        );
+                      });
+                    },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.025,
                       width: MediaQuery.of(context).size.height * 0.025,
@@ -210,7 +207,7 @@ class LoginPagestate extends State<LoginPage> {
                         // color : Colors.red,
                         shape: BoxShape.circle,
                         border:
-                        Border.all(width: 0.0, color: Color(0xFF126086)),
+                            Border.all(width: 0.0, color: Color(0xFF126086)),
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(130.0),
@@ -221,7 +218,6 @@ class LoginPagestate extends State<LoginPage> {
                       ),
                     ),
                   ),
-
 
                   // Login Text
                   Expanded(
@@ -254,12 +250,12 @@ class LoginPagestate extends State<LoginPage> {
                   ),
                 ),
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+                  constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height),
                   child: IntrinsicHeight(
                     child: Padding(
                       padding: EdgeInsets.only(
-                        top :    screenHeight * 0.03,
-
+                        top: screenHeight * 0.03,
                       ),
                       child: Column(
                         children: [
@@ -284,19 +280,21 @@ class LoginPagestate extends State<LoginPage> {
                                   padding: new EdgeInsets.only(
                                       left: MediaQuery.of(context).size.height *
                                           0.00,
-                                      right: MediaQuery.of(context).size.height *
-                                          0.0,
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.0,
                                       top: MediaQuery.of(context).size.height *
                                           0.005,
-                                      bottom: MediaQuery.of(context).size.height *
-                                          0.00),
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.00),
                                   child: Text(
                                     "Welcome Back!",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize:
-                                      MediaQuery.of(context).size.height *
-                                          0.027,
+                                          MediaQuery.of(context).size.height *
+                                              0.027,
                                       fontWeight: FontWeight.w700,
                                       color: Color(0xFF1F1F1F),
                                     ),
@@ -307,19 +305,20 @@ class LoginPagestate extends State<LoginPage> {
                                   padding: new EdgeInsets.only(
                                       left: MediaQuery.of(context).size.height *
                                           0.00,
-                                      right: MediaQuery.of(context).size.height *
-                                          0.0,
-                                      bottom: MediaQuery.of(context).size.height *
-                                          0.00),
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.0,
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.00),
                                   child: Text(
                                     "Use Credentials to access your account",
                                     style: TextStyle(
                                       fontSize:
-                                      MediaQuery.of(context).size.height *
-                                          0.012,
+                                          MediaQuery.of(context).size.height *
+                                              0.012,
                                       color: Color(0xFF6A6E83),
                                       fontWeight: FontWeight.w500,
-
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
@@ -331,10 +330,12 @@ class LoginPagestate extends State<LoginPage> {
                           // Employee ID text
                           Padding(
                             padding: new EdgeInsets.only(
-                                left: MediaQuery.of(context).size.height * 0.025,
-                                right: MediaQuery.of(context).size.height * 0.025,
+                                left:
+                                    MediaQuery.of(context).size.height * 0.025,
+                                right:
+                                    MediaQuery.of(context).size.height * 0.025,
                                 bottom:
-                                MediaQuery.of(context).size.height * 0.008),
+                                    MediaQuery.of(context).size.height * 0.008),
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
@@ -352,96 +353,13 @@ class LoginPagestate extends State<LoginPage> {
                             ),
                           ),
 
-                          // Employee ID Textfield
-                          // Email / Mobile Number Field
-                          // Padding(
-                          //   padding: EdgeInsets.only(
-                          //     left: MediaQuery.of(context).size.height * 0.005,
-                          //     right: MediaQuery.of(context).size.height * 0.005,
-                          //     bottom: MediaQuery.of(context).size.height * 0.0,
-                          //   ),
-                          //   child: Column(
-                          //     crossAxisAlignment: CrossAxisAlignment.start,
-                          //     children: [
-                          //       TextFormField(
-                          //         controller: UserNumberEditTextController,
-                          //         inputFormatters: [
-                          //           LengthLimitingTextInputFormatter(100),
-                          //         ],
-                          //         style: TextStyle(
-                          //           color: Colors.black45,
-                          //           fontSize: MediaQuery.of(context).size.height * 0.02,
-                          //         ),
-                          //         keyboardType: TextInputType.emailAddress,
-                          //         onChanged: (value) {
-                          //          /* if (!hasStartedTyping) {
-                          //             setState(() {
-                          //               hasStartedTyping = true; // Track that the user has started typing
-                          //             });
-                          //           }
-                          //           validateInput();*/
-                          //         },
-                          //         decoration: InputDecoration(
-                          //           isDense: true,
-                          //           contentPadding: EdgeInsets.fromLTRB(
-                          //             MediaQuery.of(context).size.height * 0.012,
-                          //             MediaQuery.of(context).size.height * 0.012,
-                          //             MediaQuery.of(context).size.height * 0.012,
-                          //             MediaQuery.of(context).size.height * 0.012,
-                          //           ),
-                          //           filled: true,
-                          //           fillColor: Colors.white60,
-                          //           hintText: "Enter your email or mobile number",
-                          //           hintStyle: TextStyle(
-                          //             color: Colors.black26,
-                          //             fontSize: MediaQuery.of(context).size.height * 0.016,
-                          //           ),
-                          //           focusedBorder: OutlineInputBorder(
-                          //             borderRadius: BorderRadius.circular(5.0),
-                          //             borderSide: BorderSide(
-                          //               color: hasStartedTyping
-                          //                   ? (isValid ? Colors.green : Colors.red)
-                          //                   : Colors.grey, // Initially grey, turns red or green
-                          //             ),
-                          //           ),
-                          //           enabledBorder: OutlineInputBorder(
-                          //             borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                          //             borderSide: BorderSide(
-                          //               color: hasStartedTyping
-                          //                   ? (isValid ? Colors.green : Colors.red)
-                          //                   : Colors.grey, // Initially grey, turns red or green
-                          //             ),
-                          //           ),
-                          //           errorBorder: OutlineInputBorder(
-                          //             borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                          //             borderSide: BorderSide(color: Colors.red),
-                          //           ),
-                          //           focusedErrorBorder: OutlineInputBorder(
-                          //             borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                          //             borderSide: BorderSide(color: Colors.red),
-                          //           ),
-                          //         ),
-                          //       ),
-                          //       Padding(
-                          //         padding: EdgeInsets.only(
-                          //             top: MediaQuery.of(context).size.height * 0.005),
-                          //         child: Text(
-                          //           errorMessage ?? '',
-                          //           style: TextStyle(
-                          //             color: isValid ? Colors.green : Colors.red,
-                          //             fontSize: MediaQuery.of(context).size.height * 0.016,
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                           // Employee ID Field
                           Padding(
                             padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.height * 0.025,
                               right: MediaQuery.of(context).size.height * 0.025,
-                              bottom: MediaQuery.of(context).size.height * 0.005,
+                              bottom:
+                                  MediaQuery.of(context).size.height * 0.005,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -449,7 +367,8 @@ class LoginPagestate extends State<LoginPage> {
                                 Focus(
                                   onFocusChange: (hasFocus) {
                                     if (hasFocus) {
-                                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
                                     }
                                   },
                                   child: TextFormField(
@@ -465,7 +384,9 @@ class LoginPagestate extends State<LoginPage> {
                                     ),
                                     keyboardType: TextInputType.emailAddress,
                                     onChanged: (value) {
-                                      checkUserIdEmpty(UserNumberEditTextController.text.toString());
+                                      checkUserIdEmpty(
+                                          UserNumberEditTextController.text
+                                              .toString());
                                     },
                                     decoration: InputDecoration(
                                       isDense: true,
@@ -475,48 +396,66 @@ class LoginPagestate extends State<LoginPage> {
                                             ),
                                       filled: true,
                                       fillColor: Color(0xFFFFFFFF),
-                                      hintText: "Enter your email or mobile number",
+                                      hintText:
+                                          "Enter your email or mobile number",
                                       hintStyle: TextStyle(
                                           color: Color(0x4D111111),
                                           fontSize: MediaQuery.of(context).size.height * 0.012,
                                           fontWeight: FontWeight.w400
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
                                         borderSide: BorderSide(
                                           color: hasStartedTyping
-                                              ? (isValid ? Colors.green : Colors.red)
-                                              : Color(0xFFF1F1F1),  // Initially grey, turns red or green
+                                              ? (isValid
+                                                  ? Colors.green
+                                                  : Colors.red)
+                                              : Color(
+                                                  0xFFF1F1F1), // Initially grey, turns red or green
                                         ),
                                       ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0)),
                                         borderSide: BorderSide(
                                           color: hasStartedTyping
-                                              ? (isValid ? Colors.green : Colors.red)
-                                              : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                              ? (isValid
+                                                  ? Colors.green
+                                                  : Colors.red)
+                                              : Color(
+                                                  0xFFF1F1F1), // Initially grey, turns red or green
                                         ),
                                       ),
                                       errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                        borderSide: BorderSide(color: Colors.red),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0)),
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                        borderSide: BorderSide(color: Colors.red),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0)),
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
                                       ),
                                     ),
                                   ),
                                 ),
-                                if(errorMessage != null)
+                                if (errorMessage != null)
                                   Padding(
                                     padding: EdgeInsets.only(
-                                        top: MediaQuery.of(context).size.height * 0.01),
+                                        top:
+                                            MediaQuery.of(context).size.height *
+                                                0.01),
                                     child: Text(
                                       errorMessage ?? '',
                                       style: TextStyle(
-                                        color: isValid ? Colors.green : Colors.red,
-                                        fontSize: MediaQuery.of(context).size.height * 0.012,
+                                        color:
+                                            isValid ? Colors.green : Colors.red,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height *
+                                                0.012,
                                       ),
                                     ),
                                   ),
@@ -524,16 +463,15 @@ class LoginPagestate extends State<LoginPage> {
                             ),
                           ),
 
-
-
-
                           // Passwrod text
                           Padding(
                             padding: new EdgeInsets.only(
-                                left: MediaQuery.of(context).size.height * 0.025,
-                                right: MediaQuery.of(context).size.height * 0.025,
+                                left:
+                                    MediaQuery.of(context).size.height * 0.025,
+                                right:
+                                    MediaQuery.of(context).size.height * 0.025,
                                 bottom:
-                                MediaQuery.of(context).size.height * 0.008),
+                                    MediaQuery.of(context).size.height * 0.008),
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
@@ -550,10 +488,6 @@ class LoginPagestate extends State<LoginPage> {
                               ),
                             ),
                           ),
-
-
-
-
 
                           // Password textfield
                           // Padding(
@@ -652,14 +586,6 @@ class LoginPagestate extends State<LoginPage> {
                           //   ),
                           // ),
 
-
-
-
-
-
-
-
-
                           // Password Field
                           Padding(
                             padding: EdgeInsets.only(
@@ -673,7 +599,8 @@ class LoginPagestate extends State<LoginPage> {
                                 Focus(
                                   onFocusChange: (hasFocus) {
                                     if (hasFocus) {
-                                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
                                     }
                                   },
                                   child: TextFormField(
@@ -689,7 +616,9 @@ class LoginPagestate extends State<LoginPage> {
                                     keyboardType: TextInputType.text,
                                     obscureText: hidePassword,
                                     onChanged: (value) {
-                                      checkPasswordEmpty(PasswordEditTextController.text.toString());
+                                      checkPasswordEmpty(
+                                          PasswordEditTextController.text
+                                              .toString());
                                     },
                                     decoration: InputDecoration(
                                       isDense: true,
@@ -712,29 +641,41 @@ class LoginPagestate extends State<LoginPage> {
                                           fontWeight: FontWeight.w400
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
                                         borderSide: BorderSide(
                                           color: passhasStartedTyping
-                                              ? ( passisValid? Colors.green : Colors.red)
-                                              : Color(0xFFF1F1F1),  // Initially grey, turns red or green
+                                              ? (passisValid
+                                                  ? Colors.green
+                                                  : Colors.red)
+                                              : Color(
+                                                  0xFFF1F1F1), // Initially grey, turns red or green
                                         ),
                                       ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0)),
                                         borderSide: BorderSide(
                                           color: passhasStartedTyping
-                                              ? (passisValid ? Colors.green : Colors.red)
-                                              : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                              ? (passisValid
+                                                  ? Colors.green
+                                                  : Colors.red)
+                                              : Color(
+                                                  0xFFF1F1F1), // Initially grey, turns red or green
                                         ),
                                       ),
                                       errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                        borderSide: BorderSide(color: Colors.red),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0)),
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
                                       ),
 
                                       focusedErrorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                        borderSide: BorderSide(color: Colors.red),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0)),
+                                        borderSide:
+                                            BorderSide(color: Colors.red),
                                       ),
 
                                       suffixIcon: IconButton(
@@ -751,15 +692,21 @@ class LoginPagestate extends State<LoginPage> {
                                     ),
                                   ),
                                 ),
-                                if(passerrorMessage != null)
+                                if (passerrorMessage != null)
                                   Padding(
                                     padding: EdgeInsets.only(
-                                        top: MediaQuery.of(context).size.height * 0.01),
+                                        top:
+                                            MediaQuery.of(context).size.height *
+                                                0.01),
                                     child: Text(
                                       passerrorMessage ?? '',
                                       style: TextStyle(
-                                        color: passisValid ? Colors.green : Colors.red,
-                                        fontSize: MediaQuery.of(context).size.height * 0.012,
+                                        color: passisValid
+                                            ? Colors.green
+                                            : Colors.red,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height *
+                                                0.012,
                                       ),
                                     ),
                                   ),
@@ -806,11 +753,13 @@ class LoginPagestate extends State<LoginPage> {
                           // Forget Passord
                           Padding(
                             padding: new EdgeInsets.only(
-                                top : MediaQuery.of(context).size.height * 0.01,
-                                left: MediaQuery.of(context).size.height * 0.025,
-                                right: MediaQuery.of(context).size.height * 0.025,
+                                top: MediaQuery.of(context).size.height * 0.01,
+                                left:
+                                    MediaQuery.of(context).size.height * 0.025,
+                                right:
+                                    MediaQuery.of(context).size.height * 0.025,
                                 bottom:
-                                MediaQuery.of(context).size.height * 0.01),
+                                    MediaQuery.of(context).size.height * 0.01),
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: GestureDetector(
@@ -830,8 +779,9 @@ class LoginPagestate extends State<LoginPage> {
                                     // decoration: TextDecoration.underline,
                                     fontWeight: FontWeight.w600,
                                     decorationColor: Color(0xFFC80000),
-                                    fontSize: MediaQuery.of(context).size.height *
-                                        0.0105,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.0105,
                                     color: Color(0xFFC80000),
                                     // fontWeight: FontWeight.bold
                                   ),
@@ -942,40 +892,38 @@ class LoginPagestate extends State<LoginPage> {
                                       padding: EdgeInsets.only(
                                           top: MediaQuery.of(context).size.height *
                                               0.01,
-                                          bottom:
-                                          MediaQuery.of(context).size.height *
+                                          bottom: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
                                               0.00,
                                           left: MediaQuery.of(context).size.height *
                                               0.02,
-                                          right:
-                                          MediaQuery.of(context).size.height *
-                                              0.02
-                                      ),
+                                          right: MediaQuery.of(context).size.height *
+                                              0.02),
                                       margin: EdgeInsets.only(
                                           right:
-                                          MediaQuery.of(context).size.height *
-                                              0.01,
+                                              MediaQuery.of(context).size.height *
+                                                  0.01,
                                           top: MediaQuery.of(context).size.height *
                                               0.01,
                                           bottom:
-                                          MediaQuery.of(context).size.height *
-                                              0.001,
-                                          left:
-                                          MediaQuery.of(context).size.height *
+                                              MediaQuery.of(context).size.height *
+                                                  0.001,
+                                          left: MediaQuery.of(context).size.height *
                                               0.01),
                                       child: Row(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
                                         Expanded(
                                           child: Container(
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                BorderRadius.circular(
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.012
-                                                ),
+                                                    BorderRadius.circular(
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.012),
                                                 gradient: LinearGradient(
-                                                    begin: Alignment.centerRight,
+                                                    begin:
+                                                        Alignment.centerRight,
                                                     end: Alignment.center,
                                                     stops: [
                                                       0.5,
@@ -989,17 +937,18 @@ class LoginPagestate extends State<LoginPage> {
                                             padding: EdgeInsets.only(left: 0.0),
                                             child: TextButton(
                                               onPressed: () async {
-                                                validateentriesatsubmit(context);
+                                                validateentriesatsubmit(
+                                                    context);
                                               },
                                               child: Text("Login",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize:
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.019,
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.019,
                                                     fontWeight: FontWeight.w700,
                                                   )),
                                             ),
@@ -1013,14 +962,15 @@ class LoginPagestate extends State<LoginPage> {
 
                           Padding(
                             padding: new EdgeInsets.only(
-                                top : MediaQuery.of(context).size.height * 0.03,
-                                left: MediaQuery.of(context).size.height * 0.035,
-                                right: MediaQuery.of(context).size.height * 0.035,
-                                bottom: MediaQuery.of(context).size.height * 0.0),
+                                top: MediaQuery.of(context).size.height * 0.03,
+                                left:
+                                    MediaQuery.of(context).size.height * 0.035,
+                                right:
+                                    MediaQuery.of(context).size.height * 0.035,
+                                bottom:
+                                    MediaQuery.of(context).size.height * 0.0),
                             child: CustomDividerWithText(),
                           ),
-
-
 
                           Expanded(
                             child: Column(
@@ -1028,50 +978,70 @@ class LoginPagestate extends State<LoginPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-
                                   padding: new EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height * 0.0,
-                                      right: MediaQuery.of(context).size.height * 0.0,
-                                      bottom:
-                                      MediaQuery.of(context).size.height * 0.02,
-                                      top: MediaQuery.of(context).size.height * 0.03,
+                                    left: MediaQuery.of(context).size.height *
+                                        0.0,
+                                    right: MediaQuery.of(context).size.height *
+                                        0.0,
+                                    bottom: MediaQuery.of(context).size.height *
+                                        0.02,
+                                    top: MediaQuery.of(context).size.height *
+                                        0.03,
                                   ),
-
                                   child: Container(
                                     alignment: Alignment.centerRight,
                                     padding: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height * 0.0,
-                                      bottom: MediaQuery.of(context).size.height * 0.00,
-                                      left: MediaQuery.of(context).size.height * 0.00,
-                                      right: MediaQuery.of(context).size.height * 0.00,
+                                      top: MediaQuery.of(context).size.height *
+                                          0.0,
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.00,
+                                      left: MediaQuery.of(context).size.height *
+                                          0.00,
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.00,
                                     ),
                                     margin: EdgeInsets.only(
-                                      right: MediaQuery.of(context).size.height * 0.04,
-                                      top: MediaQuery.of(context).size.height * 0.00,
-                                      bottom: MediaQuery.of(context).size.height * 0.0,
-                                      left: MediaQuery.of(context).size.height * 0.04,
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.04,
+                                      top: MediaQuery.of(context).size.height *
+                                          0.00,
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.0,
+                                      left: MediaQuery.of(context).size.height *
+                                          0.04,
                                     ),
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: Color(0x1A000000), // Border color
+                                        color:
+                                            Color(0x1A000000), // Border color
                                         width: 1, // Border width
                                       ),
                                       borderRadius: BorderRadius.circular(
-                                        MediaQuery.of(context).size.height * 0.012,
+                                        MediaQuery.of(context).size.height *
+                                            0.012,
                                       ),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         // Google Logo
                                         Padding(
                                           padding: EdgeInsets.only(
-                                            right: MediaQuery.of(context).size.width *
+                                            right: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 0.0,
                                           ),
                                           child: Image.asset(
                                             'assets/appleicon.png', // Replace with your asset path
-                                            height: MediaQuery.of(context).size.height *
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
                                                 0.03, // Adjust size as needed
                                           ),
                                         ),
@@ -1080,9 +1050,14 @@ class LoginPagestate extends State<LoginPage> {
                                         Flexible(
                                           child: TextButton(
                                             style: TextButton.styleFrom(
-                                              padding: EdgeInsets.symmetric(vertical: 11.0, horizontal: 12.0),  // Remove default button padding
-                                              minimumSize: Size(0, 0), // Allow smallest possible size
-                                              tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrink tap area
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 11.0,
+                                                  horizontal:
+                                                      12.0), // Remove default button padding
+                                              minimumSize: Size(0,
+                                                  0), // Allow smallest possible size
+                                              tapTargetSize: MaterialTapTargetSize
+                                                  .shrinkWrap, // Shrink tap area
                                             ),
                                             onPressed: () async {
                                               // Navigator.of(context).pushAndRemoveUntil(
@@ -1099,14 +1074,16 @@ class LoginPagestate extends State<LoginPage> {
                                               style: TextStyle(
                                                   color: Color(0xFF1F1F1F),
                                                   fontSize:
-                                                  MediaQuery.of(context).size.height *
-                                                      0.016,
-                                                  overflow: TextOverflow
-                                                      .ellipsis,
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          0.016,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   fontWeight: FontWeight.w500,
                                                   fontFamily: "Inter"
-                                                // Enable ellipsis
-                                              ),
+                                                  // Enable ellipsis
+                                                  ),
                                             ),
                                           ),
                                         ),
@@ -1115,48 +1092,71 @@ class LoginPagestate extends State<LoginPage> {
                                   ),
                                 ),
                                 Container(
-
                                   padding: new EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height * 0.0,
-                                      right: MediaQuery.of(context).size.height * 0.0,
-                                      top: MediaQuery.of(context).size.height * 0.01,
+                                      left: MediaQuery.of(context).size.height *
+                                          0.0,
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.0,
+                                      top: MediaQuery.of(context).size.height *
+                                          0.01,
                                       bottom:
-                                      MediaQuery.of(context).size.height * 0.0),
+                                          MediaQuery.of(context).size.height *
+                                              0.0),
                                   child: Container(
                                     alignment: Alignment.centerRight,
                                     padding: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height * 0.0,
-                                      bottom: MediaQuery.of(context).size.height * 0.00,
-                                      left: MediaQuery.of(context).size.height * 0.00,
-                                      right: MediaQuery.of(context).size.height * 0.00,
+                                      top: MediaQuery.of(context).size.height *
+                                          0.0,
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.00,
+                                      left: MediaQuery.of(context).size.height *
+                                          0.00,
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.00,
                                     ),
                                     margin: EdgeInsets.only(
-                                      right: MediaQuery.of(context).size.height * 0.04,
-                                      top: MediaQuery.of(context).size.height * 0.00,
-                                      bottom: MediaQuery.of(context).size.height * 0.0,
-                                      left: MediaQuery.of(context).size.height * 0.04,
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.04,
+                                      top: MediaQuery.of(context).size.height *
+                                          0.00,
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.0,
+                                      left: MediaQuery.of(context).size.height *
+                                          0.04,
                                     ),
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: Color(0x1A000000), // Border color
+                                        color:
+                                            Color(0x1A000000), // Border color
                                         width: 1, // Border width
                                       ),
                                       borderRadius: BorderRadius.circular(
-                                        MediaQuery.of(context).size.height * 0.012,
+                                        MediaQuery.of(context).size.height *
+                                            0.012,
                                       ),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         // Google Logo
                                         Padding(
                                           padding: EdgeInsets.only(
-                                            right: MediaQuery.of(context).size.width *
+                                            right: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 0.0,
                                           ),
                                           child: Image.asset(
                                             'assets/googleicon.png', // Replace with your asset path
-                                            height: MediaQuery.of(context).size.height *
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
                                                 0.03, // Adjust size as needed
                                           ),
                                         ),
@@ -1165,9 +1165,14 @@ class LoginPagestate extends State<LoginPage> {
                                         Flexible(
                                           child: TextButton(
                                             style: TextButton.styleFrom(
-                                              padding: EdgeInsets.symmetric(vertical: 11.0, horizontal: 12.0),  // Remove default button padding
-                                              minimumSize: Size(0, 0), // Allow smallest possible size
-                                              tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrink tap area
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 11.0,
+                                                  horizontal:
+                                                      12.0), // Remove default button padding
+                                              minimumSize: Size(0,
+                                                  0), // Allow smallest possible size
+                                              tapTargetSize: MaterialTapTargetSize
+                                                  .shrinkWrap, // Shrink tap area
                                             ),
                                             onPressed: () async {},
                                             child: Text(
@@ -1176,14 +1181,16 @@ class LoginPagestate extends State<LoginPage> {
                                               style: TextStyle(
                                                   color: Color(0xFF1F1F1F),
                                                   fontSize:
-                                                  MediaQuery.of(context).size.height *
-                                                      0.016,
-                                                  overflow: TextOverflow
-                                                      .ellipsis,
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          0.016,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   fontWeight: FontWeight.w500,
                                                   fontFamily: "Inter"
-                                                // Enable ellipsis
-                                              ),
+                                                  // Enable ellipsis
+                                                  ),
                                             ),
                                           ),
                                         ),
@@ -1193,30 +1200,40 @@ class LoginPagestate extends State<LoginPage> {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    padding : EdgeInsets.only(
-                                      top : screenHeight * 0.02,
+                                    padding: EdgeInsets.only(
+                                      top: screenHeight * 0.02,
                                     ),
                                     // color: Colors.blue,
                                     child: Align(
-                                      alignment: Alignment.bottomCenter, // 👈 Pin to bottom
+                                      alignment: Alignment
+                                          .bottomCenter, // 👈 Pin to bottom
                                       child: TextButton(
                                         onPressed: () {
                                           // Your logic
                                         },
                                         child: RichText(
                                           text: TextSpan(
-                                            style: Theme.of(context).textTheme.headline6!.merge(
-                                              TextStyle(
-                                                color: Theme.of(context).primaryColor,
-                                              ),
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6!
+                                                .merge(
+                                                  TextStyle(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                  ),
+                                                ),
                                             children: [
                                               TextSpan(
-                                                text: 'Don\'t have an account ?',
+                                                text:
+                                                    'Don\'t have an account ?',
                                                 style: TextStyle(
                                                   color: Color(0xFF1F1F1F),
                                                   fontWeight: FontWeight.w400,
-                                                  fontSize: MediaQuery.of(context).size.height * 0.011,
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          0.011,
                                                   fontFamily: "Inter",
                                                 ),
                                               ),
@@ -1224,20 +1241,28 @@ class LoginPagestate extends State<LoginPage> {
                                                 text: ' Sign Up',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w600,
-                                                  fontSize: MediaQuery.of(context).size.height * 0.014,
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          0.014,
                                                   color: Color(0xFF126086),
                                                   fontFamily: "Inter",
                                                 ),
-                                                recognizer: TapGestureRecognizer()
-                                                  ..onTap = () {
-                                                    Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                        builder: (BuildContext context) {
-                                                          return Registration();
-                                                        },
-                                                      ),
-                                                    );
-                                                  },
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () {
+                                                        Navigator.of(context)
+                                                            .push(
+                                                          MaterialPageRoute(
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
+                                                              return Registration();
+                                                            },
+                                                          ),
+                                                        );
+                                                      },
                                               ),
                                             ],
                                           ),
@@ -1246,16 +1271,9 @@ class LoginPagestate extends State<LoginPage> {
                                     ),
                                   ),
                                 )
-
-
-
-
-
-
                               ],
                             ),
                           ),
-
                         ],
                       ),
                     ),
@@ -1273,8 +1291,6 @@ class LoginPagestate extends State<LoginPage> {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     connectivityservice.checkconnectivity().then((intenet) async {
       if (intenet != null && intenet) {
-
-
         String input = UserNumberEditTextController.text.trim();
 
         if (input.isEmpty) {
@@ -1283,7 +1299,8 @@ class LoginPagestate extends State<LoginPage> {
             errorMessage = "Please enter your email or mobile number";
             isValid = false;
           });
-        } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(input) &&
+        } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                .hasMatch(input) &&
             !RegExp(r'^[0-9]{10}$').hasMatch(input)) {
           setState(() {
             hasStartedTyping = true;
@@ -1298,7 +1315,6 @@ class LoginPagestate extends State<LoginPage> {
           });
         }
 
-
         String input1 = PasswordEditTextController.text.trim();
 
         if (input1.isEmpty) {
@@ -1307,13 +1323,16 @@ class LoginPagestate extends State<LoginPage> {
             passerrorMessage = "Please enter Password";
             passisValid = false;
           });
-        } else if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$').hasMatch(input1)) {
+        } else if (!RegExp(
+                r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$')
+            .hasMatch(input1)) {
           setState(() {
             passhasStartedTyping = true;
-            passerrorMessage = "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character, and must not contain spaces.";
+            passerrorMessage =
+                "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character, and must not contain spaces.";
             passisValid = false;
           });
-        }  else {
+        } else {
           setState(() {
             passhasStartedTyping = false;
             passerrorMessage = null;
@@ -1321,11 +1340,7 @@ class LoginPagestate extends State<LoginPage> {
           });
         }
 
-
-
-        if(isValid && passisValid){
-
-
+        if (isValid && passisValid) {
           /*  progressDialog.showMaterial(
               title: "Authenticating", message: "Please wait");*/
           // progressDialog.show();
@@ -1344,11 +1359,9 @@ class LoginPagestate extends State<LoginPage> {
             // await UserSecureStorage.setIfLoggedOut("NO");
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => HomePageMain()),
-                    (Route<dynamic> route) => false);
+                (Route<dynamic> route) => false);
           } else if (user.message != null) {
             // progressDialog.hide();
-
-
 
             final snackBar = SnackBar(
               content: Text(user.message),
@@ -1356,22 +1369,13 @@ class LoginPagestate extends State<LoginPage> {
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-           /* Navigator.of(context).pushAndRemoveUntil(
+            /* Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => HomePageMain()),
                     (Route<dynamic> route) => false);*/
 
             // customalert.showError(context, user.error);
           }
         }
-
-
-
-
-
-
-
-
-
       } else {
         // No-Internet Case
         final snackBar = SnackBar(
@@ -1385,7 +1389,8 @@ class LoginPagestate extends State<LoginPage> {
 
 class LowerCaseTextFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     return newValue.copyWith(
       text: newValue.text.toLowerCase(),
       selection: newValue.selection,

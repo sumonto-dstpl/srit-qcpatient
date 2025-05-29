@@ -32,7 +32,7 @@ class AuthFailed {
                   Padding(
                     padding: EdgeInsets.only(bottom: height * 0.05),
                     child: Text(
-                      "Please Sign-In again because of session timeout",
+                      "Please Sign-In Again ",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,

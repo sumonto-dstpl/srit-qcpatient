@@ -1,37 +1,15 @@
 import 'dart:convert';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:newfolder/Data/Models/doctordetailsres.dart';
-import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
-import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
-import 'package:newfolder/Screens/Appointments/appointmentsfindspecialities.dart';
-import 'package:newfolder/Screens/Appointments/appointmentsmainfindDoctors.dart';
-import 'package:newfolder/Screens/Appointments/selecttimeslot.dart';
-import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
-import 'package:newfolder/Screens/HRecommendedDoctors/home_selecttimeslot.dart';
-import 'package:newfolder/Screens/Login/loginhome.dart';
-import 'package:newfolder/Screens/Notifications/notifications.dart';
-import 'package:newfolder/Screens/Registeration/registeration.dart';
-import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
-import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
-import 'package:newfolder/Screens/Widgets/ShareToOtherApp.dart';
-import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
-import 'package:newfolder/Screens/Widgets/badge.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
-import 'package:newfolder/Screens/Widgets/readmoreless.dart';
-import 'package:progress_dialog2/progress_dialog2.dart';
 import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
+import 'package:newfolder/Data/Models/doctordetailsres.dart';
+import 'package:newfolder/Screens/HRecommendedDoctors/home_selecttimeslot.dart';
+import 'package:newfolder/Screens/Widgets/ShareToOtherApp.dart';
+import 'package:newfolder/Screens/Widgets/readmoreless.dart';
+import 'package:progress_dialog2/progress_dialog2.dart';
 
 class HomeDoctorDetilPage extends StatefulWidget {
-  // final String? doctoridval;
-
-  // HomeDoctorDetilPage(this.doctoridval, {Key? key}) : super(key: key);
-
   @override
   State<HomeDoctorDetilPage> createState() => DoctorDetilPagestate();
 }
@@ -47,8 +25,8 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
   String workingTimeval = "";
   String aboutdoctorval = "";
 
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
+  // EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
+  // AppointmentCancel appointmentcancelalert = new AppointmentCancel();
 
   ConnectivityService connectivityservice = ConnectivityService();
   APIService apiService = new APIService();
@@ -63,13 +41,17 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
 
   Future getSharedPrefs() async {
     // CheckSession();
-    getDoctorDetails();
+    // getDoctorDetails();
   }
 
   @override
   Widget build(BuildContext context) {
-    progressDialog = ProgressDialog(context,
-        type: ProgressDialogType.Normal, isDismissible: true, showLogs: false);
+    progressDialog = ProgressDialog(
+      context,
+      type: ProgressDialogType.Normal,
+      isDismissible: true,
+      showLogs: false,
+    );
     progressDialog.style(
         message: 'Loading..' '\nPlease Wait',
         borderRadius: 10.0,
@@ -92,7 +74,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
             fontWeight: FontWeight.w600));
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    TextEditingController SearchEditTextController = TextEditingController();
+    // TextEditingController SearchEditTextController = TextEditingController();
 
     return Scaffold(
       body: Container(
@@ -140,7 +122,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                         color: Color(0xFF126086).withOpacity(0.2),
                         shape: BoxShape.circle,
                         border:
-                        Border.all(width: 0.0, color: Color(0xFF126086)),
+                            Border.all(width: 0.0, color: Color(0xFF126086)),
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(130.0),
@@ -153,39 +135,39 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                   ),
                   userprofilepValue != "NA"
                       ? Container(
-                    height: MediaQuery.of(context).size.height * 0.250,
-                    width: MediaQuery.of(context).size.height * 0.200,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1.0,
-                        color: Colors.white,
-                      ),
-                      shape: BoxShape.circle,
-                      image: new DecorationImage(
-                        fit: BoxFit.fill,
-                        image:
-                        Image.memory(base64Decode(userprofilepValue))
-                            .image,
-                      ),
-                    ),
-                  )
+                          height: MediaQuery.of(context).size.height * 0.250,
+                          width: MediaQuery.of(context).size.height * 0.200,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1.0,
+                              color: Colors.white,
+                            ),
+                            shape: BoxShape.circle,
+                            image: new DecorationImage(
+                              fit: BoxFit.fill,
+                              image:
+                                  Image.memory(base64Decode(userprofilepValue))
+                                      .image,
+                            ),
+                          ),
+                        )
                       : Container(
-                    margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.05,
-                        right: MediaQuery.of(context).size.height * 0.00,
-                        top: MediaQuery.of(context).size.height * 0.00,
-                        bottom:
-                        MediaQuery.of(context).size.height * 0.00),
-                    height: MediaQuery.of(context).size.height * 0.250,
-                    width: MediaQuery.of(context).size.height * 0.20,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(0.0),
-                      child: Image.asset(
-                        'assets/bookappointmentdoc.png',
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
+                          margin: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.height * 0.05,
+                              right: MediaQuery.of(context).size.height * 0.00,
+                              top: MediaQuery.of(context).size.height * 0.00,
+                              bottom:
+                                  MediaQuery.of(context).size.height * 0.00),
+                          height: MediaQuery.of(context).size.height * 0.250,
+                          width: MediaQuery.of(context).size.height * 0.20,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(0.0),
+                            child: Image.asset(
+                              'assets/bookappointmentdoc.png',
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.250,
                     padding: EdgeInsets.only(
@@ -231,8 +213,8 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                           fontWeight: FontWeight.bold,
                                           overflow: TextOverflow.ellipsis,
                                           fontSize: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.02),
                                     )
                                   ],
@@ -244,20 +226,19 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                   // Navigator.pop(context);
                                   ShareToOtherApp.share();
                                 },
-                                onDoubleTap: (){
-                                },
+                                onDoubleTap: () {},
                                 child: Container(
                                   margin: EdgeInsets.only(
                                       left: MediaQuery.of(context).size.height *
                                           0.020,
                                       right:
-                                      MediaQuery.of(context).size.height *
-                                          0.00,
+                                          MediaQuery.of(context).size.height *
+                                              0.00,
                                       top: MediaQuery.of(context).size.height *
                                           0.00,
                                       bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.00),
+                                          MediaQuery.of(context).size.height *
+                                              0.00),
                                   height: screenHeight * 0.035,
                                   width: screenHeight * 0.035,
                                   decoration: BoxDecoration(
@@ -288,7 +269,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                             style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               fontSize:
-                              MediaQuery.of(context).size.height * 0.012,
+                                  MediaQuery.of(context).size.height * 0.012,
                               color: Colors.white,
                             ),
                             // textAlign: TextAlign.left,
@@ -331,7 +312,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                               right: MediaQuery.of(context).size.height * 0.01,
                               top: MediaQuery.of(context).size.height * 0.01,
                               bottom:
-                              MediaQuery.of(context).size.height * 0.005),
+                                  MediaQuery.of(context).size.height * 0.005),
                           child: Text(
                             "Dr. Nutan Bhatt",
                             style: TextStyle(
@@ -339,7 +320,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                 overflow: TextOverflow.ellipsis,
                                 fontWeight: FontWeight.bold,
                                 fontSize:
-                                MediaQuery.of(context).size.height * 0.020),
+                                    MediaQuery.of(context).size.height * 0.020),
                           ),
                         ),
                         Container(
@@ -348,7 +329,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                               right: MediaQuery.of(context).size.height * 0.01,
                               top: MediaQuery.of(context).size.height * 0.00,
                               bottom:
-                              MediaQuery.of(context).size.height * 0.005),
+                                  MediaQuery.of(context).size.height * 0.005),
                           child: Text(
                             "General physician",
                             style: TextStyle(
@@ -356,7 +337,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                 fontWeight: FontWeight.bold,
                                 overflow: TextOverflow.ellipsis,
                                 fontSize:
-                                MediaQuery.of(context).size.height * 0.014),
+                                    MediaQuery.of(context).size.height * 0.014),
                           ),
                         ),
                         Container(
@@ -365,7 +346,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                               right: MediaQuery.of(context).size.height * 0.01,
                               top: MediaQuery.of(context).size.height * 0.00,
                               bottom:
-                              MediaQuery.of(context).size.height * 0.00),
+                                  MediaQuery.of(context).size.height * 0.00),
                           child: Text(
                             "41 YEARS - MBBS, DIPLOMA IN FAMILY MEDICINE",
                             style: TextStyle(
@@ -373,7 +354,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                 fontWeight: FontWeight.bold,
                                 // overflow: TextOverflow.ellipsis,
                                 fontSize:
-                                MediaQuery.of(context).size.height * 0.013),
+                                    MediaQuery.of(context).size.height * 0.013),
                           ),
                         ),
                       ],
@@ -391,7 +372,8 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                         child: Text(
                           "About Doctor",
                           style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.016,
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
@@ -406,7 +388,9 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                           right: MediaQuery.of(context).size.height * 0.01,
                           top: MediaQuery.of(context).size.height * 0.0,
                           bottom: MediaQuery.of(context).size.height * 0.00),
-                      child: DescriptionTextWidget(text: "Dr Nutan Bhatt Km is a General Physician/lnternal Medicine specialist in Bengaluru with over ten years of experience. He has a wealth of knowledge about treating a wide range of health conditions, including diabetes, diabetic ulcers, and insulin treatment. Dr Faseeh Km diagnoses and treats common ailments such "),
+                      child: DescriptionTextWidget(
+                          text:
+                              "Dr Nutan Bhatt Km is a General Physician/lnternal Medicine specialist in Bengaluru with over ten years of experience. He has a wealth of knowledge about treating a wide range of health conditions, including diabetes, diabetic ulcers, and insulin treatment. Dr Faseeh Km diagnoses and treats common ailments such "),
                     ),
 
                     // Working time
@@ -421,7 +405,8 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                         child: Text(
                           "Working time",
                           style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.016,
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
@@ -439,7 +424,8 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                         child: Text(
                           "10:00 am - 07:00 Pm",
                           style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.016,
                             color: Colors.black54,
                             // fontWeight: FontWeight.bold,
                           ),
@@ -461,11 +447,11 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                             Container(
                               padding: EdgeInsets.only(
                                   left:
-                                  MediaQuery.of(context).size.height * 0.00,
+                                      MediaQuery.of(context).size.height * 0.00,
                                   right:
-                                  MediaQuery.of(context).size.height * 0.00,
+                                      MediaQuery.of(context).size.height * 0.00,
                                   top:
-                                  MediaQuery.of(context).size.height * 0.00,
+                                      MediaQuery.of(context).size.height * 0.00,
                                   bottom: MediaQuery.of(context).size.height *
                                       0.00),
                               child: Text(
@@ -474,19 +460,19 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                   overflow: TextOverflow.ellipsis,
-                                  fontSize:
-                                  MediaQuery.of(context).size.height * 0.016,
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.016,
                                 ),
                               ),
                             ),
                             Container(
                               padding: EdgeInsets.only(
                                   left:
-                                  MediaQuery.of(context).size.height * 0.00,
+                                      MediaQuery.of(context).size.height * 0.00,
                                   right:
-                                  MediaQuery.of(context).size.height * 0.00,
+                                      MediaQuery.of(context).size.height * 0.00,
                                   top:
-                                  MediaQuery.of(context).size.height * 0.00,
+                                      MediaQuery.of(context).size.height * 0.00,
                                   bottom: MediaQuery.of(context).size.height *
                                       0.00),
                               child: Text(
@@ -495,8 +481,8 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                   color: Color(0xFF126086),
                                   fontWeight: FontWeight.bold,
                                   overflow: TextOverflow.ellipsis,
-                                  fontSize:
-                                  MediaQuery.of(context).size.height * 0.016,
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.016,
                                 ),
                               ),
                             ),
@@ -534,13 +520,13 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                       left: MediaQuery.of(context).size.height *
                                           0.01,
                                       right:
-                                      MediaQuery.of(context).size.height *
-                                          0.0,
+                                          MediaQuery.of(context).size.height *
+                                              0.0,
                                       top: MediaQuery.of(context).size.height *
                                           0.0,
                                       bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.0),
+                                          MediaQuery.of(context).size.height *
+                                              0.0),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(15),
                                     boxShadow: [
@@ -552,7 +538,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                         blurRadius: 1,
                                         // How blurry the shadow is
                                         spreadRadius:
-                                        1, // How much the shadow expands outside the card
+                                            1, // How much the shadow expands outside the card
                                       ),
                                     ],
                                   ),
@@ -564,84 +550,84 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                         borderRadius: BorderRadius.circular(32),
                                       ),
                                       width:
-                                      MediaQuery.of(context).size.height *
-                                          0.320,
+                                          MediaQuery.of(context).size.height *
+                                              0.320,
                                       padding: EdgeInsets.only(
                                           left: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.00,
                                           right:
-                                          MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.00,
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.00,
                                           bottom: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.00,
                                           top: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.00),
                                       // color: Colors.white,
                                       child: Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Container(
                                               // color: Colors.red,
                                               // height: MediaQuery.of(context).size.height * 0.12,
                                               padding: EdgeInsets.only(
                                                   left: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.005,
                                                   right: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.005,
                                                   top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.00,
                                                   bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.00),
                                               child: Row(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.center,
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                                    MainAxisAlignment.start,
                                                 children: <Widget>[
                                                   Container(
                                                     padding: EdgeInsets.only(
                                                         left: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .height *
+                                                                    context)
+                                                                .size
+                                                                .height *
                                                             0.01,
                                                         right:
-                                                        MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .height *
-                                                            0.01,
+                                                            MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.01,
                                                         top: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .height *
+                                                                    context)
+                                                                .size
+                                                                .height *
                                                             0.01,
                                                         bottom: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .height *
+                                                                    context)
+                                                                .size
+                                                                .height *
                                                             0.01),
                                                     child: ClipRRect(
                                                       borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
+                                                          BorderRadius.circular(
+                                                              10.0),
                                                       // Adjust border radius as needed
                                                       child: Container(
                                                         width: 70.0,
@@ -659,35 +645,35 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                                   Expanded(
                                                     child: Column(
                                                       crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .center,
+                                                          MainAxisAlignment
+                                                              .center,
                                                       children: <Widget>[
                                                         Container(
                                                           padding: EdgeInsets.only(
                                                               left: MediaQuery
-                                                                  .of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
+                                                                          .of(
+                                                                              context)
+                                                                      .size
+                                                                      .height *
                                                                   0.00,
                                                               right: MediaQuery
-                                                                  .of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
+                                                                          .of(
+                                                                              context)
+                                                                      .size
+                                                                      .height *
                                                                   0.00,
                                                               top: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
+                                                                          context)
+                                                                      .size
+                                                                      .height *
                                                                   0.0,
                                                               bottom: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
+                                                                          context)
+                                                                      .size
+                                                                      .height *
                                                                   0.00),
                                                           child: Text(
                                                             "Abishan.t",
@@ -695,47 +681,47 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                                                 color: Colors
                                                                     .black87,
                                                                 overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
+                                                                    TextOverflow
+                                                                        .ellipsis,
                                                                 fontWeight:
-                                                                FontWeight
-                                                                    .bold,
+                                                                    FontWeight
+                                                                        .bold,
                                                                 fontSize: MediaQuery.of(
-                                                                    context)
-                                                                    .size
-                                                                    .height *
+                                                                            context)
+                                                                        .size
+                                                                        .height *
                                                                     0.016),
                                                           ),
                                                         ),
                                                         Container(
                                                           decoration:
-                                                          BoxDecoration(
+                                                              BoxDecoration(
                                                             borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                8),
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8),
                                                           ),
                                                           padding: EdgeInsets.only(
                                                               left: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
+                                                                          context)
+                                                                      .size
+                                                                      .height *
                                                                   0.005,
                                                               right: MediaQuery
-                                                                  .of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
+                                                                          .of(
+                                                                              context)
+                                                                      .size
+                                                                      .height *
                                                                   0.012,
                                                               top: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
+                                                                          context)
+                                                                      .size
+                                                                      .height *
                                                                   0.00,
                                                               bottom: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
+                                                                          context)
+                                                                      .size
+                                                                      .height *
                                                                   0.00),
                                                           child: Row(
                                                             children: <Widget>[
@@ -744,9 +730,9 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                                                 color: Colors
                                                                     .amber,
                                                                 size: MediaQuery.of(
-                                                                    context)
-                                                                    .size
-                                                                    .height *
+                                                                            context)
+                                                                        .size
+                                                                        .height *
                                                                     0.025,
                                                               ),
                                                               Text(
@@ -755,20 +741,20 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                                                     color: Colors
                                                                         .black87,
                                                                     fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
+                                                                        FontWeight
+                                                                            .bold,
                                                                     overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
+                                                                        TextOverflow
+                                                                            .ellipsis,
                                                                     fontSize: MediaQuery.of(context)
-                                                                        .size
-                                                                        .height *
+                                                                            .size
+                                                                            .height *
                                                                         0.016),
                                                               )
                                                             ],
                                                             crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
+                                                                CrossAxisAlignment
+                                                                    .center,
                                                           ),
                                                         ),
                                                       ],
@@ -780,20 +766,20 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                             Container(
                                               padding: EdgeInsets.only(
                                                   left: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.01,
                                                   right: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.00,
                                                   top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.00,
                                                   bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                          .size
+                                                          .height *
                                                       0.00),
                                               child: Text(
                                                 "Dr Faseeh Km is a General Physician/lnternal Medicine specialist in Bengaluru with over ten years of experience. ",
@@ -802,10 +788,10 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                                     // fontWeight: FontWeight.bold,
                                                     // overflow: TextOverflow.ellipsis,
                                                     fontSize:
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                        0.014),
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.014),
                                               ),
                                             ),
                                           ]),
@@ -819,8 +805,6 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                         // Additional widgets can be added here
                       ],
                     ),
-
-
                   ],
                 ),
               ),
@@ -829,49 +813,40 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
         ),
       ),
 
-
       // Bottom Navigation with another  positioned on the right
-      bottomNavigationBar:Container(
+      bottomNavigationBar: Container(
         // height: MediaQuery.of(context).size.height * 0.150,
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-
             // Consultation Fees
             Padding(
               padding: EdgeInsets.only(
                   left: MediaQuery.of(context).size.height * 0.015,
                   right: MediaQuery.of(context).size.height * 0.015,
-                  top : MediaQuery.of(context).size.height * 0.015,
-                  bottom: MediaQuery.of(context).size.height *  0.00),
+                  top: MediaQuery.of(context).size.height * 0.015,
+                  bottom: MediaQuery.of(context).size.height * 0.00),
               child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Container(
                       padding: EdgeInsets.only(
-                          left:
-                          MediaQuery.of(context).size.height * 0.00,
-                          right:
-                          MediaQuery.of(context).size.height * 0.00,
-                          top:
-                          MediaQuery.of(context).size.height * 0.00,
-                          bottom: MediaQuery.of(context).size.height *
-                              0.00),
+                          left: MediaQuery.of(context).size.height * 0.00,
+                          right: MediaQuery.of(context).size.height * 0.00,
+                          top: MediaQuery.of(context).size.height * 0.00,
+                          bottom: MediaQuery.of(context).size.height * 0.00),
                       child: Text(
                         "Consultation Fees",
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           overflow: TextOverflow.ellipsis,
-                          fontSize:
-                          MediaQuery.of(context).size.height * 0.016,
-
+                          fontSize: MediaQuery.of(context).size.height * 0.016,
                         ),
                       ),
-
                     ),
                     Container(
                       decoration: BoxDecoration(
@@ -880,28 +855,18 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                       ),
                       // color:Colors.green[100],
                       padding: EdgeInsets.only(
-                          left:
-                          MediaQuery.of(context).size.height * 0.0,
-                          right:
-                          MediaQuery.of(context).size.height * 0.0,
-                          top:
-                          MediaQuery.of(context).size.height * 0.00,
-                          bottom: MediaQuery.of(context).size.height *
-                              0.00),
+                          left: MediaQuery.of(context).size.height * 0.0,
+                          right: MediaQuery.of(context).size.height * 0.0,
+                          top: MediaQuery.of(context).size.height * 0.00,
+                          bottom: MediaQuery.of(context).size.height * 0.00),
                       child: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Container(
-                              margin:
-                              EdgeInsets.symmetric(horizontal: 2),
-                              height:
-                              MediaQuery.of(context).size.height *
-                                  0.01,
-                              width:
-                              MediaQuery.of(context).size.height *
-                                  0.01,
+                              margin: EdgeInsets.symmetric(horizontal: 2),
+                              height: MediaQuery.of(context).size.height * 0.01,
+                              width: MediaQuery.of(context).size.height * 0.01,
                               decoration: BoxDecoration(
                                 color: Colors.black,
                                 shape: BoxShape.circle,
@@ -911,68 +876,55 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                               children: <Widget>[
                                 Container(
                                     padding: EdgeInsets.only(
-                                        left: MediaQuery.of(context)
-                                            .size
-                                            .height *
-                                            0.005,
-                                        right: MediaQuery.of(context)
-                                            .size
-                                            .height *
-                                            0.00,
-                                        top: MediaQuery.of(context)
-                                            .size
-                                            .height *
-                                            0.00,
-                                        bottom: MediaQuery.of(context)
-                                            .size
-                                            .height *
-                                            0.00),
+                                        left:
+                                            MediaQuery.of(context).size.height *
+                                                0.005,
+                                        right:
+                                            MediaQuery.of(context).size.height *
+                                                0.00,
+                                        top:
+                                            MediaQuery.of(context).size.height *
+                                                0.00,
+                                        bottom:
+                                            MediaQuery.of(context).size.height *
+                                                0.00),
                                     child: Text(
                                       'QR 999',
                                       style: TextStyle(
-                                        // color: Colors.blue[600],
+                                          // color: Colors.blue[600],
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
-                                          overflow:
-                                          TextOverflow.ellipsis,
-                                          decoration: TextDecoration
-                                              .lineThrough,
+                                          overflow: TextOverflow.ellipsis,
+                                          decoration:
+                                              TextDecoration.lineThrough,
                                           decorationThickness: 2,
-                                          fontSize:
-                                          MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
                                               0.016),
                                     )),
                                 Container(
                                   padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context)
-                                          .size
-                                          .height *
+                                      left: MediaQuery.of(context).size.height *
                                           0.005,
-                                      right: MediaQuery.of(context)
-                                          .size
-                                          .height *
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.00,
+                                      top: MediaQuery.of(context).size.height *
                                           0.00,
-                                      top: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.00,
-                                      bottom: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.00),
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.00),
                                   child: Text(
                                     "Free",
                                     style: TextStyle(
-                                      // color: Colors.blue[600],
+                                        // color: Colors.blue[600],
                                         color: Color(0xFF12B76A),
                                         fontWeight: FontWeight.bold,
                                         overflow: TextOverflow.ellipsis,
-                                        fontSize: MediaQuery.of(context)
-                                            .size
-                                            .height *
-                                            0.016),
+                                        fontSize:
+                                            MediaQuery.of(context).size.height *
+                                                0.016),
                                   ),
                                 ),
                               ],
@@ -993,8 +945,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                 );
               },
               child: Padding(
-                padding:
-                EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -1002,36 +953,24 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                     Container(
                         alignment: Alignment.centerRight,
                         padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height *
-                                0.01,
-                            bottom: MediaQuery.of(context).size.height *
-                                0.00,
-                            left: MediaQuery.of(context).size.height *
-                                0.00,
-                            right: MediaQuery.of(context).size.height *
-                                0.00),
+                            top: MediaQuery.of(context).size.height * 0.01,
+                            bottom: MediaQuery.of(context).size.height * 0.00,
+                            left: MediaQuery.of(context).size.height * 0.00,
+                            right: MediaQuery.of(context).size.height * 0.00),
                         margin: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.height *
-                                0.04,
-                            top: MediaQuery.of(context).size.height *
-                                0.01,
-                            bottom: MediaQuery.of(context).size.height *
-                                0.01,
-                            left: MediaQuery.of(context).size.height *
-                                0.04),
+                            right: MediaQuery.of(context).size.height * 0.04,
+                            top: MediaQuery.of(context).size.height * 0.01,
+                            bottom: MediaQuery.of(context).size.height * 0.01,
+                            left: MediaQuery.of(context).size.height * 0.04),
                         child: Row(
-                            crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Expanded(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      borderRadius:
-                                      BorderRadius.circular(
-                                          MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                      borderRadius: BorderRadius.circular(
+                                          MediaQuery.of(context).size.height *
                                               0.012),
                                       gradient: LinearGradient(
                                           begin: Alignment.centerRight,
@@ -1050,7 +989,8 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                     onPressed: () async {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
-                                          builder: (context) => HomeSelectTimeSlot(),
+                                          builder: (context) =>
+                                              HomeSelectTimeSlot(),
                                         ),
                                       );
                                     },
@@ -1058,10 +998,9 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             color: Colors.white,
-                                            fontSize:
-                                            MediaQuery.of(context)
-                                                .size
-                                                .height *
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
                                                 0.02)),
                                   ),
                                 ),
@@ -1083,7 +1022,8 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
         /* progressDialog.showMaterial(
             title: "Loading Data", message: "Please wait");*/
         progressDialog.show();
-        dynamic user = await apiService.findDoctorsdetails("widget.doctoridval");
+        dynamic user =
+            await apiService.findDoctorsdetails("widget.doctoridval");
 
         if (user.message != null) {
           progressDialog.hide();
@@ -1099,8 +1039,9 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
           setState(() {
             responsedetails = user.response;
 
-            doctornameval =
-            responsedetails!.doctorName != null ? responsedetails!.doctorName! : "";
+            doctornameval = responsedetails!.doctorName != null
+                ? responsedetails!.doctorName!
+                : "";
             qualificationval = responsedetails!.qualification != null
                 ? responsedetails!.qualification!
                 : "";
@@ -1109,7 +1050,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                 : "";
 
             aboutdoctorval =
-            responsedetails!.about != null ? responsedetails!.about! : "";
+                responsedetails!.about != null ? responsedetails!.about! : "";
             print(responsedetails!.about);
 
             if (responsedetails!.speciality != null &&
