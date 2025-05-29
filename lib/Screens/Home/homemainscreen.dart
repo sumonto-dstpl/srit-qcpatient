@@ -102,12 +102,12 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   @override
   void initState() {
     getSharedPrefs();
-    // _loadData();
+     _loadData();
     super.initState();
-    // _rotateController = AnimationController(
-    //   vsync: this,
-    //   duration: const Duration(seconds: 1),
-    // )..repeat();
+    _rotateController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat();
   }
   void _loadData() async {
     await Future.delayed(const Duration(seconds: 2)); // Simulating API call
