@@ -39,6 +39,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_emoji_feedback/flutter_emoji_feedback.dart';
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 import 'package:newfolder/Screens/Widgets/tab_item.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:newfolder/constants/custom_emoji_feedback.dart';
 
 
 class FeedbackMain extends StatefulWidget {
@@ -484,7 +486,7 @@ class FeedbackMainstate extends State<FeedbackMain> {
                                 bottom: MediaQuery
                                     .of(context)
                                     .size
-                                    .height * 0.003,
+                                    .height * 0.005,
                                 top: MediaQuery
                                     .of(context)
                                     .size
@@ -519,7 +521,7 @@ class FeedbackMainstate extends State<FeedbackMain> {
                                       top: MediaQuery.of(context).size.height *
                                           0.02,
                                       bottom: MediaQuery.of(context).size.height *
-                                          0.00),
+                                          0.02),
                                   child: Text(
                                     "How was your overall experience in using the mobile app?",
                                     textAlign: TextAlign.center,
@@ -557,9 +559,9 @@ class FeedbackMainstate extends State<FeedbackMain> {
                                         0.02),
 
                                   child:
-                                      EmojiFeedback(
+                                  CustomEmojiFeedback(
                                       showLabel : false,
-                                        elementSize: MediaQuery.of(context).size.height * 0.045,
+                                        elementSize: MediaQuery.of(context).size.height * 0.035,
                                         animDuration: Duration(milliseconds: 300),
                                         // Optional animation
                                         onChanged: (rating) {
