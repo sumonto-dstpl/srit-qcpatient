@@ -455,7 +455,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
         ),
         // Carousel Indicator
         Positioned(
-          bottom: screenHeight * 0.01, // 5% from the bottom of the screen
+          bottom: screenHeight * 0.032, // 5% from the bottom of the screen
           right: screenWidth * 0.45, // 10% from the right side of the screen
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
