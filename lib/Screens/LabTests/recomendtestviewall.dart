@@ -356,15 +356,6 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                           ),
                           )
 
-
-
-
-
-
-
-
-
-
                         ],
                       ),
                     ),
@@ -372,142 +363,191 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                 ),
               ),
 
+      Expanded(
+
+        child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(screenHeight * 0.03),
+                topRight: Radius.circular(screenHeight * 0.03),
+                bottomLeft: Radius.circular(screenHeight * 0.0),
+                bottomRight: Radius.circular(screenHeight * 0.00),
+                // bottomCenter: 0,
+              ),
+            ),
+            child : Column(
+              children: [
+      Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.0,
+              right: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.0,
+              top: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.02,
+              bottom: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.0),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(screenHeight * 0.03),
+              topRight: Radius.circular(screenHeight * 0.03),
+            ),
+          ),
+          child:
+          Column(
+            children: [
+              // Search Input Field
+              Container(
+
+                padding: EdgeInsets.only(
+                  top: screenHeight * 0.01,
+                  left: screenWidth * 0.0,
+                  right: screenWidth * 0.01,
+                  bottom: screenWidth * 0.0,
+                ),
+                margin: EdgeInsets.only(
+                    right: MediaQuery.of(context).size.height * 0.01,
+                    top: MediaQuery.of(context).size.height * 0.0,
+                    bottom: MediaQuery.of(context).size.height * 0.0,
+                    left: MediaQuery.of(context).size.height * 0.01),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+
+                    SizedBox(
+                        width: screenHeight *
+                            0.005), // Add spacing between widgets
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            alignment: Alignment.centerRight,
+                            margin: EdgeInsets.only(
+                                bottom: screenHeight * 0.01),
+
+                            child: TextFormField(
+                              controller: SearchEditTextController,
+
+                              style: TextStyle(color: Colors.black),
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (input) => input!.length < 3
+                                  ? "Search should be more than 3 characters"
+                                  : null,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                contentPadding: EdgeInsets.only(
+                                  top :   screenHeight * 0.012,
+                                  left :   screenHeight * 0.02,
+                                  right :   screenHeight * 0.012,
+                                  bottom :   screenHeight * 0.012,
+                                ),
+                                filled: true,
+                                fillColor: Color(0xFFF7F5F6),
+                                hintText: "Search by tests & packages",
+                                hintStyle: TextStyle(
+                                    color: Color(0xFF999999),
+                                    fontSize: screenHeight * 0.014,
+                                    fontWeight: FontWeight.w400
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(10.0),
+                                  borderSide:
+                                  BorderSide(color: Color(0xFFF7F5F6)),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(10.0)),
+                                  borderSide:
+                                  BorderSide(color: Colors.white),
+                                ),
+                                suffixIcon: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 15),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min, // Ensures the Row only takes as much space as needed
+                                    children: [
+                                      // Search Icon
+                                      Icon(
+                                        Icons.search,
+                                        color: Colors.black45,
+                                        size: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height * 0.025,
+                                      ),
+                                      // Divider
+                                      Container(
+                                        width: 1, // Width of the divider
+                                        height: 20, // Height of the divider
+                                        color: Colors.grey, // Color of the divider
+                                        margin: EdgeInsets.symmetric(horizontal: 8), // Spacing around the divider
+                                      ),
+                                      // Icon from Assets
+                                      InkWell(
+                                        onTap: () {
+
+                                          showBottomSheet();
+
+
+                                        },
+                                        child: Image.asset(
+                                          'assets/scansearch.png', // Replace with your actual asset path
+                                          height: 15, // Height of the asset icon
+                                          width: 15,  // Width of the asset icon
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+            ]
+          ),
+      ),
+
               // Main Content Section
               Expanded(
                 child: Container(
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.height * 0.00,
                       right: MediaQuery.of(context).size.height * 0.00,
-                      top: MediaQuery.of(context).size.height * 0.025,
+                      top: MediaQuery.of(context).size.height * 0.0,
                       bottom: MediaQuery.of(context).size.height * 0.00),
+
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(screenHeight * 0.03),
-                      topRight: Radius.circular(screenHeight * 0.03),
-                    ),
+
+                    // borderRadius: BorderRadius.only(
+                    //   topLeft: Radius.circular(screenHeight * 0.03),
+                    //   topRight: Radius.circular(screenHeight * 0.03),
+                    // ),
                   ),
                   child: ListView(
                     children: [
                       // Search Input Field
-
-                      Container(
-
-                        padding: EdgeInsets.only(
-                          top: screenHeight * 0.0,
-                          left: screenWidth * 0.0,
-                          right: screenWidth * 0.01,
-                          bottom: screenWidth * 0.0,
-                        ),
-                        margin: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.height * 0.01,
-                            top: MediaQuery.of(context).size.height * 0.0,
-                            bottom: MediaQuery.of(context).size.height * 0.0,
-                            left: MediaQuery.of(context).size.height * 0.01),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-
-                            SizedBox(
-                                width: screenHeight *
-                                    0.005), // Add spacing between widgets
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    alignment: Alignment.centerRight,
-                                    margin: EdgeInsets.only(
-                                        bottom: screenHeight * 0.01),
-
-                                    child: TextFormField(
-                                      controller: SearchEditTextController,
-
-                                      style: TextStyle(color: Colors.black),
-                                      keyboardType: TextInputType.emailAddress,
-                                      validator: (input) => input!.length < 3
-                                          ? "Search should be more than 3 characters"
-                                          : null,
-                                      decoration: InputDecoration(
-                                        isDense: true,
-                                        contentPadding: EdgeInsets.only(
-                                          top :   screenHeight * 0.012,
-                                          left :   screenHeight * 0.02,
-                                          right :   screenHeight * 0.012,
-                                          bottom :   screenHeight * 0.012,
-                                        ),
-                                        filled: true,
-                                        fillColor: Color(0xFFF7F5F6),
-                                        hintText: "Search by tests & packages",
-                                        hintStyle: TextStyle(
-                                          color: Color(0xFF999999),
-                                          fontSize: screenHeight * 0.014,
-                                          fontWeight: FontWeight.w400
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(10.0),
-                                          borderSide:
-                                          BorderSide(color: Color(0xFFF7F5F6)),
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10.0)),
-                                          borderSide:
-                                          BorderSide(color: Colors.white),
-                                        ),
-                                        suffixIcon: Container(
-                                          padding: EdgeInsets.symmetric(horizontal: 15),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.min, // Ensures the Row only takes as much space as needed
-                                            children: [
-                                              // Search Icon
-                                              Icon(
-                                                Icons.search,
-                                                color: Colors.black45,
-                                                size: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.025,
-                                              ),
-                                              // Divider
-                                              Container(
-                                                width: 1, // Width of the divider
-                                                height: 20, // Height of the divider
-                                                color: Colors.grey, // Color of the divider
-                                                margin: EdgeInsets.symmetric(horizontal: 8), // Spacing around the divider
-                                              ),
-                                              // Icon from Assets
-                                              InkWell(
-                                                onTap: () {
-
-                                                   showBottomSheet();
-
-
-                                                },
-                                                child: Image.asset(
-                                                  'assets/scansearch.png', // Replace with your actual asset path
-                                                  height: 15, // Height of the asset icon
-                                                  width: 15,  // Width of the asset icon
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
@@ -519,7 +559,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                 MediaQuery.of(context).size.height * 0.01,
                                 bottom:
                                 MediaQuery.of(context).size.height * 0.010,
-                                top: MediaQuery.of(context).size.height * 0.00),
+                                top: MediaQuery.of(context).size.height * 0.0),
                             // height: MediaQuery.of(context).size.height * 0.190,
                             child: ListView.builder(
                               physics: ScrollPhysics(), // Ensures scrolling
@@ -937,10 +977,18 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
 
 
 
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.045,
+                      ),
                     ],
+
                   ),
                 ),
               ),
+              ],
+            ),
+        ),
+      )
             ],
           ),
         ]),

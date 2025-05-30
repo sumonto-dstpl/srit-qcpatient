@@ -187,17 +187,20 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
       Container(
         width: double.infinity,
         decoration: const BoxDecoration(
-          color: Colors.white,
           image: DecorationImage(
             // image: AssetImage("assets/patternbackground.png"), // Replace with your image path
             image: AssetImage("assets/Background Pattern.png"),
             fit: BoxFit.cover, // Adjusts how the image fills the container
           ),
-        ),      
-        child: Stack(
+        ),
+        child:
+        Stack(
             children: [
+
               Column(
                 children: <Widget>[
+
+
 
                   Container(
                     padding: EdgeInsets.only(
@@ -257,7 +260,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                 bottom: MediaQuery
                                     .of(context)
                                     .size
-                                    .height * 0.001,
+                                    .height * 0.005,
                                 left: MediaQuery
                                     .of(context)
                                     .size
@@ -486,319 +489,22 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                       ],
                     ),
                   ),
-                  //to copy
-                  Expanded(
 
-                  child: Container(
-                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(screenHeight * 0.03),
-                                        topRight: Radius.circular(screenHeight * 0.03),
-                                        bottomLeft: Radius.circular(screenHeight * 0.0),
-                                        bottomRight: Radius.circular(screenHeight * 0.00),
-                                        // bottomCenter: 0,
-                                      ),
-                                    ),
-                    child : Column(
-                    children: [         //to copy
-                  Container(
-                        padding: EdgeInsets.only(
-                                left: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.01,
-                                right: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.01,
-                                top: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.01,
-                                bottom: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.01),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(screenHeight * 0.03),
-                                        topRight: Radius.circular(screenHeight * 0.03),
-                                        bottomLeft: Radius.circular(screenHeight * 0.0),
-                                        bottomRight: Radius.circular(screenHeight * 0.00),
-                                        // bottomCenter: 0,
-                                      ),
-                                    ),
-                                child:
-                                  Column(
-                                    children: [
-                                      // Search Input Field
-                                        GestureDetector(
-                                            onTap: () {
-                                              // Navigator.of(context).push(
-                                              //   MaterialPageRoute(
-                                              //     builder: (BuildContext context) {
-                                              //       return QuickSearchWithoutData();
-                                              //     },
-                                              //   ),
-                                              // );
-                                            },
-                                            child:
-                                            Container(
-                                              height: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.05,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFFA8B1CE).withOpacity(0.2),
-                                                borderRadius: BorderRadius.circular(10),
-                                              ),
-
-                                              alignment: Alignment.centerRight,
-                                              padding: EdgeInsets.only(
-                                                top: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.0,
-                                                bottom: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.0,
-                                                left: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.00,
-                                                right: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.00,
-                                              ),
-                                              margin: EdgeInsets.only(
-                                                right: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.02,
-                                                top: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.01,
-                                                bottom: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.01,
-                                                left: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.02,
-                                              ),
-                                              child: Row(
-                                                // mainAxisAlignment: MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        left: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.02,
-                                                        right: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.00,
-                                                        top: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.00,
-                                                        bottom: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.0),
-                                                    child: Text(
-                                                      "Search by",
-                                                      style: TextStyle(
-                                                          color: Color(0xFF999999),
-                                                          // overflow: TextOverflow.ellipsis,
-                                                          fontWeight: FontWeight.w400,
-                                                          fontSize:
-                                                          MediaQuery
-                                                              .of(context)
-                                                              .size
-                                                              .height *
-                                                              0.014
-                                                      ),
-                                                    ),
-                                                  ),
-
-
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        left: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.008,
-                                                        right: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.00,
-                                                        top: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.00,
-                                                        bottom: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.0),
-                                                    child:
-                                                    DefaultTextStyle(
-                                                      style: TextStyle(
-                                                          color: Color(0xFF126086),
-                                                          overflow: TextOverflow.ellipsis,
-                                                          fontWeight: FontWeight.bold,
-                                                          fontSize:
-                                                          MediaQuery
-                                                              .of(context)
-                                                              .size
-                                                              .height * 0.016),
-                                                      child: AnimatedTextKit(
-                                                        animatedTexts: [
-                                                          RotateAnimatedText(
-                                                            'Doctor',
-                                                            textStyle: TextStyle(
-                                                                color: Color(0xFF126086),
-                                                                overflow: TextOverflow.ellipsis,
-                                                                fontWeight: FontWeight.bold,
-                                                                fontSize:
-                                                                MediaQuery
-                                                                    .of(context)
-                                                                    .size
-                                                                    .height *
-                                                                    0.014), // Red text
-                                                          ),
-                                                          RotateAnimatedText(
-                                                            'Speciality',
-                                                            textStyle: TextStyle(
-                                                                color: Color(0xFF126086),
-                                                                overflow: TextOverflow.ellipsis,
-                                                                fontWeight: FontWeight.bold,
-                                                                fontSize:
-                                                                MediaQuery
-                                                                    .of(context)
-                                                                    .size
-                                                                    .height *
-                                                                    0.014),
-                                                          ),
-
-                                                          RotateAnimatedText(
-                                                            'Symptoms',
-                                                            textStyle: TextStyle(
-                                                                color: Color(0xFF126086),
-                                                                overflow: TextOverflow.ellipsis,
-                                                                fontWeight: FontWeight.bold,
-                                                                fontSize:
-                                                                MediaQuery
-                                                                    .of(context)
-                                                                    .size
-                                                                    .height *
-                                                                    0.014),
-                                                          ),
-                                                        ],
-                                                        repeatForever: true,
-                                                        pause: Duration(milliseconds: 500),
-                                                        onTap: () {
-                                                          // Navigator.of(context).push(
-                                                          //   MaterialPageRoute(
-                                                          //     builder: (BuildContext context) {
-                                                          //       return QuickSearchWithoutData();
-                                                          //     },
-                                                          //   ),
-                                                          // );
-                                                          // print("Tap Event");
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
-
-                                                  Spacer(),
-                                                  // Pushes the search icon to the end of the Row
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                      right: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.00,
-                                                    ),
-                                                    child: Icon(
-                                                      Icons.search,
-                                                      color: Colors.black45,
-                                                      size: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.02,
-                                                    ),
-                                                  ),
-                                                  // Divider
-                                                  Container(
-                                                    padding : EdgeInsets.only(
-                                                        right:   screenHeight * 0.003,
-                                                      left:   screenHeight * 0.003,
-                                                    ),
-                                                    width: 1, // Width of the divider
-                                                    height: 20, // Height of the divider
-                                                    color: Colors.grey, // Color of the divider
-                                                    margin: EdgeInsets.symmetric(horizontal: 4), // Spacing around the divider
-                                                  ),
-                                                  InkWell(
-                                                    onTap: () {
-
-                                                      showBottomSheet();
-
-
-                                                    },
-                                                    child:   Padding(
-                                                      padding: EdgeInsets.only(
-                                                        right: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height * 0.01,
-                                                      ),
-                                                      child: Image.asset(
-                                                        'assets/scansearch.png', // Replace with your actual asset path
-                                                        height: 20, // Height of the asset icon
-                                                        width: 20,  // Width of the asset icon
-                                                      ),
-                                                    ),
-                                                  ),
-
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                      ]
-                                  ),
-                              ),
                   // main content
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.zero,
+                      padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.height * 0.00,
+                          right: MediaQuery.of(context).size.height * 0.00,
+                          top: MediaQuery.of(context).size.height * 0.015,
+                          bottom: MediaQuery.of(context).size.height * 0.00),
                       width: double.infinity,
-                      margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.0,
-                         ),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        // borderRadius: BorderRadius.only(
-                        //   topLeft: Radius.circular(screenHeight * 0.03),
-                        //   topRight: Radius.circular(screenHeight * 0.03),
-                        // ),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(screenHeight * 0.03),
+                          topRight: Radius.circular(screenHeight * 0.03),
+                        ),
                       ),
                       child: ListView(
                         padding: EdgeInsets.zero,
@@ -807,7 +513,253 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
 
 
-                          
+                          GestureDetector(
+                            onTap: () {
+                              // Navigator.of(context).push(
+                              //   MaterialPageRoute(
+                              //     builder: (BuildContext context) {
+                              //       return QuickSearchWithoutData();
+                              //     },
+                              //   ),
+                              // );
+                            },
+                            child:
+                            Container(
+                              height: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height * 0.05,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFA8B1CE).withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+
+                              alignment: Alignment.centerRight,
+                              padding: EdgeInsets.only(
+                                top: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.0,
+                                bottom: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.0,
+                                left: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.00,
+                                right: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.00,
+                              ),
+                              margin: EdgeInsets.only(
+                                right: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.02,
+                                top: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.01,
+                                bottom: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.02,
+                                left: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.02,
+                              ),
+                              child: Row(
+                                // mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                        left: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height *
+                                            0.02,
+                                        right: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height *
+                                            0.00,
+                                        top: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height *
+                                            0.00,
+                                        bottom: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height *
+                                            0.0),
+                                    child: Text(
+                                      "Search by",
+                                      style: TextStyle(
+                                          color: Color(0xFF999999),
+                                          // overflow: TextOverflow.ellipsis,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize:
+                                          MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height *
+                                              0.014
+                                      ),
+                                    ),
+                                  ),
+
+
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                        left: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height *
+                                            0.008,
+                                        right: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height *
+                                            0.00,
+                                        top: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height *
+                                            0.00,
+                                        bottom: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height *
+                                            0.0),
+                                    child:
+                                    DefaultTextStyle(
+                                      style: TextStyle(
+                                          color: Color(0xFF126086),
+                                          overflow: TextOverflow.ellipsis,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize:
+                                          MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.016),
+                                      child: AnimatedTextKit(
+                                        animatedTexts: [
+                                          RotateAnimatedText(
+                                            'Doctor',
+                                            textStyle: TextStyle(
+                                                color: Color(0xFF126086),
+                                                overflow: TextOverflow.ellipsis,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize:
+                                                MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height *
+                                                    0.014), // Red text
+                                          ),
+                                          RotateAnimatedText(
+                                            'Speciality',
+                                            textStyle: TextStyle(
+                                                color: Color(0xFF126086),
+                                                overflow: TextOverflow.ellipsis,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize:
+                                                MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height *
+                                                    0.014),
+                                          ),
+
+                                          RotateAnimatedText(
+                                            'Symptoms',
+                                            textStyle: TextStyle(
+                                                color: Color(0xFF126086),
+                                                overflow: TextOverflow.ellipsis,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize:
+                                                MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height *
+                                                    0.014),
+                                          ),
+                                        ],
+                                        repeatForever: true,
+                                        pause: Duration(milliseconds: 500),
+                                        onTap: () {
+                                          // Navigator.of(context).push(
+                                          //   MaterialPageRoute(
+                                          //     builder: (BuildContext context) {
+                                          //       return QuickSearchWithoutData();
+                                          //     },
+                                          //   ),
+                                          // );
+                                          // print("Tap Event");
+                                        },
+                                      ),
+                                    ),
+                                  ),
+
+                                  Spacer(),
+                                  // Pushes the search icon to the end of the Row
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      right: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height * 0.00,
+                                    ),
+                                    child: Icon(
+                                      Icons.search,
+                                      color: Colors.black45,
+                                      size: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height * 0.02,
+                                    ),
+                                  ),
+                                  // Divider
+                                  Container(
+                                    padding : EdgeInsets.only(
+                                         right:   screenHeight * 0.003,
+                                      left:   screenHeight * 0.003,
+                                    ),
+                                    width: 1, // Width of the divider
+                                    height: 20, // Height of the divider
+                                    color: Colors.grey, // Color of the divider
+                                    margin: EdgeInsets.symmetric(horizontal: 4), // Spacing around the divider
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+
+                                      showBottomSheet();
+
+
+                                    },
+                                    child:   Padding(
+                                      padding: EdgeInsets.only(
+                                        right: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height * 0.01,
+                                      ),
+                                      child: Image.asset(
+                                        'assets/scansearch.png', // Replace with your actual asset path
+                                        height: 20, // Height of the asset icon
+                                        width: 20,  // Width of the asset icon
+                                      ),
+                                    ),
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                          ),
 
 
                           // Search Input Field
@@ -1739,19 +1691,14 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                       ),
                     ),
                   ),
-                  ],
-                    ),
-                  ),
-              )
                 ],
               ),
-            ],
 
+            ]
         ),
       ),
 
     );
-    
   }
 
 
