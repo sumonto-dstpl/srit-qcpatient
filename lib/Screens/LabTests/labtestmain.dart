@@ -349,6 +349,21 @@ class LabTestsMainstate extends State<LabTestsMain> {
                   ],
                 ),
               ),
+      Expanded(
+
+        child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(screenHeight * 0.03),
+                topRight: Radius.circular(screenHeight * 0.03),
+                bottomLeft: Radius.circular(screenHeight * 0.0),
+                bottomRight: Radius.circular(screenHeight * 0.00),
+                // bottomCenter: 0,
+              ),
+            ),
+            child : Column(
+              children: [
 
               // Main Content Section
               Container(
@@ -598,6 +613,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                     ]
                   ),
               ),
+
 
               Expanded(
                 child: Container(
@@ -3052,6 +3068,11 @@ class LabTestsMainstate extends State<LabTestsMain> {
                   ),
                 ),
               ),
+
+                ],
+            ),
+        ),
+      ),
             ],
           ),
         ]),

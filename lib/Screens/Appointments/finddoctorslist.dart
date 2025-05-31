@@ -188,11 +188,14 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
         width: double.infinity,
         decoration: const BoxDecoration(
           color: Colors.white,
+          color: Colors.white,
           image: DecorationImage(
             // image: AssetImage("assets/patternbackground.png"), // Replace with your image path
             image: AssetImage("assets/Background Pattern.png"),
             fit: BoxFit.cover, // Adjusts how the image fills the container
           ),
+        ),      
+        child: Stack(
         ),      
         child: Stack(
             children: [
@@ -257,6 +260,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                 bottom: MediaQuery
                                     .of(context)
                                     .size
+                                    .height * 0.001,
                                     .height * 0.001,
                                 left: MediaQuery
                                     .of(context)
