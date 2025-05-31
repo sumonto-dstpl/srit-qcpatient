@@ -489,109 +489,12 @@ class LoginPagestate extends State<LoginPage> {
                             ),
                           ),
 
-                          // Password textfield
-                          // Padding(
-                          //   padding: EdgeInsets.only(
-                          //     left: MediaQuery.of(context).size.height * 0.005,
-                          //     right: MediaQuery.of(context).size.height * 0.005,
-                          //     bottom: MediaQuery.of(context).size.height * 0.0,
-                          //   ),
-                          //   child: Column(
-                          //     crossAxisAlignment: CrossAxisAlignment.start,
-                          //     children: [
-                          //       TextFormField(
-                          //         controller: PasswordEditTextController,
-                          //         inputFormatters: [
-                          //           LengthLimitingTextInputFormatter(100),
-                          //         ],
-                          //         style: TextStyle(
-                          //           color: Colors.black45,
-                          //           fontSize: MediaQuery.of(context).size.height * 0.02,
-                          //         ),
-                          //         keyboardType: TextInputType.text,
-                          //         obscureText: hidePassword,
-                          //         onChanged: (value) {
-                          //           /*if (!passhasStartedTyping) {
-                          //             setState(() {
-                          //               passhasStartedTyping = true; // Track that the user has started typing
-                          //             });
-                          //           }
-                          //           passvalidateInput();*/
-                          //         },
-                          //         decoration: InputDecoration(
-                          //           isDense: true,
-                          //           contentPadding: EdgeInsets.fromLTRB(
-                          //             MediaQuery.of(context).size.height * 0.012,
-                          //             MediaQuery.of(context).size.height * 0.012,
-                          //             MediaQuery.of(context).size.height * 0.012,
-                          //             MediaQuery.of(context).size.height * 0.012,
-                          //           ),
-                          //           filled: true,
-                          //           fillColor: Colors.white60,
-                          //           hintText: "Enter your email or mobile number",
-                          //           hintStyle: TextStyle(
-                          //             color: Colors.black26,
-                          //             fontSize: MediaQuery.of(context).size.height * 0.016,
-                          //           ),
-                          //           focusedBorder: OutlineInputBorder(
-                          //             borderRadius: BorderRadius.circular(5.0),
-                          //             borderSide: BorderSide(
-                          //               color: passhasStartedTyping
-                          //                   ? (passisValid ? Colors.green : Colors.red)
-                          //                   : Colors.grey, // Initially grey, turns red or green
-                          //             ),
-                          //           ),
-                          //           enabledBorder: OutlineInputBorder(
-                          //             borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                          //             borderSide: BorderSide(
-                          //               color: passhasStartedTyping
-                          //                   ? (passisValid ? Colors.green : Colors.red)
-                          //                   : Colors.grey, // Initially grey, turns red or green
-                          //             ),
-                          //           ),
-                          //           errorBorder: OutlineInputBorder(
-                          //             borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                          //             borderSide: BorderSide(color: Colors.red),
-                          //           ),
-                          //           focusedErrorBorder: OutlineInputBorder(
-                          //             borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                          //             borderSide: BorderSide(color: Colors.red),
-                          //           ),
-                          //
-                          //           suffixIcon: IconButton(
-                          //             onPressed: () {
-                          //               setState(() {
-                          //                 hidePassword = !hidePassword;
-                          //               });
-                          //             },
-                          //             color: Colors.black45,
-                          //             icon: Icon(hidePassword
-                          //                 ? Icons.visibility_off
-                          //                 : Icons.visibility),
-                          //           ),
-                          //         ),
-                          //       ),
-                          //       Padding(
-                          //         padding: EdgeInsets.only(
-                          //             top: MediaQuery.of(context).size.height * 0.005),
-                          //         child: Text(
-                          //           passerrorMessage ?? '',
-                          //           style: TextStyle(
-                          //             color: passisValid ? Colors.green : Colors.red,
-                          //             fontSize: MediaQuery.of(context).size.height * 0.016,
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
-
                           // Password Field
                           Padding(
                             padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.height * 0.025,
                               right: MediaQuery.of(context).size.height * 0.025,
-                              bottom: MediaQuery.of(context).size.height * 0.0,
+                              bottom: MediaQuery.of(context).size.height * 0.005,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -603,94 +506,199 @@ class LoginPagestate extends State<LoginPage> {
                                           .hideCurrentSnackBar();
                                     }
                                   },
-                                  child: TextFormField(
-                                    controller: PasswordEditTextController,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(100),
-                                    ],
-                                    style: TextStyle(
-                                      color: Colors.black45,
-                                      fontSize: MediaQuery.of(context).size.height * 0.016,
-                                            fontWeight: FontWeight.w500,
-                                    ),
-                                    keyboardType: TextInputType.text,
-                                    obscureText: hidePassword,
-                                    onChanged: (value) {
-                                      checkPasswordEmpty(
-                                          PasswordEditTextController.text
-                                              .toString());
-                                    },
-                                    decoration: InputDecoration(
-                                      isDense: true,
-                                      // contentPadding: EdgeInsets.fromLTRB(
-                                      //   MediaQuery.of(context).size.height * 0.02,
-                                      //   MediaQuery.of(context).size.height * 0.012,
-                                      //   MediaQuery.of(context).size.height * 0.012,
-                                      //   MediaQuery.of(context).size.height * 0.012,
-                                      // ),
-                                       contentPadding: EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context).size.height * 0.02,
-                                              vertical: MediaQuery.of(context).size.height * 0.012,
-                                            ),
-                                      filled: true,
-                                      fillColor: Colors.white60,
-                                      hintText: "Enter the password",
-                                      hintStyle: TextStyle(
-                                          color: Color(0x4D111111),
-                                          fontSize: MediaQuery.of(context).size.height * 0.012,
-                                          fontWeight: FontWeight.w400
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        borderSide: BorderSide(
-                                          color: passhasStartedTyping
-                                              ? (passisValid
-                                                  ? Colors.green
-                                                  : Colors.red)
-                                              : Color(
-                                                  0xFFF1F1F1), // Initially grey, turns red or green
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(5.0)),
-                                        borderSide: BorderSide(
-                                          color: passhasStartedTyping
-                                              ? (passisValid
-                                                  ? Colors.green
-                                                  : Colors.red)
-                                              : Color(
-                                                  0xFFF1F1F1), // Initially grey, turns red or green
-                                        ),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(5.0)),
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
+                                 // Wrap the TextFormField in a Stack to overlay the icon
+child: Stack(
+  alignment: Alignment.centerRight, // Align the icon to the right-center
+  children: [
+    TextFormField(
+      controller: PasswordEditTextController,
+      obscureText: hidePassword,
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(100),
+      ],
+      style: TextStyle(
+        color: Colors.black45,
+        fontSize: MediaQuery.of(context).size.height * 0.016,
+        fontWeight: FontWeight.w500,
+      ),
+      keyboardType: TextInputType.text,
+      onChanged: (value) {
+        checkPasswordEmpty(PasswordEditTextController.text.toString());
+      },
+      decoration: InputDecoration(
+        isDense: true,
+        // contentPadding: EdgeInsets.symmetric(
+        //   horizontal: MediaQuery.of(context).size.height * 0.02,
+        //   vertical: MediaQuery.of(context).size.height * 0.012,
+        // ),
+        contentPadding: EdgeInsets.only(
+          left: MediaQuery.of(context).size.height * 0.02,
+          right: MediaQuery.of(context).size.height * 0.05, // Padding for the icon
+          top: MediaQuery.of(context).size.height * 0.012,
+          bottom: MediaQuery.of(context).size.height * 0.012,
+        ),
+        filled: true,
+        fillColor: Colors.white60,
+        hintText: "Enter the password",
+        hintStyle: TextStyle(
+          color: Color(0x4D111111),
+          fontSize: MediaQuery.of(context).size.height * 0.012,
+          fontWeight: FontWeight.w400,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(5.0),
+          borderSide: BorderSide(
+            color: passhasStartedTyping
+                ? (passisValid ? Colors.green : Colors.red)
+                : Color(0xFFF1F1F1),
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          borderSide: BorderSide(
+            color: passhasStartedTyping
+                ? (passisValid ? Colors.green : Colors.red)
+                : Color(0xFFF1F1F1),
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        // Remove suffixIcon to avoid extra height
+      ),
+    ),
+    // Absolutely positioned icon
+    Padding(
+      padding: EdgeInsets.only(right: MediaQuery.of(context).size.height * 0.02),      
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            hidePassword = !hidePassword;
+          });
+        },        
+        child: Icon(
+          hidePassword ? Icons.visibility_off : Icons.visibility,
+          color: Colors.black45,
+          size: MediaQuery.of(context).size.height * 0.02,
+        ),
+      ),
+    ),
+  ],
+),
 
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(5.0)),
-                                        borderSide:
-                                            BorderSide(color: Colors.red),
-                                      ),
 
-                                      suffixIcon: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            hidePassword = !hidePassword;
-                                          });
-                                        },
-                                        color: Colors.black45,
-                                        icon: Icon(hidePassword
-                                            ? Icons.visibility_off
-                                            : Icons.visibility),
-                                      ),
-                                    ),
-                                  ),
+                                  // child: TextFormField(
+                                  //   controller: PasswordEditTextController,
+                                  //   inputFormatters: [
+                                  //     LengthLimitingTextInputFormatter(100),
+                                  //   ],
+                                  //   style: TextStyle(
+                                  //     color: Colors.black45,
+                                  //     fontSize: MediaQuery.of(context).size.height * 0.016,
+                                  //           fontWeight: FontWeight.w500,
+                                  //   ),
+                                  //   keyboardType: TextInputType.text,
+                                  //   obscureText: hidePassword,
+                                  //   onChanged: (value) {
+                                  //     checkPasswordEmpty(
+                                  //         PasswordEditTextController.text
+                                  //             .toString());
+                                  //   },
+                                  //   decoration: InputDecoration(
+                                  //     isDense: true,
+                                  //     // contentPadding: EdgeInsets.fromLTRB(
+                                  //     //   MediaQuery.of(context).size.height * 0.02,
+                                  //     //   MediaQuery.of(context).size.height * 0.012,
+                                  //     //   MediaQuery.of(context).size.height * 0.012,
+                                  //     //   MediaQuery.of(context).size.height * 0.012,
+                                  //     // ),
+                                  //      contentPadding: EdgeInsets.symmetric(
+                                  //             horizontal: MediaQuery.of(context).size.height * 0.02,
+                                  //             vertical: MediaQuery.of(context).size.height * 0.012,
+                                  //           ),
+                                  //     filled: true,
+                                  //     fillColor: Colors.white60,
+                                  //     hintText: "Enter the password",
+                                  //     hintStyle: TextStyle(
+                                  //         color: Color(0x4D111111),
+                                  //         fontSize: MediaQuery.of(context).size.height * 0.012,
+                                  //         fontWeight: FontWeight.w400
+                                  //     ),
+                                  //     focusedBorder: OutlineInputBorder(
+                                  //       borderRadius:
+                                  //           BorderRadius.circular(5.0),
+                                  //       borderSide: BorderSide(
+                                  //         color: passhasStartedTyping
+                                  //             ? (passisValid
+                                  //                 ? Colors.green
+                                  //                 : Colors.red)
+                                  //             : Color(
+                                  //                 0xFFF1F1F1), // Initially grey, turns red or green
+                                  //       ),
+                                  //     ),
+                                  //     enabledBorder: OutlineInputBorder(
+                                  //       borderRadius: BorderRadius.all(
+                                  //           Radius.circular(5.0)),
+                                  //       borderSide: BorderSide(
+                                  //         color: passhasStartedTyping
+                                  //             ? (passisValid
+                                  //                 ? Colors.green
+                                  //                 : Colors.red)
+                                  //             : Color(
+                                  //                 0xFFF1F1F1), // Initially grey, turns red or green
+                                  //       ),
+                                  //     ),
+                                  //     errorBorder: OutlineInputBorder(
+                                  //       borderRadius: BorderRadius.all(
+                                  //           Radius.circular(5.0)),
+                                  //       borderSide:
+                                  //           BorderSide(color: Colors.red),
+                                  //     ),
+
+                                  //     focusedErrorBorder: OutlineInputBorder(
+                                  //       borderRadius: BorderRadius.all(
+                                  //           Radius.circular(5.0)),
+                                  //       borderSide:
+                                  //           BorderSide(color: Colors.red),
+                                  //     ),
+                                  //     suffixIcon: Padding(
+                                  //       padding: EdgeInsets.symmetric(
+                                  //         vertical: MediaQuery.of(context).size.height * 0.00, // tweak as needed
+                                  //       ),
+                                  //       child: IconButton(
+                                  //         padding: EdgeInsets.zero, // Remove extra padding
+                                  //         constraints: BoxConstraints(), // Remove default constraints
+                                  //         onPressed: () {
+                                  //           setState(() {
+                                  //             hidePassword = !hidePassword;
+                                  //           });
+                                  //         },
+                                  //         icon: Icon(
+                                  //           hidePassword ? Icons.visibility_off : Icons.visibility,
+                                  //           color: Colors.black45,
+                                  //           size: MediaQuery.of(context).size.height * 0.02,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                    
+                                  //     // suffixIcon: IconButton(
+                                  //     //   onPressed: () {
+                                  //     //     setState(() {
+                                  //     //       hidePassword = !hidePassword;
+                                  //     //     });
+                                  //     //   },
+                                  //     //   color: Colors.black45,
+                                  //     //   icon: Icon(hidePassword
+                                  //     //       ? Icons.visibility_off
+                                  //     //       : Icons.visibility),
+                                  //     // ),
+                                  //   ),
+                                  // ),
                                 ),
                                 if (passerrorMessage != null)
                                   Padding(
