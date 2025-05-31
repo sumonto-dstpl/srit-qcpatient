@@ -575,9 +575,14 @@ class Registrationstate extends State<Registration> {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(screenHeight * 0.03),
+                  padding: EdgeInsets.only(
+                        top: screenHeight * 0.03,
+                        left: screenHeight * 0.025,
+                        right: screenHeight * 0.025,
+                        bottom: screenHeight * 0.01,
+                      ),
                   child: SingleChildScrollView(
-                    physics: NeverScrollableScrollPhysics(),
+                    // physics: NeverScrollableScrollPhysics(),
                     child: Column(
                       children: [
                         // Logo Image
@@ -1213,7 +1218,7 @@ class Registrationstate extends State<Registration> {
                                       decoration: InputDecoration(
                                         contentPadding: EdgeInsets.symmetric(
                                               horizontal: MediaQuery.of(context).size.height * 0.02,
-                                              vertical: MediaQuery.of(context).size.height * 0.012,
+                                              vertical: MediaQuery.of(context).size.height * 0.002,
                                             ),
                                         hintText: "Enter your Gender",
                                         hintStyle: TextStyle(
@@ -1898,68 +1903,68 @@ class Registrationstate extends State<Registration> {
                           ),
                         ),
 
-                        Padding(
-                    padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.0,
-                      right: MediaQuery.of(context).size.height * 0.0,
-                      top: MediaQuery.of(context).size.height * 0.03,
-                      // bottom: MediaQuery.of(context).size.height * 0.01,
-                    ),
-                    child: TextButton(
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-                        minimumSize: MaterialStateProperty.all<Size>(Size.zero), // Ensures no extra space
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrinks the tap area
-                      ),
-                      onPressed: () {
-                        // General button logic can go here if needed
-                      },
-                      child: RichText(
-                        text: TextSpan(
-                          style: Theme.of(context).textTheme.titleLarge!.merge(
-                            TextStyle(
-                              color: Theme.of(context).primaryColor,
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.height * 0.0,
+                          right: MediaQuery.of(context).size.height * 0.0,
+                          top: MediaQuery.of(context).size.height * 0.03,
+                          // bottom: MediaQuery.of(context).size.height * 0.01,
+                        ),
+                        child: TextButton(
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+                            minimumSize: MaterialStateProperty.all<Size>(Size.zero), // Ensures no extra space
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrinks the tap area
+                          ),
+                          onPressed: () {
+                            // General button logic can go here if needed
+                          },
+                          child: RichText(
+                            text: TextSpan(
+                              style: Theme.of(context).textTheme.titleLarge!.merge(
+                                TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: 'Already have an account?',
+                                  style: TextStyle(
+                                      color: Color(0xFF1F1F1F),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: MediaQuery.of(context).size.height * 0.011,
+                                      fontFamily: "Inter"
+
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: ' Login',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: MediaQuery.of(context).size.height * 0.014,
+                                    color: Color(0xFF126086),
+                                    fontFamily: "Inter",
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      // Navigation logic for Login page
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context) {
+                                            return LoginPage(); // Replace with your Login page widget
+                                          },
+                                        ),
+                                      );
+                                    },
+                                ),
+                              ],
                             ),
                           ),
-                          children: [
-                            TextSpan(
-                              text: 'Already have an account?',
-                              style: TextStyle(
-                                  color: Color(0xFF1F1F1F),
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: MediaQuery.of(context).size.height * 0.011,
-                                  fontFamily: "Inter"
-
-                              ),
-                            ),
-                            TextSpan(
-                              text: ' Login',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: MediaQuery.of(context).size.height * 0.014,
-                                color: Color(0xFF126086),
-                                fontFamily: "Inter",
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  // Navigation logic for Login page
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) {
-                                        return LoginPage(); // Replace with your Login page widget
-                                      },
-                                    ),
-                                  );
-                                },
-                            ),
+                        ),
+                                        ),
                           ],
                         ),
                       ),
-                    ),
-                                    ),
-                      ],
-                    ),
-                  ),
                 ),
               ),
             ),

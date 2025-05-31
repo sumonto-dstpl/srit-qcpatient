@@ -561,7 +561,23 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                     ),
                   ),
 
-                  Container(
+          Expanded(
+
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(screenHeight * 0.03),
+                      topRight: Radius.circular(screenHeight * 0.03),
+                      bottomLeft: Radius.circular(screenHeight * 0.0),
+                      bottomRight: Radius.circular(screenHeight * 0.00),
+                      // bottomCenter: 0,
+                    ),
+                  ),
+                  child : Column(
+                    children: [
+
+                      Container(
                     padding: EdgeInsets.only(
                         left: MediaQuery
                             .of(context)
@@ -3854,7 +3870,11 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                       ),
                     ),
                   ),
-                ],
+                    ],
+                  ),
+              ),
+          ),
+                    ],
               ),
 
                 Positioned(
