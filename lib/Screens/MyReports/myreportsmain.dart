@@ -42,6 +42,8 @@ import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Alerts/loginbottomsheet.dart';
 import 'dart:async';
 
+import '../Address/address_screen.dart';
+
 class MyReportsMain extends StatefulWidget {
   int selectedIndex = 1;
 
@@ -252,14 +254,16 @@ class MyReportsMainstate extends State<MyReportsMain>
 
                             GestureDetector(
                               onTap: () {
-                                /* Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder:
-                                        (BuildContext context) {
-                                      return GoogleMapScreen();
-                                    },
-                                  ),
-                                );*/
+                                // if(!_isLoading)
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder:
+                                          (BuildContext context) {
+                                        // return GoogleMapScreen();
+                                        return AddressScreen();
+                                      },
+                                    ),
+                                  );
                               },
                               child:
                               Row(

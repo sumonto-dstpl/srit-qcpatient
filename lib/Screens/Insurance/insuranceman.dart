@@ -804,7 +804,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                                                                                   context)
                                                                                                                   .size
                                                                                                                   .height *
-                                                                                                                  0.1,
+                                                                                                                  0.07,
                                                                                                               fit: BoxFit
                                                                                                                   .fill,
                                                                                                             ),

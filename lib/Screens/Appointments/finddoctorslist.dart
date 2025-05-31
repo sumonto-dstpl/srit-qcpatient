@@ -1,41 +1,23 @@
+import 'dart:async';
 import 'dart:convert';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:newfolder/Data/APIServices/api_service.dart';
+import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Data/Models/doctorslistres.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
 import 'package:newfolder/Screens/Appointments/addFilterForFindDoctorList.dart';
-import 'package:newfolder/Screens/Appointments/appointmentsfindspecialities.dart';
-import 'package:newfolder/Screens/Appointments/appointmentsmainfindDoctors.dart';
-import 'package:newfolder/Screens/Appointments/doctordetailpage.dart';
 import 'package:newfolder/Screens/Appointments/selecttimeslot.dart';
-import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
-import 'package:newfolder/Screens/Login/loginhome.dart';
-import 'package:newfolder/Screens/Notifications/notifications.dart';
-import 'package:newfolder/Screens/Registeration/registeration.dart';
-import 'package:newfolder/Screens/Testing/filtersearch.dart';
-import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
-import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
-import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
-import 'package:newfolder/Screens/Widgets/badge.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
-
-import 'package:progress_dialog2/progress_dialog2.dart';
-import 'package:newfolder/Data/APIServices/api_service.dart';
-import 'package:newfolder/Data/APIServices/connectivity_service.dart';
-
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:newfolder/Screens/Appointments/quicksearchwithoutdata.dart';
+import 'package:newfolder/Screens/Testing/filtersearch.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
-import 'package:newfolder/Screens/Alerts/loginbottomsheet.dart';
-import 'dart:async';
+import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
+import 'package:newfolder/Screens/Widgets/badge.dart';
+import 'package:progress_dialog2/progress_dialog2.dart';
 
 
 class FindDoctorsListMain extends StatefulWidget {

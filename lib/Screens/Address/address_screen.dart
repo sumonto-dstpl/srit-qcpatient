@@ -386,7 +386,7 @@ class AddressScreenState extends State<AddressScreen> {
                                                       .height *
                                                   0.018,
                                               child: Image.asset(
-                                                'assets/myhealthhelp.png',
+                                                'assets/location_ls.png',
                                                 fit: BoxFit.fill,
                                               ),
                                             ),

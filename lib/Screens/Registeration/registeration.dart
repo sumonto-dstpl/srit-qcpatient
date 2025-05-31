@@ -4,9 +4,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:newfolder/Screens/Login/loginpage.dart';
 import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
+import 'package:newfolder/Screens/Login/loginpage.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
 
 class Registration extends StatefulWidget {
@@ -23,7 +23,8 @@ class Registrationstate extends State<Registration> {
 
   TextEditingController FirstNameEditTextController = TextEditingController();
   TextEditingController LastNameEditTextController = TextEditingController();
-  TextEditingController MobileNummberEditTextController =TextEditingController();
+  TextEditingController MobileNummberEditTextController =
+      TextEditingController();
   TextEditingController EmailEditTextController = TextEditingController();
   TextEditingController GenderEditTextController = TextEditingController();
   TextEditingController NewPasswordTextController = TextEditingController();
@@ -79,7 +80,6 @@ class Registrationstate extends State<Registration> {
     });
   }
 
-
   bool isValidEmail(String email) {
     // Regular expression for validating general email addresses
     String pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
@@ -87,10 +87,10 @@ class Registrationstate extends State<Registration> {
     return regExp.hasMatch(email);
   }
 
-
   String? firstnameerrorMessage;
   bool firstnameisValid = false;
-  bool firstnamehasStartedTyping = false; // Track if the user has started typing
+  bool firstnamehasStartedTyping =
+      false; // Track if the user has started typing
 
   void validateInput() {
     String input = FirstNameEditTextController.text.trim();
@@ -100,14 +100,13 @@ class Registrationstate extends State<Registration> {
         firstnameerrorMessage = "Please enter your First Name";
         firstnameisValid = false;
       });
-    }  else {
+    } else {
       setState(() {
         firstnameerrorMessage = "Entered First Name";
         firstnameisValid = true;
       });
     }
   }
-
 
   String? lastnameerrorMessage;
   bool lastnameisValid = false;
@@ -121,7 +120,7 @@ class Registrationstate extends State<Registration> {
         lastnameerrorMessage = "Please enter your Last Name";
         lastnameisValid = false;
       });
-    }  else {
+    } else {
       setState(() {
         lastnameerrorMessage = "Entered Last Name";
         lastnameisValid = true;
@@ -129,10 +128,10 @@ class Registrationstate extends State<Registration> {
     }
   }
 
-
   String? mobilenumerrorMessage;
   bool mobilenumisValid = false;
-  bool mobilenumhasStartedTyping = false; // Track if the user has started typing
+  bool mobilenumhasStartedTyping =
+      false; // Track if the user has started typing
 
   void mobilenumvalidateInput() {
     String input = MobileNummberEditTextController.text.trim();
@@ -142,7 +141,7 @@ class Registrationstate extends State<Registration> {
         mobilenumerrorMessage = "Please enter your Mobile Number";
         mobilenumisValid = false;
       });
-    }  else if (!RegExp(r'^[0-9]{10}$').hasMatch(input)) {
+    } else if (!RegExp(r'^[0-9]{10}$').hasMatch(input)) {
       setState(() {
         mobilenumerrorMessage = "Please enter a valid mobile number";
         mobilenumisValid = false;
@@ -154,7 +153,6 @@ class Registrationstate extends State<Registration> {
       });
     }
   }
-
 
   String? emailerrorMessage;
   bool emailisValid = false;
@@ -168,7 +166,7 @@ class Registrationstate extends State<Registration> {
         emailerrorMessage = "Please enter your email";
         emailisValid = false;
       });
-    } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(input) ) {
+    } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(input)) {
       setState(() {
         emailerrorMessage = "Please enter a valid email";
         emailisValid = false;
@@ -180,8 +178,6 @@ class Registrationstate extends State<Registration> {
       });
     }
   }
-
-
 
   String? passerrorMessage;
   bool passisValid = false;
@@ -195,9 +191,12 @@ class Registrationstate extends State<Registration> {
         passerrorMessage = "Please enter Password";
         passisValid = false;
       });
-    } else if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$').hasMatch(input)) {
+    } else if (!RegExp(
+            r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$')
+        .hasMatch(input)) {
       setState(() {
-        passerrorMessage = "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character, and must not contain spaces.";
+        passerrorMessage =
+            "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character, and must not contain spaces.";
         passisValid = false;
       });
     } else {
@@ -207,7 +206,6 @@ class Registrationstate extends State<Registration> {
       });
     }
   }
-
 
   String? conpasserrorMessage;
   bool conpassisValid = false;
@@ -221,7 +219,7 @@ class Registrationstate extends State<Registration> {
         conpasserrorMessage = "Please enter confirm Password";
         conpassisValid = false;
       });
-    } else if (NewPasswordTextController.text.trim() !=  input) {
+    } else if (NewPasswordTextController.text.trim() != input) {
       setState(() {
         conpasserrorMessage = "Please enter same Password";
         conpassisValid = false;
@@ -234,14 +232,12 @@ class Registrationstate extends State<Registration> {
     }
   }
 
-
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();
   // final GlobalKey _textFieldKey = GlobalKey();
   //Asgar
   final _formKey = GlobalKey<FormState>();
   final GlobalKey _textFieldKey = GlobalKey();
-
 
   // void _showGenderDropdown() {
   //
@@ -325,16 +321,14 @@ class Registrationstate extends State<Registration> {
   //   overlay?.insert(_overlayEntry!);
   // }
 
-
-
 // Function to remove the overlay
 
   void _showGenderDropdown() {
-
     _removeOverlay();
 
     final overlay = Overlay.of(context);
-    final renderBox = _textFieldKey.currentContext?.findRenderObject() as RenderBox?;
+    final renderBox =
+        _textFieldKey.currentContext?.findRenderObject() as RenderBox?;
     final size = renderBox?.size;
     final offset = renderBox?.localToGlobal(Offset.zero);
 
@@ -345,15 +339,16 @@ class Registrationstate extends State<Registration> {
     final double availableSpaceBelow = screenHeight - (offset.dy + size.height);
     final double availableSpaceAbove = offset.dy;
 
-
     double dropdownHeight = 110;
 
     // Check if the dropdown will be hidden under the Terms & Conditions checkbox
-    bool shouldShowAbove = availableSpaceBelow < dropdownHeight && availableSpaceAbove > dropdownHeight;
+    bool shouldShowAbove = availableSpaceBelow < dropdownHeight &&
+        availableSpaceAbove > dropdownHeight;
 
     // Position dropdown accordingly
-    double dropdownTop = shouldShowAbove ? (offset.dy - dropdownHeight) : (offset.dy + size.height);
-
+    double dropdownTop = shouldShowAbove
+        ? (offset.dy - dropdownHeight)
+        : (offset.dy + size.height);
 
     _overlayEntry = OverlayEntry(
       builder: (context) => Stack(
@@ -361,7 +356,8 @@ class Registrationstate extends State<Registration> {
           // Full-screen tap detector to dismiss overlay
           Positioned.fill(
             child: GestureDetector(
-              behavior: HitTestBehavior.opaque, // Ensure taps outside are detected
+              behavior:
+                  HitTestBehavior.opaque, // Ensure taps outside are detected
               onTap: () {
                 _removeOverlay(); // Remove overlay when tapped outside
               },
@@ -376,9 +372,12 @@ class Registrationstate extends State<Registration> {
             child: Material(
               color: Colors.white, // Set background color to white
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.13, // Set fixed height for dropdown
+                height: MediaQuery.of(context).size.height *
+                    0.13, // Set fixed height for dropdown
                 decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xFFF1F1F1), width: 1), // Add 1px black border
+                  border: Border.all(
+                      color: Color(0xFFF1F1F1),
+                      width: 1), // Add 1px black border
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Column(
@@ -387,30 +386,31 @@ class Registrationstate extends State<Registration> {
                     return GestureDetector(
                       onTap: () {
                         setState(() {
-                          genderselectedval = entry.key; // Update selected gender
+                          genderselectedval =
+                              entry.key; // Update selected gender
                         });
                         _removeOverlay(); // Remove dropdown when option is selected
                       },
                       child: Container(
                           alignment: Alignment.centerLeft,
                           // height: dropdownHeight / (genderMap.entries.length  ), // Divide the dropdown height by the number of entries
-                          height : MediaQuery.of(context).size.height * 0.04,
-                        padding: EdgeInsets.zero, // Remove any extra padding in the container
-                        margin: EdgeInsets.only(
-                          left : MediaQuery.of(context).size.height * 0.015,
-                        ), // Ensure no margin around the item
-                        child: Text(
-                          entry.value,
-                          style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.height *
-                                0.012,
-                            // color: Colors.black54,
-                            color: Color(0xFF333333),
-                            fontWeight: FontWeight.w400,
-                            fontFamily: "Inter",
-                          ),
-                        )
-                      ),
+                          height: MediaQuery.of(context).size.height * 0.04,
+                          padding: EdgeInsets
+                              .zero, // Remove any extra padding in the container
+                          margin: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.height * 0.015,
+                          ), // Ensure no margin around the item
+                          child: Text(
+                            entry.value,
+                            style: TextStyle(
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.012,
+                              // color: Colors.black54,
+                              color: Color(0xFF333333),
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "Inter",
+                            ),
+                          )),
                     );
                   }).toList(),
                 ),
@@ -423,12 +423,6 @@ class Registrationstate extends State<Registration> {
 
     overlay?.insert(_overlayEntry!);
   }
-
-
-
-
-
-
 
   void _removeOverlay() {
     if (_overlayEntry != null) {
@@ -443,7 +437,6 @@ class Registrationstate extends State<Registration> {
     _overlayEntry = null;
     super.dispose();
   }
-
 
   bool isExpanded = false;
   @override
@@ -477,7 +470,7 @@ class Registrationstate extends State<Registration> {
       resizeToAvoidBottomInset: true,
       body: Container(
         width: double.infinity,
-       /* decoration: const BoxDecoration(
+        /* decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/patternbackground.png"), // Replace with your image path
             fit: BoxFit.cover, // Adjusts how the image fills the container
@@ -491,7 +484,6 @@ class Registrationstate extends State<Registration> {
             fit: BoxFit.cover, // Adjusts how the image fills the container
           ),
         ),
-
         child: Column(
           children: <Widget>[
             // Top Section with Back Arrow and Login Text
@@ -516,8 +508,7 @@ class Registrationstate extends State<Registration> {
                       _overlayEntry?.remove();
                       _overlayEntry = null;
                       Navigator.pop(context);
-                    }
-                    ,
+                    },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.025,
                       width: MediaQuery.of(context).size.height * 0.025,
@@ -532,7 +523,7 @@ class Registrationstate extends State<Registration> {
                         // color : Colors.red,
                         shape: BoxShape.circle,
                         border:
-                        Border.all(width: 0.0, color: Color(0xFF126086)),
+                            Border.all(width: 0.0, color: Color(0xFF126086)),
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(130.0),
@@ -576,11 +567,11 @@ class Registrationstate extends State<Registration> {
                 ),
                 child: Padding(
                   padding: EdgeInsets.only(
-                        top: screenHeight * 0.03,
-                        left: screenHeight * 0.025,
-                        right: screenHeight * 0.025,
-                        bottom: screenHeight * 0.01,
-                      ),
+                    top: screenHeight * 0.03,
+                    left: screenHeight * 0.025,
+                    right: screenHeight * 0.025,
+                    bottom: screenHeight * 0.01,
+                  ),
                   child: SingleChildScrollView(
                     // physics: NeverScrollableScrollPhysics(),
                     child: Column(
@@ -618,8 +609,8 @@ class Registrationstate extends State<Registration> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize:
-                                    MediaQuery.of(context).size.height *
-                                        0.027,
+                                        MediaQuery.of(context).size.height *
+                                            0.027,
                                     fontWeight: FontWeight.w700,
                                     color: Color(0xFF1F1F1F),
                                   ),
@@ -639,11 +630,10 @@ class Registrationstate extends State<Registration> {
                                   "Please fill in these detail to create an account",
                                   style: TextStyle(
                                     fontSize:
-                                    MediaQuery.of(context).size.height *
-                                        0.012,
+                                        MediaQuery.of(context).size.height *
+                                            0.012,
                                     color: Color(0xFF6A6E83),
                                     fontWeight: FontWeight.w500,
-
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -660,26 +650,30 @@ class Registrationstate extends State<Registration> {
                           child: Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal:
-                                    MediaQuery.of(context).size.height *
-                                        0.005),
+                                    MediaQuery.of(context).size.height * 0.005),
                             child: SingleChildScrollView(
-
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-
                                   // First Name Label
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      top : MediaQuery.of(context).size.height *0.01,
-                                      left: MediaQuery.of(context).size.height *0.005,
-                                      bottom:MediaQuery.of(context).size.height *  0.01,
+                                      top: MediaQuery.of(context).size.height *
+                                          0.01,
+                                      left: MediaQuery.of(context).size.height *
+                                          0.005,
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.01,
                                     ),
                                     child: Align(
                                       alignment: Alignment.centerLeft,
-                                      child: Text("First Name",
+                                      child: Text(
+                                        "First Name",
                                         style: TextStyle(
-                                          fontSize: MediaQuery.of(context).size.height *
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
                                               0.012,
                                           // color: Colors.black54,
                                           color: Color(0xFF333333),
@@ -694,29 +688,39 @@ class Registrationstate extends State<Registration> {
                                   // First Name Input Field
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height * 0.005,
-                                      right: MediaQuery.of(context).size.height * 0.005,
-                                      bottom: MediaQuery.of(context).size.height * 0.008,
+                                      left: MediaQuery.of(context).size.height *
+                                          0.005,
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.005,
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.008,
                                     ),
                                     child: Column(
                                       // mainAxisSize: MainAxisSize.min,
-                                      // crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         TextFormField(
-                                          controller: FirstNameEditTextController,
+                                          controller:
+                                              FirstNameEditTextController,
                                           inputFormatters: [
                                             AlphabetOnlyFormatter(),
-                                            LengthLimitingTextInputFormatter(50),
+                                            LengthLimitingTextInputFormatter(
+                                                50),
                                           ],
                                           style: TextStyle(
                                             color: Colors.black45,
-                                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.016,
                                             fontWeight: FontWeight.w500,
-                                                                                     ),
-                                         
-                                          keyboardType:  TextInputType.text,
+                                          ),
+                                          keyboardType: TextInputType.text,
                                           onChanged: (value) {
-                                           /* if (!hasStartedTyping) {
+                                            /* if (!hasStartedTyping) {
                                               setState(() {
                                                 hasStartedTyping = true; // Track that the user has started typing
                                               });
@@ -725,76 +729,103 @@ class Registrationstate extends State<Registration> {
                                           },
                                           decoration: InputDecoration(
                                             isDense: true,
-                                            contentPadding: EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context).size.height * 0.02,
-                                              vertical: MediaQuery.of(context).size.height * 0.012,
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.02,
+                                              vertical: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.012,
                                               //  left :  MediaQuery.of(context).size.height * 0.02,
                                               //  top :  MediaQuery.of(context).size.height * 0.012,
                                               // bottom :  MediaQuery.of(context).size.height * 0.012,
                                               // top: MediaQuery.of(context).size.height * 0.014, // Slightly higher top padding
                                               // bottom: MediaQuery.of(context).size.height * 0.08 ,
                                               // left: MediaQuery.of(context).size.height * 0.02,
-
                                             ),
-
                                             filled: true,
                                             fillColor: Color(0xFFFFFFFF),
                                             hintText: "Enter your First Name",
                                             hintStyle: TextStyle(
-                                                color: Color(0x4D111111),
-                                                fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w400,
-
-
+                                              color: Color(0x4D111111),
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.012,
+                                              fontWeight: FontWeight.w400,
                                             ),
                                             focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(5.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
                                               borderSide: BorderSide(
                                                 color: firstnamehasStartedTyping
-                                                    ? (firstnameisValid ? Colors.green : Colors.red)
-                                                    : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                                    ? (firstnameisValid
+                                                        ? Colors.green
+                                                        : Colors.red)
+                                                    : Color(
+                                                        0xFFF1F1F1), // Initially grey, turns red or green
                                               ),
                                             ),
                                             enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
                                               borderSide: BorderSide(
                                                 color: firstnamehasStartedTyping
-                                                    ? (firstnameisValid ? Colors.green : Colors.red)
-                                                    : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                                    ? (firstnameisValid
+                                                        ? Colors.green
+                                                        : Colors.red)
+                                                    : Color(
+                                                        0xFFF1F1F1), // Initially grey, turns red or green
                                               ),
                                             ),
                                             errorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                              borderSide: BorderSide(color: Colors.red),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                              borderSide:
+                                                  BorderSide(color: Colors.red),
                                             ),
-                                            focusedErrorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                              borderSide: BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                        ),
-                                        if(firstnameerrorMessage != null)
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              top: MediaQuery.of(context).size.height * 0.005,
-                                              bottom: MediaQuery.of(context).size.height * 0.005,
-
-                                          ),
-                                          child: Text(
-                                            firstnameerrorMessage ?? '',
-                                            style: TextStyle(
-                                              color: firstnameisValid ? Colors.green : Colors.red,
-                                              fontSize: MediaQuery.of(context).size.height * 0.012,
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: "Inter",
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                              borderSide:
+                                                  BorderSide(color: Colors.red),
                                             ),
                                           ),
                                         ),
+                                        if (firstnameerrorMessage != null)
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              top: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.005,
+                                              bottom: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.005,
+                                            ),
+                                            child: Text(
+                                              firstnameerrorMessage ?? '',
+                                              style: TextStyle(
+                                                color: firstnameisValid
+                                                    ? Colors.green
+                                                    : Colors.red,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "Inter",
+                                              ),
+                                            ),
+                                          ),
                                       ],
                                     ),
                                   ),
-
-
 
                                   // Last Name Label
                                   Padding(
@@ -810,7 +841,9 @@ class Registrationstate extends State<Registration> {
                                       child: Text(
                                         "Last Name",
                                         style: TextStyle(
-                                          fontSize: MediaQuery.of(context).size.height *
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
                                               0.012,
                                           // color: Colors.black54,
                                           color: Color(0xFF333333),
@@ -824,27 +857,38 @@ class Registrationstate extends State<Registration> {
                                   // Last Name Input Field
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height * 0.005,
-                                      right: MediaQuery.of(context).size.height * 0.005,
-                                      bottom: MediaQuery.of(context).size.height * 0.008,
+                                      left: MediaQuery.of(context).size.height *
+                                          0.005,
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.005,
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.008,
                                     ),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         TextFormField(
-                                          controller: LastNameEditTextController,
+                                          controller:
+                                              LastNameEditTextController,
                                           inputFormatters: [
                                             AlphabetOnlyFormatter(),
-                                            LengthLimitingTextInputFormatter(50),
+                                            LengthLimitingTextInputFormatter(
+                                                50),
                                           ],
                                           style: TextStyle(
                                             color: Colors.black45,
-                                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.016,
                                             fontWeight: FontWeight.w500,
                                           ),
-                                          keyboardType:  TextInputType.text,
+                                          keyboardType: TextInputType.text,
                                           onChanged: (value) {
-                                           /* if (!lastnamehasStartedTyping) {
+                                            /* if (!lastnamehasStartedTyping) {
                                               setState(() {
                                                 lastnamehasStartedTyping = true; // Track that the user has started typing
                                               });
@@ -853,69 +897,96 @@ class Registrationstate extends State<Registration> {
                                           },
                                           decoration: InputDecoration(
                                             isDense: true,
-                                            contentPadding: EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context).size.height * 0.02,
-                                              vertical: MediaQuery.of(context).size.height * 0.012,
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.02,
+                                              vertical: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.012,
                                             ),
                                             filled: true,
                                             fillColor: Color(0xFFFFFFFF),
                                             hintText: "Enter your Last Name",
                                             hintStyle: TextStyle(
                                                 color: Color(0x4D111111),
-                                                fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w400
-                                            ),
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                                fontWeight: FontWeight.w400),
                                             focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(5.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
                                               borderSide: BorderSide(
                                                 color: lastnamehasStartedTyping
-                                                    ? (lastnameisValid ? Colors.green : Colors.red)
-                                                    : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                                    ? (lastnameisValid
+                                                        ? Colors.green
+                                                        : Colors.red)
+                                                    : Color(
+                                                        0xFFF1F1F1), // Initially grey, turns red or green
                                               ),
                                             ),
                                             enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
                                               borderSide: BorderSide(
                                                 color: lastnamehasStartedTyping
-                                                    ? (lastnameisValid ? Colors.green : Colors.red)
-                                                    : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                                    ? (lastnameisValid
+                                                        ? Colors.green
+                                                        : Colors.red)
+                                                    : Color(
+                                                        0xFFF1F1F1), // Initially grey, turns red or green
                                               ),
                                             ),
                                             errorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                              borderSide: BorderSide(color: Colors.red),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                              borderSide:
+                                                  BorderSide(color: Colors.red),
                                             ),
-                                            focusedErrorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                              borderSide: BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                        ),
-                                        if(lastnameerrorMessage != null)
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              top: MediaQuery.of(context).size.height * 0.005,
-                                            bottom: MediaQuery.of(context).size.height * 0.005,
-                                          ),
-                                          child: Text(
-                                            lastnameerrorMessage ?? '',
-                                            style: TextStyle(
-                                              color: lastnameisValid ? Colors.green : Colors.red,
-                                              fontSize: MediaQuery.of(context).size.height * 0.012,
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: "Inter",
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                              borderSide:
+                                                  BorderSide(color: Colors.red),
                                             ),
                                           ),
                                         ),
+                                        if (lastnameerrorMessage != null)
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              top: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.005,
+                                              bottom: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.005,
+                                            ),
+                                            child: Text(
+                                              lastnameerrorMessage ?? '',
+                                              style: TextStyle(
+                                                color: lastnameisValid
+                                                    ? Colors.green
+                                                    : Colors.red,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "Inter",
+                                              ),
+                                            ),
+                                          ),
                                       ],
                                     ),
                                   ),
-
-
-
-
-
-
 
                                   //Mobile Number
                                   Padding(
@@ -934,7 +1005,9 @@ class Registrationstate extends State<Registration> {
                                       child: Text(
                                         "Mobile Number",
                                         style: TextStyle(
-                                          fontSize: MediaQuery.of(context).size.height *
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
                                               0.012,
                                           // color: Colors.black54,
                                           color: Color(0xFF333333),
@@ -948,28 +1021,39 @@ class Registrationstate extends State<Registration> {
 
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height * 0.005,
-                                      right: MediaQuery.of(context).size.height * 0.005,
-                                      bottom: MediaQuery.of(context).size.height * 0.008,
+                                      left: MediaQuery.of(context).size.height *
+                                          0.005,
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.005,
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.008,
                                     ),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         TextFormField(
-                                          controller: MobileNummberEditTextController,
+                                          controller:
+                                              MobileNummberEditTextController,
                                           inputFormatters: [
-                                            LengthLimitingTextInputFormatter(15),
+                                            LengthLimitingTextInputFormatter(
+                                                15),
                                             FilteringTextInputFormatter.allow(
                                                 RegExp('[0-9]'))
                                           ],
                                           style: TextStyle(
                                             color: Colors.black45,
-                                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.016,
                                             fontWeight: FontWeight.w500,
                                           ),
-                                          keyboardType:  TextInputType.number,
+                                          keyboardType: TextInputType.number,
                                           onChanged: (value) {
-                                           /* if (!mobilenumhasStartedTyping) {
+                                            /* if (!mobilenumhasStartedTyping) {
                                               setState(() {
                                                 mobilenumhasStartedTyping = true; // Track that the user has started typing
                                               });
@@ -978,69 +1062,97 @@ class Registrationstate extends State<Registration> {
                                           },
                                           decoration: InputDecoration(
                                             isDense: true,
-                                           contentPadding: EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context).size.height * 0.02,
-                                              vertical: MediaQuery.of(context).size.height * 0.012,
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.02,
+                                              vertical: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.012,
                                             ),
                                             filled: true,
                                             fillColor: Color(0xFFFFFFFF),
-                                            hintText: "Enter your Mobile Number",
+                                            hintText:
+                                                "Enter your Mobile Number",
                                             hintStyle: TextStyle(
                                                 color: Color(0x4D111111),
-                                                fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w400
-                                            ),
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                                fontWeight: FontWeight.w400),
                                             focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(5.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
                                               borderSide: BorderSide(
                                                 color: mobilenumhasStartedTyping
-                                                    ? (mobilenumisValid ? Colors.green : Colors.red)
-                                                    : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                                    ? (mobilenumisValid
+                                                        ? Colors.green
+                                                        : Colors.red)
+                                                    : Color(
+                                                        0xFFF1F1F1), // Initially grey, turns red or green
                                               ),
                                             ),
                                             enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
                                               borderSide: BorderSide(
                                                 color: mobilenumhasStartedTyping
-                                                    ? (mobilenumisValid ? Colors.green : Colors.red)
-                                                    : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                                    ? (mobilenumisValid
+                                                        ? Colors.green
+                                                        : Colors.red)
+                                                    : Color(
+                                                        0xFFF1F1F1), // Initially grey, turns red or green
                                               ),
                                             ),
                                             errorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                              borderSide: BorderSide(color: Colors.red),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                              borderSide:
+                                                  BorderSide(color: Colors.red),
                                             ),
-                                            focusedErrorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                              borderSide: BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                        ),
-                                        if(mobilenumerrorMessage != null)
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              top: MediaQuery.of(context).size.height * 0.005,
-                                            bottom: MediaQuery.of(context).size.height * 0.005,
-                                          ),
-                                          child: Text(
-                                            mobilenumerrorMessage ?? '',
-                                            style: TextStyle(
-                                              color: mobilenumisValid ? Colors.green : Colors.red,
-                                              fontSize: MediaQuery.of(context).size.height * 0.012,
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: "Inter",
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                              borderSide:
+                                                  BorderSide(color: Colors.red),
                                             ),
                                           ),
                                         ),
+                                        if (mobilenumerrorMessage != null)
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              top: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.005,
+                                              bottom: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.005,
+                                            ),
+                                            child: Text(
+                                              mobilenumerrorMessage ?? '',
+                                              style: TextStyle(
+                                                color: mobilenumisValid
+                                                    ? Colors.green
+                                                    : Colors.red,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "Inter",
+                                              ),
+                                            ),
+                                          ),
                                       ],
                                     ),
                                   ),
-
-
-
-
-
-
 
                                   //Email Text
                                   Padding(
@@ -1059,7 +1171,9 @@ class Registrationstate extends State<Registration> {
                                       child: Text(
                                         "Email",
                                         style: TextStyle(
-                                          fontSize: MediaQuery.of(context).size.height *
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
                                               0.012,
                                           // color: Colors.black54,
                                           color: Color(0xFF333333),
@@ -1073,26 +1187,37 @@ class Registrationstate extends State<Registration> {
                                   // Email Field
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height * 0.005,
-                                      right: MediaQuery.of(context).size.height * 0.005,
-                                      bottom: MediaQuery.of(context).size.height * 0.008,
+                                      left: MediaQuery.of(context).size.height *
+                                          0.005,
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.005,
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.008,
                                     ),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         TextFormField(
                                           controller: EmailEditTextController,
                                           inputFormatters: [
-                                            LengthLimitingTextInputFormatter(100),
+                                            LengthLimitingTextInputFormatter(
+                                                100),
                                           ],
                                           style: TextStyle(
                                             color: Colors.black45,
-                                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.016,
                                             fontWeight: FontWeight.w500,
                                           ),
-                                          keyboardType: TextInputType.emailAddress,
+                                          keyboardType:
+                                              TextInputType.emailAddress,
                                           onChanged: (value) {
-                                           /* if (!emailhasStartedTyping) {
+                                            /* if (!emailhasStartedTyping) {
                                               setState(() {
                                                 emailhasStartedTyping = true; // Track that the user has started typing
                                               });
@@ -1101,66 +1226,96 @@ class Registrationstate extends State<Registration> {
                                           },
                                           decoration: InputDecoration(
                                             isDense: true,
-                                            contentPadding: EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context).size.height * 0.02,
-                                              vertical: MediaQuery.of(context).size.height * 0.012,
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.02,
+                                              vertical: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.012,
                                             ),
                                             filled: true,
                                             fillColor: Color(0xFFFFFFFF),
                                             hintText: "Enter your email",
                                             hintStyle: TextStyle(
                                                 color: Color(0x4D111111),
-                                                fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w400
-                                            ),
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                                fontWeight: FontWeight.w400),
                                             focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(5.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
                                               borderSide: BorderSide(
                                                 color: emailhasStartedTyping
-                                                    ? (emailisValid ? Colors.green : Colors.red)
-                                                    : Color(0xFFF1F1F1),// Initially grey, turns red or green
+                                                    ? (emailisValid
+                                                        ? Colors.green
+                                                        : Colors.red)
+                                                    : Color(
+                                                        0xFFF1F1F1), // Initially grey, turns red or green
                                               ),
                                             ),
                                             enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
                                               borderSide: BorderSide(
                                                 color: emailhasStartedTyping
-                                                    ? (emailisValid ? Colors.green : Colors.red)
-                                                    : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                                    ? (emailisValid
+                                                        ? Colors.green
+                                                        : Colors.red)
+                                                    : Color(
+                                                        0xFFF1F1F1), // Initially grey, turns red or green
                                               ),
                                             ),
                                             errorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                              borderSide: BorderSide(color: Colors.red),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                              borderSide:
+                                                  BorderSide(color: Colors.red),
                                             ),
-                                            focusedErrorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                              borderSide: BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                        ),
-                                        if(emailerrorMessage != null)
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              top: MediaQuery.of(context).size.height * 0.005,
-                                            bottom: MediaQuery.of(context).size.height * 0.005,
-                                          ),
-                                          child: Text(
-                                            emailerrorMessage ?? '',
-                                            style: TextStyle(
-                                              color: emailisValid ? Colors.green : Colors.red,
-                                              fontSize: MediaQuery.of(context).size.height * 0.012,
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: "Inter",
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                              borderSide:
+                                                  BorderSide(color: Colors.red),
                                             ),
                                           ),
                                         ),
+                                        if (emailerrorMessage != null)
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              top: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.005,
+                                              bottom: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.005,
+                                            ),
+                                            child: Text(
+                                              emailerrorMessage ?? '',
+                                              style: TextStyle(
+                                                color: emailisValid
+                                                    ? Colors.green
+                                                    : Colors.red,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "Inter",
+                                              ),
+                                            ),
+                                          ),
                                       ],
                                     ),
                                   ),
-
-
-
 
                                   // Gender
                                   Padding(
@@ -1179,7 +1334,9 @@ class Registrationstate extends State<Registration> {
                                       child: Text(
                                         "Gender",
                                         style: TextStyle(
-                                          fontSize: MediaQuery.of(context).size.height *
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
                                               0.012,
                                           // color: Colors.black54,
                                           color: Color(0xFF333333),
@@ -1191,271 +1348,255 @@ class Registrationstate extends State<Registration> {
                                     ),
                                   ),
 
-                                                        // Updated TextFormField inside Column
-                                Padding(
-                              padding: new EdgeInsets.only(
-                                   left: MediaQuery.of(context).size.height *  0.005,
-                                    bottom :MediaQuery.of(context).size.height *  0.01,
-                              ),
-
-
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CompositedTransformTarget(
-                                    link: _layerLink,
-                                    child: TextFormField(
-                                      key: _textFieldKey,
-                                      readOnly: true,
-                                      controller: TextEditingController(
-                                        text: genderselectedval == null ? "" : genderMap[genderselectedval],
-                                      ),
-                                      style: TextStyle(
-                                        color: Colors.black45,
-                                        fontSize: MediaQuery.of(context).size.height * 0.016,
-                                            fontWeight: FontWeight.w500,
-                                      ),
-                                      decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context).size.height * 0.02,
-                                              vertical: MediaQuery.of(context).size.height * 0.002,
-                                            ),
-                                        hintText: "Enter your Gender",
-                                        hintStyle: TextStyle(
-                                            color: Color(0x4D111111),
-                                            fontSize: MediaQuery.of(context).size.height * 0.012,
-                                            fontWeight: FontWeight.w400
-                                        ),
-
-                                        border: OutlineInputBorder(
-                                          // borderSide: BorderSide(color: _isGenderValid ? Colors.grey : Colors.red),
-
-                                          borderSide : BorderSide(color:
-                                          (genderselectedval != null)
-                                              ? (_isGenderValid ? Color(0xFFF1F1F1) : Colors.red)
-                                              : Color(0xFFF1F1F1),
-                                          ),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide : BorderSide(color:
-                                          // (genderselectedval != null)
-                                          //     ? (_isGenderValid ? Color(0xFFF1F1F1) : Colors.red)
-                                          //     : Color(0xFFF1F1F1),
-                                          !_isGenderValid ? Colors.red : Color(0xFFF1F1F1)
-
-                                          ),
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide : BorderSide(color:
-                                          // (genderselectedval != null)
-                                          //     ? (_isGenderValid ? Color(0xFFF1F1F1): Colors.red)
-                                          //     : Color(0xFFF1F1F1),
-                                          !_isGenderValid ? Colors.red : Color(0xFFF1F1F1)
-                                          ),
-                                        ),
-                                        suffixIcon: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              isExpanded = !isExpanded;
-                                            });
-                                          },
-                                          child: Icon(
-                                            isExpanded
-                                                ? Icons.keyboard_arrow_up // ? Icons.keyboard_arrow_down
-                                                : Icons.keyboard_arrow_down,// : Icons.keyboard_arrow_up,
-                                            size:
-                                            MediaQuery.of(context).size.height *
-                                                0.02, // Dynamic icon size
-                                          ),
-                                        ),
-                                      ),
-                                      // onTap: _showGenderDropdown, // Show dropdown on tap
-                                    ),
-                                  ),
-                                  if(isExpanded)
-                                    Container(
-                                      margin : EdgeInsets.only(
-                                          left : MediaQuery.of(context).size.height * 0.0045,
-                                        right : MediaQuery.of(context).size.height * 0.0045,
-                                      ),
-                                      height: MediaQuery.of(context).size.height * 0.13, // Set fixed height for dropdown
-                                      decoration: BoxDecoration(
-                                        // border: Border.all(color: Color(0xFFF1F1F1), width: 1),
-                                        border: Border(
-                                          left: BorderSide(color: Color(0xFFF1F1F1), width: 1),
-                                          right: BorderSide(color: Color(0xFFF1F1F1), width: 1),
-                                          bottom: BorderSide(color: Color(0xFFF1F1F1), width: 1),
-                                          // No top border
-                                        ),
-
-                                        // borderRadius: BorderRadius.circular(5),
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(5),
-                                          bottomRight: Radius.circular(5),
-                                        ),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: genderMap.entries.map((entry) {
-                                          return GestureDetector(
-                                            onTap: () {
-
-                                              setState(() {
-                                                genderselectedval = entry.key;
-                                                isExpanded = !isExpanded;
-                                                _isGenderValid =   true;
-
-                                                // Update selected gender
-                                              });
-                                              // _removeOverlay(); // Remove dropdown when option is selected
-                                            },
-                                            child: Container(
-                                               color : Colors.white,
-                                                alignment: Alignment.centerLeft,
-                                                // height: dropdownHeight / (genderMap.entries.length  ), // Divide the dropdown height by the number of entries
-                                                height : MediaQuery.of(context).size.height * 0.04,
-                                                padding: EdgeInsets.zero, // Remove any extra padding in the container
-                                                margin: EdgeInsets.only(
-                                                  left : MediaQuery.of(context).size.height * 0.015,
-                                                ), // Ensure no margin around the item
-                                                child: Text(
-                                                  entry.value,
-                                                  style: TextStyle(
-                                                    fontSize: MediaQuery.of(context).size.height *
-                                                        0.013,
-
-                                                    color: Color(0xFF333333),
-                                                    fontWeight: FontWeight.w400,
-                                                    fontFamily: "Inter",
-                                                  ),
-                                                )
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  // Show error message if gender is not selected
-                                  if (!_isGenderValid)
-                                    // Padding(
-                                    //   padding: const EdgeInsets.only(top: 5),
-                                    //   child: Text(
-                                    //     "Please select a gender",
-                                    //     style: TextStyle(
-                                    //       color: Colors.red,
-                                    //       fontSize: MediaQuery.of(context).size.height * 0.012,
-                                    //       fontWeight: FontWeight.w400,
-                                    //       fontFamily: "Inter",
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: MediaQuery.of(context).size.height * 0.005),
-                                      child: Text(
-                                         "Please select a gender",
-                                        style: TextStyle(
-                                          color:  Colors.red,
-                                          fontSize: MediaQuery.of(context).size.height * 0.012,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "Inter",
-                                        ),
-                                      ),
-                                    ),
-                                ],
-                              ),
-                                                        ),
-
-
-
-                                  // drop down
-                                 /* Padding(
+                                  // Updated TextFormField inside Column
+                                  Padding(
                                     padding: new EdgeInsets.only(
-                                        left:
-                                            MediaQuery.of(context).size.height *
-                                                0.005,
-                                        right:
-                                            MediaQuery.of(context).size.height *
-                                                0.0,
-                                        bottom:
-                                            MediaQuery.of(context).size.height *
-                                                0.01),
-                                    child: Container(
-                                      height:
+                                      left: MediaQuery.of(context).size.height *
+                                          0.005,
+                                      bottom:
                                           MediaQuery.of(context).size.height *
-                                              0.056,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                          MediaQuery.of(context).size.height *
-                                              0.012,
+                                              0.01,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        CompositedTransformTarget(
+                                          link: _layerLink,
+                                          child: TextFormField(
+                                            key: _textFieldKey,
+                                            readOnly: true,
+                                            controller: TextEditingController(
+                                              text: genderselectedval == null
+                                                  ? ""
+                                                  : genderMap[
+                                                      genderselectedval],
+                                            ),
+                                            style: TextStyle(
+                                              color: Colors.black45,
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.016,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                            decoration: InputDecoration(
+                                              isDense: true,
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                horizontal:
+                                                    MediaQuery.of(context)
+                                                            .size
+                                                            .height *
+                                                        0.02,
+                                                vertical: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.0012,
+                                              ),
+                                              filled: true,
+                                              fillColor: Color(0xFFFFFFFF),
+                                              hintText: "Enter your Gender",
+                                              hintStyle: TextStyle(
+                                                  color: Color(0x4D111111),
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          0.012,
+                                                  fontWeight: FontWeight.w400),
+                                              border: OutlineInputBorder(
+                                                // borderSide: BorderSide(color: _isGenderValid ? Colors.grey : Colors.red),
+
+                                                borderSide: BorderSide(
+                                                  color: (genderselectedval !=
+                                                          null)
+                                                      ? (_isGenderValid
+                                                          ? Color(0xFFF1F1F1)
+                                                          : Colors.red)
+                                                      : Color(0xFFF1F1F1),
+                                                ),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color:
+                                                        // (genderselectedval != null)
+                                                        //     ? (_isGenderValid ? Color(0xFFF1F1F1) : Colors.red)
+                                                        //     : Color(0xFFF1F1F1),
+                                                        !_isGenderValid
+                                                            ? Colors.red
+                                                            : Color(
+                                                                0xFFF1F1F1)),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color:
+                                                        // (genderselectedval != null)
+                                                        //     ? (_isGenderValid ? Color(0xFFF1F1F1): Colors.red)
+                                                        //     : Color(0xFFF1F1F1),
+                                                        !_isGenderValid
+                                                            ? Colors.red
+                                                            : Color(
+                                                                0xFFF1F1F1)),
+                                              ),
+                                              suffixIcon: GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    isExpanded = !isExpanded;
+                                                  });
+                                                },
+                                                child: Icon(
+                                                  isExpanded
+                                                      ? Icons
+                                                          .keyboard_arrow_up // ? Icons.keyboard_arrow_down
+                                                      : Icons
+                                                          .keyboard_arrow_down, // : Icons.keyboard_arrow_up,
+                                                  size: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.02, // Dynamic icon size
+                                                ),
+                                              ),
+                                            ),
+                                            // onTap: _showGenderDropdown, // Show dropdown on tap
+                                          ),
                                         ),
-                                        color: Colors.white,
-                                        border: Border.all(color: Colors.grey),
-                                      ),
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            MediaQuery.of(context).size.height *
-                                                0.015,
-                                      ),
-                                      child: DropdownButtonHideUnderline(
-                                        child: DropdownButton<String>(
-                                          isExpanded: true,
-                                          value: genderselectedval == null
-                                              ? null
-                                              : genderMap[
-                                                  genderselectedval], // Map internal value to display
-                                          iconSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.040,
-                                          style: TextStyle(
-                                            color: Colors.black45,
-                                            fontSize: MediaQuery.of(context)
+                                        if (isExpanded)
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                              left: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.0045,
+                                              right: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.0045,
+                                            ),
+                                            height: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.022,
-                                          ),
-                                          hint: Text(
-                                            'Select Gender',
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          onChanged: (String? newValue) {
-                                            setState(() {
-                                              // Map display value back to internal value
-                                              genderselectedval =
-                                                  reverseGenderMap[newValue!]!;
-                                              print(genderselectedval);
-                                            });
-                                          },
-                                          items: genderMap.values.map((item) {
-                                            return DropdownMenuItem(
-                                              value: item,
-                                              child: Text(
-                                                item,
-                                                overflow: TextOverflow.ellipsis,
+                                                0.13, // Set fixed height for dropdown
+                                            decoration: BoxDecoration(
+                                              // border: Border.all(color: Color(0xFFF1F1F1), width: 1),
+                                              border: Border(
+                                                left: BorderSide(
+                                                    color: Color(0xFFF1F1F1),
+                                                    width: 1),
+                                                right: BorderSide(
+                                                    color: Color(0xFFF1F1F1),
+                                                    width: 1),
+                                                bottom: BorderSide(
+                                                    color: Color(0xFFF1F1F1),
+                                                    width: 1),
+                                                // No top border
                                               ),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      ),
+
+                                              // borderRadius: BorderRadius.circular(5),
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(5),
+                                                bottomRight: Radius.circular(5),
+                                              ),
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: genderMap.entries
+                                                  .map((entry) {
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      genderselectedval =
+                                                          entry.key;
+                                                      isExpanded = !isExpanded;
+                                                      _isGenderValid = true;
+
+                                                      // Update selected gender
+                                                    });
+                                                    // _removeOverlay(); // Remove dropdown when option is selected
+                                                  },
+                                                  child: Container(
+                                                      color: Colors.white,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      // height: dropdownHeight / (genderMap.entries.length  ), // Divide the dropdown height by the number of entries
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.04,
+                                                      padding: EdgeInsets
+                                                          .zero, // Remove any extra padding in the container
+                                                      margin: EdgeInsets.only(
+                                                        left: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.015,
+                                                      ), // Ensure no margin around the item
+                                                      child: Text(
+                                                        entry.value,
+                                                        style: TextStyle(
+                                                          fontSize: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              0.013,
+                                                          color:
+                                                              Color(0xFF333333),
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontFamily: "Inter",
+                                                        ),
+                                                      )),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        // Show error message if gender is not selected
+                                        if (!_isGenderValid)
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.005),
+                                            child: Text(
+                                              "Please select a gender",
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "Inter",
+                                              ),
+                                            ),
+                                          ),
+                                      ],
                                     ),
-                                  ),*/
-
-
-
-
+                                  ),
 
                                   // New Password
                                   Padding(
                                     padding: new EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height * 0.00,
-                                      left: MediaQuery.of(context).size.height * 0.005,
-                                      bottom: MediaQuery.of(context).size.height * 0.01),
+                                        top:
+                                            MediaQuery.of(context).size.height *
+                                                0.00,
+                                        left:
+                                            MediaQuery.of(context).size.height *
+                                                0.005,
+                                        bottom:
+                                            MediaQuery.of(context).size.height *
+                                                0.01),
                                     child: Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
                                         "New Password",
                                         style: TextStyle(
-                                          fontSize: MediaQuery.of(context).size.height *
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
                                               0.012,
                                           // color: Colors.black54,
                                           color: Color(0xFF333333),
@@ -1470,26 +1611,36 @@ class Registrationstate extends State<Registration> {
                                   // Password
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height * 0.005,
-                                      right: MediaQuery.of(context).size.height * 0.005,
-                                      bottom: MediaQuery.of(context).size.height * 0.008,
+                                      left: MediaQuery.of(context).size.height *
+                                          0.005,
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.005,
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.008,
                                     ),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         TextFormField(
                                           controller: NewPasswordTextController,
                                           inputFormatters: [
-                                            LengthLimitingTextInputFormatter(100),
+                                            LengthLimitingTextInputFormatter(
+                                                100),
                                           ],
                                           style: TextStyle(
                                             color: Colors.black45,
-                                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.016,
                                             fontWeight: FontWeight.w500,
                                           ),
                                           keyboardType: TextInputType.text,
                                           onChanged: (value) {
-                                           /* if (!passhasStartedTyping) {
+                                            /* if (!passhasStartedTyping) {
                                               setState(() {
                                                 passhasStartedTyping = true; // Track that the user has started typing
                                               });
@@ -1498,65 +1649,96 @@ class Registrationstate extends State<Registration> {
                                           },
                                           decoration: InputDecoration(
                                             isDense: true,
-                                            contentPadding: EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context).size.height * 0.02,
-                                              vertical: MediaQuery.of(context).size.height * 0.012,
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.02,
+                                              vertical: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.012,
                                             ),
                                             filled: true,
                                             fillColor: Color(0xFFFFFFFF),
                                             hintText: "Enter your Password",
                                             hintStyle: TextStyle(
                                                 color: Color(0x4D111111),
-                                                fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w400
-                                            ),
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                                fontWeight: FontWeight.w400),
                                             focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(5.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
                                               borderSide: BorderSide(
                                                 color: passhasStartedTyping
-                                                    ? (passisValid ? Colors.green : Colors.red)
-                                                    : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                                    ? (passisValid
+                                                        ? Colors.green
+                                                        : Colors.red)
+                                                    : Color(
+                                                        0xFFF1F1F1), // Initially grey, turns red or green
                                               ),
                                             ),
                                             enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
                                               borderSide: BorderSide(
                                                 color: passhasStartedTyping
-                                                    ? (passisValid ? Colors.green : Colors.red)
-                                                    :Color(0xFFF1F1F1),// Initially grey, turns red or green
+                                                    ? (passisValid
+                                                        ? Colors.green
+                                                        : Colors.red)
+                                                    : Color(
+                                                        0xFFF1F1F1), // Initially grey, turns red or green
                                               ),
                                             ),
                                             errorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                              borderSide: BorderSide(color: Colors.red),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                              borderSide:
+                                                  BorderSide(color: Colors.red),
                                             ),
-                                            focusedErrorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                              borderSide: BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                        ),
-                                        if(passerrorMessage != null)
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              top: MediaQuery.of(context).size.height * 0.005,
-                                            bottom: MediaQuery.of(context).size.height * 0.005,
-                                          ),
-                                          child: Text(
-                                            passerrorMessage ?? '',
-                                            style: TextStyle(
-                                              color: passisValid ? Colors.green : Colors.red,
-                                              fontSize: MediaQuery.of(context).size.height * 0.012,
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: "Inter",
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                              borderSide:
+                                                  BorderSide(color: Colors.red),
                                             ),
                                           ),
                                         ),
+                                        if (passerrorMessage != null)
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              top: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.005,
+                                              bottom: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.005,
+                                            ),
+                                            child: Text(
+                                              passerrorMessage ?? '',
+                                              style: TextStyle(
+                                                color: passisValid
+                                                    ? Colors.green
+                                                    : Colors.red,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "Inter",
+                                              ),
+                                            ),
+                                          ),
                                       ],
                                     ),
                                   ),
-
-
 
                                   //Confirm Password
                                   Padding(
@@ -1575,7 +1757,9 @@ class Registrationstate extends State<Registration> {
                                       child: Text(
                                         "Confirm Password",
                                         style: TextStyle(
-                                          fontSize: MediaQuery.of(context).size.height *
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
                                               0.012,
                                           // color: Colors.black54,
                                           color: Color(0xFF333333),
@@ -1590,26 +1774,41 @@ class Registrationstate extends State<Registration> {
                                   // Confirm Password
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      top : MediaQuery.of(context).size.height * 0.0,
-                                      left: MediaQuery.of(context).size.height * 0.005,
-                                      right: MediaQuery.of(context).size.height * 0.005,
-                                      bottom: MediaQuery.of(context).viewInsets.bottom > 120
-                                          ? MediaQuery.of(context).viewInsets.bottom - 120
+                                      top: MediaQuery.of(context).size.height *
+                                          0.0,
+                                      left: MediaQuery.of(context).size.height *
+                                          0.005,
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.005,
+                                      bottom: MediaQuery.of(context)
+                                                  .viewInsets
+                                                  .bottom >
+                                              120
+                                          ? MediaQuery.of(context)
+                                                  .viewInsets
+                                                  .bottom -
+                                              120
                                           : 0,
                                     ),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         TextFormField(
-                                          controller: ConfirmPasswordTextController,
+                                          controller:
+                                              ConfirmPasswordTextController,
                                           inputFormatters: [
-                                            LengthLimitingTextInputFormatter(100),
+                                            LengthLimitingTextInputFormatter(
+                                                100),
                                           ],
                                           style: TextStyle(
-                                            color: Colors.black45,
-                                            fontSize: MediaQuery.of(context).size.height * 0.016,
-                                            fontWeight: FontWeight.w500
-                                          ),
+                                              color: Colors.black45,
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.016,
+                                              fontWeight: FontWeight.w500),
                                           keyboardType: TextInputType.text,
                                           onChanged: (value) {
                                             /*if (!conpasshasStartedTyping) {
@@ -1621,66 +1820,96 @@ class Registrationstate extends State<Registration> {
                                           },
                                           decoration: InputDecoration(
                                             isDense: true,
-                                            contentPadding: EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context).size.height * 0.02,
-                                              vertical: MediaQuery.of(context).size.height * 0.012,
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.02,
+                                              vertical: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.012,
                                             ),
                                             filled: true,
                                             fillColor: Color(0xFFFFFFFF),
                                             hintText: "Enter your Password",
                                             hintStyle: TextStyle(
                                                 color: Color(0x4D111111),
-                                                fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w400
-                                            ),
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                                fontWeight: FontWeight.w400),
                                             focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(5.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
                                               borderSide: BorderSide(
                                                 color: conpasshasStartedTyping
-                                                    ? (conpassisValid ? Colors.green : Colors.red)
-                                                    : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                                    ? (conpassisValid
+                                                        ? Colors.green
+                                                        : Colors.red)
+                                                    : Color(
+                                                        0xFFF1F1F1), // Initially grey, turns red or green
                                               ),
                                             ),
                                             enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
                                               borderSide: BorderSide(
                                                 color: conpasshasStartedTyping
-                                                    ? (conpassisValid ? Colors.green : Colors.red)
-                                                    : Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                                    ? (conpassisValid
+                                                        ? Colors.green
+                                                        : Colors.red)
+                                                    : Color(
+                                                        0xFFF1F1F1), // Initially grey, turns red or green
                                               ),
                                             ),
                                             errorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                              borderSide: BorderSide(color: Colors.red),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                              borderSide:
+                                                  BorderSide(color: Colors.red),
                                             ),
-                                            focusedErrorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                              borderSide: BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                        ),
-                                        if( conpasserrorMessage != null)
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              top: MediaQuery.of(context).size.height * 0.005,
-                                            bottom: MediaQuery.of(context).size.height * 0.005,
-                                          ),
-                                          child: Text(
-                                            conpasserrorMessage ?? '',
-                                            style: TextStyle(
-                                              color: conpassisValid ? Colors.green : Colors.red,
-                                              fontSize: MediaQuery.of(context).size.height * 0.012,
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: "Inter",
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                              borderSide:
+                                                  BorderSide(color: Colors.red),
                                             ),
                                           ),
                                         ),
+                                        if (conpasserrorMessage != null)
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              top: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.005,
+                                              bottom: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.005,
+                                            ),
+                                            child: Text(
+                                              conpasserrorMessage ?? '',
+                                              style: TextStyle(
+                                                color: conpassisValid
+                                                    ? Colors.green
+                                                    : Colors.red,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "Inter",
+                                              ),
+                                            ),
+                                          ),
                                       ],
                                     ),
                                   ),
-
-
-
                                 ],
                               ),
                             ),
@@ -1689,17 +1918,10 @@ class Registrationstate extends State<Registration> {
                         // T & C
                         Container(
                           margin: EdgeInsets.only(
-                              right:
-                              MediaQuery.of(context).size.height *
-                                  0.01,
-                              top: MediaQuery.of(context).size.height *
-                                  0.01,
-                              bottom:
-                              MediaQuery.of(context).size.height *
-                                  0.0,
-                              left:
-                              MediaQuery.of(context).size.height *
-                                  0.01),
+                              right: MediaQuery.of(context).size.height * 0.01,
+                              top: MediaQuery.of(context).size.height * 0.01,
+                              bottom: MediaQuery.of(context).size.height * 0.0,
+                              left: MediaQuery.of(context).size.height * 0.01),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1758,21 +1980,25 @@ class Registrationstate extends State<Registration> {
                                     child: FlutterSwitch(
                                       // width : MediaQuery.of(context).size.height * 0.025,
                                       // height : MediaQuery.of(context).size.height * 0.015,
-                                      width : MediaQuery.of(context).size.height * 0.028,
-                                      height : MediaQuery.of(context).size.height * 0.015,
-                                      value : checkedValue,
+                                      width:
+                                          MediaQuery.of(context).size.height *
+                                              0.028,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.015,
+                                      value: checkedValue,
                                       toggleSize: 10,
                                       borderRadius: 20,
-                                      padding : 1,
+                                      padding: 1,
                                       activeColor: Color(0xFF00C5BB),
                                       inactiveColor: Color(0xFFE4E7EC),
                                       activeToggleColor: Colors.white,
                                       inactiveToggleColor: Colors.white,
                                       onToggle: (value) {
-                      setState(() {
-                              checkedValue =
-                              value!; // Correct assignment
-                            });
+                                        setState(() {
+                                          checkedValue =
+                                              value!; // Correct assignment
+                                        });
                                       },
                                       // activeIcon: Icon(
                                       //   Icons.check ,
@@ -1783,31 +2009,31 @@ class Registrationstate extends State<Registration> {
                                       //   size: 20,
                                       //   color: Colors.deepPurple,
                                       // ),
-
                                     ),
                                   ),
-                                  SizedBox(width : MediaQuery.of(context).size.width * 0.04,),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.04,
+                                  ),
                                   Container(
-                                    width : MediaQuery.of(context).size.width * 0.7,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.7,
                                     child: Text(
                                       "By Registering you agree to the Terms & Condition and Privacy policy",
                                       style: TextStyle(
                                           fontSize: MediaQuery.of(context)
-                                              .size
-                                              .height *
+                                                  .size
+                                                  .height *
                                               0.012,
                                           color: Color(0xFFFF0000),
                                           fontWeight: FontWeight.w400,
-                                          fontFamily: "Inter"
-                                      ),
+                                          fontFamily: "Inter"),
                                       softWrap: true,
                                       overflow: TextOverflow.visible,
                                     ),
                                   ),
-
                                 ],
                               ),
-
                             ],
                           ),
                         ),
@@ -1875,7 +2101,6 @@ class Registrationstate extends State<Registration> {
                                           padding: EdgeInsets.only(left: 0.0),
                                           child: TextButton(
                                             onPressed: () async {
-
                                               validSignupSubmit();
                                             },
                                             child: Text("Register",
@@ -1883,16 +2108,21 @@ class Registrationstate extends State<Registration> {
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.019,
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          0.019,
                                                   fontWeight: FontWeight.w700,
                                                 )),
                                             style: TextButton.styleFrom(
-                                              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),  // Remove default button padding
-                                              minimumSize: Size(0, 0), // Allow smallest possible size
-                                              tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrink tap area
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 10.0,
+                                                  horizontal:
+                                                      12.0), // Remove default button padding
+                                              minimumSize: Size(0,
+                                                  0), // Allow smallest possible size
+                                              tapTargetSize: MaterialTapTargetSize
+                                                  .shrinkWrap, // Shrink tap area
                                             ),
                                           ),
                                         ),
@@ -1903,68 +2133,76 @@ class Registrationstate extends State<Registration> {
                           ),
                         ),
 
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.height * 0.0,
-                          right: MediaQuery.of(context).size.height * 0.0,
-                          top: MediaQuery.of(context).size.height * 0.03,
-                          // bottom: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        child: TextButton(
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-                            minimumSize: MaterialStateProperty.all<Size>(Size.zero), // Ensures no extra space
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrinks the tap area
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.height * 0.0,
+                            right: MediaQuery.of(context).size.height * 0.0,
+                            top: MediaQuery.of(context).size.height * 0.03,
+                            // bottom: MediaQuery.of(context).size.height * 0.01,
                           ),
-                          onPressed: () {
-                            // General button logic can go here if needed
-                          },
-                          child: RichText(
-                            text: TextSpan(
-                              style: Theme.of(context).textTheme.titleLarge!.merge(
-                                TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                ),
+                          child: TextButton(
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.zero),
+                              minimumSize: MaterialStateProperty.all<Size>(
+                                  Size.zero), // Ensures no extra space
+                              tapTargetSize: MaterialTapTargetSize
+                                  .shrinkWrap, // Shrinks the tap area
+                            ),
+                            onPressed: () {
+                              // General button logic can go here if needed
+                            },
+                            child: RichText(
+                              text: TextSpan(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .merge(
+                                      TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    ),
+                                children: [
+                                  TextSpan(
+                                    text: 'Already have an account?',
+                                    style: TextStyle(
+                                        color: Color(0xFF1F1F1F),
+                                        fontWeight: FontWeight.w400,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height *
+                                                0.011,
+                                        fontFamily: "Inter"),
+                                  ),
+                                  TextSpan(
+                                    text: ' Login',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.014,
+                                      color: Color(0xFF126086),
+                                      fontFamily: "Inter",
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        // Navigation logic for Login page
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (BuildContext context) {
+                                              return LoginPage(); // Replace with your Login page widget
+                                            },
+                                          ),
+                                        );
+                                      },
+                                  ),
+                                ],
                               ),
-                              children: [
-                                TextSpan(
-                                  text: 'Already have an account?',
-                                  style: TextStyle(
-                                      color: Color(0xFF1F1F1F),
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: MediaQuery.of(context).size.height * 0.011,
-                                      fontFamily: "Inter"
-
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: ' Login',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: MediaQuery.of(context).size.height * 0.014,
-                                    color: Color(0xFF126086),
-                                    fontFamily: "Inter",
-                                  ),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      // Navigation logic for Login page
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (BuildContext context) {
-                                            return LoginPage(); // Replace with your Login page widget
-                                          },
-                                        ),
-                                      );
-                                    },
-                                ),
-                              ],
                             ),
                           ),
                         ),
-                                        ),
-                          ],
-                        ),
-                      ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -1977,26 +2215,21 @@ class Registrationstate extends State<Registration> {
   void validSignupSubmit() {
     connectivityservice.checkconnectivity().then((intenet) async {
       if (intenet != null && intenet) {
-
         String input = FirstNameEditTextController.text.trim();
 
         if (input.isEmpty) {
-
           setState(() {
             firstnamehasStartedTyping = true;
             firstnameerrorMessage = "Please enter your First Name";
             firstnameisValid = false;
           });
-        }  else {
-
+        } else {
           setState(() {
             firstnamehasStartedTyping = false;
             firstnameerrorMessage = null;
             firstnameisValid = true;
           });
         }
-
-
 
         String input2 = LastNameEditTextController.text.trim();
 
@@ -2006,15 +2239,13 @@ class Registrationstate extends State<Registration> {
             lastnameerrorMessage = "Please enter your Last Name";
             lastnameisValid = false;
           });
-        }  else {
+        } else {
           setState(() {
             lastnamehasStartedTyping = false;
             lastnameerrorMessage = null;
             lastnameisValid = true;
           });
         }
-
-
 
         String input3 = MobileNummberEditTextController.text.trim();
 
@@ -2024,7 +2255,7 @@ class Registrationstate extends State<Registration> {
             mobilenumerrorMessage = "Please enter your Mobile Number";
             mobilenumisValid = false;
           });
-        }  else if (!RegExp(r'^[0-9]{10}$').hasMatch(input3)) {
+        } else if (!RegExp(r'^[0-9]{10}$').hasMatch(input3)) {
           setState(() {
             mobilenumhasStartedTyping = true;
             mobilenumerrorMessage = "Please enter a valid mobile number";
@@ -2038,8 +2269,6 @@ class Registrationstate extends State<Registration> {
           });
         }
 
-
-
         String input4 = EmailEditTextController.text.trim();
 
         if (input4.isEmpty) {
@@ -2048,7 +2277,8 @@ class Registrationstate extends State<Registration> {
             emailerrorMessage = "Please enter your email";
             emailisValid = false;
           });
-        } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(input4) ) {
+        } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+            .hasMatch(input4)) {
           setState(() {
             emailhasStartedTyping = true;
             emailerrorMessage = "Please enter a valid email";
@@ -2062,26 +2292,17 @@ class Registrationstate extends State<Registration> {
           });
         }
 
-
         print('genderselectedval : ${genderselectedval}');
-        if (genderselectedval == null  ) {
+        if (genderselectedval == null) {
           // _validateGenderSelection();
           setState(() {
             _isGenderValid = false;
           });
-
-        }else{
+        } else {
           setState(() {
-
             _isGenderValid = true;
           });
         }
-
-
-
-
-
-
 
         String input5 = NewPasswordTextController.text.trim();
 
@@ -2091,10 +2312,13 @@ class Registrationstate extends State<Registration> {
             passerrorMessage = "Please enter Password";
             passisValid = false;
           });
-        } else if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$').hasMatch(input5)) {
+        } else if (!RegExp(
+                r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$')
+            .hasMatch(input5)) {
           setState(() {
             passhasStartedTyping = true;
-            passerrorMessage = "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character, and must not contain spaces.";
+            passerrorMessage =
+                "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character, and must not contain spaces.";
             passisValid = false;
           });
         } else {
@@ -2105,9 +2329,6 @@ class Registrationstate extends State<Registration> {
           });
         }
 
-
-
-
         String input6 = ConfirmPasswordTextController.text.trim();
 
         if (input6.isEmpty) {
@@ -2116,15 +2337,16 @@ class Registrationstate extends State<Registration> {
             conpasserrorMessage = "Please enter confirm Password";
             conpassisValid = false;
           });
-        }
-        else if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$').hasMatch(input5)) {
+        } else if (!RegExp(
+                r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$')
+            .hasMatch(input5)) {
           setState(() {
             passhasStartedTyping = true;
-            passerrorMessage = "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character, and must not contain spaces.";
+            passerrorMessage =
+                "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character, and must not contain spaces.";
             passisValid = false;
           });
-        }
-        else if (NewPasswordTextController.text.trim() !=  input6) {
+        } else if (NewPasswordTextController.text.trim() != input6) {
           setState(() {
             conpasshasStartedTyping = true;
             conpasserrorMessage = "Please enter same Password";
@@ -2138,25 +2360,25 @@ class Registrationstate extends State<Registration> {
           });
         }
 
-
-
-
-
-
-           if(firstnameisValid && lastnameisValid && mobilenumisValid &&
-              emailisValid && _isGenderValid && passisValid && conpassisValid){
+        if (firstnameisValid &&
+            lastnameisValid &&
+            mobilenumisValid &&
+            emailisValid &&
+            _isGenderValid &&
+            passisValid &&
+            conpassisValid) {
           /* final snackBar = SnackBar(content: Text("Please do api calling"));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
 
-             if (checkedValue == false) {
-               print('if (checkedValue == false)');
-               final snackBar = SnackBar(
-                 content: Text("Please Select Terms and Conditions"),
-                 backgroundColor: Colors.red[600],
-               );
-               ScaffoldMessenger.of(context).showSnackBar(snackBar);
-               return ;
-             }
+          if (checkedValue == false) {
+            print('if (checkedValue == false)');
+            final snackBar = SnackBar(
+              content: Text("Please Select Terms and Conditions"),
+              backgroundColor: Colors.red[600],
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            return;
+          }
 
           progressDialog.show();
 
@@ -2180,7 +2402,6 @@ class Registrationstate extends State<Registration> {
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           } else if (user.response != null) {
-
             progressDialog.hide();
             final snackBar = SnackBar(
               content: Text(user.response), backgroundColor: Colors.green[600],
@@ -2221,9 +2442,9 @@ class AlphabetOnlyFormatter extends TextInputFormatter {
 
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue,
-      TextEditingValue newValue,
-      ) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     final filteredText = newValue.text.characters.where((char) {
       return _regExp.hasMatch(char);
     }).join();
@@ -2242,4 +2463,3 @@ class AlphabetOnlyFormatter extends TextInputFormatter {
     );
   }
 }
-
