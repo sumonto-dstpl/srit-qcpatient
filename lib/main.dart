@@ -201,7 +201,7 @@ class _SplashLogoScreenState extends State<SplashLogoScreen> {
                     child: AspectRatio(
                       aspectRatio: 150 / 32,
                       child: Image.asset(
-                        'assets/quadracyte_logo.gif', // Your GIF file
+                        'assets/quadracyte_logonew.gif', // Your GIF file
                         fit: BoxFit.fill,
                       ),
                     ),

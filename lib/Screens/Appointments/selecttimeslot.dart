@@ -118,7 +118,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              color: Colors.blue,
+              // color: Colors.blue,
               padding: EdgeInsets.only(
                 top: screenHeight * 0.07,
                 left: screenWidth * 0.04,

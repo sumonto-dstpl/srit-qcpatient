@@ -104,7 +104,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                 left: screenHeight * 0.0,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
@@ -113,9 +113,9 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                       height: MediaQuery.of(context).size.height * 0.035,
                       width: MediaQuery.of(context).size.height * 0.035,
                       margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.01,
+                        left: MediaQuery.of(context).size.height * 0.0,
                         top: MediaQuery.of(context).size.height * 0.00,
-                        right: MediaQuery.of(context).size.height * 0.01,
+                        right: MediaQuery.of(context).size.height * 0.0,
                         bottom: MediaQuery.of(context).size.height * 0.00,
                       ),
                       decoration: BoxDecoration(
@@ -178,7 +178,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
