@@ -416,9 +416,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Screens/Login/loginhome.dart';
-import 'package:newfolder/Screens/Utils/styles.dart';
-
-
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -427,28 +424,26 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   int _currentIndex = 0;
+
   final List<Map<String, String>> _onboardingData = [
     {
       "image": "assets/onboarding0.png",
       "title": "Find the best Doctors in your vicinity",
       "description":
-      "With the help of our intelligent algorithms,now locate the best doctors around your vicinity at total ease."
-
-
+      "With the help of our intelligent algorithms, now locate the best doctors around your vicinity at total ease."
     },
     {
       "image": "assets/onboarding1.png",
       "title": "Schedule appointments with expert doctors",
       "description":
-      "Find experienced specialist doctors worth expert ratings and reviews and book your appointments hassle-free."
+      "Find experienced specialist doctors with expert ratings and reviews and book your appointments hassle-free."
     },
     {
       "image": "assets/onboarding2.png",
       "title": "Find the best caretaker for your family",
       "description":
-      "Find best and experienced nurses and caretakers with expert rating and reviews."
+      "Find best and experienced nurses and caretakers with expert ratings and reviews."
     },
-
   ];
 
   void _nextPage() {
@@ -456,8 +451,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       setState(() {
         _currentIndex++;
       });
+    } else {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => LoginHome()),
+            (route) => false,
+      );
     }
   }
+
   void _previousPage() {
     if (_currentIndex > 0) {
       setState(() {
@@ -465,13 +466,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       });
     }
   }
+
   Widget _indicator(bool isActive) {
     return AnimatedContainer(
-      padding: EdgeInsets.only(
-          top: MediaQuery.of(context).size.height * 0.015,
-          bottom: MediaQuery.of(context).size.height * 0.015,
-          left: MediaQuery.of(context).size.height * 0.0,
-          right: MediaQuery.of(context).size.height * 0.0),
       duration: Duration(milliseconds: 150),
       margin: EdgeInsets.symmetric(horizontal: 2.0),
       height: MediaQuery.of(context).size.height * 0.004,
@@ -485,341 +482,194 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // Transparent status bar
-        statusBarIconBrightness: Brightness.dark, // Light icons for dark backgrounds
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
-
         body: Container(
-          color : Colors.white,
+          color: Colors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               // Skip Button
               Expanded(
-                  flex: 2,
-                  child:
-                  _currentIndex < _onboardingData.length - 1 ?
-                  Container(
-                    alignment: Alignment.centerRight,
-                    margin: EdgeInsets.only(
-                        right: MediaQuery.of(context).size.height * 0.02,
-                        top: MediaQuery.of(context).size.height * 0.03),
-                    child: Container(
-                      margin : EdgeInsets.only(
-                          right: MediaQuery.of(context).size.height * 0.02,
-                          ),
-                      height: MediaQuery.of(context).size.height * 0.028, // Height relative to screen size
-                      decoration: BoxDecoration(
-                        color: Colors.blue
-                            .withOpacity(0.1), // Light background color
-                        borderRadius: BorderRadius.circular(
-                          MediaQuery.of(context).size.height *
-                              0.005, // Reactive radius
-                        ),
+                flex: 2,
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  margin: EdgeInsets.only(
+                    right: height * 0.02,
+                    top: height * 0.03,
+                  ),
+                  child: _currentIndex < _onboardingData.length - 1
+                      ? Container(
+                    height: height * 0.028,
+                    decoration: BoxDecoration(
+                      color: Colors.blue.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(height * 0.005),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.03,
+                      vertical: height * 0.003,
+                    ),
+                    child: TextButton(
+                      onPressed: _nextPage,
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        minimumSize: Size.zero,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width *
-                            0.03,
-                        vertical: MediaQuery.of(context).size.height * 0.003,// Reactive horizontal padding
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) => LoginHome(),
-                            ),
-                                (Route route) => false,
-                          );
-                        },
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                          minimumSize: Size.zero,
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        ),
-                        child: Text(
-                          "Skip",
-                          style: TextStyle(
-                            color: Color(0xFF126086),
-                            fontSize: MediaQuery.of(context).size.height *
-                                0.013,
-                            fontWeight: FontWeight.w500 ,// Reactive font size
-                          ),
+                      child: Text(
+                        "Skip",
+                        style: TextStyle(
+                          color: Color(0xFF126086),
+                          fontSize: height * 0.013,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                   )
-                      : SizedBox()
-
-              ),
-
-              // Image and Text PageView (Both Controlled by Same PageController)
-              Expanded(
-                flex: 9 ,
-                child: Container(
-                  child: GestureDetector(
-                    onHorizontalDragEnd: (details) {
-                      if (details.primaryVelocity! < 0) {
-
-                        _nextPage();
-                      } else if (details.primaryVelocity! > 0) {
-
-                        _previousPage();
-                      }
-                    },
-                    child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-
-                        // Expanded(
-                        //   flex : 3,
-                        //   child: Container(
-                        //
-                        //       child: AnimatedSwitcher(
-                        //
-                        //         duration: Duration(milliseconds: 500),
-                        //         transitionBuilder: (widget, animation) => FadeTransition(
-                        //           opacity: animation,
-                        //           child: widget,
-                        //         ),
-                        //         child: Expanded(
-                        //
-                        //           child: Align(
-                        //             alignment: (_currentIndex == 0 || _currentIndex == 3)
-                        //                 ? Alignment.bottomCenter
-                        //                 : Alignment.center,
-                        //             child: OnboardingImage(image: _onboardingData[_currentIndex]["image"]!,)
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                        // ),
-
-                        // Text Page
-                        // Container(
-                        //
-                        //   child: AnimatedSwitcher(
-                        //     duration: Duration(milliseconds: 500),
-                        //     transitionBuilder: (widget, animation) => FadeTransition(
-                        //       opacity: animation,
-                        //       child: widget,
-                        //     ),
-                        //     child: Expanded(
-                        //       flex: 2,
-                        //       child: OnboardingText(
-                        //         title: _onboardingData[_currentIndex]["title"]!,
-                        //
-                        //         description:
-                        //         _onboardingData[_currentIndex]["description"]!,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-
-                        Container(
-                          // flex: 4,
-                          child: AnimatedSwitcher(
-                            duration: Duration(milliseconds: 500),
-                            transitionBuilder: (child, animation) =>
-                                FadeTransition(opacity: animation, child: child),
-                            child: OnboardingImage(
-                              key: ValueKey<int>(_currentIndex),
-                              image: _onboardingData[_currentIndex]["image"]!,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          // flex: 2,
-                          child: AnimatedSwitcher(
-                            duration: Duration(milliseconds: 500),
-                            transitionBuilder: (child, animation) =>
-                                FadeTransition(opacity: animation, child: child),
-                            child: OnboardingText(
-                              key: ValueKey<int>(_currentIndex), // ensure transition happens
-                              title: _onboardingData[_currentIndex]["title"]!,
-                              description: _onboardingData[_currentIndex]["description"]!,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            top : height * 0.025,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: List.generate(
-                              _onboardingData.length,
-                                  (index) => _indicator(index == _currentIndex),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                      : SizedBox(),
                 ),
               ),
 
-
-              // Bottom Buttons
-              // Container(
-              //
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: List.generate(
-              //       _onboardingData.length,
-              //           (index) => _indicator(index == _currentIndex),
-              //     ),
-              //   ),
-              // ),
+              // Image and Text Container
               Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-
-                    _currentIndex < _onboardingData.length - 1 ?
-                    GestureDetector(
-                      onTap: () async {
-                        _nextPage();
-                      },
-                      child: Container(
-                        alignment: Alignment.centerRight,
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.01,
-                            bottom:
-                            MediaQuery.of(context).size.height * 0.00),
-                        margin: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.04,
-                            right: MediaQuery.of(context).size.height * 0.04),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.height *
-                                        0.012,
-                                  ),
-                                  gradient: LinearGradient(
-                                    begin: Alignment.centerRight,
-                                    end: Alignment.center,
-                                    stops: [0.5, 0.9],
-                                    colors: [
-                                      Color(0xFF126086),
-                                      Color(0xFF126086)
-                                    ],
-                                  ),
-                                ),
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.only(left: 0.0),
-                                child: TextButton(
-                                  onPressed: () async {
-                                    _nextPage();
-                                  },
-                                  child: Text(
-                                    "Next",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: MediaQuery.of(context)
-                                            .size
-                                            .height *
-                                            0.02),
-                                  ),
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(vertical: 9.0, horizontal: 12.0), // ← Adjust this
-                                    minimumSize: Size(0, 0), // Removes minimum button constraints
-                                    tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Removes extra tap padding
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                flex: 9,
+                child: GestureDetector(
+                  onHorizontalDragEnd: (details) {
+                    if (details.primaryVelocity! < 0) {
+                      _nextPage();
+                    } else if (details.primaryVelocity! > 0) {
+                      _previousPage();
+                    }
+                  },
+                  child: Column(
+                    children: [
+                      AnimatedSwitcher(
+                        duration: Duration(milliseconds: 500),
+                        transitionBuilder: (child, animation) =>
+                            FadeTransition(opacity: animation, child: child),
+                        child: OnboardingImage(
+                          key: ValueKey<int>(_currentIndex),
+                          image: _onboardingData[_currentIndex]["image"]!,
                         ),
                       ),
-                    )
-                        : GestureDetector(
-                      onTap: () async {
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => LoginHome(),
+                      Expanded(
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.9),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(24),
+                              topRight: Radius.circular(24),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                offset: Offset(0, -4),
+                                blurRadius: 10,
+                                spreadRadius: 2,
+                              ),
+                            ],
                           ),
-                              (Route route) => false,
-                        );
-                      },
-                      child: Container(
-                        alignment: Alignment.centerRight,
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.01,
-                            bottom:
-                            MediaQuery.of(context).size.height * 0.00),
-                        margin: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.04,
-                            right: MediaQuery.of(context).size.height * 0.04),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.height *
-                                        0.012,
-                                  ),
-                                  gradient: LinearGradient(
-                                    begin: Alignment.centerRight,
-                                    end: Alignment.center,
-                                    stops: [0.5, 0.9],
-                                    colors: [
-                                      Color(0xFF126086),
-                                      Color(0xFF126086)
-                                    ],
-                                  ),
-                                ),
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.only(left: 0.0),
-                                child: TextButton(
-                                  onPressed: () async {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            LoginHome(),
-                                      ),
-                                          (Route route) => false,
-                                    );
-                                  },
-                                  child: Text(
-                                    "Get started",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: MediaQuery.of(context)
-                                            .size
-                                            .height *
-                                            0.02),
-                                  ),
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(vertical: 9.0, horizontal: 12.0), // ← Adjust this
-                                    minimumSize: Size(0, 0), // Removes minimum button constraints
-                                    tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Removes extra tap padding
+                          child: Column(
+                            children: [
+                              SizedBox(height: height * 0.03),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: height * 0.1),
+                                child: Text(
+                                  _onboardingData[_currentIndex]["title"]!,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: height * 0.021,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFF1F1F1F),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                              SizedBox(height: height * 0.01),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: height * 0.04),
+                                child: Text(
+                                  _onboardingData[_currentIndex]["description"]!,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: height * 0.017,
+                                    color: Color(0xFF6A6E83),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: height * 0.025),
+
+                              // Indicators
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: List.generate(
+                                  _onboardingData.length,
+                                      (index) =>
+                                      _indicator(index == _currentIndex),
+                                ),
+                              ),
+
+                              SizedBox(height: height * 0.025),
+
+                              // Next / Get Started Button
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: height * 0.04),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                              height * 0.012),
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Color(0xFF126086),
+                                              Color(0xFF126086)
+                                            ],
+                                          ),
+                                        ),
+                                        child: TextButton(
+                                          onPressed: _nextPage,
+                                          style: TextButton.styleFrom(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10.0,
+                                                horizontal: 12.0),
+                                            tapTargetSize: MaterialTapTargetSize
+                                                .shrinkWrap,
+                                          ),
+                                          child: Text(
+                                            _currentIndex <
+                                                _onboardingData.length - 1
+                                                ? "Next"
+                                                : "Get started",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: height * 0.018,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -830,126 +680,29 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 }
 
+// ✅ Image widget with slight downward offset
 class OnboardingImage extends StatelessWidget {
   final String image;
-  // final double height ;
 
-  const OnboardingImage({
-    Key? key,
-    required this.image,
-    // required this.height,
-
-  }) : super(key: key);
+  const OnboardingImage({Key? key, required this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.00),
-      child: Image.asset(
-        image,
-        height: MediaQuery.of(context).size.height *  0.5,
-        fit: BoxFit.contain,
+    return Transform.translate(
+      offset: Offset(0, MediaQuery.of(context).size.height * 0.00), // Shifted down
+      child: Padding(
+        padding: EdgeInsets.zero,
+        child: Image.asset(
+          image,
+          height: MediaQuery.of(context).size.height * 0.5,
+          fit: BoxFit.contain,
+        ),
       ),
     );
   }
 }
 
-class OnboardingText extends StatelessWidget {
-  final String title;
-  final String description;
 
-  OnboardingText({
-    Key? key,
-    required this.title,
-    required this.description,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-        children: [
-          // Positioned(
-          //   top: 0, left: 0, right: 0,
-          //   child: Container(
-          //     height: 10, // Small height to create only top shadow
-          //     decoration: BoxDecoration(
-          //       boxShadow: [
-          //         BoxShadow(
-          //           color: Colors.black.withOpacity(0.3),
-          //           offset: Offset(0, -4),
-          //           blurRadius: 10.0,
-          //           spreadRadius: 0.0,
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
-          Container(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.0),
-            height: MediaQuery.of(context).size.height * 0.2,
-            // margin: EdgeInsets.only(
-            //     top : MediaQuery.of(context).size.height * 0.25
-            //
-            // ),
-            decoration: BoxDecoration(
-              color: Colors.white, // Set the background color of the container
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.0), // Top-left curve
-                topRight: Radius.circular(20.0), // Top-right curve
-              ),
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: Colors.black.withOpacity(0.3), // Shadow color with opacity
-              //     offset: Offset(0, -4), // Offset to place the shadow above
-              //     blurRadius: 10.0, // Blur radius for soft shadow
-              //     spreadRadius:
-              //     0.0, // Spread radius to make shadow appear more prominent
-              //   ),
-              // ],
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                Padding(
-                  padding:  EdgeInsets.only(
-                    left : MediaQuery.of(context).size.height * 0.1,
-                    right: MediaQuery.of(context).size.height * 0.1,
-                  ),
-                  child: Text(
-                    title,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * 0.023,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF1F1F1F),
-                    ),
-                  ),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                Container(
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.07,
-                      right: MediaQuery.of(context).size.height * 0.07,
-                      bottom: MediaQuery.of(context).size.height * 0.00,
-                      top: MediaQuery.of(context).size.height * 0.00),
-                  color: Colors.white,
-                  child: Text(
-                    description,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * 0.015,
-                      color: Color(0xFF6A6E83),
-                      fontWeight: FontWeight.w400,
 
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ]
-    );
-  }
-}
 
