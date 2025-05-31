@@ -369,27 +369,51 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
                 ),
               ),
 
-              // Main Content Section
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.00,
-                      right: MediaQuery.of(context).size.height * 0.00,
-                      top: MediaQuery.of(context).size.height * 0.025,
-                      bottom: MediaQuery.of(context).size.height * 0.00),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(screenHeight * 0.03),
-                      topRight: Radius.circular(screenHeight * 0.03),
-                    ),
-                  ),
-                  child: ListView(
-                    children: [
-                      // Search Input Field
+               Expanded(
 
-                      Container(
+                  child: Container(
+                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(screenHeight * 0.03),
+                                        topRight: Radius.circular(screenHeight * 0.03),
+                                        bottomLeft: Radius.circular(screenHeight * 0.0),
+                                        bottomRight: Radius.circular(screenHeight * 0.00),
+                                        // bottomCenter: 0,
+                                      ),
+                                    ),
+                    child : Column(
+                    children: [
+              Container(
+                padding: EdgeInsets.only(
+                        left: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                        right: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                        top: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                        bottom: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.01),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(screenHeight * 0.03),
+                        topRight: Radius.circular(screenHeight * 0.03),
+                      ),
+                    ),
+                child:
+                  Column(
+                    children: [
+  Container(
 
                         padding: EdgeInsets.only(
                           top: screenHeight * 0.0,
@@ -503,8 +527,28 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
                           ],
                         ),
                       ),
-
-
+                      ]
+                  ),
+              ),
+  Expanded(
+                child: Container(
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.height * 0.00,
+                      right: MediaQuery.of(context).size.height * 0.00,
+                      top: MediaQuery.of(context).size.height * 0.0,
+                      bottom: MediaQuery.of(context).size.height * 0.00),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    // borderRadius: BorderRadius.only(
+                    //   topLeft: Radius.circular(screenHeight * 0.03),
+                    //   topRight: Radius.circular(screenHeight * 0.03),
+                    // ),
+                  ),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: [
+                      // Search Input Field
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
@@ -515,10 +559,11 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
                                 right:
                                 MediaQuery.of(context).size.height * 0.00,
                                 bottom:
-                                MediaQuery.of(context).size.height * 0.010,
+                                MediaQuery.of(context).size.height * 0.00,
                                 top: MediaQuery.of(context).size.height * 0.00),
                             // height: MediaQuery.of(context).size.height * 0.190,
                             child: ListView.builder(
+                               padding: EdgeInsets.zero, // ✅ Remove extra top space
                               physics: ScrollPhysics(), // Ensures scrolling
                               shrinkWrap:
                               true, // Prevents ListView from taking up extra space
@@ -901,6 +946,14 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
                   ),
                 ),
               ),
+
+               ],
+                    ),
+                  ),
+              )
+
+              // Main Content Section
+            
             ],
           ),
         ]),

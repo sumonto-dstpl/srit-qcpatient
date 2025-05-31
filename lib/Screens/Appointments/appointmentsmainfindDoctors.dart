@@ -401,6 +401,21 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
               ),
 
               // Main Content Section
+              Expanded(
+
+                  child: Container(
+                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(screenHeight * 0.03),
+                                        topRight: Radius.circular(screenHeight * 0.03),
+                                        bottomLeft: Radius.circular(screenHeight * 0.0),
+                                        bottomRight: Radius.circular(screenHeight * 0.00),
+                                        // bottomCenter: 0,
+                                      ),
+                                    ),
+                    child : Column(
+                    children: [
               Container(
                 padding: EdgeInsets.only(
                         left: MediaQuery
@@ -773,13 +788,14 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                         margin: EdgeInsets.only(
                             left: MediaQuery.of(context).size.height * 0.0,
                             right :MediaQuery.of(context).size.width * 0.5,
-                            top : MediaQuery.of(context).size.height * 0.02,
+                            top : MediaQuery.of(context).size.height * 0.005,
                           bottom : MediaQuery.of(context).size.height * 0.02,
 
                         ),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
+                            
                             children: <Widget>[
                               Icon(Icons.access_time_sharp,
                                   color: Colors.black,
@@ -1355,6 +1371,10 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                   ),
                 ),
               ),
+              ],
+                    ),
+                  ),
+              )
             ],
           ),
         ]),
@@ -1881,12 +1901,12 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                                         MediaQuery.of(context)
                                             .size
                                             .height *
-                                            0.005,
+                                            0.00,
                                         right:
                                         MediaQuery.of(context)
                                             .size
                                             .height *
-                                            0.005,
+                                            0.00,
                                         top:
                                         MediaQuery.of(context)
                                             .size
@@ -1924,13 +1944,14 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                                                   top: MediaQuery.of(context).size.height * 0.01,
                                                   bottom: MediaQuery.of(context).size.height * 0.01,
                                                 ),
+                                                // color: Colors.blue,
                                                 height: MediaQuery.of(context).size.height * 0.025,
                                                 width: MediaQuery.of(context).size.height * 0.025,
                                                 child:
                                                 Image.asset(
                                                   'assets/AppointmentBs.png',
-                                                  fit:
-                                                  BoxFit.fill,
+                                                  // fit:
+                                                  // BoxFit.fill,
                                                 ),
                                               ),
                                             ),
@@ -2130,12 +2151,12 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                                         MediaQuery.of(context)
                                             .size
                                             .height *
-                                            0.005,
+                                            0.00,
                                         right:
                                         MediaQuery.of(context)
                                             .size
                                             .height *
-                                            0.005,
+                                            0.00,
                                         top:
                                         MediaQuery.of(context)
                                             .size
@@ -2178,8 +2199,8 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                                                 child:
                                                 Image.asset(
                                                   'assets/TestServicesBs.png',
-                                                  fit:
-                                                  BoxFit.fill,
+                                                  // fit:
+                                                  // BoxFit.fill,
                                                 ),
                                               ),
 

@@ -118,10 +118,11 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
+              color: Colors.blue,
               padding: EdgeInsets.only(
                 top: screenHeight * 0.07,
-                left: screenWidth * 0.0,
-                right: screenWidth * 0.0,
+                left: screenWidth * 0.04,
+                right: screenWidth * 0.04,
                 bottom: screenWidth * 0.0,
               ),
               margin: EdgeInsets.only(
@@ -131,7 +132,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                 left: screenHeight * 0.0,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
@@ -140,9 +141,9 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                       height: MediaQuery.of(context).size.height * 0.03,
                       width: MediaQuery.of(context).size.height * 0.03,
                       margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.01,
+                        left: MediaQuery.of(context).size.height * 0.0,
                         top: MediaQuery.of(context).size.height * 0.00,
-                        right: MediaQuery.of(context).size.height * 0.01,
+                        right: MediaQuery.of(context).size.height * 0.0,
                         bottom: MediaQuery.of(context).size.height * 0.00,
                       ),
                       decoration: BoxDecoration(
@@ -179,8 +180,9 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                           ),
                         )
                       : Container(
+                        // color: Colors.blue,
                           margin: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height * 0.05,
+                              left: MediaQuery.of(context).size.height * 0.0,
                               right: MediaQuery.of(context).size.height * 0.00,
                               top: MediaQuery.of(context).size.height * 0.00,
                               bottom:
@@ -197,15 +199,22 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                         ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.250,
+                    // color: Colors.blue,
                     padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.00,
                       bottom: MediaQuery.of(context).size.height * 0.00,
-                      left: MediaQuery.of(context).size.height * 0.00,
-                      right: MediaQuery.of(context).size.height * 0.00,
+                      left: MediaQuery.of(context).size.height * 0.0,
+                      right: MediaQuery.of(context).size.height * 0.0,
+                    ),
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.00,
+                      bottom: MediaQuery.of(context).size.height * 0.00,
+                      left: MediaQuery.of(context).size.height * 0.0,
+                      right: MediaQuery.of(context).size.height * 0.0,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -297,6 +306,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                               ),
                             ]),
                         Container(
+                          // color: Colors.white,
                           padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.00,
                             bottom: MediaQuery.of(context).size.height * 0.005,

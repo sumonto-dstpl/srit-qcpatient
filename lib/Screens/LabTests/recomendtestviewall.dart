@@ -533,7 +533,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.height * 0.00,
                       right: MediaQuery.of(context).size.height * 0.00,
-                      top: MediaQuery.of(context).size.height * 0.0,
+                      top: MediaQuery.of(context).size.height * 0.01,
                       bottom: MediaQuery.of(context).size.height * 0.00),
 
                   width: double.infinity,
@@ -546,6 +546,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                     // ),
                   ),
                   child: ListView(
+                    padding: EdgeInsets.zero,
                     children: [
                       // Search Input Field
                       Column(
@@ -562,6 +563,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                 top: MediaQuery.of(context).size.height * 0.0),
                             // height: MediaQuery.of(context).size.height * 0.190,
                             child: ListView.builder(
+                              padding: EdgeInsets.zero,
                               physics: ScrollPhysics(), // Ensures scrolling
                               shrinkWrap:
                               true, // Prevents ListView from taking up extra space
