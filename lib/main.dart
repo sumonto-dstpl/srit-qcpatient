@@ -53,9 +53,9 @@
 
 import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:newfolder/Data/APIServices/MyHttpOverrides.dart';
 import 'package:newfolder/Screens/Access_Screen/access_screen.dart';
@@ -65,7 +65,6 @@ import 'package:newfolder/Screens/OnBoarding/onboarding_screen.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
   // Pre-save mobile number
@@ -76,10 +75,9 @@ void main() async {
 
   final isFirstLaunch = await UserSecureStorage.getIsFirstLaunchDone() ?? "NO";
   Widget initialScreen;
-  if(isEnabled){
+  if (isEnabled) {
     initialScreen = AccessScreen();
-  }
-  else if (isFirstLaunch != "YES") {
+  } else if (isFirstLaunch != "YES") {
     await UserSecureStorage.setIsFirstLaunchDone("YES");
     initialScreen = SplashLogoScreen(); // with GIF
   } else {
@@ -109,7 +107,6 @@ class MyApp extends StatelessWidget {
   final Widget initialScreen;
 
   const MyApp({required this.initialScreen});
-
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +173,6 @@ class _SplashLogoScreenState extends State<SplashLogoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
       body: Container(
         margin: EdgeInsets.only(
             left: MediaQuery.of(context).size.height * 0.00,
@@ -187,13 +183,10 @@ class _SplashLogoScreenState extends State<SplashLogoScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-
               margin: EdgeInsets.only(
-
                   left: MediaQuery.of(context).size.height * 0.080,
                   right: MediaQuery.of(context).size.height * 0.080),
               color: Colors.white,
-
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -202,11 +195,13 @@ class _SplashLogoScreenState extends State<SplashLogoScreen> {
                   Container(
                     // height: MediaQuery.of(context).size.height *
                     //     0.060, // Set the height to match the text size
-                    width:  MediaQuery.of(context).size.width ,// Set the width based on your requirements
+                    width: MediaQuery.of(context)
+                        .size
+                        .width, // Set the width based on your requirements
                     child: AspectRatio(
                       aspectRatio: 150 / 32,
                       child: Image.asset(
-                        'assets/Logoanimation.gif', // Your GIF file
+                        'assets/quadracyte_logo.gif', // Your GIF file
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -220,17 +215,18 @@ class _SplashLogoScreenState extends State<SplashLogoScreen> {
     );
   }
 }
+
 class FadePageTransitionsBuilder extends PageTransitionsBuilder {
   const FadePageTransitionsBuilder();
 
   @override
   Widget buildTransitions<T>(
-      PageRoute<T> route,
-      BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child,
-      ) {
+    PageRoute<T> route,
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
     return FadeTransition(
       opacity: animation,
       child: child,

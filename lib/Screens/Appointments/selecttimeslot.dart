@@ -253,17 +253,17 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                                   // Navigator.pop(context);
                                   if (_isSharing) return;
                                   _isSharing = true;
-                                 try {
-                                  // Call your static method that wraps Share.share()
-                                  ShareToOtherApp.share();
+                                  try {
+                                    // Call your static method that wraps Share.share()
+                                    ShareToOtherApp.share();
 
-                                  // Add a delay because Share.share() returns immediately
-                                  await Future.delayed(Duration(seconds: 2));
-                                } catch (e) {
-                                  print('Sharing failed: $e');
-                                } finally {
-                                  _isSharing = false;
-                                }
+                                    // Add a delay because Share.share() returns immediately
+                                    await Future.delayed(Duration(seconds: 2));
+                                  } catch (e) {
+                                    print('Sharing failed: $e');
+                                  } finally {
+                                    _isSharing = false;
+                                  }
                                 },
                                 onDoubleTap: () {},
                                 child: Container(
@@ -435,67 +435,65 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                       ],
                     ),
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            // Select Your Date
-                            CustomCalendar(
-                              onDateSelected: (date) {
-                                setState(() {
-                                  _selectedDay = date;
-                                  slectedDateSlot =
-                                      DateFormat('dd-MM-yyyy').format(date);
-                                });
+                      child: ListView(
+                        padding: EdgeInsets.zero,
+                        // child: Column(
+                        children: [
+                          // Select Your Date
+                          CustomCalendar(
+                            onDateSelected: (date) {
+                              setState(() {
+                                _selectedDay = date;
+                                slectedDateSlot =
+                                    DateFormat('dd-MM-yyyy').format(date);
+                              });
 
-                                print(
-                                    "Selected Date: ${DateFormat('dd-MM-yyyy').format(date)}");
-                                // Call your getBookingDetails() function here if needed
-                              },
-                            ),
+                              print(
+                                  "Selected Date: ${DateFormat('dd-MM-yyyy').format(date)}");
+                              // Call your getBookingDetails() function here if needed
+                            },
+                          ),
 
-                            // Select Your Time
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.height * 0.02,
-                                  right:
-                                      MediaQuery.of(context).size.height * 0.00,
-                                  top:
-                                      MediaQuery.of(context).size.height * 0.03,
-                                  bottom: MediaQuery.of(context).size.height *
-                                      0.02),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Select Your Time",
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.014,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                          // Select Your Time
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.height * 0.02,
+                                right:
+                                    MediaQuery.of(context).size.height * 0.00,
+                                top: MediaQuery.of(context).size.height * 0.03,
+                                bottom:
+                                    MediaQuery.of(context).size.height * 0.02),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "Select Your Time",
+                                style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.014,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),
+                          ),
 
-                            // Top timeslot Grid
-                            // Static  Time slots
-                            // const TimeSlotSelector(timeSlots: ["04:00", "04:30", "07:00", "07:30"],)
-                            TimeSlotSelector(
-                              timeSlots: timeSlots,
-                              selectedDate: _selectedDay ?? DateTime.now(),
-                              onSelected: (selectedTime) {
-                                setState(() {
-                                  selectedSlot = selectedTime;
-                                });
-                                print("Selected Slot: $selectedSlot");
-                                print("Selected Slot: $selectedSlot");
-                              },
-                            ),
-                          ],
-                        ),
+                          // Top timeslot Grid
+                          // Static  Time slots
+                          // const TimeSlotSelector(timeSlots: ["04:00", "04:30", "07:00", "07:30"],)
+                          TimeSlotSelector(
+                            timeSlots: timeSlots,
+                            selectedDate: _selectedDay ?? DateTime.now(),
+                            onSelected: (selectedTime) {
+                              setState(() {
+                                selectedSlot = selectedTime;
+                              });
+                              print("Selected Slot: $selectedSlot");
+                              print("Selected Slot: $selectedSlot");
+                            },
+                          ),
+                        ],
                       ),
                     ),
+                    // ),
                   ],
                 ),
               ),

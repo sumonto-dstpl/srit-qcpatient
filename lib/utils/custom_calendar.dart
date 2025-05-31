@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class CustomCalendar extends StatefulWidget {
   final Function(DateTime selectedDate)? onDateSelected;
@@ -41,78 +41,84 @@ class _CustomCalendarState extends State<CustomCalendar> {
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.02),
-          child: TableCalendar(
-            firstDay: DateTime.utc(2010, 10, 20),
-            lastDay: DateTime.utc(2040, 10, 20),
-            focusedDay: _focusedDay,
-            calendarFormat: _calendarFormat,
-            rowHeight: screenHeight * 0.04,
-            availableCalendarFormats: const {
-              CalendarFormat.month: 'Month',
-            },
-            headerStyle: const HeaderStyle(
-              formatButtonVisible: false,
-              titleCentered: false,
-              headerPadding: EdgeInsets.symmetric(vertical: 0.0),
-              leftChevronVisible: false,
-              rightChevronVisible: false,
-            ),
-            calendarBuilders: CalendarBuilders(
-              defaultBuilder: (context, date, _) {
-                return _dateCell(context, date, screenHeight, isSelected: false, isToday: false);
+          child: RepaintBoundary(
+            child: TableCalendar(
+              firstDay: DateTime.utc(2010, 10, 20),
+              lastDay: DateTime.utc(2040, 10, 20),
+              focusedDay: _focusedDay,
+              calendarFormat: _calendarFormat,
+              rowHeight: screenHeight * 0.04,
+              availableCalendarFormats: const {
+                CalendarFormat.month: 'Month',
               },
-              selectedBuilder: (context, date, _) {
-                return _dateCell(context, date, screenHeight, isSelected: true);
-              },
-              todayBuilder: (context, date, _) {
-                return _dateCell(context, date, screenHeight, isToday: true);
-              },
-              headerTitleBuilder: (context, date) {
-                return _buildHeader(context, date, screenHeight);
-              },
-              outsideBuilder: (context, date, _) {
-                return _dateCell(context, date, screenHeight, dimmed: true);
-              },
-              disabledBuilder: (context, date, _) {
-                return _dateCell(context, date, screenHeight, dimmed: true, disabled: true);
-              },
-            ),
-            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-            onDaySelected: (selectedDay, focusedDay) {
-              setState(() {
-                _selectedDay = selectedDay;
-                _focusedDay = focusedDay;
-              });
-
-              if (widget.onDateSelected != null) {
-                widget.onDateSelected!(selectedDay);
-              }
-            },
-            onFormatChanged: (format) {
-              if (_calendarFormat != format) {
-                setState(() {
-                  _calendarFormat = format;
-                });
-              }
-            },
-            onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
-            },
-            enabledDayPredicate: (day) {
-              return day.isAfter(DateTime.now().subtract(const Duration(days: 1)));
-            },
-            daysOfWeekStyle: DaysOfWeekStyle(
-              dowTextFormatter: (date, locale) =>
-                  DateFormat.E(locale).format(date).substring(0, 1),
-              weekdayStyle: TextStyle(
-                fontSize: screenHeight * 0.012,
-                color: const Color(0xFF8F95B2),
-                fontWeight: FontWeight.w500,
+              headerStyle: const HeaderStyle(
+                formatButtonVisible: false,
+                titleCentered: false,
+                headerPadding: EdgeInsets.symmetric(vertical: 0.0),
+                leftChevronVisible: false,
+                rightChevronVisible: false,
               ),
-              weekendStyle: TextStyle(
-                fontSize: screenHeight * 0.012,
-                color: const Color(0xFF8F95B2),
-                fontWeight: FontWeight.w500,
+              calendarBuilders: CalendarBuilders(
+                defaultBuilder: (context, date, _) {
+                  return _dateCell(context, date, screenHeight,
+                      isSelected: false, isToday: false);
+                },
+                selectedBuilder: (context, date, _) {
+                  return _dateCell(context, date, screenHeight,
+                      isSelected: true);
+                },
+                todayBuilder: (context, date, _) {
+                  return _dateCell(context, date, screenHeight, isToday: true);
+                },
+                headerTitleBuilder: (context, date) {
+                  return _buildHeader(context, date, screenHeight);
+                },
+                outsideBuilder: (context, date, _) {
+                  return _dateCell(context, date, screenHeight, dimmed: true);
+                },
+                disabledBuilder: (context, date, _) {
+                  return _dateCell(context, date, screenHeight,
+                      dimmed: true, disabled: true);
+                },
+              ),
+              selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+              onDaySelected: (selectedDay, focusedDay) {
+                setState(() {
+                  _selectedDay = selectedDay;
+                  _focusedDay = focusedDay;
+                });
+
+                if (widget.onDateSelected != null) {
+                  widget.onDateSelected!(selectedDay);
+                }
+              },
+              onFormatChanged: (format) {
+                if (_calendarFormat != format) {
+                  setState(() {
+                    _calendarFormat = format;
+                  });
+                }
+              },
+              onPageChanged: (focusedDay) {
+                _focusedDay = focusedDay;
+              },
+              enabledDayPredicate: (day) {
+                return day
+                    .isAfter(DateTime.now().subtract(const Duration(days: 1)));
+              },
+              daysOfWeekStyle: DaysOfWeekStyle(
+                dowTextFormatter: (date, locale) =>
+                    DateFormat.E(locale).format(date).substring(0, 1),
+                weekdayStyle: TextStyle(
+                  fontSize: screenHeight * 0.012,
+                  color: const Color(0xFF8F95B2),
+                  fontWeight: FontWeight.w500,
+                ),
+                weekendStyle: TextStyle(
+                  fontSize: screenHeight * 0.012,
+                  color: const Color(0xFF8F95B2),
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ),
@@ -142,7 +148,8 @@ class _CustomCalendarState extends State<CustomCalendar> {
               icon: Icon(Icons.chevron_left, size: height * 0.02),
               onPressed: () {
                 setState(() {
-                  _focusedDay = DateTime(_focusedDay.year, _focusedDay.month - 1, _focusedDay.day);
+                  _focusedDay = DateTime(
+                      _focusedDay.year, _focusedDay.month - 1, _focusedDay.day);
                 });
               },
             ),
@@ -150,7 +157,8 @@ class _CustomCalendarState extends State<CustomCalendar> {
               icon: Icon(Icons.chevron_right, size: height * 0.02),
               onPressed: () {
                 setState(() {
-                  _focusedDay = DateTime(_focusedDay.year, _focusedDay.month + 1, _focusedDay.day);
+                  _focusedDay = DateTime(
+                      _focusedDay.year, _focusedDay.month + 1, _focusedDay.day);
                 });
               },
             ),
@@ -161,14 +169,14 @@ class _CustomCalendarState extends State<CustomCalendar> {
   }
 
   Widget _dateCell(
-      BuildContext context,
-      DateTime date,
-      double height, {
-        bool isSelected = false,
-        bool isToday = false,
-        bool dimmed = false,
-        bool disabled = false,
-      }) {
+    BuildContext context,
+    DateTime date,
+    double height, {
+    bool isSelected = false,
+    bool isToday = false,
+    bool dimmed = false,
+    bool disabled = false,
+  }) {
     Color textColor = const Color(0xFF126086);
     Color backgroundColor = Colors.transparent;
 

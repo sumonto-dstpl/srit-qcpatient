@@ -41,8 +41,8 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
           child: CarouselSlider(
             options: CarouselOptions(
               // height: carouselItemHeight,
-
-              aspectRatio: 256 / 125,
+              //1128 /387
+              aspectRatio: 1128 / 387,
               autoPlay: true,
               autoPlayInterval: Duration(seconds: 2),
               viewportFraction: 1.0,
@@ -64,8 +64,8 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                       left: screenHeight * 0.01,
                     ), // Responsive margin outside of the container
                     child: AspectRatio(
-                      aspectRatio: 256 /
-                          125, // Use the actual aspect ratio of your image
+                      aspectRatio: 1128 /
+                          387, // Use the actual aspect ratio of your image
                       child: Container(
                         margin: EdgeInsets.only(
                           right: screenHeight * 0.0,
@@ -109,9 +109,9 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                                   children: <Widget>[
                                     Container(
                                       padding: EdgeInsets.only(
-                                        top: screenHeight * 0.04,
+                                        top: screenHeight * 0.02,
                                         bottom: screenHeight * 0.00,
-                                        left: screenHeight * 0.00,
+                                        left: screenHeight * 0.02,
                                         right: screenHeight * 0.00,
                                       ),
                                       child: Text(
@@ -128,7 +128,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                                       padding: EdgeInsets.only(
                                         top: screenHeight * 0.00,
                                         bottom: screenHeight * 0.00,
-                                        left: screenHeight * 0.00,
+                                        left: screenHeight * 0.02,
                                         right: screenHeight * 0.00,
                                       ),
                                       child: Text(
@@ -163,8 +163,8 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                     ), // Responsive margin
                     // height: carouselItemHeight,
                     child: AspectRatio(
-                      aspectRatio: 256 /
-                          125, // Use the actual aspect ratio of your image
+                      aspectRatio: 1128 /
+                          387, // Use the actual aspect ratio of your image
                       child: Container(
                         margin: EdgeInsets.only(
                           right: screenHeight * 0.0,
@@ -205,9 +205,9 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                                   children: <Widget>[
                                     Container(
                                       padding: EdgeInsets.only(
-                                        top: screenHeight * 0.04,
+                                        top: screenHeight * 0.02,
                                         bottom: screenHeight * 0.00,
-                                        left: screenHeight * 0.00,
+                                        left: screenHeight * 0.02,
                                         right: screenHeight * 0.00,
                                       ),
                                       child: Text(
@@ -224,7 +224,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                                       padding: EdgeInsets.only(
                                         top: screenHeight * 0.00,
                                         bottom: screenHeight * 0.00,
-                                        left: screenHeight * 0.00,
+                                        left: screenHeight * 0.02,
                                         right: screenHeight * 0.00,
                                       ),
                                       child: Text(
@@ -262,8 +262,8 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                       left: screenHeight * 0.01,
                     ), // Responsive margin outside of the container
                     child: AspectRatio(
-                      aspectRatio: 256 /
-                          125, // Use the actual aspect ratio of your image
+                      aspectRatio: 1128 /
+                          387, // Use the actual aspect ratio of your image
                       child: Container(
                         margin: EdgeInsets.only(
                           right: screenHeight * 0.0,
@@ -307,9 +307,9 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                                   children: <Widget>[
                                     Container(
                                       padding: EdgeInsets.only(
-                                        top: screenHeight * 0.04,
+                                        top: screenHeight * 0.02,
                                         bottom: screenHeight * 0.00,
-                                        left: screenHeight * 0.00,
+                                        left: screenHeight * 0.02,
                                         right: screenHeight * 0.00,
                                       ),
                                       child: Text(
@@ -326,7 +326,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                                       padding: EdgeInsets.only(
                                         top: screenHeight * 0.00,
                                         bottom: screenHeight * 0.00,
-                                        left: screenHeight * 0.00,
+                                        left: screenHeight * 0.02,
                                         right: screenHeight * 0.00,
                                       ),
                                       child: Text(
@@ -361,8 +361,8 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                     ), // Responsive margin
                     // height: carouselItemHeight,
                     child: AspectRatio(
-                      aspectRatio: 256 /
-                          125, // Use the actual aspect ratio of your image
+                      aspectRatio: 1128 /
+                          387, // Use the actual aspect ratio of your image
                       child: Container(
                         margin: EdgeInsets.only(
                           right: screenHeight * 0.0,
@@ -403,9 +403,9 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                                   children: <Widget>[
                                     Container(
                                       padding: EdgeInsets.only(
-                                        top: screenHeight * 0.04,
+                                        top: screenHeight * 0.02,
                                         bottom: screenHeight * 0.00,
-                                        left: screenHeight * 0.00,
+                                        left: screenHeight * 0.02,
                                         right: screenHeight * 0.00,
                                       ),
                                       child: Text(
@@ -422,7 +422,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                                       padding: EdgeInsets.only(
                                         top: screenHeight * 0.00,
                                         bottom: screenHeight * 0.00,
-                                        left: screenHeight * 0.00,
+                                        left: screenHeight * 0.02,
                                         right: screenHeight * 0.00,
                                       ),
                                       child: Text(
@@ -455,8 +455,8 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
         ),
         // Carousel Indicator
         Positioned(
-          bottom: screenHeight * 0.032, // 5% from the bottom of the screen
-          right: screenWidth * 0.45, // 10% from the right side of the screen
+          bottom: screenHeight * 0.01, // 5% from the bottom of the screen
+          right: screenWidth * 0.42, // 10% from the right side of the screen
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
