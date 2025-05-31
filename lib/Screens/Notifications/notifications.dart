@@ -1,20 +1,12 @@
-import 'dart:convert';
-import 'dart:ui';
-
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
-
-import 'package:newfolder/Screens/Home/homemainscreen.dart';
-
-import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
-
-import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
-import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
+import 'package:newfolder/Screens/Home/homemainscreen.dart';
+import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
+import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
+import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
 
 
 class NotificationMain extends StatefulWidget {
@@ -386,7 +378,7 @@ class NotificationMainstate extends State<NotificationMain> {
                                               borderRadius: BorderRadius.circular(6),
                                               image: DecorationImage(
                                                 image: AssetImage(
-                                                    'assets/notificationtopbanner.png'), // Path to your banner image
+                                                    'assets/B1_ls.png'), // Path to your banner image
                                                 fit: BoxFit.fill, // Adjust to cover the entire container
                                               ),
                                                
@@ -402,7 +394,7 @@ class NotificationMainstate extends State<NotificationMain> {
                                                         left: MediaQuery.of(context).size.height * 0.005,
                                                         right: MediaQuery.of(context).size.height * 0.00,
                                                         bottom: MediaQuery.of(context).size.height * 0.0,
-                                                        top: MediaQuery.of(context).size.height * 0.03),
+                                                        top: MediaQuery.of(context).size.height * 0.01),
                                                     child: Column(
                                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -410,7 +402,7 @@ class NotificationMainstate extends State<NotificationMain> {
                                           
                                                         Container(
                                                           padding: EdgeInsets.only(
-                                                            top: screenHeight * 0.01,
+                                                            top: screenHeight * 0.0,
                                                             bottom: screenHeight * 0.00,
                                                             left: screenHeight * 0.02,
                                                             right: screenHeight * 0.00,
@@ -792,7 +784,7 @@ class NotificationMainstate extends State<NotificationMain> {
                                       borderRadius: BorderRadius.circular(6),
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            'assets/homebanner2.png'), // Path to your banner image
+                                            'assets/B3_ls.png'), // Path to your banner image
                                         fit: BoxFit.fill,
                                         // Adjust to cover the entire container
                                       ),
@@ -860,7 +852,7 @@ class NotificationMainstate extends State<NotificationMain> {
 
                                                 Container(
                                                   padding: EdgeInsets.only(
-                                                    top: screenHeight * 0.00,
+                                                    top: screenHeight * 0.01,
                                                     bottom: screenHeight * 0.00,
                                                     left: screenHeight * 0.00,
                                                     right: screenHeight * 0.00,
@@ -903,7 +895,7 @@ class NotificationMainstate extends State<NotificationMain> {
                                     margin: EdgeInsets.only(
                                       right: screenHeight * 0.02,
                                       top: screenHeight * 0.0,
-                                      bottom: screenHeight * 0.01,
+                                      bottom: screenHeight * 0.0,
                                       left: screenHeight * 0.02,
                                     ),// Responsive margin
                                     height: MediaQuery
@@ -916,7 +908,7 @@ class NotificationMainstate extends State<NotificationMain> {
                                       borderRadius: BorderRadius.circular(6),
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            'assets/homebanner1.png'), // Path to your banner image
+                                            'assets/B2_ls.png'), // Path to your banner image
                                         fit: BoxFit.fill,
 
                                       ),
@@ -1451,7 +1443,7 @@ class NotificationMainstate extends State<NotificationMain> {
                                               borderRadius: BorderRadius.circular(6),
                                               image: DecorationImage(
                                                 image: AssetImage(
-                                                    'assets/notificationtopbanner.png'), // Path to your banner image
+                                                    'assets/B1_ls.png'), // Path to your banner image
                                                 fit: BoxFit.fill, // Adjust to cover the entire container
                                               ),
 
@@ -1466,7 +1458,7 @@ class NotificationMainstate extends State<NotificationMain> {
                                                         left: MediaQuery.of(context).size.height * 0.005,
                                                         right: MediaQuery.of(context).size.height * 0.00,
                                                         bottom: MediaQuery.of(context).size.height * 0.0,
-                                                        top: MediaQuery.of(context).size.height * 0.03),
+                                                        top: MediaQuery.of(context).size.height * 0.01),
                                                     child: Column(
                                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1474,7 +1466,7 @@ class NotificationMainstate extends State<NotificationMain> {
 
                                                         Container(
                                                           padding: EdgeInsets.only(
-                                                            top: screenHeight * 0.01,
+                                                            top: screenHeight * 0.0,
                                                             bottom: screenHeight * 0.00,
                                                             left: screenHeight * 0.02,
                                                             right: screenHeight * 0.00,
@@ -1851,7 +1843,7 @@ class NotificationMainstate extends State<NotificationMain> {
                                       borderRadius: BorderRadius.circular(6),
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            'assets/homebanner2.png'), // Path to your banner image
+                                            'assets/B3_ls.png'), // Path to your banner image
                                         fit: BoxFit.fill,
                                         // Adjust to cover the entire container
                                       ),
@@ -1919,7 +1911,7 @@ class NotificationMainstate extends State<NotificationMain> {
 
                                                 Container(
                                                   padding: EdgeInsets.only(
-                                                    top: screenHeight * 0.00,
+                                                    top: screenHeight * 0.01,
                                                     bottom: screenHeight * 0.00,
                                                     left: screenHeight * 0.00,
                                                     right: screenHeight * 0.00,
@@ -1975,7 +1967,7 @@ class NotificationMainstate extends State<NotificationMain> {
                                       borderRadius: BorderRadius.circular(6),
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            'assets/homebanner1.png'), // Path to your banner image
+                                            'assets/B2_ls.png'), // Path to your banner image
                                         fit: BoxFit.fill,
 
                                       ),
