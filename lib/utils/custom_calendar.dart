@@ -134,7 +134,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
         Padding(
           padding: EdgeInsets.only(left: height * 0.02),
           child: Text(
-            DateFormat.MMMM().format(date),
+            "${DateFormat.MMMM().format(date)} ${date.year}",
             style: TextStyle(
               fontSize: height * 0.014,
               fontWeight: FontWeight.w500,
@@ -149,7 +149,10 @@ class _CustomCalendarState extends State<CustomCalendar> {
               onPressed: () {
                 setState(() {
                   _focusedDay = DateTime(
-                      _focusedDay.year, _focusedDay.month - 1, _focusedDay.day);
+                    _focusedDay.year,
+                    _focusedDay.month - 1,
+                    _focusedDay.day,
+                  );
                 });
               },
             ),
@@ -158,7 +161,10 @@ class _CustomCalendarState extends State<CustomCalendar> {
               onPressed: () {
                 setState(() {
                   _focusedDay = DateTime(
-                      _focusedDay.year, _focusedDay.month + 1, _focusedDay.day);
+                    _focusedDay.year,
+                    _focusedDay.month + 1,
+                    _focusedDay.day,
+                  );
                 });
               },
             ),
@@ -167,6 +173,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
       ],
     );
   }
+
 
   Widget _dateCell(
     BuildContext context,

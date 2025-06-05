@@ -551,7 +551,7 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
                 TextFormField(
                   controller: UserNumberEditTextController,
                   inputFormatters: [
-                    LengthLimitingTextInputFormatter(100),
+                    LengthLimitingTextInputFormatter(10),
                   ],
                   style: TextStyle(
                     color: Colors.black45,

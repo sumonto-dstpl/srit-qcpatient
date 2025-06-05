@@ -765,7 +765,7 @@ class EmergencyHomeCall {
       context: context,
       pageBuilder: (context, animation, secondaryAnimation) {
         return BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+          filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
           child: GestureDetector(
             onTap: () => Navigator.of(context).pop(),
             child: Material(
@@ -804,6 +804,7 @@ class EmergencyHomeCall {
                                 ),
                                 child: Column(
                                   children: [
+                                    SizedBox(height: screenHeight * 0.02),
                                     Image.asset(
                                       'assets/ambulancealert.png',
                                       height: screenHeight * 0.10,
@@ -912,21 +913,21 @@ class EmergencyHomeCall {
 
                               // 🔻 Optional: Third container
                               Padding(
-                                padding: EdgeInsets.only(top: screenHeight * 0.01),
+                                padding: EdgeInsets.only(top: screenHeight * 0.01, bottom: screenHeight * 0.03),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Text(
                                       "*",
                                       style: TextStyle(
-                                        fontSize: screenHeight * 0.02,
+                                        fontSize: screenHeight * 0.01,
                                         color: Colors.red,
                                       ),
                                     ),
                                     Text(
                                       " This service might be Chargeable",
                                       style: TextStyle(
-                                        fontSize: screenHeight * 0.016,
+                                        fontSize: screenHeight * 0.012,
                                         color: Colors.black54,
                                       ),
                                     ),
