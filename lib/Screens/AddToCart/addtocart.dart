@@ -27,29 +27,71 @@ class AddToCartMainstate extends State<AddToCartMain> {
   String userprofilepValue = "NA";
   int _selectedIndex = 4;
 
-  final List<String> uploadfilestime = [
-    "QR 999",
-    "QR 99",
-    "QR 1009",
+  final List<Map<String, dynamic>> carttoplist = [
+    {"images": "assets/Harmonebackground.png", "uploadfilestime": "QR 999",
+    "cartname": "QCT Superior Health Plan", "teststotal": "50"},
+
+    {"images": "assets/Harmonebackground.png", "uploadfilestime": "QR 99",
+    "cartname": "QCT Diabetic Health Plan", "teststotal": "100"},
+
+    {"images": "assets/Harmonebackground.png", "uploadfilestime": "QR 1009",
+    "cartname": "QCT Master Health Check Package", "teststotal": "200"},
+  
   ];
 
-  final List<String> cartnametoplist = [
-    "QCT Superior Health Plan",
-    "QCT Diabetic Health Plan",
-    "QCT Master Health Check Package",
+  final List<Map<String, dynamic>> savedbottomlist = [
+    {"images": "assets/Harmonebackground.png", "uploadfilestime": "QR 999",
+    "cartname": "QCT Master Health Check Package", "teststotal": "100"},
+
+    {"images": "assets/Harmonebackground.png", "uploadfilestime": "QR 1999",
+    "cartname": "QCT Diabetic Health Plan", "teststotal": "100"},
+
+    {"images": "assets/Harmonebackground.png", "uploadfilestime": "QR 1999",
+    "cartname": "QCT Master Health Check Package", "teststotal": "200"},
+  
   ];
 
-  final List<String> endtextbottomlist = [
-    "QR 1999",
-    "QR 1999",
-    "QR 999",
-  ];
+  // final List<String> uploadfilestime = [
+  //   "QR 999",
+  //   "QR 99",
+  //   "QR 1009",
+  // ];
+  // final List<String> imagestoplist = [
+  //   "assets/Harmonebackground.png",
+  //   "assets/Harmonebackground.png",
+  //   "assets/Harmonebackground.png",
+  // ];
+  // final List<String> cartnametoplist = [
+  //   "QCT Superior Health Plan",
+  //   "QCT Diabetic Health Plan",
+  //   "QCT Master Health Check Package",
+  // ];
+  // final List<int> teststotaltoplist = [
+  //   50,
+  //   100,
+  //   200,
+  // ];
 
-  final List<String> cartnameottomlist = [
-    "QCT Master Health Check Package",
-    "QCT Diabetic Health Plan",
-    "QCT Master Health Check Package",
-  ];
+  // final List<String> endtextbottomlist = [
+  //   "QR 1999",
+  //   "QR 1999",
+  //   "QR 999",
+  // ];
+  // final List<String> imagesbottomlist = [
+  //   "assets/Harmonebackground.png",
+  //   "assets/Harmonebackground.png",
+  //   "assets/Harmonebackground.png",
+  // ];
+  // final List<String> cartnameottomlist = [
+  //   "QCT Master Health Check Package",
+  //   "QCT Diabetic Health Plan",
+  //   "QCT Master Health Check Package",
+  // ];
+  // final List<int> teststotalbottomlist = [
+  //   50,
+  //   100,
+  //   200,
+  // ];
 
   EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
   AppointmentCancel appointmentcancelalert = new AppointmentCancel();
@@ -58,13 +100,30 @@ class AddToCartMainstate extends State<AddToCartMain> {
   bool isSavedForLater = true;
   int saveForLaterCount = 0;
 
+  //sumonto
+  int cartPrice = 0;
+  int disPrice = 99;
+  int platformPrice = 9;
+  // for(int counter=0; counter>=carttoplist.length; counter++){
+  //   int cartValue = cartnametoplist[counter]['uploadfilestime'].split(' ')[1];
+  //   print(cartValue);
+  //   // cartPrice+=carttoplist[counter]
+  // }
+
   @override
   Widget build(BuildContext context) {
     print('build');
-    saveForLaterCount = endtextbottomlist.length;
+    saveForLaterCount = savedbottomlist.length;
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     TextEditingController SearchEditTextController = TextEditingController();
+
+      cartPrice = 0;
+      for(int counter=0; counter<carttoplist.length; counter++){
+        int cartValue = int.parse(carttoplist[counter]['uploadfilestime'].split(' ')[1]);
+        print(cartValue);
+        cartPrice+=cartValue;
+      }
 
     return Scaffold(
       body: Container(
@@ -192,66 +251,6 @@ class AddToCartMainstate extends State<AddToCartMain> {
                   child: ListView(
                     padding: EdgeInsets.zero,
                     children: [
-                      // Container(
-                      //   padding: EdgeInsets.only(
-                      //     top: screenHeight * 0.0,
-                      //     left: screenWidth * 0.0,
-                      //     right: screenWidth * 0.0,
-                      //     bottom: screenWidth * 0.01,
-                      //   ),
-                      //   margin: EdgeInsets.only(
-                      //     right: screenHeight * 0.0,
-                      //     top: screenHeight * 0.0,
-                      //     bottom: screenHeight * 0.01,
-                      //     left: screenHeight * 0.0,
-                      //   ),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //     children: [
-                      //       // Back Button
-                      //       InkWell(
-                      //         onTap: () => Navigator.pop(context),
-                      //         child: Container(
-                      //           margin: EdgeInsets.only(
-                      //             left: MediaQuery.of(context).size.height * 0.01,
-                      //           ),
-                      //           height: screenHeight * 0.035,
-                      //           width: screenHeight * 0.035,
-                      //           decoration: BoxDecoration(
-                      //             color: Colors.grey[200]!.withOpacity(0.9),
-                      //             shape: BoxShape.circle,
-                      //           ),
-                      //           child: Icon(
-                      //             Icons.arrow_back_ios_sharp,
-                      //             color: Colors.black54,
-                      //             size: screenHeight * 0.025,
-                      //           ),
-                      //         ),
-                      //       ),
-                      //
-                      //       // Help Text (Centered)
-                      //       Expanded(
-                      //         child: Center(
-                      //           child: Text(
-                      //             "Cart",
-                      //             style: TextStyle(
-                      //               fontSize: MediaQuery.of(context).size.height * 0.018,
-                      //               color: Colors.black,
-                      //               fontWeight: FontWeight.bold,
-                      //             ),
-                      //             textAlign: TextAlign.center,
-                      //           ),
-                      //         ),
-                      //       ),
-                      //
-                      //       // Placeholder to Balance Row (Keeps Help Text Centered)
-                      //       SizedBox(width: screenHeight * 0.035),
-                      //
-                      //     ],
-                      //   )
-                      //   ,
-                      // ),
-
                       // Top ListView
 
                       // Top 3 Cards
@@ -276,9 +275,9 @@ class AddToCartMainstate extends State<AddToCartMain> {
                           padding: EdgeInsets.zero,
                           shrinkWrap: true, // Prevents infinite height
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: uploadfilestime.length,
+                          itemCount: carttoplist.length,
                           itemBuilder: (context, index) {
-                            final file = uploadfilestime[index];
+                            final file = carttoplist[index]['cartname'];
 
                             return Dismissible(
                                 key: UniqueKey(), // Unique key for each item
@@ -328,24 +327,29 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                 onDismissed: (direction) {
                                   if (direction ==
                                       DismissDirection.endToStart) {
-                                    print('if');
+                                    setState((){
+                                      print('if');
                                     print('index : $index');
-                                    uploadfilestime.removeAt(index);
-                                    /* ScaffoldMessenger.of(context).showSnackBar(
+                                    // uploadfilestime.removeAt(index);
+                                    carttoplist.removeAt(index);
+                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(content: Text("$file deleted"), duration: Duration(seconds: 2)),
-                                    );*/
+                                    );
+                                    });    
+                                    
                                   } else if (direction ==
                                       DismissDirection.startToEnd) {
+                                        print('index : $index');
                                     print("DismissDirection.startToEnd");
-                                    if (index >= uploadfilestime.length) {
-                                      print("index >= uploadfilestime.length");
+                                    if (index >= carttoplist.length) {
+                                      print("index >= carttoplist.length");
                                       print(
-                                          'lenght : ${uploadfilestime.length}');
-                                      endtextbottomlist
-                                          .add(uploadfilestime.last);
+                                          'lenght : ${carttoplist.length}');
+                                      savedbottomlist
+                                          .add(carttoplist.last);
                                       print(
-                                          'lenght : ${endtextbottomlist.length}');
-                                      uploadfilestime.removeLast();
+                                          'lenght : ${savedbottomlist.length}');
+                                      carttoplist.removeLast();
                                       setState(() {});
                                       return;
                                     }
@@ -353,16 +357,16 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                     setState(() {
                                       // Swiped Left to Right (Move to another list)
                                       // if (endtextbottomlist.length > 0)
-                                      endtextbottomlist.insert(
-                                          0, uploadfilestime[index]);
+                                      savedbottomlist.insert(
+                                          0, carttoplist[index]);
                                       // else {
                                       //   endtextbottomlist
                                       //       .add(uploadfilestime[index]);
                                       // }
 
-                                      uploadfilestime.removeAt(index);
+                                      carttoplist.removeAt(index);
                                       print(
-                                          'lenght : ${endtextbottomlist.length}');
+                                          'lenght : ${savedbottomlist.length}');
                                     });
                                     // Mark item as "Saved" when swiped left to right
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -513,7 +517,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                 .circular(
                                                                     130.0),
                                                         child: Image.asset(
-                                                          'assets/Harmonebackground.png',
+                                                          carttoplist[index]['images'],
                                                           fit: BoxFit.fill,
                                                         ),
                                                       ),
@@ -560,8 +564,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                 0.00,
                                                           ),
                                                           child: Text(
-                                                            cartnametoplist[
-                                                                index],
+                                                            carttoplist[
+                                                                index]['cartname'],
                                                             style: TextStyle(
                                                               color: Colors
                                                                   .black87,
@@ -608,7 +612,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                 0.00,
                                                           ),
                                                           child: Text(
-                                                            "100 Tests Included",
+                                                            carttoplist[index]['teststotal'] + " tests included",
                                                             style: TextStyle(
                                                               color: Colors
                                                                   .black54,
@@ -720,8 +724,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                     0.00,
                                                               ),
                                                               child: Text(
-                                                                uploadfilestime[
-                                                                    index],
+                                                                carttoplist[index]['uploadfilestime'],
                                                                 style:
                                                                     TextStyle(
                                                                   fontSize: MediaQuery.of(
@@ -860,7 +863,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                 .height *
                                                             0.00),
                                                 child: Text(
-                                                  "Price (3 Package)",
+                                                  "Price ("+carttoplist.length.toString()+" Package)",
                                                   style: TextStyle(
                                                     color: Color(0x80000000),
                                                     fontWeight: FontWeight.w400,
@@ -897,7 +900,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                   .height *
                                                               0.00),
                                                   child: Text(
-                                                    'QR 1999',
+                                                    'QR '+cartPrice.toString(),
                                                     style: TextStyle(
                                                         // color: Colors.blue[600],
                                                         color:
@@ -998,7 +1001,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                   .height *
                                                               0.00),
                                                   child: Text(
-                                                    '- QR 99',
+                                                    '- QR '+(carttoplist.length<=0?0:disPrice).toString(),
                                                     style: TextStyle(
                                                         // color: Colors.blue[600],
                                                         color:
@@ -1099,7 +1102,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                   .height *
                                                               0.00),
                                                   child: Text(
-                                                    'QR 9',
+                                                    'QR '+(carttoplist.length<=0?0:platformPrice).toString(),
                                                     style: TextStyle(
                                                         // color: Colors.blue[600],
                                                         color:
@@ -1227,7 +1230,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                   .height *
                                                               0.00),
                                                   child: Text(
-                                                    'QR 1909',
+                                                    'QR '+(carttoplist.length<=0?0:(cartPrice-disPrice+platformPrice)).toString(),
                                                     style: TextStyle(
                                                         // color: Colors.blue[600],
                                                         color:
@@ -1363,9 +1366,9 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true, // Prevents infinite height
                                 physics: NeverScrollableScrollPhysics(),
-                                itemCount: endtextbottomlist.length,
+                                itemCount: savedbottomlist.length,
                                 itemBuilder: (context, index) {
-                                  final file = endtextbottomlist[index];
+                                  final file = savedbottomlist[index]['cartname'];
 
                                   return Dismissible(
                                       key:
@@ -1387,11 +1390,11 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                         // endtextbottomlist.removeAt(index);
 
                                         setState(() {
-                                          endtextbottomlist.removeAt(index);
+                                          savedbottomlist.removeAt(index);
                                         });
                                         // If the list is empty, show a message
-                                        if (endtextbottomlist.isEmpty) {
-                                          print('endtextbottomlist.isEmpty');
+                                        if (savedbottomlist.isEmpty) {
+                                          print('savedbottomlist.isEmpty');
 
                                           isSavedForLater = false;
                                         }
@@ -1549,7 +1552,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                           130.0),
                                                               child:
                                                                   Image.asset(
-                                                                'assets/Harmonebackground.png',
+                                                                savedbottomlist[index]['images'],
                                                                 fit:
                                                                     BoxFit.fill,
                                                               ),
@@ -1598,7 +1601,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                       0.00,
                                                                 ),
                                                                 child: Text(
-                                                                  "QCT Master Health Check Package",
+                                                                  savedbottomlist[index]['cartname'],
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -1647,7 +1650,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                       0.00,
                                                                 ),
                                                                 child: Text(
-                                                                  "100 Tests Included",
+                                                                  savedbottomlist[index]['teststotal'] + " Tests Included",
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -1755,8 +1758,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                           0.00,
                                                                     ),
                                                                     child: Text(
-                                                                      endtextbottomlist[
-                                                                          index],
+                                                                      savedbottomlist[
+                                                                          index]['uploadfilestime'],
                                                                       style:
                                                                           TextStyle(
                                                                         fontSize:
