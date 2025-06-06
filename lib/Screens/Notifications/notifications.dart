@@ -79,6 +79,7 @@ class NotificationMainstate extends State<NotificationMain> {
   AppointmentCancel appointmentcancelalert = new AppointmentCancel();
 
   //Asgar
+  bool isTodayCount = true;
   bool isYesterdayCount = true;
   bool isDay19Count = true;
 
@@ -2059,6 +2060,7 @@ class NotificationMainstate extends State<NotificationMain> {
 
 
                                   // Today, Jan 20
+                                  isTodayCount == false ?  Container() :
                                   Padding(
                                     padding: EdgeInsets.only(
                                         left: MediaQuery
@@ -2094,6 +2096,78 @@ class NotificationMainstate extends State<NotificationMain> {
                                       ),
                                     ),
                                   ),
+
+                                  isTodayCount == false ?  Container() :
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                      top: MediaQuery.of(context).size.height *
+                                          0.005, // Dynamic top padding
+                                      bottom: MediaQuery.of(context).size.height *
+                                          0.0, // Dynamic bottom padding
+                                      left: MediaQuery.of(context).size.height *
+                                          0.0, // Dynamic left padding
+                                      right: MediaQuery.of(context).size.height *
+                                          0.0, // Dynamic right padding
+                                    ),
+                                    child: ListView.builder(
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap:
+                                      true, // Prevents infinite height
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemCount: uploadfilestime0.length,
+                                      itemBuilder: (context, index) {
+
+
+                                        final file = uploadfilestime[index][0];
+
+                                        return
+
+                                            Dismissible(
+                                              key:  Key(file), // Unique key for each item
+                                              direction: DismissDirection.endToStart, // Allow swipe from right to left
+                                              background: Container(
+                                                color: Colors.white,
+                                                alignment: Alignment.centerRight,
+                                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                                child: Icon(
+                                                  Icons.delete,
+                                                  color: Colors.red,
+                                                ),
+                                              ),
+                                              onDismissed: (direction) {
+
+                                                print('index : $index');
+                                                // uploadfilestime.removeAt(index);
+                                                print('Count : ${uploadfilestime0.length}');
+                                                print('isTodayCount : $isTodayCount');
+                                                Future.delayed(Duration(milliseconds: 300), () {
+                                                  if (index < uploadfilestime0.length) {
+                                                    setState(() {
+                                                      uploadfilestime0.removeAt(index);
+                                                    });
+                                                  }
+
+                                                });
+
+
+                                                if (uploadfilestime0.length == 1) {
+                                                  isTodayCount = false;
+
+                                                  print('isTodayCount : $isTodayCount');
+                                                }
+                                                 /*setState(() {
+
+                                                });*/
+
+                                                // Show a snackbar for feedback
+                                               /*  ScaffoldMessenger.of(context).showSnackBar(
+                                                                SnackBar(
+                                                                  content: Text("$file deleted"),
+                                                                  duration: Duration(seconds: 2),
+                                                                ),
+                                                              );*/
+                                              },
+                                              child:
 
                                   GestureDetector(
                                     onTap: () {},
@@ -2438,6 +2512,10 @@ class NotificationMainstate extends State<NotificationMain> {
                                           ),
                                         ),
                                       ),
+                                    ),
+                                  ),
+                                      );
+                                      },
                                     ),
                                   ),
 
