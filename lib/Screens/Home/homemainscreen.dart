@@ -577,7 +577,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                   child : Column(
                     children: [
 
-                      Container(
+                  Container(
                     padding: EdgeInsets.only(
                         left: MediaQuery
                             .of(context)
@@ -1033,7 +1033,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                 right: MediaQuery
                                     .of(context)
                                     .size
-                                    .height * 0.0,
+                                    .height * 0.03,
                                 bottom: MediaQuery
                                     .of(context)
                                     .size
@@ -1088,7 +1088,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                 right: MediaQuery
                                     .of(context)
                                     .size
-                                    .height * 0.0,
+                                    .height * 0.02,
                                 bottom: MediaQuery
                                     .of(context)
                                     .size

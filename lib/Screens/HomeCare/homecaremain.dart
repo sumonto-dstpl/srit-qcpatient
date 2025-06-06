@@ -373,189 +373,189 @@ class HomeCareMainstate extends State<HomeCareMain> {
       Expanded(
 
         child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(screenHeight * 0.03),
-                topRight: Radius.circular(screenHeight * 0.03),
-                bottomLeft: Radius.circular(screenHeight * 0.0),
-                bottomRight: Radius.circular(screenHeight * 0.00),
-                // bottomCenter: 0,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(screenHeight * 0.03),
+                  topRight: Radius.circular(screenHeight * 0.03),
+                  bottomLeft: Radius.circular(screenHeight * 0.0),
+                  bottomRight: Radius.circular(screenHeight * 0.00),
+                  // bottomCenter: 0,
+                ),
               ),
-            ),
-            child : Column(
-              children: [
-
-            Container(
-            padding: EdgeInsets.only(
-            left: MediaQuery
-                .of(context)
-                .size
-                .height * 0.01,
-            right: MediaQuery
-                .of(context)
-                .size
-                .height * 0.01,
-            top: MediaQuery
-                .of(context)
-                .size
-                .height * 0.01,
-            bottom: MediaQuery
-                .of(context)
-                .size
-                .height * 0.01),
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(screenHeight * 0.03),
-              topRight: Radius.circular(screenHeight * 0.03),
-              bottomLeft: Radius.circular(screenHeight * 0.0),
-              bottomRight: Radius.circular(screenHeight * 0.00),
-              // bottomCenter: 0,
-            ),
-          ),
-          child:
-          Column(
+          child : Column(
             children: [
-// Search Input Field
 
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return QuickSearchWithoutData();
-                      },
-                    ),
-                  );
-                  print('Navigating to QuickSearchWithData!');
-                },
-                child: Container(
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height * 0.05,
-                  alignment: Alignment.centerRight,
-                  padding: EdgeInsets.only(
-                    top: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.0,
-                    bottom: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.0,
-                    left: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.00,
-                    right: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.00,
+              Container(
+                padding: EdgeInsets.only(
+                left: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.01,
+                right: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.01,
+                top: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.01,
+                bottom: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.01),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(screenHeight * 0.03),
+                    topRight: Radius.circular(screenHeight * 0.03),
+                    bottomLeft: Radius.circular(screenHeight * 0.0),
+                    bottomRight: Radius.circular(screenHeight * 0.00),
+                    // bottomCenter: 0,
                   ),
-                  margin: EdgeInsets.only(
-                    right: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.02,
-                    top: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.01,
-                    bottom: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.0,
-                    left: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.02,
-                  ),
-                  child: AbsorbPointer(
-                    // Prevents the field from gaining focus or triggering gestures
-                    child: TextFormField(
-                      readOnly: true,
-                      controller: SearchEditTextController,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(15),
-                        FilteringTextInputFormatter.allow(
-                            RegExp('[a-zA-Z0-9]')),
-                      ],
-                      textCapitalization: TextCapitalization.characters,
-                      style: TextStyle(color: Colors.black45),
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (input) => input!.length < 3
-                          ? "Search should be more than 3 characters"
-                          : null,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        contentPadding:
-                        EdgeInsets.only(
-                          top :  screenHeight * 0.012,
-                          right :  screenHeight * 0.012,
-                          bottom :  screenHeight * 0.012,
-                          left :  screenHeight * 0.02,
-                        ),
-                        filled: true,
-                        fillColor: Colors.grey[200],
-                        hintText: "Search for Lab tests",
-                        hintStyle: TextStyle(
-                            color: Color(0xFF999999),
-                            // overflow: TextOverflow.ellipsis,
-                            fontWeight: FontWeight.w400,
-                            fontSize:
-                            MediaQuery
-                                .of(context)
-                                .size
-                                .height *
-                                0.014
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(10.0)),
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            Icons.search,
-                            color: Colors.black45,
-                            size: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.02,
+                ),
+                child:
+                Column(
+                  children: [
+                  // Search Input Field
+
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return QuickSearchWithoutData();
+                            },
                           ),
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return QuickSearchWithData();
+                        );
+                        print('Navigating to QuickSearchWithData!');
+                      },
+                      child: Container(
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.05,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.only(
+                          top: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.0,
+                          bottom: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.0,
+                          left: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.00,
+                          right: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.00,
+                        ),
+                        margin: EdgeInsets.only(
+                          right: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.02,
+                          top: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.01,
+                          bottom: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.0,
+                          left: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.02,
+                        ),
+                        child: AbsorbPointer(
+                          // Prevents the field from gaining focus or triggering gestures
+                          child: TextFormField(
+                            readOnly: true,
+                            controller: SearchEditTextController,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(15),
+                              FilteringTextInputFormatter.allow(
+                                  RegExp('[a-zA-Z0-9]')),
+                            ],
+                            textCapitalization: TextCapitalization.characters,
+                            style: TextStyle(color: Colors.black45),
+                            keyboardType: TextInputType.emailAddress,
+                            validator: (input) => input!.length < 3
+                                ? "Search should be more than 3 characters"
+                                : null,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding:
+                              EdgeInsets.only(
+                                top :  screenHeight * 0.012,
+                                right :  screenHeight * 0.012,
+                                bottom :  screenHeight * 0.012,
+                                left :  screenHeight * 0.02,
+                              ),
+                              filled: true,
+                              fillColor: Colors.grey[200],
+                              hintText: "Search for Lab tests",
+                              hintStyle: TextStyle(
+                                  color: Color(0xFF999999),
+                                  // overflow: TextOverflow.ellipsis,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize:
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height *
+                                      0.014
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: BorderSide(color: Colors.grey),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(color: Colors.white),
+                              ),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  Icons.search,
+                                  color: Colors.black45,
+                                  size: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.02,
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return QuickSearchWithData();
+                                      },
+                                    ),
+                                  );
+                                  print('Search icon clicked!');
                                 },
                               ),
-                            );
-                            print('Search icon clicked!');
-                          },
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+
+                  ]
                 ),
               ),
-
-            ]
-          ),
-            ),
               // Main Content Section
               Expanded(
                 child: Container(
                   padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.00,
-                      right: MediaQuery.of(context).size.height * 0.00,
+                      left: MediaQuery.of(context).size.height * 0.02,
+                      right: MediaQuery.of(context).size.height * 0.02,
                       top: MediaQuery.of(context).size.height * 0.00,
                       bottom: MediaQuery.of(context).size.height * 0.00),
                   width: double.infinity,

@@ -1303,8 +1303,8 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                           physics:
                               NeverScrollableScrollPhysics(), // Disable scrolling inside GridView
                           padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.01,
-                            right: MediaQuery.of(context).size.height * 0.01,
+                            left: MediaQuery.of(context).size.height * 0.0,
+                            right: MediaQuery.of(context).size.height * 0.0,
                             top: MediaQuery.of(context).size.height * 0.005,
                             bottom: MediaQuery.of(context).size.height * 0.00,
                           ),
