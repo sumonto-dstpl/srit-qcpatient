@@ -1,6 +1,7 @@
 
 
 import 'dart:convert';
+import 'package:intl/intl.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:newfolder/Screens/Medications/bottomsheet_payment_for_medication.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
@@ -33,7 +34,11 @@ import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 
 
 class MedicationMyBookingsMain extends StatefulWidget {
+  final String selectedDate;
+  final String selectedTime;
   const MedicationMyBookingsMain({
+    required this.selectedDate,
+    required this.selectedTime,
     super.key,
   });
   @override
@@ -60,6 +65,18 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
   late ProgressDialog progressDialog;
   AppointmentSelectTimeResponse? responsedetails;
 
+  String getFormattedDateTime() {
+    try {
+      final combined = "${widget.selectedDate}, ${widget.selectedTime} PM"; // append if needed
+      print("DEBUG: Combined string -> $combined");
+
+      final parsed = DateFormat("dd-MM-yyyy, hh:mm a").parse(combined);
+      return DateFormat("MMMM dd yyyy, hh:mm a").format(parsed);
+    } catch (e) {
+      print("ERROR: Failed to parse date/time - $e");
+      return "Invalid date/time";
+    }
+  }
 
   @override
   void initState() {
@@ -207,7 +224,7 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -490,7 +507,7 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                                             padding: EdgeInsets.zero,  // Removed padding
                                             margin: EdgeInsets.zero,   // Removed margin
                                             child: Text(
-                                              "December 16 2024, 07:00 PM",
+                                              getFormattedDateTime(),
                                               style: TextStyle(
                                                 color: Colors.black87,
                                                 overflow: TextOverflow.ellipsis,

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Data/Models/appointmentselectime.dart';
@@ -30,8 +30,12 @@ import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 
 
 class HomeMyBookingsMain extends StatefulWidget {
+  final String selectedDate;
+  final String selectedTime;
   const HomeMyBookingsMain({
     super.key,
+    required this.selectedDate,
+    required this.selectedTime,
   });
   @override
   State<HomeMyBookingsMain> createState() => MyBookingsMainstate();
@@ -58,6 +62,18 @@ class MyBookingsMainstate extends State<HomeMyBookingsMain> {
   late ProgressDialog progressDialog;
   AppointmentSelectTimeResponse? responsedetails;
 
+  String getFormattedDateTime() {
+    try {
+      final combined = "${widget.selectedDate}, ${widget.selectedTime} PM"; // append if needed
+      print("DEBUG: Combined string -> $combined");
+
+      final parsed = DateFormat("dd-MM-yyyy, hh:mm a").parse(combined);
+      return DateFormat("MMMM dd yyyy, hh:mm a").format(parsed);
+    } catch (e) {
+      print("ERROR: Failed to parse date/time - $e");
+      return "Invalid date/time";
+    }
+  }
 
   @override
   void initState() {
@@ -479,7 +495,7 @@ class MyBookingsMainstate extends State<HomeMyBookingsMain> {
                                             padding: EdgeInsets.zero,  // Removed padding
                                             margin: EdgeInsets.zero,   // Removed margin
                                             child: Text(
-                                              "December 16 2024, 07:00 PM",
+                                              getFormattedDateTime(),
                                               style: TextStyle(
                                                 color: Colors.black87,
                                                 overflow: TextOverflow.ellipsis,

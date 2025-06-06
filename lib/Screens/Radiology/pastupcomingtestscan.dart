@@ -25,6 +25,7 @@ import 'package:newfolder/Screens/Login/loginhome.dart';
 import 'package:newfolder/Screens/Medications/medicationselecttime.dart';
 import 'package:newfolder/Screens/Medications/medicationsmybook.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
+import 'package:newfolder/Screens/Radiology/radiologymain.dart';
 import 'package:newfolder/Screens/Radiology/testscandetails.dart';
 import 'package:newfolder/Screens/Registeration/registeration.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
@@ -117,15 +118,18 @@ class PastUpcomingscanMainstate extends State<PastUpcomingscanMain> {
         body: Container(
           width: double.infinity,
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              colors: [
-                Color(0xFF126086),
-                Color(0xFF126086),
-                Color(0xFF126086),
-              ],
-            ),
-          ),
+            // gradient: LinearGradient(
+            //   begin: Alignment.topCenter,
+            //   colors: [
+            //     Color(0xFF126086),
+            //     Color(0xFF126086),
+            //     Color(0xFF126086),
+            //   ],
+            // ),
+        image: DecorationImage(
+            image: AssetImage("assets/Background Pattern.png"),
+            fit: BoxFit.cover,
+          ),),
           child: Stack(
             children: [
               Column(
@@ -931,6 +935,14 @@ class PastUpcomingscanMainstate extends State<PastUpcomingscanMain> {
                                       GestureDetector(
                                         onTap: () async {
                                           // Add your onTap functionality here
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (BuildContext context) {
+                                                return RadiologyMain();
+                                              },
+                                            ),
+                                          );
                                         },
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center, // Centers the button
@@ -1094,6 +1106,14 @@ class PastUpcomingscanMainstate extends State<PastUpcomingscanMain> {
                                       GestureDetector(
                                         onTap: () async {
                                           // Add your onTap functionality here
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (BuildContext context) {
+                                                return RadiologyMain();
+                                              },
+                                            ),
+                                          );
                                         },
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center, // Centers the button

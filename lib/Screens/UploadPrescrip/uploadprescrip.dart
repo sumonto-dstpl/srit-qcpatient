@@ -155,7 +155,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                               style: TextStyle(
                                 fontSize:
                                 MediaQuery.of(context).size.height *
-                                    0.018,
+                                    0.02,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -393,7 +393,10 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                       Container(
                         width: double.infinity,
                         padding: EdgeInsets.only(
-                          top: 0,
+                          top: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.015,
                           bottom: MediaQuery
                               .of(context)
                               .size
@@ -401,11 +404,11 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                           right: MediaQuery
                               .of(context)
                               .size
-                              .height * 0.010,
+                              .height * 0.020,
                           left: MediaQuery
                               .of(context)
                               .size
-                              .height * 0.01,
+                              .height * 0.020,
                         ),
                         // height: MediaQuery.of(context).size.height * 0.150,
                         child: DottedBorder(
@@ -445,23 +448,23 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                             .of(context)
                                             .size
                                             .height *
-                                            0.01,
+                                            0.015,
                                         bottom:
                                         MediaQuery
                                             .of(context)
                                             .size
                                             .height *
-                                            0.006),
+                                            0.015),
                                     child: Text(
                                       "What is a valid Prescription?",
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w600,
                                           color: Color(0xFF1F1F1F),
                                           fontSize: MediaQuery
                                               .of(context)
                                               .size
                                               .height *
-                                              0.014),
+                                              0.015),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -688,7 +691,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                             "Dr. Nutan Bhatt",
                                                             style: TextStyle(
                                                                 fontWeight: FontWeight
-                                                                    .bold,
+                                                                    .w800,
                                                                 color: Color(
                                                                     0xFF1F1F1F),
                                                                 fontSize: MediaQuery
