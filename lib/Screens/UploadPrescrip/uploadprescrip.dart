@@ -401,11 +401,11 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                           right: MediaQuery
                               .of(context)
                               .size
-                              .height * 0.010,
+                              .height * 0.02,
                           left: MediaQuery
                               .of(context)
                               .size
-                              .height * 0.01,
+                              .height * 0.02,
                         ),
                         // height: MediaQuery.of(context).size.height * 0.150,
                         child: DottedBorder(
@@ -418,8 +418,24 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                             child: Container(
                               width: double.infinity,
                               color: Color(0x33D9D9D9),
-                              padding: EdgeInsets.all(
-                                  0.0), // Optional padding for inner content
+                              padding: EdgeInsets.only(
+                                  left: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.02,
+                                  right: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.02,
+                                  top: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.0,
+                                  bottom: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.04,
+                              ), // Optional padding for inner content
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment
                                     .center, // Aligns content vertically
@@ -445,13 +461,13 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                             .of(context)
                                             .size
                                             .height *
-                                            0.01,
+                                            0.015,
                                         bottom:
                                         MediaQuery
                                             .of(context)
                                             .size
                                             .height *
-                                            0.006),
+                                            0.015),
                                     child: Text(
                                       "What is a valid Prescription?",
                                       style: TextStyle(
@@ -491,48 +507,48 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                             .of(context)
                                             .size
                                             .height *
-                                            0.01,
+                                            0.02,
                                         right:
                                         MediaQuery
                                             .of(context)
                                             .size
                                             .height *
-                                            0.01,
+                                            0.02,
                                         top:
                                         MediaQuery
                                             .of(context)
                                             .size
                                             .height *
-                                            0.01,
+                                            0.02,
                                         bottom:
                                         MediaQuery
                                             .of(context)
                                             .size
                                             .height *
-                                            0.01),
+                                            0.02),
                                     margin: EdgeInsets.only(
                                       left: MediaQuery
                                           .of(context)
                                           .size
                                           .height *
-                                          0.01,
+                                          0.0,
                                       top: MediaQuery
                                           .of(context)
                                           .size
                                           .height *
-                                          0.005,
+                                          0.00,
                                       bottom:
                                       MediaQuery
                                           .of(context)
                                           .size
                                           .height *
-                                          0.005,
+                                          0.00,
                                       right:
                                       MediaQuery
                                           .of(context)
                                           .size
                                           .height *
-                                          0.01,
+                                          0.0,
                                     ),
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment
@@ -554,11 +570,11 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                             bottom: MediaQuery
                                                 .of(context)
                                                 .size
-                                                .height * 0.00,
+                                                .height * 0.0,
                                             right: MediaQuery
                                                 .of(context)
                                                 .size
-                                                .height * 0.01,
+                                                .height * 0.0,
                                           ),
                                           child: Text(
                                             "SAMPLE PRESCRIPTION",
@@ -575,7 +591,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                         ),
 
                                         // 1st Row
-                                        Row(
+                                        Row(                                          
                                           mainAxisAlignment:
                                           MainAxisAlignment.center,
                                           crossAxisAlignment:
@@ -584,10 +600,11 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                             // Column with 3 texts and a border
 
                                             Container(
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.170,
+                                              // width: MediaQuery
+                                              //     .of(context)
+                                              //     .size
+                                              //     .height * 0.170,
+                                              // color: Colors.blue,
                                               padding: EdgeInsets.only(
                                                 left: MediaQuery
                                                     .of(context)
@@ -603,12 +620,12 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                     .of(context)
                                                     .size
                                                     .height *
-                                                    0.01,
+                                                    0.0,
                                                 bottom: MediaQuery
                                                     .of(context)
                                                     .size
                                                     .height *
-                                                    0.01,
+                                                    0.0,
                                               ),
                                               margin: EdgeInsets.only(
                                                 left: MediaQuery
@@ -620,7 +637,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                     .of(context)
                                                     .size
                                                     .height *
-                                                    0.00,
+                                                    0.02,
                                                 bottom: MediaQuery
                                                     .of(context)
                                                     .size
@@ -651,7 +668,30 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                       10),
                                                   // Corner radius
                                                   child: Container(
+                                                    padding: EdgeInsets.only(
+                                                      left: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                      right: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                      top: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                      bottom: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                    ),
                                                     child: Column(
+                                                      
                                                       mainAxisAlignment:
                                                       MainAxisAlignment.start,
                                                       crossAxisAlignment:
@@ -665,7 +705,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                                   .of(context)
                                                                   .size
                                                                   .height *
-                                                                  0.002,
+                                                                  0.00,
                                                               right:
                                                               MediaQuery
                                                                   .of(context)
@@ -677,7 +717,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                                   .of(context)
                                                                   .size
                                                                   .height *
-                                                                  0.01,
+                                                                  0.0,
                                                               bottom:
                                                               MediaQuery
                                                                   .of(context)
@@ -707,7 +747,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                                   .of(context)
                                                                   .size
                                                                   .height *
-                                                                  0.002,
+                                                                  0.00,
                                                               right:
                                                               MediaQuery
                                                                   .of(context)
@@ -751,7 +791,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                                   .of(context)
                                                                   .size
                                                                   .height *
-                                                                  0.002,
+                                                                  0.00,
                                                               right:
                                                               MediaQuery
                                                                   .of(context)
@@ -795,7 +835,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                                   .of(context)
                                                                   .size
                                                                   .height *
-                                                                  0.002,
+                                                                  0.00,
                                                               right:
                                                               MediaQuery
                                                                   .of(context)
@@ -813,7 +853,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                                   .of(context)
                                                                   .size
                                                                   .height *
-                                                                  0.01),
+                                                                  0.0),
                                                           child: Text(
                                                             "Reg.no : 13432442",
                                                             style: TextStyle(
@@ -840,7 +880,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                             // Divider
 
                                             Expanded(
-                                              flex: 2,
+                                              // flex: 2,
                                               child: Row(
                                                 children: List.generate(
                                                     200 ~/ 10, (index) =>
@@ -858,30 +898,14 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
 
                                             // Row containing 2 texts
                                             Container(
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.170,
+                                              // color: Colors.blue,
+                                              // width: MediaQuery
+                                              //     .of(context)
+                                              //     .size
+                                              //     .height * 0.170,
                                               // Adjust size as needed
                                               // height: MediaQuery.of(context).size.height * 0.038,
-                                              margin: EdgeInsets.only(
-                                                left: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.0,
-                                                top: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.0,
-                                                bottom: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.0,
-                                                right: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.0,
-                                              ),
+                                            
                                               child: Row(
                                                 mainAxisAlignment:
                                                 MainAxisAlignment.start,
@@ -994,11 +1018,11 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                 top: MediaQuery
                                                     .of(context)
                                                     .size
-                                                    .height * 0.01,
+                                                    .height * 0.0,
                                                 bottom: MediaQuery
                                                     .of(context)
                                                     .size
-                                                    .height * 0.01,
+                                                    .height * 0.0,
                                                 right: MediaQuery
                                                     .of(context)
                                                     .size
@@ -1012,7 +1036,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                 top: MediaQuery
                                                     .of(context)
                                                     .size
-                                                    .height * 0.0,
+                                                    .height * 0.02,
                                                 bottom: MediaQuery
                                                     .of(context)
                                                     .size
@@ -1029,6 +1053,28 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                 borderType: BorderType.RRect,
                                                 radius: Radius.circular(5),
                                                 child: Container(
+                                                   padding: EdgeInsets.only(
+                                                      left: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                      right: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                      top: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                      bottom: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                    ),
                                                   child: Column(
                                                     mainAxisAlignment: MainAxisAlignment
                                                         .start,
@@ -1041,19 +1087,19 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                           left: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.005,
+                                                              .height * 0.00,
                                                           top: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.005,
+                                                              .height * 0.00,
                                                           right: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.005,
+                                                              .height * 0.00,
                                                           bottom: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.005,
+                                                              .height * 0.00,
                                                         ),
                                                         child: Image.asset(
                                                           'assets/medicationdate.png',
@@ -1081,7 +1127,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                             // Divider
 
                                             Expanded(
-                                              flex: 3,
+                                              // flex: 3,
                                               child: Row(
                                                 children: List.generate(
                                                     200 ~/ 8, (index) =>
@@ -1099,10 +1145,10 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
 
                                             // Row containing 2 texts
                                             Container(
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.170,
+                                              // width: MediaQuery
+                                              //     .of(context)
+                                              //     .size
+                                              //     .height * 0.170,
                                               // Adjust size as needed
                                               // height: MediaQuery.of(context).size.height * 0.038,
                                               margin: EdgeInsets.only(
@@ -1130,88 +1176,93 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                                 children: [
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                      left: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.01,
-                                                      right: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.01,
-                                                      top: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.01,
-                                                      bottom: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.01,
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0xFF126086)
-                                                          .withOpacity(0.2),
-                                                      // Background color
-                                                      shape: BoxShape
-                                                          .circle, // Makes the container circular
-                                                    ),
-                                                    child: Text(
-                                                      "2",
-                                                      style: TextStyle(
-                                                        fontWeight: FontWeight
-                                                            .bold,
-                                                        color: Color(
-                                                            0xFF126086),
-                                                        fontSize: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height * 0.016,
-                                                      ),
-                                                    ),
-                                                  )
-                                                  ,
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        left:
-                                                        MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.005,
-                                                        right:
-                                                        MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.00,
-                                                        top:
-                                                        MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.01,
-                                                        bottom:
-                                                        MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.00),
-                                                    child: Text(
-                                                      "Date of Prescription",
-                                                      style: TextStyle(
-                                                          fontWeight: FontWeight
-                                                              .w500,
-                                                          color: Color(
-                                                              0xFF126086),
-                                                          fontSize: MediaQuery
+                                                  Wrap(
+                                                    children: <Widget>[
+                                                      Container(
+                                                        padding: EdgeInsets.only(
+                                                          left: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height *
-                                                              0.01),
-                                                      // overflow: TextOverflow.ellipsis,
-                                                    ),
+                                                              .height * 0.01,
+                                                          right: MediaQuery
+                                                              .of(context)
+                                                              .size
+                                                              .height * 0.01,
+                                                          top: MediaQuery
+                                                              .of(context)
+                                                              .size
+                                                              .height * 0.01,
+                                                          bottom: MediaQuery
+                                                              .of(context)
+                                                              .size
+                                                              .height * 0.01,
+                                                        ),
+                                                        decoration: BoxDecoration(
+                                                          color: Color(0xFF126086)
+                                                              .withOpacity(0.2),
+                                                          // Background color
+                                                          shape: BoxShape
+                                                              .circle, // Makes the container circular
+                                                        ),
+                                                        child: Text(
+                                                          "2",
+                                                          style: TextStyle(
+                                                            fontWeight: FontWeight
+                                                                .bold,
+                                                            color: Color(
+                                                                0xFF126086),
+                                                            fontSize: MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .height * 0.016,
+                                                          ),
+                                                        ),
+                                                      )
+                                                      ,
+                                                      Container(
+                                                        padding: EdgeInsets.only(
+                                                            left:
+                                                            MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .height *
+                                                                0.005,
+                                                            right:
+                                                            MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .height *
+                                                                0.00,
+                                                            top:
+                                                            MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .height *
+                                                                0.01,
+                                                            bottom:
+                                                            MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .height *
+                                                                0.00),
+                                                        child: Text(
+                                                          "Date of Prescriptions",
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight
+                                                                  .w500,
+                                                              color: Color(
+                                                                  0xFF126086),
+                                                              fontSize: MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height *
+                                                                  0.01),
+                                                          // overflow: TextOverflow.ellipsis,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
+                                                  
                                                 ],
                                               ),
                                             ),
@@ -1237,11 +1288,11 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                 top: MediaQuery
                                                     .of(context)
                                                     .size
-                                                    .height * 0.01,
+                                                    .height * 0.0,
                                                 bottom: MediaQuery
                                                     .of(context)
                                                     .size
-                                                    .height * 0.01,
+                                                    .height * 0.0,
                                                 right: MediaQuery
                                                     .of(context)
                                                     .size
@@ -1255,7 +1306,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                 top: MediaQuery
                                                     .of(context)
                                                     .size
-                                                    .height * 0.0,
+                                                    .height * 0.02,
                                                 bottom: MediaQuery
                                                     .of(context)
                                                     .size
@@ -1272,6 +1323,28 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                 borderType: BorderType.RRect,
                                                 radius: Radius.circular(5),
                                                 child: Container(
+                                                  padding: EdgeInsets.only(
+                                                      left: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                      right: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                      top: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                      bottom: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                    ),
                                                   child: Column(
                                                     mainAxisAlignment: MainAxisAlignment
                                                         .start,
@@ -1284,19 +1357,19 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                           left: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.005,
+                                                              .height * 0.00,
                                                           top: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.005,
+                                                              .height * 0.00,
                                                           right: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.005,
+                                                              .height * 0.00,
                                                           bottom: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.005,
+                                                              .height * 0.00,
                                                         ),
                                                         child: Image.asset(
                                                           'assets/medicationpatientdetails.png',
@@ -1324,7 +1397,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                             // Divider
 
                                             Expanded(
-                                              flex: 3,
+                                              // flex: 3,
                                               child: Row(
                                                 children: List.generate(
                                                     200 ~/ 10, (index) =>
@@ -1342,10 +1415,10 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
 
                                             // Row containing 2 texts
                                             Container(
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.170,
+                                              // width: MediaQuery
+                                              //     .of(context)
+                                              //     .size
+                                              //     .height * 0.170,
                                               // Adjust size as needed
                                               // height: MediaQuery.of(context).size.height * 0.038,
                                               margin: EdgeInsets.only(
@@ -1480,11 +1553,11 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                 top: MediaQuery
                                                     .of(context)
                                                     .size
-                                                    .height * 0.01,
+                                                    .height * 0.0,
                                                 bottom: MediaQuery
                                                     .of(context)
                                                     .size
-                                                    .height * 0.01,
+                                                    .height * 0.0,
                                                 right: MediaQuery
                                                     .of(context)
                                                     .size
@@ -1498,11 +1571,11 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                 top: MediaQuery
                                                     .of(context)
                                                     .size
-                                                    .height * 0.0,
+                                                    .height * 0.02,
                                                 bottom: MediaQuery
                                                     .of(context)
                                                     .size
-                                                    .height * 0.01,
+                                                    .height * 0.0,
                                                 right: MediaQuery
                                                     .of(context)
                                                     .size
@@ -1515,6 +1588,28 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                 borderType: BorderType.RRect,
                                                 radius: Radius.circular(5),
                                                 child: Container(
+                                                  padding: EdgeInsets.only(
+                                                      left: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                      right: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                      top: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                      bottom: MediaQuery
+                                                          .of(context)
+                                                          .size
+                                                          .height *
+                                                          0.01,
+                                                    ),
                                                   child: Column(
                                                     mainAxisAlignment: MainAxisAlignment
                                                         .start,
@@ -1547,12 +1642,12 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                           width: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.210,
+                                                              .height * 0.150,
                                                           // Adjust size as needed
                                                           height: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.042,
+                                                              .height * 0.035,
                                                           fit: BoxFit
                                                               .fill, // Adjust the fit based on your design
                                                         ),
@@ -1567,7 +1662,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                             // Divider
 
                                             Expanded(
-                                              flex: 3,
+                                              // flex: 3,
                                               child: Row(
                                                 children: List.generate(
                                                     200 ~/ 17, (index) =>
@@ -1585,10 +1680,10 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
 
                                             // Row containing 2 texts
                                             Container(
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.165,
+                                              // width: MediaQuery
+                                              //     .of(context)
+                                              //     .size
+                                              //     .height * 0.165,
                                               // Adjust size as needed
                                               // height: MediaQuery.of(context).size.height * 0.038,
                                               margin: EdgeInsets.only(
