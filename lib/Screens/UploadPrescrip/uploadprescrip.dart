@@ -378,7 +378,8 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                       bottom: MediaQuery
                           .of(context)
                           .size
-                          .height * 0.00),
+                          .height * 0.0),
+                 
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -1830,7 +1831,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                           bottom: MediaQuery
                               .of(context)
                               .size
-                              .height * 0.00,
+                              .height * 0.04,
                           top: MediaQuery
                               .of(context)
                               .size
