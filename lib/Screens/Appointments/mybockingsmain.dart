@@ -1377,6 +1377,7 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
 
       bottomNavigationBar:Container(
         // height: MediaQuery.of(context).size.height * 0.150,
+        color: Colors.white,
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,

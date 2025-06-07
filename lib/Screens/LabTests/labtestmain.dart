@@ -867,7 +867,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                         margin:EdgeInsets.only(
                                             left: MediaQuery.of(context).size.height * 0.00,
                                             right: MediaQuery.of(context).size.height * 0.00,
-                                            bottom: MediaQuery.of(context).size.height * 0.00,
+                                            bottom: MediaQuery.of(context).size.height * 0.015,
                                             top: MediaQuery.of(context).size.height * 0.00),
                                         padding: EdgeInsets.only(
                                             left: MediaQuery.of(context).size.height * 0.005,
