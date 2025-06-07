@@ -465,14 +465,14 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                             .size
                                             .height *
                                             0.015,
-                                            0.015,
+                                            // 0.015,
                                         bottom:
                                         MediaQuery
                                             .of(context)
                                             .size
                                             .height *
                                             0.015),
-                                            0.015),
+                                            // 0.015),
                                     child: Text(
                                       "What is a valid Prescription?",
                                       style: TextStyle(
