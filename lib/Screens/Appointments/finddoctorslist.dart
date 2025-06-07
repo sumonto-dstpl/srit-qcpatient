@@ -136,6 +136,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
   @override
   Widget build(BuildContext context) {
+    // print(responselist);
 
     progressDialog = ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: true, showLogs: false);
@@ -753,8 +754,8 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                       ),
                                                       child: Image.asset(
                                                         'assets/scansearch.png', // Replace with your actual asset path
-                                                        height: 20, // Height of the asset icon
-                                                        width: 20,  // Width of the asset icon
+                                                        height: 17, // Height of the asset icon
+                                                        width: 17,  // Width of the asset icon
                                                       ),
                                                     ),
                                                   ),
@@ -1060,6 +1061,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                     child: Row(
                                                       crossAxisAlignment: CrossAxisAlignment.center,
                                                       mainAxisAlignment: MainAxisAlignment.start,
+
                                                       children: <Widget>[
                                                         SizedBox(
                                                             width: MediaQuery.of(

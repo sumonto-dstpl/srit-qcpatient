@@ -1850,7 +1850,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                               Text(
                                                                                 "Today, December 17",
                                                                                 style: TextStyle(
-                                                                                  // color: Colors.blue[600],
+                                                                                    // color: Colors.blue[600],
                                                                                     color: Colors
                                                                                         .white,
                                                                                     fontWeight: FontWeight
@@ -3878,7 +3878,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
               ),
 
                 Positioned(
-                  bottom: 30.0, // Position it at the bottom of the screen
+                  bottom: 16.0, // Position it at the bottom of the screen
                   right: 15.0, // Position it towards the right
                   child:
                   !_isLoading ?

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:newfolder/Screens/Alerts/loginbottomsheet.dart';
 import 'package:newfolder/Screens/Insurance/filter.dart';
@@ -449,7 +450,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                 MediaQuery
                                     .of(context)
                                     .size
-                                    .height * 0.00,
+                                    .height * 0.02,
                                 top: MediaQuery
                                     .of(context)
                                     .size
@@ -483,16 +484,16 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                       .of(context)
                                       .size
                                       .height *
-                                      0.014),
+                                      0.016),
                               unselectedLabelColor: Colors.black,
                               unselectedLabelStyle:
                               TextStyle(
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w600,
                                   fontSize: MediaQuery
                                       .of(context)
                                       .size
                                       .height *
-                                      0.014
+                                      0.015
                               ),
                               tabs: [
                                 Tab(
@@ -516,7 +517,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                     ],
                                   ),
                                 ),
-                                
+
                               ],
                             ),
                           ),
@@ -537,13 +538,13 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                 child:
                           Container(
                             margin: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.height * 0.00,
+                                left: MediaQuery.of(context).size.height * 0.0015,
                                 right: MediaQuery.of(context).size.height * 0.025,
                                 bottom: MediaQuery.of(context).size.height * 0.00,
-                                top: MediaQuery.of(context).size.height * 0.03
+                                top: MediaQuery.of(context).size.height * 0.01
                             ),
-                            width: screenHeight * 0.02, // Adjust image width
-                            height: screenHeight * 0.02, // Adjust image height
+                            width: screenHeight * 0.022, // Adjust image width
+                            height: screenHeight * 0.022, // Adjust image height
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage(
@@ -631,442 +632,137 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                   direction: DismissDirection.endToStart, // Swipe right to left
                                                   confirmDismiss: (direction) async {
                                                   // Show confirmation dialog
-                                                  return await showDialog(
-                                                    // barrierColor: Colors.white30,
-                                                      barrierDismissible: false,
+                                                    return await showGeneralDialog(
                                                       context: context,
-                                                      builder: (BuildContext context) {
-                                                        String contentText = "Content of Dialog";
-                                                        return StatefulBuilder(builder: (context, setState) {
-                                                          return
-                                                           Dialog(
-                                                                backgroundColor: Colors.transparent,
-                                                                // backgroundColor : Colors.black12,
-                                                                insetPadding: EdgeInsets.all(
-                                                                    MediaQuery.of(context).size.height * 0.010),
-                                                                child:
+                                                      barrierDismissible: true,
+                                                      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                                                      barrierColor: Colors.black.withOpacity(0.1),
+                                                      pageBuilder: (BuildContext buildContext, Animation animation, Animation secondaryAnimation) {
+                                                        return BackdropFilter(
+                                                          filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+                                                          child: Center(
+                                                            child: LayoutBuilder(
+                                                              builder: (context, constraints) {
+                                                                final bool isSmallScreen = constraints.maxHeight < 600;
+                                                                final double dialogWidth = constraints.maxWidth * 0.9;
+                                                                final double dialogHeight = constraints.maxHeight * (isSmallScreen ? 0.32 : 0.3);
 
-
-                                                                Container(
-                                                                  child: Stack(children: <Widget>[
-                                                                    Container(
-                                                                      height: MediaQuery.of(context).size.height * 0.400,
-                                                                      margin: EdgeInsets.all(
-                                                                          MediaQuery.of(context).size.height * 0.00),
-                                                                      padding: EdgeInsets.only(
-                                                                          top: MediaQuery.of(context).size.height * 0.060,
-                                                                          left: MediaQuery.of(context).size.height * 0.01,
-                                                                          right: MediaQuery.of(context).size.height * 0.01,
-                                                                          bottom: MediaQuery.of(context).size.height * 0.0),
-                                                                      child: Material(
-                                                                        shape: RoundedRectangleBorder(
-                                                                            borderRadius: BorderRadius.circular(10.0)),
-                                                                        elevation: 5.0,
+                                                                return Dialog(
+                                                                  backgroundColor: Colors.transparent,
+                                                                  insetPadding: EdgeInsets.zero,
+                                                                  child: ClipRRect(
+                                                                    borderRadius: BorderRadius.circular(20),
+                                                                    child: Container(
+                                                                      width: dialogWidth,
+                                                                      height: dialogHeight,
+                                                                      decoration: BoxDecoration(
                                                                         color: Colors.white,
-                                                                        child: Column(
-                                                                          // mainAxisSize: MainAxisSize.min,
-                                                                          children: <Widget>[
-                                                                            Expanded(
-                                                                              child:
-
-
-
-                                                                              ListView(
-                                                                                  shrinkWrap: true,
-                                                                                  children: <Widget>[
-                                                                                    Container(
-                                                                                      decoration: BoxDecoration(
-                                                                                        borderRadius:
-                                                                                        BorderRadius.circular(10),
-                                                                                      ),
-                                                                                      padding: EdgeInsets.only(
-                                                                                          left: MediaQuery.of(context)
-                                                                                              .size
-                                                                                              .height *
-                                                                                              0.00,
-                                                                                          right: MediaQuery.of(context)
-                                                                                              .size
-                                                                                              .height *
-                                                                                              0.00,
-                                                                                          bottom: MediaQuery.of(context)
-                                                                                              .size
-                                                                                              .height *
-                                                                                              0.00,
-                                                                                          top: MediaQuery.of(context)
-                                                                                              .size
-                                                                                              .height *
-                                                                                              0.00),
-                                                                                      // color: Colors.white,
-                                                                                      child: Card(
-                                                                                        elevation: 0.0,
-                                                                                        color: Colors.white,
-                                                                                        // color: Colors.blueGrey[50],
-                                                                                        // color:    [Colors.green[400], Colors.green[300]],
-                                                                                        child: Container(
-                                                                                          // color: Colors.white,
-
-                                                                                          decoration: BoxDecoration(
-                                                                                              borderRadius:
-                                                                                              BorderRadius.circular(10),
-                                                                                              gradient: LinearGradient(
-                                                                                                  begin:
-                                                                                                  Alignment.centerLeft,
-                                                                                                  end:
-                                                                                                  Alignment.centerRight,
-                                                                                                  stops: [
-                                                                                                    0.5,
-                                                                                                    0.9
-                                                                                                  ],
-                                                                                                  colors: [
-                                                                                                    Colors.white,
-                                                                                                    Colors.white
-                                                                                                  ])),
-                                                                                          margin: EdgeInsets.only(
-                                                                                              left: MediaQuery.of(context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.006,
-                                                                                              right: MediaQuery.of(context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.006,
-                                                                                              bottom: MediaQuery.of(context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.003,
-                                                                                              top: MediaQuery.of(context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.003),
-                                                                                          padding: EdgeInsets.only(
-                                                                                              left: MediaQuery.of(context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.005,
-                                                                                              right: MediaQuery.of(context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.005,
-                                                                                              bottom: MediaQuery.of(context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.005,
-                                                                                              top: MediaQuery.of(context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.005),
-                                                                                          child: Column(
-                                                                                              crossAxisAlignment:
-                                                                                              CrossAxisAlignment.start,
-                                                                                              children: <Widget>[
-                                                                                                Container(
-                                                                                                  padding: EdgeInsets.only(
-                                                                                                      left: MediaQuery.of(
-                                                                                                          context)
-                                                                                                          .size
-                                                                                                          .height *
-                                                                                                          0.010,
-                                                                                                      right: MediaQuery.of(
-                                                                                                          context)
-                                                                                                          .size
-                                                                                                          .height *
-                                                                                                          0.010,
-                                                                                                      top: MediaQuery.of(
-                                                                                                          context)
-                                                                                                          .size
-                                                                                                          .height *
-                                                                                                          0.030,
-                                                                                                      bottom: MediaQuery.of(
-                                                                                                          context)
-                                                                                                          .size
-                                                                                                          .height *
-                                                                                                          0.00),
-                                                                                                  child: Row(
-                                                                                                    crossAxisAlignment:
-                                                                                                    CrossAxisAlignment
-                                                                                                        .center,
-                                                                                                    mainAxisAlignment:
-                                                                                                    MainAxisAlignment
-                                                                                                        .start,
-                                                                                                    children: <Widget>[
-                                                                                                      Expanded(
-                                                                                                        child: Column(
-                                                                                                          crossAxisAlignment:
-                                                                                                          CrossAxisAlignment
-                                                                                                              .center,
-                                                                                                          mainAxisAlignment:
-                                                                                                          MainAxisAlignment
-                                                                                                              .center,
-                                                                                                          children: <Widget>[
-                                                                                                            Image.asset(
-                                                                                                              'assets/insurancealert.png',
-                                                                                                              height: MediaQuery.of(
-                                                                                                                  context)
-                                                                                                                  .size
-                                                                                                                  .height *
-                                                                                                                  0.07,
-                                                                                                              fit: BoxFit
-                                                                                                                  .fill,
-                                                                                                            ),
-
-                                                                                                            Container(
-                                                                                                              padding:
-                                                                                                              EdgeInsets
-                                                                                                                  .only(
-                                                                                                                top: MediaQuery.of(context)
-                                                                                                                    .size
-                                                                                                                    .height *
-                                                                                                                    0.01,
-                                                                                                                bottom: MediaQuery.of(context)
-                                                                                                                    .size
-                                                                                                                    .height *
-                                                                                                                    0.03,
-                                                                                                                left: MediaQuery.of(context)
-                                                                                                                    .size
-                                                                                                                    .height *
-                                                                                                                    0.05,
-                                                                                                                right: MediaQuery.of(context)
-                                                                                                                    .size
-                                                                                                                    .height *
-                                                                                                                    0.05,
-                                                                                                              ),
-                                                                                                              child: Text(
-                                                                                                                "Are you sure to Remove the Selected Insurance ?",
-                                                                                                                textAlign:
-                                                                                                                TextAlign
-                                                                                                                    .center,
-                                                                                                                style: TextStyle(
-                                                                                                                    color: Colors.black54,
-                                                                                                                    /* fontWeight:
-                                                                            FontWeight
-                                                                                .bold,*/
-                                                                                                                    fontSize: MediaQuery.of(context).size.height * 0.016),
-                                                                                                              ),
-                                                                                                            ),
-
-                                                                                                          ],
-                                                                                                        ),
-                                                                                                      ),
-
-                                                                                                      // SizedBox(width: MediaQuery.of(context).size.height * 0.040),
-                                                                                                    ],
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ]),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                    Container(
-                                                                                      decoration: BoxDecoration(
-                                                                                        // color:Colors.white,
-                                                                                        borderRadius:
-                                                                                        BorderRadius.circular(15),
-                                                                                      ),
-                                                                                      // color:Colors.green[100],
-                                                                                      padding: EdgeInsets.only(
-                                                                                          left: MediaQuery.of(context)
-                                                                                              .size
-                                                                                              .height *
-                                                                                              0.0,
-                                                                                          right: MediaQuery.of(context)
-                                                                                              .size
-                                                                                              .height *
-                                                                                              0.0,
-                                                                                          top: MediaQuery.of(context)
-                                                                                              .size
-                                                                                              .height *
-                                                                                              0.00,
-                                                                                          bottom: MediaQuery.of(context)
-                                                                                              .size
-                                                                                              .height *
-                                                                                              0.00),
-                                                                                      child: Row(
-                                                                                        mainAxisAlignment:
-                                                                                        MainAxisAlignment.spaceEvenly,
-                                                                                        children: <Widget>[
-                                                                                          GestureDetector(
-                                                                                            onTap: () async {
-                                                                                              Navigator.of(context).pop(false);
-                                                                                            },
-                                                                                            child: Container(
-                                                                                              height: MediaQuery.of(context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.050,
-                                                                                              width: MediaQuery.of(context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.120,
-                                                                                              padding: new EdgeInsets.only(
-                                                                                                  left:
-                                                                                                  MediaQuery.of(context)
-                                                                                                      .size
-                                                                                                      .height *
-                                                                                                      0.015,
-                                                                                                  right:
-                                                                                                  MediaQuery.of(context)
-                                                                                                      .size
-                                                                                                      .height *
-                                                                                                      0.015,
-                                                                                                  top:
-                                                                                                  MediaQuery.of(context)
-                                                                                                      .size
-                                                                                                      .height *
-                                                                                                      0.01,
-                                                                                                  bottom:
-                                                                                                  MediaQuery.of(context)
-                                                                                                      .size
-                                                                                                      .height *
-                                                                                                      0.01),
-                                                                                              decoration: BoxDecoration(
-                                                                                                // color: Colors.grey[300],
-                                                                                                borderRadius:
-                                                                                                BorderRadius.circular(
-                                                                                                    5),
-                                                                                                border: Border.all(
-                                                                                                  color: Color(
-                                                                                                      0xFF126086), // Border color
-                                                                                                  width: 1, // Border width
-                                                                                                ),
-                                                                                              ),
-
-                                                                                              margin: EdgeInsets.only(
-                                                                                                left: MediaQuery.of(context)
-                                                                                                    .size
-                                                                                                    .height *
-                                                                                                    0.00,
-                                                                                                top: MediaQuery.of(context)
-                                                                                                    .size
-                                                                                                    .height *
-                                                                                                    0.00,
-                                                                                                bottom:
-                                                                                                MediaQuery.of(context)
-                                                                                                    .size
-                                                                                                    .height *
-                                                                                                    0.00,
-                                                                                                right:
-                                                                                                MediaQuery.of(context)
-                                                                                                    .size
-                                                                                                    .height *
-                                                                                                    0.01,
-                                                                                              ),
-                                                                                              // color: Colors.grey[300],
-                                                                                              alignment: Alignment.center,
-                                                                                              // height:
-                                                                                              // MediaQuery.of(context).size.height * 0.070,
-                                                                                              child: Text("Close",
-                                                                                                  textAlign:
-                                                                                                  TextAlign.center,
-                                                                                                  style: TextStyle(
-                                                                                                      color: Colors.black,
-                                                                                                      fontWeight:
-                                                                                                      FontWeight.bold,
-                                                                                                      fontSize: MediaQuery.of(
-                                                                                                          context)
-                                                                                                          .size
-                                                                                                          .height *
-                                                                                                          0.014)),
-                                                                                            ),
-                                                                                          ),
-                                                                                          GestureDetector(
-                                                                                            onTap: () async {
-                                                                                              Navigator.of(context).pop(true);
-                                                                                            },
-                                                                                            child: Container(
-                                                                                              height: MediaQuery.of(context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.050,
-                                                                                              width: MediaQuery.of(context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.120,
-                                                                                              padding: new EdgeInsets.only(
-                                                                                                  left:
-                                                                                                  MediaQuery.of(context)
-                                                                                                      .size
-                                                                                                      .height *
-                                                                                                      0.015,
-                                                                                                  right:
-                                                                                                  MediaQuery.of(context)
-                                                                                                      .size
-                                                                                                      .height *
-                                                                                                      0.015,
-                                                                                                  top:
-                                                                                                  MediaQuery.of(context)
-                                                                                                      .size
-                                                                                                      .height *
-                                                                                                      0.01,
-                                                                                                  bottom:
-                                                                                                  MediaQuery.of(context)
-                                                                                                      .size
-                                                                                                      .height *
-                                                                                                      0.01),
-                                                                                              decoration: BoxDecoration(
-                                                                                                color: Color(0xFFD42620),
-                                                                                                borderRadius:
-                                                                                                BorderRadius.circular(
-                                                                                                    5),
-                                                                                              ),
-
-                                                                                              margin: EdgeInsets.only(
-                                                                                                left: MediaQuery.of(context)
-                                                                                                    .size
-                                                                                                    .height *
-                                                                                                    0.00,
-                                                                                                top: MediaQuery.of(context)
-                                                                                                    .size
-                                                                                                    .height *
-                                                                                                    0.00,
-                                                                                                bottom:
-                                                                                                MediaQuery.of(context)
-                                                                                                    .size
-                                                                                                    .height *
-                                                                                                    0.00,
-                                                                                                right:
-                                                                                                MediaQuery.of(context)
-                                                                                                    .size
-                                                                                                    .height *
-                                                                                                    0.005,
-                                                                                              ),
-                                                                                              // color: Colors.grey[300],
-                                                                                              alignment: Alignment.center,
-                                                                                              // height:
-                                                                                              // MediaQuery.of(context).size.height * 0.070,
-                                                                                              child: Text("Okay",
-                                                                                                  textAlign:
-                                                                                                  TextAlign.center,
-                                                                                                  style: TextStyle(
-                                                                                                      color: Colors.white,
-                                                                                                      fontWeight:
-                                                                                                      FontWeight.bold,
-                                                                                                      fontSize: MediaQuery.of(
-                                                                                                          context)
-                                                                                                          .size
-                                                                                                          .height *
-                                                                                                          0.016)),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ],
-                                                                                      ),
-                                                                                    ),
-
-                                                                                  ]),
+                                                                        borderRadius: BorderRadius.circular(20),
+                                                                      ),
+                                                                      child: Column(
+                                                                        mainAxisSize: MainAxisSize.min,
+                                                                        children: [
+                                                                          // First Container (Image + Text)
+                                                                          Container(
+                                                                            padding: EdgeInsets.symmetric(
+                                                                              horizontal: constraints.maxHeight * (isSmallScreen ? 0.015 : 0.02),
+                                                                              vertical: constraints.maxHeight * (isSmallScreen ? 0.015 : 0.03),
                                                                             ),
-                                                                          ],
-                                                                        ),
+                                                                            child: Column(
+                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                              children: [
+                                                                                Image.asset(
+                                                                                  'assets/insurancealert.png',
+                                                                                  height: constraints.maxHeight * 0.07,
+                                                                                  fit: BoxFit.fill,
+                                                                                ),
+                                                                                SizedBox(height: constraints.maxHeight * (isSmallScreen ? 0.015 : 0.035)),
+                                                                                Padding(
+                                                                                  padding: EdgeInsets.symmetric(
+                                                                                    horizontal: constraints.maxHeight * (isSmallScreen ? 0.025 : 0.04),
+                                                                                  ),
+                                                                                  child: Text(
+                                                                                    "Are you sure to Remove the Selected Insurance ?",
+                                                                                    textAlign: TextAlign.center,
+                                                                                    style: TextStyle(
+                                                                                      color: Colors.black54,
+                                                                                      fontSize: constraints.maxHeight * 0.017,
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+
+                                                                          // Second Container (Buttons)
+                                                                          const Spacer(),
+                                                                          Padding(
+                                                                            padding: EdgeInsets.only(
+                                                                              bottom: constraints.maxHeight * (isSmallScreen ? 0.025 : 0.015),
+                                                                              left: constraints.maxHeight * 0.025,
+                                                                              right: constraints.maxHeight * 0.025,
+                                                                            ),
+                                                                            child: Row(
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                              children: [
+                                                                                GestureDetector(
+                                                                                  onTap: () => Navigator.of(context).pop(false),
+                                                                                  child: Container(
+                                                                                    height: constraints.maxHeight * 0.050,
+                                                                                    width: constraints.maxHeight * 0.120,
+                                                                                    decoration: BoxDecoration(
+                                                                                      borderRadius: BorderRadius.circular(5),
+                                                                                      border: Border.all(color: Color(0xFF126086), width: 1),
+                                                                                    ),
+                                                                                    alignment: Alignment.center,
+                                                                                    child: Text(
+                                                                                      "Close",
+                                                                                      textAlign: TextAlign.center,
+                                                                                      style: TextStyle(
+                                                                                        color: Colors.black,
+                                                                                        fontWeight: FontWeight.bold,
+                                                                                        fontSize: constraints.maxHeight * 0.014,
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                                GestureDetector(
+                                                                                  onTap: () => Navigator.of(context).pop(true),
+                                                                                  child: Container(
+                                                                                    height: constraints.maxHeight * 0.050,
+                                                                                    width: constraints.maxHeight * 0.120,
+                                                                                    decoration: BoxDecoration(
+                                                                                      color: Color(0xFFD42620),
+                                                                                      borderRadius: BorderRadius.circular(5),
+                                                                                    ),
+                                                                                    alignment: Alignment.center,
+                                                                                    child: Text(
+                                                                                      "Okay",
+                                                                                      textAlign: TextAlign.center,
+                                                                                      style: TextStyle(
+                                                                                        color: Colors.white,
+                                                                                        fontWeight: FontWeight.bold,
+                                                                                        fontSize: constraints.maxHeight * 0.014,
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ],
                                                                       ),
                                                                     ),
-                                                                  ]),
-                                                                )
-                                                              /* ),
-                    ),*/
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
 
-                                                              // ),
-                                                            );
-                                                        });
-                                                      });
-                                                },
+                                                  },
                                                   background: Container(
                                                     // color: Colors.red,
 
@@ -1250,7 +946,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                                                   margin: EdgeInsets.only(
                                                                                       left: MediaQuery.of(context).size.height * 0.005,
                                                                                       right: MediaQuery.of(context).size.height * 0.01,
-                                                                                      bottom: MediaQuery.of(context).size.height * 0.00,
+                                                                                      bottom: MediaQuery.of(context).size.height * 0.005,
                                                                                       top: MediaQuery.of(context).size.height * 0.005
                                                                                   ),
                                                                                   width: screenHeight * 0.015, // Adjust image width
@@ -1549,14 +1245,6 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                           },
                                         ),
                                       ),
-
-
-
-
-
-
-
-
 
                                     ],
                                   ),

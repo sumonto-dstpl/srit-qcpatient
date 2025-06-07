@@ -143,10 +143,10 @@ class RadiologyMainstate extends State<RadiologyMain> {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.only(
-                  top: screenHeight * 0.07,
+                  top: screenHeight * 0.075,
                   left: screenWidth * 0.045,
                   right: screenWidth * 0.045,
-                  bottom: screenWidth * 0.06,
+                  bottom: screenWidth * 0.07,
                 ),
                 margin: EdgeInsets.only(
                   right: screenHeight * 0.0,

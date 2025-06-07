@@ -196,7 +196,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -321,7 +321,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                 //   shrinkWrap: true,
                 //   physics: AlwaysScrollableScrollPhysics(),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // Doctor's Information
                     Column(
@@ -1180,7 +1180,10 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          MedicationMyBookingsMain(),
+                                          MedicationMyBookingsMain(
+                                            selectedDate: slectedDateSlot,
+                                            selectedTime: selectedSlot,
+                                          ),
                                     ),
                                   );
                                 }

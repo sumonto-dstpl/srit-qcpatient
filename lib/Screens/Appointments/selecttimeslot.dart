@@ -677,7 +677,11 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                                   } else {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (context) => MyBookingsMain(),
+                                        builder: (context) => MyBookingsMain(
+                                          selectedDate: slectedDateSlot,
+                                          selectedTime: selectedSlot,
+                                        ),
+
                                       ),
                                     );
                                   }
