@@ -156,6 +156,24 @@ class AddToCartMainstate extends State<AddToCartMain> {
                   children: [],
                 ),
               ),
+              
+              
+            Expanded(
+
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(screenHeight * 0.03),
+                      topRight: Radius.circular(screenHeight * 0.03),
+                      bottomLeft: Radius.circular(screenHeight * 0.0),
+                      bottomRight: Radius.circular(screenHeight * 0.00),
+                      // bottomCenter: 0,
+                    ),
+                  ),
+                  child : Column(
+                    children: [
+
               Container(
                 padding: EdgeInsets.only(
                     left: MediaQuery.of(context).size.height * 0.02,
@@ -1797,6 +1815,10 @@ class AddToCartMainstate extends State<AddToCartMain> {
                   ),
                 ),
               ),
+               ],
+                  ),
+              ),
+          ),
             ],
           ),
         ]),
