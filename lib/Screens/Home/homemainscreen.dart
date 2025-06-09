@@ -2446,303 +2446,339 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                               Container(
                                 margin : EdgeInsets.only(
                                   top : MediaQuery.of(context).size.height * 0.01,
+                                  left : MediaQuery.of(context).size.height * 0.01,
+                                  right : MediaQuery.of(context).size.height * 0.01,
+
                                 ),
                                 height: MediaQuery
                                     .of(context)
                                     .size
                                     .height * 0.2,
-                                child: ListView.builder(
-                                  physics: ScrollPhysics(),
-                                  shrinkWrap: true,
-                                  // Prevents ListView from taking up extra space
-                                  scrollDirection: Axis.horizontal,
-                                  // Makes the ListView horizontal
-                                  itemCount: 4,
-                                  // You can adjust the item count
-                                  itemBuilder: (BuildContext context,
-                                      int index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        // Add your onTap logic here
-                                      },
-                                      child: Card(
-                                        elevation: 0,
-                                        child: Container(
-                                          width: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height * 0.435,
-                                          padding: EdgeInsets.only(
-                                              left: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.02,
-                                              right: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.0,
-                                              bottom: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.00,
-                                              top: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.0
-                                          ),
-                                          color: Colors.white,
+                                child: MediaQuery(
+                                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                                  child: ListView.builder(
+                                    physics: ScrollPhysics(),
+                                    shrinkWrap: true,
+                                    // Prevents ListView from taking up extra space
+                                    scrollDirection: Axis.horizontal,
+                                    // Makes the ListView horizontal
+                                    itemCount: 4,
+                                    // You can adjust the item count
+                                    itemBuilder: (BuildContext context,
+                                        int index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          // Add your onTap logic here
+                                        },
+                                        child: Card(
+                                          elevation: 0,
                                           child: Container(
-                                            margin: EdgeInsets.all(0.0),
-                                            height: MediaQuery
+                                            width: MediaQuery
                                                 .of(context)
                                                 .size
-                                                .height * 0.12,
-                                            decoration: BoxDecoration(
-                                              // color: Color(0xFFC80000), // Fallback color if image fails to load
-                                              borderRadius: BorderRadius
-                                                  .circular(6),
-                                              image: DecorationImage(
-                                                image: AssetImage(
-                                                    myhealyhblogbanner[index][0]),
-                                                // Path to your banner image
-                                                fit: BoxFit
-                                                    .cover, // Ensure image fills the container
-                                              ),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Theme
-                                                      .of(context)
-                                                      .hintColor
-                                                      .withOpacity(0.0),
-                                                  offset: Offset(0, 4),
-                                                  blurRadius: 9,
-                                                ),
-                                              ],
+                                                .height * 0.435,
+                                            padding: EdgeInsets.only(
+                                                left: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height * 0.01,
+                                                right: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height * 0.01,
+                                                bottom: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height * 0.00,
+                                                top: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height * 0.0
                                             ),
-                                            child: Row(
-                                              children: <Widget>[
-                                                Flexible(
-                                                  flex: 6,
-                                                  // 6 out of 10 for the text section
-                                                  child: Padding(
-                                                    padding: EdgeInsets.all(
-                                                        MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height * 0.01),
-                                                    child: Column(
-                                                      mainAxisAlignment: MainAxisAlignment
-                                                          .start,
-                                                      crossAxisAlignment: CrossAxisAlignment
-                                                          .start,
-                                                      children: <Widget>[
-                                                        Row(
-                                                          crossAxisAlignment: CrossAxisAlignment
-                                                              .center,
-                                                          mainAxisAlignment: MainAxisAlignment
-                                                              .spaceBetween,
-                                                          children: <Widget>[
-                                                            Text(
-                                                              "Neurosurgery",
-                                                              style: TextStyle(
-                                                                overflow: TextOverflow
-                                                                    .ellipsis,
-                                                                fontSize: MediaQuery
-                                                                    .of(context)
-                                                                    .size
-                                                                    .height *
-                                                                    0.012,
-                                                                color: Colors
-                                                                    .white,
+                                            color: Colors.white,
+                                            child: Container(
+                                              margin: EdgeInsets.only(
+                                                left:  MediaQuery
+                                                              .of(context)
+                                                              .size
+                                                              .height * 0.0,
+                                                right:  MediaQuery
+                                                              .of(context)
+                                                              .size
+                                                              .height * 0.0,
+                                                top:  MediaQuery
+                                                              .of(context)
+                                                              .size
+                                                              .height * 0.0,
+                                                bottom:  MediaQuery
+                                                              .of(context)
+                                                              .size
+                                                              .height * 0.0,
+                                              ),
+                                              height: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height * 0.12,
+                                              decoration: BoxDecoration(
+                                                // color: Color(0xFFC80000), // Fallback color if image fails to load
+                                                borderRadius: BorderRadius
+                                                    .circular(6),
+                                                image: DecorationImage(
+                                                  image: AssetImage(
+                                                      myhealyhblogbanner[index][0]),
+                                                  // Path to your banner image
+                                                  fit: BoxFit
+                                                      .cover, // Ensure image fills the container
+                                                ),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Theme
+                                                        .of(context)
+                                                        .hintColor
+                                                        .withOpacity(0.0),
+                                                    offset: Offset(0, 4),
+                                                    blurRadius: 9,
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Flexible(
+                                                    flex: 6,
+                                                    // 6 out of 10 for the text section
+                                                    child: Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: MediaQuery
+                                                              .of(context)
+                                                              .size
+                                                              .height * 0.01,
+                                                          right: MediaQuery
+                                                              .of(context)
+                                                              .size
+                                                              .height * 0.01,
+                                                          top: MediaQuery
+                                                              .of(context)
+                                                              .size
+                                                              .height * 0.01,
+                                                          bottom: MediaQuery
+                                                              .of(context)
+                                                              .size
+                                                              .height * 0.01,
+                                                      ),
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment
+                                                            .center,
+                                                        crossAxisAlignment: CrossAxisAlignment
+                                                            .start,
+                                                        children: <Widget>[
+                                                          Row(
+                                                            crossAxisAlignment: CrossAxisAlignment
+                                                                .center,
+                                                            mainAxisAlignment: MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                "Neurosurgery",
+                                                                style: TextStyle(
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis,
+                                                                  fontSize: MediaQuery
+                                                                      .of(context)
+                                                                      .size
+                                                                      .height *
+                                                                      0.012,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                                textAlign: TextAlign
+                                                                    .left,
                                                               ),
-                                                              textAlign: TextAlign
-                                                                  .left,
+                                                              Row(
+                                                                crossAxisAlignment: CrossAxisAlignment
+                                                                    .center,
+                                                                mainAxisAlignment: MainAxisAlignment
+                                                                    .start,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Container(
+                                                                    height: screenHeight *
+                                                                        0.025,
+                                                                    width: screenHeight *
+                                                                        0.025,
+                                                                    decoration: BoxDecoration(
+                                                                      color: Colors
+                                                                          .blue[100]!
+                                                                          .withOpacity(
+                                                                          0.2),
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                    ),
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .bookmark,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      size: screenHeight *
+                                                                          0.015,
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    margin: EdgeInsets
+                                                                        .only(
+                                                                        left: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.005,
+                                                                        right: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.00,
+                                                                        bottom: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.00,
+                                                                        top: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.00),
+                                                                    height: screenHeight *
+                                                                        0.025,
+                                                                    width: screenHeight *
+                                                                        0.025,
+                                                                    decoration: BoxDecoration(
+                                                                      color: Colors
+                                                                          .blue[100]!
+                                                                          .withOpacity(
+                                                                          0.2),
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                    ),
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .forward_5_outlined,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      size: screenHeight *
+                                                                          0.015,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(height: 5),
+                                                          Text(
+                                                            "10 Frequently asked questions about Brain Tumors",
+                                                            style: TextStyle(
+                                                              fontSize: MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.014,
+                                                              color: Colors.white,
+                                                              fontWeight: FontWeight
+                                                                  .bold,
                                                             ),
-                                                            Row(
-                                                              crossAxisAlignment: CrossAxisAlignment
-                                                                  .center,
-                                                              mainAxisAlignment: MainAxisAlignment
-                                                                  .start,
-                                                              children: <
-                                                                  Widget>[
-                                                                Container(
-                                                                  height: screenHeight *
-                                                                      0.025,
-                                                                  width: screenHeight *
-                                                                      0.025,
-                                                                  decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .blue[100]!
-                                                                        .withOpacity(
-                                                                        0.2),
-                                                                    shape: BoxShape
-                                                                        .circle,
-                                                                  ),
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .bookmark,
-                                                                    color: Colors
-                                                                        .white,
-                                                                    size: screenHeight *
-                                                                        0.015,
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  margin: EdgeInsets
-                                                                      .only(
-                                                                      left: MediaQuery
-                                                                          .of(
-                                                                          context)
-                                                                          .size
-                                                                          .height *
-                                                                          0.005,
-                                                                      right: MediaQuery
-                                                                          .of(
-                                                                          context)
-                                                                          .size
-                                                                          .height *
-                                                                          0.00,
-                                                                      bottom: MediaQuery
-                                                                          .of(
-                                                                          context)
-                                                                          .size
-                                                                          .height *
-                                                                          0.00,
-                                                                      top: MediaQuery
-                                                                          .of(
-                                                                          context)
-                                                                          .size
-                                                                          .height *
-                                                                          0.00),
-                                                                  height: screenHeight *
-                                                                      0.025,
-                                                                  width: screenHeight *
-                                                                      0.025,
-                                                                  decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .blue[100]!
-                                                                        .withOpacity(
-                                                                        0.2),
-                                                                    shape: BoxShape
-                                                                        .circle,
-                                                                  ),
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .forward_5_outlined,
-                                                                    color: Colors
-                                                                        .white,
-                                                                    size: screenHeight *
-                                                                        0.015,
-                                                                  ),
-                                                                ),
-                                                              ],
+                                                            textAlign: TextAlign
+                                                                .left,
+                                                          ),
+                                                          SizedBox(height: 5),
+                                                          Text(
+                                                            "1. What is a Brain Tumor?",
+                                                            style: TextStyle(
+                                                              fontSize: MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.009,
+                                                              color: Colors.white,
                                                             ),
-                                                          ],
-                                                        ),
-                                                        SizedBox(height: 5),
-                                                        Text(
-                                                          "10 Frequently asked questions about Brain Tumors",
-                                                          style: TextStyle(
-                                                            fontSize: MediaQuery
-                                                                .of(context)
-                                                                .size
-                                                                .height * 0.014,
-                                                            color: Colors.white,
-                                                            fontWeight: FontWeight
-                                                                .bold,
+                                                            textAlign: TextAlign
+                                                                .left,
                                                           ),
-                                                          textAlign: TextAlign
-                                                              .left,
-                                                        ),
-                                                        SizedBox(height: 5),
-                                                        Text(
-                                                          "1. What is a Brain Tumor?",
-                                                          style: TextStyle(
-                                                            fontSize: MediaQuery
-                                                                .of(context)
-                                                                .size
-                                                                .height * 0.009,
-                                                            color: Colors.white,
+                                                          SizedBox(height: 2),
+                                                          Text(
+                                                            "It is a mass of abnormal tissue growing in any part of the brain or outside within the skull.",
+                                                            style: TextStyle(
+                                                              fontSize: MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.009,
+                                                              color: Colors.white,
+                                                            ),
+                                                            textAlign: TextAlign
+                                                                .left,
                                                           ),
-                                                          textAlign: TextAlign
-                                                              .left,
-                                                        ),
-                                                        SizedBox(height: 2),
-                                                        Text(
-                                                          "It is a mass of abnormal tissue growing in any part of the brain or outside within the skull.",
-                                                          style: TextStyle(
-                                                            fontSize: MediaQuery
-                                                                .of(context)
-                                                                .size
-                                                                .height * 0.009,
-                                                            color: Colors.white,
+                                                          SizedBox(height: 2),
+                                                          Text(
+                                                            "2. Is a brain tumor treatable?",
+                                                            style: TextStyle(
+                                                              fontSize: MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.009,
+                                                              color: Colors.white,
+                                                            ),
+                                                            textAlign: TextAlign
+                                                                .left,
                                                           ),
-                                                          textAlign: TextAlign
-                                                              .left,
-                                                        ),
-                                                        SizedBox(height: 2),
-                                                        Text(
-                                                          "2. Is a brain tumor treatable?",
-                                                          style: TextStyle(
-                                                            fontSize: MediaQuery
-                                                                .of(context)
-                                                                .size
-                                                                .height * 0.009,
-                                                            color: Colors.white,
+                                                          SizedBox(height: 2),
+                                                          Text(
+                                                            "Modern neurosurgery is to cure or at least control a brain tumor and offer a productive, symptoms-free life to a patient.",
+                                                            style: TextStyle(
+                                                              fontSize: MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.009,
+                                                              color: Colors.white,
+                                                            ),
+                                                            textAlign: TextAlign
+                                                                .left,
                                                           ),
-                                                          textAlign: TextAlign
-                                                              .left,
-                                                        ),
-                                                        SizedBox(height: 2),
-                                                        Text(
-                                                          "Modern neurosurgery is to cure or at least control a brain tumor and offer a productive, symptoms-free life to a patient.",
-                                                          style: TextStyle(
-                                                            fontSize: MediaQuery
-                                                                .of(context)
-                                                                .size
-                                                                .height * 0.009,
-                                                            color: Colors.white,
+                                                          SizedBox(height: 2),
+                                                          Text(
+                                                            "3. What is the difference between benign and malignant tumors?",
+                                                            style: TextStyle(
+                                                              fontSize: MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.009,
+                                                              color: Colors.white,
+                                                            ),
+                                                            textAlign: TextAlign
+                                                                .left,
                                                           ),
-                                                          textAlign: TextAlign
-                                                              .left,
-                                                        ),
-                                                        SizedBox(height: 2),
-                                                        Text(
-                                                          "3. What is the difference between benign and malignant tumors?",
-                                                          style: TextStyle(
-                                                            fontSize: MediaQuery
-                                                                .of(context)
-                                                                .size
-                                                                .height * 0.009,
-                                                            color: Colors.white,
+                                                          SizedBox(height: 2),
+                                                          Text(
+                                                            "Benign tumors grow slowly and do not spread. Surgical excision can be curative.",
+                                                            style: TextStyle(
+                                                              fontSize: MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.009,
+                                                              color: Colors.white,
+                                                            ),
+                                                            textAlign: TextAlign
+                                                                .left,
                                                           ),
-                                                          textAlign: TextAlign
-                                                              .left,
-                                                        ),
-                                                        SizedBox(height: 2),
-                                                        Text(
-                                                          "Benign tumors grow slowly and do not spread. Surgical excision can be curative.",
-                                                          style: TextStyle(
-                                                            fontSize: MediaQuery
-                                                                .of(context)
-                                                                .size
-                                                                .height * 0.009,
-                                                            color: Colors.white,
-                                                          ),
-                                                          textAlign: TextAlign
-                                                              .left,
-                                                        ),
-                                                      ],
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  },
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                             ],

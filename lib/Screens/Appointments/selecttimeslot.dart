@@ -337,7 +337,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                 padding: EdgeInsets.only(
                     left: MediaQuery.of(context).size.height * 0.00,
                     right: MediaQuery.of(context).size.height * 0.00,
-                    top: MediaQuery.of(context).size.height * 0.008,
+                    top: MediaQuery.of(context).size.height * 0.02,
                     bottom: MediaQuery.of(context).size.height * 0.00),
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -352,11 +352,13 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                 //   shrinkWrap: true,
                 //   physics: AlwaysScrollableScrollPhysics(),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // Doctor's Information
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+
                       children: [
                         Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -385,7 +387,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                                 child: Container(
                                   margin: EdgeInsets.only(
                                       left: MediaQuery.of(context).size.height *
-                                          0.01,
+                                          0.005,
                                       right:
                                           MediaQuery.of(context).size.height *
                                               0.0,
@@ -393,7 +395,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                                           MediaQuery.of(context).size.height *
                                               0.0,
                                       top: MediaQuery.of(context).size.height *
-                                          0.01),
+                                          0.005),
                                   padding: EdgeInsets.only(
                                     left: MediaQuery.of(context).size.height *
                                         0.00,
@@ -404,16 +406,17 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                                       'assets/Infodocdetails.png',
                                       height:
                                           MediaQuery.of(context).size.height *
-                                              0.012, // Adjust height
+                                              0.014, // Adjust height
                                       width:
                                           MediaQuery.of(context).size.height *
-                                              0.012, // Adjust width
+                                              0.014, // Adjust width
                                       fit: BoxFit.fill,
                                     ),
                                   ),
                                 ),
                               ),
                             ]),
+                            SizedBox(height: 4),
                         Text(
                           "General physician / Internal Medicine",
                           // completedSpecialityString,
@@ -426,9 +429,9 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height * 0.02,
+                              left: MediaQuery.of(context).size.height * 0.0,
                               right: MediaQuery.of(context).size.height * 0.00,
-                              top: MediaQuery.of(context).size.height * 0.005,
+                              top: MediaQuery.of(context).size.height * 0.008,
                               bottom:
                                   MediaQuery.of(context).size.height * 0.00),
                           child: Text(
@@ -514,6 +517,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
 
       // Bottom Navigation with another  positioned on the right
       bottomNavigationBar: Container(
+        // color: Colors.blue,
         // height: MediaQuery.of(context).size.height * 0.150,
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
         child: Column(
@@ -625,6 +629,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
             GestureDetector(
               onTap: () async {},
               child: Container(
+                // color: Colors.blue,
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.0,
@@ -658,7 +663,8 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                                         : [
                                             Colors.grey.shade300,
                                             Colors.grey.shade300
-                                          ])),
+                                          ])
+                                          ),
                             alignment: Alignment.center,
                             padding: EdgeInsets.only(left: 0.0),
                             child: TextButton(

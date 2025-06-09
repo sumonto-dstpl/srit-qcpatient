@@ -568,7 +568,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                             left: MediaQuery
                                                 .of(context)
                                                 .size
-                                                .height * 0.035,
+                                                .height * 0.025,
                                             top: MediaQuery
                                                 .of(context)
                                                 .size
@@ -741,7 +741,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                                     .of(context)
                                                                     .size
                                                                     .height *
-                                                                    0.014),
+                                                                    0.012),
                                                             // overflow: TextOverflow.ellipsis,
                                                           ),
                                                         ),
@@ -785,7 +785,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                                     .of(context)
                                                                     .size
                                                                     .height *
-                                                                    0.011),
+                                                                    0.009),
                                                             // overflow: TextOverflow.ellipsis,
                                                           ),
                                                         ),
@@ -829,7 +829,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                                     .of(context)
                                                                     .size
                                                                     .height *
-                                                                    0.011),
+                                                                    0.009),
                                                             // overflow: TextOverflow.ellipsis,
                                                           ),
                                                         ),
@@ -873,7 +873,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                                     .of(context)
                                                                     .size
                                                                     .height *
-                                                                    0.011),
+                                                                    0.009),
                                                             // overflow: TextOverflow.ellipsis,
                                                           ),
                                                         ),
@@ -1113,12 +1113,12 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                           width: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.150,
+                                                              .height * 0.100,
                                                           // Adjust size as needed
                                                           height: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.038,
+                                                              .height * 0.028,
                                                           fit: BoxFit
                                                               .fill, // Adjust the fit based on your design
                                                         ),
@@ -1383,12 +1383,12 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                           width: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.170,
+                                                              .height * 0.120,
                                                           // Adjust size as needed
                                                           height: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.038,
+                                                              .height * 0.03,
                                                           fit: BoxFit
                                                               .fill, // Adjust the fit based on your design
                                                         ),
@@ -1648,12 +1648,12 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                           width: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.150,
+                                                              .height * 0.120,
                                                           // Adjust size as needed
                                                           height: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.035,
+                                                              .height * 0.03,
                                                           fit: BoxFit
                                                               .fill, // Adjust the fit based on your design
                                                         ),

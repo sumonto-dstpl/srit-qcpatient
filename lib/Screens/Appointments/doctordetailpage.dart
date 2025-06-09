@@ -45,6 +45,8 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
   String doctornameval = "";
   String completedSpecialityString = "";
   String qualificationval = "";
+  bool _isSharing = false;
+
   String workingTimeval = "";
   String aboutdoctorval = "";
 
@@ -113,10 +115,11 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
+              // color: Colors.blue,
               padding: EdgeInsets.only(
                 top: screenHeight * 0.07,
-                left: screenWidth * 0.0,
-                right: screenWidth * 0.0,
+                left: screenWidth * 0.04,
+                right: screenWidth * 0.04,
                 bottom: screenWidth * 0.0,
               ),
               margin: EdgeInsets.only(
@@ -126,7 +129,7 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                 left: screenHeight * 0.0,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
@@ -135,16 +138,16 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                       height: MediaQuery.of(context).size.height * 0.03,
                       width: MediaQuery.of(context).size.height * 0.03,
                       margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.01,
+                        left: MediaQuery.of(context).size.height * 0.0,
                         top: MediaQuery.of(context).size.height * 0.00,
-                        right: MediaQuery.of(context).size.height * 0.01,
+                        right: MediaQuery.of(context).size.height * 0.0,
                         bottom: MediaQuery.of(context).size.height * 0.00,
                       ),
                       decoration: BoxDecoration(
                         color: Color(0xFF126086).withOpacity(0.2),
                         shape: BoxShape.circle,
                         border:
-                        Border.all(width: 0.0, color: Color(0xFF126086)),
+                            Border.all(width: 0.0, color: Color(0xFF126086)),
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(130.0),
@@ -157,54 +160,58 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                   ),
                   userprofilepValue != "NA"
                       ? Container(
-                    height: MediaQuery.of(context).size.height * 0.250,
-                    width: MediaQuery.of(context).size.height * 0.200,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1.0,
-                        color: Colors.white,
-                      ),
-                      shape: BoxShape.circle,
-                      image: new DecorationImage(
-                        fit: BoxFit.fill,
-                        image:
-                        Image.memory(base64Decode(userprofilepValue))
-                            .image,
-                      ),
-                    ),
-                  )
+                          height: MediaQuery.of(context).size.height * 0.250,
+                          width: MediaQuery.of(context).size.height * 0.200,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1.0,
+                              color: Colors.white,
+                            ),
+                            shape: BoxShape.circle,
+                            image: new DecorationImage(
+                              fit: BoxFit.fill,
+                              image:
+                                  Image.memory(base64Decode(userprofilepValue))
+                                      .image,
+                            ),
+                          ),
+                        )
                       : Container(
-                    margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.05,
-                        right: MediaQuery.of(context).size.height * 0.00,
-                        top: MediaQuery.of(context).size.height * 0.00,
-                        bottom:
-                        MediaQuery.of(context).size.height * 0.00),
-                    height: MediaQuery.of(context).size.height * 0.250,
-                    width: MediaQuery.of(context).size.height * 0.21,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(0.0),
-                      child: Image.asset(
-                        'assets/bookappointmentdoc.png',
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-
-
-
-
+                        // color: Colors.blue,
+                          margin: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.height * 0.0,
+                              right: MediaQuery.of(context).size.height * 0.00,
+                              top: MediaQuery.of(context).size.height * 0.00,
+                              bottom:
+                                  MediaQuery.of(context).size.height * 0.00),
+                          height: MediaQuery.of(context).size.height * 0.250,
+                          width: MediaQuery.of(context).size.height * 0.21,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(0.0),
+                            child: Image.asset(
+                              'assets/bookappointmentdoc.png',
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.250,
+                    // color: Colors.blue,
                     padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.00,
                       bottom: MediaQuery.of(context).size.height * 0.00,
-                      left: MediaQuery.of(context).size.height * 0.00,
-                      right: MediaQuery.of(context).size.height * 0.00,
+                      left: MediaQuery.of(context).size.height * 0.0,
+                      right: MediaQuery.of(context).size.height * 0.0,
+                    ),
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.00,
+                      bottom: MediaQuery.of(context).size.height * 0.00,
+                      left: MediaQuery.of(context).size.height * 0.0,
+                      right: MediaQuery.of(context).size.height * 0.0,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -239,10 +246,9 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                                           fontWeight: FontWeight.w600,
                                           overflow: TextOverflow.ellipsis,
                                           fontSize: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.012
-                                      ),
+                                                  .size
+                                                  .height *
+                                              0.012),
                                     )
                                   ],
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -251,22 +257,33 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                               InkWell(
                                 onTap: () async {
                                   // Navigator.pop(context);
-                                  ShareToOtherApp.share();
+                                  if (_isSharing) return;
+                                  _isSharing = true;
+                                  try {
+                                    // Call your static method that wraps Share.share()
+                                    ShareToOtherApp.share();
+
+                                    // Add a delay because Share.share() returns immediately
+                                    await Future.delayed(Duration(seconds: 2));
+                                  } catch (e) {
+                                    print('Sharing failed: $e');
+                                  } finally {
+                                    _isSharing = false;
+                                  }
                                 },
-                                onDoubleTap: (){
-                                },
+                                onDoubleTap: () {},
                                 child: Container(
                                   margin: EdgeInsets.only(
                                       left: MediaQuery.of(context).size.height *
                                           0.020,
                                       right:
-                                      MediaQuery.of(context).size.height *
-                                          0.00,
+                                          MediaQuery.of(context).size.height *
+                                              0.00,
                                       top: MediaQuery.of(context).size.height *
                                           0.00,
                                       bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.00),
+                                          MediaQuery.of(context).size.height *
+                                              0.00),
                                   height: screenHeight * 0.03,
                                   width: screenHeight * 0.03,
                                   decoration: BoxDecoration(
@@ -286,6 +303,7 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                               ),
                             ]),
                         Container(
+                          // color: Colors.white,
                           padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.00,
                             bottom: MediaQuery.of(context).size.height * 0.005,
@@ -297,7 +315,7 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                             style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               fontSize:
-                              MediaQuery.of(context).size.height * 0.012,
+                                  MediaQuery.of(context).size.height * 0.012,
                               color: Colors.white,
                             ),
                             // textAlign: TextAlign.left,
@@ -316,7 +334,7 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                 padding: EdgeInsets.only(
                     left: MediaQuery.of(context).size.height * 0.00,
                     right: MediaQuery.of(context).size.height * 0.00,
-                    top: MediaQuery.of(context).size.height * 0.00,
+                    top: MediaQuery.of(context).size.height * 0.02,
                     bottom: MediaQuery.of(context).size.height * 0.00),
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -327,6 +345,8 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                   ),
                 ),
                 child: ListView(
+                        padding: EdgeInsets.zero,
+
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -346,14 +366,14 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                                 overflow: TextOverflow.ellipsis,
                                 fontWeight: FontWeight.bold,
                                 fontSize:
-                                    MediaQuery.of(context).size.height * 0.016),
+                                    MediaQuery.of(context).size.height * 0.02),
                           ),
                         ),
                         Container(
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.height * 0.01,
                               right: MediaQuery.of(context).size.height * 0.01,
-                              top: MediaQuery.of(context).size.height * 0.00,
+                              top: MediaQuery.of(context).size.height * 0.005,
                               bottom:
                                   MediaQuery.of(context).size.height * 0.00),
                           child: Text(
@@ -554,12 +574,12 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                                       BoxShadow(
                                         color: Colors.grey.withOpacity(0.1),
                                         // Shadow color
-                                        offset: Offset(0, 0),
+                                        offset: Offset(1, 2),
                                         // Shadow offset (all sides)
-                                        blurRadius: 1,
+                                        blurRadius: 8,
                                         // How blurry the shadow is
                                         spreadRadius:
-                                            1, // How much the shadow expands outside the card
+                                            0, // How much the shadow expands outside the card
                                       ),
                                     ],
                                   ),

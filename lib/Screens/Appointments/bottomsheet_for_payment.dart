@@ -77,7 +77,14 @@ class BottomSheetForPaymentState extends State<BottomSheetForPayment> {
               );
             },
             child: Container(
+              decoration: BoxDecoration(
               color: Colors.white,
+
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(MediaQuery.of(context).size.height * 0.02),
+                    topRight: Radius.circular(MediaQuery.of(context).size.height * 0.02),
+                  ),
+                ),
               child: SingleChildScrollView(
                 controller: scrollController,
                 child: Padding(
@@ -93,7 +100,25 @@ class BottomSheetForPaymentState extends State<BottomSheetForPayment> {
                             top: MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.01 ,
+                                .height * 0.01,
+                            bottom: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.0,
+                            left: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.18,
+                            right: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.18,
+                          ),
+                          margin: EdgeInsets.only(
+                            top: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.01,
                             bottom: MediaQuery
                                 .of(context)
                                 .size

@@ -10,6 +10,7 @@ import 'package:newfolder/Screens/Appointments/appointmentsfindspecialities.dart
 import 'package:newfolder/Screens/Appointments/appointmentsmainfindDoctors.dart';
 import 'package:newfolder/Screens/Appointments/bottomsheet_for_payment.dart';
 import 'package:newfolder/Screens/Appointments/selecttimeslot.dart';
+import 'package:newfolder/Screens/Appointments/doctordetailpage.dart';
 import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/Login/loginhome.dart';
@@ -33,12 +34,14 @@ import 'dart:async';
 
 
 class MyBookingsMain extends StatefulWidget {
+  // final String doctoridval;
   final String selectedDate;
   final String selectedTime;
   const MyBookingsMain({
     super.key,
     required this.selectedDate,
     required this.selectedTime,
+    // required this.doctoridval,
   });
   @override
   State<MyBookingsMain> createState() => MyBookingsMainstate();
@@ -49,6 +52,8 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
   String useraddressValue = "Reg: TSMC/FMR/09823";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
+  bool _isSharing = false;
+
 
   EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
   AppointmentCancel appointmentcancelalert = new AppointmentCancel();
@@ -134,10 +139,11 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
+              // color: Colors.blue,
               padding: EdgeInsets.only(
                 top: screenHeight * 0.07,
-                left: screenWidth * 0.0,
-                right: screenWidth * 0.0,
+                left: screenWidth * 0.04,
+                right: screenWidth * 0.04,
                 bottom: screenWidth * 0.0,
               ),
               margin: EdgeInsets.only(
@@ -147,7 +153,7 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                 left: screenHeight * 0.0,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
@@ -156,16 +162,16 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                       height: MediaQuery.of(context).size.height * 0.03,
                       width: MediaQuery.of(context).size.height * 0.03,
                       margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.01,
+                        left: MediaQuery.of(context).size.height * 0.0,
                         top: MediaQuery.of(context).size.height * 0.00,
-                        right: MediaQuery.of(context).size.height * 0.01,
+                        right: MediaQuery.of(context).size.height * 0.0,
                         bottom: MediaQuery.of(context).size.height * 0.00,
                       ),
                       decoration: BoxDecoration(
                         color: Color(0xFF126086).withOpacity(0.2),
                         shape: BoxShape.circle,
                         border:
-                        Border.all(width: 0.0, color: Color(0xFF126086)),
+                            Border.all(width: 0.0, color: Color(0xFF126086)),
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(130.0),
@@ -178,54 +184,58 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                   ),
                   userprofilepValue != "NA"
                       ? Container(
-                    height: MediaQuery.of(context).size.height * 0.250,
-                    width: MediaQuery.of(context).size.height * 0.200,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1.0,
-                        color: Colors.white,
-                      ),
-                      shape: BoxShape.circle,
-                      image: new DecorationImage(
-                        fit: BoxFit.fill,
-                        image:
-                        Image.memory(base64Decode(userprofilepValue))
-                            .image,
-                      ),
-                    ),
-                  )
+                          height: MediaQuery.of(context).size.height * 0.250,
+                          width: MediaQuery.of(context).size.height * 0.200,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1.0,
+                              color: Colors.white,
+                            ),
+                            shape: BoxShape.circle,
+                            image: new DecorationImage(
+                              fit: BoxFit.fill,
+                              image:
+                                  Image.memory(base64Decode(userprofilepValue))
+                                      .image,
+                            ),
+                          ),
+                        )
                       : Container(
-                    margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.05,
-                        right: MediaQuery.of(context).size.height * 0.00,
-                        top: MediaQuery.of(context).size.height * 0.00,
-                        bottom:
-                        MediaQuery.of(context).size.height * 0.00),
-                    height: MediaQuery.of(context).size.height * 0.250,
-                    width: MediaQuery.of(context).size.height * 0.21,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(0.0),
-                      child: Image.asset(
-                        'assets/bookappointmentdoc.png',
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-
-
-
-
+                        // color: Colors.blue,
+                          margin: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.height * 0.0,
+                              right: MediaQuery.of(context).size.height * 0.00,
+                              top: MediaQuery.of(context).size.height * 0.00,
+                              bottom:
+                                  MediaQuery.of(context).size.height * 0.00),
+                          height: MediaQuery.of(context).size.height * 0.250,
+                          width: MediaQuery.of(context).size.height * 0.21,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(0.0),
+                            child: Image.asset(
+                              'assets/bookappointmentdoc.png',
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.250,
+                    // color: Colors.blue,
                     padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.00,
                       bottom: MediaQuery.of(context).size.height * 0.00,
-                      left: MediaQuery.of(context).size.height * 0.00,
-                      right: MediaQuery.of(context).size.height * 0.00,
+                      left: MediaQuery.of(context).size.height * 0.0,
+                      right: MediaQuery.of(context).size.height * 0.0,
+                    ),
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.00,
+                      bottom: MediaQuery.of(context).size.height * 0.00,
+                      left: MediaQuery.of(context).size.height * 0.0,
+                      right: MediaQuery.of(context).size.height * 0.0,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -260,10 +270,9 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                                           fontWeight: FontWeight.w600,
                                           overflow: TextOverflow.ellipsis,
                                           fontSize: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.012
-                                      ),
+                                                  .size
+                                                  .height *
+                                              0.012),
                                     )
                                   ],
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -272,22 +281,33 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                               InkWell(
                                 onTap: () async {
                                   // Navigator.pop(context);
-                                  ShareToOtherApp.share();
+                                  if (_isSharing) return;
+                                  _isSharing = true;
+                                  try {
+                                    // Call your static method that wraps Share.share()
+                                    ShareToOtherApp.share();
+
+                                    // Add a delay because Share.share() returns immediately
+                                    await Future.delayed(Duration(seconds: 2));
+                                  } catch (e) {
+                                    print('Sharing failed: $e');
+                                  } finally {
+                                    _isSharing = false;
+                                  }
                                 },
-                                onDoubleTap: (){
-                                },
+                                onDoubleTap: () {},
                                 child: Container(
                                   margin: EdgeInsets.only(
                                       left: MediaQuery.of(context).size.height *
                                           0.020,
                                       right:
-                                      MediaQuery.of(context).size.height *
-                                          0.00,
+                                          MediaQuery.of(context).size.height *
+                                              0.00,
                                       top: MediaQuery.of(context).size.height *
                                           0.00,
                                       bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.00),
+                                          MediaQuery.of(context).size.height *
+                                              0.00),
                                   height: screenHeight * 0.03,
                                   width: screenHeight * 0.03,
                                   decoration: BoxDecoration(
@@ -307,6 +327,7 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                               ),
                             ]),
                         Container(
+                          // color: Colors.white,
                           padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.00,
                             bottom: MediaQuery.of(context).size.height * 0.005,
@@ -318,7 +339,7 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                             style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               fontSize:
-                              MediaQuery.of(context).size.height * 0.012,
+                                  MediaQuery.of(context).size.height * 0.012,
                               color: Colors.white,
                             ),
                             // textAlign: TextAlign.left,
@@ -335,8 +356,8 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
             Expanded(
               child: Container(
                 padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.height * 0.00,
-                    right: MediaQuery.of(context).size.height * 0.00,
+                    left: MediaQuery.of(context).size.height * 0.01,
+                    right: MediaQuery.of(context).size.height * 0.01,
                     top: MediaQuery.of(context).size.height * 0.02,
                     bottom: MediaQuery.of(context).size.height * 0.00),
                 width: double.infinity,
@@ -415,73 +436,68 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                     // Doctor Details
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+
                       children: [
-
-
                         Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-
                               Text(
                                 "Dr. Nutan Bhatt",
                                 style: TextStyle(
                                   color: Color(0xFF126086),
                                   fontWeight: FontWeight.w600,
-                                  fontSize: MediaQuery.of(context).size.height * 0.02,
+                                  fontSize:
+                                      MediaQuery.of(context).size.height * 0.02,
                                 ),
                               ),
-
-                              // GestureDetector(
-                              //   onTap: () async {
-                              //     Navigator.of(context).push(
-                              //       MaterialPageRoute(
-                              //         builder:
-                              //             (BuildContext context) {
-                              //           return DoctorDetilPage(widget.doctoridval);
-                              //         },
-                              //       ),
-                              //     );
-                              //   },
-                              //   child:
-                              //   Container(
-                              //     margin: EdgeInsets.only(
-                              //         left:
-                              //         MediaQuery.of(context).size.height *
-                              //             0.01,
-                              //         right:
-                              //         MediaQuery.of(context).size.height *
-                              //             0.0,
-                              //         bottom:
-                              //         MediaQuery.of(context).size.height *
-                              //             0.0,
-                              //         top:
-                              //         MediaQuery.of(context).size.height *
-                              //             0.01),
-                              //     padding: EdgeInsets.only(
-                              //       left: MediaQuery.of(context).size.height *
-                              //           0.00,
-                              //     ),
-                              //     child: ClipRRect(
-                              //       borderRadius:
-                              //       BorderRadius.circular(130.0),
-                              //       child: Image.asset(
-                              //         'assets/Infodocdetails.png',
-                              //         height:
-                              //         MediaQuery.of(context).size.height *
-                              //             0.012, // Adjust height
-                              //         width:
-                              //         MediaQuery.of(context).size.height *
-                              //             0.012, // Adjust width
-                              //         fit: BoxFit.fill,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                            ]
-                        ),
-
-
+                              GestureDetector(
+                                onTap: () async {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return DoctorDetilPage(
+                                            // widget.doctoridval
+                                            ''
+                                            );
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(
+                                      left: MediaQuery.of(context).size.height *
+                                          0.005,
+                                      right:
+                                          MediaQuery.of(context).size.height *
+                                              0.0,
+                                      bottom:
+                                          MediaQuery.of(context).size.height *
+                                              0.0,
+                                      top: MediaQuery.of(context).size.height *
+                                          0.005),
+                                  padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.height *
+                                        0.00,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(130.0),
+                                    child: Image.asset(
+                                      'assets/Infodocdetails.png',
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.014, // Adjust height
+                                      width:
+                                          MediaQuery.of(context).size.height *
+                                              0.014, // Adjust width
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ]),
+                            SizedBox(height: 4),
                         Text(
                           "General physician / Internal Medicine",
                           // completedSpecialityString,
@@ -489,24 +505,24 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                             color: Colors.black54,
                             fontWeight: FontWeight.w500,
                             fontSize:
-                            MediaQuery.of(context).size.height * 0.014,
+                                MediaQuery.of(context).size.height * 0.014,
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height * 0.02,
+                              left: MediaQuery.of(context).size.height * 0.0,
                               right: MediaQuery.of(context).size.height * 0.00,
-                              top: MediaQuery.of(context).size.height * 0.005,
-                              bottom: MediaQuery.of(context).size.height * 0.00),
-                          child:
-                          Text(
+                              top: MediaQuery.of(context).size.height * 0.008,
+                              bottom:
+                                  MediaQuery.of(context).size.height * 0.00),
+                          child: Text(
                             "41 YEARS Experience- MBBS, DIPLOMA IN FAMILY MEDICINE (123 Reviews)",
                             // qualificationval,
                             style: TextStyle(
                               color: Color(0xFF126086),
                               fontWeight: FontWeight.bold,
                               fontSize:
-                              MediaQuery.of(context).size.height * 0.012,
+                                  MediaQuery.of(context).size.height * 0.012,
                             ),
                           ),
                         ),
@@ -1826,7 +1842,7 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
         topRight: Radius.circular(24),
       ),
     ),
-    barrierColor: Colors.grey.withOpacity(0.9),
+    barrierColor: Colors.grey.withOpacity(0.1),
     context: context,
         builder: (context) {
              return BottomSheetForPayment();
