@@ -199,9 +199,9 @@ class AddToCartMainstate extends State<AddToCartMain> {
                     ),
                     margin: EdgeInsets.only(
                       right: screenHeight * 0.0,
-                      top: screenHeight * 0.0,
+                      top: screenHeight * 0.01,
                       bottom: screenHeight * 0.01,
-                      left: screenHeight * 0.01,
+                      left: screenHeight * 0.0,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1826,6 +1826,16 @@ class AddToCartMainstate extends State<AddToCartMain> {
 
       // Bottom Navigation with another  positioned on the right
       bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              offset: Offset(0, -2), // Makes the shadow appear above
+              blurRadius: 6,
+            ),
+          ],
+        ),
         height: MediaQuery.of(context).size.height * 0.1,
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
         child: Column(

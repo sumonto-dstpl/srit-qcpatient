@@ -9,6 +9,7 @@ import 'package:intl/intl.dart' hide TextDirection;
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
+import 'package:newfolder/Screens/Timeline/timelinedetails.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
@@ -1045,16 +1046,16 @@ class TimelineMainstate extends State<TimelineMain> {
                      // 1st column
 
                      GestureDetector(
-                       // onTap: () {
-                       //   Navigator.of(context).push(
-                       //     MaterialPageRoute(
-                       //       builder: (BuildContext
-                       //       context) {
-                       //         return TimelineDetails();
-                       //       },
-                       //     ),
-                       //   );
-                       // },
+                       onTap: () {
+                         Navigator.of(context).push(
+                           MaterialPageRoute(
+                             builder: (BuildContext
+                             context) {
+                               return TimelineDetails();
+                             },
+                           ),
+                         );
+                       },
                        child: Container(
                          padding:
                          const EdgeInsets.all(8.0),

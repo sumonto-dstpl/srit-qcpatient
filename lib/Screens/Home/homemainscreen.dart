@@ -1,6 +1,7 @@
 import 'dart:convert';
 // import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
@@ -4542,29 +4543,22 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
 
   void showBottomSheet() =>
       showModalBottomSheet(
-        enableDrag: false,
-        isScrollControlled: true,
-        isDismissible: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24),
-            topRight: Radius.circular(24),
-          ),
-        ),
-        barrierColor: Colors.grey.withOpacity(0.9),
         context: context,
-        builder: (context) =>
-            StatefulBuilder(
-              builder: (BuildContext context,
-                  StateSetter setState /*You can rename this!*/) =>
-                  Padding(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery
-                            .of(context)
-                            .viewInsets
-                            .bottom),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
+          builder: (BuildContext context) {
+            return ClipRRect(
+                borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+            ),
+            child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+            child: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) => Padding(
+            padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            child: Column(
+            mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.only(
@@ -5342,8 +5336,11 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
 
                       ],
                     ),
+
                   ),
-            ),
+            ))
+            );
+          }
       );
 
 

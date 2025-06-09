@@ -770,71 +770,71 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                       ),*/
 
                       // General Physician
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Color(0x99F7F5F6),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        // width: 100,
-                        // color: Colors.blue,
-
-                        padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.01,
-                          top : MediaQuery.of(context).size.height * 0.005,
-                          bottom : MediaQuery.of(context).size.height * 0.005,
-                          right : MediaQuery.of(context).size.height * 0.01,
-
-                        ),
-                        margin: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.0,
-                            right :MediaQuery.of(context).size.width * 0.5,
-                            top : MediaQuery.of(context).size.height * 0.005,
-                          bottom : MediaQuery.of(context).size.height * 0.02,
-
-                        ),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            
-                            children: <Widget>[
-                              Icon(Icons.access_time_sharp,
-                                  color: Colors.black,
-                                  size: MediaQuery.of(context).size.height *
-                                      0.016
-                              ),
-                              Column(
-                                children: <Widget>[
-                                  Container(
-                                    padding: EdgeInsets.only(
-                                        left:
-                                            MediaQuery.of(context).size.height *
-                                                0.01,
-                                        right:
-                                            MediaQuery.of(context).size.height *
-                                                0.005,
-                                        top:
-                                            MediaQuery.of(context).size.height *
-                                                0.00,
-                                        bottom:
-                                            MediaQuery.of(context).size.height *
-                                                0.00),
-                                    child: Text(
-                                      "General Physician",
-                                      style: TextStyle(
-                                        color: Color(0xCC000000),
-                                        // fontWeight: FontWeight.bold,
-                                        overflow: TextOverflow.ellipsis,
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                0.012,
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ]),
-                      ),
+                      // Container(
+                      //   decoration: BoxDecoration(
+                      //     color: Color(0x99F7F5F6),
+                      //     borderRadius: BorderRadius.circular(10),
+                      //   ),
+                      //   // width: 100,
+                      //   // color: Colors.blue,
+                      //
+                      //   padding: EdgeInsets.only(
+                      //       left: MediaQuery.of(context).size.height * 0.01,
+                      //     top : MediaQuery.of(context).size.height * 0.005,
+                      //     bottom : MediaQuery.of(context).size.height * 0.005,
+                      //     right : MediaQuery.of(context).size.height * 0.01,
+                      //
+                      //   ),
+                      //   margin: EdgeInsets.only(
+                      //       left: MediaQuery.of(context).size.height * 0.0,
+                      //       right :MediaQuery.of(context).size.width * 0.5,
+                      //       top : MediaQuery.of(context).size.height * 0.005,
+                      //     bottom : MediaQuery.of(context).size.height * 0.02,
+                      //
+                      //   ),
+                      //   child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.start,
+                      //       crossAxisAlignment: CrossAxisAlignment.center,
+                      //
+                      //       children: <Widget>[
+                      //         Icon(Icons.access_time_sharp,
+                      //             color: Colors.black,
+                      //             size: MediaQuery.of(context).size.height *
+                      //                 0.016
+                      //         ),
+                      //         Column(
+                      //           children: <Widget>[
+                      //             Container(
+                      //               padding: EdgeInsets.only(
+                      //                   left:
+                      //                       MediaQuery.of(context).size.height *
+                      //                           0.01,
+                      //                   right:
+                      //                       MediaQuery.of(context).size.height *
+                      //                           0.005,
+                      //                   top:
+                      //                       MediaQuery.of(context).size.height *
+                      //                           0.00,
+                      //                   bottom:
+                      //                       MediaQuery.of(context).size.height *
+                      //                           0.00),
+                      //               child: Text(
+                      //                 "General Physician",
+                      //                 style: TextStyle(
+                      //                   color: Color(0xCC000000),
+                      //                   // fontWeight: FontWeight.bold,
+                      //                   overflow: TextOverflow.ellipsis,
+                      //                   fontSize:
+                      //                       MediaQuery.of(context).size.height *
+                      //                           0.012,
+                      //                   fontWeight: FontWeight.w300,
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         )
+                      //       ]),
+                      // ),
 
                       // General Physician Grid
                       Container(

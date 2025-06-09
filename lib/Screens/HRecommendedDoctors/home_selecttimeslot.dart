@@ -37,6 +37,9 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
 
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
+  final today = DateTime.now();
+  String slectedDateSlot = DateFormat('dd-MM-yyyy').format(DateTime.now());
+  String selectedSlot = "";
   DateTime? _selectedDay;
   int? selectedIndex;
   EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
@@ -66,8 +69,6 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
     getBookingDetails(formattedDate);
   }
 
-  final today = DateTime.now();
-  String selectedSlot = "";
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +97,6 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     TextEditingController SearchEditTextController = TextEditingController();
-    String slectedDateSlot = DateFormat('dd-MM-yyyy').format(today);
 
     return Scaffold(
       body: Container(
@@ -808,6 +808,16 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
 
       // Bottom Navigation with another  positioned on the right
       bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              offset: Offset(0, -3), // Makes the shadow appear above
+              blurRadius: 6,
+            ),
+          ],
+        ),
         // height: MediaQuery.of(context).size.height * 0.150,
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
         child: Column(
