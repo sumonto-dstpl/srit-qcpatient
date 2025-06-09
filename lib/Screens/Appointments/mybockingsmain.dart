@@ -1376,8 +1376,18 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
 
 
       bottomNavigationBar:Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              offset: Offset(0, -3), // Makes the shadow appear above
+              blurRadius: 6,
+            ),
+          ],
+        ),
         // height: MediaQuery.of(context).size.height * 0.150,
-        color: Colors.white,
+        // color: Colors.white,
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
