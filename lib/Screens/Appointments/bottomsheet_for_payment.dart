@@ -618,7 +618,7 @@ class BottomSheetForPaymentState extends State<BottomSheetForPayment> {
         topRight: Radius.circular(24),
       ),
     ),
-    barrierColor: Colors.grey.withOpacity(0.2),
+    barrierColor: Colors.grey.withOpacity(0.8),
     context: context,
     builder: (context) => StatefulBuilder(
       builder: (BuildContext context,
@@ -656,7 +656,6 @@ class BottomSheetForPaymentState extends State<BottomSheetForPayment> {
                                   fontWeight: FontWeight.w600,
                                   fontSize: MediaQuery.of(context).size.height *
                                       0.018
-
                               ),
                             ),
                             Container(

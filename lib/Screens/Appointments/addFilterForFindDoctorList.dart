@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:newfolder/Data/Models/doctorslistres.dart';
 
 
 class AddFilterForFindDoctorList extends StatefulWidget {
+
+  List<DoctorsListResponse>? responselist = [];
+
+  AddFilterForFindDoctorList({
+    required this.responselist
+  });
+
+  List<DoctorsListResponse>? getDoctors(){
+    return responselist;
+  }
+
   @override
   AddFilterForFindDoctorListState createState() => AddFilterForFindDoctorListState();
 }
@@ -21,6 +33,29 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
     _focusNode.dispose();
     _scrollController.dispose();
     super.dispose();
+  }
+
+  Map<String, List<String>> selectedFilters = {
+    'Experience': [],
+    'Fees': [],
+    'Availability': [],
+    'Areas of Expertise': [],
+    'Gender': [],
+    'Language': [],
+    'City': [],
+  };
+
+  void _toggleButton1({
+    required String category,
+    required String value,
+  }) {
+    setState(() {
+      if (selectedFilters[category]!.contains(value)) {
+        selectedFilters[category]!.remove(value);
+      } else {
+        selectedFilters[category]!.add(value);
+      }
+    });
   }
 
   // List of filter categories
@@ -132,6 +167,49 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
       selectedCount += newState ? 1 : -1;
     });
   }
+
+  String mapExperienceToRange(String expStr) {
+    int exp = int.tryParse(expStr) ?? 0;
+    if (exp <= 5) return "0 - 5 Years";
+    if (exp <= 10) return "6 - 10 Years";
+    if (exp <= 16) return "11 - 16 Years";
+    return "17 - 21 Years";
+  }
+
+  List<DoctorsListResponse> filterDoctors(
+      List<DoctorsListResponse> doctors,
+      Map<String, List<String>> filters,
+      ) {
+    return doctors.where((doctor) {
+      // Experience filtering
+      String experienceRange = mapExperienceToRange(doctor.experience ?? '');
+      if (filters['Experience']!.isNotEmpty &&
+          !filters['Experience']!.contains(experienceRange)) {
+        return false;
+      }
+
+      // Speciality filtering
+      if (filters['Areas of Expertise']!.isNotEmpty &&
+          !filters['Areas of Expertise']!.contains(doctor.speciality)) {
+        return false;
+      }
+
+      // Add more filters here as needed
+
+      return true;
+    }).toList();
+  }
+
+  late List<DoctorsListResponse> filteredDoctors;
+
+  @override
+  void initState() {
+    super.initState();
+    filteredDoctors = filterDoctors(widget.getDoctors() ?? [], selectedFilters);
+    print(filteredDoctors);
+  }
+
+
 
   double _currentChildSize = 0.55;
   bool _isDismissed = false;
@@ -584,86 +662,7 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Search Input Field
-        // GestureDetector(
-        //   onTap: () {
-        //     _focusNode.requestFocus(); // Show keyboard
-        //   },
-        //   child: Container(
-        //
-        //     height: MediaQuery.of(context).size.height * 0.038,
-        //     alignment: Alignment.centerRight,
-        //     padding: EdgeInsets.only(
-        //       top: MediaQuery.of(context).size.height * 0.0,
-        //       bottom: MediaQuery.of(context).size.height * 0.00,
-        //       left: MediaQuery.of(context).size.height * 0.00,
-        //       right: MediaQuery.of(context).size.height * 0.00,
-        //     ),
-        //     margin: EdgeInsets.only(
-        //       right: MediaQuery.of(context).size.height * 0.01,
-        //       top: MediaQuery.of(context).size.height * 0.0,
-        //       bottom: MediaQuery.of(context).size.height * 0.01,
-        //       left: MediaQuery.of(context).size.height * 0.01,
-        //     ),
-        //     child: TextFormField(
-        //       focusNode: _focusNode, // Attach the focus node
-        //       readOnly: false, // Important: set to false so it can accept input
-        //
-        //       controller: SearchfilterEditTextController,
-        //       inputFormatters: [
-        //         LengthLimitingTextInputFormatter(15),
-        //         FilteringTextInputFormatter.allow(
-        //             RegExp('[a-zA-Z0-9]')),
-        //       ],
-        //       // textCapitalization: TextCapitalization.characters,
-        //       style: TextStyle(color: Colors.black45),
-        //       keyboardType: TextInputType.emailAddress,
-        //       validator: (input) => input!.length < 3
-        //           ? "Search should be more than 3 characters"
-        //           : null,
-        //       decoration: InputDecoration(
-        //         isDense: true,
-        //         contentPadding:
-        //         EdgeInsets.only(
-        //           left : MediaQuery.of(context).size.height * 0.012,
-        //
-        //         ),
-        //         filled: true,
-        //         // fillColor: Colors.grey[200],
-        //         fillColor: Color(0xFFF7F5F6).withOpacity(0.9),
-        //         hintText:
-        //         "Search",
-        //         hintStyle: TextStyle(
-        //             color: Color(0xFFA8A8A8),
-        //             fontSize: MediaQuery.of(context).size.height * 0.012,
-        //             fontWeight: FontWeight.w500
-        //         ),
-        //         focusedBorder: OutlineInputBorder(
-        //           borderRadius: BorderRadius.circular(5.0),
-        //           borderSide: BorderSide(color: Colors.grey),
-        //         ),
-        //         enabledBorder: OutlineInputBorder(
-        //           borderRadius:
-        //           BorderRadius. all(Radius.circular(8.0)),
-        //           borderSide: BorderSide(color: Colors.white),
-        //         ),
-        //         suffixIcon: IconButton(
-        //           icon: Icon(
-        //             Icons.search,
-        //             color: Colors.black45,
-        //             size: MediaQuery
-        //                 .of(context)
-        //                 .size
-        //                 .height * 0.02,
-        //           ),
-        //           onPressed: () {
-        //
-        //           },
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
+
 
         // [ Stable & Unstable]
         Container(
@@ -689,6 +688,8 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                   onTap: () {
                     if(_is0_5_Selected == false){
                       _toggleButton(_is0_5_Selected, (val) => _is0_5_Selected = val);
+                      _toggleButton1(category: 'Experience', value: '0 - 5 Years');
+                      print(selectedFilters);
                     }
 
                   },
@@ -751,7 +752,10 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                                       onTap: () {
                                         if(_is0_5_Selected){
                                           _toggleButton(_is0_5_Selected, (val) => _is0_5_Selected = val);
+                                          _toggleButton1(category: 'Experience', value: '0 - 5 Years');
+                                          print(selectedFilters);
                                         }
+
 
                                       },
                                       child: Container(
@@ -781,6 +785,8 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                   onTap: () {
                     if(_is6_10_Selected == false){
                       _toggleButton(_is6_10_Selected, (val) => _is6_10_Selected = val);
+                      _toggleButton1(category: 'Experience', value: '6 - 10 Years');
+                      print(selectedFilters);
                     }
 
                   },
@@ -843,6 +849,8 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                                       onTap: () {
                                         if(_is6_10_Selected){
                                           _toggleButton(_is6_10_Selected, (val) => _is6_10_Selected = val);
+                                          _toggleButton1(category: 'Experience', value: '6 - 10 Years');
+                                          print(selectedFilters);
                                         }
 
                                       },
@@ -861,8 +869,6 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                             ],
                           ),
                         ),
-
-
                       ],
                     ),
                   ),
@@ -896,6 +902,8 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                   onTap: () {
                     if(_is11_16_Selected == false){
                       _toggleButton(_is11_16_Selected, (val) => _is11_16_Selected = val);
+                      _toggleButton1(category: 'Experience', value: '11 - 16 Years');
+                      print(selectedFilters);
                     }
 
                   },
@@ -958,6 +966,8 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                                       onTap: () {
                                         if(_is11_16_Selected){
                                           _toggleButton(_is11_16_Selected, (val) => _is11_16_Selected = val);
+                                          _toggleButton1(category: 'Experience', value: '11 - 16 Years');
+                                          print(selectedFilters);
                                         }
 
                                       },
@@ -988,6 +998,8 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                   onTap: () {
                     if(_is17_21_Selected == false){
                       _toggleButton(_is17_21_Selected, (val) => _is17_21_Selected = val);
+                      _toggleButton1(category: 'Experience', value: '17 - 21 Years');
+                      print(selectedFilters);
                     }
 
                   },
@@ -1050,6 +1062,8 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                                       onTap: () {
                                         if(_is17_21_Selected){
                                           _toggleButton(_is17_21_Selected, (val) => _is17_21_Selected = val);
+                                          _toggleButton1(category: 'Experience', value: '17 - 21 Years');
+                                          print(selectedFilters);
                                         }
 
                                       },
