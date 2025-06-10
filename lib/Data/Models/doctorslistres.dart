@@ -80,6 +80,11 @@ class DoctorsListResponse {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return '{doctorName: $doctorName, speciality: $speciality, experience: $experience}';
+  }
 }
 
 class Photo {
