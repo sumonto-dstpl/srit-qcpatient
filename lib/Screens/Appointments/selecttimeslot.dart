@@ -37,6 +37,9 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
   String userprofilepValue = "NA";
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
+  final today = DateTime.now();
+  String slectedDateSlot = DateFormat('dd-MM-yyyy').format(DateTime.now());
+  String selectedSlot = "";
   DateTime? _selectedDay;
   int? selectedIndex;
   EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
@@ -72,8 +75,8 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
     getBookingDetails(formattedDate);
   }
 
-  String selectedSlot = "";
-  final today = DateTime.now();
+  // String selectedSlot = "";
+  // final today = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +105,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     TextEditingController SearchEditTextController = TextEditingController();
-    String slectedDateSlot = DateFormat('dd-MM-yyyy').format(today);
+    // String slectedDateSlot = DateFormat('dd-MM-yyyy').format(today);
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -517,7 +520,16 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
 
       // Bottom Navigation with another  positioned on the right
       bottomNavigationBar: Container(
-        // color: Colors.blue,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              offset: Offset(0, -3), // Makes the shadow appear above
+              blurRadius: 6,
+            ),
+          ],
+        ),
         // height: MediaQuery.of(context).size.height * 0.150,
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
         child: Column(

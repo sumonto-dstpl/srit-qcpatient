@@ -517,7 +517,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       vertical: height * 0.003,
                     ),
                     child: TextButton(
-                      onPressed: _nextPage,
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginHome()),
+                        );
+                      },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
                         minimumSize: Size.zero,
