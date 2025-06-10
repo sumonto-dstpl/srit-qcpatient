@@ -9,7 +9,7 @@
 node_modules/
 dist/
 build/
-android/gradle.properties
+.android/gradle.properties
 .flutter-plugins
 .flutter-plugins-dependencies
 # Compiled Java class files
