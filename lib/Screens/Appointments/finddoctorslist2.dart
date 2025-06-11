@@ -1715,7 +1715,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
     barrierColor: Colors.grey.withOpacity(0.9),
     context: context,
     builder: (context) {
-      return AddFilterForFindDoctorList();
+      return AddFilterForFindDoctorList(responselist: [],);
     }
 
     //     StatefulBuilder(

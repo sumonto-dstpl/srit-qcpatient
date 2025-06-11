@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:intl/intl.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:newfolder/Screens/Medications/bottomsheet_payment_for_medication.dart';
+import 'package:newfolder/Screens/Medications/bottomsheet_for_payment.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
 import 'package:flutter/material.dart';

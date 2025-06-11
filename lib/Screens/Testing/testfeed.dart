@@ -1016,7 +1016,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
               onTap: () async {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => MyBookingsMain(),
+                    builder: (context) => MyBookingsMain(selectedDate: '', selectedTime: '',),
                   ),
                 );
               },
@@ -1058,7 +1058,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                               onPressed: () async {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => MyBookingsMain(),
+                                    builder: (context) => MyBookingsMain(selectedDate: '', selectedTime: '',),
                                   ),
                                 );
                               },
