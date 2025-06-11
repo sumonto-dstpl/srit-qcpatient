@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
@@ -604,23 +606,50 @@ class BottomSheetForPaymentState extends State<BottomSheetForPaymentForMedicatio
 
 
   void showsucessalertBottomSheet() => showModalBottomSheet(
-    enableDrag: false,
-    isScrollControlled: true,
-    isDismissible: true,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(24),
-        topRight: Radius.circular(24),
-      ),
-    ),
-    barrierColor: Colors.grey.withOpacity(0.2),
-    context: context,
-    builder: (context) => StatefulBuilder(
-      builder: (BuildContext context,
-          StateSetter setState /*You can rename this!*/) =>
-          Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
+  enableDrag: false,
+  isScrollControlled: true,
+  isDismissible: true,
+  backgroundColor: Colors.transparent, // Necessary for blur to show
+  barrierColor: Colors.transparent,
+  context: context,
+  builder: (context) {
+  return Stack(
+  children: [
+  GestureDetector(
+  onTap: () => Navigator.of(context).pop(),
+  child: BackdropFilter(
+  filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+  child: Container(
+  width: double.infinity,
+  height: double.infinity,
+  color: Colors.transparent,
+  ),
+  ),
+  ),
+  Align(
+  alignment: Alignment.bottomCenter,
+  child: Container(
+  decoration: const BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.only(
+  topLeft: Radius.circular(24),
+  topRight: Radius.circular(24),
+  ),
+  boxShadow: [
+  BoxShadow(
+  color: Colors.black26,
+  blurRadius: 10,
+  spreadRadius: 2,
+  offset: Offset(0, -2),
+  ),
+  ],
+  ),
+  child: StatefulBuilder(
+  builder: (BuildContext context, StateSetter setState) =>
+  Padding(
+  padding: EdgeInsets.only(
+  bottom: MediaQuery.of(context).viewInsets.bottom,
+  ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -840,8 +869,13 @@ class BottomSheetForPaymentState extends State<BottomSheetForPaymentForMedicatio
                 ),
               ],
             ),
-          ),
-    ),
+  ),
+  ),
+  ),
+  ),
+  ],
+  );
+  },
   );
 
 

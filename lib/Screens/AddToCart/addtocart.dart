@@ -6,6 +6,7 @@ import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
 import 'package:newfolder/Screens/Appointments/bottomsheet_for_payment.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
+import 'package:newfolder/Screens/Medications/bottomsheet_for_payment.dart';
 import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
@@ -2959,16 +2960,18 @@ class AddToCartMainstate extends State<AddToCartMain> {
 
   void showPaymentmethodsBottomSheet() => showModalBottomSheet(
     context: context,
+    enableDrag: false,
     isScrollControlled: true,
     isDismissible: true,
-    enableDrag: false,
-    backgroundColor: Colors.transparent,
-    barrierColor: Colors.transparent,
-    transitionAnimationController: AnimationController(
-      duration: const Duration(milliseconds: 200),
-      vsync: Navigator.of(context),
+    backgroundColor: Colors.transparent, // Transparent for blur
+    barrierColor: Colors.transparent, // Disable dark overlay
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(24),
+        topRight: Radius.circular(24),
+      ),
     ),
-    builder: (BuildContext context) {
+    builder: (context) {
       return Stack(
         children: [
           GestureDetector(
@@ -2985,481 +2988,467 @@ class AddToCartMainstate extends State<AddToCartMain> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.only(
+              decoration: const BoxDecoration(
+                color: Colors.white, // White background for popup
+                borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(24),
                   topRight: Radius.circular(24),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 1,
-                    spreadRadius: 0.5,
-                    offset: Offset(0, -2),
-                  ),
-                ],
               ),
-              child: Material(
-                color: Colors.white,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(24),
-                    topRight: Radius.circular(24),
-                  ),
-                ),
-                child: StatefulBuilder(
-                    builder: (BuildContext context, StateSetter setState) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom,
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.height * 0.020,
-                                  right: MediaQuery.of(context).size.height * 0.020,
-                                  top: MediaQuery.of(context).size.height * 0.030,
-                                  bottom: MediaQuery.of(context).size.height * 0.00),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          "Payment Methods",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: MediaQuery.of(context).size.height *
-                                                  0.024),
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                            top: MediaQuery.of(context).size.height * 0.00,
-                                            bottom:
-                                            MediaQuery.of(context).size.height * 0.02,
-                                            left: MediaQuery.of(context).size.height * 0.00,
-                                            right:
-                                            MediaQuery.of(context).size.height * 0.00,
-                                          ),
-                                          child: Text(
-                                            "Please Select a payment method",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize:
-                                                MediaQuery.of(context).size.height *
-                                                    0.018),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  // SizedBox(width: MediaQuery.of(context).size.height * 0.040),
-                                ],
-                              ),
-                            ),
-
-                            // Payment mode
-                            // 1
-                            Container(
-                              margin: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                bottom: MediaQuery.of(context).size.height * 0.01,
-                                left: MediaQuery.of(context).size.height * 0.01,
-                                right: MediaQuery.of(context).size.height * 0.01,
-                              ),
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                bottom: MediaQuery.of(context).size.height * 0.00,
-                                left: MediaQuery.of(context).size.height * 0.01,
-                                right: MediaQuery.of(context).size.height * 0.00,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  // Image from assets
-                                  Container(
-                                    width: MediaQuery.of(context).size.height * 0.07,
-                                    height: MediaQuery.of(context).size.height * 0.07,
-                                    margin: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height * 0.01,
-                                      bottom: MediaQuery.of(context).size.height * 0.01,
-                                      left: MediaQuery.of(context).size.height * 0.01,
-                                      right: MediaQuery.of(context).size.height * 0.01,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/visapay.png'), // Replace with your asset path
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  // Column with two Text widgets
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '**** **** 3434',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize:
-                                            MediaQuery.of(context).size.height * 0.018,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Visa',
-                                          style: TextStyle(
-                                            fontSize:
-                                            MediaQuery.of(context).size.height * 0.016,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  // Circular Radio Button
-                                  Radio<int>(
-                                    value: 1, // The value for this radio button
-                                    groupValue: 0, // The currently selected value
-                                    onChanged: (int? value) {
-                                      // Handle radio button change
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            // 2
-                            Container(
-                              margin: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                bottom: MediaQuery.of(context).size.height * 0.01,
-                                left: MediaQuery.of(context).size.height * 0.01,
-                                right: MediaQuery.of(context).size.height * 0.01,
-                              ),
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                bottom: MediaQuery.of(context).size.height * 0.00,
-                                left: MediaQuery.of(context).size.height * 0.01,
-                                right: MediaQuery.of(context).size.height * 0.00,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  // Image from assets
-                                  Container(
-                                    width: MediaQuery.of(context).size.height * 0.07,
-                                    height: MediaQuery.of(context).size.height * 0.07,
-                                    margin: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height * 0.01,
-                                      bottom: MediaQuery.of(context).size.height * 0.01,
-                                      left: MediaQuery.of(context).size.height * 0.01,
-                                      right: MediaQuery.of(context).size.height * 0.01,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/paypalpay.png'), // Replace with your asset path
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  // Column with two Text widgets
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '**** **** 3434',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize:
-                                            MediaQuery.of(context).size.height * 0.018,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Paypal',
-                                          style: TextStyle(
-                                            fontSize:
-                                            MediaQuery.of(context).size.height * 0.016,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  // Circular Radio Button
-                                  Radio<int>(
-                                    value: 1, // The value for this radio button
-                                    groupValue: 0, // The currently selected value
-                                    onChanged: (int? value) {
-                                      // Handle radio button change
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            // 3
-                            Container(
-                              margin: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                bottom: MediaQuery.of(context).size.height * 0.01,
-                                left: MediaQuery.of(context).size.height * 0.01,
-                                right: MediaQuery.of(context).size.height * 0.01,
-                              ),
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                bottom: MediaQuery.of(context).size.height * 0.00,
-                                left: MediaQuery.of(context).size.height * 0.01,
-                                right: MediaQuery.of(context).size.height * 0.00,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  // Image from assets
-                                  Container(
-                                    width: MediaQuery.of(context).size.height * 0.07,
-                                    height: MediaQuery.of(context).size.height * 0.07,
-                                    margin: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height * 0.01,
-                                      bottom: MediaQuery.of(context).size.height * 0.01,
-                                      left: MediaQuery.of(context).size.height * 0.01,
-                                      right: MediaQuery.of(context).size.height * 0.01,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/applepay.png'), // Replace with your asset path
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  // Column with two Text widgets
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Priya Krishamurty',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize:
-                                            MediaQuery.of(context).size.height * 0.018,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Apple Pay',
-                                          style: TextStyle(
-                                            fontSize:
-                                            MediaQuery.of(context).size.height * 0.016,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  // Circular Radio Button
-                                  Radio<int>(
-                                    value: 1, // The value for this radio button
-                                    groupValue: 0, // The currently selected value
-                                    onChanged: (int? value) {
-                                      // Handle radio button change
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            // 4
-                            Container(
-                              margin: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                bottom: MediaQuery.of(context).size.height * 0.00,
-                                left: MediaQuery.of(context).size.height * 0.01,
-                                right: MediaQuery.of(context).size.height * 0.01,
-                              ),
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                bottom: MediaQuery.of(context).size.height * 0.00,
-                                left: MediaQuery.of(context).size.height * 0.01,
-                                right: MediaQuery.of(context).size.height * 0.00,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  // Image from assets
-                                  Container(
-                                    width: MediaQuery.of(context).size.height * 0.07,
-                                    height: MediaQuery.of(context).size.height * 0.07,
-                                    margin: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height * 0.01,
-                                      bottom: MediaQuery.of(context).size.height * 0.01,
-                                      left: MediaQuery.of(context).size.height * 0.01,
-                                      right: MediaQuery.of(context).size.height * 0.01,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/googlepay.png'), // Replace with your asset path
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  // Column with two Text widgets
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Priya Krishamurty',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize:
-                                            MediaQuery.of(context).size.height * 0.018,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Google Pay',
-                                          style: TextStyle(
-                                            fontSize:
-                                            MediaQuery.of(context).size.height * 0.016,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  // Circular Radio Button
-                                  Radio<int>(
-                                    value: 1, // The value for this radio button
-                                    groupValue: 0, // The currently selected value
-                                    onChanged: (int? value) {
-                                      // Handle radio button change
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            // Continue
-                            GestureDetector(
-                              onTap: () async {
-                                showsucessalertBottomSheet();
-                              },
-                              child: Container(
-                                  alignment: Alignment.centerRight,
-                                  padding: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height * 0.01,
-                                      bottom: MediaQuery.of(context).size.height * 0.00,
-                                      left: MediaQuery.of(context).size.height * 0.00,
-                                      right: MediaQuery.of(context).size.height * 0.00),
-                                  margin: EdgeInsets.only(
-                                      right: MediaQuery.of(context).size.height * 0.03,
-                                      top: MediaQuery.of(context).size.height * 0.01,
-                                      bottom: MediaQuery.of(context).size.height * 0.01,
-                                      left: MediaQuery.of(context).size.height * 0.03),
-                                  child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(
-                                                    MediaQuery.of(context).size.height *
-                                                        0.012),
-                                                gradient: LinearGradient(
-                                                    begin: Alignment.centerRight,
-                                                    end: Alignment.center,
-                                                    stops: [
-                                                      0.5,
-                                                      0.9
-                                                    ],
-                                                    colors: [
-                                                      Color(0xFF126086),
-                                                      Color(0xFF126086),
-                                                    ])),
-                                            alignment: Alignment.center,
-                                            padding: EdgeInsets.only(left: 0.0),
-                                            child: TextButton(
-                                              onPressed: () async {
-                                                showsucessalertBottomSheet();
-                                              },
-                                              child: Text("Continue",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.02)),
-                                            ),
-                                          ),
-                                        ),
-                                      ])),
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
-              ),
+              child: BottomSheetForPaymentForMedication(),
             ),
           ),
         ],
       );
     },
+
+
+    //     StatefulBuilder(
+    //   builder: (BuildContext context,
+    //       StateSetter setState /*You can rename this!*/) =>
+    //       Padding(
+    //         padding: EdgeInsets.only(
+    //             bottom: MediaQuery.of(context).viewInsets.bottom),
+    //         child: Column(
+    //           mainAxisSize: MainAxisSize.min,
+    //           children: <Widget>[
+    //             Container(
+    //               padding: EdgeInsets.only(
+    //                   left: MediaQuery.of(context).size.height * 0.020,
+    //                   right: MediaQuery.of(context).size.height * 0.020,
+    //                   top: MediaQuery.of(context).size.height * 0.030,
+    //                   bottom: MediaQuery.of(context).size.height * 0.00),
+    //               child: Row(
+    //                 crossAxisAlignment: CrossAxisAlignment.center,
+    //                 mainAxisAlignment: MainAxisAlignment.start,
+    //                 children: <Widget>[
+    //                   Expanded(
+    //                     child: Column(
+    //                       crossAxisAlignment: CrossAxisAlignment.start,
+    //                       mainAxisAlignment: MainAxisAlignment.center,
+    //                       children: <Widget>[
+    //                         Text(
+    //                           "Payment Methods",
+    //                           style: TextStyle(
+    //                               color: Colors.black,
+    //                               fontWeight: FontWeight.bold,
+    //                               fontSize: MediaQuery.of(context).size.height *
+    //                                   0.024),
+    //                         ),
+    //                         Container(
+    //                           padding: EdgeInsets.only(
+    //                             top: MediaQuery.of(context).size.height * 0.00,
+    //                             bottom:
+    //                             MediaQuery.of(context).size.height * 0.02,
+    //                             left: MediaQuery.of(context).size.height * 0.00,
+    //                             right:
+    //                             MediaQuery.of(context).size.height * 0.00,
+    //                           ),
+    //                           child: Text(
+    //                             "Please Select a payment method",
+    //                             textAlign: TextAlign.center,
+    //                             style: TextStyle(
+    //                                 color: Colors.black54,
+    //                                 fontSize:
+    //                                 MediaQuery.of(context).size.height *
+    //                                     0.018),
+    //                           ),
+    //                         ),
+    //                       ],
+    //                     ),
+    //                   ),
+    //
+    //                   // SizedBox(width: MediaQuery.of(context).size.height * 0.040),
+    //                 ],
+    //               ),
+    //             ),
+    //
+    //             // Payment mode
+    //             // 1
+    //             Container(
+    //               margin: EdgeInsets.only(
+    //                 top: MediaQuery.of(context).size.height * 0.00,
+    //                 bottom: MediaQuery.of(context).size.height * 0.01,
+    //                 left: MediaQuery.of(context).size.height * 0.01,
+    //                 right: MediaQuery.of(context).size.height * 0.01,
+    //               ),
+    //               padding: EdgeInsets.only(
+    //                 top: MediaQuery.of(context).size.height * 0.00,
+    //                 bottom: MediaQuery.of(context).size.height * 0.00,
+    //                 left: MediaQuery.of(context).size.height * 0.01,
+    //                 right: MediaQuery.of(context).size.height * 0.00,
+    //               ),
+    //               decoration: BoxDecoration(
+    //                 border: Border.all(
+    //                   color: Colors.grey,
+    //                   width: 1.0,
+    //                 ),
+    //                 borderRadius: BorderRadius.circular(8.0),
+    //               ),
+    //               child: Row(
+    //                 mainAxisAlignment: MainAxisAlignment.start,
+    //                 crossAxisAlignment: CrossAxisAlignment.center,
+    //                 children: [
+    //                   // Image from assets
+    //                   Container(
+    //                     width: MediaQuery.of(context).size.height * 0.07,
+    //                     height: MediaQuery.of(context).size.height * 0.07,
+    //                     margin: EdgeInsets.only(
+    //                       top: MediaQuery.of(context).size.height * 0.01,
+    //                       bottom: MediaQuery.of(context).size.height * 0.01,
+    //                       left: MediaQuery.of(context).size.height * 0.01,
+    //                       right: MediaQuery.of(context).size.height * 0.01,
+    //                     ),
+    //                     decoration: BoxDecoration(
+    //                       borderRadius: BorderRadius.circular(4.0),
+    //                       image: DecorationImage(
+    //                         image: AssetImage(
+    //                             'assets/visapay.png'), // Replace with your asset path
+    //                         fit: BoxFit.cover,
+    //                       ),
+    //                     ),
+    //                   ),
+    //                   // Column with two Text widgets
+    //                   Expanded(
+    //                     child: Column(
+    //                       crossAxisAlignment: CrossAxisAlignment.start,
+    //                       children: [
+    //                         Text(
+    //                           '**** **** 3434',
+    //                           style: TextStyle(
+    //                             fontWeight: FontWeight.bold,
+    //                             fontSize:
+    //                             MediaQuery.of(context).size.height * 0.018,
+    //                             color: Colors.black,
+    //                           ),
+    //                         ),
+    //                         Text(
+    //                           'Visa',
+    //                           style: TextStyle(
+    //                             fontSize:
+    //                             MediaQuery.of(context).size.height * 0.016,
+    //                             color: Colors.black,
+    //                           ),
+    //                         ),
+    //                       ],
+    //                     ),
+    //                   ),
+    //                   // Circular Radio Button
+    //                   Radio<int>(
+    //                     value: 1, // The value for this radio button
+    //                     groupValue: 0, // The currently selected value
+    //                     onChanged: (int? value) {
+    //                       // Handle radio button change
+    //                     },
+    //                   ),
+    //                 ],
+    //               ),
+    //             ),
+    //
+    //             // 2
+    //             Container(
+    //               margin: EdgeInsets.only(
+    //                 top: MediaQuery.of(context).size.height * 0.00,
+    //                 bottom: MediaQuery.of(context).size.height * 0.01,
+    //                 left: MediaQuery.of(context).size.height * 0.01,
+    //                 right: MediaQuery.of(context).size.height * 0.01,
+    //               ),
+    //               padding: EdgeInsets.only(
+    //                 top: MediaQuery.of(context).size.height * 0.00,
+    //                 bottom: MediaQuery.of(context).size.height * 0.00,
+    //                 left: MediaQuery.of(context).size.height * 0.01,
+    //                 right: MediaQuery.of(context).size.height * 0.00,
+    //               ),
+    //               decoration: BoxDecoration(
+    //                 border: Border.all(
+    //                   color: Colors.grey,
+    //                   width: 1.0,
+    //                 ),
+    //                 borderRadius: BorderRadius.circular(8.0),
+    //               ),
+    //               child: Row(
+    //                 mainAxisAlignment: MainAxisAlignment.start,
+    //                 crossAxisAlignment: CrossAxisAlignment.center,
+    //                 children: [
+    //                   // Image from assets
+    //                   Container(
+    //                     width: MediaQuery.of(context).size.height * 0.07,
+    //                     height: MediaQuery.of(context).size.height * 0.07,
+    //                     margin: EdgeInsets.only(
+    //                       top: MediaQuery.of(context).size.height * 0.01,
+    //                       bottom: MediaQuery.of(context).size.height * 0.01,
+    //                       left: MediaQuery.of(context).size.height * 0.01,
+    //                       right: MediaQuery.of(context).size.height * 0.01,
+    //                     ),
+    //                     decoration: BoxDecoration(
+    //                       borderRadius: BorderRadius.circular(4.0),
+    //                       image: DecorationImage(
+    //                         image: AssetImage(
+    //                             'assets/paypalpay.png'), // Replace with your asset path
+    //                         fit: BoxFit.cover,
+    //                       ),
+    //                     ),
+    //                   ),
+    //                   // Column with two Text widgets
+    //                   Expanded(
+    //                     child: Column(
+    //                       crossAxisAlignment: CrossAxisAlignment.start,
+    //                       children: [
+    //                         Text(
+    //                           '**** **** 3434',
+    //                           style: TextStyle(
+    //                             fontWeight: FontWeight.bold,
+    //                             fontSize:
+    //                             MediaQuery.of(context).size.height * 0.018,
+    //                             color: Colors.black,
+    //                           ),
+    //                         ),
+    //                         Text(
+    //                           'Paypal',
+    //                           style: TextStyle(
+    //                             fontSize:
+    //                             MediaQuery.of(context).size.height * 0.016,
+    //                             color: Colors.black,
+    //                           ),
+    //                         ),
+    //                       ],
+    //                     ),
+    //                   ),
+    //                   // Circular Radio Button
+    //                   Radio<int>(
+    //                     value: 1, // The value for this radio button
+    //                     groupValue: 0, // The currently selected value
+    //                     onChanged: (int? value) {
+    //                       // Handle radio button change
+    //                     },
+    //                   ),
+    //                 ],
+    //               ),
+    //             ),
+    //
+    //             // 3
+    //             Container(
+    //               margin: EdgeInsets.only(
+    //                 top: MediaQuery.of(context).size.height * 0.00,
+    //                 bottom: MediaQuery.of(context).size.height * 0.01,
+    //                 left: MediaQuery.of(context).size.height * 0.01,
+    //                 right: MediaQuery.of(context).size.height * 0.01,
+    //               ),
+    //               padding: EdgeInsets.only(
+    //                 top: MediaQuery.of(context).size.height * 0.00,
+    //                 bottom: MediaQuery.of(context).size.height * 0.00,
+    //                 left: MediaQuery.of(context).size.height * 0.01,
+    //                 right: MediaQuery.of(context).size.height * 0.00,
+    //               ),
+    //               decoration: BoxDecoration(
+    //                 border: Border.all(
+    //                   color: Colors.grey,
+    //                   width: 1.0,
+    //                 ),
+    //                 borderRadius: BorderRadius.circular(8.0),
+    //               ),
+    //               child: Row(
+    //                 mainAxisAlignment: MainAxisAlignment.start,
+    //                 crossAxisAlignment: CrossAxisAlignment.center,
+    //                 children: [
+    //                   // Image from assets
+    //                   Container(
+    //                     width: MediaQuery.of(context).size.height * 0.07,
+    //                     height: MediaQuery.of(context).size.height * 0.07,
+    //                     margin: EdgeInsets.only(
+    //                       top: MediaQuery.of(context).size.height * 0.01,
+    //                       bottom: MediaQuery.of(context).size.height * 0.01,
+    //                       left: MediaQuery.of(context).size.height * 0.01,
+    //                       right: MediaQuery.of(context).size.height * 0.01,
+    //                     ),
+    //                     decoration: BoxDecoration(
+    //                       borderRadius: BorderRadius.circular(4.0),
+    //                       image: DecorationImage(
+    //                         image: AssetImage(
+    //                             'assets/applepay.png'), // Replace with your asset path
+    //                         fit: BoxFit.cover,
+    //                       ),
+    //                     ),
+    //                   ),
+    //                   // Column with two Text widgets
+    //                   Expanded(
+    //                     child: Column(
+    //                       crossAxisAlignment: CrossAxisAlignment.start,
+    //                       children: [
+    //                         Text(
+    //                           'Priya Krishamurty',
+    //                           style: TextStyle(
+    //                             fontWeight: FontWeight.bold,
+    //                             fontSize:
+    //                             MediaQuery.of(context).size.height * 0.018,
+    //                             color: Colors.black,
+    //                           ),
+    //                         ),
+    //                         Text(
+    //                           'Apple Pay',
+    //                           style: TextStyle(
+    //                             fontSize:
+    //                             MediaQuery.of(context).size.height * 0.016,
+    //                             color: Colors.black,
+    //                           ),
+    //                         ),
+    //                       ],
+    //                     ),
+    //                   ),
+    //                   // Circular Radio Button
+    //                   Radio<int>(
+    //                     value: 1, // The value for this radio button
+    //                     groupValue: 0, // The currently selected value
+    //                     onChanged: (int? value) {
+    //                       // Handle radio button change
+    //                     },
+    //                   ),
+    //                 ],
+    //               ),
+    //             ),
+    //
+    //             // 4
+    //             Container(
+    //               margin: EdgeInsets.only(
+    //                 top: MediaQuery.of(context).size.height * 0.00,
+    //                 bottom: MediaQuery.of(context).size.height * 0.00,
+    //                 left: MediaQuery.of(context).size.height * 0.01,
+    //                 right: MediaQuery.of(context).size.height * 0.01,
+    //               ),
+    //               padding: EdgeInsets.only(
+    //                 top: MediaQuery.of(context).size.height * 0.00,
+    //                 bottom: MediaQuery.of(context).size.height * 0.00,
+    //                 left: MediaQuery.of(context).size.height * 0.01,
+    //                 right: MediaQuery.of(context).size.height * 0.00,
+    //               ),
+    //               decoration: BoxDecoration(
+    //                 border: Border.all(
+    //                   color: Colors.grey,
+    //                   width: 1.0,
+    //                 ),
+    //                 borderRadius: BorderRadius.circular(8.0),
+    //               ),
+    //               child: Row(
+    //                 mainAxisAlignment: MainAxisAlignment.start,
+    //                 crossAxisAlignment: CrossAxisAlignment.center,
+    //                 children: [
+    //                   // Image from assets
+    //                   Container(
+    //                     width: MediaQuery.of(context).size.height * 0.07,
+    //                     height: MediaQuery.of(context).size.height * 0.07,
+    //                     margin: EdgeInsets.only(
+    //                       top: MediaQuery.of(context).size.height * 0.01,
+    //                       bottom: MediaQuery.of(context).size.height * 0.01,
+    //                       left: MediaQuery.of(context).size.height * 0.01,
+    //                       right: MediaQuery.of(context).size.height * 0.01,
+    //                     ),
+    //                     decoration: BoxDecoration(
+    //                       borderRadius: BorderRadius.circular(4.0),
+    //                       image: DecorationImage(
+    //                         image: AssetImage(
+    //                             'assets/googlepay.png'), // Replace with your asset path
+    //                         fit: BoxFit.cover,
+    //                       ),
+    //                     ),
+    //                   ),
+    //                   // Column with two Text widgets
+    //                   Expanded(
+    //                     child: Column(
+    //                       crossAxisAlignment: CrossAxisAlignment.start,
+    //                       children: [
+    //                         Text(
+    //                           'Priya Krishamurty',
+    //                           style: TextStyle(
+    //                             fontWeight: FontWeight.bold,
+    //                             fontSize:
+    //                             MediaQuery.of(context).size.height * 0.018,
+    //                             color: Colors.black,
+    //                           ),
+    //                         ),
+    //                         Text(
+    //                           'Google Pay',
+    //                           style: TextStyle(
+    //                             fontSize:
+    //                             MediaQuery.of(context).size.height * 0.016,
+    //                             color: Colors.black,
+    //                           ),
+    //                         ),
+    //                       ],
+    //                     ),
+    //                   ),
+    //                   // Circular Radio Button
+    //                   Radio<int>(
+    //                     value: 1, // The value for this radio button
+    //                     groupValue: 0, // The currently selected value
+    //                     onChanged: (int? value) {
+    //                       // Handle radio button change
+    //                     },
+    //                   ),
+    //                 ],
+    //               ),
+    //             ),
+    //
+    //             // Continue
+    //             GestureDetector(
+    //               onTap: () async {
+    //                 showsucessalertBottomSheet();
+    //               },
+    //               child: Container(
+    //                   alignment: Alignment.centerRight,
+    //                   padding: EdgeInsets.only(
+    //                       top: MediaQuery.of(context).size.height * 0.01,
+    //                       bottom: MediaQuery.of(context).size.height * 0.00,
+    //                       left: MediaQuery.of(context).size.height * 0.00,
+    //                       right: MediaQuery.of(context).size.height * 0.00),
+    //                   margin: EdgeInsets.only(
+    //                       right: MediaQuery.of(context).size.height * 0.03,
+    //                       top: MediaQuery.of(context).size.height * 0.01,
+    //                       bottom: MediaQuery.of(context).size.height * 0.01,
+    //                       left: MediaQuery.of(context).size.height * 0.03),
+    //                   child: Row(
+    //                       crossAxisAlignment: CrossAxisAlignment.start,
+    //                       mainAxisAlignment: MainAxisAlignment.center,
+    //                       children: <Widget>[
+    //                         Expanded(
+    //                           child: Container(
+    //                             decoration: BoxDecoration(
+    //                                 borderRadius: BorderRadius.circular(
+    //                                     MediaQuery.of(context).size.height *
+    //                                         0.012),
+    //                                 gradient: LinearGradient(
+    //                                     begin: Alignment.centerRight,
+    //                                     end: Alignment.center,
+    //                                     stops: [
+    //                                       0.5,
+    //                                       0.9
+    //                                     ],
+    //                                     colors: [
+    //                                       Color(0xFF126086),
+    //                                       Color(0xFF126086),
+    //                                     ])),
+    //                             alignment: Alignment.center,
+    //                             padding: EdgeInsets.only(left: 0.0),
+    //                             child: TextButton(
+    //                               onPressed: () async {
+    //                                 showsucessalertBottomSheet();
+    //                               },
+    //                               child: Text("Continue",
+    //                                   textAlign: TextAlign.center,
+    //                                   style: TextStyle(
+    //                                       color: Colors.white,
+    //                                       fontSize: MediaQuery.of(context)
+    //                                           .size
+    //                                           .height *
+    //                                           0.02)),
+    //                             ),
+    //                           ),
+    //                         ),
+    //                       ])),
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    // ),
   );
 
   // void showPaymentmethodsBottomSheet() => showModalBottomSheet(
@@ -3971,226 +3960,226 @@ class AddToCartMainstate extends State<AddToCartMain> {
   //     //   ),
   //     // ),
   //     );
-  void showsucessalertBottomSheet() => showModalBottomSheet(
-        enableDrag: false,
-        isScrollControlled: true,
-        isDismissible: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24),
-            topRight: Radius.circular(24),
-          ),
-        ),
-        barrierColor: Colors.grey.withOpacity(0.9),
-        context: context,
-        builder: (context) => StatefulBuilder(
-          builder: (BuildContext context,
-                  StateSetter setState /*You can rename this!*/) =>
-              Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.020,
-                      right: MediaQuery.of(context).size.height * 0.020,
-                      top: MediaQuery.of(context).size.height * 0.030,
-                      bottom: MediaQuery.of(context).size.height * 0.00),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                              'assets/paymentsucess.png',
-                              height: MediaQuery.of(context).size.height * 0.30,
-                              fit: BoxFit.fill,
-                            ),
-                            Text(
-                              "Thank you!",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.024),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                bottom:
-                                    MediaQuery.of(context).size.height * 0.02,
-                                left: MediaQuery.of(context).size.height * 0.00,
-                                right:
-                                    MediaQuery.of(context).size.height * 0.00,
-                              ),
-                              child: Text(
-                                "Payment Done Successfully",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.018),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      // SizedBox(width: MediaQuery.of(context).size.height * 0.040),
-                    ],
-                  ),
-                ),
-
-                // Reschedule
-                /*GestureDetector(
-                  onTap: () async {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder:
-                            (BuildContext context) {
-                          return MedicatiSelectTimeSlot(
-                              "widget.doctoridval");
-                        },
-                      ),
-                    );
-                  },
-                  child: Container(
-                    alignment: Alignment.centerRight,
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.0,
-                      bottom: MediaQuery.of(context).size.height * 0.00,
-                      left: MediaQuery.of(context).size.height * 0.00,
-                      right: MediaQuery.of(context).size.height * 0.00,
-                    ),
-                    margin: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.height * 0.03,
-                      top: MediaQuery.of(context).size.height * 0.00,
-                      bottom: MediaQuery.of(context).size.height * 0.01,
-                      left: MediaQuery.of(context).size.height * 0.03,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xFF126086), // Border color
-                        width: 1, // Border width
-                      ),
-                      borderRadius: BorderRadius.circular(
-                          MediaQuery.of(context).size.height * 0.012),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.only(left: 0.0),
-                            child: TextButton(
-                              onPressed: () async {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder:
-                                        (BuildContext context) {
-                                      return MedicatiSelectTimeSlot(
-                                          "widget.doctoridval");
-                                    },
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                "Reschedule",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF126086),
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.026,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),*/
-
-                // Back to Home
-                GestureDetector(
-                  onTap: () async {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => HomePageMain(),
-                      ),
-                      (Route route) => false,
-                    );
-                  },
-                  child: Container(
-                      alignment: Alignment.centerRight,
-                      padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.01,
-                          bottom: MediaQuery.of(context).size.height * 0.00,
-                          left: MediaQuery.of(context).size.height * 0.00,
-                          right: MediaQuery.of(context).size.height * 0.00),
-                      margin: EdgeInsets.only(
-                          right: MediaQuery.of(context).size.height * 0.03,
-                          top: MediaQuery.of(context).size.height * 0.01,
-                          bottom: MediaQuery.of(context).size.height * 0.01,
-                          left: MediaQuery.of(context).size.height * 0.03),
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(
-                                        MediaQuery.of(context).size.height *
-                                            0.012),
-                                    gradient: LinearGradient(
-                                        begin: Alignment.centerRight,
-                                        end: Alignment.center,
-                                        stops: [
-                                          0.5,
-                                          0.9
-                                        ],
-                                        colors: [
-                                          Color(0xFF126086),
-                                          Color(0xFF126086),
-                                        ])),
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.only(left: 0.0),
-                                child: TextButton(
-                                  onPressed: () async {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            HomePageMain(),
-                                      ),
-                                      (Route route) => false,
-                                    );
-                                  },
-                                  child: Text("Back to Home",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.02)),
-                                ),
-                              ),
-                            ),
-                          ])),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
+  // void showsucessalertBottomSheet() => showModalBottomSheet(
+  //       enableDrag: false,
+  //       isScrollControlled: true,
+  //       isDismissible: true,
+  //       shape: const RoundedRectangleBorder(
+  //         borderRadius: BorderRadius.only(
+  //           topLeft: Radius.circular(24),
+  //           topRight: Radius.circular(24),
+  //         ),
+  //       ),
+  //       barrierColor: Colors.grey.withOpacity(0.9),
+  //       context: context,
+  //       builder: (context) => StatefulBuilder(
+  //         builder: (BuildContext context,
+  //                 StateSetter setState /*You can rename this!*/) =>
+  //             Padding(
+  //           padding: EdgeInsets.only(
+  //               bottom: MediaQuery.of(context).viewInsets.bottom),
+  //           child: Column(
+  //             mainAxisSize: MainAxisSize.min,
+  //             children: <Widget>[
+  //               Container(
+  //                 padding: EdgeInsets.only(
+  //                     left: MediaQuery.of(context).size.height * 0.020,
+  //                     right: MediaQuery.of(context).size.height * 0.020,
+  //                     top: MediaQuery.of(context).size.height * 0.030,
+  //                     bottom: MediaQuery.of(context).size.height * 0.00),
+  //                 child: Row(
+  //                   crossAxisAlignment: CrossAxisAlignment.center,
+  //                   mainAxisAlignment: MainAxisAlignment.start,
+  //                   children: <Widget>[
+  //                     Expanded(
+  //                       child: Column(
+  //                         crossAxisAlignment: CrossAxisAlignment.center,
+  //                         mainAxisAlignment: MainAxisAlignment.center,
+  //                         children: <Widget>[
+  //                           Image.asset(
+  //                             'assets/paymentsucess.png',
+  //                             height: MediaQuery.of(context).size.height * 0.30,
+  //                             fit: BoxFit.fill,
+  //                           ),
+  //                           Text(
+  //                             "Thank you!",
+  //                             style: TextStyle(
+  //                                 color: Colors.black,
+  //                                 fontWeight: FontWeight.bold,
+  //                                 fontSize: MediaQuery.of(context).size.height *
+  //                                     0.024),
+  //                           ),
+  //                           Container(
+  //                             padding: EdgeInsets.only(
+  //                               top: MediaQuery.of(context).size.height * 0.00,
+  //                               bottom:
+  //                                   MediaQuery.of(context).size.height * 0.02,
+  //                               left: MediaQuery.of(context).size.height * 0.00,
+  //                               right:
+  //                                   MediaQuery.of(context).size.height * 0.00,
+  //                             ),
+  //                             child: Text(
+  //                               "Payment Done Successfully",
+  //                               textAlign: TextAlign.center,
+  //                               style: TextStyle(
+  //                                   color: Colors.black54,
+  //                                   fontSize:
+  //                                       MediaQuery.of(context).size.height *
+  //                                           0.018),
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     ),
+  //
+  //                     // SizedBox(width: MediaQuery.of(context).size.height * 0.040),
+  //                   ],
+  //                 ),
+  //               ),
+  //
+  //               // Reschedule
+  //               /*GestureDetector(
+  //                 onTap: () async {
+  //                   Navigator.of(context).push(
+  //                     MaterialPageRoute(
+  //                       builder:
+  //                           (BuildContext context) {
+  //                         return MedicatiSelectTimeSlot(
+  //                             "widget.doctoridval");
+  //                       },
+  //                     ),
+  //                   );
+  //                 },
+  //                 child: Container(
+  //                   alignment: Alignment.centerRight,
+  //                   padding: EdgeInsets.only(
+  //                     top: MediaQuery.of(context).size.height * 0.0,
+  //                     bottom: MediaQuery.of(context).size.height * 0.00,
+  //                     left: MediaQuery.of(context).size.height * 0.00,
+  //                     right: MediaQuery.of(context).size.height * 0.00,
+  //                   ),
+  //                   margin: EdgeInsets.only(
+  //                     right: MediaQuery.of(context).size.height * 0.03,
+  //                     top: MediaQuery.of(context).size.height * 0.00,
+  //                     bottom: MediaQuery.of(context).size.height * 0.01,
+  //                     left: MediaQuery.of(context).size.height * 0.03,
+  //                   ),
+  //                   decoration: BoxDecoration(
+  //                     border: Border.all(
+  //                       color: Color(0xFF126086), // Border color
+  //                       width: 1, // Border width
+  //                     ),
+  //                     borderRadius: BorderRadius.circular(
+  //                         MediaQuery.of(context).size.height * 0.012),
+  //                   ),
+  //                   child: Row(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: <Widget>[
+  //                       Expanded(
+  //                         child: Container(
+  //                           alignment: Alignment.center,
+  //                           padding: EdgeInsets.only(left: 0.0),
+  //                           child: TextButton(
+  //                             onPressed: () async {
+  //                               Navigator.of(context).push(
+  //                                 MaterialPageRoute(
+  //                                   builder:
+  //                                       (BuildContext context) {
+  //                                     return MedicatiSelectTimeSlot(
+  //                                         "widget.doctoridval");
+  //                                   },
+  //                                 ),
+  //                               );
+  //                             },
+  //                             child: Text(
+  //                               "Reschedule",
+  //                               textAlign: TextAlign.center,
+  //                               style: TextStyle(
+  //                                 color: Color(0xFF126086),
+  //                                 fontSize: MediaQuery.of(context).size.height *
+  //                                     0.026,
+  //                               ),
+  //                             ),
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ),*/
+  //
+  //               // Back to Home
+  //               GestureDetector(
+  //                 onTap: () async {
+  //                   Navigator.of(context).pushAndRemoveUntil(
+  //                     MaterialPageRoute(
+  //                       builder: (BuildContext context) => HomePageMain(),
+  //                     ),
+  //                     (Route route) => false,
+  //                   );
+  //                 },
+  //                 child: Container(
+  //                     alignment: Alignment.centerRight,
+  //                     padding: EdgeInsets.only(
+  //                         top: MediaQuery.of(context).size.height * 0.01,
+  //                         bottom: MediaQuery.of(context).size.height * 0.00,
+  //                         left: MediaQuery.of(context).size.height * 0.00,
+  //                         right: MediaQuery.of(context).size.height * 0.00),
+  //                     margin: EdgeInsets.only(
+  //                         right: MediaQuery.of(context).size.height * 0.03,
+  //                         top: MediaQuery.of(context).size.height * 0.01,
+  //                         bottom: MediaQuery.of(context).size.height * 0.01,
+  //                         left: MediaQuery.of(context).size.height * 0.03),
+  //                     child: Row(
+  //                         crossAxisAlignment: CrossAxisAlignment.start,
+  //                         mainAxisAlignment: MainAxisAlignment.center,
+  //                         children: <Widget>[
+  //                           Expanded(
+  //                             child: Container(
+  //                               decoration: BoxDecoration(
+  //                                   borderRadius: BorderRadius.circular(
+  //                                       MediaQuery.of(context).size.height *
+  //                                           0.012),
+  //                                   gradient: LinearGradient(
+  //                                       begin: Alignment.centerRight,
+  //                                       end: Alignment.center,
+  //                                       stops: [
+  //                                         0.5,
+  //                                         0.9
+  //                                       ],
+  //                                       colors: [
+  //                                         Color(0xFF126086),
+  //                                         Color(0xFF126086),
+  //                                       ])),
+  //                               alignment: Alignment.center,
+  //                               padding: EdgeInsets.only(left: 0.0),
+  //                               child: TextButton(
+  //                                 onPressed: () async {
+  //                                   Navigator.of(context).pushAndRemoveUntil(
+  //                                     MaterialPageRoute(
+  //                                       builder: (BuildContext context) =>
+  //                                           HomePageMain(),
+  //                                     ),
+  //                                     (Route route) => false,
+  //                                   );
+  //                                 },
+  //                                 child: Text("Back to Home",
+  //                                     textAlign: TextAlign.center,
+  //                                     style: TextStyle(
+  //                                         color: Colors.white,
+  //                                         fontSize: MediaQuery.of(context)
+  //                                                 .size
+  //                                                 .height *
+  //                                             0.02)),
+  //                               ),
+  //                             ),
+  //                           ),
+  //                         ])),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     );
 }
