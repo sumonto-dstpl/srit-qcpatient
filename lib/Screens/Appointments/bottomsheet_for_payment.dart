@@ -188,7 +188,7 @@ class BottomSheetForPaymentState extends State<BottomSheetForPayment> {
                                       MediaQuery.of(context).size.height * 0.00,
                                     ),
                                     child: Text(
-                                      "Please Select a payment method",
+                                      "Please Select a payment metho",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black54,
