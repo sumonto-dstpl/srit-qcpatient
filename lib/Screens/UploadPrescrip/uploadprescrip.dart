@@ -599,7 +599,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                                   left: MediaQuery
                                                       .of(context)
                                                       .size
-                                                      .height * 0.03,
+                                                      .height * 0.02,
                                                   top: MediaQuery
                                                       .of(context)
                                                       .size

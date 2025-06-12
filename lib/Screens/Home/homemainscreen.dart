@@ -2444,6 +2444,9 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               // Provide a width constraint using SizedBox or Expanded
+                              AspectRatio(
+                                aspectRatio: 256 / 125, 
+                              child: 
                               Container(
                                 margin : EdgeInsets.only(
                                   top : MediaQuery.of(context).size.height * 0.01,
@@ -2451,10 +2454,12 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                   right : MediaQuery.of(context).size.height * 0.01,
 
                                 ),
-                                height: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.2,
+                                // height: MediaQuery
+                                //     .of(context)
+                                //     .size
+                                //     .height * 0.2,
+                                // height: 10,
+                                // child: myWidget(
                                 child: MediaQuery(
                                   data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
                                   child: ListView.builder(
@@ -2560,7 +2565,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                           top: MediaQuery
                                                               .of(context)
                                                               .size
-                                                              .height * 0.01,
+                                                              .height * 0.0,
                                                           bottom: MediaQuery
                                                               .of(context)
                                                               .size
@@ -2781,6 +2786,8 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                     },
                                   ),
                                 ),
+                                // ),
+                              ),
                               ),
                             ],
                           ),
