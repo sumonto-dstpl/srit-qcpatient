@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
 import 'package:flutter/material.dart';
@@ -143,10 +144,10 @@ class RadiologyMainstate extends State<RadiologyMain> {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.only(
-                  top: screenHeight * 0.075,
+                  top: screenHeight * 0.07,
                   left: screenWidth * 0.045,
                   right: screenWidth * 0.045,
-                  bottom: screenWidth * 0.07,
+                  bottom: screenWidth * 0.06,
                 ),
                 margin: EdgeInsets.only(
                   right: screenHeight * 0.0,
@@ -226,7 +227,58 @@ class RadiologyMainstate extends State<RadiologyMain> {
                         ),
 
 
-
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder:
+                                    (BuildContext context) {
+                                  return AddressScreen();
+                                },
+                              ),
+                            );
+                          },
+                          child:
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            // Align items to the start
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.00,
+                                  horizontal: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.00,
+                                ),
+                                child: Text(
+                                  useraddressValue,
+                                  style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    fontSize: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.012,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                              Icon(
+                                Icons.keyboard_arrow_down,
+                                // Downward pointing arrow
+                                color: Colors.white,
+                                size: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.02, // Responsive size
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
 

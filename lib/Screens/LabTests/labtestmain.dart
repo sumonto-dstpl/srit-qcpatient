@@ -201,14 +201,14 @@ class LabTestsMainstate extends State<LabTestsMain> {
 
                         GestureDetector(
                           onTap: () {
-                             Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder:
-                                        (BuildContext context) {
-                                      return AddressScreen();
-                                    },
-                                  ),
-                                );
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder:
+                                    (BuildContext context) {
+                                  return AddressScreen();
+                                },
+                              ),
+                            );
                           },
                           child:
                           Row(
