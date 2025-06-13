@@ -51,6 +51,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
   String doctornameval = "";
   String completedSpecialityString = "";
   String qualificationval = "";
+  bool _isSharing = false;
 
   @override
   void initState() {
@@ -112,10 +113,11 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
+              // color: Colors.blue,
               padding: EdgeInsets.only(
                 top: screenHeight * 0.07,
-                left: screenWidth * 0.0,
-                right: screenWidth * 0.0,
+                left: screenWidth * 0.04,
+                right: screenWidth * 0.04,
                 bottom: screenWidth * 0.0,
               ),
               margin: EdgeInsets.only(
@@ -125,7 +127,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                 left: screenHeight * 0.0,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
@@ -134,16 +136,16 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                       height: MediaQuery.of(context).size.height * 0.03,
                       width: MediaQuery.of(context).size.height * 0.03,
                       margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.01,
+                        left: MediaQuery.of(context).size.height * 0.0,
                         top: MediaQuery.of(context).size.height * 0.00,
-                        right: MediaQuery.of(context).size.height * 0.01,
+                        right: MediaQuery.of(context).size.height * 0.0,
                         bottom: MediaQuery.of(context).size.height * 0.00,
                       ),
                       decoration: BoxDecoration(
                         color: Color(0xFF126086).withOpacity(0.2),
                         shape: BoxShape.circle,
                         border:
-                            Border.all(width: 0.0, color: Color(0xFF126086)),
+                        Border.all(width: 0.0, color: Color(0xFF126086)),
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(130.0),
@@ -156,46 +158,54 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                   ),
                   userprofilepValue != "NA"
                       ? Container(
-                          height: MediaQuery.of(context).size.height * 0.250,
-                          width: MediaQuery.of(context).size.height * 0.200,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 1.0,
-                              color: Colors.white,
-                            ),
-                            shape: BoxShape.circle,
-                            image: new DecorationImage(
-                              fit: BoxFit.fill,
-                              image:
-                                  Image.memory(base64Decode(userprofilepValue))
-                                      .image,
-                            ),
-                          ),
-                        )
+                    height: MediaQuery.of(context).size.height * 0.250,
+                    width: MediaQuery.of(context).size.height * 0.200,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1.0,
+                        color: Colors.white,
+                      ),
+                      shape: BoxShape.circle,
+                      image: new DecorationImage(
+                        fit: BoxFit.fill,
+                        image:
+                        Image.memory(base64Decode(userprofilepValue))
+                            .image,
+                      ),
+                    ),
+                  )
                       : Container(
-                          margin: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height * 0.05,
-                              right: MediaQuery.of(context).size.height * 0.00,
-                              top: MediaQuery.of(context).size.height * 0.00,
-                              bottom:
-                                  MediaQuery.of(context).size.height * 0.00),
-                          height: MediaQuery.of(context).size.height * 0.250,
-                          width: MediaQuery.of(context).size.height * 0.21,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(0.0),
-                            child: Image.asset(
-                              'assets/bookappointmentdoc.png',
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),
+                    // color: Colors.blue,
+                    margin: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.height * 0.0,
+                        right: MediaQuery.of(context).size.height * 0.00,
+                        top: MediaQuery.of(context).size.height * 0.00,
+                        bottom:
+                        MediaQuery.of(context).size.height * 0.00),
+                    height: MediaQuery.of(context).size.height * 0.250,
+                    width: MediaQuery.of(context).size.height * 0.21,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(0.0),
+                      child: Image.asset(
+                        'assets/bookappointmentdoc.png',
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.250,
+                    // color: Colors.blue,
                     padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.00,
                       bottom: MediaQuery.of(context).size.height * 0.00,
-                      left: MediaQuery.of(context).size.height * 0.00,
-                      right: MediaQuery.of(context).size.height * 0.00,
+                      left: MediaQuery.of(context).size.height * 0.0,
+                      right: MediaQuery.of(context).size.height * 0.0,
+                    ),
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.00,
+                      bottom: MediaQuery.of(context).size.height * 0.00,
+                      left: MediaQuery.of(context).size.height * 0.0,
+                      right: MediaQuery.of(context).size.height * 0.0,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -234,8 +244,8 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                                           fontWeight: FontWeight.w600,
                                           overflow: TextOverflow.ellipsis,
                                           fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
+                                              .size
+                                              .height *
                                               0.012),
                                     )
                                   ],
@@ -245,7 +255,19 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                               InkWell(
                                 onTap: () async {
                                   // Navigator.pop(context);
-                                  ShareToOtherApp.share();
+                                  if (_isSharing) return;
+                                  _isSharing = true;
+                                  try {
+                                    // Call your static method that wraps Share.share()
+                                    ShareToOtherApp.share();
+
+                                    // Add a delay because Share.share() returns immediately
+                                    await Future.delayed(Duration(seconds: 2));
+                                  } catch (e) {
+                                    print('Sharing failed: $e');
+                                  } finally {
+                                    _isSharing = false;
+                                  }
                                 },
                                 onDoubleTap: () {},
                                 child: Container(
@@ -253,13 +275,13 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                                       left: MediaQuery.of(context).size.height *
                                           0.020,
                                       right:
-                                          MediaQuery.of(context).size.height *
-                                              0.00,
+                                      MediaQuery.of(context).size.height *
+                                          0.00,
                                       top: MediaQuery.of(context).size.height *
                                           0.00,
                                       bottom:
-                                          MediaQuery.of(context).size.height *
-                                              0.00),
+                                      MediaQuery.of(context).size.height *
+                                          0.00),
                                   height: screenHeight * 0.03,
                                   width: screenHeight * 0.03,
                                   decoration: BoxDecoration(
@@ -279,6 +301,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                               ),
                             ]),
                         Container(
+                          // color: Colors.white,
                           padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.00,
                             bottom: MediaQuery.of(context).size.height * 0.005,
@@ -290,7 +313,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                             style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.012,
+                              MediaQuery.of(context).size.height * 0.012,
                               color: Colors.white,
                             ),
                             // textAlign: TextAlign.left,
@@ -302,6 +325,197 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                 ],
               ),
             ),
+            // Container(
+            //   padding: EdgeInsets.only(
+            //     top: screenHeight * 0.07,
+            //     left: screenWidth * 0.0,
+            //     right: screenWidth * 0.0,
+            //     bottom: screenWidth * 0.0,
+            //   ),
+            //   margin: EdgeInsets.only(
+            //     right: screenHeight * 0.0,
+            //     top: screenHeight * 0.0,
+            //     bottom: screenHeight * 0.0,
+            //     left: screenHeight * 0.0,
+            //   ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       InkWell(
+            //         onTap: () => Navigator.pop(context),
+            //         child: Container(
+            //           height: MediaQuery.of(context).size.height * 0.03,
+            //           width: MediaQuery.of(context).size.height * 0.03,
+            //           margin: EdgeInsets.only(
+            //             left: MediaQuery.of(context).size.height * 0.01,
+            //             top: MediaQuery.of(context).size.height * 0.00,
+            //             right: MediaQuery.of(context).size.height * 0.01,
+            //             bottom: MediaQuery.of(context).size.height * 0.00,
+            //           ),
+            //           decoration: BoxDecoration(
+            //             color: Color(0xFF126086).withOpacity(0.2),
+            //             shape: BoxShape.circle,
+            //             border:
+            //                 Border.all(width: 0.0, color: Color(0xFF126086)),
+            //           ),
+            //           child: ClipRRect(
+            //             borderRadius: BorderRadius.circular(130.0),
+            //             child: Image.asset(
+            //               'assets/medicationBack.png',
+            //               fit: BoxFit.fill,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       userprofilepValue != "NA"
+            //           ? Container(
+            //               height: MediaQuery.of(context).size.height * 0.250,
+            //               width: MediaQuery.of(context).size.height * 0.200,
+            //               decoration: BoxDecoration(
+            //                 border: Border.all(
+            //                   width: 1.0,
+            //                   color: Colors.white,
+            //                 ),
+            //                 shape: BoxShape.circle,
+            //                 image: new DecorationImage(
+            //                   fit: BoxFit.fill,
+            //                   image:
+            //                       Image.memory(base64Decode(userprofilepValue))
+            //                           .image,
+            //                 ),
+            //               ),
+            //             )
+            //           : Container(
+            //               margin: EdgeInsets.only(
+            //                   left: MediaQuery.of(context).size.height * 0.05,
+            //                   right: MediaQuery.of(context).size.height * 0.00,
+            //                   top: MediaQuery.of(context).size.height * 0.00,
+            //                   bottom:
+            //                       MediaQuery.of(context).size.height * 0.00),
+            //               height: MediaQuery.of(context).size.height * 0.250,
+            //               width: MediaQuery.of(context).size.height * 0.21,
+            //               child: ClipRRect(
+            //                 borderRadius: BorderRadius.circular(0.0),
+            //                 child: Image.asset(
+            //                   'assets/bookappointmentdoc.png',
+            //                   fit: BoxFit.fill,
+            //                 ),
+            //               ),
+            //             ),
+            //       Container(
+            //         height: MediaQuery.of(context).size.height * 0.250,
+            //         padding: EdgeInsets.only(
+            //           top: MediaQuery.of(context).size.height * 0.00,
+            //           bottom: MediaQuery.of(context).size.height * 0.00,
+            //           left: MediaQuery.of(context).size.height * 0.00,
+            //           right: MediaQuery.of(context).size.height * 0.00,
+            //         ),
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //           crossAxisAlignment: CrossAxisAlignment.end,
+            //           children: [
+            //             Row(
+            //                 mainAxisAlignment: MainAxisAlignment.center,
+            //                 crossAxisAlignment: CrossAxisAlignment.center,
+            //                 children: [
+            //                   Container(
+            //                     decoration: BoxDecoration(
+            //                       color: Colors.blue[100]!.withOpacity(0.9),
+            //                       borderRadius: BorderRadius.circular(5),
+            //                     ),
+            //                     padding: EdgeInsets.only(
+            //                         left: MediaQuery.of(context).size.height *
+            //                             0.005,
+            //                         right: MediaQuery.of(context).size.height *
+            //                             0.012,
+            //                         top: MediaQuery.of(context).size.height *
+            //                             0.002,
+            //                         bottom: MediaQuery.of(context).size.height *
+            //                             0.002),
+            //                     child: Row(
+            //                       children: <Widget>[
+            //                         Icon(
+            //                           Icons.star,
+            //                           color: Colors.amber,
+            //                           size: MediaQuery.of(context).size.height *
+            //                               0.015,
+            //                         ),
+            //                         Text(
+            //                           "4.2",
+            //                           style: TextStyle(
+            //                               color: Colors.black87,
+            //                               fontWeight: FontWeight.w600,
+            //                               overflow: TextOverflow.ellipsis,
+            //                               fontSize: MediaQuery.of(context)
+            //                                       .size
+            //                                       .height *
+            //                                   0.012),
+            //                         )
+            //                       ],
+            //                       crossAxisAlignment: CrossAxisAlignment.center,
+            //                     ),
+            //                   ),
+            //                   InkWell(
+            //                     onTap: () async {
+            //                       // Navigator.pop(context);
+            //                       ShareToOtherApp.share();
+            //                     },
+            //                     onDoubleTap: () {},
+            //                     child: Container(
+            //                       margin: EdgeInsets.only(
+            //                           left: MediaQuery.of(context).size.height *
+            //                               0.020,
+            //                           right:
+            //                               MediaQuery.of(context).size.height *
+            //                                   0.00,
+            //                           top: MediaQuery.of(context).size.height *
+            //                               0.00,
+            //                           bottom:
+            //                               MediaQuery.of(context).size.height *
+            //                                   0.00),
+            //                       height: screenHeight * 0.03,
+            //                       width: screenHeight * 0.03,
+            //                       decoration: BoxDecoration(
+            //                         // color: Colors.blue[100]!.withOpacity(0.9),
+            //                         shape: BoxShape.circle,
+            //                       ),
+            //                       child: Center(
+            //                         // Ensures the image is centered
+            //                         child: Image.asset(
+            //                           'assets/share.png', // Replace with your actual asset path
+            //                           // color: Color(0xFF000000).withOpacity(0.2), // Optional: Apply color tint
+            //                           height: screenHeight * 0.035,
+            //                           width: screenHeight * 0.035,
+            //                         ),
+            //                       ),
+            //                     ),
+            //                   ),
+            //                 ]),
+            //             Container(
+            //               padding: EdgeInsets.only(
+            //                 top: MediaQuery.of(context).size.height * 0.00,
+            //                 bottom: MediaQuery.of(context).size.height * 0.005,
+            //                 left: MediaQuery.of(context).size.height * 0.00,
+            //                 right: MediaQuery.of(context).size.height * 0.00,
+            //               ),
+            //               child: Text(
+            //                 useraddressValue,
+            //                 style: TextStyle(
+            //                   overflow: TextOverflow.ellipsis,
+            //                   fontSize:
+            //                       MediaQuery.of(context).size.height * 0.012,
+            //                   color: Colors.white,
+            //                 ),
+            //                 // textAlign: TextAlign.left,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
             // Main Content Section
             Expanded(
@@ -1183,7 +1397,9 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                                         : [
                                             Colors.grey.shade300,
                                             Colors.grey.shade300
-                                          ])),
+                                          ]
+                                )
+                            ),
                             alignment: Alignment.center,
                             padding: EdgeInsets.only(left: 0.0),
                             child: TextButton(

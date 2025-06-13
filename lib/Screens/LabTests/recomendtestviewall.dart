@@ -1284,21 +1284,67 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
   }
 
 
-  void showBottomSheet() => showModalBottomSheet(
-    enableDrag: false,
-    isScrollControlled: true,
-    isDismissible: true,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(24),
-        topRight: Radius.circular(24),
+  // void showBottomSheet() => showModalBottomSheet(
+  //   enableDrag: false,
+  //   isScrollControlled: true,
+  //   isDismissible: true,
+  //   shape: const RoundedRectangleBorder(
+  //     borderRadius: BorderRadius.only(
+  //       topLeft: Radius.circular(24),
+  //       topRight: Radius.circular(24),
+  //     ),
+  //   ),
+  //   barrierColor: Colors.grey.withOpacity(0.9),
+  //   context: context,
+  //   builder: (context) {
+  //     return AddFilterForFullBodyCheckup();
+  //   }
+
+      void showBottomSheet() => showModalBottomSheet(
+  enableDrag: false,
+  isScrollControlled: true,
+  isDismissible: true,
+  backgroundColor: Colors.transparent, // Make modal background transparent
+  barrierColor: Colors.transparent,    // Disable default barrier color
+  context: context,
+  builder: (context) {
+  return Stack(
+  children: [
+  GestureDetector(
+  onTap: () => Navigator.of(context).pop(),
+  child: BackdropFilter(
+  filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+  child: Container(
+  color: Colors.transparent,
+  width: double.infinity,
+  height: double.infinity,
+  ),
+  ),
+  ),
+  Align(
+  alignment: Alignment.bottomCenter,
+  child: Container(
+  decoration: const BoxDecoration(
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black26,
+        blurRadius: 10,
+        spreadRadius: 2,
+        offset: Offset(0, -2), // Shadow appears above the sheet
       ),
-    ),
-    barrierColor: Colors.grey.withOpacity(0.9),
-    context: context,
-    builder: (context) {
-      return AddFilterForFullBodyCheckup();
-    }
+    ],
+  color: Colors.white, // White background for the bottom sheet
+  borderRadius: BorderRadius.only(
+  topLeft: Radius.circular(24),
+  topRight: Radius.circular(24),
+  ),
+  ),
+  child: AddFilterForFullBodyCheckup(),
+  ),
+  ),
+  ],
+  );
+  },
 
     //     StatefulBuilder(
     //   builder: (BuildContext context,

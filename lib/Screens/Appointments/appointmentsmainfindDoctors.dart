@@ -667,7 +667,7 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                       left: MediaQuery.of(context).size.height * 0.02,
                       right: MediaQuery.of(context).size.height * 0.02,
                       top: MediaQuery.of(context).size.height * 0.0,
-                      bottom: MediaQuery.of(context).size.height * 0.025),
+                      bottom: MediaQuery.of(context).size.height * 0.0),
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
