@@ -3819,29 +3819,61 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
 
   void showBottomSheet() =>
       showModalBottomSheet(
-        enableDrag: false,
-        isScrollControlled: true,
-        isDismissible: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24),
-            topRight: Radius.circular(24),
-          ),
-        ),
-        barrierColor: Colors.grey.withOpacity(0.9),
-        context: context,
-        builder: (context) =>
-            StatefulBuilder(
-              builder: (BuildContext context,
-                  StateSetter setState /*You can rename this!*/) =>
-                  Padding(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery
-                            .of(context)
-                            .viewInsets
-                            .bottom),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
+  context: context,
+  isScrollControlled: true,
+  isDismissible: true,
+  enableDrag: false,
+  backgroundColor: Colors.transparent, // Make modal background transparent
+  barrierColor: Colors.transparent,
+  transitionAnimationController: AnimationController(
+  duration: const Duration(milliseconds: 200),
+  vsync: Navigator.of(context),
+  ),// No default barrier color
+  builder: (BuildContext context) {
+  return Stack(
+  children: [
+  GestureDetector(
+  onTap: () => Navigator.of(context).pop(),
+  child: BackdropFilter(
+  filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+  child: Container(
+  color: Colors.transparent,
+  width: double.infinity,
+  height: double.infinity,
+  ),
+  ),
+  ),
+  Align(
+  alignment: Alignment.bottomCenter,
+  child: Container(
+  decoration: BoxDecoration(
+  boxShadow: [
+  BoxShadow(
+  color: Colors.black26,
+  blurRadius: 10,
+  spreadRadius: 2,
+  offset: Offset(0, -2), // Shadow appears above the sheet
+  ),
+  ],
+  ),
+  child: Material(
+  color: Colors.white,
+  borderRadius: const BorderRadius.only(
+  topLeft: Radius.circular(24),
+  topRight: Radius.circular(24),
+  ), // Keep your content background
+  child: StatefulBuilder(
+  builder: (BuildContext context,
+  StateSetter setState) =>
+  Padding(
+  padding: EdgeInsets.only(
+  bottom: MediaQuery
+      .of(context)
+      .viewInsets
+      .bottom,
+  ),
+  child: Column(
+  mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.only(
@@ -4561,8 +4593,14 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
 
 
                       ],
-                    ),
-                  ),
-            ),
+  ),
+  ),
+  ),
+  ),
+  ),
+  ),
+  ]
+  );
+  }
       );
 }

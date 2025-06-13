@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
@@ -1657,18 +1658,49 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
     enableDrag: false,
     isScrollControlled: true,
     isDismissible: true,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(24),
-        topRight: Radius.circular(24),
-      ),
-    ),
-    barrierColor: Colors.grey.withOpacity(0.9),
+    backgroundColor: Colors.transparent, // Make modal background transparent
+    barrierColor: Colors.transparent,    // Disable default barrier color
     context: context,
     builder: (context) {
-      return AddFilterForFindDoctorList(responselist:responselist);
-    }
+      return Stack(
+        children: [
+          GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+              child: Container(
+                color: Colors.transparent,
+                width: double.infinity,
+                height: double.infinity,
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              decoration: const BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10,
+                    spreadRadius: 2,
+                    offset: Offset(0, -2), // Shadow appears above the sheet
+                  ),
+                ],
+                color: Colors.white, // White background for the bottom sheet
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(24),
+                  topRight: Radius.circular(24),
+                ),
+              ),
+              child: AddFilterForFindDoctorList(responselist: responselist),
+            ),
+          ),
+        ],
+      );
+    },
   );
+
 
 
 
