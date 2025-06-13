@@ -1349,6 +1349,7 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
         /* progressDialog.showMaterial(
             title: "Loading Data", message: "Please wait");*/
         progressDialog.show();
+        print("widget.doctoridval: ${widget.doctoridval}");
         dynamic user = await apiService.findDoctorsdetails(widget.doctoridval);
 
         if (user.message != null) {

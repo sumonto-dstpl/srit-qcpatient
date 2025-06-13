@@ -17,6 +17,13 @@ import 'package:newfolder/Screens/Appointments/quicksearchwithoutdata.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/HRecommendedDoctors/home_doctordetails.dart';
 import 'package:newfolder/Screens/HRecommendedDoctors/home_selecttimeslot.dart';
+import 'package:progress_dialog2/progress_dialog2.dart';
+
+// import 'package:newfolder/Data/APIServices/api_service.dart';
+// import 'package:newfolder/Data/APIServices/connectivity_service.dart';
+// import 'package:newfolder/Data/Models/doctorslistres.dart';
+import 'package:newfolder/Screens/Appointments/selecttimeslot.dart';
+import 'package:newfolder/Screens/Appointments/doctordetailpage.dart';
 import 'package:newfolder/Screens/HomeCare/diagnosticmain.dart';
 import 'package:newfolder/Screens/HomeCare/doctorhcmain.dart';
 import 'package:newfolder/Screens/HomeCare/homecaremain.dart';
@@ -59,10 +66,19 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   String userprofilepValue = "NA";
   int _selectedIndex = 0;
 
+//  ConnectivityService connectivityservice = ConnectivityService();
+//   APIService apiService = new APIService();
+  
+
   ConnectivityService connectivityservice = ConnectivityService();
   APIService apiService = new APIService();
   // late ProgressDialog progressDialog;
   AuthFailed customalert = new AuthFailed();
+
+  // late ProgressDialog progressDialog;
+  // List<DoctorsListResponse>? responselist = [];
+
+
 
   final myCatagories = [
     ["assets/AppoinmentLS.png", "Appoinment"],
@@ -2461,7 +2477,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                 // height: 10,
                                 // child: myWidget(
                                 child: MediaQuery(
-                                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                                  data: MediaQuery.of(context).copyWith(textScaleFactor:  MediaQuery.of(context).textScaleFactor.clamp(1.0, 1.0),),
                                   child: ListView.builder(
                                     physics: ScrollPhysics(),
                                     shrinkWrap: true,
@@ -2919,7 +2935,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                   physics: ScrollPhysics(),
                                   shrinkWrap: true,
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: 3,
+                                  itemCount:  3,
                                   itemBuilder: (BuildContext context,
                                       int index) {
                                     return GestureDetector(
@@ -3004,14 +3020,15 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                 bottom: MediaQuery
                                                     .of(context)
                                                     .size
-                                                    .height * 0.005,
+                                                    .height * 0.01,
                                                 top: MediaQuery
                                                     .of(context)
                                                     .size
                                                     .height * 0.01),
                                             child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment
-                                                    .start,
+                                                    .center,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
                                                 children: <Widget>[
 
                                                   Container(
@@ -3134,7 +3151,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                         context)
                                                                         .size
                                                                         .height *
-                                                                        0.01,
+                                                                        0.0,
                                                                     bottom: MediaQuery
                                                                         .of(
                                                                         context)
@@ -3356,7 +3373,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                         context)
                                                                         .size
                                                                         .height *
-                                                                        0.00,
+                                                                        0.002,
                                                                     bottom: MediaQuery
                                                                         .of(
                                                                         context)
@@ -3396,6 +3413,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
 
                                                   // Bottom Row
                                                   Container(
+                                                    // color: Colors.green,
                                                     padding: EdgeInsets.only(
                                                         left: MediaQuery
                                                             .of(context)
@@ -3446,7 +3464,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                   .of(context)
                                                                   .size
                                                                   .height *
-                                                                  0.015,),
+                                                                  0.0,),
                                                             child: Row(
                                                               // mainAxisSize: MainAxisSize.max,
                                                                 mainAxisAlignment: MainAxisAlignment
@@ -3691,7 +3709,10 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                                   onTap: () async {
                                                                                     Navigator.of(context).push(
                                                                                       MaterialPageRoute(
-                                                                                        builder: (context) => HomeDoctorDetilPage(),
+                                                                                       builder:
+                                                                                            (BuildContext context) {
+                                                                                          return DoctorDetilPage("Practitioner/f002");
+                                                                                        },
                                                                                       ),
                                                                                     );
                                                                                     // Navigator.of(context, rootNavigator: true).pop();
@@ -3791,7 +3812,10 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                                   onTap: () async {
                                                                                     Navigator.of(context).push(
                                                                                       MaterialPageRoute(
-                                                                                        builder: (context) => HomeSelectTimeSlot(),
+                                                                                        builder:
+                                                                                            (BuildContext context) {
+                                                                                          return SelectTimeSlot("Practitioner/f002");
+                                                                                        },
                                                                                       ),
                                                                                     );
                                                                                     // Navigator.of(context, rootNavigator: true).pop();
@@ -5489,3 +5513,4 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
           }
       );
 }
+
