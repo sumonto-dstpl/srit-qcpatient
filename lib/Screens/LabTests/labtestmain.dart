@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
+import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/LabTests/healthcondiviewall.dart';
 import 'package:newfolder/Screens/LabTests/healthpackages.dart';
 import 'package:newfolder/Screens/LabTests/labsmartreportslist.dart';
@@ -198,7 +199,58 @@ class LabTestsMainstate extends State<LabTestsMain> {
                         ),
 
 
-
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder:
+                                    (BuildContext context) {
+                                  return AddressScreen();
+                                },
+                              ),
+                            );
+                          },
+                          child:
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            // Align items to the start
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.00,
+                                  horizontal: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.00,
+                                ),
+                                child: Text(
+                                  useraddressValue,
+                                  style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    fontSize: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.012,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                              Icon(
+                                Icons.keyboard_arrow_down,
+                                // Downward pointing arrow
+                                color: Colors.white,
+                                size: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.02, // Responsive size
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
 

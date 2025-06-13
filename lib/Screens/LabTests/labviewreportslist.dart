@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
+import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
@@ -108,10 +109,10 @@ class LabViewReportsstate extends State<LabViewReports> {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.only(
-                  top: screenHeight * 0.05,
-                  left: screenWidth * 0.02,
-                  right: screenWidth * 0.02,
-                  bottom: screenWidth * 0.02,
+                  top: screenHeight * 0.07,
+                  left: screenWidth * 0.045,
+                  right: screenWidth * 0.045,
+                  bottom: screenWidth * 0.06,
                 ),
                 margin: EdgeInsets.only(
                   right: screenHeight * 0.0,
@@ -122,26 +123,25 @@ class LabViewReportsstate extends State<LabViewReports> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+
                     InkWell(
                       onTap: () => Navigator.pop(context),
                       child: Container(
-                        height: MediaQuery.of(context).size.height *
-                            0.035,
-                        width: MediaQuery.of(context).size.height *
-                            0.035,
+                        height: MediaQuery.of(context).size.height * 0.035,
+                        width: MediaQuery.of(context).size.height * 0.035,
                         margin: EdgeInsets.only(
                           left: MediaQuery.of(context).size.height * 0.00,
                           top: MediaQuery.of(context).size.height * 0.00,
-                          right: MediaQuery.of(context).size.height * 0.01,
+                          right: MediaQuery.of(context).size.height * 0.02,
                           bottom: MediaQuery.of(context).size.height * 0.00,
                         ),
                         decoration: BoxDecoration(
-                          color:Color(0xFF126086).withOpacity(0.2),
+
+                          color: Color(0xFF126086).withOpacity(0.2),
+
                           shape: BoxShape.circle,
                           border: Border.all(
-                              width: 0.0,
-                              color:Color(0xFF126086)
-                          ),
+                              width: 0.0, color: Color(0xFF126086)),
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(130.0),
@@ -152,40 +152,109 @@ class LabViewReportsstate extends State<LabViewReports> {
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * 0.00,
-                              bottom: MediaQuery.of(context).size.height * 0.00,
-                              left: MediaQuery.of(context).size.height * 0.00,
-                              right: MediaQuery.of(context).size.height * 0.00,
-                            ),
-                            child: Text(
-                              usernameValue,
-                              style: TextStyle(
-                                fontSize:
-                                MediaQuery.of(context).size.height * 0.018,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                            ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(
+                            top: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.00,
+                            bottom: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.005,
+                            left: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.00,
+                            right: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.00,
                           ),
+                          child: Text(
+                            usernameValue,
+                            style: TextStyle(
+                              fontSize:
+                              MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height * 0.018,
+                              color: Color(0xFFFFFFFF),
+                              fontWeight: FontWeight.w600,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
 
-                        ],
-                      ),
+
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder:
+                                    (BuildContext context) {
+                                  return AddressScreen();
+                                },
+                              ),
+                            );
+                          },
+                          child:
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            // Align items to the start
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.00,
+                                  horizontal: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.00,
+                                ),
+                                child: Text(
+                                  useraddressValue,
+                                  style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    fontSize: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.012,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                              Icon(
+                                Icons.keyboard_arrow_down,
+                                // Downward pointing arrow
+                                color: Colors.white,
+                                size: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.02, // Responsive size
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
+
+
                     // Action Bar 2nd half
                     Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+
                           // Cart
                           GestureDetector(
                             onTap: () {
@@ -203,6 +272,8 @@ class LabViewReportsstate extends State<LabViewReports> {
                               appointmentcount: "",
                             ),
                           ),
+
+
                           // Notification
                           GestureDetector(
                             onTap: () {
@@ -277,12 +348,12 @@ class LabViewReportsstate extends State<LabViewReports> {
                                 .of(context)
                                 .size
                                 .height *
-                                0.045,
+                                0.04,
                             width: MediaQuery
                                 .of(context)
                                 .size
                                 .height *
-                                0.045,
+                                0.04,
                             padding: EdgeInsets.only(
                               left: MediaQuery
                                   .of(context)
@@ -307,6 +378,13 @@ class LabViewReportsstate extends State<LabViewReports> {
                             ),
                           ),
                           )
+
+
+
+
+
+
+
 
 
 
