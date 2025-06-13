@@ -389,11 +389,11 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
                         left: MediaQuery
                             .of(context)
                             .size
-                            .height * 0.02,
+                            .height * 0.0,
                         right: MediaQuery
                             .of(context)
                             .size
-                            .height * 0.02,
+                            .height * 0.0,
                         top: MediaQuery
                             .of(context)
                             .size
@@ -401,7 +401,7 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
                         bottom: MediaQuery
                             .of(context)
                             .size
-                            .height * 0.01),
+                            .height * 0.0),
                 width: double.infinity,
                 decoration: BoxDecoration(
                       color: Colors.white,
@@ -416,7 +416,7 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
   Container(
 
                         padding: EdgeInsets.only(
-                          top: screenHeight * 0.0,
+                          top: screenHeight * 0.01,
                           left: screenWidth * 0.0,
                           right: screenWidth * 0.01,
                           bottom: screenWidth * 0.0,
@@ -535,7 +535,7 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.height * 0.00,
                       right: MediaQuery.of(context).size.height * 0.00,
-                      top: MediaQuery.of(context).size.height * 0.0,
+                      top: MediaQuery.of(context).size.height * 0.01,
                       bottom: MediaQuery.of(context).size.height * 0.00),
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -555,11 +555,11 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
                           // Provide a width constraint using SizedBox or Expanded
                           Container(
                             margin: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.height * 0.00,
+                                left: MediaQuery.of(context).size.height * 0.01,
                                 right:
-                                MediaQuery.of(context).size.height * 0.00,
+                                MediaQuery.of(context).size.height * 0.01,
                                 bottom:
-                                MediaQuery.of(context).size.height * 0.00,
+                                MediaQuery.of(context).size.height * 0.01,
                                 top: MediaQuery.of(context).size.height * 0.00),
                             // height: MediaQuery.of(context).size.height * 0.190,
                             child: ListView.builder(
@@ -738,7 +738,7 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
 
 
                                                   ],
-                                                ),
+                                                  ),
                                               ),
 
 
@@ -941,7 +941,9 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
 
 
 
-
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.045,
+                      ),
                     ],
                   ),
                 ),
@@ -953,7 +955,7 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
               )
 
               // Main Content Section
-            
+
             ],
           ),
         ]),

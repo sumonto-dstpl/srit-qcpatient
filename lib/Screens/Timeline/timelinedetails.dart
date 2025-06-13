@@ -529,14 +529,14 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                 top: MediaQuery.of(context).size.height * 0.01),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 // First row: Image and column with 2 texts
                                 Expanded(
                                   flex: 2,
                                   child: Row(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Expanded(
                                         flex: 1,

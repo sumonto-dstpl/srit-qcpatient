@@ -325,12 +325,12 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                 .of(context)
                                 .size
                                 .height *
-                                0.04,
+                                0.045,
                             width: MediaQuery
                                 .of(context)
                                 .size
                                 .height *
-                                0.04,
+                                0.045,
                             padding: EdgeInsets.only(
                               left: MediaQuery
                                   .of(context)
@@ -413,8 +413,8 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                 padding: EdgeInsets.only(
                   top: screenHeight * 0.01,
                   left: screenWidth * 0.0,
-                  right: screenWidth * 0.01,
-                  bottom: screenWidth * 0.0,
+                  right: screenWidth * 0.0,
+                  bottom: screenWidth * 0.01,
                 ),
                 margin: EdgeInsets.only(
                     right: MediaQuery.of(context).size.height * 0.01,
