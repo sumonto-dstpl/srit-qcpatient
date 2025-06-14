@@ -114,7 +114,7 @@ class ProfileMyUploadMainstate extends State<ProfileMyUploadMain> {
                     margin: EdgeInsets.only(
                       right: screenHeight * 0.0,
                       top: screenHeight * 0.01,
-                      bottom: screenHeight * 0.01,
+                      bottom: screenHeight * 0.04,
                       left: screenHeight * 0.0,
                     ),
                     child: Row(
