@@ -506,38 +506,35 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     top: height * 0.03,
                   ),
                   child: _currentIndex < _onboardingData.length - 1
-                      ? Container(
-                    height: height * 0.028,
-                    decoration: BoxDecoration(
-                      color: Colors.blue.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(height * 0.005),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.03,
-                      vertical: height * 0.003,
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => LoginHome()),
-                        );
-                      },
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        minimumSize: Size.zero,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      child: Text(
-                        "Skip",
-                        style: TextStyle(
-                          color: Color(0xFF126086),
-                          fontSize: height * 0.013,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  )
+                      ? TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => LoginHome()),
+                            );
+                          },
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.blue.withOpacity(0.1),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: MediaQuery.of(context).size.width * 0.03,
+                              vertical: height * 0.003,
+                            ),
+                            minimumSize: Size(0, height * 0.028),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(height * 0.005),
+                            ),
+                          ),
+                          child: Text(
+                            "Skip",
+                            style: TextStyle(
+                              color: Color(0xFF126086),
+                              fontSize: height * 0.013,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        )
+
                       : SizedBox(),
                 ),
               ),

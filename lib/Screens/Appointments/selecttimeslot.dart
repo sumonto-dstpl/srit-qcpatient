@@ -639,7 +639,32 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
             // Book Appointment
 
             GestureDetector(
-              onTap: () async {},
+              // onTap: () async {},
+               onTap: () async {
+                                final isLoggedIn = await UserSecureStorage
+                                        .getIfGuestLogged() ??
+                                    "NO";
+                                print(
+                                    "isLoggedIn in seletimeslot: $isLoggedIn");
+                                if (selectedSlot.isNotEmpty &&
+                                    slectedDateSlot.isNotEmpty) {
+                                  if (isLoggedIn == "YES") {
+                                    Timer(Duration(seconds: 0), () {
+                                      LoginBottomSheet.show(context, false);
+                                    });
+                                  } else {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => MyBookingsMain(
+                                          selectedDate: slectedDateSlot,
+                                          selectedTime: selectedSlot,
+                                        ),
+
+                                      ),
+                                    );
+                                  }
+                                }
+                              },
               child: Container(
                 // color: Colors.blue,
                   alignment: Alignment.centerRight,
@@ -678,33 +703,39 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                                           ])
                                           ),
                             alignment: Alignment.center,
-                            padding: EdgeInsets.only(left: 0.0),
-                            child: TextButton(
-                              onPressed: () async {
-                                final isLoggedIn = await UserSecureStorage
-                                        .getIfGuestLogged() ??
-                                    "NO";
-                                print(
-                                    "isLoggedIn in seletimeslot: $isLoggedIn");
-                                if (selectedSlot.isNotEmpty &&
-                                    slectedDateSlot.isNotEmpty) {
-                                  if (isLoggedIn == "YES") {
-                                    Timer(Duration(seconds: 0), () {
-                                      LoginBottomSheet.show(context, false);
-                                    });
-                                  } else {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => MyBookingsMain(
-                                          selectedDate: slectedDateSlot,
-                                          selectedTime: selectedSlot,
-                                        ),
+                             padding: EdgeInsets.symmetric(
+                                    vertical: 10.0,
+                                    horizontal: 12.0), // ← Adjust this
+                                // minimumSize: Size(
+                                //     0, 0), // Removes minimum button constraints
+                                // tapTargetSize: MaterialTapTargetSize
+                                //     .shrinkWrap, 
+                            // child: TextButton(
+                            //   onPressed: () async {
+                            //     final isLoggedIn = await UserSecureStorage
+                            //             .getIfGuestLogged() ??
+                            //         "NO";
+                            //     print(
+                            //         "isLoggedIn in seletimeslot: $isLoggedIn");
+                            //     if (selectedSlot.isNotEmpty &&
+                            //         slectedDateSlot.isNotEmpty) {
+                            //       if (isLoggedIn == "YES") {
+                            //         Timer(Duration(seconds: 0), () {
+                            //           LoginBottomSheet.show(context, false);
+                            //         });
+                            //       } else {
+                            //         Navigator.of(context).push(
+                            //           MaterialPageRoute(
+                            //             builder: (context) => MyBookingsMain(
+                            //               selectedDate: slectedDateSlot,
+                            //               selectedTime: selectedSlot,
+                            //             ),
 
-                                      ),
-                                    );
-                                  }
-                                }
-                              },
+                            //           ),
+                            //         );
+                            //       }
+                            //     }
+                            //   },
                               child: Text("Book Appointment",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -712,16 +743,16 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                                       fontSize:
                                           MediaQuery.of(context).size.height *
                                               0.02)),
-                              style: TextButton.styleFrom(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10.0,
-                                    horizontal: 12.0), // ← Adjust this
-                                minimumSize: Size(
-                                    0, 0), // Removes minimum button constraints
-                                tapTargetSize: MaterialTapTargetSize
-                                    .shrinkWrap, // Removes extra tap padding
-                              ),
-                            ),
+                              // style: TextButton.styleFrom(
+                              //   padding: EdgeInsets.symmetric(
+                              //       vertical: 10.0,
+                              //       horizontal: 12.0), // ← Adjust this
+                              //   minimumSize: Size(
+                              //       0, 0), // Removes minimum button constraints
+                              //   tapTargetSize: MaterialTapTargetSize
+                              //       .shrinkWrap, // Removes extra tap padding
+                              // ),
+                            // ),
                           ),
                         ),
                       ])),
