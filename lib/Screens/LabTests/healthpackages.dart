@@ -125,10 +125,10 @@ class HealthCondiViewallstate
             children: <Widget>[
               Container(
                 padding: EdgeInsets.only(
-                  top: screenHeight * 0.05,
-                  left: screenWidth * 0.02,
-                  right: screenWidth * 0.02,
-                  bottom: screenWidth * 0.02,
+                  top: screenHeight * 0.07,
+                  left: screenWidth * 0.045,
+                  right: screenWidth * 0.045,
+                  bottom: screenWidth * 0.06,
                 ),
                 margin: EdgeInsets.only(
                   right: screenHeight * 0.0,
@@ -149,7 +149,7 @@ class HealthCondiViewallstate
                         margin: EdgeInsets.only(
                           left: MediaQuery.of(context).size.height * 0.00,
                           top: MediaQuery.of(context).size.height * 0.00,
-                          right: MediaQuery.of(context).size.height * 0.01,
+                          right: MediaQuery.of(context).size.height * 0.02,
                           bottom: MediaQuery.of(context).size.height * 0.00,
                         ),
                         decoration: BoxDecoration(
@@ -177,7 +177,7 @@ class HealthCondiViewallstate
                           Container(
                             padding: EdgeInsets.only(
                               top: MediaQuery.of(context).size.height * 0.00,
-                              bottom: MediaQuery.of(context).size.height * 0.00,
+                              bottom: MediaQuery.of(context).size.height * 0.005,
                               left: MediaQuery.of(context).size.height * 0.00,
                               right: MediaQuery.of(context).size.height * 0.00,
                             ),
@@ -357,7 +357,7 @@ class HealthCondiViewallstate
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.height * 0.00,
                       right: MediaQuery.of(context).size.height * 0.00,
-                      top: MediaQuery.of(context).size.height * 0.00,
+                      top: MediaQuery.of(context).size.height * 0.0,
                       bottom: MediaQuery.of(context).size.height * 0.00),
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -374,14 +374,14 @@ class HealthCondiViewallstate
                         alignment: Alignment.centerRight,
                         padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.0,
-                            bottom: MediaQuery.of(context).size.height * 0.00,
-                            left: MediaQuery.of(context).size.height * 0.00,
-                            right: MediaQuery.of(context).size.height * 0.00),
-                        margin: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.height * 0.02,
-                            top: MediaQuery.of(context).size.height * 0.0,
                             bottom: MediaQuery.of(context).size.height * 0.01,
-                            left: MediaQuery.of(context).size.height * 0.02),
+                            left: MediaQuery.of(context).size.height * 0.025,
+                            right: MediaQuery.of(context).size.height * 0.025),
+                        margin: EdgeInsets.only(
+                            right: MediaQuery.of(context).size.height * 0.0,
+                            top: MediaQuery.of(context).size.height * 0.0,
+                            bottom: MediaQuery.of(context).size.height * 0.0,
+                            left: MediaQuery.of(context).size.height * 0.0),
                         child: TextFormField(
                           controller: SearchEditTextController,
                           inputFormatters: [
@@ -430,9 +430,9 @@ class HealthCondiViewallstate
                       // Browse by health packages
                       Padding(
                         padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.015,
-                            right: MediaQuery.of(context).size.height * 0.015,
-                            bottom: MediaQuery.of(context).size.height * 0.016),
+                            left: MediaQuery.of(context).size.height * 0.01,
+                            right: MediaQuery.of(context).size.height * 0.01,
+                            bottom: MediaQuery.of(context).size.height * 0.02),
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -440,11 +440,11 @@ class HealthCondiViewallstate
                               Container(
                                 padding: EdgeInsets.only(
                                     left: MediaQuery.of(context).size.height *
-                                        0.00,
+                                        0.02,
                                     right: MediaQuery.of(context).size.height *
-                                        0.00,
+                                        0.02,
                                     top: MediaQuery.of(context).size.height *
-                                        0.00,
+                                        0.02,
                                     bottom: MediaQuery.of(context).size.height *
                                         0.00),
                                 child: Text(
@@ -472,8 +472,8 @@ class HealthCondiViewallstate
                           physics:
                           NeverScrollableScrollPhysics(), // Disable scrolling inside GridView
                           padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.00,
-                            right: MediaQuery.of(context).size.height * 0.00,
+                            left: MediaQuery.of(context).size.height * 0.02,
+                            right: MediaQuery.of(context).size.height * 0.02,
                             top: MediaQuery.of(context).size.height * 0.005,
                             bottom: MediaQuery.of(context).size.height * 0.00,
                           ),
