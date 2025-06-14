@@ -1730,7 +1730,9 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                   .size
                                                   .height * 0.005),
                                           width: double.infinity,
-                                          child: Column(
+                                          child: MediaQuery(
+                                            data: MediaQuery.of(context).copyWith(textScaleFactor:  MediaQuery.of(context).textScaleFactor.clamp(1.0, 1.0),),
+                                            child: Column(
                                               crossAxisAlignment: CrossAxisAlignment
                                                   .start,
                                               mainAxisAlignment: MainAxisAlignment
@@ -2028,6 +2030,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                       ]),
                                                 ),
                                               ]),
+                                          ),
                                         ),
 
 

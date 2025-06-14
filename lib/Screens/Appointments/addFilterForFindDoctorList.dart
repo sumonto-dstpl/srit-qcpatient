@@ -211,9 +211,9 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
 
 
 
-  double _currentChildSize = 0.55;
+  double _currentChildSize = 0.48;
   bool _isDismissed = false;
-  double _lastExtent = 0.55;
+  double _lastExtent = 0.48;
   final DraggableScrollableController _sheetController = DraggableScrollableController();
 
   @override
@@ -473,7 +473,7 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                                       top: MediaQuery.of(context).size.height * 0.0,
                                       bottom: MediaQuery.of(context).size.height * 0.02),
                                   // width: MediaQuery.of(context).size.height * 0.2,
-                                  height: MediaQuery.of(context).size.height * 0.37,
+                                  height: MediaQuery.of(context).size.height * 0.3,
                                   child: ListView.builder(
                                     itemCount: categories.length,
                                     itemBuilder: (context, index) {
@@ -509,8 +509,8 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                                               Container(
                                                 padding: EdgeInsets.only(
                                                   left : MediaQuery.of(context).size.height * 0.015,
-                                                  bottom: MediaQuery.of(context).size.height * 0.01,
-                                                  top : MediaQuery.of(context).size.height * 0.01,
+                                                  bottom: MediaQuery.of(context).size.height * 0.011,
+                                                  top : MediaQuery.of(context).size.height * 0.011,
                                                 ),
                                                 child: Text(
                                                   categories[index],
@@ -538,7 +538,7 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                                 flex : 3,
                                 child:
                                 Container(
-                                  height: MediaQuery.of(context).size.height * 0.39,
+                                  height: MediaQuery.of(context).size.height * 0.32,
                                   padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.0),
                                   child: _getFilterWidget(categories[selectedCategoryIndex], context),
                                 ),

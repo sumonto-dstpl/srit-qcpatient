@@ -106,6 +106,7 @@ class HealthCondiViewallstate
             color: Colors.black,
             fontSize: MediaQuery.of(context).size.height * 0.018,
             fontWeight: FontWeight.w600));
+    final bool isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
@@ -591,7 +592,7 @@ class HealthCondiViewallstate
       ),
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
+      floatingActionButton: isKeyboardVisible ? null : Container(
         height: screenHeight * 0.07,  // Outer circle height (adjust as needed)
         width: screenHeight * 0.07, // Outer circle width (adjust as needed)
         decoration: BoxDecoration(

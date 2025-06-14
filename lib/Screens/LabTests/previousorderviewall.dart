@@ -115,6 +115,7 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     TextEditingController SearchEditTextController = TextEditingController();
@@ -960,7 +961,7 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
       ),
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
+      floatingActionButton: isKeyboardVisible ? null : Container(
         height: screenHeight * 0.07,  // Outer circle height (adjust as needed)
         width: screenHeight * 0.07, // Outer circle width (adjust as needed)
         decoration: BoxDecoration(

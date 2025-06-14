@@ -556,55 +556,58 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                 width: 1, // Border width
                               ),
                             ),
-                            child: TabBar(
-                              indicatorSize: TabBarIndicatorSize.tab,
-                              dividerColor: Colors.transparent,
-                              indicator: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(10)),
-                              ),
-                              labelColor: Color(0xFF126086),
-                              labelStyle: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height *
-                                      0.013),
-                              unselectedLabelColor: Colors.black,
-                              unselectedLabelStyle:
-                              TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height *
-                                      0.013
-                              ),
-                              tabs: [
-                                Tab(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Past Appoinments",
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ],
-                                  ),
+                            child: MediaQuery(
+                              data: MediaQuery.of(context).copyWith(textScaleFactor:  MediaQuery.of(context).textScaleFactor.clamp(1.0, 1.0),),
+                              child: TabBar(
+                                indicatorSize: TabBarIndicatorSize.tab,
+                                dividerColor: Colors.transparent,
+                                indicator: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
                                 ),
-                                Tab(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Upcoming Appoinments",
-                                      ),
-                                    ],
-                                  ),
+                                labelColor: Color(0xFF126086),
+                                labelStyle: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height *
+                                        0.013),
+                                unselectedLabelColor: Colors.black,
+                                unselectedLabelStyle:
+                                TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height *
+                                        0.013
                                 ),
-                              ],
+                                tabs: [
+                                  Tab(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Past Appoinments",
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Tab(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Upcoming Appoinments",
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           Expanded(
@@ -1691,7 +1694,9 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                                         .size
                                                                         .height * 0.005),
                                                                 width: double.infinity,
-                                                                child: Column(
+                                                                child: MediaQuery(
+                                                                  data: MediaQuery.of(context).copyWith(textScaleFactor:  MediaQuery.of(context).textScaleFactor.clamp(1.0, 1.0),),
+                                                                  child: Column(
                                                                     crossAxisAlignment: CrossAxisAlignment
                                                                         .start,
                                                                     mainAxisAlignment: MainAxisAlignment
@@ -1989,6 +1994,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                                             ]),
                                                                       ),
                                                                     ]),
+                                                                ),
                                                               ),
 
 
@@ -3170,7 +3176,9 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                                         .size
                                                                         .height * 0.005),
                                                                 width: double.infinity,
-                                                                child: Column(
+                                                                child: MediaQuery(
+                                                                  data: MediaQuery.of(context).copyWith(textScaleFactor:  MediaQuery.of(context).textScaleFactor.clamp(1.0, 1.0),),
+                                                                  child: Column(
                                                                     crossAxisAlignment: CrossAxisAlignment
                                                                         .start,
                                                                     mainAxisAlignment: MainAxisAlignment
@@ -3468,6 +3476,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                                             ]),
                                                                       ),
                                                                     ]),
+                                                                ),
                                                               ),
 
 
