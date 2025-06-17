@@ -7,6 +7,7 @@ import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Data/Models/appointmentselectime.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
+import 'package:newfolder/Screens/Appointments/doctordetailpage.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/Medications/medicationsmybook.dart';
 import 'package:newfolder/Screens/Widgets/ShareToOtherApp.dart';
@@ -523,7 +524,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                 padding: EdgeInsets.only(
                     left: MediaQuery.of(context).size.height * 0.00,
                     right: MediaQuery.of(context).size.height * 0.00,
-                    top: MediaQuery.of(context).size.height * 0.008,
+                    top: MediaQuery.of(context).size.height * 0.02,
                     bottom: MediaQuery.of(context).size.height * 0.00),
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -541,43 +542,136 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // Doctor's Information
+                    // Column(
+                    //   crossAxisAlignment: CrossAxisAlignment.center,
+                    //   children: [
+                    //     Text(
+                    //       "Dr. Nutan Bhatt",
+                    //       // doctornameval,
+                    //       style: TextStyle(
+                    //         color: Color(0xFF126086),
+                    //         fontWeight: FontWeight.w600,
+                    //         fontSize: MediaQuery.of(context).size.height * 0.02,
+                    //       ),
+                    //     ),
+                    //     Container(
+                    //       padding: EdgeInsets.only(
+                    //           left: MediaQuery.of(context).size.height * 0.00,
+                    //           right: MediaQuery.of(context).size.height * 0.00,
+                    //           top: MediaQuery.of(context).size.height * 0.00,
+                    //           bottom:
+                    //               MediaQuery.of(context).size.height * 0.005),
+                    //       child: Text(
+                    //         "General physician / Internal Medicine",
+                    //         // completedSpecialityString,
+                    //         style: TextStyle(
+                    //           color: Colors.black54,
+                    //           fontWeight: FontWeight.w500,
+                    //           fontSize:
+                    //               MediaQuery.of(context).size.height * 0.014,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: EdgeInsets.only(
+                    //           left: MediaQuery.of(context).size.height * 0.02,
+                    //           right: MediaQuery.of(context).size.height * 0.00,
+                    //           top: MediaQuery.of(context).size.height * 0.005,
+                    //           bottom:
+                    //               MediaQuery.of(context).size.height * 0.00),
+                    //       child: Text(
+                    //         "41 YEARS Experience- MBBS, DIPLOMA IN FAMILY MEDICINE (123 Reviews)",
+                    //         // qualificationval,
+                    //         style: TextStyle(
+                    //           color: Color(0xFF126086),
+                    //           fontWeight: FontWeight.bold,
+                    //           fontSize:
+                    //               MediaQuery.of(context).size.height * 0.012,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+
                       children: [
+                        Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                "Dr. Nutan Bhatt",
+                                style: TextStyle(
+                                  color: Color(0xFF126086),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize:
+                                  MediaQuery.of(context).size.height * 0.02,
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return DoctorDetilPage(
+                                            widget.doctoridval);
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(
+                                      left: MediaQuery.of(context).size.height *
+                                          0.005,
+                                      right:
+                                      MediaQuery.of(context).size.height *
+                                          0.0,
+                                      bottom:
+                                      MediaQuery.of(context).size.height *
+                                          0.0,
+                                      top: MediaQuery.of(context).size.height *
+                                          0.005),
+                                  padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.height *
+                                        0.00,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(130.0),
+                                    child: Image.asset(
+                                      'assets/Infodocdetails.png',
+                                      height:
+                                      MediaQuery.of(context).size.height *
+                                          0.014, // Adjust height
+                                      width:
+                                      MediaQuery.of(context).size.height *
+                                          0.014, // Adjust width
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ]),
+                        SizedBox(height: 4),
                         Text(
-                          "Dr. Nutan Bhatt",
-                          // doctornameval,
+                          "General physician / Internal Medicine",
+                          // completedSpecialityString,
                           style: TextStyle(
-                            color: Color(0xFF126086),
-                            fontWeight: FontWeight.w600,
-                            fontSize: MediaQuery.of(context).size.height * 0.02,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height * 0.00,
-                              right: MediaQuery.of(context).size.height * 0.00,
-                              top: MediaQuery.of(context).size.height * 0.00,
-                              bottom:
-                                  MediaQuery.of(context).size.height * 0.005),
-                          child: Text(
-                            "General physician / Internal Medicine",
-                            // completedSpecialityString,
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontWeight: FontWeight.w500,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.014,
-                            ),
+                            color: Colors.black54,
+                            fontWeight: FontWeight.w500,
+                            fontSize:
+                            MediaQuery.of(context).size.height * 0.014,
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height * 0.02,
+                              left: MediaQuery.of(context).size.height * 0.0,
                               right: MediaQuery.of(context).size.height * 0.00,
-                              top: MediaQuery.of(context).size.height * 0.005,
+                              top: MediaQuery.of(context).size.height * 0.008,
                               bottom:
-                                  MediaQuery.of(context).size.height * 0.00),
+                              MediaQuery.of(context).size.height * 0.00),
                           child: Text(
                             "41 YEARS Experience- MBBS, DIPLOMA IN FAMILY MEDICINE (123 Reviews)",
                             // qualificationval,
@@ -585,13 +679,12 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                               color: Color(0xFF126086),
                               fontWeight: FontWeight.bold,
                               fontSize:
-                                  MediaQuery.of(context).size.height * 0.012,
+                              MediaQuery.of(context).size.height * 0.012,
                             ),
                           ),
                         ),
                       ],
                     ),
-
                     // Select Your Date
                     // Padding(
                     //   padding: EdgeInsets.only(
