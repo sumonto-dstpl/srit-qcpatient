@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
@@ -16,13 +15,11 @@ import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 
 class QuickSearchWithoutData extends StatefulWidget {
-  const QuickSearchWithoutData({
-    super.key,
-  });
+  const QuickSearchWithoutData({super.key});
+
   @override
   State<QuickSearchWithoutData> createState() => QuickSearchWithoutDatastate();
 }
@@ -33,23 +30,39 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
 
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
+  EmergencyHomeCall emergencycallalert = EmergencyHomeCall();
+  AppointmentCancel appointmentcancelalert = AppointmentCancel();
+
+  final TextEditingController SearchEditTextController = TextEditingController();
+  final FocusNode searchFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 300), () {
+      FocusScope.of(context).requestFocus(searchFocusNode);
+    });
+  }
+
+  @override
+  void dispose() {
+    SearchEditTextController.dispose();
+    searchFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    TextEditingController SearchEditTextController = TextEditingController();
 
     return Scaffold(
       body: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            // image: AssetImage("assets/patternbackground.png"), // Replace with your image path
             image: AssetImage("assets/Background Pattern.png"),
-            fit: BoxFit.cover, // Adjusts how the image fills the container
+            fit: BoxFit.cover,
           ),
         ),
         child: Stack(children: [
@@ -62,12 +75,6 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
                   right: screenWidth * 0.02,
                   bottom: screenWidth * 0.02,
                 ),
-                margin: EdgeInsets.only(
-                  right: screenHeight * 0.0,
-                  top: screenHeight * 0.0,
-                  bottom: screenHeight * 0.0,
-                  left: screenHeight * 0.0,
-                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [],
@@ -77,11 +84,9 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
               // Main Content Section
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.005,
-                      right: MediaQuery.of(context).size.height * 0.005,
-                      top: MediaQuery.of(context).size.height * 0.00,
-                      bottom: MediaQuery.of(context).size.height * 0.00),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: screenHeight * 0.005,
+                  ),
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -92,20 +97,9 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
                   ),
                   child: ListView(
                     children: [
-                      // Search Input Field
-
                       Container(
-                        padding: EdgeInsets.only(
-                          top: screenHeight * 0.0,
-                          left: screenWidth * 0.0,
-                          right: screenWidth * 0.0,
-                          bottom: screenWidth * 0.0,
-                        ),
-                        margin: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.height * 0.0,
-                            top: MediaQuery.of(context).size.height * 0.0,
-                            bottom: MediaQuery.of(context).size.height * 0.0,
-                            left: MediaQuery.of(context).size.height * 0.0),
+                        padding: EdgeInsets.zero,
+                        margin: EdgeInsets.zero,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -121,14 +115,12 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
                                 ),
                                 child: Icon(
                                   Icons.arrow_back_ios_sharp,
-                                  color: Color(0xFF126086),
+                                  color: const Color(0xFF126086),
                                   size: screenHeight * 0.02,
                                 ),
                               ),
                             ),
-                            SizedBox(
-                                width: screenHeight *
-                                    0.005), // Add spacing between widgets
+                            SizedBox(width: screenHeight * 0.005),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,19 +128,18 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
                                   Container(
                                     alignment: Alignment.centerRight,
                                     margin: EdgeInsets.only(
-                                        bottom: screenHeight * 0.01,
-                                        right : screenHeight * 0.01,
+                                      bottom: screenHeight * 0.01,
+                                      right: screenHeight * 0.01,
                                     ),
                                     child: TextFormField(
                                       controller: SearchEditTextController,
+                                      focusNode: searchFocusNode,
                                       inputFormatters: [
                                         LengthLimitingTextInputFormatter(15),
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp('[a-zA-Z0-9]')),
+                                        FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]')),
                                       ],
-                                      textCapitalization:
-                                          TextCapitalization.characters,
-                                      style: TextStyle(color: Colors.black45),
+                                      textCapitalization: TextCapitalization.characters,
+                                      style: const TextStyle(color: Colors.black45),
                                       keyboardType: TextInputType.emailAddress,
                                       validator: (input) => input!.length < 3
                                           ? "Search should be more than 3 characters"
@@ -156,48 +147,40 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
                                       decoration: InputDecoration(
                                         isDense: true,
                                         contentPadding: EdgeInsets.fromLTRB(
-                                          MediaQuery.of(context).size.height * 0.02,
-                                          MediaQuery.of(context).size.height * 0.012,
-                                          MediaQuery.of(context).size.height * 0.012,
-                                          MediaQuery.of(context).size.height * 0.012,
+                                          screenHeight * 0.02,
+                                          screenHeight * 0.012,
+                                          screenHeight * 0.012,
+                                          screenHeight * 0.012,
                                         ),
                                         filled: true,
-                                        fillColor: Color(0xFFF7F5F6),
+                                        fillColor: const Color(0xFFF7F5F6),
                                         hintText: "Search By Doctor",
                                         hintStyle: TextStyle(
                                           color: Colors.black26,
                                           fontSize: screenHeight * 0.016,
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                          borderSide:
-                                              BorderSide(color: Colors.grey),
+                                          borderRadius: BorderRadius.circular(12.0),
+                                          borderSide: const BorderSide(color: Colors.grey),
                                         ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(12.0)),
-                                          borderSide:
-                                              BorderSide(color: Colors.white),
+                                        enabledBorder: const OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                                          borderSide: BorderSide(color: Colors.white),
                                         ),
                                         suffixIcon: IconButton(
                                           icon: Icon(
                                             Icons.search,
                                             color: Colors.black45,
-                                            size: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height * 0.024 ,
+                                            size: screenHeight * 0.024,
                                           ),
                                           onPressed: () {
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return QuickSearchWithData();
-                                                },
-                                              ),
-                                            );
+                                            // Navigator.of(context).push(
+                                            //   MaterialPageRoute(
+                                            //     builder: (BuildContext context) {
+                                            //       return const QuickSearchWithData();
+                                            //     },
+                                            //   ),
+                                            // );
                                           },
                                         ),
                                       ),
@@ -209,20 +192,17 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
                           ],
                         ),
                       ),
-
                       Container(
                         padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.055,
-                            right: MediaQuery.of(context).size.height * 0.00,
-                            top: MediaQuery.of(context).size.height * 0.00,
-                            bottom: MediaQuery.of(context).size.height * 0.00),
+                          left: screenHeight * 0.055,
+                        ),
                         child: Text(
-                          "Please Enter a Search term with atleast 3 characters to search",
+                          "Please Enter a Search term with at least 3 characters to search",
                           style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.bold,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.013),
+                            color: Colors.black87,
+                            fontWeight: FontWeight.bold,
+                            fontSize: screenHeight * 0.013,
+                          ),
                         ),
                       ),
                     ],

@@ -65,6 +65,7 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
   APIService apiService = new APIService();
   late ProgressDialog progressDialog;
   AppointmentSelectTimeResponse? responsedetails;
+  bool _isSharing = false;
 
   String getFormattedDateTime() {
     try {
@@ -134,10 +135,11 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
+              // color: Colors.blue,
               padding: EdgeInsets.only(
                 top: screenHeight * 0.07,
-                left: screenWidth * 0.0,
-                right: screenWidth * 0.0,
+                left: screenWidth * 0.04,
+                right: screenWidth * 0.04,
                 bottom: screenWidth * 0.0,
               ),
               margin: EdgeInsets.only(
@@ -147,7 +149,7 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                 left: screenHeight * 0.0,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
@@ -156,9 +158,9 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                       height: MediaQuery.of(context).size.height * 0.03,
                       width: MediaQuery.of(context).size.height * 0.03,
                       margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.01,
+                        left: MediaQuery.of(context).size.height * 0.0,
                         top: MediaQuery.of(context).size.height * 0.00,
-                        right: MediaQuery.of(context).size.height * 0.01,
+                        right: MediaQuery.of(context).size.height * 0.0,
                         bottom: MediaQuery.of(context).size.height * 0.00,
                       ),
                       decoration: BoxDecoration(
@@ -195,8 +197,9 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                     ),
                   )
                       : Container(
+                    // color: Colors.blue,
                     margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.05,
+                        left: MediaQuery.of(context).size.height * 0.0,
                         right: MediaQuery.of(context).size.height * 0.00,
                         top: MediaQuery.of(context).size.height * 0.00,
                         bottom:
@@ -211,17 +214,20 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                       ),
                     ),
                   ),
-
-
-
-
                   Container(
                     height: MediaQuery.of(context).size.height * 0.250,
+                    // color: Colors.blue,
                     padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.00,
                       bottom: MediaQuery.of(context).size.height * 0.00,
-                      left: MediaQuery.of(context).size.height * 0.00,
-                      right: MediaQuery.of(context).size.height * 0.00,
+                      left: MediaQuery.of(context).size.height * 0.0,
+                      right: MediaQuery.of(context).size.height * 0.0,
+                    ),
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.00,
+                      bottom: MediaQuery.of(context).size.height * 0.00,
+                      left: MediaQuery.of(context).size.height * 0.0,
+                      right: MediaQuery.of(context).size.height * 0.0,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -262,8 +268,7 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                                           fontSize: MediaQuery.of(context)
                                               .size
                                               .height *
-                                              0.012
-                                      ),
+                                              0.012),
                                     )
                                   ],
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -272,10 +277,21 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                               InkWell(
                                 onTap: () async {
                                   // Navigator.pop(context);
-                                  ShareToOtherApp.share();
+                                  if (_isSharing) return;
+                                  _isSharing = true;
+                                  try {
+                                    // Call your static method that wraps Share.share()
+                                    ShareToOtherApp.share();
+
+                                    // Add a delay because Share.share() returns immediately
+                                    await Future.delayed(Duration(seconds: 2));
+                                  } catch (e) {
+                                    print('Sharing failed: $e');
+                                  } finally {
+                                    _isSharing = false;
+                                  }
                                 },
-                                onDoubleTap: (){
-                                },
+                                onDoubleTap: () {},
                                 child: Container(
                                   margin: EdgeInsets.only(
                                       left: MediaQuery.of(context).size.height *
@@ -307,6 +323,7 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                               ),
                             ]),
                         Container(
+                          // color: Colors.white,
                           padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.00,
                             bottom: MediaQuery.of(context).size.height * 0.005,
@@ -343,8 +360,8 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(screenHeight * 0.02),
-                    topRight: Radius.circular(screenHeight * 0.02),
+                    topLeft: Radius.circular(screenHeight * 0.03),
+                    topRight: Radius.circular(screenHeight * 0.03),
                   ),
                 ),
                 child: ListView(
@@ -356,28 +373,26 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Container(
-                          padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height * 0.01,
-                              right: MediaQuery.of(context).size.height * 0.01,
-                              top: MediaQuery.of(context).size.height * 0.008,
-                              bottom:
-                              MediaQuery.of(context).size.height * 0.00),
+
                           child: Text(
                             "Dr. Nutan Bhatt",
                             style: TextStyle(
                               color: Color(0xFF126086),
                               fontWeight: FontWeight.w600,
-                              fontSize: MediaQuery.of(context).size.height * 0.02,
+                              fontSize:
+                              MediaQuery.of(context).size.height * 0.02,
                             ),
                           ),
+
                         ),
+                        SizedBox(height: 4),
                         Container(
-                          padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height * 0.01,
-                              right: MediaQuery.of(context).size.height * 0.01,
-                              top: MediaQuery.of(context).size.height * 0.00,
-                              bottom:
-                              MediaQuery.of(context).size.height * 0.00),
+                          // padding: EdgeInsets.only(
+                          //     left: MediaQuery.of(context).size.height * 0.01,
+                          //     right: MediaQuery.of(context).size.height * 0.01,
+                          //     top: MediaQuery.of(context).size.height * 0.00,
+                          //     bottom:
+                          //     MediaQuery.of(context).size.height * 0.00),
                           child: Text(
                             "General physician / Internal Medicine",
                             // completedSpecialityString,
@@ -391,10 +406,11 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                         ),
                         Container(
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height * 0.02,
+                              left: MediaQuery.of(context).size.height * 0.0,
                               right: MediaQuery.of(context).size.height * 0.00,
-                              top: MediaQuery.of(context).size.height * 0.005,
-                              bottom: MediaQuery.of(context).size.height * 0.00),
+                              top: MediaQuery.of(context).size.height * 0.008,
+                              bottom:
+                              MediaQuery.of(context).size.height * 0.00),
                           child: Text(
                             "41 YEARS Experience- MBBS, DIPLOMA IN FAMILY MEDICINE (123 Reviews)",
                             // qualificationval,

@@ -422,7 +422,7 @@ class DiagnosticMainstate extends State<DiagnosticMain> {
   //                                       text: TextSpan(
   //                                         style: Theme.of(context)
   //                                             .textTheme
-  //                                             .headline6!
+  //                                             .titleLarge!
   //                                             .merge(
   //                                           TextStyle(
   //                                               color: Theme.of(context)
@@ -2965,7 +2965,7 @@ class DiagnosticMainstate extends State<DiagnosticMain> {
                                         text: TextSpan(
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline6!
+                                              .titleLarge!
                                               .merge(
                                                 TextStyle(
                                                     color: Theme.of(context)

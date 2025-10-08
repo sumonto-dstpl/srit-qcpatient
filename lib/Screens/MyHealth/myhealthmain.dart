@@ -587,7 +587,7 @@ class MyHealthMainstate extends State<MyHealthMain> {
                       //                   text: TextSpan(
                       //                     style: Theme.of(context)
                       //                         .textTheme
-                      //                         .headline6!
+                      //                         .titleLarge!
                       //                         .merge(
                       //                       TextStyle(
                       //                           color: Theme.of(context)

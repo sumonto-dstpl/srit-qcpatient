@@ -366,8 +366,8 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(screenHeight * 0.02),
-                    topRight: Radius.circular(screenHeight * 0.02),
+                    topLeft: Radius.circular(screenHeight * 0.03),
+                    topRight: Radius.circular(screenHeight * 0.03),
                   ),
                 ),
                 child: ListView(
