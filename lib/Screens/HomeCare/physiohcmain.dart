@@ -410,7 +410,7 @@ class PhysioHCMainstate extends State<PhysioHCMain> {
   //                                       text: TextSpan(
   //                                         style: Theme.of(context)
   //                                             .textTheme
-  //                                             .headline6!
+  //                                             .titleLarge!
   //                                             .merge(
   //                                           TextStyle(
   //                                               color: Theme.of(context)
@@ -2954,7 +2954,7 @@ class PhysioHCMainstate extends State<PhysioHCMain> {
                                         text: TextSpan(
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline6!
+                                              .titleLarge!
                                               .merge(
                                                 TextStyle(
                                                     color: Theme.of(context)

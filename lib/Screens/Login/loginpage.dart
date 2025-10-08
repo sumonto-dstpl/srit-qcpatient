@@ -38,8 +38,8 @@ class LoginPagestate extends State<LoginPage> {
     super.initState();
 
     setState(() {
-      UserNumberEditTextController?.text = "babureddy921234567@gmail.com";
-      PasswordEditTextController?.text = "Test@123456";
+      // UserNumberEditTextController?.text = "babureddy921234567@gmail.com";
+      // PasswordEditTextController?.text = "Test@123456";
     });
   }
 
@@ -1223,7 +1223,7 @@ child: Stack(
                                           text: TextSpan(
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .headline6!
+                                                .titleLarge!
                                                 .merge(
                                                   TextStyle(
                                                     color: Theme.of(context)

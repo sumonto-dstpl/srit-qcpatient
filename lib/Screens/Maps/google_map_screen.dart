@@ -234,110 +234,111 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
                         margin: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.005,
                             bottom: MediaQuery.of(context).size.height * 0.01),
-                        child: TypeAheadFormField<Description?>(
-                          onSuggestionSelected: (suggestion) {
-                            setState(() {
-                              // placeController.text =suggestion?.structured_formatting?.main_text ?? "";
-                            });
-                          },
-                          getImmediateSuggestions: true,
-                          keepSuggestionsOnLoading: true,
-                          textFieldConfiguration: TextFieldConfiguration(
-                            controller: placeController,
-                            style: TextStyle(
-                              color: Color(0xFF1F1F1F),
-                              fontWeight: FontWeight.w700,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.017,
-                            ),
-                            decoration: InputDecoration(
-                              isDense: true,
-                              contentPadding: EdgeInsets.only(
-                                left:
-                                    MediaQuery.of(context).size.height * 0.025,
-                                top: MediaQuery.of(context).size.height * 0.02,
-                              ),
-                              filled: true,
-                              fillColor: Color(0x4DFFFFFF),
-                              hintText:
-                                  "Search for area, street name, locality...",
-                              hintStyle: TextStyle(
-                                color: Color(0xFF1F1F1F),
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.014,
-                                fontWeight: FontWeight.w400,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                                borderSide:
-                                    BorderSide(color: Color(0x4DFFFFFF)),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                                borderSide:
-                                    BorderSide(color: Color(0x4DFFFFFF)),
-                              ),
-                              suffixIcon: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    placeController.clear();
-                                    // showBottomSheetforAddressDisplay();
-                                  });
-                                },
-                                child: Icon(
-                                  Icons.search,
-                                  color: Color(0xFF000000),
-                                  size:
-                                      MediaQuery.of(context).size.height * 0.03,
-                                ),
-                              ),
-                            ),
-                          ),
-                          itemBuilder: (context, Description? itemData) {
-                            return Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 6),
-                              child: Row(
-                                children: [
-                                  const Icon(Icons.location_on_outlined,
-                                      size: 18, color: Colors.grey),
-                                  SizedBox(width: 6),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "${itemData?.structured_formatting?.main_text}",
-                                          style: const TextStyle(
-                                              color: Colors.green),
-                                        ),
-                                        Text(
-                                            "${itemData?.structured_formatting?.secondary_text}"),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          noItemsFoundBuilder: (context) {
-                            return SizedBox.shrink(); // or show a message
-                          },
-                          suggestionsCallback: (String pattern) async {
-                            var predictionModel = await Repo.placeAutoComplete(
-                                placeInput: pattern);
-
-                            if (predictionModel != null) {
-                              return predictionModel.predictions!.where(
-                                  (element) => element.description!
-                                      .toLowerCase()
-                                      .contains(pattern.toLowerCase()));
-                            } else {
-                              return [];
-                            }
-                          },
-                        )),
+                        // child: TypeAheadFormField<Description?>(
+                        //   onSuggestionSelected: (suggestion) {
+                        //     setState(() {
+                        //       // placeController.text =suggestion?.structured_formatting?.main_text ?? "";
+                        //     });
+                        //   },
+                        //   getImmediateSuggestions: true,
+                        //   keepSuggestionsOnLoading: true,
+                        //   textFieldConfiguration: TextFieldConfiguration(
+                        //     controller: placeController,
+                        //     style: TextStyle(
+                        //       color: Color(0xFF1F1F1F),
+                        //       fontWeight: FontWeight.w700,
+                        //       fontSize:
+                        //           MediaQuery.of(context).size.height * 0.017,
+                        //     ),
+                        //     decoration: InputDecoration(
+                        //       isDense: true,
+                        //       contentPadding: EdgeInsets.only(
+                        //         left:
+                        //             MediaQuery.of(context).size.height * 0.025,
+                        //         top: MediaQuery.of(context).size.height * 0.02,
+                        //       ),
+                        //       filled: true,
+                        //       fillColor: Color(0x4DFFFFFF),
+                        //       hintText:
+                        //           "Search for area, street name, locality...",
+                        //       hintStyle: TextStyle(
+                        //         color: Color(0xFF1F1F1F),
+                        //         fontSize:
+                        //             MediaQuery.of(context).size.height * 0.014,
+                        //         fontWeight: FontWeight.w400,
+                        //       ),
+                        //       focusedBorder: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.circular(12.0),
+                        //         borderSide:
+                        //             BorderSide(color: Color(0x4DFFFFFF)),
+                        //       ),
+                        //       enabledBorder: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.circular(12.0),
+                        //         borderSide:
+                        //             BorderSide(color: Color(0x4DFFFFFF)),
+                        //       ),
+                        //       suffixIcon: InkWell(
+                        //         onTap: () {
+                        //           setState(() {
+                        //             placeController.clear();
+                        //             // showBottomSheetforAddressDisplay();
+                        //           });
+                        //         },
+                        //         child: Icon(
+                        //           Icons.search,
+                        //           color: Color(0xFF000000),
+                        //           size:
+                        //               MediaQuery.of(context).size.height * 0.03,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        //   itemBuilder: (context, Description? itemData) {
+                        //     return Container(
+                        //       margin: const EdgeInsets.symmetric(
+                        //           horizontal: 8, vertical: 6),
+                        //       child: Row(
+                        //         children: [
+                        //           const Icon(Icons.location_on_outlined,
+                        //               size: 18, color: Colors.grey),
+                        //           SizedBox(width: 6),
+                        //           Expanded(
+                        //             child: Column(
+                        //               crossAxisAlignment:
+                        //                   CrossAxisAlignment.start,
+                        //               children: [
+                        //                 Text(
+                        //                   "${itemData?.structured_formatting?.main_text}",
+                        //                   style: const TextStyle(
+                        //                       color: Colors.green),
+                        //                 ),
+                        //                 Text(
+                        //                     "${itemData?.structured_formatting?.secondary_text}"),
+                        //               ],
+                        //             ),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     );
+                        //   },
+                        //   noItemsFoundBuilder: (context) {
+                        //     return SizedBox.shrink(); // or show a message
+                        //   },
+                        //   suggestionsCallback: (String pattern) async {
+                        //     var predictionModel = await Repo.placeAutoComplete(
+                        //         placeInput: pattern);
+                        //
+                        //     if (predictionModel != null) {
+                        //       return predictionModel.predictions!.where(
+                        //           (element) => element.description!
+                        //               .toLowerCase()
+                        //               .contains(pattern.toLowerCase()));
+                        //     } else {
+                        //       return [];
+                        //     }
+                        //   },
+                        // )
+                    ),
                   ],
                 ),
               ),
