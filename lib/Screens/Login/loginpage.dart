@@ -58,6 +58,28 @@ class LoginPagestate extends State<LoginPage> {
     }
   }
 
+  void validateNumber(String value) {
+    String number = value.trim();
+
+    // Remove +91 if exists for validation
+    // if (number.startsWith("+91 ")) {
+      number = number.substring(4);
+    // }
+
+    // Check if exactly 10 digits
+    if (number.length == 10 && RegExp(r'^[0-9]+$').hasMatch(number)) {
+      setState(() {
+        isValid = true;
+        errorMessage = null;
+      });
+    } else {
+      setState(() {
+        isValid = false;
+        errorMessage ="Please enter a 10-digit mobile number";
+      });
+    }
+  }
+
   void validateInput() {
     String input = UserNumberEditTextController.text.trim();
 
@@ -339,7 +361,7 @@ class LoginPagestate extends State<LoginPage> {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                "Email / Mobile Number",
+                                "Mobile Number",
                                 style: TextStyle(
                                   fontSize: MediaQuery.of(context).size.height *
                                       0.012,
@@ -374,35 +396,73 @@ class LoginPagestate extends State<LoginPage> {
                                   child: TextFormField(
                                     controller: UserNumberEditTextController,
                                     inputFormatters: [
-                                      LengthLimitingTextInputFormatter(100),
-                                      LowerCaseTextFormatter(),
+                                      LengthLimitingTextInputFormatter(14),
+                                      // FilteringTextInputFormatter.digitsOnly,
+                                      // LowerCaseTextFormatter(),
                                     ],
                                     style: TextStyle(
                                       color: Colors.black45,
-                                      fontSize: MediaQuery.of(context).size.height * 0.016,
-                                            fontWeight: FontWeight.w500,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.016,
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                    keyboardType: TextInputType.emailAddress,
+                                    keyboardType: TextInputType.number,
                                     onChanged: (value) {
-                                      checkUserIdEmpty(
-                                          UserNumberEditTextController.text
-                                              .toString());
+                                      // Automatically add "+91" if user starts typing and it’s not there
+                                      if (value.isNotEmpty &&
+                                          !value.startsWith("+91 ")) {
+                                        UserNumberEditTextController.text =
+                                            "+91 " + value;
+                                        UserNumberEditTextController.selection =
+                                            TextSelection.fromPosition(
+                                          TextPosition(
+                                              offset:
+                                                  UserNumberEditTextController
+                                                      .text.length),
+                                        );
+                                      }
+
+                                      // Remove "+91" when user deletes all characters
+                                      if (value == "+91 ") {
+                                        UserNumberEditTextController.clear();
+                                      }
+                                      // Validate number for tick/error
+                                      validateNumber(
+                                          UserNumberEditTextController.text);
                                     },
+                                    // onEditingComplete: () {
+                                    //   // add error message and icon
+                                    //   checkUserIdEmpty(
+                                    //       UserNumberEditTextController.text
+                                    //           .toString());
+                                    // },
                                     decoration: InputDecoration(
                                       isDense: true,
-                                       contentPadding: EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context).size.height * 0.02,
-                                              vertical: MediaQuery.of(context).size.height * 0.012,
-                                            ),
+                                      contentPadding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            MediaQuery.of(context).size.height *
+                                                0.02,
+                                        vertical:
+                                            MediaQuery.of(context).size.height *
+                                                0.012,
+                                      ),
                                       filled: true,
                                       fillColor: Color(0xFFFFFFFF),
-                                      hintText:
-                                          "Enter your email or mobile number",
+                                      hintText: "Enter your mobile number",
                                       hintStyle: TextStyle(
                                           color: Color(0x4D111111),
-                                          fontSize: MediaQuery.of(context).size.height * 0.012,
-                                          fontWeight: FontWeight.w400
-                                      ),
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.012,
+                                          fontWeight: FontWeight.w400),
+                                      suffixIcon: UserNumberEditTextController
+                                                  .text.isNotEmpty &&
+                                              isValid
+                                          ? Icon(Icons.check_circle,
+                                              color: Colors.green)
+                                          : null,
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(5.0),
@@ -444,445 +504,28 @@ class LoginPagestate extends State<LoginPage> {
                                 ),
                                 if (errorMessage != null)
                                   Padding(
-                                    padding: EdgeInsets.only(
-                                        top:
-                                            MediaQuery.of(context).size.height *
-                                                0.01),
-                                    child: Text(
-                                      errorMessage ?? '',
-                                      style: TextStyle(
-                                        color:
-                                            isValid ? Colors.green : Colors.red,
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                0.012,
-                                      ),
+                                    padding: EdgeInsets.only(top: 4.0, left: 4.0),
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.error, color: Colors.red, size: MediaQuery.of(context).size.height * 0.015),
+                                        SizedBox(width: 4), // spacing between icon and text
+                                        Text(
+                                          // "Please enter a 10-digit mobile number",
+                                          errorMessage!,
+                                          style: TextStyle(
+                                            color: Colors.red,
+                                            fontSize: MediaQuery.of(context).size.height * 0.013,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                               ],
                             ),
                           ),
 
-                          // Passwrod text
-                          Padding(
-                            padding: new EdgeInsets.only(
-                                left:
-                                    MediaQuery.of(context).size.height * 0.025,
-                                right:
-                                    MediaQuery.of(context).size.height * 0.025,
-                                bottom:
-                                    MediaQuery.of(context).size.height * 0.008),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                "Password",
-                                style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.012,
-                                  // color: Colors.black54,
-                                  color: Color(0xFF333333),
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "Inter",
-                                ),
-                                textAlign: TextAlign.start,
-                              ),
-                            ),
-                          ),
-
-                          // Password Field
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height * 0.025,
-                              right: MediaQuery.of(context).size.height * 0.025,
-                              bottom: MediaQuery.of(context).size.height * 0.005,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Focus(
-                                  onFocusChange: (hasFocus) {
-                                    if (hasFocus) {
-                                      ScaffoldMessenger.of(context)
-                                          .hideCurrentSnackBar();
-                                    }
-                                  },
-                                 // Wrap the TextFormField in a Stack to overlay the icon
-child: Stack(
-  alignment: Alignment.centerRight, // Align the icon to the right-center
-  children: [
-    TextFormField(
-      controller: PasswordEditTextController,
-      obscureText: hidePassword,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(100),
-      ],
-      style: TextStyle(
-        color: Colors.black45,
-        fontSize: MediaQuery.of(context).size.height * 0.016,
-        fontWeight: FontWeight.w500,
-      ),
-      keyboardType: TextInputType.text,
-      onChanged: (value) {
-        checkPasswordEmpty(PasswordEditTextController.text.toString());
-      },
-      decoration: InputDecoration(
-        isDense: true,
-        // contentPadding: EdgeInsets.symmetric(
-        //   horizontal: MediaQuery.of(context).size.height * 0.02,
-        //   vertical: MediaQuery.of(context).size.height * 0.012,
-        // ),
-        contentPadding: EdgeInsets.only(
-          left: MediaQuery.of(context).size.height * 0.02,
-          right: MediaQuery.of(context).size.height * 0.05, // Padding for the icon
-          top: MediaQuery.of(context).size.height * 0.012,
-          bottom: MediaQuery.of(context).size.height * 0.012,
-        ),
-        filled: true,
-        fillColor: Colors.white60,
-        hintText: "Enter the password",
-        hintStyle: TextStyle(
-          color: Color(0x4D111111),
-          fontSize: MediaQuery.of(context).size.height * 0.012,
-          fontWeight: FontWeight.w400,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.0),
-          borderSide: BorderSide(
-            color: passhasStartedTyping
-                ? (passisValid ? Colors.green : Colors.red)
-                : Color(0xFFF1F1F1),
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-          borderSide: BorderSide(
-            color: passhasStartedTyping
-                ? (passisValid ? Colors.green : Colors.red)
-                : Color(0xFFF1F1F1),
-          ),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-          borderSide: BorderSide(color: Colors.red),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-          borderSide: BorderSide(color: Colors.red),
-        ),
-        // Remove suffixIcon to avoid extra height
-      ),
-    ),
-    // Absolutely positioned icon
-    Padding(
-      padding: EdgeInsets.only(right: MediaQuery.of(context).size.height * 0.02),      
-      child: InkWell(
-        onTap: () {
-          setState(() {
-            hidePassword = !hidePassword;
-          });
-        },        
-        child: Icon(
-          hidePassword ? Icons.visibility_off : Icons.visibility,
-          color: Colors.black45,
-          size: MediaQuery.of(context).size.height * 0.02,
-        ),
-      ),
-    ),
-  ],
-),
-
-
-                                  // child: TextFormField(
-                                  //   controller: PasswordEditTextController,
-                                  //   inputFormatters: [
-                                  //     LengthLimitingTextInputFormatter(100),
-                                  //   ],
-                                  //   style: TextStyle(
-                                  //     color: Colors.black45,
-                                  //     fontSize: MediaQuery.of(context).size.height * 0.016,
-                                  //           fontWeight: FontWeight.w500,
-                                  //   ),
-                                  //   keyboardType: TextInputType.text,
-                                  //   obscureText: hidePassword,
-                                  //   onChanged: (value) {
-                                  //     checkPasswordEmpty(
-                                  //         PasswordEditTextController.text
-                                  //             .toString());
-                                  //   },
-                                  //   decoration: InputDecoration(
-                                  //     isDense: true,
-                                  //     // contentPadding: EdgeInsets.fromLTRB(
-                                  //     //   MediaQuery.of(context).size.height * 0.02,
-                                  //     //   MediaQuery.of(context).size.height * 0.012,
-                                  //     //   MediaQuery.of(context).size.height * 0.012,
-                                  //     //   MediaQuery.of(context).size.height * 0.012,
-                                  //     // ),
-                                  //      contentPadding: EdgeInsets.symmetric(
-                                  //             horizontal: MediaQuery.of(context).size.height * 0.02,
-                                  //             vertical: MediaQuery.of(context).size.height * 0.012,
-                                  //           ),
-                                  //     filled: true,
-                                  //     fillColor: Colors.white60,
-                                  //     hintText: "Enter the password",
-                                  //     hintStyle: TextStyle(
-                                  //         color: Color(0x4D111111),
-                                  //         fontSize: MediaQuery.of(context).size.height * 0.012,
-                                  //         fontWeight: FontWeight.w400
-                                  //     ),
-                                  //     focusedBorder: OutlineInputBorder(
-                                  //       borderRadius:
-                                  //           BorderRadius.circular(5.0),
-                                  //       borderSide: BorderSide(
-                                  //         color: passhasStartedTyping
-                                  //             ? (passisValid
-                                  //                 ? Colors.green
-                                  //                 : Colors.red)
-                                  //             : Color(
-                                  //                 0xFFF1F1F1), // Initially grey, turns red or green
-                                  //       ),
-                                  //     ),
-                                  //     enabledBorder: OutlineInputBorder(
-                                  //       borderRadius: BorderRadius.all(
-                                  //           Radius.circular(5.0)),
-                                  //       borderSide: BorderSide(
-                                  //         color: passhasStartedTyping
-                                  //             ? (passisValid
-                                  //                 ? Colors.green
-                                  //                 : Colors.red)
-                                  //             : Color(
-                                  //                 0xFFF1F1F1), // Initially grey, turns red or green
-                                  //       ),
-                                  //     ),
-                                  //     errorBorder: OutlineInputBorder(
-                                  //       borderRadius: BorderRadius.all(
-                                  //           Radius.circular(5.0)),
-                                  //       borderSide:
-                                  //           BorderSide(color: Colors.red),
-                                  //     ),
-
-                                  //     focusedErrorBorder: OutlineInputBorder(
-                                  //       borderRadius: BorderRadius.all(
-                                  //           Radius.circular(5.0)),
-                                  //       borderSide:
-                                  //           BorderSide(color: Colors.red),
-                                  //     ),
-                                  //     suffixIcon: Padding(
-                                  //       padding: EdgeInsets.symmetric(
-                                  //         vertical: MediaQuery.of(context).size.height * 0.00, // tweak as needed
-                                  //       ),
-                                  //       child: IconButton(
-                                  //         padding: EdgeInsets.zero, // Remove extra padding
-                                  //         constraints: BoxConstraints(), // Remove default constraints
-                                  //         onPressed: () {
-                                  //           setState(() {
-                                  //             hidePassword = !hidePassword;
-                                  //           });
-                                  //         },
-                                  //         icon: Icon(
-                                  //           hidePassword ? Icons.visibility_off : Icons.visibility,
-                                  //           color: Colors.black45,
-                                  //           size: MediaQuery.of(context).size.height * 0.02,
-                                  //         ),
-                                  //       ),
-                                  //     ),
-                                    
-                                  //     // suffixIcon: IconButton(
-                                  //     //   onPressed: () {
-                                  //     //     setState(() {
-                                  //     //       hidePassword = !hidePassword;
-                                  //     //     });
-                                  //     //   },
-                                  //     //   color: Colors.black45,
-                                  //     //   icon: Icon(hidePassword
-                                  //     //       ? Icons.visibility_off
-                                  //     //       : Icons.visibility),
-                                  //     // ),
-                                  //   ),
-                                  // ),
-                                ),
-                                if (passerrorMessage != null)
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        top:
-                                            MediaQuery.of(context).size.height *
-                                                0.01),
-                                    child: Text(
-                                      passerrorMessage ?? '',
-                                      style: TextStyle(
-                                        color: passisValid
-                                            ? Colors.green
-                                            : Colors.red,
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                0.012,
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ),
-                          // Forget Passwod
-                          // Padding(
-                          //   padding: new EdgeInsets.only(
-                          //       left: MediaQuery.of(context).size.height * 0.005,
-                          //       right: MediaQuery.of(context).size.height * 0.005,
-                          //       bottom:
-                          //           MediaQuery.of(context).size.height * 0.015),
-                          //   child: Align(
-                          //     alignment: Alignment.centerRight,
-                          //     child: GestureDetector(
-                          //       onTap: () {
-                          //         Navigator.of(context).push(
-                          //           MaterialPageRoute(
-                          //             builder: (BuildContext context) {
-                          //               return ForgotPassword();
-                          //             },
-                          //           ),
-                          //         );
-                          //         // Fluttertoast.showToast(msg: "Clicked on Forgot Password ", toastLength: Toast.LENGTH_SHORT);
-                          //       },
-                          //       child: Text(
-                          //         "Forgot Password?",
-                          //         style: TextStyle(
-                          //           decoration: TextDecoration.underline,
-                          //           fontWeight: FontWeight.w500,
-                          //           decorationColor: Color(0xFFC80000),
-                          //           fontSize: MediaQuery.of(context).size.height *
-                          //               0.018,
-                          //           color: Color(0xFFC80000),
-                          //           // fontWeight: FontWeight.bold
-                          //         ),
-                          //         textAlign: TextAlign.end,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Forgot password
-                          // Forget Passord
-                          Padding(
-                            padding: new EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.01,
-                                left:
-                                    MediaQuery.of(context).size.height * 0.025,
-                                right:
-                                    MediaQuery.of(context).size.height * 0.025,
-                                bottom:
-                                    MediaQuery.of(context).size.height * 0.01),
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) {
-                                        return ForgotPassword();
-                                      },
-                                    ),
-                                  );
-                                  // Fluttertoast.showToast(msg: "Clicked on Forgot Password ", toastLength: Toast.LENGTH_SHORT);
-                                },
-                                child: Text(
-                                  "Forgot Password?",
-                                  style: TextStyle(
-                                    // decoration: TextDecoration.underline,
-                                    fontWeight: FontWeight.w600,
-                                    decorationColor: Color(0xFFC80000),
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.0105,
-                                    color: Color(0xFFC80000),
-                                    // fontWeight: FontWeight.bold
-                                  ),
-                                  textAlign: TextAlign.end,
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          // Padding(
-                          //   padding: EdgeInsets.symmetric(
-                          //       horizontal: screenWidth * 0.0),
-                          //   child: Column(
-                          //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          //     children: [
-                          //       // Login Button
-                          //
-                          //       GestureDetector(
-                          //         onTap: () async {
-                          //           validateentriesatsubmit(context);
-                          //         },
-                          //         child: Container(
-                          //             alignment: Alignment.centerRight,
-                          //             padding: EdgeInsets.only(
-                          //                 top: MediaQuery.of(context).size.height *
-                          //                     0.01,
-                          //                 bottom:
-                          //                     MediaQuery.of(context).size.height *
-                          //                         0.00,
-                          //                 left: MediaQuery.of(context).size.height *
-                          //                     0.00,
-                          //                 right:
-                          //                     MediaQuery.of(context).size.height *
-                          //                         0.00),
-                          //             margin: EdgeInsets.only(
-                          //                 right:
-                          //                     MediaQuery.of(context).size.height *
-                          //                         0.01,
-                          //                 top: MediaQuery.of(context).size.height *
-                          //                     0.01,
-                          //                 bottom:
-                          //                     MediaQuery.of(context).size.height *
-                          //                         0.01,
-                          //                 left:
-                          //                     MediaQuery.of(context).size.height *
-                          //                         0.01),
-                          //             child: Row(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-                          //               Expanded(
-                          //                 child: Container(
-                          //                   decoration: BoxDecoration(
-                          //                       borderRadius:
-                          //                           BorderRadius.circular(
-                          //                               MediaQuery.of(context)
-                          //                                       .size
-                          //                                       .height *
-                          //                                   0.012),
-                          //                       gradient: LinearGradient(
-                          //                           begin: Alignment.centerRight,
-                          //                           end: Alignment.center,
-                          //                           stops: [
-                          //                             0.5,
-                          //                             0.9
-                          //                           ],
-                          //                           colors: [
-                          //                             Color(0xFF126086),
-                          //                             Color(0xFF126086),
-                          //                           ])),
-                          //                   alignment: Alignment.center,
-                          //                   padding: EdgeInsets.only(left: 0.0),
-                          //                   child: TextButton(
-                          //                     onPressed: () async {
-                          //                       validateentriesatsubmit(context);
-                          //                     },
-                          //                     child: Text("Login",
-                          //                         textAlign: TextAlign.center,
-                          //                         style: TextStyle(
-                          //                             color: Colors.white,
-                          //                             fontSize:
-                          //                                 MediaQuery.of(context)
-                          //                                         .size
-                          //                                         .height *
-                          //                                     0.02)),
-                          //                   ),
-                          //                 ),
-                          //               ),
-                          //             ])),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
-                          // SizedBox(height: screenHeight * 0.02),
                           // Login button
-
                           Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: screenWidth * 0.0),
@@ -948,7 +591,7 @@ child: Stack(
                                                 validateentriesatsubmit(
                                                     context);
                                               },
-                                              child: Text("Login",
+                                              child: Text("Get OTP",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Colors.white,
@@ -1077,7 +720,7 @@ child: Stack(
                                               // );
                                             },
                                             child: Text(
-                                              "Sign up with Apple",
+                                              "Sign In With Apple",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   color: Color(0xFF1F1F1F),
@@ -1184,7 +827,7 @@ child: Stack(
                                             ),
                                             onPressed: () async {},
                                             child: Text(
-                                              "Sign up with Google",
+                                              "Sign In With Google",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   color: Color(0xFF1F1F1F),
@@ -1304,51 +947,18 @@ child: Stack(
         if (input.isEmpty) {
           setState(() {
             hasStartedTyping = true;
-            errorMessage = "Please enter your email or mobile number";
+            errorMessage = "Please enter a 10-digit mobile number";
             isValid = false;
           });
-        } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                .hasMatch(input) &&
-            !RegExp(r'^[0-9]{10}$').hasMatch(input)) {
-          setState(() {
-            hasStartedTyping = true;
-            errorMessage = "Please enter a valid email or mobile number";
-            isValid = false;
-          });
-        } else {
-          setState(() {
-            hasStartedTyping = false;
-            errorMessage = null;
-            isValid = true;
-          });
+          // Timer(Duration(seconds: 2), () {
+          //   setState(() {
+          //     errorMessage = null;
+          //   });
+          // });
+          return;
         }
 
-        String input1 = PasswordEditTextController.text.trim();
-
-        if (input1.isEmpty) {
-          setState(() {
-            passhasStartedTyping = true;
-            passerrorMessage = "Please enter Password";
-            passisValid = false;
-          });
-        } else if (!RegExp(
-                r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$')
-            .hasMatch(input1)) {
-          setState(() {
-            passhasStartedTyping = true;
-            passerrorMessage =
-                "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character, and must not contain spaces.";
-            passisValid = false;
-          });
-        } else {
-          setState(() {
-            passhasStartedTyping = false;
-            passerrorMessage = null;
-            passisValid = true;
-          });
-        }
-
-        if (isValid && passisValid) {
+        if (isValid) {
           /*  progressDialog.showMaterial(
               title: "Authenticating", message: "Please wait");*/
           // progressDialog.show();

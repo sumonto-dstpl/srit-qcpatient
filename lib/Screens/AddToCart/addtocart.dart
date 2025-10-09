@@ -29,6 +29,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
   int _selectedIndex = 4;
+  bool isExpanded = false; // For collapse/expand toggle
 
   final List<Map<String, dynamic>> carttoplist = [
     {"images": "assets/Harmonebackground.png", "uploadfilestime": "QR 999",
@@ -1025,7 +1026,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                   .height *
                                                               0.00),
                                                   child: Text(
-                                                    '- QR '+(carttoplist.length<=0?0:disPrice).toString(),
+                                                    'You saved QR '+(carttoplist.length<=0?0:disPrice).toString(),
                                                     style: TextStyle(
                                                         // color: Colors.blue[600],
                                                         color:
@@ -1280,98 +1281,86 @@ class AddToCartMainstate extends State<AddToCartMain> {
                         ),
                       ),
 
-                      isSavedForLater == false
+                      // Save for later
+                      savedbottomlist.isEmpty
                           ? Container()
                           : Container(
-                              margin: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.01,
-                                left: MediaQuery.of(context).size.height * 0.01,
-                              ), // Removed margin
-                              padding: EdgeInsets.all(0), // Removed padding
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment
-                                    .start, // Ensures alignment starts from the left
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 2,
-                                    child: InkWell(
-                                      onTap: () => Navigator.pop(context),
-                                      child: Container(
-                                        height: screenHeight * 0.02,
-                                        width: screenHeight * 0.02,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Image.asset(
-                                          'assets/addcartFolder.png',
-                                          height: screenHeight * 0.015,
-                                          width: screenHeight * 0.015,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 15,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          left: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.0,
-                                          right: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.0,
-                                          top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.008,
-                                          bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.01),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              "Saved For Later ",
-                                              style: TextStyle(
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.014,
-                                                color: Color(0xFF000000),
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                              textAlign: TextAlign.start,
-                                            ),
-                                            Text(
-                                              "($saveForLaterCount)",
-                                              style: TextStyle(
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.014,
-                                                color: Color(0xFF000000),
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                              textAlign: TextAlign.start,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.01,
+                bottom: MediaQuery.of(context).size.height * 0.015,
+      left: MediaQuery.of(context).size.height * 0.020,
+      right: MediaQuery.of(context).size.height * 0.020,
+    ),
+    padding: EdgeInsets.symmetric(
+    horizontal: MediaQuery.of(context).size.height * 0.01,
+    vertical: MediaQuery.of(context).size.height * 0.008),
+    decoration: BoxDecoration(
+    color: Colors.white, // Background
+    borderRadius: BorderRadius.circular(6), // 6px radius
+    border: Border.all(
+    color: Color.fromRGBO(0, 0, 0, 0.14), // rgba(0,0,0,0.14)
+    width: 0.5,
+    ),
+    ),
+    child: Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+    // Icon on the left
+    InkWell(
+    onTap: () => Navigator.pop(context),
+    child: Container(
+    height: MediaQuery.of(context).size.height * 0.02,
+    width: MediaQuery.of(context).size.height * 0.02,
+    child: Image.asset(
+    'assets/addcartFolder.png',
+    height: MediaQuery.of(context).size.height * 0.015,
+    width: MediaQuery.of(context).size.height * 0.015,
+    ),
+    ),
+    ),
+
+    SizedBox(width: MediaQuery.of(context).size.height * 0.01),
+
+    // Saved For Later Text
+    Expanded(
+    child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+    Text(
+    "Saved For Later ($saveForLaterCount)",
+    style: TextStyle(
+    fontSize: MediaQuery.of(context).size.height * 0.014,
+    color: Color(0xFF000000),
+    fontWeight: FontWeight.w500,
+    ),
+    ),
+
+    // Dropdown arrow
+    GestureDetector(
+    onTap: () {
+    setState(() {
+    isExpanded = !isExpanded; // Toggle collapse/expand
+    });
+    },
+    child: Icon(
+    isExpanded
+    ? Icons.keyboard_arrow_up
+        : Icons.keyboard_arrow_down,
+    size: MediaQuery.of(context).size.height * 0.02,
+    color: Colors.black54,
+    ),
+    ),
+    ],
+    ),
+    ),
+    ],
+    ),
+    )
+    ,
 
                       // Bottom ListView
-                      isSavedForLater == false
-                          ? Container()
-                          : Container(
+                      isExpanded && savedbottomlist.isNotEmpty
+                          ? Container(
                               margin: EdgeInsets.only(
                                 right: screenHeight * 0.015,
                                 left: screenHeight * 0.015,
@@ -1819,7 +1808,9 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                       ));
                                 },
                               ),
-                            ),
+                            ):
+                      Container()
+                          ,
                     ],
                   ),
                 ),

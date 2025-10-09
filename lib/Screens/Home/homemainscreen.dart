@@ -48,6 +48,8 @@ import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/authfail.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
 
+import '../Utils/profile_avatar.dart';
+
 class HomePageMain extends StatefulWidget {
   int selectedIndex = 0;
 
@@ -60,7 +62,9 @@ class HomePageMain extends StatefulWidget {
 }
 
 class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderStateMixin {
-  String usernameValue = "Hello, Priya Krishnamurty";
+  bool isGuestUser =false;
+  String usernameValue = "Hello, ";
+
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
@@ -117,7 +121,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   double _pullDistance = 0;
   bool _isRefreshing = false;
   @override
-  void initState() {
+  void initState(){
     getSharedPrefs();
      _loadData();
     super.initState();
@@ -125,9 +129,12 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
       vsync: this,
       duration: const Duration(seconds: 1),
     )..repeat();
+
   }
   void _loadData() async {
-    await Future.delayed(const Duration(seconds: 2)); // Simulating API call
+    // await Future.delayed(const Duration(seconds: 2));// Simulating API call
+    isGuestUser=await UserSecureStorage.getIfGuestLogged() == "YES";
+    usernameValue +=  isGuestUser ? "Guest01": "Priya Krishnamurty";
     setState(() {
       _isLoading = false;
     });
@@ -512,25 +519,26 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                     color: Colors.white,
                                   ),
                                 ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(130.0),
-                                  child: Image.asset(
-                                    'assets/drsujeet.png',
-                                    fit: BoxFit.fill,
-                                  ),
+                                child:
+                                // CircleAvatar(
+                                //   radius: 30, // size of the avatar
+                                //   backgroundColor: Color(0xFF00C7BE), // mint or any color
+                                //   child: Text(
+                                //     "GS", // "GS"
+                                //     style: TextStyle(
+                                //       color: Colors.white,
+                                //       fontSize: 10,
+                                //       fontWeight: FontWeight.bold,
+                                //     ),
+                                //   ),
+                                // ),
+                                ProfileAvatar(
+                                  name: "Guest User",
+                                  imageUrl: null, // or provide an image URL
+                                  radius: 30,
                                 ),
                               ),
                               )
-
-
-
-
-
-
-
-
-
-
                             ],
                           ),
                         )
@@ -3948,6 +3956,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                     ],
               ),
 
+                if(!isGuestUser)
                 Positioned(
                   bottom: 16.0, // Position it at the bottom of the screen
                   right: 15.0, // Position it towards the right
