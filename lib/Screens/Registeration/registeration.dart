@@ -9,6 +9,8 @@ import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Screens/Login/loginpage.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
 
+import '../Settings/mpinreset.dart';
+
 class Registration extends StatefulWidget {
   const Registration({
     super.key,
@@ -46,11 +48,11 @@ class Registrationstate extends State<Registration> {
   };
 
   // Reverse mapping
-  final Map<String, String> reverseGenderMap = {
-    "Male": "M",
-    "Female": "F",
-    "Others": "O",
-  };
+  final List<Map<String, String>> genderOptions = [
+    {"key": "M", "label": "Male"},
+    {"key": "F", "label": "Female"},
+    {"key": "O", "label": "Other"},
+  ];
 
   final GlobalKey _dropdownKey = GlobalKey();
   bool _isGenderSelected = true;
@@ -138,17 +140,17 @@ class Registrationstate extends State<Registration> {
 
     if (input.isEmpty) {
       setState(() {
-        mobilenumerrorMessage = "Please enter your Mobile Number";
+        mobilenumerrorMessage = null;
         mobilenumisValid = false;
       });
     } else if (!RegExp(r'^[0-9]{10}$').hasMatch(input)) {
       setState(() {
-        mobilenumerrorMessage = "Please enter a valid mobile number";
+        mobilenumerrorMessage = null;
         mobilenumisValid = false;
       });
     } else {
       setState(() {
-        mobilenumerrorMessage = "Entered Mobile Number";
+        mobilenumerrorMessage = null;
         mobilenumisValid = true;
       });
     }
@@ -163,17 +165,17 @@ class Registrationstate extends State<Registration> {
 
     if (input.isEmpty) {
       setState(() {
-        emailerrorMessage = "Please enter your email";
+        emailerrorMessage = null;
         emailisValid = false;
       });
     } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(input)) {
       setState(() {
-        emailerrorMessage = "Please enter a valid email";
+        emailerrorMessage = null;
         emailisValid = false;
       });
     } else {
       setState(() {
-        emailerrorMessage = "Entered email is valid";
+        emailerrorMessage = null;
         emailisValid = true;
       });
     }
@@ -210,6 +212,7 @@ class Registrationstate extends State<Registration> {
   String? conpasserrorMessage;
   bool conpassisValid = false;
   bool conpasshasStartedTyping = false;
+
 
   void conpassvalidateInput() {
     String input = ConfirmPasswordTextController.text.trim();
@@ -668,19 +671,28 @@ class Registrationstate extends State<Registration> {
                                     ),
                                     child: Align(
                                       alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "First Name",
-                                        style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.012,
-                                          // color: Colors.black54,
-                                          color: Color(0xFF333333),
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "Inter",
-                                        ),
+                                      child: RichText(
                                         textAlign: TextAlign.start,
+                                        text: TextSpan(
+                                          text: 'First Name', // Your label
+                                          style: TextStyle(
+                                            fontSize: MediaQuery.of(context).size.height * 0.012,
+                                            color: Color(0xFF333333),
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "Inter",
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: ' *', // Red asterisk
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "Inter",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -838,19 +850,28 @@ class Registrationstate extends State<Registration> {
                                     ),
                                     child: Align(
                                       alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Last Name",
-                                        style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.012,
-                                          // color: Colors.black54,
-                                          color: Color(0xFF333333),
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "Inter",
-                                        ),
+                                      child: RichText(
                                         textAlign: TextAlign.start,
+                                        text: TextSpan(
+                                          text: 'Last Name', // Your label
+                                          style: TextStyle(
+                                            fontSize: MediaQuery.of(context).size.height * 0.012,
+                                            color: Color(0xFF333333),
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "Inter",
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: ' *', // Red asterisk
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "Inter",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -1002,19 +1023,28 @@ class Registrationstate extends State<Registration> {
                                                 0.01),
                                     child: Align(
                                       alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Mobile Number",
-                                        style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.012,
-                                          // color: Colors.black54,
-                                          color: Color(0xFF333333),
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "Inter",
-                                        ),
+                                      child: RichText(
                                         textAlign: TextAlign.start,
+                                        text: TextSpan(
+                                          text: 'Mobile Number', // Your label
+                                          style: TextStyle(
+                                            fontSize: MediaQuery.of(context).size.height * 0.012,
+                                            color: Color(0xFF333333),
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "Inter",
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: ' *', // Red asterisk
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "Inter",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -1039,7 +1069,7 @@ class Registrationstate extends State<Registration> {
                                               MobileNummberEditTextController,
                                           inputFormatters: [
                                             LengthLimitingTextInputFormatter(
-                                                15),
+                                                10),
                                             FilteringTextInputFormatter.allow(
                                                 RegExp('[0-9]'))
                                           ],
@@ -1053,6 +1083,7 @@ class Registrationstate extends State<Registration> {
                                           ),
                                           keyboardType: TextInputType.number,
                                           onChanged: (value) {
+                                            mobilenumvalidateInput();
                                             /* if (!mobilenumhasStartedTyping) {
                                               setState(() {
                                                 mobilenumhasStartedTyping = true; // Track that the user has started typing
@@ -1073,6 +1104,12 @@ class Registrationstate extends State<Registration> {
                                                       .height *
                                                   0.012,
                                             ),
+                                            suffixIcon: MobileNummberEditTextController
+                                                .text.isNotEmpty &&
+                                                mobilenumisValid
+                                                ? Icon(Icons.check_circle,
+                                                color: Colors.green)
+                                                : null,
                                             filled: true,
                                             fillColor: Color(0xFFFFFFFF),
                                             hintText:
@@ -1168,19 +1205,28 @@ class Registrationstate extends State<Registration> {
                                                 0.01),
                                     child: Align(
                                       alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Email",
-                                        style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.012,
-                                          // color: Colors.black54,
-                                          color: Color(0xFF333333),
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "Inter",
-                                        ),
+                                      child: RichText(
                                         textAlign: TextAlign.start,
+                                        text: TextSpan(
+                                          text: 'Email', // Your label
+                                          style: TextStyle(
+                                            fontSize: MediaQuery.of(context).size.height * 0.012,
+                                            color: Color(0xFF333333),
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "Inter",
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: ' *', // Red asterisk
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "Inter",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -1217,6 +1263,7 @@ class Registrationstate extends State<Registration> {
                                           keyboardType:
                                               TextInputType.emailAddress,
                                           onChanged: (value) {
+                                            emailvalidateInput();
                                             /* if (!emailhasStartedTyping) {
                                               setState(() {
                                                 emailhasStartedTyping = true; // Track that the user has started typing
@@ -1237,6 +1284,12 @@ class Registrationstate extends State<Registration> {
                                                       .height *
                                                   0.012,
                                             ),
+                                            suffixIcon: EmailEditTextController
+                                                .text.isNotEmpty &&
+                                                emailisValid
+                                                ? Icon(Icons.check_circle,
+                                                color: Colors.green)
+                                                : null,
                                             filled: true,
                                             fillColor: Color(0xFFFFFFFF),
                                             hintText: "Enter your email",
@@ -1331,243 +1384,89 @@ class Registrationstate extends State<Registration> {
                                                 0.008),
                                     child: Align(
                                       alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Gender",
-                                        style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.012,
-                                          // color: Colors.black54,
-                                          color: Color(0xFF333333),
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "Inter",
-                                        ),
+                                      child: RichText(
                                         textAlign: TextAlign.start,
+                                        text: TextSpan(
+                                          text: 'Gender', // Your label
+                                          style: TextStyle(
+                                            fontSize: MediaQuery.of(context).size.height * 0.012,
+                                            color: Color(0xFF333333),
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "Inter",
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: ' *', // Red asterisk
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "Inter",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
 
                                   // Updated TextFormField inside Column
                                   Padding(
-                                    padding: new EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.005,
-                                      bottom:
-                                          MediaQuery.of(context).size.height *
-                                              0.01,
+                                    padding: EdgeInsets.only(
+                                      left: MediaQuery.of(context).size.height * 0.005,
+                                      bottom: MediaQuery.of(context).size.height * 0.01,
                                     ),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        CompositedTransformTarget(
-                                          link: _layerLink,
-                                          child: TextFormField(
-                                            key: _textFieldKey,
-                                            readOnly: true,
-                                            controller: TextEditingController(
-                                              text: genderselectedval == null
-                                                  ? ""
-                                                  : genderMap[
-                                                      genderselectedval],
-                                            ),
-                                            style: TextStyle(
-                                              color: Colors.black45,
-                                              fontSize: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.016,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                            decoration: InputDecoration(
-                                              isDense: true,
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                horizontal:
-                                                    MediaQuery.of(context)
-                                                            .size
-                                                            .height *
-                                                        0.02,
-                                                vertical: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.0012,
-                                              ),
-                                              filled: true,
-                                              fillColor: Color(0xFFFFFFFF),
-                                              hintText: "Enter your Gender",
-                                              hintStyle: TextStyle(
-                                                  color: Color(0x4D111111),
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .height *
-                                                          0.012,
-                                                  fontWeight: FontWeight.w400),
-                                              border: OutlineInputBorder(
-                                                // borderSide: BorderSide(color: _isGenderValid ? Colors.grey : Colors.red),
+                                        // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
 
-                                                borderSide: BorderSide(
-                                                  color: (genderselectedval !=
-                                                          null)
-                                                      ? (_isGenderValid
-                                                          ? Color(0xFFF1F1F1)
-                                                          : Colors.red)
-                                                      : Color(0xFFF1F1F1),
+                                        // 🔹 Radio Buttons Row
+                                        Row(
+                                          children: genderOptions.map((gender) {
+                                            return Expanded(
+                                                child: Theme(
+                                                  data: Theme.of(context).copyWith(
+                                                    unselectedWidgetColor: Color(0xFFD0D5DD), // ✅ Set background color here
+                                                  ),
+                                              child: RadioListTile<String>(
+                                                dense: true,
+                                                contentPadding: EdgeInsets.zero,
+                                                title: Text(
+                                                  gender["label"]!,
+                                                  style: TextStyle(
+                                                    fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                    // fontWeight: FontWeight.normal,
+                                                  ),
                                                 ),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color:
-                                                        // (genderselectedval != null)
-                                                        //     ? (_isGenderValid ? Color(0xFFF1F1F1) : Colors.red)
-                                                        //     : Color(0xFFF1F1F1),
-                                                        !_isGenderValid
-                                                            ? Colors.red
-                                                            : Color(
-                                                                0xFFF1F1F1)),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color:
-                                                        // (genderselectedval != null)
-                                                        //     ? (_isGenderValid ? Color(0xFFF1F1F1): Colors.red)
-                                                        //     : Color(0xFFF1F1F1),
-                                                        !_isGenderValid
-                                                            ? Colors.red
-                                                            : Color(
-                                                                0xFFF1F1F1)),
-                                              ),
-                                              suffixIcon: GestureDetector(
-                                                onTap: () {
+                                                value: gender["key"]!,
+                                                groupValue: genderselectedval,
+                                                activeColor: const Color(0xFF00C7BE), // ✅ Mint color
+                                                visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+                                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                onChanged: (value) {
                                                   setState(() {
-                                                    isExpanded = !isExpanded;
+                                                    genderselectedval = value!;
+                                                    _isGenderValid = true;
                                                   });
                                                 },
-                                                child: Icon(
-                                                  isExpanded
-                                                      ? Icons
-                                                          .keyboard_arrow_up // ? Icons.keyboard_arrow_down
-                                                      : Icons
-                                                          .keyboard_arrow_down, // : Icons.keyboard_arrow_up,
-                                                  size: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.02, // Dynamic icon size
+                                              ),
                                                 ),
-                                              ),
-                                            ),
-                                            // onTap: _showGenderDropdown, // Show dropdown on tap
-                                          ),
+                                            );
+                                          }).toList(),
                                         ),
-                                        if (isExpanded)
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                              left: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.0045,
-                                              right: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.0045,
-                                            ),
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.13, // Set fixed height for dropdown
-                                            decoration: BoxDecoration(
-                                              // border: Border.all(color: Color(0xFFF1F1F1), width: 1),
-                                              border: Border(
-                                                left: BorderSide(
-                                                    color: Color(0xFFF1F1F1),
-                                                    width: 1),
-                                                right: BorderSide(
-                                                    color: Color(0xFFF1F1F1),
-                                                    width: 1),
-                                                bottom: BorderSide(
-                                                    color: Color(0xFFF1F1F1),
-                                                    width: 1),
-                                                // No top border
-                                              ),
 
-                                              // borderRadius: BorderRadius.circular(5),
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(5),
-                                                bottomRight: Radius.circular(5),
-                                              ),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: genderMap.entries
-                                                  .map((entry) {
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      genderselectedval =
-                                                          entry.key;
-                                                      isExpanded = !isExpanded;
-                                                      _isGenderValid = true;
-
-                                                      // Update selected gender
-                                                    });
-                                                    // _removeOverlay(); // Remove dropdown when option is selected
-                                                  },
-                                                  child: Container(
-                                                      color: Colors.white,
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      // height: dropdownHeight / (genderMap.entries.length  ), // Divide the dropdown height by the number of entries
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.04,
-                                                      padding: EdgeInsets
-                                                          .zero, // Remove any extra padding in the container
-                                                      margin: EdgeInsets.only(
-                                                        left: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height *
-                                                            0.015,
-                                                      ), // Ensure no margin around the item
-                                                      child: Text(
-                                                        entry.value,
-                                                        style: TextStyle(
-                                                          fontSize: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height *
-                                                              0.013,
-                                                          color:
-                                                              Color(0xFF333333),
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          fontFamily: "Inter",
-                                                        ),
-                                                      )),
-                                                );
-                                              }).toList(),
-                                            ),
-                                          ),
-                                        // Show error message if gender is not selected
+                                        // 🔻 Validation Error
                                         if (!_isGenderValid)
                                           Padding(
                                             padding: EdgeInsets.only(
-                                                top: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.005),
+                                              top: MediaQuery.of(context).size.height * 0.005,
+                                            ),
                                             child: Text(
                                               "Please select a gender",
                                               style: TextStyle(
                                                 color: Colors.red,
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.012,
+                                                fontSize: MediaQuery.of(context).size.height * 0.012,
                                                 fontWeight: FontWeight.w400,
                                                 fontFamily: "Inter",
                                               ),
@@ -1575,341 +1474,10 @@ class Registrationstate extends State<Registration> {
                                           ),
                                       ],
                                     ),
-                                  ),
+                                  )
 
-                                  // New Password
-                                  Padding(
-                                    padding: new EdgeInsets.only(
-                                        top:
-                                            MediaQuery.of(context).size.height *
-                                                0.00,
-                                        left:
-                                            MediaQuery.of(context).size.height *
-                                                0.005,
-                                        bottom:
-                                            MediaQuery.of(context).size.height *
-                                                0.01),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "New Password",
-                                        style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.012,
-                                          // color: Colors.black54,
-                                          color: Color(0xFF333333),
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "Inter",
-                                        ),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                  ),
 
-                                  // Password
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.005,
-                                      right:
-                                          MediaQuery.of(context).size.height *
-                                              0.005,
-                                      bottom:
-                                          MediaQuery.of(context).size.height *
-                                              0.008,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        TextFormField(
-                                          controller: NewPasswordTextController,
-                                          inputFormatters: [
-                                            LengthLimitingTextInputFormatter(
-                                                100),
-                                          ],
-                                          style: TextStyle(
-                                            color: Colors.black45,
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.016,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          keyboardType: TextInputType.text,
-                                          onChanged: (value) {
-                                            /* if (!passhasStartedTyping) {
-                                              setState(() {
-                                                passhasStartedTyping = true; // Track that the user has started typing
-                                              });
-                                            }
-                                            passvalidateInput();*/
-                                          },
-                                          decoration: InputDecoration(
-                                            isDense: true,
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.02,
-                                              vertical: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.012,
-                                            ),
-                                            filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            hintText: "Enter your Password",
-                                            hintStyle: TextStyle(
-                                                color: Color(0x4D111111),
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.012,
-                                                fontWeight: FontWeight.w400),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              borderSide: BorderSide(
-                                                color: passhasStartedTyping
-                                                    ? (passisValid
-                                                        ? Colors.green
-                                                        : Colors.red)
-                                                    : Color(
-                                                        0xFFF1F1F1), // Initially grey, turns red or green
-                                              ),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide: BorderSide(
-                                                color: passhasStartedTyping
-                                                    ? (passisValid
-                                                        ? Colors.green
-                                                        : Colors.red)
-                                                    : Color(
-                                                        0xFFF1F1F1), // Initially grey, turns red or green
-                                              ),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                        ),
-                                        if (passerrorMessage != null)
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.005,
-                                              bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.005,
-                                            ),
-                                            child: Text(
-                                              passerrorMessage ?? '',
-                                              style: TextStyle(
-                                                color: passisValid
-                                                    ? Colors.green
-                                                    : Colors.red,
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.012,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "Inter",
-                                              ),
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  ),
 
-                                  //Confirm Password
-                                  Padding(
-                                    padding: new EdgeInsets.only(
-                                        left:
-                                            MediaQuery.of(context).size.height *
-                                                0.005,
-                                        right:
-                                            MediaQuery.of(context).size.height *
-                                                0.0,
-                                        bottom:
-                                            MediaQuery.of(context).size.height *
-                                                0.01),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Confirm Password",
-                                        style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.012,
-                                          // color: Colors.black54,
-                                          color: Color(0xFF333333),
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "Inter",
-                                        ),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                  ),
-
-                                  // Confirm Password
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height *
-                                          0.0,
-                                      left: MediaQuery.of(context).size.height *
-                                          0.005,
-                                      right:
-                                          MediaQuery.of(context).size.height *
-                                              0.005,
-                                      bottom: MediaQuery.of(context)
-                                                  .viewInsets
-                                                  .bottom >
-                                              120
-                                          ? MediaQuery.of(context)
-                                                  .viewInsets
-                                                  .bottom -
-                                              120
-                                          : 0,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        TextFormField(
-                                          controller:
-                                              ConfirmPasswordTextController,
-                                          inputFormatters: [
-                                            LengthLimitingTextInputFormatter(
-                                                100),
-                                          ],
-                                          style: TextStyle(
-                                              color: Colors.black45,
-                                              fontSize: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.016,
-                                              fontWeight: FontWeight.w500),
-                                          keyboardType: TextInputType.text,
-                                          onChanged: (value) {
-                                            /*if (!conpasshasStartedTyping) {
-                                              setState(() {
-                                                conpasshasStartedTyping = true; // Track that the user has started typing
-                                              });
-                                            }
-                                            conpassvalidateInput();*/
-                                          },
-                                          decoration: InputDecoration(
-                                            isDense: true,
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.02,
-                                              vertical: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.012,
-                                            ),
-                                            filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            hintText: "Enter your Password",
-                                            hintStyle: TextStyle(
-                                                color: Color(0x4D111111),
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.012,
-                                                fontWeight: FontWeight.w400),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              borderSide: BorderSide(
-                                                color: conpasshasStartedTyping
-                                                    ? (conpassisValid
-                                                        ? Colors.green
-                                                        : Colors.red)
-                                                    : Color(
-                                                        0xFFF1F1F1), // Initially grey, turns red or green
-                                              ),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide: BorderSide(
-                                                color: conpasshasStartedTyping
-                                                    ? (conpassisValid
-                                                        ? Colors.green
-                                                        : Colors.red)
-                                                    : Color(
-                                                        0xFFF1F1F1), // Initially grey, turns red or green
-                                              ),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                        ),
-                                        if (conpasserrorMessage != null)
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.005,
-                                              bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.005,
-                                            ),
-                                            child: Text(
-                                              conpasserrorMessage ?? '',
-                                              style: TextStyle(
-                                                color: conpassisValid
-                                                    ? Colors.green
-                                                    : Colors.red,
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.012,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "Inter",
-                                              ),
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
@@ -2016,22 +1584,51 @@ class Registrationstate extends State<Registration> {
                                         0.04,
                                   ),
                                   Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.7,
-                                    child: Text(
-                                      "By Registering you agree to the Terms & Condition and Privacy policy",
-                                      style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.012,
-                                          color: Color(0xFFFF0000),
+                                    width: MediaQuery.of(context).size.width * 0.7,
+                                    child: RichText(
+                                      text: TextSpan(
+                                        text: 'By Registering you agree to the ', // Normal black text
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context).size.height * 0.012,
+                                          color: Colors.black,
                                           fontWeight: FontWeight.w400,
-                                          fontFamily: "Inter"),
-                                      softWrap: true,
-                                      overflow: TextOverflow.visible,
+                                          fontFamily: "Inter",
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text: 'Terms & Condition', // Hyperlink text
+                                            style: TextStyle(
+                                              color: Colors.blue, // Hyperlink color
+                                              decoration: TextDecoration.underline,
+                                            ),
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () {
+                                                // Navigate to Terms & Condition page or open URL
+                                                print("Terms & Condition clicked");
+                                              },
+                                          ),
+                                          TextSpan(
+                                            text: ' and ', // Normal black text
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: 'Privacy Policy', // Hyperlink text
+                                            style: TextStyle(
+                                              color: Colors.blue, // Hyperlink color
+                                              decoration: TextDecoration.underline,
+                                            ),
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () {
+                                                // Navigate to Privacy Policy page or open URL
+                                                print("Privacy Policy clicked");
+                                              },
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
+                                  )
                                 ],
                               ),
                             ],
@@ -2048,8 +1645,12 @@ class Registrationstate extends State<Registration> {
 
                               GestureDetector(
                                 onTap: () async {
-                                  print('onTap: () async {');
-                                  validSignupSubmit();
+                                  // print('onTap: () async {');
+                                  // validSignupSubmit();
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context) => MpinResetSettings()),
+                                  );
+
                                 },
                                 child: Container(
                                     alignment: Alignment.centerRight,
@@ -2304,69 +1905,11 @@ class Registrationstate extends State<Registration> {
           });
         }
 
-        String input5 = NewPasswordTextController.text.trim();
-
-        if (input5.isEmpty) {
-          setState(() {
-            passhasStartedTyping = true;
-            passerrorMessage = "Please enter Password";
-            passisValid = false;
-          });
-        } else if (!RegExp(
-                r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$')
-            .hasMatch(input5)) {
-          setState(() {
-            passhasStartedTyping = true;
-            passerrorMessage =
-                "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character, and must not contain spaces.";
-            passisValid = false;
-          });
-        } else {
-          setState(() {
-            passhasStartedTyping = true;
-            passerrorMessage = null;
-            passisValid = true;
-          });
-        }
-
-        String input6 = ConfirmPasswordTextController.text.trim();
-
-        if (input6.isEmpty) {
-          setState(() {
-            conpasshasStartedTyping = true;
-            conpasserrorMessage = "Please enter confirm Password";
-            conpassisValid = false;
-          });
-        } else if (!RegExp(
-                r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$')
-            .hasMatch(input5)) {
-          setState(() {
-            passhasStartedTyping = true;
-            passerrorMessage =
-                "Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character, and must not contain spaces.";
-            passisValid = false;
-          });
-        } else if (NewPasswordTextController.text.trim() != input6) {
-          setState(() {
-            conpasshasStartedTyping = true;
-            conpasserrorMessage = "Please enter same Password";
-            conpassisValid = false;
-          });
-        } else {
-          setState(() {
-            conpasshasStartedTyping = true;
-            conpasserrorMessage = null;
-            conpassisValid = true;
-          });
-        }
-
         if (firstnameisValid &&
             lastnameisValid &&
             mobilenumisValid &&
             emailisValid &&
-            _isGenderValid &&
-            passisValid &&
-            conpassisValid) {
+            _isGenderValid) {
           /* final snackBar = SnackBar(content: Text("Please do api calling"));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
 

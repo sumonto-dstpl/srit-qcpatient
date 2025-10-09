@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -19,6 +20,9 @@ import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
+import 'package:newfolder/Screens/Alerts/loginbottomsheet.dart';
+
+import '../Utils/profile_avatar.dart';
 
 class ProfileMain extends StatefulWidget {
   int selectedIndex = 0;
@@ -32,23 +36,55 @@ class ProfileMain extends StatefulWidget {
 }
 
 class ProfileMainstate extends State<ProfileMain> {
-  String usernameValue = "My Profile";
+  String usernameValue = "";
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
   int _selectedIndex = 0;
+  bool isGuestUser =false;
   final List<String> myopinions = [
     "PROVISIONAL DIAGNOSIS CODE",
     "S43.4 — Sprain and strain Of shoulder joint(Primary)",
     "S43.4 - Sprain and strain of shoulder joint",
   ];
 
-  final myimageslist = [
-    ["assets/profileM1.png"],
-    ["assets/profileM2.png"],
-    ["assets/profileM3.png"],
-    ["assets/profileM4.png"],
+  List<String> myimageslist = [
+    "assets/profileM1.png",
+    "assets/profileM2.png",
+    "assets/profileM3.png",
+    "assets/profileM4.png",
   ];
+
+  @override
+  void initState(){
+    _loadData();
+    // checkGuestUser();
+    super.initState();
+  }
+  void _loadData() async {
+    // await Future.delayed(const Duration(seconds: 2));// Simulating API call
+    isGuestUser=await UserSecureStorage.getIfGuestLogged() == "YES";
+    usernameValue=  isGuestUser ? "Guest01": "Priya Krishnamurty";
+    // setState(() {
+    //   _isLoading = false;
+    // });
+    myimageslist = isGuestUser ? [myimageslist[3]] : myimageslist;
+    setState(() {}); // Refresh UI if needed
+    if (isGuestUser) {
+      Timer(Duration(seconds: 0), () {
+        LoginBottomSheet.show(context,true);
+      });
+    }
+  }
+
+  // void checkGuestUser() async {
+  //   final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+  //   if (isLoggedIn) {
+  //     Timer(Duration(seconds: 0), () {
+  //       LoginBottomSheet.show(context,true);
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +178,7 @@ class ProfileMainstate extends State<ProfileMain> {
                                 right: MediaQuery.of(context).size.height * 0.00,
                               ),
                               child: Text(
-                                usernameValue,
+                                "Profile",
                                 style: TextStyle(
                                   fontSize: MediaQuery.of(context).size.height * 0.018,
                                   color: Colors.white,
@@ -416,13 +452,21 @@ class ProfileMainstate extends State<ProfileMain> {
                               Center(
                                 child: Stack(
                                   children: [
-                                    Container(
-                                      padding: EdgeInsets.only(
-                                        left:
-                                            MediaQuery.of(context).size.height *
-                                                0.00,
-                                      ),
-                                      child: ClipRRect(
+                                    // Container(
+                                    //   padding: EdgeInsets.only(
+                                    //     left:
+                                    //         MediaQuery.of(context).size.height *
+                                    //             0.00,
+                                    //   ),
+                                    isGuestUser
+                                        ? ProfileAvatar(
+                                      name: "Guest User",
+                                      radius: MediaQuery.of(context).size.height * 0.06, // half of 0.12 for perfect size
+                                      backgroundColor: Color(0x66D9D9D9),
+                                      textColor: Colors.white,
+                                    )
+                                        :
+                                      ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(130.0),
                                         child: Image.asset(
@@ -438,7 +482,8 @@ class ProfileMainstate extends State<ProfileMain> {
                                           fit: BoxFit.fill,
                                         ),
                                       ),
-                                    ),
+                                    // ),
+                                    if(!isGuestUser)
                                     Positioned(
                                       bottom:
                                           6, // Adjust positioning slightly above the bottom edge
@@ -487,7 +532,7 @@ class ProfileMainstate extends State<ProfileMain> {
                                   bottom: MediaQuery.of(context).size.height *
                                       0.00),
                               child: Text(
-                                "Priya Krishnamurty",
+                                usernameValue,
                                 style: TextStyle(
                                     color: Colors.black,
                                     overflow: TextOverflow.ellipsis,
@@ -714,6 +759,7 @@ class ProfileMainstate extends State<ProfileMain> {
                           ),
                         ),
 
+
                         Container(
                           margin: EdgeInsets.only(
                             right: MediaQuery.of(context).size.height * 0.02,
@@ -766,7 +812,7 @@ class ProfileMainstate extends State<ProfileMain> {
                                               : 0,
                                         ),
                                         child: Image.asset(
-                                          myimageslist[index][0],
+                                          myimageslist[index],
                                           fit: BoxFit.fill,
                                         ),
                                       ),
