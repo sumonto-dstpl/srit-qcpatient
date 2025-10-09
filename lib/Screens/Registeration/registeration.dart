@@ -11,6 +11,8 @@ import 'package:progress_dialog2/progress_dialog2.dart';
 
 import '../Settings/changemobilenum.dart';
 import '../Settings/mpinreset.dart';
+import '../Utils/customNotification.dart';
+import '../Utils/user_secure_storage.dart';
 
 class Registration extends StatefulWidget {
   const Registration({
@@ -444,1375 +446,1294 @@ class Registrationstate extends State<Registration> {
 
   bool isExpanded = false;
   @override
-  Widget build(BuildContext context) {
-    progressDialog = ProgressDialog(context,
-        type: ProgressDialogType.Normal, isDismissible: true, showLogs: false);
-    progressDialog.style(
-        message: 'Registering..' '\nPlease Wait',
-        borderRadius: 10.0,
-        backgroundColor: Colors.white,
-        progressWidget: CircularProgressIndicator(
-          color: Colors.blueAccent,
-          strokeWidth: MediaQuery.of(context).size.height * 0.002,
-        ),
-        elevation: 10.0,
-        insetAnimCurve: Curves.easeInOut,
-        progress: 0.0,
-        maxProgress: 100.0,
-        progressTextStyle: TextStyle(
-          color: Colors.blueAccent,
-          fontSize: 13.0,
-        ),
-        messageTextStyle: TextStyle(
-            color: Colors.black,
-            fontSize: MediaQuery.of(context).size.height * 0.018,
-            fontWeight: FontWeight.w600));
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: Container(
-        width: double.infinity,
-        /* decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/patternbackground.png"), // Replace with your image path
-            fit: BoxFit.cover, // Adjusts how the image fills the container
+    Widget build(BuildContext context) {
+      progressDialog = ProgressDialog(context,
+          type: ProgressDialogType.Normal, isDismissible: true, showLogs: false);
+      progressDialog.style(
+          message: 'Registering..' '\nPlease Wait',
+          borderRadius: 10.0,
+          backgroundColor: Colors.white,
+          progressWidget: CircularProgressIndicator(
+            color: Colors.blueAccent,
+            strokeWidth: MediaQuery.of(context).size.height * 0.002,
           ),
-        ),*/
-
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            // image: AssetImage("assets/patternbackground.png"), // Replace with your image path
-            image: AssetImage("assets/Background Pattern.png"),
-            fit: BoxFit.cover, // Adjusts how the image fills the container
+          elevation: 10.0,
+          insetAnimCurve: Curves.easeInOut,
+          progress: 0.0,
+          maxProgress: 100.0,
+          progressTextStyle: TextStyle(
+            color: Colors.blueAccent,
+            fontSize: 13.0,
           ),
-        ),
-        child: Column(
-          children: <Widget>[
-            // Top Section with Back Arrow and Login Text
-            Container(
-              padding: EdgeInsets.only(
-                top: screenHeight * 0.05,
-                left: screenWidth * 0.05,
-                right: screenWidth * 0.05,
-                bottom: screenWidth * 0.05,
-              ),
-              margin: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.height * 0.01,
-                  top: MediaQuery.of(context).size.height * 0.02,
-                  bottom: MediaQuery.of(context).size.height * 0.0,
-                  left: MediaQuery.of(context).size.height * 0.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  // Back Arrow
-                  InkWell(
-                    onTap: () {
-                      _overlayEntry?.remove();
-                      _overlayEntry = null;
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.025,
-                      width: MediaQuery.of(context).size.height * 0.025,
-                      margin: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.00,
-                        top: MediaQuery.of(context).size.height * 0.00,
-                        right: MediaQuery.of(context).size.height * 0.01,
-                        bottom: MediaQuery.of(context).size.height * 0.00,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Color(0xFF126086).withOpacity(0.2),
-                        // color : Colors.red,
-                        shape: BoxShape.circle,
-                        border:
-                            Border.all(width: 0.0, color: Color(0xFF126086)),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(130.0),
-                        child: Image.asset(
-                          'assets/medicationBack.png',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  // Login Text
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        "Register",
-                        style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontSize: screenHeight * 0.02,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: "Inter",
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Placeholder for alignment (Empty container for symmetry)
-                  SizedBox(width: screenHeight * 0.05),
-                ],
-              ),
+          messageTextStyle: TextStyle(
+              color: Colors.black,
+              fontSize: MediaQuery.of(context).size.height * 0.018,
+              fontWeight: FontWeight.w600));
+      final screenHeight = MediaQuery.of(context).size.height;
+      final screenWidth = MediaQuery.of(context).size.width;
+  
+      return Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: Container(
+          width: double.infinity,
+          /* decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/patternbackground.png"), // Replace with your image path
+              fit: BoxFit.cover, // Adjusts how the image fills the container
             ),
-
-            // Main Content Section
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(screenHeight * 0.03),
-                    topRight: Radius.circular(screenHeight * 0.03),
-                  ),
+          ),*/
+  
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              // image: AssetImage("assets/patternbackground.png"), // Replace with your image path
+              image: AssetImage("assets/Background Pattern.png"),
+              fit: BoxFit.cover, // Adjusts how the image fills the container
+            ),
+          ),
+          child: Column(
+            children: <Widget>[
+              // Top Section with Back Arrow and Login Text
+              Container(
+                padding: EdgeInsets.only(
+                  top: screenHeight * 0.05,
+                  left: screenWidth * 0.05,
+                  right: screenWidth * 0.05,
+                  bottom: screenWidth * 0.05,
                 ),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: screenHeight * 0.03,
-                    left: screenHeight * 0.025,
-                    right: screenHeight * 0.025,
-                    bottom: screenHeight * 0.01,
-                  ),
-                  child: SingleChildScrollView(
-                    // physics: NeverScrollableScrollPhysics(),
-                    child: Column(
-                      children: [
-                        // Logo Image
-                        Container(
-                          margin: EdgeInsets.only(top: screenHeight * 0.015),
+                margin: EdgeInsets.only(
+                    right: MediaQuery.of(context).size.height * 0.01,
+                    top: MediaQuery.of(context).size.height * 0.02,
+                    bottom: MediaQuery.of(context).size.height * 0.0,
+                    left: MediaQuery.of(context).size.height * 0.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // Back Arrow
+                    InkWell(
+                      onTap: () {
+                        _overlayEntry?.remove();
+                        _overlayEntry = null;
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.025,
+                        width: MediaQuery.of(context).size.height * 0.025,
+                        margin: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.height * 0.00,
+                          top: MediaQuery.of(context).size.height * 0.00,
+                          right: MediaQuery.of(context).size.height * 0.01,
+                          bottom: MediaQuery.of(context).size.height * 0.00,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF126086).withOpacity(0.2),
+                          // color : Colors.red,
+                          shape: BoxShape.circle,
+                          border:
+                              Border.all(width: 0.0, color: Color(0xFF126086)),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(130.0),
                           child: Image.asset(
-                            'assets/splashqc.png',
-                            height: screenHeight * 0.06,
-                            fit: BoxFit.contain,
+                            'assets/medicationBack.png',
+                            fit: BoxFit.fill,
                           ),
                         ),
-                        SizedBox(height: screenHeight * 0.02),
-
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: screenWidth * 0.1,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: new EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.0,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.005,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
-                                child: Text(
-                                  "Create an Account",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.027,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xFF1F1F1F),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: screenHeight * 0.01),
-                              Padding(
-                                padding: new EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.0,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
-                                child: Text(
-                                  ""
-                                  "Please fill in these detail to create an account",
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.012,
-                                    color: Color(0xFF6A6E83),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
+                      ),
+                    ),
+  
+                    // Login Text
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          "Register",
+                          style: TextStyle(
+                            color: Color(0xFFFFFFFF),
+                            fontSize: screenHeight * 0.02,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: "Inter",
                           ),
                         ),
-                        SizedBox(height: screenHeight * 0.02),
-
-                        // Scroll view
-                        Container(
-                          height: MediaQuery.of(context).size.height *
-                              0.45, // Set the fixed height you want
-                          child: Padding(
+                      ),
+                    ),
+                    // Placeholder for alignment (Empty container for symmetry)
+                    SizedBox(width: screenHeight * 0.05),
+                  ],
+                ),
+              ),
+  
+              // Main Content Section
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(screenHeight * 0.03),
+                      topRight: Radius.circular(screenHeight * 0.03),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: screenHeight * 0.03,
+                      left: screenHeight * 0.025,
+                      right: screenHeight * 0.025,
+                      bottom: screenHeight * 0.01,
+                    ),
+                    child: SingleChildScrollView(
+                      // physics: NeverScrollableScrollPhysics(),
+                      child: Column(
+                        children: [
+                          // Logo Image
+                          Container(
+                            margin: EdgeInsets.only(top: screenHeight * 0.015),
+                            child: Image.asset(
+                              'assets/splashqc.png',
+                              height: screenHeight * 0.06,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          SizedBox(height: screenHeight * 0.02),
+  
+                          Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    MediaQuery.of(context).size.height * 0.005),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // First Name Label
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height *
-                                          0.01,
+                              horizontal: screenWidth * 0.1,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: new EdgeInsets.only(
                                       left: MediaQuery.of(context).size.height *
+                                          0.00,
+                                      right: MediaQuery.of(context).size.height *
+                                          0.0,
+                                      top: MediaQuery.of(context).size.height *
                                           0.005,
-                                      bottom:
+                                      bottom: MediaQuery.of(context).size.height *
+                                          0.00),
+                                  child: Text(
+                                    "Create an Account",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize:
                                           MediaQuery.of(context).size.height *
-                                              0.01,
+                                              0.027,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xFF1F1F1F),
                                     ),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: RichText(
-                                        textAlign: TextAlign.start,
-                                        text: TextSpan(
-                                          text: 'First Name', // Your label
-                                          style: TextStyle(
-                                            fontSize: MediaQuery.of(context).size.height * 0.012,
-                                            color: Color(0xFF333333),
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: "Inter",
-                                          ),
-                                          children: [
-                                            TextSpan(
-                                              text: ' *', // Red asterisk
-                                              style: TextStyle(
-                                                color: Colors.red,
-                                                fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "Inter",
-                                              ),
+                                  ),
+                                ),
+                                SizedBox(height: screenHeight * 0.01),
+                                Padding(
+                                  padding: new EdgeInsets.only(
+                                      left: MediaQuery.of(context).size.height *
+                                          0.00,
+                                      right: MediaQuery.of(context).size.height *
+                                          0.0,
+                                      bottom: MediaQuery.of(context).size.height *
+                                          0.00),
+                                  child: Text(
+                                    ""
+                                    "Please fill in these detail to create an account",
+                                    style: TextStyle(
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.012,
+                                      color: Color(0xFF6A6E83),
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: screenHeight * 0.02),
+  
+                          // Scroll view
+                          Container(
+                            height: MediaQuery.of(context).size.height *
+                                0.45, // Set the fixed height you want
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.height * 0.005),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // First Name Label
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        top: MediaQuery.of(context).size.height *
+                                            0.01,
+                                        left: MediaQuery.of(context).size.height *
+                                            0.005,
+                                        bottom:
+                                            MediaQuery.of(context).size.height *
+                                                0.01,
+                                      ),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: RichText(
+                                          textAlign: TextAlign.start,
+                                          text: TextSpan(
+                                            text: 'First Name', // Your label
+                                            style: TextStyle(
+                                              fontSize: MediaQuery.of(context).size.height * 0.012,
+                                              color: Color(0xFF333333),
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily: "Inter",
                                             ),
-                                          ],
+                                            children: [
+                                              TextSpan(
+                                                text: ' *', // Red asterisk
+                                                style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: "Inter",
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-
-                                  // First Name Input Field
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.005,
-                                      right:
-                                          MediaQuery.of(context).size.height *
-                                              0.005,
-                                      bottom:
-                                          MediaQuery.of(context).size.height *
-                                              0.008,
-                                    ),
-                                    child: Column(
-                                      // mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        TextFormField(
-                                          controller:
-                                              FirstNameEditTextController,
-                                          inputFormatters: [
-                                            AlphabetOnlyFormatter(),
-                                            LengthLimitingTextInputFormatter(
-                                                50),
-                                          ],
-                                          style: TextStyle(
-                                            color: Colors.black45,
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.016,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          keyboardType: TextInputType.text,
-                                          onChanged: (value) {
-                                            /* if (!hasStartedTyping) {
-                                              setState(() {
-                                                hasStartedTyping = true; // Track that the user has started typing
-                                              });
-                                            }
-                                            validateInput();*/
-                                          },
-                                          decoration: InputDecoration(
-                                            isDense: true,
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.02,
-                                              vertical: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.012,
-                                              //  left :  MediaQuery.of(context).size.height * 0.02,
-                                              //  top :  MediaQuery.of(context).size.height * 0.012,
-                                              // bottom :  MediaQuery.of(context).size.height * 0.012,
-                                              // top: MediaQuery.of(context).size.height * 0.014, // Slightly higher top padding
-                                              // bottom: MediaQuery.of(context).size.height * 0.08 ,
-                                              // left: MediaQuery.of(context).size.height * 0.02,
-                                            ),
-                                            filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            hintText: "Enter your First Name",
-                                            hintStyle: TextStyle(
-                                              color: Color(0x4D111111),
+  
+                                    // First Name Input Field
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        left: MediaQuery.of(context).size.height *
+                                            0.005,
+                                        right:
+                                            MediaQuery.of(context).size.height *
+                                                0.005,
+                                        bottom:
+                                            MediaQuery.of(context).size.height *
+                                                0.008,
+                                      ),
+                                      child: Column(
+                                        // mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          TextFormField(
+                                            controller:
+                                                FirstNameEditTextController,
+                                            inputFormatters: [
+                                              AlphabetOnlyFormatter(),
+                                              LengthLimitingTextInputFormatter(
+                                                  50),
+                                            ],
+                                            style: TextStyle(
+                                              color: Colors.black45,
                                               fontSize: MediaQuery.of(context)
                                                       .size
                                                       .height *
-                                                  0.012,
-                                              fontWeight: FontWeight.w400,
+                                                  0.016,
+                                              fontWeight: FontWeight.w500,
                                             ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              borderSide: BorderSide(
-                                                color: firstnamehasStartedTyping
-                                                    ? (firstnameisValid
-                                                        ? Colors.green
-                                                        : Colors.red)
-                                                    : Color(
-                                                        0xFFF1F1F1), // Initially grey, turns red or green
-                                              ),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide: BorderSide(
-                                                color: firstnamehasStartedTyping
-                                                    ? (firstnameisValid
-                                                        ? Colors.green
-                                                        : Colors.red)
-                                                    : Color(
-                                                        0xFFF1F1F1), // Initially grey, turns red or green
-                                              ),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                        ),
-                                        if (firstnameerrorMessage != null)
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.005,
-                                              bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.005,
-                                            ),
-                                            child: Text(
-                                              firstnameerrorMessage ?? '',
-                                              style: TextStyle(
-                                                color: firstnameisValid
-                                                    ? Colors.green
-                                                    : Colors.red,
-                                                fontSize: MediaQuery.of(context)
+                                            keyboardType: TextInputType.text,
+                                            onChanged: (value) {
+                                              /* if (!hasStartedTyping) {
+                                                setState(() {
+                                                  hasStartedTyping = true; // Track that the user has started typing
+                                                });
+                                              }
+                                              validateInput();*/
+                                            },
+                                            decoration: InputDecoration(
+                                              isDense: true,
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                horizontal: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.02,
+                                                vertical: MediaQuery.of(context)
                                                         .size
                                                         .height *
                                                     0.012,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "Inter",
+                                                //  left :  MediaQuery.of(context).size.height * 0.02,
+                                                //  top :  MediaQuery.of(context).size.height * 0.012,
+                                                // bottom :  MediaQuery.of(context).size.height * 0.012,
+                                                // top: MediaQuery.of(context).size.height * 0.014, // Slightly higher top padding
+                                                // bottom: MediaQuery.of(context).size.height * 0.08 ,
+                                                // left: MediaQuery.of(context).size.height * 0.02,
                                               ),
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  // Last Name Label
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.005,
-                                      bottom:
-                                          MediaQuery.of(context).size.height *
-                                              0.01,
-                                    ),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: RichText(
-                                        textAlign: TextAlign.start,
-                                        text: TextSpan(
-                                          text: 'Last Name', // Your label
-                                          style: TextStyle(
-                                            fontSize: MediaQuery.of(context).size.height * 0.012,
-                                            color: Color(0xFF333333),
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: "Inter",
-                                          ),
-                                          children: [
-                                            TextSpan(
-                                              text: ' *', // Red asterisk
-                                              style: TextStyle(
-                                                color: Colors.red,
-                                                fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "Inter",
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  // Last Name Input Field
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.005,
-                                      right:
-                                          MediaQuery.of(context).size.height *
-                                              0.005,
-                                      bottom:
-                                          MediaQuery.of(context).size.height *
-                                              0.008,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        TextFormField(
-                                          controller:
-                                              LastNameEditTextController,
-                                          inputFormatters: [
-                                            AlphabetOnlyFormatter(),
-                                            LengthLimitingTextInputFormatter(
-                                                50),
-                                          ],
-                                          style: TextStyle(
-                                            color: Colors.black45,
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.016,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          keyboardType: TextInputType.text,
-                                          onChanged: (value) {
-                                            /* if (!lastnamehasStartedTyping) {
-                                              setState(() {
-                                                lastnamehasStartedTyping = true; // Track that the user has started typing
-                                              });
-                                            }
-                                            lastnamevalidateInput();*/
-                                          },
-                                          decoration: InputDecoration(
-                                            isDense: true,
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.02,
-                                              vertical: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.012,
-                                            ),
-                                            filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            hintText: "Enter your Last Name",
-                                            hintStyle: TextStyle(
+                                              filled: true,
+                                              fillColor: Color(0xFFFFFFFF),
+                                              hintText: "Enter your First Name",
+                                              hintStyle: TextStyle(
                                                 color: Color(0x4D111111),
                                                 fontSize: MediaQuery.of(context)
                                                         .size
                                                         .height *
                                                     0.012,
-                                                fontWeight: FontWeight.w400),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              borderSide: BorderSide(
-                                                color: lastnamehasStartedTyping
-                                                    ? (lastnameisValid
-                                                        ? Colors.green
-                                                        : Colors.red)
-                                                    : Color(
-                                                        0xFFF1F1F1), // Initially grey, turns red or green
-                                              ),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide: BorderSide(
-                                                color: lastnamehasStartedTyping
-                                                    ? (lastnameisValid
-                                                        ? Colors.green
-                                                        : Colors.red)
-                                                    : Color(
-                                                        0xFFF1F1F1), // Initially grey, turns red or green
-                                              ),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                        ),
-                                        if (lastnameerrorMessage != null)
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.005,
-                                              bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.005,
-                                            ),
-                                            child: Text(
-                                              lastnameerrorMessage ?? '',
-                                              style: TextStyle(
-                                                color: lastnameisValid
-                                                    ? Colors.green
-                                                    : Colors.red,
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.012,
                                                 fontWeight: FontWeight.w400,
-                                                fontFamily: "Inter",
                                               ),
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  //Mobile Number
-                                  Padding(
-                                    padding: new EdgeInsets.only(
-                                        left:
-                                            MediaQuery.of(context).size.height *
-                                                0.005,
-                                        right:
-                                            MediaQuery.of(context).size.height *
-                                                0.0,
-                                        bottom:
-                                            MediaQuery.of(context).size.height *
-                                                0.01),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: RichText(
-                                        textAlign: TextAlign.start,
-                                        text: TextSpan(
-                                          text: 'Mobile Number', // Your label
-                                          style: TextStyle(
-                                            fontSize: MediaQuery.of(context).size.height * 0.012,
-                                            color: Color(0xFF333333),
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: "Inter",
-                                          ),
-                                          children: [
-                                            TextSpan(
-                                              text: ' *', // Red asterisk
-                                              style: TextStyle(
-                                                color: Colors.red,
-                                                fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "Inter",
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.005,
-                                      right:
-                                          MediaQuery.of(context).size.height *
-                                              0.005,
-                                      bottom:
-                                          MediaQuery.of(context).size.height *
-                                              0.008,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        TextFormField(
-                                          controller:
-                                              MobileNummberEditTextController,
-                                          inputFormatters: [
-                                            LengthLimitingTextInputFormatter(
-                                                10),
-                                            FilteringTextInputFormatter.allow(
-                                                RegExp('[0-9]'))
-                                          ],
-                                          style: TextStyle(
-                                            color: Colors.black45,
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.016,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          keyboardType: TextInputType.number,
-                                          onChanged: (value) {
-                                            mobilenumvalidateInput();
-                                            /* if (!mobilenumhasStartedTyping) {
-                                              setState(() {
-                                                mobilenumhasStartedTyping = true; // Track that the user has started typing
-                                              });
-                                            }
-                                            mobilenumvalidateInput();*/
-                                          },
-                                          decoration: InputDecoration(
-                                            isDense: true,
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.02,
-                                              vertical: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.012,
-                                            ),
-                                            suffixIcon: MobileNummberEditTextController
-                                                .text.isNotEmpty &&
-                                                mobilenumisValid
-                                                ? Icon(Icons.check_circle,
-                                                color: Colors.green)
-                                                : null,
-                                            filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            hintText:
-                                                "Enter your Mobile Number",
-                                            hintStyle: TextStyle(
-                                                color: Color(0x4D111111),
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.012,
-                                                fontWeight: FontWeight.w400),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              borderSide: BorderSide(
-                                                color: mobilenumhasStartedTyping
-                                                    ? (mobilenumisValid
-                                                        ? Colors.green
-                                                        : Colors.red)
-                                                    : Color(
-                                                        0xFFF1F1F1), // Initially grey, turns red or green
-                                              ),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide: BorderSide(
-                                                color: mobilenumhasStartedTyping
-                                                    ? (mobilenumisValid
-                                                        ? Colors.green
-                                                        : Colors.red)
-                                                    : Color(
-                                                        0xFFF1F1F1), // Initially grey, turns red or green
-                                              ),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                        ),
-                                        if (mobilenumerrorMessage != null)
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.005,
-                                              bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.005,
-                                            ),
-                                            child: Text(
-                                              mobilenumerrorMessage ?? '',
-                                              style: TextStyle(
-                                                color: mobilenumisValid
-                                                    ? Colors.green
-                                                    : Colors.red,
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.012,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "Inter",
-                                              ),
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  //Email Text
-                                  Padding(
-                                    padding: new EdgeInsets.only(
-                                        left:
-                                            MediaQuery.of(context).size.height *
-                                                0.005,
-                                        right:
-                                            MediaQuery.of(context).size.height *
-                                                0.0,
-                                        bottom:
-                                            MediaQuery.of(context).size.height *
-                                                0.01),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: RichText(
-                                        textAlign: TextAlign.start,
-                                        text: TextSpan(
-                                          text: 'Email', // Your label
-                                          style: TextStyle(
-                                            fontSize: MediaQuery.of(context).size.height * 0.012,
-                                            color: Color(0xFF333333),
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: "Inter",
-                                          ),
-                                          children: [
-                                            TextSpan(
-                                              text: ' *', // Red asterisk
-                                              style: TextStyle(
-                                                color: Colors.red,
-                                                fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "Inter",
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  // Email Field
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.005,
-                                      right:
-                                          MediaQuery.of(context).size.height *
-                                              0.005,
-                                      bottom:
-                                          MediaQuery.of(context).size.height *
-                                              0.008,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        TextFormField(
-                                          controller: EmailEditTextController,
-                                          inputFormatters: [
-                                            LengthLimitingTextInputFormatter(
-                                                100),
-                                          ],
-                                          style: TextStyle(
-                                            color: Colors.black45,
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.016,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          keyboardType:
-                                              TextInputType.emailAddress,
-                                          onChanged: (value) {
-                                            emailvalidateInput();
-                                            /* if (!emailhasStartedTyping) {
-                                              setState(() {
-                                                emailhasStartedTyping = true; // Track that the user has started typing
-                                              });
-                                            }
-                                            emailvalidateInput();*/
-                                          },
-                                          decoration: InputDecoration(
-                                            isDense: true,
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.02,
-                                              vertical: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.012,
-                                            ),
-                                            suffixIcon: EmailEditTextController
-                                                .text.isNotEmpty &&
-                                                emailisValid
-                                                ? Icon(Icons.check_circle,
-                                                color: Colors.green)
-                                                : null,
-                                            filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            hintText: "Enter your email",
-                                            hintStyle: TextStyle(
-                                                color: Color(0x4D111111),
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.012,
-                                                fontWeight: FontWeight.w400),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              borderSide: BorderSide(
-                                                color: emailhasStartedTyping
-                                                    ? (emailisValid
-                                                        ? Colors.green
-                                                        : Colors.red)
-                                                    : Color(
-                                                        0xFFF1F1F1), // Initially grey, turns red or green
-                                              ),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide: BorderSide(
-                                                color: emailhasStartedTyping
-                                                    ? (emailisValid
-                                                        ? Colors.green
-                                                        : Colors.red)
-                                                    : Color(
-                                                        0xFFF1F1F1), // Initially grey, turns red or green
-                                              ),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide:
-                                                  BorderSide(color: Colors.red),
-                                            ),
-                                          ),
-                                        ),
-                                        if (emailerrorMessage != null)
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.005,
-                                              bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.005,
-                                            ),
-                                            child: Text(
-                                              emailerrorMessage ?? '',
-                                              style: TextStyle(
-                                                color: emailisValid
-                                                    ? Colors.green
-                                                    : Colors.red,
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.012,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "Inter",
-                                              ),
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  // Gender
-                                  Padding(
-                                    padding: new EdgeInsets.only(
-                                        left:
-                                            MediaQuery.of(context).size.height *
-                                                0.005,
-                                        right:
-                                            MediaQuery.of(context).size.height *
-                                                0.0,
-                                        bottom:
-                                            MediaQuery.of(context).size.height *
-                                                0.008),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: RichText(
-                                        textAlign: TextAlign.start,
-                                        text: TextSpan(
-                                          text: 'Gender', // Your label
-                                          style: TextStyle(
-                                            fontSize: MediaQuery.of(context).size.height * 0.012,
-                                            color: Color(0xFF333333),
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: "Inter",
-                                          ),
-                                          children: [
-                                            TextSpan(
-                                              text: ' *', // Red asterisk
-                                              style: TextStyle(
-                                                color: Colors.red,
-                                                fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "Inter",
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-
-                                  // Updated TextFormField inside Column
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height * 0.005,
-                                      bottom: MediaQuery.of(context).size.height * 0.01,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-
-                                        // 🔹 Radio Buttons Row
-                                        Row(
-                                          children: genderOptions.map((gender) {
-                                            return Expanded(
-                                                child: Theme(
-                                                  data: Theme.of(context).copyWith(
-                                                    unselectedWidgetColor: Color(0xFFD0D5DD), // ✅ Set background color here
-                                                  ),
-                                              child: RadioListTile<String>(
-                                                dense: true,
-                                                contentPadding: EdgeInsets.zero,
-                                                title: Text(
-                                                  gender["label"]!,
-                                                  style: TextStyle(
-                                                    fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                    // fontWeight: FontWeight.normal,
-                                                  ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                                borderSide: BorderSide(
+                                                  color: firstnamehasStartedTyping
+                                                      ? (firstnameisValid
+                                                          ? Colors.green
+                                                          : Colors.red)
+                                                      : Color(
+                                                          0xFFF1F1F1), // Initially grey, turns red or green
                                                 ),
-                                                value: gender["key"]!,
-                                                groupValue: genderselectedval,
-                                                activeColor: const Color(0xFF00C7BE), // ✅ Mint color
-                                                visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-                                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    genderselectedval = value!;
-                                                    _isGenderValid = true;
-                                                  });
-                                                },
                                               ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                                borderSide: BorderSide(
+                                                  color: firstnamehasStartedTyping
+                                                      ? (firstnameisValid
+                                                          ? Colors.green
+                                                          : Colors.red)
+                                                      : Color(
+                                                          0xFFF1F1F1), // Initially grey, turns red or green
                                                 ),
-                                            );
-                                          }).toList(),
-                                        ),
-
-                                        // 🔻 Validation Error
-                                        if (!_isGenderValid)
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              top: MediaQuery.of(context).size.height * 0.005,
-                                            ),
-                                            child: Text(
-                                              "Please select a gender",
-                                              style: TextStyle(
-                                                color: Colors.red,
-                                                fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "Inter",
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                                borderSide:
+                                                    BorderSide(color: Colors.red),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                                borderSide:
+                                                    BorderSide(color: Colors.red),
                                               ),
                                             ),
                                           ),
-                                      ],
-                                    ),
-                                  )
-
-
-
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        // T & C
-                        Container(
-                          margin: EdgeInsets.only(
-                              right: MediaQuery.of(context).size.height * 0.01,
-                              top: MediaQuery.of(context).size.height * 0.01,
-                              bottom: MediaQuery.of(context).size.height * 0.0,
-                              left: MediaQuery.of(context).size.height * 0.01),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              // ListTileTheme(
-                              //   horizontalTitleGap: 0,
-                              //   child: CheckboxListTile(
-                              //     contentPadding:
-                              //         EdgeInsets.zero, // Remove default padding
-                              //     title: RichText(
-                              //       text: TextSpan(
-                              //         style: Theme.of(context)
-                              //             .textTheme
-                              //             .titleLarge!
-                              //             .merge(
-                              //               TextStyle(
-                              //                 color: Theme.of(context)
-                              //                     .primaryColor,
-                              //               ),
-                              //             ),
-                              //         children: [
-                              //           TextSpan(
-                              //             text:
-                              //                 'By Registering you agree to the Terms & Condition and Privacy policy',
-                              //             style: TextStyle(
-                              //               fontSize: MediaQuery.of(context)
-                              //                       .size
-                              //                       .height *
-                              //                   0.012,
-                              //               color: Color(0xFFFF0000),
-                              //               fontWeight: FontWeight.w400,
-                              //               fontFamily: "Inter"
-                              //             ),
-                              //           ),
-                              //         ],
-                              //       ),
-                              //     ),
-                              //     value:
-                              //         checkedValue, // Bind the checkbox value
-                              //     onChanged: (newValue) {
-                              //       setState(() {
-                              //         checkedValue =
-                              //             newValue!; // Correct assignment
-                              //       });
-                              //     },
-                              //     controlAffinity:
-                              //         ListTileControlAffinity.leading,
-                              //     activeColor: Color(0xFF126086),
-                              //     checkColor: Colors.white,
-                              //   ),
-                              // ),
-                              Row(
-                                children: [
-                                  // GestureDetector(
-                                  //   behavior: HitTestBehavior.translucent,
-                                  //   child: FlutterSwitch(
-                                  //     // width : MediaQuery.of(context).size.height * 0.025,
-                                  //     // height : MediaQuery.of(context).size.height * 0.015,
-                                  //     width:
-                                  //         MediaQuery.of(context).size.height *
-                                  //             0.028,
-                                  //     height:
-                                  //         MediaQuery.of(context).size.height *
-                                  //             0.015,
-                                  //     value: checkedValue,
-                                  //     toggleSize: 10,
-                                  //     borderRadius: 20,
-                                  //     padding: 1,
-                                  //     activeColor: Color(0xFF00C5BB),
-                                  //     inactiveColor: Color(0xFFE4E7EC),
-                                  //     activeToggleColor: Colors.white,
-                                  //     inactiveToggleColor: Colors.white,
-                                  //     onToggle: (value) {
-                                  //       setState(() {
-                                  //         checkedValue =
-                                  //             value!; // Correct assignment
-                                  //       });
-                                  //     },
-                                  //     // activeIcon: Icon(
-                                  //     //   Icons.check ,
-                                  //     //   size: 10,
-                                  //     // ),
-                                  //     // inactiveIcon: Icon(
-                                  //     //   Icons.close,
-                                  //     //   size: 20,
-                                  //     //   color: Colors.deepPurple,
-                                  //     // ),
-                                  //   ),
-                                  // ),
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.04,
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width * 0.7,
-                                    child: RichText(
-                                      text: TextSpan(
-                                        text: 'By Registering you agree to the ', // Normal black text
-                                        style: TextStyle(
-                                          fontSize: MediaQuery.of(context).size.height * 0.012,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "Inter",
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                            text: 'Terms & Condition', // Hyperlink text
-                                            style: TextStyle(
-                                              color: Colors.blue, // Hyperlink color
-                                              decoration: TextDecoration.underline,
+                                          if (firstnameerrorMessage != null)
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.005,
+                                                bottom: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.005,
+                                              ),
+                                              child: Text(
+                                                firstnameerrorMessage ?? '',
+                                                style: TextStyle(
+                                                  color: firstnameisValid
+                                                      ? Colors.green
+                                                      : Colors.red,
+                                                  fontSize: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.012,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: "Inter",
+                                                ),
+                                              ),
                                             ),
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                // Navigate to Terms & Condition page or open URL
-                                                print("Terms & Condition clicked");
-                                              },
-                                          ),
-                                          TextSpan(
-                                            text: ' and ', // Normal black text
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: 'Privacy Policy', // Hyperlink text
-                                            style: TextStyle(
-                                              color: Colors.blue, // Hyperlink color
-                                              decoration: TextDecoration.underline,
-                                            ),
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                // Navigate to Privacy Policy page or open URL
-                                                print("Privacy Policy clicked");
-                                              },
-                                          ),
                                         ],
                                       ),
                                     ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        // Register Button
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: screenWidth * 0.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              // Register Button
-
-                              GestureDetector(
-                                onTap: () async {
-                                  // print('onTap: () async {');
-                                  // validSignupSubmit();
-                                  // Navigator.of(context).push(
-                                  //   MaterialPageRoute(builder: (context) => MpinResetSettings()),
-                                  // );
-                                    validSignupSubmit();
-                                },
-                                child: Container(
-                                    alignment: Alignment.centerRight,
-                                    padding: EdgeInsets.only(
-                                        top: MediaQuery.of(context).size.height *
-                                            0.0,
-                                        bottom:
-                                            MediaQuery.of(context).size.height *
-                                                0.00,
+  
+                                    // Last Name Label
+                                    Padding(
+                                      padding: EdgeInsets.only(
                                         left: MediaQuery.of(context).size.height *
-                                            0.00,
-                                        right:
-                                            MediaQuery.of(context).size.height *
-                                                0.00),
-                                    margin: EdgeInsets.only(
-                                        right:
+                                            0.005,
+                                        bottom:
                                             MediaQuery.of(context).size.height *
                                                 0.01,
-                                        top: MediaQuery.of(context).size.height *
-                                            0.03,
-                                        bottom:
-                                            MediaQuery.of(context).size.height *
-                                                0.0,
-                                        left:
-                                            MediaQuery.of(context).size.height *
-                                                0.01),
-                                    child: Row(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-                                      Expanded(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .height *
-                                                          0.012),
-                                              gradient: LinearGradient(
-                                                  begin: Alignment.centerRight,
-                                                  end: Alignment.center,
-                                                  stops: [
-                                                    0.5,
-                                                    0.9
-                                                  ],
-                                                  colors: [
-                                                    Color(0xFF126086),
-                                                    Color(0xFF126086),
-                                                  ])),
-                                          alignment: Alignment.center,
-                                          padding: EdgeInsets.only(left: 0.0),
-                                          child: TextButton(
-                                            onPressed: () async {
-                                              validSignupSubmit();
-                                            },
-                                            child: Text("Register",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .height *
-                                                          0.019,
-                                                  fontWeight: FontWeight.w700,
-                                                )),
-                                            style: TextButton.styleFrom(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 10.0,
-                                                  horizontal:
-                                                      12.0), // Remove default button padding
-                                              minimumSize: Size(0,
-                                                  0), // Allow smallest possible size
-                                              tapTargetSize: MaterialTapTargetSize
-                                                  .shrinkWrap, // Shrink tap area
+                                      ),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: RichText(
+                                          textAlign: TextAlign.start,
+                                          text: TextSpan(
+                                            text: 'Last Name', // Your label
+                                            style: TextStyle(
+                                              fontSize: MediaQuery.of(context).size.height * 0.012,
+                                              color: Color(0xFF333333),
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily: "Inter",
                                             ),
+                                            children: [
+                                              TextSpan(
+                                                text: ' *', // Red asterisk
+                                                style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: "Inter",
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
-                                    ])),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        Padding(
-                          padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.0,
-                            right: MediaQuery.of(context).size.height * 0.0,
-                            top: MediaQuery.of(context).size.height * 0.03,
-                            // bottom: MediaQuery.of(context).size.height * 0.01,
-                          ),
-                          child: TextButton(
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.zero),
-                              minimumSize: MaterialStateProperty.all<Size>(
-                                  Size.zero), // Ensures no extra space
-                              tapTargetSize: MaterialTapTargetSize
-                                  .shrinkWrap, // Shrinks the tap area
-                            ),
-                            onPressed: () {
-                              // General button logic can go here if needed
-                            },
-                            child: RichText(
-                              text: TextSpan(
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .merge(
-                                      TextStyle(
-                                        color: Theme.of(context).primaryColor,
+                                    ),
+                                    // Last Name Input Field
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        left: MediaQuery.of(context).size.height *
+                                            0.005,
+                                        right:
+                                            MediaQuery.of(context).size.height *
+                                                0.005,
+                                        bottom:
+                                            MediaQuery.of(context).size.height *
+                                                0.008,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          TextFormField(
+                                            controller:
+                                                LastNameEditTextController,
+                                            inputFormatters: [
+                                              AlphabetOnlyFormatter(),
+                                              LengthLimitingTextInputFormatter(
+                                                  50),
+                                            ],
+                                            style: TextStyle(
+                                              color: Colors.black45,
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.016,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                            keyboardType: TextInputType.text,
+                                            onChanged: (value) {
+                                              /* if (!lastnamehasStartedTyping) {
+                                                setState(() {
+                                                  lastnamehasStartedTyping = true; // Track that the user has started typing
+                                                });
+                                              }
+                                              lastnamevalidateInput();*/
+                                            },
+                                            decoration: InputDecoration(
+                                              isDense: true,
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                horizontal: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.02,
+                                                vertical: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                              ),
+                                              filled: true,
+                                              fillColor: Color(0xFFFFFFFF),
+                                              hintText: "Enter your Last Name",
+                                              hintStyle: TextStyle(
+                                                  color: Color(0x4D111111),
+                                                  fontSize: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.012,
+                                                  fontWeight: FontWeight.w400),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                                borderSide: BorderSide(
+                                                  color: lastnamehasStartedTyping
+                                                      ? (lastnameisValid
+                                                          ? Colors.green
+                                                          : Colors.red)
+                                                      : Color(
+                                                          0xFFF1F1F1), // Initially grey, turns red or green
+                                                ),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                                borderSide: BorderSide(
+                                                  color: lastnamehasStartedTyping
+                                                      ? (lastnameisValid
+                                                          ? Colors.green
+                                                          : Colors.red)
+                                                      : Color(
+                                                          0xFFF1F1F1), // Initially grey, turns red or green
+                                                ),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                                borderSide:
+                                                    BorderSide(color: Colors.red),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                                borderSide:
+                                                    BorderSide(color: Colors.red),
+                                              ),
+                                            ),
+                                          ),
+                                          if (lastnameerrorMessage != null)
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.005,
+                                                bottom: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.005,
+                                              ),
+                                              child: Text(
+                                                lastnameerrorMessage ?? '',
+                                                style: TextStyle(
+                                                  color: lastnameisValid
+                                                      ? Colors.green
+                                                      : Colors.red,
+                                                  fontSize: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.012,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: "Inter",
+                                                ),
+                                              ),
+                                            ),
+                                        ],
                                       ),
                                     ),
-                                children: [
-                                  TextSpan(
-                                    text: 'Already have an account?',
-                                    style: TextStyle(
-                                        color: Color(0xFF1F1F1F),
-                                        fontWeight: FontWeight.w400,
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                0.011,
-                                        fontFamily: "Inter"),
-                                  ),
-                                  TextSpan(
-                                    text: ' Login',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.014,
-                                      color: Color(0xFF126086),
-                                      fontFamily: "Inter",
-                                    ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        // Navigation logic for Login page
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (BuildContext context) {
-                                              return LoginPage(); // Replace with your Login page widget
-                                            },
+  
+                                    //Mobile Number
+                                    Padding(
+                                      padding: new EdgeInsets.only(
+                                          left:
+                                              MediaQuery.of(context).size.height *
+                                                  0.005,
+                                          right:
+                                              MediaQuery.of(context).size.height *
+                                                  0.0,
+                                          bottom:
+                                              MediaQuery.of(context).size.height *
+                                                  0.01),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: RichText(
+                                          textAlign: TextAlign.start,
+                                          text: TextSpan(
+                                            text: 'Mobile Number', // Your label
+                                            style: TextStyle(
+                                              fontSize: MediaQuery.of(context).size.height * 0.012,
+                                              color: Color(0xFF333333),
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily: "Inter",
+                                            ),
+                                            children: [
+                                              TextSpan(
+                                                text: ' *', // Red asterisk
+                                                style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: "Inter",
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        );
-                                      },
-                                  ),
-                                ],
+                                        ),
+                                      ),
+                                    ),
+  
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        left: MediaQuery.of(context).size.height *
+                                            0.005,
+                                        right:
+                                            MediaQuery.of(context).size.height *
+                                                0.005,
+                                        bottom:
+                                            MediaQuery.of(context).size.height *
+                                                0.008,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          TextFormField(
+                                            controller:
+                                                MobileNummberEditTextController,
+                                            inputFormatters: [
+                                              LengthLimitingTextInputFormatter(
+                                                  10),
+                                              FilteringTextInputFormatter.allow(
+                                                  RegExp('[0-9]'))
+                                            ],
+                                            style: TextStyle(
+                                              color: Colors.black45,
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.016,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                            keyboardType: TextInputType.number,
+                                            onChanged: (value) {
+                                              mobilenumvalidateInput();
+                                              /* if (!mobilenumhasStartedTyping) {
+                                                setState(() {
+                                                  mobilenumhasStartedTyping = true; // Track that the user has started typing
+                                                });
+                                              }
+                                              mobilenumvalidateInput();*/
+                                            },
+                                            decoration: InputDecoration(
+                                              isDense: true,
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                horizontal: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.02,
+                                                vertical: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                              ),
+                                              suffixIcon: MobileNummberEditTextController
+                                                  .text.isNotEmpty &&
+                                                  mobilenumisValid
+                                                  ? Icon(Icons.check_circle,
+                                                  color: Colors.green)
+                                                  : null,
+                                              filled: true,
+                                              fillColor: Color(0xFFFFFFFF),
+                                              hintText:
+                                                  "Enter your Mobile Number",
+                                              hintStyle: TextStyle(
+                                                  color: Color(0x4D111111),
+                                                  fontSize: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.012,
+                                                  fontWeight: FontWeight.w400),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                                borderSide: BorderSide(
+                                                  color: mobilenumhasStartedTyping
+                                                      ? (mobilenumisValid
+                                                          ? Colors.green
+                                                          : Colors.red)
+                                                      : Color(
+                                                          0xFFF1F1F1), // Initially grey, turns red or green
+                                                ),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                                borderSide: BorderSide(
+                                                  color: mobilenumhasStartedTyping
+                                                      ? (mobilenumisValid
+                                                          ? Colors.green
+                                                          : Colors.red)
+                                                      : Color(
+                                                          0xFFF1F1F1), // Initially grey, turns red or green
+                                                ),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                                borderSide:
+                                                    BorderSide(color: Colors.red),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                                borderSide:
+                                                    BorderSide(color: Colors.red),
+                                              ),
+                                            ),
+                                          ),
+                                          if (mobilenumerrorMessage != null)
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.005,
+                                                bottom: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.005,
+                                              ),
+                                              child: Text(
+                                                mobilenumerrorMessage ?? '',
+                                                style: TextStyle(
+                                                  color: mobilenumisValid
+                                                      ? Colors.green
+                                                      : Colors.red,
+                                                  fontSize: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.012,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: "Inter",
+                                                ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+  
+                                    //Email Text
+                                    Padding(
+                                      padding: new EdgeInsets.only(
+                                          left:
+                                              MediaQuery.of(context).size.height *
+                                                  0.005,
+                                          right:
+                                              MediaQuery.of(context).size.height *
+                                                  0.0,
+                                          bottom:
+                                              MediaQuery.of(context).size.height *
+                                                  0.01),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: RichText(
+                                          textAlign: TextAlign.start,
+                                          text: TextSpan(
+                                            text: 'Email', // Your label
+                                            style: TextStyle(
+                                              fontSize: MediaQuery.of(context).size.height * 0.012,
+                                              color: Color(0xFF333333),
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily: "Inter",
+                                            ),
+                                            children: [
+                                              TextSpan(
+                                                text: ' *', // Red asterisk
+                                                style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: "Inter",
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    // Email Field
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        left: MediaQuery.of(context).size.height *
+                                            0.005,
+                                        right:
+                                            MediaQuery.of(context).size.height *
+                                                0.005,
+                                        bottom:
+                                            MediaQuery.of(context).size.height *
+                                                0.008,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          TextFormField(
+                                            controller: EmailEditTextController,
+                                            inputFormatters: [
+                                              LengthLimitingTextInputFormatter(
+                                                  100),
+                                            ],
+                                            style: TextStyle(
+                                              color: Colors.black45,
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.016,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                            keyboardType:
+                                                TextInputType.emailAddress,
+                                            onChanged: (value) {
+                                              emailvalidateInput();
+                                              /* if (!emailhasStartedTyping) {
+                                                setState(() {
+                                                  emailhasStartedTyping = true; // Track that the user has started typing
+                                                });
+                                              }
+                                              emailvalidateInput();*/
+                                            },
+                                            decoration: InputDecoration(
+                                              isDense: true,
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                horizontal: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.02,
+                                                vertical: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                              ),
+                                              suffixIcon: EmailEditTextController
+                                                  .text.isNotEmpty &&
+                                                  emailisValid
+                                                  ? Icon(Icons.check_circle,
+                                                  color: Colors.green)
+                                                  : null,
+                                              filled: true,
+                                              fillColor: Color(0xFFFFFFFF),
+                                              hintText: "Enter your email",
+                                              hintStyle: TextStyle(
+                                                  color: Color(0x4D111111),
+                                                  fontSize: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.012,
+                                                  fontWeight: FontWeight.w400),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                                borderSide: BorderSide(
+                                                  color: emailhasStartedTyping
+                                                      ? (emailisValid
+                                                          ? Colors.green
+                                                          : Colors.red)
+                                                      : Color(
+                                                          0xFFF1F1F1), // Initially grey, turns red or green
+                                                ),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                                borderSide: BorderSide(
+                                                  color: emailhasStartedTyping
+                                                      ? (emailisValid
+                                                          ? Colors.green
+                                                          : Colors.red)
+                                                      : Color(
+                                                          0xFFF1F1F1), // Initially grey, turns red or green
+                                                ),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                                borderSide:
+                                                    BorderSide(color: Colors.red),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                                borderSide:
+                                                    BorderSide(color: Colors.red),
+                                              ),
+                                            ),
+                                          ),
+                                          if (emailerrorMessage != null)
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.005,
+                                                bottom: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.005,
+                                              ),
+                                              child: Text(
+                                                emailerrorMessage ?? '',
+                                                style: TextStyle(
+                                                  color: emailisValid
+                                                      ? Colors.green
+                                                      : Colors.red,
+                                                  fontSize: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.012,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: "Inter",
+                                                ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+  
+                                    // Gender
+                                    Padding(
+                                      padding: new EdgeInsets.only(
+                                          left:
+                                              MediaQuery.of(context).size.height *
+                                                  0.005,
+                                          right:
+                                              MediaQuery.of(context).size.height *
+                                                  0.0,
+                                          bottom:
+                                              MediaQuery.of(context).size.height *
+                                                  0.008),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: RichText(
+                                          textAlign: TextAlign.start,
+                                          text: TextSpan(
+                                            text: 'Gender', // Your label
+                                            style: TextStyle(
+                                              fontSize: MediaQuery.of(context).size.height * 0.012,
+                                              color: Color(0xFF333333),
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily: "Inter",
+                                            ),
+                                            children: [
+                                              TextSpan(
+                                                text: ' *', // Red asterisk
+                                                style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: "Inter",
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+  
+                                    // Updated TextFormField inside Column
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        left: MediaQuery.of(context).size.height * 0.005,
+                                        bottom: MediaQuery.of(context).size.height * 0.01,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+  
+                                          // 🔹 Radio Buttons Row
+                                          Row(
+                                            children: genderOptions.map((gender) {
+                                              return Expanded(
+                                                  child: Theme(
+                                                    data: Theme.of(context).copyWith(
+                                                      unselectedWidgetColor: Color(0xFFD0D5DD), // ✅ Set background color here
+                                                    ),
+                                                child: RadioListTile<String>(
+                                                  dense: true,
+                                                  contentPadding: EdgeInsets.zero,
+                                                  title: Text(
+                                                    gender["label"]!,
+                                                    style: TextStyle(
+                                                      fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                      // fontWeight: FontWeight.normal,
+                                                    ),
+                                                  ),
+                                                  value: gender["key"]!,
+                                                  groupValue: genderselectedval,
+                                                  activeColor: const Color(0xFF00C7BE), // ✅ Mint color
+                                                  visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+                                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      genderselectedval = value!;
+                                                      _isGenderValid = true;
+                                                    });
+                                                  },
+                                                ),
+                                                  ),
+                                              );
+                                            }).toList(),
+                                          ),
+  
+                                          // 🔻 Validation Error
+                                          if (!_isGenderValid)
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                top: MediaQuery.of(context).size.height * 0.005,
+                                              ),
+                                              child: Text(
+                                                "Please select a gender",
+                                                style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: "Inter",
+                                                ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    )
+  
+  
+  
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                          // T & C
+                          Container(
+                            margin: EdgeInsets.only(
+                                right: MediaQuery.of(context).size.height * 0.01,
+                                top: MediaQuery.of(context).size.height * 0.01,
+                                bottom: MediaQuery.of(context).size.height * 0.0,
+                                left: MediaQuery.of(context).size.height * 0.01),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                   
+                                Row(
+                                  children: [
+                   
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.04,
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width * 0.7,
+                                      child: RichText(
+                                        text: TextSpan(
+                                          text: 'By Registering you agree to the ', // Normal black text
+                                          style: TextStyle(
+                                            fontSize: MediaQuery.of(context).size.height * 0.012,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "Inter",
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: 'Terms & Condition', // Hyperlink text
+                                              style: TextStyle(
+                                                color: Colors.blue, // Hyperlink color
+                                                decoration: TextDecoration.underline,
+                                              ),
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () {
+                                                  // Navigate to Terms & Condition page or open URL
+                                                  print("Terms & Condition clicked");
+                                                },
+                                            ),
+                                            TextSpan(
+                                              text: ' and ', // Normal black text
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: 'Privacy Policy', // Hyperlink text
+                                              style: TextStyle(
+                                                color: Colors.blue, // Hyperlink color
+                                                decoration: TextDecoration.underline,
+                                              ),
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () {
+                                                  // Navigate to Privacy Policy page or open URL
+                                                  print("Privacy Policy clicked");
+                                                },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          // Register Button
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                // Register Button
+  
+                                GestureDetector(
+                                  onTap: () async {
+                                    // print('onTap: () async {');
+                                    // validSignupSubmit();
+                                    // Navigator.of(context).push(
+                                    //   MaterialPageRoute(builder: (context) => MpinResetSettings()),
+                                    // );
+                                      validSignupSubmit();
+                                  },
+                                  child: Container(
+                                      alignment: Alignment.centerRight,
+                                      padding: EdgeInsets.only(
+                                          top: MediaQuery.of(context).size.height *
+                                              0.0,
+                                          bottom:
+                                              MediaQuery.of(context).size.height *
+                                                  0.00,
+                                          left: MediaQuery.of(context).size.height *
+                                              0.00,
+                                          right:
+                                              MediaQuery.of(context).size.height *
+                                                  0.00),
+                                      margin: EdgeInsets.only(
+                                          right:
+                                              MediaQuery.of(context).size.height *
+                                                  0.01,
+                                          top: MediaQuery.of(context).size.height *
+                                              0.03,
+                                          bottom:
+                                              MediaQuery.of(context).size.height *
+                                                  0.0,
+                                          left:
+                                              MediaQuery.of(context).size.height *
+                                                  0.01),
+                                      child: Row(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+                                        Expanded(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.012),
+                                                gradient: LinearGradient(
+                                                    begin: Alignment.centerRight,
+                                                    end: Alignment.center,
+                                                    stops: [
+                                                      0.5,
+                                                      0.9
+                                                    ],
+                                                    colors: [
+                                                      Color(0xFF126086),
+                                                      Color(0xFF126086),
+                                                    ])),
+                                            alignment: Alignment.center,
+                                            padding: EdgeInsets.only(left: 0.0),
+                                            child: TextButton(
+                                              onPressed: () async {
+                                                validSignupSubmit();
+                                              },
+                                              child: Text("Register",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.019,
+                                                    fontWeight: FontWeight.w700,
+                                                  )),
+                                              style: TextButton.styleFrom(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 10.0,
+                                                    horizontal:
+                                                        12.0), // Remove default button padding
+                                                minimumSize: Size(0,
+                                                    0), // Allow smallest possible size
+                                                tapTargetSize: MaterialTapTargetSize
+                                                    .shrinkWrap, // Shrink tap area
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ])),
+                                ),
+                              ],
+                            ),
+                          ),
+  
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.height * 0.0,
+                              right: MediaQuery.of(context).size.height * 0.0,
+                              top: MediaQuery.of(context).size.height * 0.03,
+                              // bottom: MediaQuery.of(context).size.height * 0.01,
+                            ),
+                            child: TextButton(
+                              style: ButtonStyle(
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                    EdgeInsets.zero),
+                                minimumSize: MaterialStateProperty.all<Size>(
+                                    Size.zero), // Ensures no extra space
+                                tapTargetSize: MaterialTapTargetSize
+                                    .shrinkWrap, // Shrinks the tap area
+                              ),
+                              onPressed: () {
+                                // General button logic can go here if needed
+                              },
+                              child: RichText(
+                                text: TextSpan(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .merge(
+                                        TextStyle(
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                      ),
+                                  children: [
+                                    TextSpan(
+                                      text: 'Already have an account?',
+                                      style: TextStyle(
+                                          color: Color(0xFF1F1F1F),
+                                          fontWeight: FontWeight.w400,
+                                          fontSize:
+                                              MediaQuery.of(context).size.height *
+                                                  0.011,
+                                          fontFamily: "Inter"),
+                                    ),
+                                    TextSpan(
+                                      text: ' Login',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height *
+                                                0.014,
+                                        color: Color(0xFF126086),
+                                        fontFamily: "Inter",
+                                      ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          // Navigation logic for Login page
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (BuildContext context) {
+                                                return LoginPage(); // Replace with your Login page widget
+                                              },
+                                            ),
+                                          );
+                                        },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
+    }
 
   void validSignupSubmit() {
     connectivityservice.checkconnectivity().then((intenet) async {
@@ -1924,12 +1845,29 @@ class Registrationstate extends State<Registration> {
             return;
           }
 
-          progressDialog.show();
-
-          Navigator.push(
+          showTopNotification(
             context,
+            title: "Congratulations",
+            message: "Your Account has been Created Successfully.",
+            type: NotificationType.success,
+          );
+
+          progressDialog.show();
+          await UserSecureStorage.saveUser(
+            userId: input3.trim(),
+            mpin: "",
+            userData: {
+              "fname": input.trim(),
+              "lname": input2.trim(),
+              "mobile": input3.trim(),
+              "email": input4.trim(),
+              "gender":genderselectedval!.trim()
+            },
+          );
+
+          Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => const ChangeMobileNumber(mobileNumber:"9583817953"),
+              builder: (context) => ChangeMobileNumber(mobileNumber:input3),
             ),
           );
 

@@ -76,15 +76,16 @@ void main() async {
   final isFirstLaunch = await UserSecureStorage.getIsFirstLaunchDone() ?? "NO";
   Widget initialScreen;
   if (isEnabled) {
-    initialScreen = AccessScreen();
+    // initialScreen = AccessScreen();
+    initialScreen = LoginPage();
   } else if (isFirstLaunch != "YES") {
     await UserSecureStorage.setIsFirstLaunchDone("YES");
     initialScreen = SplashLogoScreen(); // with GIF
   } else {
     final isLoggedIn = await UserSecureStorage.getIfLogged() ?? "NO";
-    final isLoggedOut = await UserSecureStorage.getIfLoggedOut() ?? "NO";
+    // final isLoggedOut = await UserSecureStorage.getIfLoggedOut() ?? "NO";
 
-    if (isLoggedIn == "YES" && isLoggedOut == "YES") {
+    if (isLoggedIn == "YES") {
       initialScreen = LoginPage();
     } else if (isLoggedIn == "YES") {
       initialScreen = HomePageMain();
@@ -150,10 +151,10 @@ class _SplashLogoScreenState extends State<SplashLogoScreen> {
     // initializeDefaultCredentials();
     Future.delayed(Duration(seconds: 5), () async {
       final isLoggedIn = await UserSecureStorage.getIfLogged() ?? 'NO';
-      final isLoggedOut = await UserSecureStorage.getIfLoggedOut() ?? 'NO';
+      // final isLoggedOut = await UserSecureStorage.getIfLoggedOut() ?? 'NO';
 
       Widget next;
-      if (isLoggedIn == "YES" && isLoggedOut == "YES") {
+      if (isLoggedIn == "YES") {
         next = LoginPage();
       } else if (isLoggedIn == "YES") {
         next = HomePageMain();

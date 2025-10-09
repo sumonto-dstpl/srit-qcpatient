@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:newfolder/Screens/Login/loginhome.dart';
 import 'package:newfolder/Screens/Login/loginpage.dart';
 
+import '../Utils/user_secure_storage.dart';
+
 class LoginBottomSheet {
   static void show(BuildContext context,bool popStatus) {
     showModalBottomSheet(
@@ -156,7 +158,9 @@ class LoginBottomSheet {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async{
+                            // await UserSecureStorage.setIfGuestLogged("No");
+                            await UserSecureStorage.clearAllExceptUsers();
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(builder: (context) => LoginPage()),
                                     (Route<dynamic> route) => false);

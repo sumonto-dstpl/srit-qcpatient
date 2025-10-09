@@ -16,6 +16,27 @@ class LoginUHIDPage extends StatefulWidget {
 }
 
 class LoginuhidPagestate extends State<LoginUHIDPage> {
+  bool isValid = false;
+  String? errorMessage;
+  bool hasStartedTyping = false; // Track if the user has started typing
+
+  void validateUHID(String value) {
+    String number = value.trim();
+
+        // Check if exactly 10 digits
+    if (number.length >=3) {
+      setState(() {
+        isValid = true;
+        errorMessage = null;
+      });
+    } else {
+      setState(() {
+        isValid = false;
+        errorMessage ="UHID should be more than 3 characters";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -243,54 +264,13 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
                                             fontWeight: FontWeight.w500,),
                                 keyboardType: TextInputType.emailAddress,
                                 // onSaved: (input) => loginRequestModel.email = input,
-                                validator: (input) => input!.length < 3
-                                    ? "UHID should be more than 3 characters"
-                                    : null,
-                                /* validator: (input) => !input.contains('@')
-                              ? "Email Id should be valid"
-                              : null,*/
-                            //     decoration: new InputDecoration(
-                            //       isDense: true,
-                            //       contentPadding: EdgeInsets.fromLTRB(
-                            //         MediaQuery.of(context).size.height * 0.02,
-                            //         MediaQuery.of(context).size.height * 0.012,
-                            //         MediaQuery.of(context).size.height * 0.012,
-                            //         MediaQuery.of(context).size.height * 0.012,
-                            //       ),
-                            //       filled: true,
-                            //       fillColor: Colors.white60,
-                            //       hintText: "Enter your UHID",
-                            //       hintStyle: TextStyle(
-                            //         color: Colors.black26,
-                            //         fontSize:
-                            //             MediaQuery.of(context).size.height *
-                            //                 0.016, // Adjust this size
-                            //       ),
-                            //       /* // below code for rectangular box even without touching
-                            // border: OutlineInputBorder(
-                            //   borderRadius: BorderRadius.circular(5.0),
-                            // ),
-                            // // below code only for underline with custom color
-                            // focusedBorder: UnderlineInputBorder(
-                            //     borderSide: BorderSide(
-                            //         color: Theme.of(context).accentColor)),
-                            //                                                */
-                            //       focusedBorder: OutlineInputBorder(
-                            //         borderRadius: BorderRadius.circular(5.0),
-                            //         borderSide:
-                            //             BorderSide(color: Colors.lightBlue),
-                            //       ),
-                            //       enabledBorder: OutlineInputBorder(
-                            //         borderRadius:
-                            //             BorderRadius.all(Radius.circular(5.0)),
-                            //         borderSide: BorderSide(color: Colors.grey),
-                            //       ),
-                            //       /*  prefixIcon: Icon(
-                            //     Icons.account_circle_sharp,
-                            //     color: Colors.black45,
-                            //   ),*/
-                            //     ),
-                                decoration: InputDecoration(
+                                // validator: (input) => input!.length < 3
+                                //     ? "UHID should be more than 3 characters"
+                                //     : null,
+                                onChanged: (value){
+                                  validateUHID(value);
+                                },
+                                                                decoration: InputDecoration(
                                   isDense: true,
                                    contentPadding: EdgeInsets.symmetric(
                                               horizontal: MediaQuery.of(context).size.height * 0.02,
@@ -298,22 +278,37 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
                                             ),
                                   filled: true,
                                   fillColor: Color(0xFFFFFFFF),
-                                  hintText: "Enter the UHID",
+                                  hintText: "Enter your Unique Health ID provided by the hospital",
                                   hintStyle: TextStyle(
                                       color: Color(0x4D111111),
                                       fontSize: MediaQuery.of(context).size.height * 0.012,
                                       fontWeight: FontWeight.w400
                                   ),
+                                  suffixIcon: UserNumberEditTextController
+                                      .text.isNotEmpty && isValid
+                                      ? Icon(Icons.check_circle,
+                                      color: Colors.green)
+                                      : null,
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.0),
                                     borderSide: BorderSide(
-                                      color: Color(0xFFF1F1F1),  // Initially grey, turns red or green
-                                    ),
+                                  color: hasStartedTyping
+                                  ? (isValid
+                                  ? Colors.green
+                                      : Colors.red)
+                                                                        : Color(
+                                                                    0xFFF1F1F1), // Initially grey, turns red or green
+                              ),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                                     borderSide: BorderSide(
-                                      color:Color(0xFFF1F1F1), // Initially grey, turns red or green
+                                      color: hasStartedTyping
+                                          ? (isValid
+                                          ? Colors.green
+                                          : Colors.red)
+                                          : Color(
+                                          0xFFF1F1F1), // Initially grey, turns red or green
                                     ),
                                   ),
                                   errorBorder: OutlineInputBorder(
@@ -328,165 +323,165 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
                               ),
                             ),
                             // OTP text
-                            Padding(
-                              padding: new EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.height * 0.005,
-                                  right: MediaQuery.of(context).size.height * 0.0,
-                                  bottom:
-                                  MediaQuery.of(context).size.height * 0.008),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "OTP",
-                                  style: TextStyle(
-                                    fontSize: MediaQuery.of(context).size.height *
-                                        0.012,
-                                    // color: Colors.black54,
-                                    color: Color(0xFF333333),
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "Inter",
-                                  ),
-                                  textAlign: TextAlign.start,
-                                ),
-                              ),
-                            ),
-
-                            // OTP field
-                            Padding(
-                              padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.height * 0.005,
-                                right: MediaQuery.of(context).size.height * 0.005,
-                                bottom: MediaQuery.of(context).size.height * 0.005,
-                              ),
-                              child: new TextFormField(
-                                controller: PasswordEditTextController,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(15),
-                                ],
-                                style: TextStyle(color: Colors.black45,fontSize: MediaQuery.of(context).size.height * 0.016,
-                                            fontWeight: FontWeight.w500,),
-                                keyboardType: TextInputType.text,
-                                /* onSaved: (input) => loginRequestModel.password =
-                          base64.encode(utf8.encode(input)),*/
-                                validator: (input) => input!.length < 3
-                                    ? "OTP should be more than 3 characters"
-                                    : null,
-                                obscureText: hidePassword,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                   contentPadding: EdgeInsets.symmetric(
-                                              horizontal: MediaQuery.of(context).size.height * 0.02,
-                                              vertical: MediaQuery.of(context).size.height * 0.012,
-                                            ),
-                                  filled: true,
-                                  fillColor: Color(0xFFFFFFFF),
-                                  hintText: "Enter the OTP",
-                                  hintStyle: TextStyle(
-                                      color: Color(0x4D111111),
-                                      fontSize: MediaQuery.of(context).size.height * 0.012,
-                                      fontWeight: FontWeight.w400
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    borderSide: BorderSide(
-                                      color:Color(0xFFF1F1F1),  // Initially grey, turns red or green
-                                    ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                    borderSide: BorderSide(
-                                      color: Color(0xFFF1F1F1), // Initially grey, turns red or green
-                                    ),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                    borderSide: BorderSide(color: Colors.red),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                    borderSide: BorderSide(color: Colors.red),
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            // Didn't get OTP text
-                            Padding(
-                              padding: EdgeInsets.only(
-                                right:
-                                    MediaQuery.of(context).size.height * 0.00,
-                                bottom:
-                                    MediaQuery.of(context).size.height * 0.0,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.005,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.005,
-                                      bottom:
-                                          MediaQuery.of(context).size.height *
-                                              0.0,
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        // Add your onTap logic here
-                                      },
-                                      child: TextButton(
-                                        style: ButtonStyle(
-                                          padding: MaterialStateProperty.all<
-                                              EdgeInsets>(EdgeInsets.zero),
-                                          minimumSize: MaterialStateProperty
-                                              .all<Size>(Size
-                                                  .zero), // Ensures no extra space
-                                          tapTargetSize: MaterialTapTargetSize
-                                              .shrinkWrap, // Shrinks the tap area
-                                        ),
-                                        onPressed: () {},
-                                        child: RichText(
-                                          text: TextSpan(
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge!
-                                                .merge(
-                                                  TextStyle(
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                  ),
-                                                ),
-                                            children: [
-                                              TextSpan(
-                                                text: 'Didn\'t get OTP?',
-                                                style: TextStyle(
-                                                    color: Color(0xFF126086),
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: MediaQuery.of(context).size.height * 0.011,
-                                                    fontFamily: "Inter"
-
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                text: ' Resend OTP',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: MediaQuery.of(context).size.height * 0.013,
-                                                  color: Color(0xFF126086),
-                                                  fontFamily: "Inter",
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                          //   Padding(
+                          //     padding: new EdgeInsets.only(
+                          //         left: MediaQuery.of(context).size.height * 0.005,
+                          //         right: MediaQuery.of(context).size.height * 0.0,
+                          //         bottom:
+                          //         MediaQuery.of(context).size.height * 0.008),
+                          //     child: Align(
+                          //       alignment: Alignment.centerLeft,
+                          //       child: Text(
+                          //         "OTP",
+                          //         style: TextStyle(
+                          //           fontSize: MediaQuery.of(context).size.height *
+                          //               0.012,
+                          //           // color: Colors.black54,
+                          //           color: Color(0xFF333333),
+                          //           fontWeight: FontWeight.w400,
+                          //           fontFamily: "Inter",
+                          //         ),
+                          //         textAlign: TextAlign.start,
+                          //       ),
+                          //     ),
+                          //   ),
+                          //
+                          //   // OTP field
+                          //   Padding(
+                          //     padding: EdgeInsets.only(
+                          //       left: MediaQuery.of(context).size.height * 0.005,
+                          //       right: MediaQuery.of(context).size.height * 0.005,
+                          //       bottom: MediaQuery.of(context).size.height * 0.005,
+                          //     ),
+                          //     child: new TextFormField(
+                          //       controller: PasswordEditTextController,
+                          //       inputFormatters: [
+                          //         LengthLimitingTextInputFormatter(15),
+                          //       ],
+                          //       style: TextStyle(color: Colors.black45,fontSize: MediaQuery.of(context).size.height * 0.016,
+                          //                   fontWeight: FontWeight.w500,),
+                          //       keyboardType: TextInputType.text,
+                          //       /* onSaved: (input) => loginRequestModel.password =
+                          // base64.encode(utf8.encode(input)),*/
+                          //       validator: (input) => input!.length < 3
+                          //           ? "OTP should be more than 3 characters"
+                          //           : null,
+                          //       obscureText: hidePassword,
+                          //       decoration: InputDecoration(
+                          //         isDense: true,
+                          //          contentPadding: EdgeInsets.symmetric(
+                          //                     horizontal: MediaQuery.of(context).size.height * 0.02,
+                          //                     vertical: MediaQuery.of(context).size.height * 0.012,
+                          //                   ),
+                          //         filled: true,
+                          //         fillColor: Color(0xFFFFFFFF),
+                          //         hintText: "Enter the OTP",
+                          //         hintStyle: TextStyle(
+                          //             color: Color(0x4D111111),
+                          //             fontSize: MediaQuery.of(context).size.height * 0.012,
+                          //             fontWeight: FontWeight.w400
+                          //         ),
+                          //         focusedBorder: OutlineInputBorder(
+                          //           borderRadius: BorderRadius.circular(5.0),
+                          //           borderSide: BorderSide(
+                          //             color:Color(0xFFF1F1F1),  // Initially grey, turns red or green
+                          //           ),
+                          //         ),
+                          //         enabledBorder: OutlineInputBorder(
+                          //           borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          //           borderSide: BorderSide(
+                          //             color: Color(0xFFF1F1F1), // Initially grey, turns red or green
+                          //           ),
+                          //         ),
+                          //         errorBorder: OutlineInputBorder(
+                          //           borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          //           borderSide: BorderSide(color: Colors.red),
+                          //         ),
+                          //         focusedErrorBorder: OutlineInputBorder(
+                          //           borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          //           borderSide: BorderSide(color: Colors.red),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          //
+                          //   // Didn't get OTP text
+                          //   Padding(
+                          //     padding: EdgeInsets.only(
+                          //       right:
+                          //           MediaQuery.of(context).size.height * 0.00,
+                          //       bottom:
+                          //           MediaQuery.of(context).size.height * 0.0,
+                          //     ),
+                          //     child: Row(
+                          //       mainAxisAlignment:
+                          //           MainAxisAlignment.spaceBetween,
+                          //       children: [
+                          //         Padding(
+                          //           padding: EdgeInsets.only(
+                          //             left: MediaQuery.of(context).size.height *
+                          //                 0.005,
+                          //             top: MediaQuery.of(context).size.height *
+                          //                 0.005,
+                          //             bottom:
+                          //                 MediaQuery.of(context).size.height *
+                          //                     0.0,
+                          //           ),
+                          //           child: GestureDetector(
+                          //             onTap: () {
+                          //               // Add your onTap logic here
+                          //             },
+                          //             child: TextButton(
+                          //               style: ButtonStyle(
+                          //                 padding: MaterialStateProperty.all<
+                          //                     EdgeInsets>(EdgeInsets.zero),
+                          //                 minimumSize: MaterialStateProperty
+                          //                     .all<Size>(Size
+                          //                         .zero), // Ensures no extra space
+                          //                 tapTargetSize: MaterialTapTargetSize
+                          //                     .shrinkWrap, // Shrinks the tap area
+                          //               ),
+                          //               onPressed: () {},
+                          //               child: RichText(
+                          //                 text: TextSpan(
+                          //                   style: Theme.of(context)
+                          //                       .textTheme
+                          //                       .titleLarge!
+                          //                       .merge(
+                          //                         TextStyle(
+                          //                           color: Theme.of(context)
+                          //                               .primaryColor,
+                          //                         ),
+                          //                       ),
+                          //                   children: [
+                          //                     TextSpan(
+                          //                       text: 'Didn\'t get OTP?',
+                          //                       style: TextStyle(
+                          //                           color: Color(0xFF126086),
+                          //                           fontWeight: FontWeight.w400,
+                          //                           fontSize: MediaQuery.of(context).size.height * 0.011,
+                          //                           fontFamily: "Inter"
+                          //
+                          //                       ),
+                          //                     ),
+                          //                     TextSpan(
+                          //                       text: ' Resend OTP',
+                          //                       style: TextStyle(
+                          //                         fontWeight: FontWeight.w600,
+                          //                         fontSize: MediaQuery.of(context).size.height * 0.013,
+                          //                         color: Color(0xFF126086),
+                          //                         fontFamily: "Inter",
+                          //                       ),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
 
                             // Login Button
                             Padding(

@@ -470,7 +470,7 @@ class ProfileMainstate extends State<ProfileMain> {
                                         borderRadius:
                                             BorderRadius.circular(130.0),
                                         child: Image.asset(
-                                          'assets/profileProfile1.png',
+                                          'assets/drsujeet.png',
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height *
@@ -3742,8 +3742,9 @@ class ProfileMainstate extends State<ProfileMain> {
                                   ),
                                   GestureDetector(
                                     onTap: () async {
-                                      await UserSecureStorage.setIfLoggedOut(
-                                          "YES");
+                                      // await UserSecureStorage.setIfLogged(
+                                      //     "NO");
+                                      await UserSecureStorage.clearAllExceptUsers();
                                       Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
                                           builder: (BuildContext context) =>

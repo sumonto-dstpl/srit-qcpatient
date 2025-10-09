@@ -378,15 +378,18 @@ import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 
 
 class MpinAccessScreen extends StatefulWidget {
-  const MpinAccessScreen({
-    super.key,
-  });
+  // const MpinAccessScreen({
+  //   super.key,
+  // });
+  final String? mobileNumber; // Optional number
+  const MpinAccessScreen({Key? key, this.mobileNumber}) : super(key: key);
   @override
   State<MpinAccessScreen> createState() => MpinAccessScreenState();
 }
 
 class MpinAccessScreenState extends State<MpinAccessScreen> {
-
+  late final bool hasMobileNumber;
+  late final String mobileNumber;
 
   ConnectivityService connectivityservice = ConnectivityService();
 
@@ -414,6 +417,10 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
   void initState() {
 
     super.initState();
+    hasMobileNumber = widget.mobileNumber != null && widget.mobileNumber!.isNotEmpty;
+    if (hasMobileNumber) {
+      mobileNumber = widget.mobileNumber!;
+    }
     pin1FocusNode = FocusNode();
     pin2FocusNode = FocusNode();
     pin3FocusNode = FocusNode();
@@ -1101,7 +1108,10 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
 
 
         String upperDigit = Otp1stdigit + Otp2nddigit + Otp3rddigit + Otp4thdigit ;
-        bool checkMpin = await isMpinMatched(upperDigit);
+        // bool checkMpin = await isMpinMatched(upperDigit);
+
+
+        bool checkMpin = await UserSecureStorage.verifyUserMpin(mobileNumber, upperDigit);
         print( "checkMpin : ${checkMpin}");
         if(!checkMpin){
 
@@ -1112,6 +1122,8 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
           return ;
         }
         else {
+          await UserSecureStorage.setIfLogged("YES");
+          await UserSecureStorage.setUsernameid(mobileNumber);
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => HomePageMain()),
                   (Route<dynamic> route) => false);

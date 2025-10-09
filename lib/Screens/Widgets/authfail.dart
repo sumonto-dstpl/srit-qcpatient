@@ -46,7 +46,7 @@ class AuthFailed {
                     children: <Widget>[
                       GestureDetector(
                         onTap: () async {
-                          await UserSecureStorage.setIfLoggedOut("YES");
+                          // await UserSecureStorage.setIfLoggedOut("YES");
                           Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
                               builder: (context) => LoginPage(),

@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // SharedPreferences prefs = await SharedPreferences.getInstance();
     final prefUserLoggedInvalue = await UserSecureStorage.getIfLogged() ?? 'NO';
     final prefUserLoggedOutvalue =
-        await UserSecureStorage.getIfLoggedOut() ?? 'NO';
+        await UserSecureStorage.getIfLogged() ?? 'NO';
     final prefGuestUserLoggedInvalue =
         await UserSecureStorage.getIfGuestLogged() ?? 'NO';
     final prefusertypevalue = await UserSecureStorage.getUserType() ?? 'NA';

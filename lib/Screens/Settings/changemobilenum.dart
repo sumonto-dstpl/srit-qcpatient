@@ -16,6 +16,9 @@ import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../Utils/customNotification.dart';
+import '../VerifyOtp/verifyOtp.dart';
+
 class ChangeMobileNumber extends StatefulWidget {
   // const ChangeMobileNumber({
   //   super.key,
@@ -37,24 +40,28 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
   ConnectivityService connectivityservice = ConnectivityService();
   APIService apiService = new APIService();
   late ProgressDialog progressDialog;
+  List<String> otpValues = List.filled(6, "");
+  List<bool> isError = List.filled(6, false); // true = show red border
+  List<TextEditingController> otpControllers = List.generate(6, (_) => TextEditingController());
+  List<FocusNode> focusNodes = List.generate(6, (_) => FocusNode());
 
   RegExp passwordRegExp = RegExp(
       r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$');
 
   TextEditingController UserNumberEditTextController = TextEditingController();
 
-  TextEditingController Otp1stdigitTextController = TextEditingController();
-  TextEditingController Otp2nddigitTextController = TextEditingController();
-  TextEditingController Otp3rddigitTextController = TextEditingController();
-  TextEditingController Otp4thdigitTextController = TextEditingController();
-  TextEditingController Otp5thdigitTextController = TextEditingController();
-  TextEditingController Otp6thdigitTextController = TextEditingController();
-
-  FocusNode? pin2FocusNode;
-  FocusNode? pin3FocusNode;
-  FocusNode? pin4FocusNode;
-  FocusNode? pin5FocusNode;
-  FocusNode? pin6FocusNode;
+  // TextEditingController Otp1stdigitTextController = TextEditingController();
+  // TextEditingController Otp2nddigitTextController = TextEditingController();
+  // TextEditingController Otp3rddigitTextController = TextEditingController();
+  // TextEditingController Otp4thdigitTextController = TextEditingController();
+  // TextEditingController Otp5thdigitTextController = TextEditingController();
+  // TextEditingController Otp6thdigitTextController = TextEditingController();
+  //
+  // FocusNode? pin2FocusNode;
+  // FocusNode? pin3FocusNode;
+  // FocusNode? pin4FocusNode;
+  // FocusNode? pin5FocusNode;
+  // FocusNode? pin6FocusNode;
 
 
   String? errorMessage;
@@ -105,11 +112,11 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
       UserNumberEditTextController.text = widget.mobileNumber!;
     }
     // UserNumberEditTextController.text ="9583817953";
-    pin2FocusNode = FocusNode();
-    pin3FocusNode = FocusNode();
-    pin4FocusNode = FocusNode();
-    pin5FocusNode = FocusNode();
-    pin6FocusNode = FocusNode();
+    // pin2FocusNode = FocusNode();
+    // pin3FocusNode = FocusNode();
+    // pin4FocusNode = FocusNode();
+    // pin5FocusNode = FocusNode();
+    // pin6FocusNode = FocusNode();
 
     UserNumberEditTextController.addListener(_checkInput);
   }
@@ -119,12 +126,13 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
 
     UserNumberEditTextController.removeListener(_checkInput);
     UserNumberEditTextController.dispose();
+    // Dispose all controllers if you have them
+    otpControllers.forEach((controller) => controller.dispose());
+
+    // Dispose all focus nodes
+    focusNodes.forEach((node) => node.dispose());
     super.dispose();
-    pin2FocusNode!.dispose();
-    pin3FocusNode!.dispose();
-    pin4FocusNode!.dispose();
-    pin5FocusNode!.dispose();
-    pin6FocusNode!.dispose();
+
   }
 
   List<Widget> _buildPageIndicator() {
@@ -157,17 +165,17 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
 
   // Asgar
   void _checkInput() {
-    print('_checkInput');
-    setState(() {
-      setState(() {
-        if (UserNumberEditTextController.text.trim().isNotEmpty) {
-          _isButtonEnabled = true;
-        } else {
-          _isButtonEnabled = false;
-        }
-      });
-    });
-    print('_isButtonEnabled : $_isButtonEnabled');
+    // print('_checkInput');
+    // setState(() {
+    //   setState(() {
+    //     if (UserNumberEditTextController.text.trim().isNotEmpty) {
+    //       _isButtonEnabled = true;
+    //     } else {
+    //       _isButtonEnabled = false;
+    //     }
+    //   });
+    // });
+    // print('_isButtonEnabled : $_isButtonEnabled');
   }
 
   @override
@@ -720,298 +728,66 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: SizeConfig.blockSizeHorizontal! * 09,
-                    height: SizeConfig.blockSizeHorizontal! * 12,
-                    child: TextFormField(
-                      // autofocus: true,
-                      // obscureText: true,
-                      style: TextStyle(
-                          fontSize:
-                          MediaQuery.of(context).size.height * 0.034),
-                      controller: Otp1stdigitTextController,
-
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(1),
-                        FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-                      ],
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      decoration: new InputDecoration(
-                        isDense: true,
-                        contentPadding: EdgeInsets.fromLTRB(
-                          MediaQuery.of(context).size.height * 0.01,
-                          MediaQuery.of(context).size.height * 0.0,
-                          MediaQuery.of(context).size.height * 0.01,
-                          MediaQuery.of(context).size.height * 0.0,
-                        ),
-                        filled: false,
-                        // fillColor: Colors.grey[200],
-                        hintStyle: TextStyle(color: Colors.white70),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
-                          borderSide: BorderSide(
-                            color:
-                            Color(0xFFF1F1F1), // Initially grey, turns red or green
-                          ), // Set border color
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.height * 0.005)),
-                          borderSide: BorderSide(
-                            color:  Color(0xFFF1F1F1), // Initially grey, turns red or green
-                          ), // Set border color
-                        ),
-                      ),
-                      onChanged: (value) {
-                        nextField(value, pin2FocusNode!);
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: SizeConfig.blockSizeHorizontal! * 09,
-                    height: SizeConfig.blockSizeHorizontal! * 12,
-                    child: TextFormField(
-                      focusNode: pin2FocusNode,
-                      // obscureText: true,
-                      style: TextStyle(
-                          fontSize:
-                          MediaQuery.of(context).size.height * 0.034),
-                      controller: Otp2nddigitTextController,
-
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(1),
-                        FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-                      ],
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      decoration: new InputDecoration(
-                        isDense: true,
-                        contentPadding: EdgeInsets.fromLTRB(
-                          MediaQuery.of(context).size.height * 0.01,
-                          MediaQuery.of(context).size.height * 0.0,
-                          MediaQuery.of(context).size.height * 0.01,
-                          MediaQuery.of(context).size.height * 0.0,
-                        ),
-                        filled: false,
-                        // fillColor: Colors.grey[200],
-                        hintStyle: TextStyle(color: Colors.white70),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
-                          borderSide: BorderSide(
-                            color:
-                            Color(0xFFF1F1F1), // Initially grey, turns red or green
-                          ), // Set border color
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.height * 0.005)),
-                          borderSide: BorderSide(
-                            color:  Color(0xFFF1F1F1), // Initially grey, turns red or green
-                          ), // Set border color
-                        ),
-                      ),
-                      onChanged: (value) =>
-                          nextField(value, pin3FocusNode!),
-                    ),
-                  ),
-                  SizedBox(
-                    width: SizeConfig.blockSizeHorizontal! * 09,
-                    height: SizeConfig.blockSizeHorizontal! * 12,
-                    child: TextFormField(
-                      focusNode: pin3FocusNode,
-                      // obscureText: true,
-                      style: TextStyle(
-                          fontSize:
-                          MediaQuery.of(context).size.height * 0.034),
-                      controller: Otp3rddigitTextController,
-
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(1),
-                        FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-                      ],
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      decoration: new InputDecoration(
-                        isDense: true,
-                        contentPadding: EdgeInsets.fromLTRB(
-                          MediaQuery.of(context).size.height * 0.01,
-                          MediaQuery.of(context).size.height * 0.0,
-                          MediaQuery.of(context).size.height * 0.01,
-                          MediaQuery.of(context).size.height * 0.0,
-                        ),
-                        filled: false,
-                        // fillColor: Colors.grey[200],
-                        hintStyle: TextStyle(color: Colors.white70),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
-                          borderSide: BorderSide(
-                            color:
-                            Color(0xFFF1F1F1), // Initially grey, turns red or green
-                          ), // Set border color
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.height * 0.005)),
-                          borderSide: BorderSide(
-                            color:  Color(0xFFF1F1F1), // Initially grey, turns red or green
-                          ), // Set border color
-                        ),
-                      ),
-                      onChanged: (value) =>
-                          nextField(value, pin4FocusNode!),
-                    ),
-                  ),
-
-                  // 4
-                  SizedBox(
-                    width: SizeConfig.blockSizeHorizontal! * 09,
-                    height: SizeConfig.blockSizeHorizontal! * 12,
-                    child: TextFormField(
-                      focusNode: pin4FocusNode,
-                      // obscureText: true,
-                      style: TextStyle(
-                          fontSize:
-                          MediaQuery.of(context).size.height * 0.034),
-                      controller: Otp4thdigitTextController,
-
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(1),
-                        FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-                      ],
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      decoration: new InputDecoration(
-                        isDense: true,
-                        contentPadding: EdgeInsets.fromLTRB(
-                          MediaQuery.of(context).size.height * 0.01,
-                          MediaQuery.of(context).size.height * 0.0,
-                          MediaQuery.of(context).size.height * 0.01,
-                          MediaQuery.of(context).size.height * 0.0,
-                        ),
-                        filled: false,
-                        // fillColor: Colors.grey[200],
-                        hintStyle: TextStyle(color: Colors.white70),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
-                          borderSide: BorderSide(
-                            color:
-                            Color(0xFFF1F1F1), // Initially grey, turns red or green
-                          ), // Set border color
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.height * 0.005)),
-                          borderSide: BorderSide(
-                            color:  Color(0xFFF1F1F1), // Initially grey, turns red or green
-                          ), // Set border color
-                        ),
-                      ),
-                      onChanged: (value) =>
-                          nextField(value, pin5FocusNode!),
-                    ),
-                  ),
-
-                  // 5
-                  SizedBox(
-                    width: SizeConfig.blockSizeHorizontal! * 09,
-                    height: SizeConfig.blockSizeHorizontal! * 12,
-                    child: TextFormField(
-                      focusNode: pin5FocusNode,
-                      // obscureText: true,
-                      style: TextStyle(
-                          fontSize:
-                          MediaQuery.of(context).size.height * 0.034),
-                      controller: Otp5thdigitTextController,
-
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(1),
-                        FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-                      ],
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      decoration: new InputDecoration(
-                        isDense: true,
-                        contentPadding: EdgeInsets.fromLTRB(
-                          MediaQuery.of(context).size.height * 0.01,
-                          MediaQuery.of(context).size.height * 0.0,
-                          MediaQuery.of(context).size.height * 0.01,
-                          MediaQuery.of(context).size.height * 0.0,
-                        ),
-                        filled: false,
-                        // fillColor: Colors.grey[200],
-                        hintStyle: TextStyle(color: Colors.white70),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
-                          borderSide: BorderSide(
-                            color:
-                            Color(0xFFF1F1F1), // Initially grey, turns red or green
-                          ), // Set border color
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.height * 0.005)),
-                          borderSide: BorderSide(
-                            color:  Color(0xFFF1F1F1), // Initially grey, turns red or green
-                          ), // Set border color
-                        ),
-                      ),
-                      onChanged: (value) =>
-                          nextField(value, pin6FocusNode!),
-                    ),
-                  ),
-
-                  // for 6
-                  SizedBox(
-                    width: SizeConfig.blockSizeHorizontal! * 09,
-                    height: SizeConfig.blockSizeHorizontal! * 12,
-                    child: TextFormField(
-                      focusNode: pin6FocusNode,
-                      // obscureText: true,
-                      style: TextStyle(
-                          fontSize:
-                          MediaQuery.of(context).size.height * 0.034),
-                      controller: Otp6thdigitTextController,
-
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(1),
-                        FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-                      ],
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      decoration: new InputDecoration(
-                        isDense: true,
-                        contentPadding: EdgeInsets.fromLTRB(
-                          MediaQuery.of(context).size.height * 0.01,
-                          MediaQuery.of(context).size.height * 0.0,
-                          MediaQuery.of(context).size.height * 0.01,
-                          MediaQuery.of(context).size.height * 0.0,
-                        ),
-                        filled: false,
-                        // fillColor: Colors.grey[200],
-                        hintStyle: TextStyle(color: Colors.white70),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
-                          borderSide: BorderSide(
-                            color:
-                            Color(0xFFF1F1F1), // Initially grey, turns red or green
-                          ), // Set border color
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.height * 0.005)),
-                          borderSide: BorderSide(
-                            color:  Color(0xFFF1F1F1), // Initially grey, turns red or green
-                          ), // Set border color
-                        ),
-                      ),
-                      onChanged: (value) {
-                        if (value.length == 1) {
-                          pin6FocusNode!.unfocus();
-                          // Then you need to check is the code is correct or not
-                        }
-                      },
-                    ),
-                  ),
+                children: List.generate(6, (index) {
+                return SizedBox(
+                width: SizeConfig.blockSizeHorizontal! * 9,
+                height: SizeConfig.blockSizeHorizontal! * 12,
+                child: TextFormField(
+                controller: otpControllers[index],
+                focusNode: focusNodes[index],
+                keyboardType: TextInputType.number,
+                textAlign: TextAlign.center,
+                inputFormatters: [
+                LengthLimitingTextInputFormatter(1),
+                FilteringTextInputFormatter.digitsOnly,
                 ],
+                style: TextStyle(
+                fontSize: MediaQuery.of(context).size.height * 0.034,
+                ),
+                decoration: InputDecoration(
+                isDense: true,
+                contentPadding: EdgeInsets.fromLTRB(
+                MediaQuery.of(context).size.height * 0.01,
+                0,
+                MediaQuery.of(context).size.height * 0.01,
+                0,
+                ),
+                filled: false,
+                hintStyle: TextStyle(color: Colors.white70),
+                focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
+                // borderSide: const BorderSide(color: Color(0xFFF1F1F1)),
+                  borderSide: BorderSide(color: isError[index] ? Colors.red : Color(0xFFF1F1F1)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
+                // borderSide: const BorderSide(color: Color(0xFF16B812)),
+                  borderSide: BorderSide(color: isError[index] ? Colors.red : Color(0xFFF1F1F1)),
+                ),
+                ),
+                onChanged: (value) {
+                // Automatically move to next field
+                  otpValues[index] = value;
+                 setState(() {
+                   isError[index] = value.isEmpty;
+                 });
+
+
+                if (index < 5 && value.isNotEmpty) {
+                focusNodes[index + 1].requestFocus();
+                } else if (index == 5 && value.isNotEmpty) {
+                // Last digit entered, OTP is complete
+                verifyOtp(); // Call your OTP verification function here
+                focusNodes[index].unfocus();
+                }
+                },
+                ),
+                );
+                }),
+                )
               ),
-            ),
-            OtpResendWidget(),
+
+            OtpResendWidget(attempt: otpAttempt),
           ]),
           Expanded(
             flex: 3,
@@ -1037,12 +813,51 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
     );
   }
 
+  int otpAttempt =0;
+
+  void verifyOtp() {
+    setState(() {
+      otpAttempt += 1;
+    });
+    String otp = otpValues.join();
+    print("OTP entered: $otp");
+// Simulate OTP verification
+    bool isOtpValid = otp == "123456"; // Replace with your actual verification logic
+
+    if (isOtpValid) {
+      // Show success notification
+      showTopNotification(
+        context,
+        title: "Congratulations",
+        message: "OTP verified successfully",
+        type: NotificationType.success,
+      );
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => MpinResetSettings(mobileNumber: UserNumberEditTextController.text)));
+    } else {
+      // Show error notification
+
+      showTopNotification(
+        context,
+        title: "Error",
+        message: "You have entered wrong OTP in your $otpAttempt attempt. You will have to wait for 10 minutes after 3 unsuccessful attempts",
+        type: NotificationType.error,
+      );
+    }
+
+  }
+
+
 
 }
 
 
 class OtpResendWidget extends StatefulWidget {
-  const OtpResendWidget({Key? key}) : super(key: key);
+  // const OtpResendWidget({Key? key}) : super(key: key);
+
+  final int? attempt; // Optional starting timer
+
+  const OtpResendWidget({Key? key, this.attempt}) : super(key: key);
 
   @override
   _OtpResendWidgetState createState() => _OtpResendWidgetState();
@@ -1050,13 +865,22 @@ class OtpResendWidget extends StatefulWidget {
 
 class _OtpResendWidgetState extends State<OtpResendWidget> {
   bool isCounting = false;
-  int remainingSeconds = 5;
+  late int remainingSeconds;
   Timer? _timer;
+  late int totalAttempt;
+
+  @override
+  void initState() {
+    super.initState();
+    totalAttempt =  widget.attempt ?? 0;
+    remainingSeconds = totalAttempt < 3 ? 30 :10*60;
+    // if (remainingSeconds > 0) startCountdown();
+  }
 
   void startCountdown() {
     setState(() {
       isCounting = true;
-      remainingSeconds = 5;
+      remainingSeconds = totalAttempt < 3 ? 30 :10*60;
     });
 
     _timer?.cancel();
@@ -1134,5 +958,60 @@ class _OtpResendWidgetState extends State<OtpResendWidget> {
     );
   }
 }
+
+class OtpInputFields extends StatelessWidget {
+  final List<TextEditingController> controllers;
+  final List<FocusNode> focusNodes;
+  final Function(String, FocusNode?) nextField;
+
+  const OtpInputFields({
+    Key? key,
+    required this.controllers,
+    required this.focusNodes,
+    required this.nextField,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: List.generate(6, (index) {
+        return SizedBox(
+          width: SizeConfig.blockSizeHorizontal! * 9,
+          height: SizeConfig.blockSizeHorizontal! * 12,
+          child: TextFormField(
+            controller: controllers[index],
+            focusNode: focusNodes[index],
+            keyboardType: TextInputType.number,
+            textAlign: TextAlign.center,
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(1),
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.height * 0.034,
+            ),
+            decoration: InputDecoration(
+              isDense: true,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+                borderSide: const BorderSide(color: Color(0xFFF1F1F1)),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+                borderSide: const BorderSide(color: Color(0xFFF1F1F1)),
+              ),
+            ),
+            onChanged: (value) {
+              FocusNode? next = index < 5 ? focusNodes[index + 1] : null;
+              nextField(value, next);
+            },
+          ),
+        );
+      }),
+    );
+  }
+}
+
 
 
