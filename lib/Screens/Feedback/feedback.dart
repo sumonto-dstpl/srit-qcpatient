@@ -140,180 +140,329 @@ class FeedbackMainstate extends State<FeedbackMain> {
               Column(
                 children: <Widget>[
                   // Top Section
-                  Container(
-                    padding: EdgeInsets.only(
-                      top: screenHeight * 0.055,
-                      left: screenWidth * 0.045,
-                      right: screenWidth * 0.02,
-                      bottom: screenWidth * 0.02,
-                    ),
-                    margin: EdgeInsets.only(
-                      right: screenHeight * 0.0,
-                      top: screenHeight * 0.01,
-                      bottom: screenHeight * 0.04,
-                      left: screenHeight * 0.0,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        InkWell(
-                          onTap: () => Navigator.pop(context),
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.035,
-                            width: MediaQuery.of(context).size.height * 0.035,
-                            margin: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height * 0.00,
-                              top: MediaQuery.of(context).size.height * 0.00,
-                              right: MediaQuery.of(context).size.height * 0.02,
-                              bottom: MediaQuery.of(context).size.height * 0.00,
-                            ),
-                            decoration: BoxDecoration(
-
-                              color: Color(0xFF126086).withOpacity(0.2),
-
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  width: 0.0, color: Color(0xFF126086)),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(130.0),
-                              child: Image.asset(
-                                'assets/medicationBack.png',
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        Padding(
-                          padding: EdgeInsets.only(left : MediaQuery.of(context).size.height * 0.00),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.only(
-                                  top:
-                                  MediaQuery.of(context).size.height * 0.00,
-                                  bottom:
-                                  MediaQuery.of(context).size.height * 0.00,
-                                  left:
-                                  MediaQuery.of(context).size.height * 0.00,
-                                  right:
-                                  MediaQuery.of(context).size.height * 0.00,
-                                ),
-                                child: Text(
-                                  usernameValue,
-                                  style: TextStyle(
-                                    fontSize:
-                                    MediaQuery.of(context).size.height *
-                                        0.018,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-
-                                },
-                                child:
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  // Align items to the start
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .height * 0.00,
-                                        horizontal: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .height * 0.00,
-                                      ),
-                                      child: Text(
-                                        useraddressValue,
-                                        style: TextStyle(
-                                          overflow: TextOverflow.ellipsis,
-                                          fontSize: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height * 0.012,
-                                          color: Colors.white,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-
-                                    Icon(
-                                      Icons.keyboard_arrow_down,
-                                      // Downward pointing arrow
-                                      color: Colors.white,
-                                      size: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.02, // Responsive size
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        // Action Bar 2nd half
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-
-
-                              // Cart
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder:
-                                          (BuildContext context) {
-                                        return AddToCartMain();
-                                      },
-                                    ),
-                                  );
-                                },
-                                child:
-                                AppointmentIconBadge(
-                                  appointmentcount: "",
-                                ),
-                              ),
-
-                              // Notification
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder:
-                                          (BuildContext context) {
-                                        return NotificationMain();
-                                      },
-                                    ),
-                                  );
-                                },
-                                child:
-                                IconBadge(
-                                  notificationcount: "",
-                                ),
-                              ),
-
-                            ],
-                          ),
-                        ),
-                      ],
+          Container(
+          padding: EdgeInsets.only(
+          top: screenHeight * 0.055,
+            left: screenWidth * 0.045,
+            right: screenWidth * 0.02,
+            bottom: screenWidth * 0.02,
+          ),
+          margin: EdgeInsets.only(
+            right: screenHeight * 0.0,
+            top: screenHeight * 0.01,
+            bottom: screenHeight * 0.04,
+            left: screenHeight * 0.0,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              // 🔹 Back Button (Full tap area)
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.035,
+                  width: MediaQuery.of(context).size.height * 0.035,
+                  margin: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.height * 0.00,
+                    top: MediaQuery.of(context).size.height * 0.00,
+                    right: MediaQuery.of(context).size.height * 0.02,
+                    bottom: MediaQuery.of(context).size.height * 0.00,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF126086).withOpacity(0.2),
+                    shape: BoxShape.circle,
+                    border: Border.all(width: 0.0, color: Color(0xFF126086)),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(130.0),
+                    child: Image.asset(
+                      'assets/medicationBack.png',
+                      fit: BoxFit.fill,
                     ),
                   ),
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.height * 0.00),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.00,
+                        bottom: MediaQuery.of(context).size.height * 0.00,
+                        left: MediaQuery.of(context).size.height * 0.00,
+                        right: MediaQuery.of(context).size.height * 0.00,
+                      ),
+                      child: Text(
+                        usernameValue,
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.018,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+
+                    // 🔹 Address Row (Full-tappable including arrow)
+                    GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        // Address tap action
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: MediaQuery.of(context).size.height * 0.00,
+                              horizontal: MediaQuery.of(context).size.height * 0.00,
+                            ),
+                            child: Text(
+                              useraddressValue,
+                              style: TextStyle(
+                                overflow: TextOverflow.ellipsis,
+                                fontSize:
+                                MediaQuery.of(context).size.height * 0.012,
+                                color: Colors.white,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.white,
+                            size: MediaQuery.of(context).size.height * 0.02,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // 🔹 Action Bar (Right Side Icons)
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Cart Icon (Full tap area)
+                    GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => AddToCartMain(),
+                          ),
+                        );
+                      },
+                      child: AppointmentIconBadge(
+                        appointmentcount: "",
+                      ),
+                    ),
+
+                    // Notification Icon (Full tap area)
+                    GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => NotificationMain(),
+                          ),
+                        );
+                      },
+                      child: IconBadge(
+                        notificationcount: "",
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+
+      // Container(
+                  //   padding: EdgeInsets.only(
+                  //     top: screenHeight * 0.055,
+                  //     left: screenWidth * 0.045,
+                  //     right: screenWidth * 0.02,
+                  //     bottom: screenWidth * 0.02,
+                  //   ),
+                  //   margin: EdgeInsets.only(
+                  //     right: screenHeight * 0.0,
+                  //     top: screenHeight * 0.01,
+                  //     bottom: screenHeight * 0.04,
+                  //     left: screenHeight * 0.0,
+                  //   ),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: [
+                  //       InkWell(
+                  //         onTap: () => Navigator.pop(context),
+                  //         child: Container(
+                  //           height: MediaQuery.of(context).size.height * 0.035,
+                  //           width: MediaQuery.of(context).size.height * 0.035,
+                  //           margin: EdgeInsets.only(
+                  //             left: MediaQuery.of(context).size.height * 0.00,
+                  //             top: MediaQuery.of(context).size.height * 0.00,
+                  //             right: MediaQuery.of(context).size.height * 0.02,
+                  //             bottom: MediaQuery.of(context).size.height * 0.00,
+                  //           ),
+                  //           decoration: BoxDecoration(
+                  //
+                  //             color: Color(0xFF126086).withOpacity(0.2),
+                  //
+                  //             shape: BoxShape.circle,
+                  //             border: Border.all(
+                  //                 width: 0.0, color: Color(0xFF126086)),
+                  //           ),
+                  //           child: ClipRRect(
+                  //             borderRadius: BorderRadius.circular(130.0),
+                  //             child: Image.asset(
+                  //               'assets/medicationBack.png',
+                  //               fit: BoxFit.fill,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //
+                  //       Padding(
+                  //         padding: EdgeInsets.only(left : MediaQuery.of(context).size.height * 0.00),
+                  //         child: Column(
+                  //           mainAxisAlignment: MainAxisAlignment.start,
+                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                  //           children: [
+                  //             Container(
+                  //               padding: EdgeInsets.only(
+                  //                 top:
+                  //                 MediaQuery.of(context).size.height * 0.00,
+                  //                 bottom:
+                  //                 MediaQuery.of(context).size.height * 0.00,
+                  //                 left:
+                  //                 MediaQuery.of(context).size.height * 0.00,
+                  //                 right:
+                  //                 MediaQuery.of(context).size.height * 0.00,
+                  //               ),
+                  //               child: Text(
+                  //                 usernameValue,
+                  //                 style: TextStyle(
+                  //                   fontSize:
+                  //                   MediaQuery.of(context).size.height *
+                  //                       0.018,
+                  //                   color: Colors.white,
+                  //                   fontWeight: FontWeight.bold,
+                  //                 ),
+                  //                 overflow: TextOverflow.ellipsis,
+                  //                 textAlign: TextAlign.left,
+                  //               ),
+                  //             ),
+                  //             GestureDetector(
+                  //               onTap: () {
+                  //
+                  //               },
+                  //               child:
+                  //               Row(
+                  //                 mainAxisAlignment: MainAxisAlignment.start,
+                  //                 // Align items to the start
+                  //                 children: [
+                  //                   Container(
+                  //                     padding: EdgeInsets.symmetric(
+                  //                       vertical: MediaQuery
+                  //                           .of(context)
+                  //                           .size
+                  //                           .height * 0.00,
+                  //                       horizontal: MediaQuery
+                  //                           .of(context)
+                  //                           .size
+                  //                           .height * 0.00,
+                  //                     ),
+                  //                     child: Text(
+                  //                       useraddressValue,
+                  //                       style: TextStyle(
+                  //                         overflow: TextOverflow.ellipsis,
+                  //                         fontSize: MediaQuery
+                  //                             .of(context)
+                  //                             .size
+                  //                             .height * 0.012,
+                  //                         color: Colors.white,
+                  //                       ),
+                  //                       textAlign: TextAlign.left,
+                  //                     ),
+                  //                   ),
+                  //
+                  //                   Icon(
+                  //                     Icons.keyboard_arrow_down,
+                  //                     // Downward pointing arrow
+                  //                     color: Colors.white,
+                  //                     size: MediaQuery
+                  //                         .of(context)
+                  //                         .size
+                  //                         .height * 0.02, // Responsive size
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //       // Action Bar 2nd half
+                  //       Expanded(
+                  //         child: Row(
+                  //           mainAxisAlignment: MainAxisAlignment.end,
+                  //           crossAxisAlignment: CrossAxisAlignment.center,
+                  //           children: [
+                  //
+                  //
+                  //             // Cart
+                  //             GestureDetector(
+                  //               onTap: () {
+                  //                 Navigator.of(context).push(
+                  //                   MaterialPageRoute(
+                  //                     builder:
+                  //                         (BuildContext context) {
+                  //                       return AddToCartMain();
+                  //                     },
+                  //                   ),
+                  //                 );
+                  //               },
+                  //               child:
+                  //               AppointmentIconBadge(
+                  //                 appointmentcount: "",
+                  //               ),
+                  //             ),
+                  //
+                  //             // Notification
+                  //             GestureDetector(
+                  //               onTap: () {
+                  //                 Navigator.of(context).push(
+                  //                   MaterialPageRoute(
+                  //                     builder:
+                  //                         (BuildContext context) {
+                  //                       return NotificationMain();
+                  //                     },
+                  //                   ),
+                  //                 );
+                  //               },
+                  //               child:
+                  //               IconBadge(
+                  //                 notificationcount: "",
+                  //               ),
+                  //             ),
+                  //
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
 
                   // Main Content Section
                   Expanded(
