@@ -9,6 +9,7 @@ import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Screens/Login/loginpage.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
 
+import '../Settings/changemobilenum.dart';
 import '../Settings/mpinreset.dart';
 
 class Registration extends StatefulWidget {
@@ -33,7 +34,7 @@ class Registrationstate extends State<Registration> {
   TextEditingController ConfirmPasswordTextController = TextEditingController();
 
   bool hidePassword = true;
-  bool checkedValue = false;
+  bool checkedValue = true;
   late ProgressDialog progressDialog;
   RegExp passwordRegExp = RegExp(
       r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$');
@@ -1543,42 +1544,42 @@ class Registrationstate extends State<Registration> {
                               // ),
                               Row(
                                 children: [
-                                  GestureDetector(
-                                    behavior: HitTestBehavior.translucent,
-                                    child: FlutterSwitch(
-                                      // width : MediaQuery.of(context).size.height * 0.025,
-                                      // height : MediaQuery.of(context).size.height * 0.015,
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              0.028,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.015,
-                                      value: checkedValue,
-                                      toggleSize: 10,
-                                      borderRadius: 20,
-                                      padding: 1,
-                                      activeColor: Color(0xFF00C5BB),
-                                      inactiveColor: Color(0xFFE4E7EC),
-                                      activeToggleColor: Colors.white,
-                                      inactiveToggleColor: Colors.white,
-                                      onToggle: (value) {
-                                        setState(() {
-                                          checkedValue =
-                                              value!; // Correct assignment
-                                        });
-                                      },
-                                      // activeIcon: Icon(
-                                      //   Icons.check ,
-                                      //   size: 10,
-                                      // ),
-                                      // inactiveIcon: Icon(
-                                      //   Icons.close,
-                                      //   size: 20,
-                                      //   color: Colors.deepPurple,
-                                      // ),
-                                    ),
-                                  ),
+                                  // GestureDetector(
+                                  //   behavior: HitTestBehavior.translucent,
+                                  //   child: FlutterSwitch(
+                                  //     // width : MediaQuery.of(context).size.height * 0.025,
+                                  //     // height : MediaQuery.of(context).size.height * 0.015,
+                                  //     width:
+                                  //         MediaQuery.of(context).size.height *
+                                  //             0.028,
+                                  //     height:
+                                  //         MediaQuery.of(context).size.height *
+                                  //             0.015,
+                                  //     value: checkedValue,
+                                  //     toggleSize: 10,
+                                  //     borderRadius: 20,
+                                  //     padding: 1,
+                                  //     activeColor: Color(0xFF00C5BB),
+                                  //     inactiveColor: Color(0xFFE4E7EC),
+                                  //     activeToggleColor: Colors.white,
+                                  //     inactiveToggleColor: Colors.white,
+                                  //     onToggle: (value) {
+                                  //       setState(() {
+                                  //         checkedValue =
+                                  //             value!; // Correct assignment
+                                  //       });
+                                  //     },
+                                  //     // activeIcon: Icon(
+                                  //     //   Icons.check ,
+                                  //     //   size: 10,
+                                  //     // ),
+                                  //     // inactiveIcon: Icon(
+                                  //     //   Icons.close,
+                                  //     //   size: 20,
+                                  //     //   color: Colors.deepPurple,
+                                  //     // ),
+                                  //   ),
+                                  // ),
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.04,
@@ -1647,10 +1648,10 @@ class Registrationstate extends State<Registration> {
                                 onTap: () async {
                                   // print('onTap: () async {');
                                   // validSignupSubmit();
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (context) => MpinResetSettings()),
-                                  );
-
+                                  // Navigator.of(context).push(
+                                  //   MaterialPageRoute(builder: (context) => MpinResetSettings()),
+                                  // );
+                                    validSignupSubmit();
                                 },
                                 child: Container(
                                     alignment: Alignment.centerRight,
@@ -1925,49 +1926,56 @@ class Registrationstate extends State<Registration> {
 
           progressDialog.show();
 
-          dynamic user = await apiService.submitregistration(
-              FirstNameEditTextController.text,
-              LastNameEditTextController.text,
-              MobileNummberEditTextController.text,
-              EmailEditTextController.text,
-              genderselectedval,
-              "Y",
-              base64Encode(utf8.encode(NewPasswordTextController.text)));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ChangeMobileNumber(mobileNumber:"9583817953"),
+            ),
+          );
 
-          print('user : $user');
-
-          if (user.message != null) {
-            print('if (user.message != null)');
-            progressDialog.hide();
-            final snackBar = SnackBar(
-              content: Text(user.message),
-              backgroundColor: Colors.red[600],
-            );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          } else if (user.response != null) {
-            progressDialog.hide();
-            final snackBar = SnackBar(
-              content: Text(user.response), backgroundColor: Colors.green[600],
-              duration: Duration(seconds: 2), // Set duration to 2 seconds
-            );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            Future.delayed(Duration(seconds: 3), () {
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (BuildContext context) => LoginPage(),
-                ),
-                (Route route) => false,
-              );
-            });
-          } else {
-            print('else');
-            progressDialog.hide();
-            final snackBar = SnackBar(
-                content: Text("API Services not working"),
-                backgroundColor: Colors.red[600]);
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            // customalert.showError(context, user.error);
-          }
+          // dynamic user = await apiService.submitregistration(
+          //     FirstNameEditTextController.text,
+          //     LastNameEditTextController.text,
+          //     MobileNummberEditTextController.text,
+          //     EmailEditTextController.text,
+          //     genderselectedval,
+          //     "Y",
+          //     base64Encode(utf8.encode(NewPasswordTextController.text)));
+          //
+          // print('user : $user');
+          //
+          // if (user.message != null) {
+          //   print('if (user.message != null)');
+          //   progressDialog.hide();
+          //   final snackBar = SnackBar(
+          //     content: Text(user.message),
+          //     backgroundColor: Colors.red[600],
+          //   );
+          //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          // } else if (user.response != null) {
+          //   progressDialog.hide();
+          //   final snackBar = SnackBar(
+          //     content: Text(user.response), backgroundColor: Colors.green[600],
+          //     duration: Duration(seconds: 2), // Set duration to 2 seconds
+          //   );
+          //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          //   Future.delayed(Duration(seconds: 3), () {
+          //     Navigator.of(context).pushAndRemoveUntil(
+          //       MaterialPageRoute(
+          //         builder: (BuildContext context) => LoginPage(),
+          //       ),
+          //       (Route route) => false,
+          //     );
+          //   });
+          // } else {
+          //   print('else');
+          //   progressDialog.hide();
+          //   final snackBar = SnackBar(
+          //       content: Text("API Services not working"),
+          //       backgroundColor: Colors.red[600]);
+          //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          //   // customalert.showError(context, user.error);
+          // }
         }
       } else {
         // No-Internet Case
