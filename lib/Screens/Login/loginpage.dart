@@ -38,8 +38,8 @@ class LoginPagestate extends State<LoginPage> {
     super.initState();
 
     setState(() {
-      // UserNumberEditTextController?.text = "babureddy921234567@gmail.com";
-      // PasswordEditTextController?.text = "Test@123456";
+      UserNumberEditTextController?.text = "babureddy921234567@gmail.com";
+      PasswordEditTextController?.text = "Test@123456";
     });
   }
 

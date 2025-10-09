@@ -1450,86 +1450,145 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
 
             GestureDetector(
               onTap: () async {
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (context) => MedicationMyBookingsMain(),
-                //   ),
-                // );
+                if (selectedSlot.isNotEmpty && slectedDateSlot.isNotEmpty) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => MedicationMyBookingsMain(
+                        selectedDate: slectedDateSlot,
+                        selectedTime: selectedSlot,
+                      ),
+                    ),
+                  );
+                }
               },
+              // child: Container(
+              //     alignment: Alignment.centerRight,
+              //     padding: EdgeInsets.only(
+              //         top: MediaQuery.of(context).size.height * 0.0,
+              //         bottom: MediaQuery.of(context).size.height * 0.00,
+              //         left: MediaQuery.of(context).size.height * 0.005,
+              //         right: MediaQuery.of(context).size.height * 0.005),
+              //     margin: EdgeInsets.only(
+              //         right: MediaQuery.of(context).size.height * 0.04,
+              //         top: MediaQuery.of(context).size.height * 0.01,
+              //         bottom: MediaQuery.of(context).size.height * 0.01,
+              //         left: MediaQuery.of(context).size.height * 0.04),
+              //     child: Row(
+              //         crossAxisAlignment: CrossAxisAlignment.start,
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: <Widget>[
+              //           Expanded(
+              //             child: Container(
+              //               decoration: BoxDecoration(
+              //                   borderRadius: BorderRadius.circular(
+              //                       MediaQuery.of(context).size.height * 0.012),
+              //                   gradient: LinearGradient(
+              //                       begin: Alignment.centerRight,
+              //                       end: Alignment.center,
+              //                       stops: [0.5, 0.9],
+              //                       colors: (selectedSlot.isNotEmpty &&
+              //                               slectedDateSlot.isNotEmpty)
+              //                           ? [
+              //                               Color(0xFF126086),
+              //                               Color(0xFF126086),
+              //                             ]
+              //                           : [
+              //                               Colors.grey.shade300,
+              //                               Colors.grey.shade300
+              //                             ]
+              //                   )
+              //               ),
+              //               alignment: Alignment.center,
+              //               padding: EdgeInsets.only(left: 0.0),
+              //               child: TextButton(
+              //                 onPressed: () async {
+              //                   if (selectedSlot.isNotEmpty &&
+              //                       slectedDateSlot.isNotEmpty) {
+              //                     Navigator.of(context).push(
+              //                       MaterialPageRoute(
+              //                         builder: (context) =>
+              //                             MedicationMyBookingsMain(
+              //                               selectedDate: slectedDateSlot,
+              //                               selectedTime: selectedSlot,
+              //                             ),
+              //                       ),
+              //                     );
+              //                   }
+              //                 },
+              //                 child: Text("Book Appointment",
+              //                     textAlign: TextAlign.center,
+              //                     style: TextStyle(
+              //                         color: Colors.white,
+              //                         fontSize:
+              //                             MediaQuery.of(context).size.height *
+              //                                 0.02)),
+              //                 style: TextButton.styleFrom(
+              //                   padding: EdgeInsets.symmetric(
+              //                       vertical: 9.0,
+              //                       horizontal: 12.0), // ← Adjust this
+              //                   minimumSize: Size(
+              //                       0, 0), // Removes minimum button constraints
+              //                   tapTargetSize: MaterialTapTargetSize
+              //                       .shrinkWrap, // Removes extra tap padding
+              //                 ),
+              //               ),
+              //             ),
+              //           ),
+              //         ])),
               child: Container(
-                  alignment: Alignment.centerRight,
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.0,
-                      bottom: MediaQuery.of(context).size.height * 0.00,
-                      left: MediaQuery.of(context).size.height * 0.005,
-                      right: MediaQuery.of(context).size.height * 0.005),
-                  margin: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.height * 0.04,
-                      top: MediaQuery.of(context).size.height * 0.01,
-                      bottom: MediaQuery.of(context).size.height * 0.01,
-                      left: MediaQuery.of(context).size.height * 0.04),
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.height * 0.012),
-                                gradient: LinearGradient(
-                                    begin: Alignment.centerRight,
-                                    end: Alignment.center,
-                                    stops: [0.5, 0.9],
-                                    colors: (selectedSlot.isNotEmpty &&
-                                            slectedDateSlot.isNotEmpty)
-                                        ? [
-                                            Color(0xFF126086),
-                                            Color(0xFF126086),
-                                          ]
-                                        : [
-                                            Colors.grey.shade300,
-                                            Colors.grey.shade300
-                                          ]
-                                )
-                            ),
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.only(left: 0.0),
-                            child: TextButton(
-                              onPressed: () async {
-                                if (selectedSlot.isNotEmpty &&
-                                    slectedDateSlot.isNotEmpty) {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          MedicationMyBookingsMain(
-                                            selectedDate: slectedDateSlot,
-                                            selectedTime: selectedSlot,
-                                          ),
-                                    ),
-                                  );
-                                }
-                              },
-                              child: Text("Book Appointment",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.02)),
-                              style: TextButton.styleFrom(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 9.0,
-                                    horizontal: 12.0), // ← Adjust this
-                                minimumSize: Size(
-                                    0, 0), // Removes minimum button constraints
-                                tapTargetSize: MaterialTapTargetSize
-                                    .shrinkWrap, // Removes extra tap padding
-                              ),
-                            ),
+                alignment: Alignment.centerRight,
+                padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.0,
+                  bottom: MediaQuery.of(context).size.height * 0.00,
+                  left: MediaQuery.of(context).size.height * 0.005,
+                  right: MediaQuery.of(context).size.height * 0.005,
+                ),
+                margin: EdgeInsets.only(
+                  right: MediaQuery.of(context).size.height * 0.04,
+                  top: MediaQuery.of(context).size.height * 0.01,
+                  bottom: MediaQuery.of(context).size.height * 0.01,
+                  left: MediaQuery.of(context).size.height * 0.04,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            MediaQuery.of(context).size.height * 0.012,
+                          ),
+                          gradient: LinearGradient(
+                            begin: Alignment.centerRight,
+                            end: Alignment.center,
+                            stops: [0.5, 0.9],
+                            colors: (selectedSlot.isNotEmpty && slectedDateSlot.isNotEmpty)
+                                ? [
+                              Color(0xFF126086),
+                              Color(0xFF126086),
+                            ]
+                                : [
+                              Colors.grey.shade300,
+                              Colors.grey.shade300,
+                            ],
                           ),
                         ),
-                      ])),
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(vertical: 9.0, horizontal: 12.0),
+                        child: Text(
+                          "Book Appointment",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: MediaQuery.of(context).size.height * 0.02,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),

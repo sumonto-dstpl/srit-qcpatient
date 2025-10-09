@@ -1851,66 +1851,78 @@ class AddToCartMainstate extends State<AddToCartMain> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             // Book Appointment
-            Container(
-                alignment: Alignment.centerRight,
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.01,
-                    bottom: MediaQuery.of(context).size.height * 0.00,
-                    left: MediaQuery.of(context).size.height * 0.00,
-                    right: MediaQuery.of(context).size.height * 0.00),
-                margin: EdgeInsets.only(
-                    right: MediaQuery.of(context).size.height * 0.04,
-                    top: MediaQuery.of(context).size.height * 0.01,
-                    bottom: MediaQuery.of(context).size.height * 0.01,
-                    left: MediaQuery.of(context).size.height * 0.04),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                  MediaQuery.of(context).size.height * 0.012),
-                              gradient: LinearGradient(
-                                  begin: Alignment.centerRight,
-                                  end: Alignment.center,
-                                  stops: [
-                                    0.5,
-                                    0.9
-                                  ],
-                                  colors: [
-                                    Color(0xFF126086),
-                                    Color(0xFF126086),
-                                  ])),
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.only(left: 0.0),
-                          child: TextButton(
-                            onPressed: () async {
-                              showPaymentmethodsBottomSheet();
-                            },
-                            child: Text("Next",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.018,
-                                  fontWeight: FontWeight.w600,
-                                )),
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 9.5,
-                                  horizontal: 12.0), // ← Adjust this
-                              minimumSize: Size(
-                                  0, 0), // Removes minimum button constraints
-                              tapTargetSize: MaterialTapTargetSize
-                                  .shrinkWrap, // Removes extra tap padding
-                            ),
-                          ),
+          Container(
+          alignment: Alignment.centerRight,
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.01,
+            bottom: MediaQuery.of(context).size.height * 0.00,
+            left: MediaQuery.of(context).size.height * 0.00,
+            right: MediaQuery.of(context).size.height * 0.00,
+          ),
+          margin: EdgeInsets.only(
+            right: MediaQuery.of(context).size.height * 0.04,
+            top: MediaQuery.of(context).size.height * 0.01,
+            bottom: MediaQuery.of(context).size.height * 0.01,
+            left: MediaQuery.of(context).size.height * 0.04,
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque, // ✅ makes the whole container tappable
+                  onTap: () async {
+                    showPaymentmethodsBottomSheet();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        MediaQuery.of(context).size.height * 0.012,
+                      ),
+                      gradient: LinearGradient(
+                        begin: Alignment.centerRight,
+                        end: Alignment.center,
+                        stops: [0.5, 0.9],
+                        colors: [
+                          Color(0xFF126086),
+                          Color(0xFF126086),
+                        ],
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(left: 0.0),
+                    child: TextButton(
+                      onPressed: () async {
+                        showPaymentmethodsBottomSheet();
+                      },
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 9.5,
+                          horizontal: 12.0,
+                        ),
+                        minimumSize: Size(0, 0),
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      child: Text(
+                        "Next",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize:
+                          MediaQuery.of(context).size.height * 0.018,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                    ])),
-          ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )
+
+        ],
         ),
       ),
     );
