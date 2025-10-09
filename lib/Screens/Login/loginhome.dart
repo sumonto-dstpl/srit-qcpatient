@@ -92,60 +92,102 @@ class LoginHome extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                     child: Column(
                       children: [
-                        // Login Button
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => LoginPage(),
-                            ));
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.only(
-                              left: screenHeight * 0.02,
-                              right: screenHeight * 0.02,
-                              top: screenHeight * 0.02,
-                              bottom: screenHeight * 0.008,
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(screenHeight * 0.012),
-                                gradient: LinearGradient(
-                                  begin: Alignment.centerRight,
-                                  end: Alignment.center,
-                                  stops: [0.5, 0.9],
-                                  colors: [
-                                    Color(0xFF126086),
-                                    Color(0xFF126086),
-                                  ],
-                                ),
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => LoginPage(),
-                                  ));
-                                },
-                                child: Text(
-                                  "Login",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: screenHeight * 0.017,
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: "Inter",
+                        // Login + Sign Up Buttons Row (same width as UHID button)
+                        Container(
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.only(
+                            top: screenHeight * 0.02,
+                            bottom: screenHeight * 0.008,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // Login Button
+                              Container(
+                                width: screenWidth * 0.38, // same width proportion as UHID button
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(screenHeight * 0.012),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.centerRight,
+                                    end: Alignment.center,
+                                    stops: [0.5, 0.9],
+                                    colors: [
+
+                                      Color(0xFF126086),
+                                      Color(0xFF126086)
+
+                                    ],
                                   ),
                                 ),
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(vertical: 11.0, horizontal: 130.0),
-                                  minimumSize: Size(0, 0),
-                                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => LoginPage(),
+                                    ));
+                                  },
+                                  child: Text(
+                                    "Login",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: screenHeight * 0.017,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: "Inter",
+                                    ),
+                                  ),
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.symmetric(vertical: 11.0),
+                                    minimumSize: Size(0, 0),
+                                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                  ),
                                 ),
                               ),
-                            ),
+
+                              SizedBox(width: screenWidth * 0.04), // spacing between buttons
+
+                              // Sign Up Button
+                              Container(
+                                width: screenWidth * 0.38, // same width as Login button
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(screenHeight * 0.012),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.centerRight,
+                                    end: Alignment.center,
+                                    stops: [0.5, 0.9],
+                                    colors: [
+                                      Color(0xFF126086),
+                                      Color(0xFF126086),
+                                    ],
+                                  ),
+                                ),
+                                child: TextButton(
+                                  onPressed: () {
+                                    // Navigator.of(context).push(MaterialPageRoute(
+                                    //   builder: (context) => SignUpPage(),
+                                    // ));
+                                  },
+                                  child: Text(
+                                    "Sign Up",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: screenHeight * 0.017,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: "Inter",
+                                    ),
+                                  ),
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.symmetric(vertical: 11.0),
+                                    minimumSize: Size(0, 0),
+                                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        // Registered Patient Button
+
+                        // Registered Patient Button (Login with UHID)
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
@@ -171,7 +213,7 @@ class LoginHome extends StatelessWidget {
                                 ));
                               },
                               child: Text(
-                                "Registered Patient",
+                                "Login with UHID",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color(0xFF126086),
@@ -188,6 +230,7 @@ class LoginHome extends StatelessWidget {
                             ),
                           ),
                         ),
+
                         // Continue as Guest
                         GestureDetector(
                           onTap: () async {
@@ -227,11 +270,13 @@ class LoginHome extends StatelessWidget {
                             ),
                           ),
                         ),
+
                         SizedBox(height: screenHeight * 0.03),
                       ],
                     ),
                   ),
-                ),
+                )
+
               ],
             ),
           ),
