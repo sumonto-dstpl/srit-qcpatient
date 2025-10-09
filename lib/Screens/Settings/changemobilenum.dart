@@ -1,5 +1,6 @@
 
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:another_flushbar/flushbar.dart';
@@ -16,9 +17,12 @@ import 'package:progress_dialog2/progress_dialog2.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ChangeMobileNumber extends StatefulWidget {
-  const ChangeMobileNumber({
-    super.key,
-  });
+  // const ChangeMobileNumber({
+  //   super.key,
+  // });
+  final String? mobileNumber; // Optional numbe
+
+  const ChangeMobileNumber({Key? key, this.mobileNumber}) : super(key: key);
   @override
   State<ChangeMobileNumber> createState() => ChangeMobileNumberstate();
 }
@@ -28,8 +32,8 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
   int _currentPage = 0;
   Successfulychangenum successnumchangedalert = new Successfulychangenum();
 
-  final PageController _pageController = PageController(initialPage: 0);
-
+  late PageController _pageController = PageController(initialPage: 1);
+  late final bool hasMobileNumber;
   ConnectivityService connectivityservice = ConnectivityService();
   APIService apiService = new APIService();
   late ProgressDialog progressDialog;
@@ -91,6 +95,16 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
       ReenterPassEditTextController?.text = "Pugazh@#123456";
     });*/
     super.initState();
+
+    hasMobileNumber = widget.mobileNumber != null && widget.mobileNumber!.isNotEmpty;
+    _pageController = PageController(
+      initialPage: hasMobileNumber ? 1 : 0,
+    );
+
+    if (hasMobileNumber) {
+      UserNumberEditTextController.text = widget.mobileNumber!;
+    }
+    // UserNumberEditTextController.text ="9583817953";
     pin2FocusNode = FocusNode();
     pin3FocusNode = FocusNode();
     pin4FocusNode = FocusNode();
@@ -246,7 +260,8 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
                     child: Center(
                       child: Text(
                         _currentPage == 0
-                            ? "Change Mobile Number"
+                            // ? "Change Mobile Number"
+                            ? "OTP Verification"
                             : _currentPage == 1
                             ? "Verification"
                             : "Verification",
@@ -311,155 +326,155 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
                       ),
 
                       // Page Indicator
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: _buildPageIndicator(),
-                      ),
-
-                      // Buttons for page navigation
-                      if (_currentPage == 0)
-                        GestureDetector(
-                          onTap: () async {
-
-                            // Fluttertoast.showToast(msg: "Clicked", toastLength: Toast.LENGTH_SHORT);
-                          },
-                          child: Container(
-                              alignment: Alignment.centerRight,
-                              padding: EdgeInsets.only(
-                                  top:
-                                  MediaQuery.of(context).size.height * 0.01,
-                                  bottom:
-                                  MediaQuery.of(context).size.height * 0.00,
-                                  left:
-                                  MediaQuery.of(context).size.height * 0.00,
-                                  right: MediaQuery.of(context).size.height *
-                                      0.00),
-                              margin: EdgeInsets.only(
-                                  right:
-                                  MediaQuery.of(context).size.height * 0.04,
-                                  top:
-                                  MediaQuery.of(context).size.height * 0.01,
-                                  bottom:
-                                  MediaQuery.of(context).size.height * 0.01,
-                                  left: MediaQuery.of(context).size.height *
-                                      0.04),
-                              child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.012),
-
-                                        // color: Color(0xFF126086),
-                                            color : _isButtonEnabled ? Color(0xFF126086) : Color(0xFFBDBDBD),
-                                        ),
-                                        alignment: Alignment.center,
-                                        padding: EdgeInsets.only(left: 0.0),
-                                        child: TextButton(
-                                          onPressed: () async {
-                                            _pageController.animateToPage(
-                                              1, // Go to the next page
-                                              duration:
-                                              Duration(milliseconds: 300),
-                                              curve: Curves.easeInOut,
-                                            );
-                                          },
-                                          child: Text("Send OTP",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.02)),
-                                          style: TextButton.styleFrom(
-                                            padding: EdgeInsets.symmetric(vertical: 11.0, horizontal: 12.0),  // Remove default button padding
-                                            minimumSize: Size(0, 0), // Allow smallest possible size
-                                            tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrink tap area
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ])),
-                        )
-                      else if (_currentPage == 1)
-                        GestureDetector(
-                          onTap: () async {
-
-                          },
-                          child: Container(
-                              alignment: Alignment.centerRight,
-                              padding: EdgeInsets.only(
-                                  top:
-                                  MediaQuery.of(context).size.height * 0.01,
-                                  bottom:
-                                  MediaQuery.of(context).size.height * 0.00,
-                                  left:
-                                  MediaQuery.of(context).size.height * 0.00,
-                                  right: MediaQuery.of(context).size.height *
-                                      0.00),
-                              margin: EdgeInsets.only(
-                                  right:
-                                  MediaQuery.of(context).size.height * 0.04,
-                                  top:
-                                  MediaQuery.of(context).size.height * 0.01,
-                                  bottom:
-                                  MediaQuery.of(context).size.height * 0.01,
-                                  left: MediaQuery.of(context).size.height *
-                                      0.04),
-                              child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(
-                                                MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.012),
-                                          color : Color(0xFFBDBDBD),
-                                            ),
-
-                                        alignment: Alignment.center,
-                                        padding: EdgeInsets.only(left: 0.0),
-                                        child: TextButton(
-                                          onPressed: () async {
-                                            // successnumchangedalert.showticket(
-                                            //   context,
-                                            // );
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(builder: (context) =>SuccessMessage())
-                                            );
-
-                                          },
-                                          child: Text("Reset Password",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.02)),
-                                          style: TextButton.styleFrom(
-                                            padding: EdgeInsets.symmetric(vertical: 11.0, horizontal: 12.0),  // Remove default button padding
-                                            minimumSize: Size(0, 0), // Allow smallest possible size
-                                            tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrink tap area
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ])),
-                        )
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: _buildPageIndicator(),
+                      // ),
+                      //
+                      // // Buttons for page navigation
+                      // if (_currentPage == 0)
+                      //   GestureDetector(
+                      //     onTap: () async {
+                      //
+                      //       // Fluttertoast.showToast(msg: "Clicked", toastLength: Toast.LENGTH_SHORT);
+                      //     },
+                      //     child: Container(
+                      //         alignment: Alignment.centerRight,
+                      //         padding: EdgeInsets.only(
+                      //             top:
+                      //             MediaQuery.of(context).size.height * 0.01,
+                      //             bottom:
+                      //             MediaQuery.of(context).size.height * 0.00,
+                      //             left:
+                      //             MediaQuery.of(context).size.height * 0.00,
+                      //             right: MediaQuery.of(context).size.height *
+                      //                 0.00),
+                      //         margin: EdgeInsets.only(
+                      //             right:
+                      //             MediaQuery.of(context).size.height * 0.04,
+                      //             top:
+                      //             MediaQuery.of(context).size.height * 0.01,
+                      //             bottom:
+                      //             MediaQuery.of(context).size.height * 0.01,
+                      //             left: MediaQuery.of(context).size.height *
+                      //                 0.04),
+                      //         child: Row(
+                      //             crossAxisAlignment: CrossAxisAlignment.start,
+                      //             mainAxisAlignment: MainAxisAlignment.center,
+                      //             children: <Widget>[
+                      //               Expanded(
+                      //                 child: Container(
+                      //                   decoration: BoxDecoration(
+                      //                     borderRadius: BorderRadius.circular(
+                      //                         MediaQuery.of(context)
+                      //                             .size
+                      //                             .height *
+                      //                             0.012),
+                      //
+                      //                   // color: Color(0xFF126086),
+                      //                       color : _isButtonEnabled ? Color(0xFF126086) : Color(0xFFBDBDBD),
+                      //                   ),
+                      //                   alignment: Alignment.center,
+                      //                   padding: EdgeInsets.only(left: 0.0),
+                      //                   child: TextButton(
+                      //                     onPressed: () async {
+                      //                       _pageController.animateToPage(
+                      //                         1, // Go to the next page
+                      //                         duration:
+                      //                         Duration(milliseconds: 300),
+                      //                         curve: Curves.easeInOut,
+                      //                       );
+                      //                     },
+                      //                     child: Text("Send OTP",
+                      //                         textAlign: TextAlign.center,
+                      //                         style: TextStyle(
+                      //                             color: Colors.white,
+                      //                             fontSize:
+                      //                             MediaQuery.of(context)
+                      //                                 .size
+                      //                                 .height *
+                      //                                 0.02)),
+                      //                     style: TextButton.styleFrom(
+                      //                       padding: EdgeInsets.symmetric(vertical: 11.0, horizontal: 12.0),  // Remove default button padding
+                      //                       minimumSize: Size(0, 0), // Allow smallest possible size
+                      //                       tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrink tap area
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ])),
+                      //   )
+                      // else if (_currentPage == 1)
+                      //   GestureDetector(
+                      //     onTap: () async {
+                      //
+                      //     },
+                      //     child: Container(
+                      //         alignment: Alignment.centerRight,
+                      //         padding: EdgeInsets.only(
+                      //             top:
+                      //             MediaQuery.of(context).size.height * 0.01,
+                      //             bottom:
+                      //             MediaQuery.of(context).size.height * 0.00,
+                      //             left:
+                      //             MediaQuery.of(context).size.height * 0.00,
+                      //             right: MediaQuery.of(context).size.height *
+                      //                 0.00),
+                      //         margin: EdgeInsets.only(
+                      //             right:
+                      //             MediaQuery.of(context).size.height * 0.04,
+                      //             top:
+                      //             MediaQuery.of(context).size.height * 0.01,
+                      //             bottom:
+                      //             MediaQuery.of(context).size.height * 0.01,
+                      //             left: MediaQuery.of(context).size.height *
+                      //                 0.04),
+                      //         child: Row(
+                      //             crossAxisAlignment: CrossAxisAlignment.start,
+                      //             mainAxisAlignment: MainAxisAlignment.center,
+                      //             children: <Widget>[
+                      //               Expanded(
+                      //                 child: Container(
+                      //                   decoration: BoxDecoration(
+                      //                       borderRadius: BorderRadius.circular(
+                      //                           MediaQuery.of(context)
+                      //                               .size
+                      //                               .height *
+                      //                               0.012),
+                      //                     color : Color(0xFFBDBDBD),
+                      //                       ),
+                      //
+                      //                   alignment: Alignment.center,
+                      //                   padding: EdgeInsets.only(left: 0.0),
+                      //                   child: TextButton(
+                      //                     onPressed: () async {
+                      //                       // successnumchangedalert.showticket(
+                      //                       //   context,
+                      //                       // );
+                      //                       Navigator.of(context).push(
+                      //                           MaterialPageRoute(builder: (context) =>SuccessMessage())
+                      //                       );
+                      //
+                      //                     },
+                      //                     child: Text("Reset Password",
+                      //                         textAlign: TextAlign.center,
+                      //                         style: TextStyle(
+                      //                             color: Colors.white,
+                      //                             fontSize:
+                      //                             MediaQuery.of(context)
+                      //                                 .size
+                      //                                 .height *
+                      //                                 0.02)),
+                      //                     style: TextButton.styleFrom(
+                      //                       padding: EdgeInsets.symmetric(vertical: 11.0, horizontal: 12.0),  // Remove default button padding
+                      //                       minimumSize: Size(0, 0), // Allow smallest possible size
+                      //                       tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrink tap area
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ])),
+                      //   )
 
                     ],
                   ),
@@ -656,24 +671,20 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
         children: <Widget>[
           Container(
 
-            child: Column(children: [
-              Text(
-                "Enter Verification Code",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.height * 0.025,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF1F1F1F),
+            child: Column(
+              children: [
+                Text(
+                  "Verification Code",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height * 0.025,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF1F1F1F),
+                  ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.only(
-                  top : MediaQuery.of(context).size.height * 0.005,
-                  left : MediaQuery.of(context).size.height * 0.12,
-                  right : MediaQuery.of(context).size.height * 0.12,
-                ),
-                child: Text(
-                  "We have sent the code verification to your mobile number",
+                SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                Text(
+                  "Please enter verification code sent to",
                   style: TextStyle(
                     height: 1.8,
                     fontSize: MediaQuery.of(context).size.height * 0.012,
@@ -682,318 +693,25 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-              ),
-            ]),
+                // Masked number display
+                UserNumberEditTextController.text.isNotEmpty
+                    ? Text(
+                  "+91 ******${UserNumberEditTextController.text.substring(UserNumberEditTextController.text.length - 4)}",
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height * 0.014,
+                    color: Color(0xFF1F1F1F),
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
+                )
+                    : SizedBox.shrink(), // shows nothing if empty
+              ],
+            ),
+
           ),
-          // Expanded(
-          //   flex: 1,
-          //   child: Container(
-          //     alignment: Alignment.centerRight,
-          //     padding: EdgeInsets.only(
-          //         top: MediaQuery.of(context).size.height * 0.0,
-          //         bottom: MediaQuery.of(context).size.height * 0.00,
-          //         left: MediaQuery.of(context).size.height * 0.00,
-          //         right: MediaQuery.of(context).size.height * 0.00),
-          //     margin: EdgeInsets.only(
-          //         right: MediaQuery.of(context).size.height * 0.02,
-          //         top: MediaQuery.of(context).size.height * 0.0,
-          //         bottom: MediaQuery.of(context).size.height * 0.0,
-          //         left: MediaQuery.of(context).size.height * 0.02),
-          //     child: Column(children: [
-          //       /* Padding(
-          //         padding: new EdgeInsets.only(
-          //             left: MediaQuery.of(context).size.height * 0.005,
-          //             right: MediaQuery.of(context).size.height * 0.0,
-          //             bottom: MediaQuery.of(context).size.height * 0.00),
-          //         child: Align(
-          //           alignment: Alignment.centerLeft,
-          //           child: Text(
-          //             "Enter OTP Value",
-          //             style: TextStyle(
-          //                 fontSize: MediaQuery.of(context).size.height * 0.018,
-          //                 color: Colors.black54,
-          //                 fontWeight: FontWeight.bold),
-          //             textAlign: TextAlign.start,
-          //           ),
-          //         ),
-          //       ),*/
-          //
-          //       Container(
-          //         padding: EdgeInsets.only(
-          //           top: MediaQuery.of(context).size.height * 0.00,
-          //           left: MediaQuery.of(context).size.height * 0.00,
-          //           right: MediaQuery.of(context).size.height * 0.00,
-          //         ),
-          //         child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           children: [
-          //
-          //
-          //             SizedBox(
-          //               width: SizeConfig.blockSizeHorizontal! * 11,
-          //               child: TextFormField(
-          //                 // autofocus: true,
-          //                 // obscureText: true,
-          //                 style: TextStyle(fontSize: MediaQuery.of(context).size.height * 0.034),
-          //                 controller: Otp1stdigitTextController,
-          //                 inputFormatters: [
-          //                   LengthLimitingTextInputFormatter(1),
-          //                   FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-          //                 ],
-          //                 keyboardType: TextInputType.number,
-          //                 textAlign: TextAlign.center,
-          //                 decoration: InputDecoration(
-          //                   isDense: true,
-          //                   contentPadding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.012),
-          //                   filled: false, // Remove background color
-          //                   hintText: '0', // Example hint text
-          //                   hintStyle: TextStyle(color: Colors.white70),
-          //                   focusedBorder: OutlineInputBorder(
-          //                     borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.015),
-          //                     borderSide: BorderSide(color: Colors.grey), // Set border color
-          //                   ),
-          //                   enabledBorder: OutlineInputBorder(
-          //                     borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.height * 0.015)),
-          //                     borderSide: BorderSide(color: Colors.grey[300]!), // Set border color
-          //                   ),
-          //                 ),
-          //                 onChanged: (value) {
-          //                   nextField(value, pin2FocusNode!);
-          //                 },
-          //               ),
-          //             ),
-          //
-          //
-          //             SizedBox(
-          //               width: SizeConfig.blockSizeHorizontal! * 11,
-          //               child: TextFormField(
-          //                 focusNode: pin2FocusNode,
-          //                 style: TextStyle(
-          //                   fontSize: MediaQuery.of(context).size.height * 0.034,
-          //                 ),
-          //                 controller: Otp2nddigitTextController,
-          //                 inputFormatters: [
-          //                   LengthLimitingTextInputFormatter(1),
-          //                   FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-          //                 ],
-          //                 keyboardType: TextInputType.number,
-          //                 textAlign: TextAlign.center,
-          //                 decoration: InputDecoration(
-          //                   isDense: true,
-          //                   contentPadding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.012),
-          //                   filled: false, // Remove background color
-          //                   hintStyle: TextStyle(color: Colors.white70),
-          //                   focusedBorder: OutlineInputBorder(
-          //                     borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.015),
-          //                     borderSide: BorderSide(color: Colors.grey), // Set border color to grey
-          //                   ),
-          //                   enabledBorder: OutlineInputBorder(
-          //                     borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.015),
-          //                     borderSide: BorderSide(color: Colors.grey[300]!), // Set border color to grey
-          //                   ),
-          //                 ),
-          //                 onChanged: (value) => nextField(value, pin3FocusNode!),
-          //               ),
-          //             ),
-          //
-          //
-          //
-          //             SizedBox(
-          //               width: SizeConfig.blockSizeHorizontal! * 11,
-          //               child: TextFormField(
-          //                 focusNode: pin3FocusNode,
-          //                 style: TextStyle(
-          //                   fontSize: MediaQuery.of(context).size.height * 0.034,
-          //                 ),
-          //                 controller: Otp3rddigitTextController,
-          //                 inputFormatters: [
-          //                   LengthLimitingTextInputFormatter(1),
-          //                   FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-          //                 ],
-          //                 keyboardType: TextInputType.number,
-          //                 textAlign: TextAlign.center,
-          //                 decoration: InputDecoration(
-          //                   isDense: true,
-          //                   contentPadding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.012),
-          //                   filled: false, // Remove background color
-          //                   hintStyle: TextStyle(color: Colors.white70),
-          //                   focusedBorder: OutlineInputBorder(
-          //                     borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.015),
-          //                     borderSide: BorderSide(color: Colors.grey), // Set border color to grey
-          //                   ),
-          //                   enabledBorder: OutlineInputBorder(
-          //                     borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.015),
-          //                     borderSide: BorderSide(color:Colors.grey[300]!), // Set border color to grey
-          //                   ),
-          //                 ),
-          //                 onChanged: (value) => nextField(value, pin4FocusNode!),
-          //               ),
-          //             ),
-          //
-          //
-          //             // 4
-          //             SizedBox(
-          //               width: SizeConfig.blockSizeHorizontal! * 11,
-          //               child: TextFormField(
-          //                 focusNode: pin4FocusNode,
-          //                 style: TextStyle(
-          //                   fontSize: MediaQuery.of(context).size.height * 0.034,
-          //                 ),
-          //                 controller: Otp4thdigitTextController,
-          //                 inputFormatters: [
-          //                   LengthLimitingTextInputFormatter(1),
-          //                   FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-          //                 ],
-          //                 keyboardType: TextInputType.number,
-          //                 textAlign: TextAlign.center,
-          //                 decoration: InputDecoration(
-          //                   isDense: true,
-          //                   contentPadding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.012),
-          //                   filled: false, // Remove background color
-          //                   hintStyle: TextStyle(color: Colors.white70),
-          //                   focusedBorder: OutlineInputBorder(
-          //                     borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.015),
-          //                     borderSide: BorderSide(color: Colors.grey), // Set border color to grey
-          //                   ),
-          //                   enabledBorder: OutlineInputBorder(
-          //                     borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.015),
-          //                     borderSide: BorderSide(color: Colors.grey[300]!), // Set border color to grey
-          //                   ),
-          //                 ),
-          //                 onChanged: (value) => nextField(value, pin5FocusNode!),
-          //               ),
-          //             ),
-          //
-          //
-          //             // 5
-          //             SizedBox(
-          //               width: SizeConfig.blockSizeHorizontal! * 11,
-          //               child: TextFormField(
-          //                 focusNode: pin5FocusNode,
-          //                 style: TextStyle(
-          //                   fontSize: MediaQuery.of(context).size.height * 0.034,
-          //                 ),
-          //                 controller: Otp5thdigitTextController,
-          //                 inputFormatters: [
-          //                   LengthLimitingTextInputFormatter(1),
-          //                   FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-          //                 ],
-          //                 keyboardType: TextInputType.number,
-          //                 textAlign: TextAlign.center,
-          //                 decoration: InputDecoration(
-          //                   isDense: true,
-          //                   contentPadding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.012),
-          //                   filled: false, // Remove background color
-          //                   hintStyle: TextStyle(color: Colors.white70),
-          //                   focusedBorder: OutlineInputBorder(
-          //                     borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.015),
-          //                     borderSide: BorderSide(color: Colors.grey), // Set border color to grey
-          //                   ),
-          //                   enabledBorder: OutlineInputBorder(
-          //                     borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.015),
-          //                     borderSide: BorderSide(color: Colors.grey[300]!), // Set border color to grey
-          //                   ),
-          //                 ),
-          //                 onChanged: (value) => nextField(value, pin6FocusNode!),
-          //               ),
-          //             ),
-          //
-          //
-          //             // for 6
-          //             SizedBox(
-          //               width: SizeConfig.blockSizeHorizontal! * 11,
-          //               child: TextFormField(
-          //                 focusNode: pin6FocusNode,
-          //                 style: TextStyle(
-          //                   fontSize: MediaQuery.of(context).size.height * 0.034,
-          //                 ),
-          //                 controller: Otp6thdigitTextController,
-          //                 inputFormatters: [
-          //                   LengthLimitingTextInputFormatter(1),
-          //                   FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-          //                 ],
-          //                 keyboardType: TextInputType.number,
-          //                 textAlign: TextAlign.center,
-          //                 decoration: InputDecoration(
-          //                   isDense: true,
-          //                   contentPadding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.012),
-          //                   filled: false, // Remove background color
-          //                   hintStyle: TextStyle(color: Colors.white70),
-          //                   focusedBorder: OutlineInputBorder(
-          //                     borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.015),
-          //                     borderSide: BorderSide(color: Colors.grey), // Set border color to grey
-          //                   ),
-          //                   enabledBorder: OutlineInputBorder(
-          //                     borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.015),
-          //                     borderSide: BorderSide(color: Colors.grey[300]!), // Set border color to grey
-          //                   ),
-          //                 ),
-          //                 onChanged: (value) {
-          //                   if (value.length == 1) {
-          //                     pin6FocusNode!.unfocus();
-          //                     // Then you need to check if the OTP code is correct
-          //                   }
-          //                 },
-          //               ),
-          //             ),
-          //
-          //           ],
-          //         ),
-          //       ),
-          //       Container(
-          //         padding: EdgeInsets.only(
-          //             left: MediaQuery.of(context).size.height * 0.00,
-          //             right: 0,
-          //             top: MediaQuery.of(context).size.height * 0.005,
-          //             bottom: MediaQuery.of(context).size.height * 0.010),
-          //         child: Row(
-          //             mainAxisSize: MainAxisSize.max,
-          //             mainAxisAlignment: MainAxisAlignment.center,
-          //             crossAxisAlignment: CrossAxisAlignment.center,
-          //             children: <Widget>[
-          //               Text(
-          //                 "Didn't get OTP?",
-          //                 style: TextStyle(
-          //                   fontSize:
-          //                   MediaQuery.of(context).size.height * 0.018,
-          //                   color: Colors.black87,
-          //                   // fontWeight: FontWeight.bold
-          //                 ),
-          //                 textAlign: TextAlign.start,
-          //               ),
-          //               GestureDetector(
-          //                 onTap: () {
-          //                 },
-          //                 child: Padding(
-          //                   padding: new EdgeInsets.only(
-          //                       top: MediaQuery.of(context).size.height * 0.0,
-          //                       left:
-          //                       MediaQuery.of(context).size.height * 0.010,
-          //                       right: MediaQuery.of(context).size.height * 0.0,
-          //                       bottom:
-          //                       MediaQuery.of(context).size.height * 0.0),
-          //                   child: Text(
-          //                     "Resend OTP",
-          //                     style: TextStyle(
-          //                       // decoration: TextDecoration.underline,
-          //                         decorationColor: Colors.blue[300],
-          //                         fontSize: MediaQuery.of(context).size.height *
-          //                             0.018,
-          //                         color: Color(0xFF126086),
-          //                         fontWeight: FontWeight.bold),
-          //                     textAlign: TextAlign.center,
-          //                   ),
-          //                 ),
-          //               ),
-          //             ]),
-          //       ),
-          //     ]),
-          //   ),
-          // ),
+
 
           Column(children: [
-
-
             Container(
               padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.025,
@@ -1293,56 +1011,7 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
                 ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.height * 0.00,
-                  right: 0,
-                  top: MediaQuery.of(context).size.height * 0.015,
-                  bottom: MediaQuery.of(context).size.height * 0.010),
-              child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "Didn't get OTP?",
-                      style: TextStyle(
-                          fontSize:
-                          MediaQuery.of(context).size.height * 0.012,
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w400
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        // validateSendOTP();
-                      },
-                      child: Padding(
-                        padding: new EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.0,
-                            left:
-                            MediaQuery.of(context).size.height * 0.004,
-                            right: MediaQuery.of(context).size.height * 0.0,
-                            bottom:
-                            MediaQuery.of(context).size.height * 0.0),
-                        child: Text(
-                          "Resend OTP",
-                          style: TextStyle(
-                            // decoration: TextDecoration.underline,
-                            decorationColor: Colors.blue[300],
-                            fontSize: MediaQuery.of(context).size.height *
-                                0.013,
-                            color: Color(0xFF126086),
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "Inter",
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ]),
-            ),
+            OtpResendWidget(),
           ]),
           Expanded(
             flex: 3,
@@ -1370,3 +1039,100 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
 
 
 }
+
+
+class OtpResendWidget extends StatefulWidget {
+  const OtpResendWidget({Key? key}) : super(key: key);
+
+  @override
+  _OtpResendWidgetState createState() => _OtpResendWidgetState();
+}
+
+class _OtpResendWidgetState extends State<OtpResendWidget> {
+  bool isCounting = false;
+  int remainingSeconds = 5;
+  Timer? _timer;
+
+  void startCountdown() {
+    setState(() {
+      isCounting = true;
+      remainingSeconds = 5;
+    });
+
+    _timer?.cancel();
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (remainingSeconds == 0) {
+        timer.cancel();
+        setState(() {
+          isCounting = false;
+        });
+      } else {
+        setState(() {
+          remainingSeconds--;
+        });
+      }
+    });
+  }
+
+  String formatTime(int seconds) {
+    int min = seconds ~/ 60;
+    int sec = seconds % 60;
+    String minStr = min.toString().padLeft(2, '0');
+    String secStr = sec.toString().padLeft(2, '0');
+    return "$minStr:$secStr";
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          isCounting ? "Waiting for OTP " : "Didn't get OTP? ",
+          style: TextStyle(
+            fontSize: MediaQuery.of(context).size.height * 0.012,
+            color: Colors.black87,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        isCounting
+            ? Text(
+          formatTime(remainingSeconds),
+          style: TextStyle(
+            fontSize: MediaQuery.of(context).size.height * 0.013,
+            color:  Color(0xFFC83532),
+            fontWeight: FontWeight.w600,
+            fontFamily: "Inter",
+            fontStyle: FontStyle.normal,
+            // fontWeight: FontWeight.w400,
+            height: 1.0,
+          ),
+        )
+            : GestureDetector(
+          onTap: startCountdown, // Call  your resend OTP API ere
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.height * 0.004,
+            ),
+            child: Text(
+              "Resend OTP",
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.height * 0.013,
+                color: Color(0xFF126086),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+

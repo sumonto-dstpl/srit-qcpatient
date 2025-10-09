@@ -5,7 +5,6 @@
 // import 'package:another_flushbar/flushbar.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
-import 'package:newfolder/Screens/Alerts/passsuccesssendback.dart';
 import 'package:newfolder/Screens/Settings/mpinmain.dart';
 import 'package:newfolder/Screens/Settings/sucesschangenum.dart';
 import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
@@ -1174,7 +1173,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                   height: SizeConfig.blockSizeHorizontal! * 12,
                                   child: TextFormField(
                                     focusNode: pin1FocusNode,
-
+                                    obscureText: true,
+                                    obscuringCharacter: '•',
                                     controller: Otp1stdigitTextController,
                                     inputFormatters: [
                                       LengthLimitingTextInputFormatter(1),
@@ -1250,7 +1250,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                 height: SizeConfig.blockSizeHorizontal! * 12,
                                 child: TextFormField(
                                   focusNode: pin2FocusNode,
-
+                                  obscureText: true,
+                                  obscuringCharacter: '•',
                                   controller: Otp2nddigitTextController,
                                   inputFormatters: [
                                     LengthLimitingTextInputFormatter(1),
@@ -1327,7 +1328,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                   height: SizeConfig.blockSizeHorizontal! * 12,
                                   child: TextFormField(
                                     focusNode: pin3FocusNode,
-
+                                    obscureText: true,
+                                    obscuringCharacter: '•',
                                     controller: Otp3rddigitTextController,
                                     inputFormatters: [
                                       LengthLimitingTextInputFormatter(1),
@@ -1403,7 +1405,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                   height: SizeConfig.blockSizeHorizontal! * 12,
                                   child: TextFormField(
                                     focusNode: pin4FocusNode,
-
+                                    obscureText: true,
+                                    obscuringCharacter: '•',
                                     controller: Otp4thdigitTextController,
                                     inputFormatters: [
                                       LengthLimitingTextInputFormatter(1),
@@ -1539,7 +1542,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                   height: SizeConfig.blockSizeHorizontal! * 12,
                                   child: TextFormField(
                                     focusNode: pin1FocusNode2,
-
+                                    obscureText: true,
+                                    obscuringCharacter: '•',
                                     controller: Otp1stdigitTextController2,
                                     inputFormatters: [
                                       LengthLimitingTextInputFormatter(1),
@@ -1615,7 +1619,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                   height: SizeConfig.blockSizeHorizontal! * 12,
                                   child: TextFormField(
                                     focusNode: pin2FocusNode2,
-
+                                    obscureText: true,
+                                    obscuringCharacter: '•',
                                     controller: Otp2nddigitTextController2,
                                     inputFormatters: [
                                       LengthLimitingTextInputFormatter(1),
@@ -1691,7 +1696,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                   height: SizeConfig.blockSizeHorizontal! * 12,
                                   child: TextFormField(
                                     focusNode: pin3FocusNode2,
-
+                                    obscureText: true,
+                                    obscuringCharacter: '•',
                                     controller: Otp3rddigitTextController2,
                                     inputFormatters: [
                                       LengthLimitingTextInputFormatter(1),
@@ -1767,7 +1773,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                   height: SizeConfig.blockSizeHorizontal! * 12,
                                   child: TextFormField(
                                     focusNode: pin4FocusNode2,
-
+                                    obscureText: true,
+                                    obscuringCharacter: '•',
                                     controller: Otp4thdigitTextController2,
                                     inputFormatters: [
                                       LengthLimitingTextInputFormatter(1),

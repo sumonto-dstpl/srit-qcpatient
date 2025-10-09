@@ -4,6 +4,8 @@ import 'package:newfolder/Screens/Login/loginpage.dart';
 import 'package:newfolder/Screens/Login/loginuhidpage.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 
+import '../Registeration/registeration.dart';
+
 class LoginHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -165,6 +167,16 @@ class LoginHome extends StatelessWidget {
                                     // Navigator.of(context).push(MaterialPageRoute(
                                     //   builder: (context) => SignUpPage(),
                                     // ));
+                                    Navigator.of(context)
+                                        .push(
+                                      MaterialPageRoute(
+                                        builder:
+                                            (BuildContext
+                                        context) {
+                                          return Registration();
+                                            },
+                                      ),
+                                    );
                                   },
                                   child: Text(
                                     "Sign Up",

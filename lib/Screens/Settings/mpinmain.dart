@@ -677,7 +677,8 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                                     height: SizeConfig.blockSizeHorizontal! * 12,
                                     child: TextFormField(
                                       focusNode: pin1FocusNode,
-
+                                      obscureText: true,
+                                      obscuringCharacter: '•',
                                       controller: Otp1stdigitTextController,
                                       inputFormatters: [
                                         LengthLimitingTextInputFormatter(1),
@@ -753,7 +754,8 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                                     height: SizeConfig.blockSizeHorizontal! * 12,
                                     child: TextFormField(
                                       focusNode: pin2FocusNode,
-
+                                      obscureText: true,
+                                      obscuringCharacter: '•',
                                       controller: Otp2nddigitTextController,
                                       inputFormatters: [
                                         LengthLimitingTextInputFormatter(1),
@@ -830,7 +832,8 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                                     height: SizeConfig.blockSizeHorizontal! * 12,
                                     child: TextFormField(
                                       focusNode: pin3FocusNode,
-
+                                      obscureText: true,
+                                      obscuringCharacter: '•',
                                       controller: Otp3rddigitTextController,
                                       inputFormatters: [
                                         LengthLimitingTextInputFormatter(1),
@@ -906,7 +909,8 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                                     height: SizeConfig.blockSizeHorizontal! * 12,
                                     child: TextFormField(
                                       focusNode: pin4FocusNode,
-
+                                      obscureText: true,
+                                      obscuringCharacter: '•',
                                       controller: Otp4thdigitTextController,
                                       inputFormatters: [
                                         LengthLimitingTextInputFormatter(1),
