@@ -134,7 +134,9 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   void _loadData() async {
     // await Future.delayed(const Duration(seconds: 2));// Simulating API call
     isGuestUser=await UserSecureStorage.getIfGuestLogged() == "YES";
-    usernameValue +=  isGuestUser ? "Guest01": "Priya Krishnamurty";
+    String? username =  await UserSecureStorage.getUsernameid();
+    Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
+    usernameValue +=  isGuestUser ? "Guest01": user?['data']['fname']+" "+user?['data']['lname'];
     setState(() {
       _isLoading = false;
     });
@@ -532,10 +534,18 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                 //     ),
                                 //   ),
                                 // ),
+                                isGuestUser?
                                 ProfileAvatar(
                                   name: "Guest User",
                                   imageUrl: null, // or provide an image URL
                                   radius: 30,
+                                )
+                                : ClipRRect(
+                                  borderRadius: BorderRadius.circular(130.0),
+                                  child: Image.asset(
+                                    'assets/drsujeet.png',
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
                               ),
                               )
@@ -4551,8 +4561,9 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
         }
         else if(preNRStatuscodevalforrefresh == "401") {
           if (mounted) {
-            final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
-            if (isLoggedIn == "YES") {
+            final isGuestLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+            final isUserLoggedIn = await UserSecureStorage.getIfLogged() ?? "NO";
+            if (isGuestLoggedIn == "YES" || isUserLoggedIn == "YES" ) {
 
             }else {
               customalert.showError(context);
@@ -4562,8 +4573,9 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
         }
         else if(preNRStatuscodevalforrefresh == "400") {
           if (mounted) {
-            final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
-            if (isLoggedIn == "YES") {
+            final isGuestLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+            final isUserLoggedIn = await UserSecureStorage.getIfLogged() ?? "NO";
+            if (isGuestLoggedIn == "YES" || isUserLoggedIn == "YES" ) {
 
             }else {
               customalert.showError(context);
@@ -4573,8 +4585,9 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
 
         else {
           if (mounted) {
-            final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
-            if (isLoggedIn == "YES") {
+            final isGuestLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+            final isUserLoggedIn = await UserSecureStorage.getIfLogged() ?? "NO";
+            if (isGuestLoggedIn == "YES" || isUserLoggedIn == "YES" ) {
 
             }else {
               customalert.showError(context);

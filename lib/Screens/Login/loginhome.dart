@@ -220,7 +220,7 @@ class LoginHome extends StatelessWidget {
                             ),
                             child: TextButton(
                               onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(
                                   builder: (context) => LoginUHIDPage(),
                                 ));
                               },

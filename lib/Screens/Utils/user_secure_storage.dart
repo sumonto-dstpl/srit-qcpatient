@@ -25,6 +25,8 @@ class UserSecureStorage {
   static const _keyCheckGuestlogin = 'IfGuestLoggedin';
   static const _keydashid = 'dashboardid';
   static const _keyIsFirstLaunchDone = 'isFirstLaunchDone';
+  static const _keyAllUsers = 'all_users';
+
 
   static Future<void> setIsFirstLaunchDone(String value) async =>
       await _storage.write(key: _keyIsFirstLaunchDone, value: value);
@@ -135,11 +137,11 @@ class UserSecureStorage {
   static Future<String?> getIfLogged() async =>
       await _storage.read(key: _keyChecklogin);
 
-  static Future setIfLoggedOut(String IfLoggedin) async =>
-      await _storage.write(key: _keyChecklogout, value: IfLoggedin);
-
-  static Future<String?> getIfLoggedOut() async =>
-      await _storage.read(key: _keyChecklogout);
+  // static Future setIfLoggedOut(String IfLoggedin) async =>
+  //     await _storage.write(key: _keyChecklogout, value: IfLoggedin);
+  //
+  // static Future<String?> getIfLoggedOut() async =>
+  //     await _storage.read(key: _keyChecklogout);
 
   static Future setIfGuestLogged(String IfGuestLoggedin) async =>
       await _storage.write(key: _keyCheckGuestlogin, value: IfGuestLoggedin);
@@ -152,4 +154,79 @@ class UserSecureStorage {
 
   static Future<String?> getdashboardid() async =>
       await _storage.read(key: _keydashid);
+
+  static Future<void> saveUser({
+    required String userId,
+    required String mpin,
+    required Map<String, String> userData,
+  }) async {
+    // Read existing users
+    String? jsonString = await _storage.read(key: _keyAllUsers);
+    Map<String, dynamic> allUsers = jsonString != null ? jsonDecode(jsonString) : {};
+
+    // Add/update this user
+    allUsers[userId] = {
+      "mpin": mpin,
+      "data": userData,
+    };
+
+    // Save back to storage
+    await _storage.write(key: _keyAllUsers, value: jsonEncode(allUsers));
+  }
+
+  static Future<Map<String, dynamic>?> getUser(String userId) async {
+    String? jsonString = await _storage.read(key: _keyAllUsers);
+    print("jsonString: $jsonString");
+    if (jsonString == null) return null;
+
+
+
+    Map<String, dynamic> allUsers = jsonDecode(jsonString);
+    print(allUsers[userId.trim()]);
+    if (!allUsers.containsKey(userId.trim())) return null;
+
+    return allUsers[userId.trim()]; // Returns {"mpin": "...", "data": {...}
+  }
+
+  static Future<bool> verifyUserMpin(String userId, String enteredMpin) async {
+    final user = await getUser(userId);
+    print("user: $user");
+    if (user == null) return false;
+    print("mpin: ${user['mpin']}");
+    return user['mpin'] == enteredMpin;
+  }
+
+  // Update MPIN for an existing user
+  static Future<void> updateUserMpin(String userId, String newMpin) async {
+    // Get existing user
+    Map<String, dynamic>? user = await getUser(userId);
+    if (user == null) {
+      print("User not found");
+      return;
+    }
+
+    // Update the mpin
+    user['mpin'] = newMpin;
+
+    // Save back to storage
+    String? allUsersJson = await _storage.read(key: _keyAllUsers);
+    Map<String, dynamic> allUsers = allUsersJson != null ? jsonDecode(allUsersJson) : {};
+    allUsers[userId] = user;
+
+    await _storage.write(key: _keyAllUsers, value: jsonEncode(allUsers));
+  }
+
+  static Future<void> clearAllExceptUsers() async {
+    final allKeys = await _storage.readAll();
+
+    for (final key in allKeys.keys) {
+      if (key != _keyAllUsers) {
+        await _storage.delete(key: key);
+      }
+    }
+  }
+
+
+
+
 }

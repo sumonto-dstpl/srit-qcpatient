@@ -14,6 +14,8 @@ import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
 
+import '../Settings/mpinmain.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({
     super.key,
@@ -37,10 +39,10 @@ class LoginPagestate extends State<LoginPage> {
   void initState() {
     super.initState();
 
-    setState(() {
-      UserNumberEditTextController?.text = "babureddy921234567@gmail.com";
-      PasswordEditTextController?.text = "Test@123456";
-    });
+    // setState(() {
+    //   UserNumberEditTextController?.text = "babureddy921234567@gmail.com";
+    //   PasswordEditTextController?.text = "Test@123456";
+    // });
   }
 
   String? errorMessage;
@@ -541,7 +543,7 @@ class LoginPagestate extends State<LoginPage> {
                                   child: Container(
                                       alignment: Alignment.centerRight,
                                       padding: EdgeInsets.only(
-                                          top: MediaQuery.of(context).size.height *
+                                            top: MediaQuery.of(context).size.height *
                                               0.01,
                                           bottom: MediaQuery.of(context)
                                                   .size
@@ -591,7 +593,7 @@ class LoginPagestate extends State<LoginPage> {
                                                 validateentriesatsubmit(
                                                     context);
                                               },
-                                              child: Text("Get OTP",
+                                              child: Text("Login",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Colors.white,
@@ -958,26 +960,38 @@ class LoginPagestate extends State<LoginPage> {
           return;
         }
 
-        if (isValid) {
+        // if (isValid) {
+          print("input: $input");
+          // Navigator.of(context).push(
+          //     MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber: input.substring(3)))
+          // );
+
+        // }
           /*  progressDialog.showMaterial(
               title: "Authenticating", message: "Please wait");*/
           // progressDialog.show();
 
+//   UserNumberEditTextController?.text = "babureddy921234567@gmail.com";
+        //   PasswordEditTextController?.text = "Test@123456";
           dynamic user = await apiService.submitlogin(
-              UserNumberEditTextController.text,
-              base64Encode(utf8.encode(PasswordEditTextController.text)));
+
+              "babureddy921234567@gmail.com",
+              base64Encode(utf8.encode("Test@123456")));
 
           if (user.accessToken != null) {
             // progressDialog.hide();
             await UserSecureStorage.setTokenvalue(user.accessToken);
             await UserSecureStorage.setRefreshTokenvalue(user.refreshToken);
-            await UserSecureStorage.setIfLogged("YES");
-            await UserSecureStorage.setIfLoggedOut("NO");
+            // await UserSecureStorage.setIfLogged("YES");
+            // await UserSecureStorage.setIfLoggedOut("NO");
             await UserSecureStorage.setIfGuestLogged("NO");
             // await UserSecureStorage.setIfLoggedOut("NO");
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => HomePageMain()),
-                (Route<dynamic> route) => false);
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber: input.substring(3)))
+            );
+            // Navigator.of(context).pushAndRemoveUntil(
+            //     MaterialPageRoute(builder: (context) => HomePageMain()),
+            //     (Route<dynamic> route) => false);
           } else if (user.message != null) {
             // progressDialog.hide();
 
@@ -993,7 +1007,6 @@ class LoginPagestate extends State<LoginPage> {
 
             // customalert.showError(context, user.error);
           }
-        }
       } else {
         // No-Internet Case
         final snackBar = SnackBar(
