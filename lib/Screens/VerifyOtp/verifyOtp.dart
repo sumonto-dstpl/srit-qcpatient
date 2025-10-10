@@ -81,6 +81,7 @@ class Mpinstate extends State<MpinResetSettings> {
 
 
   bool _isButtonEnabled = false;
+  bool _isLoading = false; // <-- add this to your state
 
   bool _digitMpin = false;
   bool _reEnterdigitMpin = false;
@@ -1096,90 +1097,296 @@ class Mpinstate extends State<MpinResetSettings> {
 
 
 
-                    Container(
-                      color: Colors.white, // Set the background color to white
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.04),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                // top : screenHeight * 0.01,
-                                left : screenHeight * 0.03,
-                                right : screenHeight * 0.03,
-                              ),
-                              child: Text(
-                                "Update Your MPIN Easily Via 'Accounts > Settings: Or Experience The Convenience Of Fingerprint Login For Enhanced Security.",
-                                style: TextStyle(
-                                  height: 1.8,
-                                  fontSize: screenHeight * 0.012,
-                                  color: Color(0xFF6A6E83),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-
-                            SizedBox(height: screenHeight * 0.015), // Spacing before the button
-
-                            GestureDetector(
-                              onTap: () {
-                                print('Tapped!');
-                                saveMpin();
-                              },
-                              child: Builder(
-                                builder: (context) {
-                                  final textScale = MediaQuery.of(context).textScaleFactor;
-                                  final double bottomMargin = screenHeight * 0.02 * textScale; // Adjust margin with font scale
-
-                                  return Container(
-                                    margin: EdgeInsets.only(bottom: bottomMargin),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(screenHeight * 0.012),
-                                              gradient: LinearGradient(
-                                                begin: Alignment.centerRight,
-                                                end: Alignment.center,
-                                                stops: [0.5, 0.9],
-                                                colors: _isButtonEnabled
-                                                    ? [
-                                                  Color(0xFF126086),
-                                                  Color(0xFF126086),
-                                                ]
-                                                    : [Colors.grey, Colors.grey],
-                                              ),
-                                            ),
-                                            alignment: Alignment.center,
-                                            child: TextButton(
-                                              onPressed: () async {
-                                                saveMpin();
-                                              },
-                                              child: Text(
-                                                "Set your MPIN",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: screenHeight * 0.018,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
+              Container(
+                color: Colors.white, // Set the background color to white
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.04),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: screenHeight * 0.03,
+                          right: screenHeight * 0.03,
+                        ),
+                        child: Text(
+                          "Update Your MPIN Easily Via 'Accounts > Settings: Or Experience The Convenience Of Fingerprint Login For Enhanced Security.",
+                          style: TextStyle(
+                            height: 1.8,
+                            fontSize: screenHeight * 0.012,
+                            color: Color(0xFF6A6E83),
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
-                    ),
+                      SizedBox(height: screenHeight * 0.015), // Spacing before the button
+                      GestureDetector(
+                        onTap: () {
+                          if (_isLoading) return; // prevent multiple taps
+                          setState(() => _isLoading = true);
+
+                          saveMpin(); // run your async function
+                          Future.delayed(Duration(milliseconds: 500), () {
+                            connectivityservice.checkconnectivity().then((intenet) async {
+                              setState(() => _isLoading = false); // Hide loader after actions
+                            });
+                          });
+                        },
+                        child: Builder(
+                          builder: (context) {
+                            final textScale = MediaQuery.of(context).textScaleFactor;
+                            final double bottomMargin =
+                                screenHeight * 0.02 * textScale; // Adjust margin with font scale
+
+                            return Container(
+                              margin: EdgeInsets.only(bottom: bottomMargin),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(screenHeight * 0.012),
+                                        gradient: LinearGradient(
+                                          begin: Alignment.centerRight,
+                                          end: Alignment.center,
+                                          stops: [0.5, 0.9],
+                                          colors: _isButtonEnabled
+                                              ? [Color(0xFF126086), Color(0xFF126086)]
+                                              : [Colors.grey, Colors.grey],
+                                        ),
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: TextButton(
+                                        onPressed: () {
+                                          if (_isLoading) return;
+                                          setState(() => _isLoading = true);
+
+                                          saveMpin();
+
+                                          Future.delayed(Duration(milliseconds: 500), () {
+                                            connectivityservice.checkconnectivity().then((intenet) async {
+                                              setState(() => _isLoading = false);
+                                            });
+                                          });
+                                        },
+                                        style: TextButton.styleFrom(
+                                          padding: EdgeInsets.symmetric(vertical: 9.5, horizontal: 12.0), // SAME AS ORIGINAL
+                                          minimumSize: Size(double.infinity, screenHeight * 0.06), // FIXED HEIGHT
+                                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              width: screenHeight * 0.022, // reserve space for loader
+                                              height: screenHeight * 0.022,
+                                              margin: EdgeInsets.only(right: screenHeight * 0.008),
+                                              child: _isLoading
+                                                  ? CircularProgressIndicator(
+                                                strokeWidth: 2.0,
+                                                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                              )
+                                                  : SizedBox.shrink(),
+                                            ),
+                                            Text(
+                                              "Set your MPIN",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: screenHeight * 0.018,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+
+
+              //         Container(
+            //           color: Colors.white, // Set the background color to white
+            //           child: Padding(
+            //             padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.04),
+            //             child: Column(
+            //               children: [
+            //                 Padding(
+            //                   padding: EdgeInsets.only(
+            //                     // top : screenHeight * 0.01,
+            //                     left : screenHeight * 0.03,
+            //                     right : screenHeight * 0.03,
+            //                   ),
+            //                   child: Text(
+            //                     "Update Your MPIN Easily Via 'Accounts > Settings: Or Experience The Convenience Of Fingerprint Login For Enhanced Security.",
+            //                     style: TextStyle(
+            //                       height: 1.8,
+            //                       fontSize: screenHeight * 0.012,
+            //                       color: Color(0xFF6A6E83),
+            //                       fontWeight: FontWeight.w500,
+            //                     ),
+            //                     textAlign: TextAlign.center,
+            //                   ),
+            //                 ),
+            //
+            //                 SizedBox(height: screenHeight * 0.015), // Spacing before the button
+            //
+            //
+            //             GestureDetector(
+            //             onTap: () async {
+            // if (_isLoading) return; // prevent multiple taps
+            // setState(() => _isLoading = true);
+            //
+            // saveMpin(); // run your async function
+            // Future.delayed(Duration(milliseconds: 500), () {
+            //   connectivityservice.checkconnectivity().then((intenet) async {
+            //     setState(() => _isLoading = false); // Hide loader after actions
+            //   });
+            // });
+            // },
+            //   child: Builder(
+            //     builder: (context) {
+            //       final textScale = MediaQuery.of(context).textScaleFactor;
+            //       final double bottomMargin =
+            //           screenHeight * 0.02 * textScale; // Adjust margin with font scale
+            //
+            //       return Container(
+            //         margin: EdgeInsets.only(bottom: bottomMargin),
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           children: <Widget>[
+            //             Expanded(
+            //               child: Container(
+            //                 decoration: BoxDecoration(
+            //                   borderRadius: BorderRadius.circular(screenHeight * 0.012),
+            //                   gradient: LinearGradient(
+            //                     begin: Alignment.centerRight,
+            //                     end: Alignment.center,
+            //                     stops: [0.5, 0.9],
+            //                     colors: _isButtonEnabled
+            //                         ? [Color(0xFF126086), Color(0xFF126086)]
+            //                         : [Colors.grey, Colors.grey],
+            //                   ),
+            //                 ),
+            //                 alignment: Alignment.center,
+            //                 child: TextButton(
+            //                   onPressed: () {
+            //                     if (_isLoading) return;
+            //                     setState(() => _isLoading = true);
+            //
+            //                     saveMpin();
+            //
+            //                     Future.delayed(Duration(milliseconds: 500), () {
+            //                       connectivityservice.checkconnectivity().then((intenet) async {
+            //                         setState(() => _isLoading = false);
+            //                       });
+            //                     });
+            //                   },
+            //                   child: Row(
+            //                     mainAxisAlignment: MainAxisAlignment.center,
+            //                     mainAxisSize: MainAxisSize.min,
+            //                     children: [
+            //                       // Loader (only shows when loading)
+            //                       if (_isLoading) ...[
+            //                         SizedBox(
+            //                           height: screenHeight * 0.022,
+            //                           width: screenHeight * 0.022,
+            //                           child: CircularProgressIndicator(
+            //                             color: Colors.white,
+            //                             strokeWidth: 2.2,
+            //                           ),
+            //                         ),
+            //                         SizedBox(width: screenHeight * 0.008),
+            //                       ],
+            //                       Text(
+            //                         "Set your MPIN",
+            //                         textAlign: TextAlign.center,
+            //                         style: TextStyle(
+            //                           color: Colors.white,
+            //                           fontSize: screenHeight * 0.018,
+            //                           fontWeight: FontWeight.w700,
+            //                         ),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // )
+            //
+            // // GestureDetector(
+            //                 //   onTap: () {
+            //                 //     print('Tapped!');
+            //                 //     saveMpin();
+            //                 //   },
+            //                 //   child: Builder(
+            //                 //     builder: (context) {
+            //                 //       final textScale = MediaQuery.of(context).textScaleFactor;
+            //                 //       final double bottomMargin = screenHeight * 0.02 * textScale; // Adjust margin with font scale
+            //                 //
+            //                 //       return Container(
+            //                 //         margin: EdgeInsets.only(bottom: bottomMargin),
+            //                 //         child: Row(
+            //                 //           mainAxisAlignment: MainAxisAlignment.center,
+            //                 //           children: <Widget>[
+            //                 //             Expanded(
+            //                 //               child: Container(
+            //                 //                 decoration: BoxDecoration(
+            //                 //                   borderRadius: BorderRadius.circular(screenHeight * 0.012),
+            //                 //                   gradient: LinearGradient(
+            //                 //                     begin: Alignment.centerRight,
+            //                 //                     end: Alignment.center,
+            //                 //                     stops: [0.5, 0.9],
+            //                 //                     colors: _isButtonEnabled
+            //                 //                         ? [
+            //                 //                       Color(0xFF126086),
+            //                 //                       Color(0xFF126086),
+            //                 //                     ]
+            //                 //                         : [Colors.grey, Colors.grey],
+            //                 //                   ),
+            //                 //                 ),
+            //                 //                 alignment: Alignment.center,
+            //                 //                 child: TextButton(
+            //                 //                   onPressed: () async {
+            //                 //                     saveMpin();
+            //                 //                   },
+            //                 //                   child: Text(
+            //                 //                     "Set your MPIN",
+            //                 //                     textAlign: TextAlign.center,
+            //                 //                     style: TextStyle(
+            //                 //                       color: Colors.white,
+            //                 //                       fontSize: screenHeight * 0.018,
+            //                 //                       fontWeight: FontWeight.w700,
+            //                 //                     ),
+            //                 //                   ),
+            //                 //                 ),
+            //                 //               ),
+            //                 //             ),
+            //                 //           ],
+            //                 //         ),
+            //                 //       );
+            //                 //     },
+            //                 //   ),
+            //                 // ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
 
 
 

@@ -74,10 +74,12 @@ void main() async {
   bool isEnabled = value == 'true';
 
   final isFirstLaunch = await UserSecureStorage.getIsFirstLaunchDone() ?? "NO";
+
+  final String? isUserId = await UserSecureStorage.getUsernameid();
   Widget initialScreen;
-  if (isEnabled) {
-    // initialScreen = AccessScreen();
-    initialScreen = LoginPage();
+  if (isEnabled && isUserId!= null && isUserId.isNotEmpty) {
+    initialScreen = AccessScreen();
+    // initialScreen = LoginPage();
   } else if (isFirstLaunch != "YES") {
     await UserSecureStorage.setIsFirstLaunchDone("YES");
     initialScreen = SplashLogoScreen(); // with GIF

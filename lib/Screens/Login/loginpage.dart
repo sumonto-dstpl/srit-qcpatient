@@ -10,10 +10,11 @@ import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/OnBoarding/onboarding_screen.dart';
 import 'package:newfolder/Screens/Registeration/registeration.dart';
+// import 'package:newfolder/Screens/Settings/mpinreset.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
-
+import '../VerifyOtp/verifyOtp.dart';
 import '../Settings/mpinmain.dart';
 
 class LoginPage extends StatefulWidget {
@@ -986,9 +987,24 @@ class LoginPagestate extends State<LoginPage> {
             // await UserSecureStorage.setIfLoggedOut("NO");
             await UserSecureStorage.setIfGuestLogged("NO");
             // await UserSecureStorage.setIfLoggedOut("NO");
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber: input.substring(3)))
-            );
+
+            // String? username =  await UserSecureStorage.getUsernameid();
+            Map<String, dynamic>? userData = await UserSecureStorage.getUser(input.substring(3).trim());
+            String? mpin = userData?['mpin'];
+
+            if(mpin!.isEmpty)
+              {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => MpinResetSettings(mobileNumber: input.substring(3)))
+                );
+              }
+            else{
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber: input.substring(3)))
+              );
+            }
+
+
             // Navigator.of(context).pushAndRemoveUntil(
             //     MaterialPageRoute(builder: (context) => HomePageMain()),
             //     (Route<dynamic> route) => false);
