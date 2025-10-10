@@ -417,15 +417,24 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
   void initState() {
 
     super.initState();
-    hasMobileNumber = widget.mobileNumber != null && widget.mobileNumber!.isNotEmpty;
-    if (hasMobileNumber) {
-      mobileNumber = widget.mobileNumber!;
-    }
+    getMobile();
     pin1FocusNode = FocusNode();
     pin2FocusNode = FocusNode();
     pin3FocusNode = FocusNode();
     pin4FocusNode = FocusNode();
 
+  }
+
+
+  void getMobile() async{
+    hasMobileNumber = widget.mobileNumber != null && widget.mobileNumber!.isNotEmpty;
+    if (hasMobileNumber) {
+      mobileNumber = widget.mobileNumber!;
+    }
+    else
+    {
+      mobileNumber = (await UserSecureStorage.getUsernameid())!;
+    }
   }
 
   @override
