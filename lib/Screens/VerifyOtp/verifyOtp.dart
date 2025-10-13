@@ -1,3 +1,4 @@
+import 'package:newfolder/Screens/Alerts/registrationsuccess.dart';
 import 'package:newfolder/Screens/Settings/mpinmain.dart';
 import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
@@ -419,6 +420,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                   height: SizeConfig.blockSizeHorizontal! * 12,
                                   child: TextFormField(
                                     focusNode: pin1FocusNode,
+                                    obscureText: true,
+                                    obscuringCharacter: '•',
 
                                     controller: Otp1stdigitTextController,
                                     inputFormatters: [
@@ -495,6 +498,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                   height: SizeConfig.blockSizeHorizontal! * 12,
                                   child: TextFormField(
                                     focusNode: pin2FocusNode,
+                                    obscureText: true,
+                                    obscuringCharacter: '•',
 
                                     controller: Otp2nddigitTextController,
                                     inputFormatters: [
@@ -572,6 +577,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                   height: SizeConfig.blockSizeHorizontal! * 12,
                                   child: TextFormField(
                                     focusNode: pin3FocusNode,
+                                    obscureText: true,
+                                    obscuringCharacter: '•',
 
                                     controller: Otp3rddigitTextController,
                                     inputFormatters: [
@@ -648,6 +655,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                   height: SizeConfig.blockSizeHorizontal! * 12,
                                   child: TextFormField(
                                     focusNode: pin4FocusNode,
+                                    obscureText: true,
+                                    obscuringCharacter: '•',
 
                                     controller: Otp4thdigitTextController,
                                     inputFormatters: [
@@ -784,6 +793,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                   height: SizeConfig.blockSizeHorizontal! * 12,
                                   child: TextFormField(
                                     focusNode: pin1FocusNode2,
+                                    obscureText: true,
+                                    obscuringCharacter: '•',
 
                                     controller: Otp1stdigitTextController2,
                                     inputFormatters: [
@@ -860,6 +871,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                   height: SizeConfig.blockSizeHorizontal! * 12,
                                   child: TextFormField(
                                     focusNode: pin2FocusNode2,
+                                    obscureText: true,
+                                    obscuringCharacter: '•',
 
                                     controller: Otp2nddigitTextController2,
                                     inputFormatters: [
@@ -936,6 +949,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                   height: SizeConfig.blockSizeHorizontal! * 12,
                                   child: TextFormField(
                                     focusNode: pin3FocusNode2,
+                                    obscureText: true,
+                                    obscuringCharacter: '•',
 
                                     controller: Otp3rddigitTextController2,
                                     inputFormatters: [
@@ -1012,6 +1027,8 @@ class Mpinstate extends State<MpinResetSettings> {
                                   height: SizeConfig.blockSizeHorizontal! * 12,
                                   child: TextFormField(
                                     focusNode: pin4FocusNode2,
+                                    obscureText: true,
+                                    obscuringCharacter: '•',
 
                                     controller: Otp4thdigitTextController2,
                                     inputFormatters: [
@@ -1097,125 +1114,119 @@ class Mpinstate extends State<MpinResetSettings> {
 
 
 
-              Container(
-                color: Colors.white, // Set the background color to white
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.04),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: screenHeight * 0.03,
-                          right: screenHeight * 0.03,
-                        ),
-                        child: Text(
-                          "Update Your MPIN Easily Via 'Accounts > Settings: Or Experience The Convenience Of Fingerprint Login For Enhanced Security.",
-                          style: TextStyle(
-                            height: 1.8,
-                            fontSize: screenHeight * 0.012,
-                            color: Color(0xFF6A6E83),
-                            fontWeight: FontWeight.w500,
-                          ),
-                          textAlign: TextAlign.center,
+                    Container(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.04),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: screenHeight * 0.03,
+                                right: screenHeight * 0.03,
+                              ),
+                              child: Text(
+                                "Update Your MPIN Easily Via 'Accounts > Settings: Or Experience The Convenience Of Fingerprint Login For Enhanced Security.",
+                                style: TextStyle(
+                                  height: 1.8,
+                                  fontSize: screenHeight * 0.012,
+                                  color: Color(0xFF6A6E83),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            SizedBox(height: screenHeight * 0.015),
+
+                            // 🔹 Main Button Section
+                            Builder(
+                              builder: (context) {
+                                final textScale = MediaQuery.of(context).textScaleFactor;
+                                final double bottomMargin = screenHeight * 0.02 * textScale;
+
+                                return Container(
+                                  margin: EdgeInsets.only(bottom: bottomMargin),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(screenHeight * 0.012),
+                                            gradient: LinearGradient(
+                                              begin: Alignment.centerRight,
+                                              end: Alignment.center,
+                                              stops: [0.5, 0.9],
+                                              colors: _isButtonEnabled
+                                                  ? [Color(0xFF126086), Color(0xFF126086)]
+                                                  : [Colors.grey, Colors.grey],
+                                            ),
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: TextButton(
+                                            onPressed: _isButtonEnabled
+                                                ? () {
+                                              if (_isLoading) return;
+                                              setState(() => _isLoading = true);
+
+                                              saveMpin();
+
+                                              Future.delayed(Duration(milliseconds: 500), () {
+                                                connectivityservice.checkconnectivity().then((intenet) async {
+                                                  setState(() => _isLoading = false);
+
+                                                  // ✅ Only show modal when MPIN is successfully set
+                                                  RegistrationSuccessModel().showModel(context);
+                                                });
+                                              });
+                                            }
+                                                : null, // Disabled when _isButtonEnabled == false
+                                            style: TextButton.styleFrom(
+                                              padding: EdgeInsets.symmetric(vertical: 9.5, horizontal: 12.0),
+                                              minimumSize: Size(double.infinity, screenHeight * 0.06),
+                                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: screenHeight * 0.022,
+                                                  height: screenHeight * 0.022,
+                                                  margin: EdgeInsets.only(right: screenHeight * 0.008),
+                                                  child: _isLoading
+                                                      ? CircularProgressIndicator(
+                                                    strokeWidth: 2.0,
+                                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                                  )
+                                                      : SizedBox.shrink(),
+                                                ),
+                                                Text(
+                                                  "Set your MPIN",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: screenHeight * 0.018,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(height: screenHeight * 0.015), // Spacing before the button
-                      GestureDetector(
-                        onTap: () {
-                          if (_isLoading) return; // prevent multiple taps
-                          setState(() => _isLoading = true);
-
-                          saveMpin(); // run your async function
-                          Future.delayed(Duration(milliseconds: 500), () {
-                            connectivityservice.checkconnectivity().then((intenet) async {
-                              setState(() => _isLoading = false); // Hide loader after actions
-                            });
-                          });
-                        },
-                        child: Builder(
-                          builder: (context) {
-                            final textScale = MediaQuery.of(context).textScaleFactor;
-                            final double bottomMargin =
-                                screenHeight * 0.02 * textScale; // Adjust margin with font scale
-
-                            return Container(
-                              margin: EdgeInsets.only(bottom: bottomMargin),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(screenHeight * 0.012),
-                                        gradient: LinearGradient(
-                                          begin: Alignment.centerRight,
-                                          end: Alignment.center,
-                                          stops: [0.5, 0.9],
-                                          colors: _isButtonEnabled
-                                              ? [Color(0xFF126086), Color(0xFF126086)]
-                                              : [Colors.grey, Colors.grey],
-                                        ),
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: TextButton(
-                                        onPressed: () {
-                                          if (_isLoading) return;
-                                          setState(() => _isLoading = true);
-
-                                          saveMpin();
-
-                                          Future.delayed(Duration(milliseconds: 500), () {
-                                            connectivityservice.checkconnectivity().then((intenet) async {
-                                              setState(() => _isLoading = false);
-                                            });
-                                          });
-                                        },
-                                        style: TextButton.styleFrom(
-                                          padding: EdgeInsets.symmetric(vertical: 9.5, horizontal: 12.0), // SAME AS ORIGINAL
-                                          minimumSize: Size(double.infinity, screenHeight * 0.06), // FIXED HEIGHT
-                                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: screenHeight * 0.022, // reserve space for loader
-                                              height: screenHeight * 0.022,
-                                              margin: EdgeInsets.only(right: screenHeight * 0.008),
-                                              child: _isLoading
-                                                  ? CircularProgressIndicator(
-                                                strokeWidth: 2.0,
-                                                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                              )
-                                                  : SizedBox.shrink(),
-                                            ),
-                                            Text(
-                                              "Set your MPIN",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: screenHeight * 0.018,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              )
+                    )
 
 
-              //         Container(
+
+                    //         Container(
             //           color: Colors.white, // Set the background color to white
             //           child: Padding(
             //             padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.04),
@@ -1582,11 +1593,11 @@ class Mpinstate extends State<MpinResetSettings> {
             });
           }
           else{
-            Timer(Duration(seconds: 1), () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber:mobileNumber))
-              );
-            });
+            // Timer(Duration(seconds: 1), () {
+            //   Navigator.of(context).push(
+            //       MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber:mobileNumber))
+            //   );
+            // });
           }
 
 

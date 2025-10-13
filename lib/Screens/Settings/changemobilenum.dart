@@ -726,65 +726,135 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
                 left: MediaQuery.of(context).size.height * 0.05,
                 right: MediaQuery.of(context).size.height * 0.05,
               ),
-              child: Row(
+              child:
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(6, (index) {
-                return SizedBox(
-                width: SizeConfig.blockSizeHorizontal! * 9,
-                height: SizeConfig.blockSizeHorizontal! * 12,
-                child: TextFormField(
-                controller: otpControllers[index],
-                focusNode: focusNodes[index],
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                inputFormatters: [
-                LengthLimitingTextInputFormatter(1),
-                FilteringTextInputFormatter.digitsOnly,
-                ],
-                style: TextStyle(
-                fontSize: MediaQuery.of(context).size.height * 0.034,
-                ),
-                decoration: InputDecoration(
-                isDense: true,
-                contentPadding: EdgeInsets.fromLTRB(
-                MediaQuery.of(context).size.height * 0.01,
-                0,
-                MediaQuery.of(context).size.height * 0.01,
-                0,
-                ),
-                filled: false,
-                hintStyle: TextStyle(color: Colors.white70),
-                focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
-                // borderSide: const BorderSide(color: Color(0xFFF1F1F1)),
-                  borderSide: BorderSide(color: isError[index] ? Colors.red : Color(0xFFF1F1F1)),
-                ),
-                enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
-                // borderSide: const BorderSide(color: Color(0xFF16B812)),
-                  borderSide: BorderSide(color: isError[index] ? Colors.red : Color(0xFFF1F1F1)),
-                ),
-                ),
-                onChanged: (value) {
-                // Automatically move to next field
-                  otpValues[index] = value;
-                 setState(() {
-                   isError[index] = value.isEmpty;
-                 });
+                  return SizedBox(
+                    width: SizeConfig.blockSizeHorizontal! * 9,
+                    height: SizeConfig.blockSizeHorizontal! * 12,
+                    child: RawKeyboardListener(
+                      focusNode: FocusNode(), // Required for RawKeyboardListener
+                      onKey: (RawKeyEvent event) {
+                        if (event is RawKeyDownEvent &&
+                            event.logicalKey == LogicalKeyboardKey.backspace) {
+                          // Move to previous cell irrespective of current cell value
+                          if (index > 0) {
+                            focusNodes[index - 1].requestFocus();
+                          }
+                        }
+                      },
+                      child: TextFormField(
+                        controller: otpControllers[index],
+                        focusNode: focusNodes[index],
+                        // obscureText: true,
+                        // obscuringCharacter: '•',
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.center,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(1),
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.034,
+                        ),
+                        decoration: InputDecoration(
+                          isDense: true,
+                          contentPadding: EdgeInsets.fromLTRB(
+                            MediaQuery.of(context).size.height * 0.01,
+                            0,
+                            MediaQuery.of(context).size.height * 0.01,
+                            0,
+                          ),
+                          filled: false,
+                          hintStyle: TextStyle(color: Colors.white70),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
+                            borderSide: BorderSide(color: isError[index] ? Colors.red : Color(0xFFF1F1F1)),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
+                            borderSide: BorderSide(color: isError[index] ? Colors.red : Color(0xFFF1F1F1)),
+                          ),
+                        ),
+                        onChanged: (value) {
+                          otpValues[index] = value;
+                          setState(() {
+                            isError[index] = value.isEmpty;
+                          });
 
-
-                if (index < 5 && value.isNotEmpty) {
-                focusNodes[index + 1].requestFocus();
-                } else if (index == 5 && value.isNotEmpty) {
-                // Last digit entered, OTP is complete
-                verifyOtp(); // Call your OTP verification function here
-                focusNodes[index].unfocus();
-                }
-                },
-                ),
-                );
+                          if (value.isNotEmpty) {
+                            // Move forward if not last
+                            if (index < 5) focusNodes[index + 1].requestFocus();
+                            else verifyOtp(); // Last field
+                          }
+                        },
+                      ),
+                    ),
+                  );
                 }),
-                )
+              ),
+
+
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: List.generate(6, (index) {
+              //   return SizedBox(
+              //   width: SizeConfig.blockSizeHorizontal! * 9,
+              //   height: SizeConfig.blockSizeHorizontal! * 12,
+              //   child: TextFormField(
+              //   controller: otpControllers[index],
+              //   focusNode: focusNodes[index],
+              //   keyboardType: TextInputType.number,
+              //   textAlign: TextAlign.center,
+              //   inputFormatters: [
+              //   LengthLimitingTextInputFormatter(1),
+              //   FilteringTextInputFormatter.digitsOnly,
+              //   ],
+              //   style: TextStyle(
+              //   fontSize: MediaQuery.of(context).size.height * 0.034,
+              //   ),
+              //   decoration: InputDecoration(
+              //   isDense: true,
+              //   contentPadding: EdgeInsets.fromLTRB(
+              //   MediaQuery.of(context).size.height * 0.01,
+              //   0,
+              //   MediaQuery.of(context).size.height * 0.01,
+              //   0,
+              //   ),
+              //   filled: false,
+              //   hintStyle: TextStyle(color: Colors.white70),
+              //   focusedBorder: OutlineInputBorder(
+              //   borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
+              //   // borderSide: const BorderSide(color: Color(0xFFF1F1F1)),
+              //     borderSide: BorderSide(color: isError[index] ? Colors.red : Color(0xFFF1F1F1)),
+              //   ),
+              //   enabledBorder: OutlineInputBorder(
+              //   borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.005),
+              //   // borderSide: const BorderSide(color: Color(0xFF16B812)),
+              //     borderSide: BorderSide(color: isError[index] ? Colors.red : Color(0xFFF1F1F1)),
+              //   ),
+              //   ),
+              //   onChanged: (value) {
+              //   // Automatically move to next field
+              //     otpValues[index] = value;
+              //    setState(() {
+              //      isError[index] = value.isEmpty;
+              //    });
+              //
+              //
+              //   if (index < 5 && value.isNotEmpty) {
+              //   focusNodes[index + 1].requestFocus();
+              //   } else if (index == 5 && value.isNotEmpty) {
+              //   // Last digit entered, OTP is complete
+              //   verifyOtp(); // Call your OTP verification function here
+              //   focusNodes[index].unfocus();
+              //   }
+              //   },
+              //   ),
+              //   );
+              //   }),
+              //   )
               ),
 
             OtpResendWidget(attempt: otpAttempt),
