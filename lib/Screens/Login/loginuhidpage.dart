@@ -11,6 +11,7 @@ import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/OnBoarding/onboarding_screen.dart';
 import 'package:newfolder/Screens/Registeration/registeration.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
+import 'package:newfolder/Screens/VerifyOtp/verifyOtp.dart';
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
 
@@ -534,7 +535,7 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
 
                                 GestureDetector(
                                   onTap: () async {
-                                    validateentriesatsubmit(context);
+                                    validateUHIDLogin(context);
                                   },
                                   child: Container(
                                       alignment: Alignment.centerRight,
@@ -586,7 +587,7 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
                                             padding: EdgeInsets.only(left: 0.0),
                                             child: TextButton(
                                               onPressed: () async {
-                                                validateentriesatsubmit(
+                                                validateUHIDLogin(
                                                     context);
                                               },
                                               child: Text("Login",
@@ -936,7 +937,38 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
     );
   }
 
-  void validateentriesatsubmit(BuildContext context) {
+  // void validateUHIDLogin(BuildContext context) async {
+  //   String uhid = UserNumberEditTextController.text.trim();
+  //
+  //   if (uhid.isEmpty || uhid.length < 3) {
+  //     setState(() {
+  //       errorMessage = "UHID should be more than 3 characters";
+  //       isValid = false;
+  //     });
+  //     return;
+  //   }
+  //
+  //   // 1. Check if UHID exists in local storage
+  //   Map<String, dynamic>? userData = await UserSecureStorage.getUser(uhid);
+  //
+  //   if (userData != null && userData['mpin'] != null && userData['mpin'].isNotEmpty) {
+  //     // UHID exists and has MPIN -> navigate to MPIN verification
+  //     Navigator.of(context).push(
+  //       MaterialPageRoute(
+  //         builder: (context) => MpinAccessScreen(mobileNumber: uhid), // or pass UHID
+  //       ),
+  //     );
+  //   } else {
+  //     // UHID not present or MPIN not set -> navigate to set MPIN
+  //     Navigator.of(context).push(
+  //       MaterialPageRoute(
+  //         builder: (context) => MpinResetSettings(mobileNumber: uhid), // or pass UHID
+  //       ),
+  //     );
+  //   }
+  // }
+
+  void validateUHIDLogin(BuildContext context) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     connectivityservice.checkconnectivity().then((intenet) async {
       if (intenet != null && intenet) {
@@ -982,9 +1014,31 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
           // await UserSecureStorage.setIfLoggedOut("NO");
           await UserSecureStorage.setIfGuestLogged("NO");
           // await UserSecureStorage.setIfLoggedOut("NO");
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => ChangeMobileNumber(mobileNumber: "9583817953"))
-          );
+          // if(await UserSecureStorage.getUsernameid())
+          Map<String, dynamic>? userData = await UserSecureStorage.getUser(input.trim());
+
+          if(userData == null){
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => ChangeMobileNumber(mobileNumber: input.trim()))
+            );
+          }
+          else
+            {
+              String? mpin = userData['mpin'];
+              if(mpin!.isEmpty)
+              {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => MpinResetSettings(mobileNumber: input.trim()))
+                );
+              }
+              else{
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber: input.trim()))
+                );
+              }
+            }
+
+
           // Navigator.of(context).pushAndRemoveUntil(
           //     MaterialPageRoute(builder: (context) => HomePageMain()),
           //     (Route<dynamic> route) => false);
