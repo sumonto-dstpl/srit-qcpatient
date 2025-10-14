@@ -211,7 +211,8 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
   @override
   Widget build(BuildContext context) {
 
-    print("selectedTabIndex : $selectedTabIndex");
+    print("dataList : $dataList");
+
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     TextEditingController SearchEditTextController = TextEditingController();
@@ -1219,9 +1220,15 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                       print('id : ${item['id']}');
 
                       Future.delayed(Duration(milliseconds: 300), () {
-                        if (index < dataList.length) {
+                        // if (index < dataList.length) {
+                        //   setState(() {
+                        //     dataList.removeAt(index);
+                        //   });
+                        // }
+
+                        if(index < dataList.length){
                           setState(() {
-                            dataList.removeAt(index);
+                            dataList.removeWhere((itemList) => itemList['id'] == item['id']);
                           });
                         }
 
@@ -2407,11 +2414,17 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                    print('id : ${item['id']}');
 
                                                    Future.delayed(Duration(milliseconds: 300), () {
-                                                     if (index < dataList.length) {
+                                                     // if (index < dataList.length) {
+                                                     //   setState(() {
+                                                     //     dataList.removeAt(index);
+                                                     //   });
+                                                     // }
+                                                     if(index < dataList.length){
                                                        setState(() {
-                                                         dataList.removeAt(index);
+                                                         dataList.removeWhere((itemList) => itemList['id'] == item['id']);
                                                        });
                                                      }
+
 
                                                    });
 
