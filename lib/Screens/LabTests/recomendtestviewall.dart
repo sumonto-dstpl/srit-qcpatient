@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:newfolder/Screens/AddToCart/addtocarPackageDetails.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/LabTests/bottomsheet.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
@@ -24,6 +25,7 @@ import 'package:newfolder/Screens/Login/loginhome.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Registeration/registeration.dart';
 import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
+import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
@@ -31,18 +33,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
+import 'package:universal_html/js_util.dart';
 
 class RecommendedViewAll extends StatefulWidget {
+  String usernameValue ;
   int selectedIndex = 0;
   RecommendedViewAll({
     super.key,
+    required this.usernameValue,
   });
   @override
   State<RecommendedViewAll> createState() => RecommendedViewAllstate();
 }
 
 class RecommendedViewAllstate extends State<RecommendedViewAll> {
-  String usernameValue = "Full Body Checkup";
+
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
@@ -112,7 +117,23 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
     "Men’s Health",
   ];
 
+  List<Map<String,dynamic>> cartList = [
+    {"id" : 101,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+    {"id" : 102,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+    {"id" : 103,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
 
+    {"id" : 104,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+    {"id" : 105,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+    {"id" : 106,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+
+    {"id" : 107,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+    {"id" : 108,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+    {"id" : 109,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+
+    {"id" : 110,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+    {"id" : 111,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+    {"id" : 112,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+  ];
 
 
 
@@ -205,7 +226,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                 .height * 0.00,
                           ),
                           child: Text(
-                            usernameValue,
+                            "${widget.usernameValue}",
                             style: TextStyle(
                               fontSize:
                               MediaQuery
@@ -549,7 +570,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                   child: ListView(
                     padding: EdgeInsets.zero,
                     children: [
-                      // Search Input Field
+
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
@@ -570,11 +591,22 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                               true, // Prevents ListView from taking up extra space
                               scrollDirection: Axis
                                   .vertical, // Makes the ListView horizontal
-                              itemCount: 5, // You can adjust the item count
+                              itemCount: cartList.length, // You can adjust the item count
                               itemBuilder: (BuildContext context, int index) {
+                                final item = cartList[index];
                                 return GestureDetector(
                                   onTap: () {
-                                    // Add your onTap logic here
+
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder:
+                                              (BuildContext context) {
+                                            return AddtocardPackageDetails(buttonName: "Add to Cart",id: item['id'],plan: item['plan'],qr: item['qr'],test: item['test'],);
+                                          },
+                                        ),
+                                      );
+
+
                                   },
                                   child: Card(
                                     elevation: 0.0,
@@ -680,7 +712,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                 bottom: MediaQuery.of(context).size.height * 0.00),
                                                             child:
                                                             Text(
-                                                              "QCT Superior Health Plan",
+                                                               "${item['plan']}",
                                                               style: TextStyle(
                                                                   color: Colors.black87,
                                                                   overflow: TextOverflow.ellipsis,
@@ -701,7 +733,8 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                 bottom: MediaQuery.of(context).size.height * 0.00),
                                                             child:
                                                             Text(
-                                                              "100 Tests Included : Complete Blood Count",
+                                                              // "100 Tests Included : Complete Blood Count",
+                                                              "${item['test']}",
                                                               style: TextStyle(
                                                                   color: Colors.black54,
                                                                   fontWeight: FontWeight.w500,
@@ -843,7 +876,9 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                                         top: MediaQuery.of(context).size.height * 0.00,
                                                                                         bottom: MediaQuery.of(context).size.height * 0.00),
                                                                                     child:
-                                                                                    Text( "QR 1999",
+                                                                                    Text(
+                                                                                      // "QR 1999",
+                                                                                      "${item['qr']}",
                                                                                       style: TextStyle(
                                                                                         // color: Colors.blue[600],
                                                                                           color: Color(0xFF12B76A),
@@ -907,7 +942,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                           children: <Widget>[
                                                                             GestureDetector(
                                                                               onTap: () async {
-                                                                                // Navigator.of(context, rootNavigator: true).pop();
+                                                                                 addToCart(item['id'],item['plan'],item['test'],item['qr']);
                                                                               },
                                                                               child: Container(
                                                                                 padding: new EdgeInsets.only(
@@ -1979,6 +2014,32 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
   //   );
   // }
 
+   void addToCart(int id,String plan,String test,String qr) async{
+     Map<String,dynamic> addToCart = {
+       "id": id,
+       "plan" : plan,
+       "test" : test,
+       "qr" : qr
+     };
 
+     print("addToCart : $addToCart");
+
+     bool isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
+     print("isGuestUser : $isGuestUser");
+     String? username =  await UserSecureStorage.getUsernameid();
+
+     Map<String, dynamic>? user = await UserSecureStorage.getUser(username ?? '');
+
+     print("user : $user");
+
+     if(isGuestUser){
+       String userId = "GUEST";
+       UserSecureStorage.saveAddToCard(key: "addToCart2",userId: userId, newData: addToCart);
+     }
+     else {
+       String userId = username ?? '';
+       UserSecureStorage.saveAddToCard(key: "addToCart2",userId: userId, newData: addToCart);
+     }
+   }
 
 }

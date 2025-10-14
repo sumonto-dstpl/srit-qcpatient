@@ -26,6 +26,9 @@ class UserSecureStorage {
   static const _keydashid = 'dashboardid';
   static const _keyIsFirstLaunchDone = 'isFirstLaunchDone';
   static const _keyAllUsers = 'all_users';
+  static const _addToCart1 = "addToCart1" ;
+  static const _addToCart2 = "addToCart2" ;
+  static const addToCartDeleteFlag = "addToCartDeleteFlag";
 
 
   static Future<void> setIsFirstLaunchDone(String value) async =>
@@ -223,6 +226,181 @@ class UserSecureStorage {
       if (key != _keyAllUsers) {
         await _storage.delete(key: key);
       }
+    }
+  }
+
+
+
+  static Future<void> saveAddToCard({
+    required String key,
+    required String userId,
+    required Map<String, dynamic> newData,
+  }) async {
+
+
+
+    String? jsonString = "";
+    if(key == "addToCart1"){
+       jsonString = await _storage.read(key: _addToCart1);
+    }
+    else if(key == "addToCart2"){
+       jsonString = await _storage.read(key: _addToCart2);
+    }
+    else {
+      jsonString = await _storage.read(key: key);
+    }
+    Map<String, dynamic> allUsers = jsonString != null ? jsonDecode(jsonString) : {};
+    Map<String, dynamic> userEntry =
+    allUsers[userId] != null ? Map<String, dynamic>.from(allUsers[userId]) : {};
+    List<dynamic> userDataList =
+    userEntry["data"] != null ? List<dynamic>.from(userEntry["data"]) : [];
+    userDataList.add(newData);
+    userEntry["userId"] = userId;
+    userEntry["data"] = userDataList;
+    allUsers[userId] = userEntry;
+    await _storage.write(key: key, value: jsonEncode(allUsers));
+
+  }
+
+  static Future<List<dynamic>> getAddToCart( String key,String userId) async {
+    try {
+      String? jsonString = await _storage.read(key: key);
+
+      // 2️⃣ Agar kuch bhi saved nahi hai to empty list return karo
+      if (jsonString == null || jsonString.isEmpty) {
+        return [];
+      }
+
+      // 3️⃣ Decode JSON string to Map
+      Map<String, dynamic> allUsers = jsonDecode(jsonString);
+
+      // 4️⃣ Check karo userId ka data exist karta hai ya nahi
+      if (allUsers[userId] == null) {
+        return [];
+      }
+
+      // 5️⃣ User ke data list return karo
+      return List<dynamic>.from(allUsers[userId]["data"] ?? []);
+    } catch (e) {
+      print("Error reading AddToCart data: $e");
+      return [];
+    }
+  }
+
+  static Future<void> deleteFromAddToCart({
+    required String key,
+    required String userId,
+    required int idToDelete,
+  }) async {
+    try {
+      // 1️⃣ Read existing data
+      String? jsonString = await _storage.read(key: key);
+      if (jsonString == null || jsonString.isEmpty) return;
+
+      Map<String, dynamic> allUsers = jsonDecode(jsonString);
+
+      // 2️⃣ Check if user data exists
+      if (allUsers[userId] == null) return;
+
+      Map<String, dynamic> userEntry = Map<String, dynamic>.from(allUsers[userId]);
+
+      // 3️⃣ Get user's current data list
+      List<dynamic> userDataList = List<dynamic>.from(userEntry["data"] ?? []);
+
+      // 4️⃣ Remove the item with matching id
+      userDataList.removeWhere((item) => item["id"] == idToDelete);
+
+      // 5️⃣ Update userEntry
+      userEntry["data"] = userDataList;
+
+      // 6️⃣ Update allUsers map
+      allUsers[userId] = userEntry;
+
+      // 7️⃣ Save back to storage
+      await _storage.write(key: key, value: jsonEncode(allUsers));
+
+      print("✅ Deleted item with id $idToDelete for user $userId");
+    } catch (e) {
+      print("❌ Error deleting AddToCart item: $e");
+    }
+  }
+
+
+
+  /// Get boolean flag for a specific user
+  // static Future<List<dynamic>> getDeleteFlag(String userId) async {
+  //   try {
+  //     String? jsonString = await _storage.read(key: addToCartDeleteFlag);
+  //
+  //     // 2️⃣ Agar kuch bhi saved nahi hai to empty list return karo
+  //     if (jsonString == null || jsonString.isEmpty) {
+  //       return [];
+  //     }
+  //
+  //     // 3️⃣ Decode JSON string to Map
+  //     Map<String, dynamic> allUsers = jsonDecode(jsonString);
+  //
+  //     // 4️⃣ Check karo userId ka data exist karta hai ya nahi
+  //     if (allUsers[userId] == null) {
+  //       return [];
+  //     }
+  //
+  //     // 5️⃣ User ke data list return karo
+  //     return List<dynamic>.from(allUsers[userId]["data"] ?? []);
+  //   } catch (e) {
+  //     print("Error reading AddToCart data: $e");
+  //     return [];
+  //   }
+  // }
+
+  /// Save boolean flag for a specific user
+  static Future<void> saveDeleteFlag({
+    required String userId,
+    required bool flag,
+  }) async {
+    try {
+      // 1️⃣ Read existing flags
+      String? jsonString = await _storage.read(key: addToCartDeleteFlag);
+      Map<String, dynamic> allUsers =
+      jsonString != null ? jsonDecode(jsonString) : {};
+
+      // 2️⃣ Update this user's flag
+      allUsers[userId] = {"flag": flag};
+
+      // 3️⃣ Save back to storage
+      await _storage.write(key: addToCartDeleteFlag, value: jsonEncode(allUsers));
+
+      print("✅ Delete flag saved for user $userId : $flag");
+    } catch (e) {
+      print("❌ Error saving delete flag: $e");
+    }
+  }
+
+  /// Get boolean delete flag for a specific user
+  static Future<bool> getDeleteFlag(String userId) async {
+    try {
+      // 1️⃣ Read existing flags
+      String? jsonString = await _storage.read(key: addToCartDeleteFlag);
+
+      // 2️⃣ Agar storage empty ho to default false return karo
+      if (jsonString == null || jsonString.isEmpty) {
+        return false;
+      }
+
+      // 3️⃣ Decode JSON
+      Map<String, dynamic> allUsers = jsonDecode(jsonString);
+
+      // 4️⃣ Agar userId exist nahi karta, false return
+      if (allUsers[userId] == null) {
+        return false;
+      }
+
+      // 5️⃣ Return user's flag, default false
+      return allUsers[userId]["flag"] ?? false;
+
+    } catch (e) {
+      print("❌ Error reading delete flag: $e");
+      return false;
     }
   }
 

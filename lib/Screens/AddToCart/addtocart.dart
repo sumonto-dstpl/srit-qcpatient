@@ -1,15 +1,18 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:newfolder/Screens/AddToCart/addtocarPackageDetails.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
-import 'package:newfolder/Screens/Appointments/bottomsheet_for_payment.dart';
+
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
+import 'package:newfolder/Screens/LabTests/labtestmain.dart';
 import 'package:newfolder/Screens/Medications/bottomsheet_for_payment.dart';
 import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
+import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/dotteddivider.dart';
 
 class AddToCartMain extends StatefulWidget {
@@ -31,74 +34,31 @@ class AddToCartMainstate extends State<AddToCartMain> {
   int _selectedIndex = 4;
   bool isExpanded = false; // For collapse/expand toggle
 
-  final List<Map<String, dynamic>> carttoplist = [
-    {"images": "assets/Harmonebackground.png", "uploadfilestime": "QR 999",
-    "cartname": "QCT Superior Health Plan", "teststotal": "50"},
+    List<Map<String, dynamic>> carttoplist = [
+      {"id" : 1,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+      {"id" : 2,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+      {"id" : 3,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
 
-    {"images": "assets/Harmonebackground.png", "uploadfilestime": "QR 99",
-    "cartname": "QCT Diabetic Health Plan", "teststotal": "100"},
 
-    {"images": "assets/Harmonebackground.png", "uploadfilestime": "QR 1009",
-    "cartname": "QCT Master Health Check Package", "teststotal": "200"},
-  
-  ];
+    ];
 
   final List<Map<String, dynamic>> savedbottomlist = [
-    {"images": "assets/Harmonebackground.png", "uploadfilestime": "QR 999",
-    "cartname": "QCT Master Health Check Package", "teststotal": "100"},
+    // { "qr": "QR 999",  "plan": "QCT Superior Health Plan", "test": "50" },
+    //
+    // { "qr": "QR 99", "plan": "QCT Diabetic Health Plan", "test": "100"},
+    //
+    // { "qr": "QR 1009", "plan": "QCT Master Health Check Package", "test": "200"},
 
-    {"images": "assets/Harmonebackground.png", "uploadfilestime": "QR 1999",
-    "cartname": "QCT Diabetic Health Plan", "teststotal": "100"},
+    {"id" : 11,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+    {"id" : 12,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+    {"id" : 13,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
 
-    {"images": "assets/Harmonebackground.png", "uploadfilestime": "QR 1999",
-    "cartname": "QCT Master Health Check Package", "teststotal": "200"},
-  
+
   ];
 
-  // final List<String> uploadfilestime = [
-  //   "QR 999",
-  //   "QR 99",
-  //   "QR 1009",
-  // ];
-  // final List<String> imagestoplist = [
-  //   "assets/Harmonebackground.png",
-  //   "assets/Harmonebackground.png",
-  //   "assets/Harmonebackground.png",
-  // ];
-  // final List<String> cartnametoplist = [
-  //   "QCT Superior Health Plan",
-  //   "QCT Diabetic Health Plan",
-  //   "QCT Master Health Check Package",
-  // ];
-  // final List<int> teststotaltoplist = [
-  //   50,
-  //   100,
-  //   200,
-  // ];
+  List<Map<String, dynamic>> _currentList = [];
 
-  // final List<String> endtextbottomlist = [
-  //   "QR 1999",
-  //   "QR 1999",
-  //   "QR 999",
-  // ];
-  // final List<String> imagesbottomlist = [
-  //   "assets/Harmonebackground.png",
-  //   "assets/Harmonebackground.png",
-  //   "assets/Harmonebackground.png",
-  // ];
-  // final List<String> cartnameottomlist = [
-  //   "QCT Master Health Check Package",
-  //   "QCT Diabetic Health Plan",
-  //   "QCT Master Health Check Package",
-  // ];
-  // final List<int> teststotalbottomlist = [
-  //   50,
-  //   100,
-  //   200,
-  // ];
 
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
 
   //Asgar
   bool isSavedForLater = true;
@@ -108,24 +68,26 @@ class AddToCartMainstate extends State<AddToCartMain> {
   int cartPrice = 0;
   int disPrice = 99;
   int platformPrice = 9;
-  // for(int counter=0; counter>=carttoplist.length; counter++){
-  //   int cartValue = cartnametoplist[counter]['uploadfilestime'].split(' ')[1];
-  //   print(cartValue);
-  //   // cartPrice+=carttoplist[counter]
-  // }
+
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCart();
+  }
 
   @override
   Widget build(BuildContext context) {
-    print('build');
+
     saveForLaterCount = savedbottomlist.length;
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     TextEditingController SearchEditTextController = TextEditingController();
 
       cartPrice = 0;
-      for(int counter=0; counter<carttoplist.length; counter++){
-        int cartValue = int.parse(carttoplist[counter]['uploadfilestime'].split(' ')[1]);
-        print(cartValue);
+      for(int counter=0; counter<_currentList.length; counter++){
+        int cartValue = int.parse(_currentList[counter]['qr'].split(' ')[1]);
+
         cartPrice+=cartValue;
       }
 
@@ -160,8 +122,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                   children: [],
                 ),
               ),
-              
-              
+
+
             Expanded(
 
               child: Container(
@@ -270,7 +232,289 @@ class AddToCartMainstate extends State<AddToCartMain> {
                     //   topRight: Radius.circular(screenHeight * 0.03),
                     // ),
                   ),
-                  child: ListView(
+                  child: (_currentList.isEmpty && savedbottomlist.isEmpty) ?
+                  ListView(
+                      shrinkWrap: true,
+                      children: <Widget>[
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.circular(10),
+                          ),
+                          padding: EdgeInsets.only(
+                              left: MediaQuery.of(context)
+                                  .size
+                                  .height *
+                                  0.00,
+                              right: MediaQuery.of(context)
+                                  .size
+                                  .height *
+                                  0.00,
+                              bottom: MediaQuery.of(context)
+                                  .size
+                                  .height *
+                                  0.00,
+                              top: MediaQuery.of(context)
+                                  .size
+                                  .height *
+                                  0.00),
+                          // color: Colors.white,
+                          child: Card(
+                            elevation: 0.0,
+                            color: Colors.white,
+                            // color: Colors.blueGrey[50],
+                            // color:    [Colors.green[400], Colors.green[300]],
+                            child: Container(
+                              // color: Colors.white,
+
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                  BorderRadius.circular(10),
+                                  gradient: LinearGradient(
+                                      begin:
+                                      Alignment.centerLeft,
+                                      end:
+                                      Alignment.centerRight,
+                                      stops: [
+                                        0.5,
+                                        0.9
+                                      ],
+                                      colors: [
+                                        Colors.white,
+                                        Colors.white
+                                      ])),
+                              margin: EdgeInsets.only(
+                                  left: MediaQuery.of(context)
+                                      .size
+                                      .height *
+                                      0.006,
+                                  right: MediaQuery.of(context)
+                                      .size
+                                      .height *
+                                      0.006,
+                                  bottom: MediaQuery.of(context)
+                                      .size
+                                      .height *
+                                      0.003,
+                                  top: MediaQuery.of(context)
+                                      .size
+                                      .height *
+                                      0.003),
+                              padding: EdgeInsets.only(
+                                  left: MediaQuery.of(context)
+                                      .size
+                                      .height *
+                                      0.005,
+                                  right: MediaQuery.of(context)
+                                      .size
+                                      .height *
+                                      0.005,
+                                  bottom: MediaQuery.of(context)
+                                      .size
+                                      .height *
+                                      0.005,
+                                  top: MediaQuery.of(context)
+                                      .size
+                                      .height *
+                                      0.005),
+                              child: Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+
+                                      padding: EdgeInsets.only(
+                                          left: MediaQuery.of(
+                                              context)
+                                              .size
+                                              .height *
+                                              0.020,
+                                          right: MediaQuery.of(
+                                              context)
+                                              .size
+                                              .height *
+                                              0.020,
+                                          top: MediaQuery.of(
+                                              context)
+                                              .size
+                                              .height *
+                                              0.030,
+                                          bottom: MediaQuery.of(
+                                              context)
+                                              .size
+                                              .height *
+                                              0.00),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment
+                                            .center,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .start,
+                                        children: <Widget>[
+
+
+
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment
+                                                  .center,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment
+                                                  .center,
+                                              children: <Widget>[
+
+
+
+                                                Image.asset(
+                                                  'assets/Cart_Empty_vector.png',
+                                                  height: MediaQuery.of(context).size.height * 0.4,
+                                                  fit: BoxFit.fill,
+                                                ),
+
+
+                                                Container(
+                                                  padding:
+                                                  EdgeInsets
+                                                      .only(
+                                                    top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                        0.01,
+                                                    bottom: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                        0.02,
+                                                    left: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                        0.00,
+                                                    right: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                        0.00,
+                                                  ),
+                                                  child: Text(
+                                                    "Your cart is empty",
+                                                    textAlign:
+                                                    TextAlign
+                                                        .center,
+                                                    style: TextStyle(
+                                                        color: Color(0x66000000),
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w400,
+                                                        fontSize:
+                                                        MediaQuery.of(context).size.height *
+                                                            0.014,
+                                                        fontFamily: "Inter"
+
+                                                    ),
+                                                  ),
+                                                ),
+
+                                              ],
+                                            ),
+                                          ),
+
+                                          // SizedBox(width: MediaQuery.of(context).size.height * 0.040),
+                                        ],
+                                      ),
+                                    ),
+                                  ]),
+                            ),
+                          ),
+                        ),
+
+                        GestureDetector(
+                          onTap: () async {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder:
+                                    (BuildContext context) {
+                                  return LabTestsMain();
+                                },
+                              ),
+                            );
+                          },
+                          child: Container(
+                              alignment: Alignment.centerRight,
+                              padding: EdgeInsets.only(
+                                  top:
+                                  MediaQuery.of(context).size.height * 0.0,
+                                  bottom:
+                                  MediaQuery.of(context).size.height * 0.00,
+                                  left:
+                                  MediaQuery.of(context).size.height * 0.00,
+                                  right: MediaQuery.of(context).size.height *
+                                      0.00),
+                              margin: EdgeInsets.only(
+                                  right:
+                                  MediaQuery.of(context).size.height * 0.07,
+                                  top:
+                                  MediaQuery.of(context).size.height * 0.0,
+                                  bottom:
+                                  MediaQuery.of(context).size.height * 0.01,
+                                  left: MediaQuery.of(context).size.height *
+                                      0.07),
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                    0.012),
+                                            gradient: LinearGradient(
+                                                begin: Alignment.centerRight,
+                                                end: Alignment.center,
+                                                stops: [
+                                                  0.5,
+                                                  0.9
+                                                ],
+                                                colors: [
+                                                  Color(0xFF126086),
+                                                  Color(0xFF126086),
+                                                ])),
+                                        alignment: Alignment.center,
+                                        padding: EdgeInsets.only(left: 0.0),
+                                        child: TextButton(
+                                          onPressed: () async {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return LabTestsMain();
+                                                },
+                                              ),
+                                            );
+                                          },
+                                          child: Text("Add package to Continue",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize:
+                                                  MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                      0.018,
+                                                  fontWeight: FontWeight.w700
+
+                                              )
+
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ])),
+                        )
+                      ])
+                      :  ListView(
                     padding: EdgeInsets.zero,
                     children: [
                       // Top ListView
@@ -297,10 +541,10 @@ class AddToCartMainstate extends State<AddToCartMain> {
                           padding: EdgeInsets.zero,
                           shrinkWrap: true, // Prevents infinite height
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: carttoplist.length,
+                          itemCount: _currentList.length,
                           itemBuilder: (context, index) {
-                            final file = carttoplist[index]['cartname'];
-
+                            final file = _currentList[index]['plan'];
+                            final item = _currentList[index];
                             return Dismissible(
                                 key: UniqueKey(), // Unique key for each item
                                 direction: DismissDirection
@@ -349,33 +593,28 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                 onDismissed: (direction) {
                                   if (direction ==
                                       DismissDirection.endToStart) {
-                                    setState((){
-                                      print('if');
-                                    print('index : $index');
-                                    // uploadfilestime.removeAt(index);
-                                    carttoplist.removeAt(index);
-                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text("$file deleted"), duration: Duration(seconds: 2)),
-                                    );
-                                    });    
-                                    
+                                    // setState((){
+                                         // carttoplist.removeAt(index);
+                                         // ScaffoldMessenger.of(context).showSnackBar(
+                                         //    SnackBar(content: Text("$file deleted"), duration: Duration(seconds: 2)),
+                                         // );
+                                    // });
+                                  _deleteCart(item['id']);
                                   } else if (direction ==
                                       DismissDirection.startToEnd) {
-                                        print('index : $index');
-                                    print("DismissDirection.startToEnd");
+
+
                                     if (index >= carttoplist.length) {
-                                      print("index >= carttoplist.length");
-                                      print(
-                                          'lenght : ${carttoplist.length}');
+
+
                                       savedbottomlist
                                           .add(carttoplist.last);
-                                      print(
-                                          'lenght : ${savedbottomlist.length}');
+
                                       carttoplist.removeLast();
                                       setState(() {});
                                       return;
                                     }
-                                    print('else if');
+
                                     setState(() {
                                       // Swiped Left to Right (Move to another list)
                                       // if (endtextbottomlist.length > 0)
@@ -387,8 +626,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                       // }
 
                                       carttoplist.removeAt(index);
-                                      print(
-                                          'lenght : ${savedbottomlist.length}');
+
                                     });
                                     // Mark item as "Saved" when swiped left to right
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -407,7 +645,16 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                   }
                                 },
                                 child: GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder:
+                                            (BuildContext context) {
+                                          return AddtocardPackageDetails(id: item['id'],plan: item['plan'],qr: item['qr'],test: item['test'],);
+                                        },
+                                      ),
+                                    );
+                                  },
                                   child: Card(
                                     elevation: 0.0,
                                     color: Colors.white,
@@ -541,7 +788,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                   .circular(
                                                                       130.0),
                                                           child: Image.asset(
-                                                            carttoplist[index]['images'],
+                                                            "assets/Harmonebackground.png",
                                                             fit: BoxFit.fill,
                                                           ),
                                                         ),
@@ -588,8 +835,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                   0.00,
                                                             ),
                                                             child: Text(
-                                                              carttoplist[
-                                                                  index]['cartname'],
+                                                              item['plan'],
                                                               style: TextStyle(
                                                                 color: Colors
                                                                     .black87,
@@ -636,7 +882,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                   0.00,
                                                             ),
                                                             child: Text(
-                                                              carttoplist[index]['teststotal'] + " tests included",
+                                                              item['test'] + " tests included",
                                                               style: TextStyle(
                                                                 color: Colors
                                                                     .black54,
@@ -748,7 +994,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                       0.00,
                                                                 ),
                                                                 child: Text(
-                                                                  carttoplist[index]['uploadfilestime'],
+                                                                  item['qr'],
                                                                   style:
                                                                       TextStyle(
                                                                     fontSize: MediaQuery.of(
@@ -782,12 +1028,16 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                       ),
                                     ),
                                   ),
-                                ));
+                                )
+                            );
                           },
                         ),
                       ),
 
                       // Price Details
+
+                      _currentList.isEmpty ?
+                         Container() :
                       Padding(
                         padding: EdgeInsets.only(
                             left: MediaQuery.of(context).size.height * 0.02,
@@ -809,7 +1059,9 @@ class AddToCartMainstate extends State<AddToCartMain> {
                         ),
                       ),
 
-                      // down card
+                      // down card savedbottomlist.isEmpty
+                      _currentList.isEmpty ?
+                      Container() :
                       Container(
                         margin: EdgeInsets.only(
                           top: MediaQuery.of(context).size.height * 0.0,
@@ -888,7 +1140,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                 .height *
                                                             0.00),
                                                 child: Text(
-                                                  "Price ("+carttoplist.length.toString()+" Package)",
+                                                  "Price ("+_currentList.length.toString()+" Package)",
                                                   style: TextStyle(
                                                     color: Color(0x80000000),
                                                     fontWeight: FontWeight.w400,
@@ -1026,7 +1278,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                   .height *
                                                               0.00),
                                                   child: Text(
-                                                    'You saved QR '+(carttoplist.length<=0?0:disPrice).toString(),
+                                                    'You saved QR '+(_currentList.length<=0?0:disPrice).toString(),
                                                     style: TextStyle(
                                                         // color: Colors.blue[600],
                                                         color:
@@ -1127,7 +1379,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                   .height *
                                                               0.00),
                                                   child: Text(
-                                                    'QR '+(carttoplist.length<=0?0:platformPrice).toString(),
+                                                    'QR '+(_currentList.length<=0?0:platformPrice).toString(),
                                                     style: TextStyle(
                                                         // color: Colors.blue[600],
                                                         color:
@@ -1255,7 +1507,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                   .height *
                                                               0.00),
                                                   child: Text(
-                                                    'QR '+(carttoplist.length<=0?0:(cartPrice-disPrice+platformPrice)).toString(),
+                                                    'QR '+(_currentList.length<=0?0:(cartPrice-disPrice+platformPrice)).toString(),
                                                     style: TextStyle(
                                                         // color: Colors.blue[600],
                                                         color:
@@ -1281,81 +1533,90 @@ class AddToCartMainstate extends State<AddToCartMain> {
                         ),
                       ),
 
-                      // Save for later
+                      // Saved for later Text
                       savedbottomlist.isEmpty
                           ? Container()
-                          : Container(
-              margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.01,
-                bottom: MediaQuery.of(context).size.height * 0.015,
-      left: MediaQuery.of(context).size.height * 0.020,
-      right: MediaQuery.of(context).size.height * 0.020,
-    ),
-    padding: EdgeInsets.symmetric(
-    horizontal: MediaQuery.of(context).size.height * 0.01,
-    vertical: MediaQuery.of(context).size.height * 0.008),
-    decoration: BoxDecoration(
-    color: Colors.white, // Background
-    borderRadius: BorderRadius.circular(6), // 6px radius
-    border: Border.all(
-    color: Color.fromRGBO(0, 0, 0, 0.14), // rgba(0,0,0,0.14)
-    width: 0.5,
-    ),
-    ),
-    child: Row(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-    // Icon on the left
-    InkWell(
-    onTap: () => Navigator.pop(context),
-    child: Container(
-    height: MediaQuery.of(context).size.height * 0.02,
-    width: MediaQuery.of(context).size.height * 0.02,
-    child: Image.asset(
-    'assets/addcartFolder.png',
-    height: MediaQuery.of(context).size.height * 0.015,
-    width: MediaQuery.of(context).size.height * 0.015,
-    ),
-    ),
-    ),
+                          : GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isExpanded = !isExpanded; // Toggle collapse/expand
+                          });
+                        },
+                            child: Container(
 
-    SizedBox(width: MediaQuery.of(context).size.height * 0.01),
+                                          margin: EdgeInsets.only(
+                                              top: MediaQuery.of(context).size.height * 0.01,
+                                            bottom: MediaQuery.of(context).size.height * 0.015,
+                                  left: MediaQuery.of(context).size.height * 0.020,
+                                  right: MediaQuery.of(context).size.height * 0.020,
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                horizontal: MediaQuery.of(context).size.height * 0.01,
+                                vertical: MediaQuery.of(context).size.height * 0.008),
+                                decoration: BoxDecoration(
+                                color: Colors.white,
+                                  // color : Colors.blue,
+                                borderRadius: BorderRadius.circular(6), // 6px radius
+                                border: Border.all(
+                                color: Color.fromRGBO(0, 0, 0, 0.14), // rgba(0,0,0,0.14)
+                                width: 0.5,
+                                ),
+                                ),
+                                child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                // Icon on the left
+                                InkWell(
+                                onTap: () => Navigator.pop(context),
+                                child: Container(
+                                height: MediaQuery.of(context).size.height * 0.02,
+                                width: MediaQuery.of(context).size.height * 0.02,
+                                child: Image.asset(
+                                'assets/addcartFolder.png',
+                                height: MediaQuery.of(context).size.height * 0.015,
+                                width: MediaQuery.of(context).size.height * 0.015,
+                                ),
+                                ),
+                                ),
 
-    // Saved For Later Text
-    Expanded(
-    child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-    Text(
-    "Saved For Later ($saveForLaterCount)",
-    style: TextStyle(
-    fontSize: MediaQuery.of(context).size.height * 0.014,
-    color: Color(0xFF000000),
-    fontWeight: FontWeight.w500,
-    ),
-    ),
+                                SizedBox(width: MediaQuery.of(context).size.height * 0.01),
 
-    // Dropdown arrow
-    GestureDetector(
-    onTap: () {
-    setState(() {
-    isExpanded = !isExpanded; // Toggle collapse/expand
-    });
-    },
-    child: Icon(
-    isExpanded
-    ? Icons.keyboard_arrow_up
-        : Icons.keyboard_arrow_down,
-    size: MediaQuery.of(context).size.height * 0.02,
-    color: Colors.black54,
-    ),
-    ),
-    ],
-    ),
-    ),
-    ],
-    ),
-    )
+                                // Saved For Later Text
+                                Expanded(
+                                child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                Text(
+                                "Saved For Later ($saveForLaterCount)",
+                                style: TextStyle(
+                                fontSize: MediaQuery.of(context).size.height * 0.014,
+                                color: Color(0xFF000000),
+                                fontWeight: FontWeight.w500,
+                                ),
+                                ),
+
+                                // Dropdown arrow
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isExpanded = !isExpanded; // Toggle collapse/expand
+                                      });
+                                    },
+                                    child: Icon(
+                                      isExpanded
+                                          ? Icons.keyboard_arrow_up
+                                          : Icons.keyboard_arrow_down,
+                                      size: MediaQuery.of(context).size.height * 0.02,
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ],
+                                ),
+                                ),
+                                ],
+                                ),
+                                ),
+                          )
     ,
 
                       // Bottom ListView
@@ -1381,8 +1642,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                 physics: NeverScrollableScrollPhysics(),
                                 itemCount: savedbottomlist.length,
                                 itemBuilder: (context, index) {
-                                  final file = savedbottomlist[index]['cartname'];
-
+                                  final file = savedbottomlist[index]['plan'];
+                                  final item = savedbottomlist[index];
                                   return Dismissible(
                                       key:
                                           UniqueKey(), // Unique key for each item
@@ -1407,7 +1668,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                         });
                                         // If the list is empty, show a message
                                         if (savedbottomlist.isEmpty) {
-                                          print('savedbottomlist.isEmpty');
+
 
                                           isSavedForLater = false;
                                         }
@@ -1424,7 +1685,16 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                               );*/
                                       },
                                       child: GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (BuildContext context) {
+                                                return AddtocardPackageDetails(id: item['id'],plan: item['plan'],qr: item['qr'],test: item['test'],);
+                                              },
+                                            ),
+                                          );
+                                        },
                                         child: Card(
                                           elevation: 0.0,
                                           color: Colors.white,
@@ -1567,7 +1837,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                             130.0),
                                                                 child:
                                                                     Image.asset(
-                                                                  savedbottomlist[index]['images'],
+                                                                      "assets/Harmonebackground.png",
                                                                   fit:
                                                                       BoxFit.fill,
                                                                 ),
@@ -1616,7 +1886,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                         0.00,
                                                                   ),
                                                                   child: Text(
-                                                                    savedbottomlist[index]['cartname'],
+                                                                    savedbottomlist[index]['plan'],
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -1665,7 +1935,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                         0.00,
                                                                   ),
                                                                   child: Text(
-                                                                    savedbottomlist[index]['teststotal'] + " Tests Included",
+                                                                    savedbottomlist[index]['test'] + " Tests Included",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Colors
@@ -1774,7 +2044,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                       ),
                                                                       child: Text(
                                                                         savedbottomlist[
-                                                                            index]['uploadfilestime'],
+                                                                            index]['qr'],
                                                                         style:
                                                                             TextStyle(
                                                                           fontSize:
@@ -1825,7 +2095,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
       ),
 
       // Bottom Navigation with another  positioned on the right
-      bottomNavigationBar: Container(
+      bottomNavigationBar: (carttoplist.isEmpty && savedbottomlist.isEmpty)  ? null : Container(
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -1915,9 +2185,10 @@ class AddToCartMainstate extends State<AddToCartMain> {
 
         ],
         ),
-      ),
+      )   ,
     );
   }
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -1959,7 +2230,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
       _selectedIndex = widget.selectedIndex;*/
 
       // Fluttertoast.showToast(msg: "test", toastLength: Toast.LENGTH_LONG);
-      print(selected);
+
     });
   }
 
@@ -2504,469 +2775,6 @@ class AddToCartMainstate extends State<AddToCartMain> {
         ),
       );
 
-  // Payment methods
-  // void showPaymentmethodsBottomSheet() => showModalBottomSheet(
-  //   enableDrag: false,
-  //   isScrollControlled: true,
-  //   isDismissible: true,
-  //   shape: const RoundedRectangleBorder(
-  //     borderRadius: BorderRadius.only(
-  //       topLeft: Radius.circular(24),
-  //       topRight: Radius.circular(24),
-  //     ),
-  //   ),
-  //   barrierColor: Colors.grey.withOpacity(0.9),
-  //   context: context,
-  //   builder: (context) => StatefulBuilder(
-  //     builder: (BuildContext context,
-  //         StateSetter setState /*You can rename this!*/) =>
-  //         Padding(
-  //           padding: EdgeInsets.only(
-  //               bottom: MediaQuery.of(context).viewInsets.bottom),
-  //           child: Column(
-  //             mainAxisSize: MainAxisSize.min,
-  //             children: <Widget>[
-  //               Container(
-  //                 padding: EdgeInsets.only(
-  //                     left: MediaQuery.of(context).size.height * 0.020,
-  //                     right: MediaQuery.of(context).size.height * 0.020,
-  //                     top: MediaQuery.of(context).size.height * 0.030,
-  //                     bottom: MediaQuery.of(context).size.height * 0.00),
-  //                 child: Row(
-  //                   crossAxisAlignment: CrossAxisAlignment.center,
-  //                   mainAxisAlignment: MainAxisAlignment.start,
-  //                   children: <Widget>[
-  //                     Expanded(
-  //                       child: Column(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         mainAxisAlignment: MainAxisAlignment.center,
-  //                         children: <Widget>[
-  //                           Text(
-  //                             "Payment Methods",
-  //                             style: TextStyle(
-  //                                 color: Colors.black,
-  //                                 fontWeight: FontWeight.bold,
-  //                                 fontSize: MediaQuery.of(context).size.height *
-  //                                     0.024),
-  //                           ),
-  //                           Container(
-  //                             padding: EdgeInsets.only(
-  //                               top: MediaQuery.of(context).size.height * 0.00,
-  //                               bottom:
-  //                               MediaQuery.of(context).size.height * 0.02,
-  //                               left: MediaQuery.of(context).size.height * 0.00,
-  //                               right:
-  //                               MediaQuery.of(context).size.height * 0.00,
-  //                             ),
-  //                             child: Text(
-  //                               "Please Select a payment method",
-  //                               textAlign: TextAlign.center,
-  //                               style: TextStyle(
-  //                                   color: Colors.black54,
-  //                                   fontSize:
-  //                                   MediaQuery.of(context).size.height *
-  //                                       0.018),
-  //                             ),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //
-  //                     // SizedBox(width: MediaQuery.of(context).size.height * 0.040),
-  //                   ],
-  //                 ),
-  //               ),
-  //
-  //               // Payment mode
-  //               // 1
-  //               Container(
-  //                 margin: EdgeInsets.only(
-  //                   top: MediaQuery.of(context).size.height * 0.00,
-  //                   bottom: MediaQuery.of(context).size.height * 0.01,
-  //                   left: MediaQuery.of(context).size.height * 0.01,
-  //                   right: MediaQuery.of(context).size.height * 0.01,
-  //                 ),
-  //                 padding: EdgeInsets.only(
-  //                   top: MediaQuery.of(context).size.height * 0.00,
-  //                   bottom: MediaQuery.of(context).size.height * 0.00,
-  //                   left: MediaQuery.of(context).size.height * 0.01,
-  //                   right: MediaQuery.of(context).size.height * 0.00,
-  //                 ),
-  //                 decoration: BoxDecoration(
-  //                   border: Border.all(
-  //                     color: Colors.grey,
-  //                     width: 1.0,
-  //                   ),
-  //                   borderRadius: BorderRadius.circular(8.0),
-  //                 ),
-  //                 child: Row(
-  //                   mainAxisAlignment: MainAxisAlignment.start,
-  //                   crossAxisAlignment: CrossAxisAlignment.center,
-  //                   children: [
-  //                     // Image from assets
-  //                     Container(
-  //                       width: MediaQuery.of(context).size.height * 0.07,
-  //                       height: MediaQuery.of(context).size.height * 0.07,
-  //                       margin: EdgeInsets.only(
-  //                         top: MediaQuery.of(context).size.height * 0.01,
-  //                         bottom: MediaQuery.of(context).size.height * 0.01,
-  //                         left: MediaQuery.of(context).size.height * 0.01,
-  //                         right: MediaQuery.of(context).size.height * 0.01,
-  //                       ),
-  //                       decoration: BoxDecoration(
-  //                         borderRadius: BorderRadius.circular(4.0),
-  //                         image: DecorationImage(
-  //                           image: AssetImage(
-  //                               'assets/visapay.png'), // Replace with your asset path
-  //                           fit: BoxFit.cover,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     // Column with two Text widgets
-  //                     Expanded(
-  //                       child: Column(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         children: [
-  //                           Text(
-  //                             '**** **** 3434',
-  //                             style: TextStyle(
-  //                               fontWeight: FontWeight.bold,
-  //                               fontSize:
-  //                               MediaQuery.of(context).size.height * 0.018,
-  //                               color: Colors.black,
-  //                             ),
-  //                           ),
-  //                           Text(
-  //                             'Visa',
-  //                             style: TextStyle(
-  //                               fontSize:
-  //                               MediaQuery.of(context).size.height * 0.016,
-  //                               color: Colors.black,
-  //                             ),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     // Circular Radio Button
-  //                     Radio<int>(
-  //                       value: 1, // The value for this radio button
-  //                       groupValue: 0, // The currently selected value
-  //                       onChanged: (int? value) {
-  //                         // Handle radio button change
-  //                       },
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //
-  //               // 2
-  //               Container(
-  //                 margin: EdgeInsets.only(
-  //                   top: MediaQuery.of(context).size.height * 0.00,
-  //                   bottom: MediaQuery.of(context).size.height * 0.01,
-  //                   left: MediaQuery.of(context).size.height * 0.01,
-  //                   right: MediaQuery.of(context).size.height * 0.01,
-  //                 ),
-  //                 padding: EdgeInsets.only(
-  //                   top: MediaQuery.of(context).size.height * 0.00,
-  //                   bottom: MediaQuery.of(context).size.height * 0.00,
-  //                   left: MediaQuery.of(context).size.height * 0.01,
-  //                   right: MediaQuery.of(context).size.height * 0.00,
-  //                 ),
-  //                 decoration: BoxDecoration(
-  //                   border: Border.all(
-  //                     color: Colors.grey,
-  //                     width: 1.0,
-  //                   ),
-  //                   borderRadius: BorderRadius.circular(8.0),
-  //                 ),
-  //                 child: Row(
-  //                   mainAxisAlignment: MainAxisAlignment.start,
-  //                   crossAxisAlignment: CrossAxisAlignment.center,
-  //                   children: [
-  //                     // Image from assets
-  //                     Container(
-  //                       width: MediaQuery.of(context).size.height * 0.07,
-  //                       height: MediaQuery.of(context).size.height * 0.07,
-  //                       margin: EdgeInsets.only(
-  //                         top: MediaQuery.of(context).size.height * 0.01,
-  //                         bottom: MediaQuery.of(context).size.height * 0.01,
-  //                         left: MediaQuery.of(context).size.height * 0.01,
-  //                         right: MediaQuery.of(context).size.height * 0.01,
-  //                       ),
-  //                       decoration: BoxDecoration(
-  //                         borderRadius: BorderRadius.circular(4.0),
-  //                         image: DecorationImage(
-  //                           image: AssetImage(
-  //                               'assets/paypalpay.png'), // Replace with your asset path
-  //                           fit: BoxFit.cover,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     // Column with two Text widgets
-  //                     Expanded(
-  //                       child: Column(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         children: [
-  //                           Text(
-  //                             '**** **** 3434',
-  //                             style: TextStyle(
-  //                               fontWeight: FontWeight.bold,
-  //                               fontSize:
-  //                               MediaQuery.of(context).size.height * 0.018,
-  //                               color: Colors.black,
-  //                             ),
-  //                           ),
-  //                           Text(
-  //                             'Paypal',
-  //                             style: TextStyle(
-  //                               fontSize:
-  //                               MediaQuery.of(context).size.height * 0.016,
-  //                               color: Colors.black,
-  //                             ),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     // Circular Radio Button
-  //                     Radio<int>(
-  //                       value: 1, // The value for this radio button
-  //                       groupValue: 0, // The currently selected value
-  //                       onChanged: (int? value) {
-  //                         // Handle radio button change
-  //                       },
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //
-  //               // 3
-  //               Container(
-  //                 margin: EdgeInsets.only(
-  //                   top: MediaQuery.of(context).size.height * 0.00,
-  //                   bottom: MediaQuery.of(context).size.height * 0.01,
-  //                   left: MediaQuery.of(context).size.height * 0.01,
-  //                   right: MediaQuery.of(context).size.height * 0.01,
-  //                 ),
-  //                 padding: EdgeInsets.only(
-  //                   top: MediaQuery.of(context).size.height * 0.00,
-  //                   bottom: MediaQuery.of(context).size.height * 0.00,
-  //                   left: MediaQuery.of(context).size.height * 0.01,
-  //                   right: MediaQuery.of(context).size.height * 0.00,
-  //                 ),
-  //                 decoration: BoxDecoration(
-  //                   border: Border.all(
-  //                     color: Colors.grey,
-  //                     width: 1.0,
-  //                   ),
-  //                   borderRadius: BorderRadius.circular(8.0),
-  //                 ),
-  //                 child: Row(
-  //                   mainAxisAlignment: MainAxisAlignment.start,
-  //                   crossAxisAlignment: CrossAxisAlignment.center,
-  //                   children: [
-  //                     // Image from assets
-  //                     Container(
-  //                       width: MediaQuery.of(context).size.height * 0.07,
-  //                       height: MediaQuery.of(context).size.height * 0.07,
-  //                       margin: EdgeInsets.only(
-  //                         top: MediaQuery.of(context).size.height * 0.01,
-  //                         bottom: MediaQuery.of(context).size.height * 0.01,
-  //                         left: MediaQuery.of(context).size.height * 0.01,
-  //                         right: MediaQuery.of(context).size.height * 0.01,
-  //                       ),
-  //                       decoration: BoxDecoration(
-  //                         borderRadius: BorderRadius.circular(4.0),
-  //                         image: DecorationImage(
-  //                           image: AssetImage(
-  //                               'assets/applepay.png'), // Replace with your asset path
-  //                           fit: BoxFit.cover,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     // Column with two Text widgets
-  //                     Expanded(
-  //                       child: Column(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         children: [
-  //                           Text(
-  //                             'Priya Krishamurty',
-  //                             style: TextStyle(
-  //                               fontWeight: FontWeight.bold,
-  //                               fontSize:
-  //                               MediaQuery.of(context).size.height * 0.018,
-  //                               color: Colors.black,
-  //                             ),
-  //                           ),
-  //                           Text(
-  //                             'Apple Pay',
-  //                             style: TextStyle(
-  //                               fontSize:
-  //                               MediaQuery.of(context).size.height * 0.016,
-  //                               color: Colors.black,
-  //                             ),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     // Circular Radio Button
-  //                     Radio<int>(
-  //                       value: 1, // The value for this radio button
-  //                       groupValue: 0, // The currently selected value
-  //                       onChanged: (int? value) {
-  //                         // Handle radio button change
-  //                       },
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //
-  //               // 4
-  //               Container(
-  //                 margin: EdgeInsets.only(
-  //                   top: MediaQuery.of(context).size.height * 0.00,
-  //                   bottom: MediaQuery.of(context).size.height * 0.00,
-  //                   left: MediaQuery.of(context).size.height * 0.01,
-  //                   right: MediaQuery.of(context).size.height * 0.01,
-  //                 ),
-  //                 padding: EdgeInsets.only(
-  //                   top: MediaQuery.of(context).size.height * 0.00,
-  //                   bottom: MediaQuery.of(context).size.height * 0.00,
-  //                   left: MediaQuery.of(context).size.height * 0.01,
-  //                   right: MediaQuery.of(context).size.height * 0.00,
-  //                 ),
-  //                 decoration: BoxDecoration(
-  //                   border: Border.all(
-  //                     color: Colors.grey,
-  //                     width: 1.0,
-  //                   ),
-  //                   borderRadius: BorderRadius.circular(8.0),
-  //                 ),
-  //                 child: Row(
-  //                   mainAxisAlignment: MainAxisAlignment.start,
-  //                   crossAxisAlignment: CrossAxisAlignment.center,
-  //                   children: [
-  //                     // Image from assets
-  //                     Container(
-  //                       width: MediaQuery.of(context).size.height * 0.07,
-  //                       height: MediaQuery.of(context).size.height * 0.07,
-  //                       margin: EdgeInsets.only(
-  //                         top: MediaQuery.of(context).size.height * 0.01,
-  //                         bottom: MediaQuery.of(context).size.height * 0.01,
-  //                         left: MediaQuery.of(context).size.height * 0.01,
-  //                         right: MediaQuery.of(context).size.height * 0.01,
-  //                       ),
-  //                       decoration: BoxDecoration(
-  //                         borderRadius: BorderRadius.circular(4.0),
-  //                         image: DecorationImage(
-  //                           image: AssetImage(
-  //                               'assets/googlepay.png'), // Replace with your asset path
-  //                           fit: BoxFit.cover,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     // Column with two Text widgets
-  //                     Expanded(
-  //                       child: Column(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         children: [
-  //                           Text(
-  //                             'Priya Krishamurty',
-  //                             style: TextStyle(
-  //                               fontWeight: FontWeight.bold,
-  //                               fontSize:
-  //                               MediaQuery.of(context).size.height * 0.018,
-  //                               color: Colors.black,
-  //                             ),
-  //                           ),
-  //                           Text(
-  //                             'Google Pay',
-  //                             style: TextStyle(
-  //                               fontSize:
-  //                               MediaQuery.of(context).size.height * 0.016,
-  //                               color: Colors.black,
-  //                             ),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     // Circular Radio Button
-  //                     Radio<int>(
-  //                       value: 1, // The value for this radio button
-  //                       groupValue: 0, // The currently selected value
-  //                       onChanged: (int? value) {
-  //                         // Handle radio button change
-  //                       },
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //
-  //               // Continue
-  //               GestureDetector(
-  //                 onTap: () async {
-  //                   showsucessalertBottomSheet();
-  //                 },
-  //                 child: Container(
-  //                     alignment: Alignment.centerRight,
-  //                     padding: EdgeInsets.only(
-  //                         top: MediaQuery.of(context).size.height * 0.01,
-  //                         bottom: MediaQuery.of(context).size.height * 0.00,
-  //                         left: MediaQuery.of(context).size.height * 0.00,
-  //                         right: MediaQuery.of(context).size.height * 0.00),
-  //                     margin: EdgeInsets.only(
-  //                         right: MediaQuery.of(context).size.height * 0.03,
-  //                         top: MediaQuery.of(context).size.height * 0.01,
-  //                         bottom: MediaQuery.of(context).size.height * 0.01,
-  //                         left: MediaQuery.of(context).size.height * 0.03),
-  //                     child: Row(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         mainAxisAlignment: MainAxisAlignment.center,
-  //                         children: <Widget>[
-  //                           Expanded(
-  //                             child: Container(
-  //                               decoration: BoxDecoration(
-  //                                   borderRadius: BorderRadius.circular(
-  //                                       MediaQuery.of(context).size.height *
-  //                                           0.012),
-  //                                   gradient: LinearGradient(
-  //                                       begin: Alignment.centerRight,
-  //                                       end: Alignment.center,
-  //                                       stops: [
-  //                                         0.5,
-  //                                         0.9
-  //                                       ],
-  //                                       colors: [
-  //                                         Color(0xFF126086),
-  //                                         Color(0xFF126086),
-  //                                       ])),
-  //                               alignment: Alignment.center,
-  //                               padding: EdgeInsets.only(left: 0.0),
-  //                               child: TextButton(
-  //                                 onPressed: () async {
-  //                                   showsucessalertBottomSheet();
-  //                                 },
-  //                                 child: Text("Continue",
-  //                                     textAlign: TextAlign.center,
-  //                                     style: TextStyle(
-  //                                         color: Colors.white,
-  //                                         fontSize: MediaQuery.of(context)
-  //                                             .size
-  //                                             .height *
-  //                                             0.02)),
-  //                               ),
-  //                             ),
-  //                           ),
-  //                         ])),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //   ),
-  // );
-
-  // Success alert bottomsheet
-
   void showPaymentmethodsBottomSheet() => showModalBottomSheet(
     context: context,
     enableDrag: false,
@@ -3460,735 +3268,128 @@ class AddToCartMainstate extends State<AddToCartMain> {
     // ),
   );
 
-  // void showPaymentmethodsBottomSheet() => showModalBottomSheet(
-  //     enableDrag: false,
-  //     isScrollControlled: true,
-  //     isDismissible: true,
-  //     shape: const RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.only(
-  //         topLeft: Radius.circular(24),
-  //         topRight: Radius.circular(24),
-  //       ),
-  //     ),
-  //     barrierColor: Colors.grey.withOpacity(0.9),
-  //     context: context,
-  //     builder: (context) {
-  //       return BottomSheetForPayment();
-  //     }
+  // void _loadCart() async{
+  //   bool isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
+
+  //   String? username =  await UserSecureStorage.getUsernameid();
+
   //
-  //     //     StatefulBuilder(
-  //     //   builder: (BuildContext context,
-  //     //           StateSetter setState /*You can rename this!*/) =>
-  //     //       Padding(
-  //     //     padding: EdgeInsets.only(
-  //     //         bottom: MediaQuery.of(context).viewInsets.bottom),
-  //     //     child: Column(
-  //     //       mainAxisSize: MainAxisSize.min,
-  //     //       children: <Widget>[
-  //     //         GestureDetector(
-  //     //
-  //     //
-  //     //           child: Center(
-  //     //             child: Container(
-  //     //
-  //     //               padding: EdgeInsets.only(
-  //     //                 top: MediaQuery
-  //     //                     .of(context)
-  //     //                     .size
-  //     //                     .height * 0.01 ,
-  //     //                 bottom: MediaQuery
-  //     //                     .of(context)
-  //     //                     .size
-  //     //                     .height * 0.03,
-  //     //                 left: MediaQuery
-  //     //                     .of(context)
-  //     //                     .size
-  //     //                     .height * 0.18,
-  //     //                 right: MediaQuery
-  //     //                     .of(context)
-  //     //                     .size
-  //     //                     .height * 0.18,
-  //     //               ),
-  //     //
-  //     //
-  //     //               width: MediaQuery
-  //     //                   .of(context)
-  //     //                   .size
-  //     //                   .width * 0.23,
-  //     //               // Same thickness as Divider
-  //     //               height: MediaQuery
-  //     //                   .of(context)
-  //     //                   .size
-  //     //                   .height * 0.006,
-  //     //               // Same thickness as Divider
-  //     //               decoration: BoxDecoration(
-  //     //                 color: Color(0xFFD9D9D9), // Divider color
-  //     //                 borderRadius: BorderRadius.circular(
-  //     //                     10), // Rounded edges
-  //     //               ),
-  //     //             ),
-  //     //           ),
-  //     //         ),
-  //     //         SizedBox(height : MediaQuery.of(context).size.height * 0.02),
-  //     //
-  //     //         Container(
-  //     //           padding: EdgeInsets.only(
-  //     //               left: MediaQuery.of(context).size.height * 0.020,
-  //     //               right: MediaQuery.of(context).size.height * 0.020,
-  //     //               top: MediaQuery.of(context).size.height * 0.030,
-  //     //               bottom: MediaQuery.of(context).size.height * 0.00),
-  //     //           child: Row(
-  //     //             crossAxisAlignment: CrossAxisAlignment.center,
-  //     //             mainAxisAlignment: MainAxisAlignment.start,
-  //     //             children: <Widget>[
-  //     //               Expanded(
-  //     //                 child: Column(
-  //     //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //     //                   mainAxisAlignment: MainAxisAlignment.center,
-  //     //                   children: <Widget>[
-  //     //                     Text(
-  //     //                       "Payment Methods",
-  //     //                       style: TextStyle(
-  //     //                           color: Colors.black,
-  //     //                           fontWeight: FontWeight.bold,
-  //     //                           fontSize: MediaQuery.of(context).size.height *
-  //     //                               0.024),
-  //     //                     ),
-  //     //                     Container(
-  //     //                       padding: EdgeInsets.only(
-  //     //                         top: MediaQuery.of(context).size.height * 0.00,
-  //     //                         bottom:
-  //     //                             MediaQuery.of(context).size.height * 0.02,
-  //     //                         left: MediaQuery.of(context).size.height * 0.00,
-  //     //                         right:
-  //     //                             MediaQuery.of(context).size.height * 0.00,
-  //     //                       ),
-  //     //                       child: Text(
-  //     //                         "Please Select a payment method",
-  //     //                         textAlign: TextAlign.center,
-  //     //                         style: TextStyle(
-  //     //                             color: Colors.black54,
-  //     //                             fontSize:
-  //     //                                 MediaQuery.of(context).size.height *
-  //     //                                     0.018),
-  //     //                       ),
-  //     //                     ),
-  //     //                   ],
-  //     //                 ),
-  //     //               ),
-  //     //
-  //     //               // SizedBox(width: MediaQuery.of(context).size.height * 0.040),
-  //     //             ],
-  //     //           ),
-  //     //         ),
-  //     //
-  //     //         // Payment mode
-  //     //         // 1
-  //     //         Container(
-  //     //           margin: EdgeInsets.only(
-  //     //             top: MediaQuery.of(context).size.height * 0.00,
-  //     //             bottom: MediaQuery.of(context).size.height * 0.01,
-  //     //             left: MediaQuery.of(context).size.height * 0.01,
-  //     //             right: MediaQuery.of(context).size.height * 0.01,
-  //     //           ),
-  //     //           padding: EdgeInsets.only(
-  //     //             top: MediaQuery.of(context).size.height * 0.00,
-  //     //             bottom: MediaQuery.of(context).size.height * 0.00,
-  //     //             left: MediaQuery.of(context).size.height * 0.01,
-  //     //             right: MediaQuery.of(context).size.height * 0.00,
-  //     //           ),
-  //     //           decoration: BoxDecoration(
-  //     //             border: Border.all(
-  //     //               color: Colors.grey,
-  //     //               width: 1.0,
-  //     //             ),
-  //     //             borderRadius: BorderRadius.circular(8.0),
-  //     //           ),
-  //     //           child: Row(
-  //     //             mainAxisAlignment: MainAxisAlignment.start,
-  //     //             crossAxisAlignment: CrossAxisAlignment.center,
-  //     //             children: [
-  //     //               // Image from assets
-  //     //               Container(
-  //     //                 width: MediaQuery.of(context).size.height * 0.07,
-  //     //                 height: MediaQuery.of(context).size.height * 0.07,
-  //     //                 margin: EdgeInsets.only(
-  //     //                   top: MediaQuery.of(context).size.height * 0.01,
-  //     //                   bottom: MediaQuery.of(context).size.height * 0.01,
-  //     //                   left: MediaQuery.of(context).size.height * 0.01,
-  //     //                   right: MediaQuery.of(context).size.height * 0.01,
-  //     //                 ),
-  //     //                 decoration: BoxDecoration(
-  //     //                   borderRadius: BorderRadius.circular(4.0),
-  //     //                   image: DecorationImage(
-  //     //                     image: AssetImage(
-  //     //                         'assets/visapay.png'), // Replace with your asset path
-  //     //                     fit: BoxFit.cover,
-  //     //                   ),
-  //     //                 ),
-  //     //               ),
-  //     //               // Column with two Text widgets
-  //     //               Expanded(
-  //     //                 child: Column(
-  //     //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //     //                   children: [
-  //     //                     Text(
-  //     //                       '**** **** 3434',
-  //     //                       style: TextStyle(
-  //     //                         fontWeight: FontWeight.bold,
-  //     //                         fontSize:
-  //     //                             MediaQuery.of(context).size.height * 0.018,
-  //     //                         color: Colors.black,
-  //     //                       ),
-  //     //                     ),
-  //     //                     Text(
-  //     //                       'Visa',
-  //     //                       style: TextStyle(
-  //     //                         fontSize:
-  //     //                             MediaQuery.of(context).size.height * 0.016,
-  //     //                         color: Colors.black,
-  //     //                       ),
-  //     //                     ),
-  //     //                   ],
-  //     //                 ),
-  //     //               ),
-  //     //               // Circular Radio Button
-  //     //               Radio<int>(
-  //     //                 value: 1, // The value for this radio button
-  //     //                 groupValue: 0, // The currently selected value
-  //     //                 onChanged: (int? value) {
-  //     //                   // Handle radio button change
-  //     //                 },
-  //     //               ),
-  //     //             ],
-  //     //           ),
-  //     //         ),
-  //     //
-  //     //         // 2
-  //     //         Container(
-  //     //           margin: EdgeInsets.only(
-  //     //             top: MediaQuery.of(context).size.height * 0.00,
-  //     //             bottom: MediaQuery.of(context).size.height * 0.01,
-  //     //             left: MediaQuery.of(context).size.height * 0.01,
-  //     //             right: MediaQuery.of(context).size.height * 0.01,
-  //     //           ),
-  //     //           padding: EdgeInsets.only(
-  //     //             top: MediaQuery.of(context).size.height * 0.00,
-  //     //             bottom: MediaQuery.of(context).size.height * 0.00,
-  //     //             left: MediaQuery.of(context).size.height * 0.01,
-  //     //             right: MediaQuery.of(context).size.height * 0.00,
-  //     //           ),
-  //     //           decoration: BoxDecoration(
-  //     //             border: Border.all(
-  //     //               color: Colors.grey,
-  //     //               width: 1.0,
-  //     //             ),
-  //     //             borderRadius: BorderRadius.circular(8.0),
-  //     //           ),
-  //     //           child: Row(
-  //     //             mainAxisAlignment: MainAxisAlignment.start,
-  //     //             crossAxisAlignment: CrossAxisAlignment.center,
-  //     //             children: [
-  //     //               // Image from assets
-  //     //               Container(
-  //     //                 width: MediaQuery.of(context).size.height * 0.07,
-  //     //                 height: MediaQuery.of(context).size.height * 0.07,
-  //     //                 margin: EdgeInsets.only(
-  //     //                   top: MediaQuery.of(context).size.height * 0.01,
-  //     //                   bottom: MediaQuery.of(context).size.height * 0.01,
-  //     //                   left: MediaQuery.of(context).size.height * 0.01,
-  //     //                   right: MediaQuery.of(context).size.height * 0.01,
-  //     //                 ),
-  //     //                 decoration: BoxDecoration(
-  //     //                   borderRadius: BorderRadius.circular(4.0),
-  //     //                   image: DecorationImage(
-  //     //                     image: AssetImage(
-  //     //                         'assets/paypalpay.png'), // Replace with your asset path
-  //     //                     fit: BoxFit.cover,
-  //     //                   ),
-  //     //                 ),
-  //     //               ),
-  //     //               // Column with two Text widgets
-  //     //               Expanded(
-  //     //                 child: Column(
-  //     //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //     //                   children: [
-  //     //                     Text(
-  //     //                       '**** **** 3434',
-  //     //                       style: TextStyle(
-  //     //                         fontWeight: FontWeight.bold,
-  //     //                         fontSize:
-  //     //                             MediaQuery.of(context).size.height * 0.018,
-  //     //                         color: Colors.black,
-  //     //                       ),
-  //     //                     ),
-  //     //                     Text(
-  //     //                       'Paypal',
-  //     //                       style: TextStyle(
-  //     //                         fontSize:
-  //     //                             MediaQuery.of(context).size.height * 0.016,
-  //     //                         color: Colors.black,
-  //     //                       ),
-  //     //                     ),
-  //     //                   ],
-  //     //                 ),
-  //     //               ),
-  //     //               // Circular Radio Button
-  //     //               Radio<int>(
-  //     //                 value: 1, // The value for this radio button
-  //     //                 groupValue: 0, // The currently selected value
-  //     //                 onChanged: (int? value) {
-  //     //                   // Handle radio button change
-  //     //                 },
-  //     //               ),
-  //     //             ],
-  //     //           ),
-  //     //         ),
-  //     //
-  //     //         // 3
-  //     //         Container(
-  //     //           margin: EdgeInsets.only(
-  //     //             top: MediaQuery.of(context).size.height * 0.00,
-  //     //             bottom: MediaQuery.of(context).size.height * 0.01,
-  //     //             left: MediaQuery.of(context).size.height * 0.01,
-  //     //             right: MediaQuery.of(context).size.height * 0.01,
-  //     //           ),
-  //     //           padding: EdgeInsets.only(
-  //     //             top: MediaQuery.of(context).size.height * 0.00,
-  //     //             bottom: MediaQuery.of(context).size.height * 0.00,
-  //     //             left: MediaQuery.of(context).size.height * 0.01,
-  //     //             right: MediaQuery.of(context).size.height * 0.00,
-  //     //           ),
-  //     //           decoration: BoxDecoration(
-  //     //             border: Border.all(
-  //     //               color: Colors.grey,
-  //     //               width: 1.0,
-  //     //             ),
-  //     //             borderRadius: BorderRadius.circular(8.0),
-  //     //           ),
-  //     //           child: Row(
-  //     //             mainAxisAlignment: MainAxisAlignment.start,
-  //     //             crossAxisAlignment: CrossAxisAlignment.center,
-  //     //             children: [
-  //     //               // Image from assets
-  //     //               Container(
-  //     //                 width: MediaQuery.of(context).size.height * 0.07,
-  //     //                 height: MediaQuery.of(context).size.height * 0.07,
-  //     //                 margin: EdgeInsets.only(
-  //     //                   top: MediaQuery.of(context).size.height * 0.01,
-  //     //                   bottom: MediaQuery.of(context).size.height * 0.01,
-  //     //                   left: MediaQuery.of(context).size.height * 0.01,
-  //     //                   right: MediaQuery.of(context).size.height * 0.01,
-  //     //                 ),
-  //     //                 decoration: BoxDecoration(
-  //     //                   borderRadius: BorderRadius.circular(4.0),
-  //     //                   image: DecorationImage(
-  //     //                     image: AssetImage(
-  //     //                         'assets/applepay.png'), // Replace with your asset path
-  //     //                     fit: BoxFit.cover,
-  //     //                   ),
-  //     //                 ),
-  //     //               ),
-  //     //               // Column with two Text widgets
-  //     //               Expanded(
-  //     //                 child: Column(
-  //     //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //     //                   children: [
-  //     //                     Text(
-  //     //                       'Priya Krishamurty',
-  //     //                       style: TextStyle(
-  //     //                         fontWeight: FontWeight.bold,
-  //     //                         fontSize:
-  //     //                             MediaQuery.of(context).size.height * 0.018,
-  //     //                         color: Colors.black,
-  //     //                       ),
-  //     //                     ),
-  //     //                     Text(
-  //     //                       'Apple Pay',
-  //     //                       style: TextStyle(
-  //     //                         fontSize:
-  //     //                             MediaQuery.of(context).size.height * 0.016,
-  //     //                         color: Colors.black,
-  //     //                       ),
-  //     //                     ),
-  //     //                   ],
-  //     //                 ),
-  //     //               ),
-  //     //               // Circular Radio Button
-  //     //               Radio<int>(
-  //     //                 value: 1, // The value for this radio button
-  //     //                 groupValue: 0, // The currently selected value
-  //     //                 onChanged: (int? value) {
-  //     //                   // Handle radio button change
-  //     //                 },
-  //     //               ),
-  //     //             ],
-  //     //           ),
-  //     //         ),
-  //     //
-  //     //         // 4
-  //     //         Container(
-  //     //           margin: EdgeInsets.only(
-  //     //             top: MediaQuery.of(context).size.height * 0.00,
-  //     //             bottom: MediaQuery.of(context).size.height * 0.00,
-  //     //             left: MediaQuery.of(context).size.height * 0.01,
-  //     //             right: MediaQuery.of(context).size.height * 0.01,
-  //     //           ),
-  //     //           padding: EdgeInsets.only(
-  //     //             top: MediaQuery.of(context).size.height * 0.00,
-  //     //             bottom: MediaQuery.of(context).size.height * 0.00,
-  //     //             left: MediaQuery.of(context).size.height * 0.01,
-  //     //             right: MediaQuery.of(context).size.height * 0.00,
-  //     //           ),
-  //     //           decoration: BoxDecoration(
-  //     //             border: Border.all(
-  //     //               color: Colors.grey,
-  //     //               width: 1.0,
-  //     //             ),
-  //     //             borderRadius: BorderRadius.circular(8.0),
-  //     //           ),
-  //     //           child: Row(
-  //     //             mainAxisAlignment: MainAxisAlignment.start,
-  //     //             crossAxisAlignment: CrossAxisAlignment.center,
-  //     //             children: [
-  //     //               // Image from assets
-  //     //               Container(
-  //     //                 width: MediaQuery.of(context).size.height * 0.07,
-  //     //                 height: MediaQuery.of(context).size.height * 0.07,
-  //     //                 margin: EdgeInsets.only(
-  //     //                   top: MediaQuery.of(context).size.height * 0.01,
-  //     //                   bottom: MediaQuery.of(context).size.height * 0.01,
-  //     //                   left: MediaQuery.of(context).size.height * 0.01,
-  //     //                   right: MediaQuery.of(context).size.height * 0.01,
-  //     //                 ),
-  //     //                 decoration: BoxDecoration(
-  //     //                   borderRadius: BorderRadius.circular(4.0),
-  //     //                   image: DecorationImage(
-  //     //                     image: AssetImage(
-  //     //                         'assets/googlepay.png'), // Replace with your asset path
-  //     //                     fit: BoxFit.cover,
-  //     //                   ),
-  //     //                 ),
-  //     //               ),
-  //     //               // Column with two Text widgets
-  //     //               Expanded(
-  //     //                 child: Column(
-  //     //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //     //                   children: [
-  //     //                     Text(
-  //     //                       'Priya Krishamurty',
-  //     //                       style: TextStyle(
-  //     //                         fontWeight: FontWeight.bold,
-  //     //                         fontSize:
-  //     //                             MediaQuery.of(context).size.height * 0.018,
-  //     //                         color: Colors.black,
-  //     //                       ),
-  //     //                     ),
-  //     //                     Text(
-  //     //                       'Google Pay',
-  //     //                       style: TextStyle(
-  //     //                         fontSize:
-  //     //                             MediaQuery.of(context).size.height * 0.016,
-  //     //                         color: Colors.black,
-  //     //                       ),
-  //     //                     ),
-  //     //                   ],
-  //     //                 ),
-  //     //               ),
-  //     //               // Circular Radio Button
-  //     //               Radio<int>(
-  //     //                 value: 1, // The value for this radio button
-  //     //                 groupValue: 0, // The currently selected value
-  //     //                 onChanged: (int? value) {
-  //     //                   // Handle radio button change
-  //     //                 },
-  //     //               ),
-  //     //             ],
-  //     //           ),
-  //     //         ),
-  //     //
-  //     //         // Continue
-  //     //         GestureDetector(
-  //     //           onTap: () async {
-  //     //             showsucessalertBottomSheet();
-  //     //           },
-  //     //           child: Container(
-  //     //               alignment: Alignment.centerRight,
-  //     //               padding: EdgeInsets.only(
-  //     //                   top: MediaQuery.of(context).size.height * 0.01,
-  //     //                   bottom: MediaQuery.of(context).size.height * 0.00,
-  //     //                   left: MediaQuery.of(context).size.height * 0.00,
-  //     //                   right: MediaQuery.of(context).size.height * 0.00),
-  //     //               margin: EdgeInsets.only(
-  //     //                   right: MediaQuery.of(context).size.height * 0.03,
-  //     //                   top: MediaQuery.of(context).size.height * 0.01,
-  //     //                   bottom: MediaQuery.of(context).size.height * 0.01,
-  //     //                   left: MediaQuery.of(context).size.height * 0.03),
-  //     //               child: Row(
-  //     //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //     //                   mainAxisAlignment: MainAxisAlignment.center,
-  //     //                   children: <Widget>[
-  //     //                     Expanded(
-  //     //                       child: Container(
-  //     //                         decoration: BoxDecoration(
-  //     //                             borderRadius: BorderRadius.circular(
-  //     //                                 MediaQuery.of(context).size.height *
-  //     //                                     0.012),
-  //     //                             gradient: LinearGradient(
-  //     //                                 begin: Alignment.centerRight,
-  //     //                                 end: Alignment.center,
-  //     //                                 stops: [
-  //     //                                   0.5,
-  //     //                                   0.9
-  //     //                                 ],
-  //     //                                 colors: [
-  //     //                                   Color(0xFF126086),
-  //     //                                   Color(0xFF126086),
-  //     //                                 ])),
-  //     //                         alignment: Alignment.center,
-  //     //                         padding: EdgeInsets.only(left: 0.0),
-  //     //                         child: TextButton(
-  //     //                           onPressed: () async {
-  //     //                             showsucessalertBottomSheet();
-  //     //                           },
-  //     //                           child: Text("Continue",
-  //     //                               textAlign: TextAlign.center,
-  //     //                               style: TextStyle(
-  //     //                                   color: Colors.white,
-  //     //                                   fontSize: MediaQuery.of(context)
-  //     //                                           .size
-  //     //                                           .height *
-  //     //                                       0.02)),
-  //     //                         ),
-  //     //                       ),
-  //     //                     ),
-  //     //                   ])),
-  //     //         ),
-  //     //       ],
-  //     //     ),
-  //     //   ),
-  //     // ),
-  //     );
-  // void showsucessalertBottomSheet() => showModalBottomSheet(
-  //       enableDrag: false,
-  //       isScrollControlled: true,
-  //       isDismissible: true,
-  //       shape: const RoundedRectangleBorder(
-  //         borderRadius: BorderRadius.only(
-  //           topLeft: Radius.circular(24),
-  //           topRight: Radius.circular(24),
-  //         ),
-  //       ),
-  //       barrierColor: Colors.grey.withOpacity(0.9),
-  //       context: context,
-  //       builder: (context) => StatefulBuilder(
-  //         builder: (BuildContext context,
-  //                 StateSetter setState /*You can rename this!*/) =>
-  //             Padding(
-  //           padding: EdgeInsets.only(
-  //               bottom: MediaQuery.of(context).viewInsets.bottom),
-  //           child: Column(
-  //             mainAxisSize: MainAxisSize.min,
-  //             children: <Widget>[
-  //               Container(
-  //                 padding: EdgeInsets.only(
-  //                     left: MediaQuery.of(context).size.height * 0.020,
-  //                     right: MediaQuery.of(context).size.height * 0.020,
-  //                     top: MediaQuery.of(context).size.height * 0.030,
-  //                     bottom: MediaQuery.of(context).size.height * 0.00),
-  //                 child: Row(
-  //                   crossAxisAlignment: CrossAxisAlignment.center,
-  //                   mainAxisAlignment: MainAxisAlignment.start,
-  //                   children: <Widget>[
-  //                     Expanded(
-  //                       child: Column(
-  //                         crossAxisAlignment: CrossAxisAlignment.center,
-  //                         mainAxisAlignment: MainAxisAlignment.center,
-  //                         children: <Widget>[
-  //                           Image.asset(
-  //                             'assets/paymentsucess.png',
-  //                             height: MediaQuery.of(context).size.height * 0.30,
-  //                             fit: BoxFit.fill,
-  //                           ),
-  //                           Text(
-  //                             "Thank you!",
-  //                             style: TextStyle(
-  //                                 color: Colors.black,
-  //                                 fontWeight: FontWeight.bold,
-  //                                 fontSize: MediaQuery.of(context).size.height *
-  //                                     0.024),
-  //                           ),
-  //                           Container(
-  //                             padding: EdgeInsets.only(
-  //                               top: MediaQuery.of(context).size.height * 0.00,
-  //                               bottom:
-  //                                   MediaQuery.of(context).size.height * 0.02,
-  //                               left: MediaQuery.of(context).size.height * 0.00,
-  //                               right:
-  //                                   MediaQuery.of(context).size.height * 0.00,
-  //                             ),
-  //                             child: Text(
-  //                               "Payment Done Successfully",
-  //                               textAlign: TextAlign.center,
-  //                               style: TextStyle(
-  //                                   color: Colors.black54,
-  //                                   fontSize:
-  //                                       MediaQuery.of(context).size.height *
-  //                                           0.018),
-  //                             ),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
+  //   if(isGuestUser) {
+  //     username = "GUEST";
+  //   }
   //
-  //                     // SizedBox(width: MediaQuery.of(context).size.height * 0.040),
-  //                   ],
-  //                 ),
-  //               ),
+  //   List<dynamic> _loadedCart  = await UserSecureStorage.getAddToCart(username ?? '');
+
   //
-  //               // Reschedule
-  //               /*GestureDetector(
-  //                 onTap: () async {
-  //                   Navigator.of(context).push(
-  //                     MaterialPageRoute(
-  //                       builder:
-  //                           (BuildContext context) {
-  //                         return MedicatiSelectTimeSlot(
-  //                             "widget.doctoridval");
-  //                       },
-  //                     ),
-  //                   );
-  //                 },
-  //                 child: Container(
-  //                   alignment: Alignment.centerRight,
-  //                   padding: EdgeInsets.only(
-  //                     top: MediaQuery.of(context).size.height * 0.0,
-  //                     bottom: MediaQuery.of(context).size.height * 0.00,
-  //                     left: MediaQuery.of(context).size.height * 0.00,
-  //                     right: MediaQuery.of(context).size.height * 0.00,
-  //                   ),
-  //                   margin: EdgeInsets.only(
-  //                     right: MediaQuery.of(context).size.height * 0.03,
-  //                     top: MediaQuery.of(context).size.height * 0.00,
-  //                     bottom: MediaQuery.of(context).size.height * 0.01,
-  //                     left: MediaQuery.of(context).size.height * 0.03,
-  //                   ),
-  //                   decoration: BoxDecoration(
-  //                     border: Border.all(
-  //                       color: Color(0xFF126086), // Border color
-  //                       width: 1, // Border width
-  //                     ),
-  //                     borderRadius: BorderRadius.circular(
-  //                         MediaQuery.of(context).size.height * 0.012),
-  //                   ),
-  //                   child: Row(
-  //                     crossAxisAlignment: CrossAxisAlignment.start,
-  //                     mainAxisAlignment: MainAxisAlignment.center,
-  //                     children: <Widget>[
-  //                       Expanded(
-  //                         child: Container(
-  //                           alignment: Alignment.center,
-  //                           padding: EdgeInsets.only(left: 0.0),
-  //                           child: TextButton(
-  //                             onPressed: () async {
-  //                               Navigator.of(context).push(
-  //                                 MaterialPageRoute(
-  //                                   builder:
-  //                                       (BuildContext context) {
-  //                                     return MedicatiSelectTimeSlot(
-  //                                         "widget.doctoridval");
-  //                                   },
-  //                                 ),
-  //                               );
-  //                             },
-  //                             child: Text(
-  //                               "Reschedule",
-  //                               textAlign: TextAlign.center,
-  //                               style: TextStyle(
-  //                                 color: Color(0xFF126086),
-  //                                 fontSize: MediaQuery.of(context).size.height *
-  //                                     0.026,
-  //                               ),
-  //                             ),
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ],
-  //                   ),
-  //                 ),
-  //               ),*/
   //
-  //               // Back to Home
-  //               GestureDetector(
-  //                 onTap: () async {
-  //                   Navigator.of(context).pushAndRemoveUntil(
-  //                     MaterialPageRoute(
-  //                       builder: (BuildContext context) => HomePageMain(),
-  //                     ),
-  //                     (Route route) => false,
-  //                   );
-  //                 },
-  //                 child: Container(
-  //                     alignment: Alignment.centerRight,
-  //                     padding: EdgeInsets.only(
-  //                         top: MediaQuery.of(context).size.height * 0.01,
-  //                         bottom: MediaQuery.of(context).size.height * 0.00,
-  //                         left: MediaQuery.of(context).size.height * 0.00,
-  //                         right: MediaQuery.of(context).size.height * 0.00),
-  //                     margin: EdgeInsets.only(
-  //                         right: MediaQuery.of(context).size.height * 0.03,
-  //                         top: MediaQuery.of(context).size.height * 0.01,
-  //                         bottom: MediaQuery.of(context).size.height * 0.01,
-  //                         left: MediaQuery.of(context).size.height * 0.03),
-  //                     child: Row(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         mainAxisAlignment: MainAxisAlignment.center,
-  //                         children: <Widget>[
-  //                           Expanded(
-  //                             child: Container(
-  //                               decoration: BoxDecoration(
-  //                                   borderRadius: BorderRadius.circular(
-  //                                       MediaQuery.of(context).size.height *
-  //                                           0.012),
-  //                                   gradient: LinearGradient(
-  //                                       begin: Alignment.centerRight,
-  //                                       end: Alignment.center,
-  //                                       stops: [
-  //                                         0.5,
-  //                                         0.9
-  //                                       ],
-  //                                       colors: [
-  //                                         Color(0xFF126086),
-  //                                         Color(0xFF126086),
-  //                                       ])),
-  //                               alignment: Alignment.center,
-  //                               padding: EdgeInsets.only(left: 0.0),
-  //                               child: TextButton(
-  //                                 onPressed: () async {
-  //                                   Navigator.of(context).pushAndRemoveUntil(
-  //                                     MaterialPageRoute(
-  //                                       builder: (BuildContext context) =>
-  //                                           HomePageMain(),
-  //                                     ),
-  //                                     (Route route) => false,
-  //                                   );
-  //                                 },
-  //                                 child: Text("Back to Home",
-  //                                     textAlign: TextAlign.center,
-  //                                     style: TextStyle(
-  //                                         color: Colors.white,
-  //                                         fontSize: MediaQuery.of(context)
-  //                                                 .size
-  //                                                 .height *
-  //                                             0.02)),
-  //                               ),
-  //                             ),
-  //                           ),
-  //                         ])),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     );
+  //   List<Map<String, dynamic>> formattedCart = _loadedCart.map((item){
+  //      return {
+  //        "images" : "assets/Harmonebackground.png",
+  //        "qr": item["qr"] ?? "",
+  //        "plan": item["plan"] ?? "",
+  //        "test": item["textincluded"] ?? ""
+  //      };
+  //   }).toList();
+  //
+  //   formattedCart = formattedCart.reversed.toList();
+  //
+  //   setState(() {
+  //     carttoplist = [...formattedCart, ...carttoplist];
+  //   });
+  //
+
+  //
+  //
+  // }
+
+  void _loadCart() async {
+      bool isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
+      String? username =  await UserSecureStorage.getUsernameid();
+
+      if(isGuestUser) {
+        username = "GUEST";
+      }
+      print("username : $username");
+
+      List<dynamic> _loadedCart1  = await UserSecureStorage.getAddToCart("addToCart1",username ?? '');
+      List<dynamic> _loadedCart2  = await UserSecureStorage.getAddToCart("addToCart2",username ?? '');
+
+      print("_loadedCart1 : $_loadedCart1");
+      print("_loadedCart2 : $_loadedCart2");
+
+      bool addToCardDeletedFlag1 =  await UserSecureStorage.getDeleteFlag(username ?? '');
+      print("addToCardDeletedFlag1 : $addToCardDeletedFlag1");
+
+
+      if(!addToCardDeletedFlag1){
+        Future.delayed(const Duration(milliseconds: 500), () {
+          setState(() {
+            _currentList = [..._loadedCart2, ...carttoplist];
+          });
+        });
+      }
+      else {
+        Future.delayed(const Duration(milliseconds: 500), () {
+          setState(() {
+            _currentList = [..._loadedCart2, ..._loadedCart1];
+          });
+        });
+      }
+
+  }
+
+  void _deleteCart(int id) async {
+
+    bool isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
+    String? username =  await UserSecureStorage.getUsernameid();
+
+    if(isGuestUser) {
+      username = "GUEST";
+    }
+
+
+    List<dynamic> _loadedCart1  = await UserSecureStorage.getAddToCart("addToCart1",username ?? '');
+    List<dynamic> _loadedCart2  = await UserSecureStorage.getAddToCart("addToCart2",username ?? '');
+
+
+    print("id : $id");
+    bool _loadedCart2Cache = _loadedCart2.any((item) => item['id'] == id);
+
+
+    if(_loadedCart2Cache){
+      await UserSecureStorage.deleteFromAddToCart(
+        key: "addToCart2", // tumhara constant key name
+        userId: username ?? '',
+        idToDelete: id,
+      );
+    }
+    else {
+      bool addToCardDeletedFlag1 =  await UserSecureStorage.getDeleteFlag(username ?? '');
+
+      if(!addToCardDeletedFlag1){
+
+          await UserSecureStorage.saveDeleteFlag(flag: true,userId: username ?? '');
+          carttoplist.removeWhere((item) => item['id'] == id);
+          print("carttoplist : $carttoplist");
+
+          for(var item in carttoplist){
+             await UserSecureStorage.saveAddToCard(key: "addToCart1", userId: username ?? '', newData: item);
+          }
+      }
+      else {
+        await UserSecureStorage.deleteFromAddToCart(
+          key: "addToCart1", // tumhara constant key name
+          userId: username ?? '',
+          idToDelete: id,
+        );
+      }
+
+    }
+    bool addToCardDeletedFlag1 =  await UserSecureStorage.getDeleteFlag(username ?? '');
+    print("After deleter check : $addToCardDeletedFlag1");
+    _loadCart();
+  }
+
 }
+
+
