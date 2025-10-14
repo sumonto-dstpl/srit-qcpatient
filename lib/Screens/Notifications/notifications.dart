@@ -10,6 +10,7 @@ import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
 import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 
 
@@ -1218,7 +1219,14 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                     onDismissed: (direction) {
 
                       print('id : ${item['id']}');
-
+                      if(index < dataList.length){
+                        showTopNotification(
+                          context,
+                          title: "Notification Delete",
+                          message: "Notification is deleted Successfully",
+                          type: NotificationType.error,
+                        );
+                      }
                       Future.delayed(Duration(milliseconds: 300), () {
                         // if (index < dataList.length) {
                         //   setState(() {
@@ -1231,6 +1239,8 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                             dataList.removeWhere((itemList) => itemList['id'] == item['id']);
                           });
                         }
+
+
 
                       });
 
@@ -2412,7 +2422,14 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                  onDismissed: (direction) {
 
                                                    print('id : ${item['id']}');
-
+                                                   if(index < dataList.length){
+                                                     showTopNotification(
+                                                       context,
+                                                       title: "Notification Delete",
+                                                       message: "Notification is deleted Successfully",
+                                                       type: NotificationType.error,
+                                                     );
+                                                   }
                                                    Future.delayed(Duration(milliseconds: 300), () {
                                                      // if (index < dataList.length) {
                                                      //   setState(() {
@@ -2420,10 +2437,12 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                      //   });
                                                      // }
                                                      if(index < dataList.length){
+
                                                        setState(() {
                                                          dataList.removeWhere((itemList) => itemList['id'] == item['id']);
                                                        });
                                                      }
+
 
 
                                                    });

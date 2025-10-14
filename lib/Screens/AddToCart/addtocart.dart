@@ -12,6 +12,7 @@ import 'package:newfolder/Screens/Medications/bottomsheet_for_payment.dart';
 import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/dotteddivider.dart';
 
@@ -600,9 +601,20 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                          // );
                                     // });
                                   _deleteCart(item['id']);
+                                  showTopNotification(
+                                    context,
+                                    title: "Cart Delete",
+                                    message: "Cart is deleted Successfully",
+                                    type: NotificationType.error,
+                                  );
                                   } else if (direction ==
                                       DismissDirection.startToEnd) {
-
+                                    showTopNotification(
+                                      context,
+                                      title: "Cart Save For Later",
+                                      message: "Cart is Saved for Later Successfully",
+                                      type: NotificationType.success,
+                                    );
 
                                     if (index >= carttoplist.length) {
 
@@ -629,19 +641,19 @@ class AddToCartMainstate extends State<AddToCartMain> {
 
                                     });
                                     // Mark item as "Saved" when swiped left to right
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          "$file Saved",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        backgroundColor: Colors
-                                            .green, // Set background color to green
-                                        duration: Duration(seconds: 2),
-                                      ),
-                                    );
+                                    // ScaffoldMessenger.of(context).showSnackBar(
+                                    //   SnackBar(
+                                    //     content: Text(
+                                    //       "$file Saved",
+                                    //       style: TextStyle(
+                                    //           color: Colors.white,
+                                    //           fontWeight: FontWeight.bold),
+                                    //     ),
+                                    //     backgroundColor: Colors
+                                    //         .green, // Set background color to green
+                                    //     duration: Duration(seconds: 2),
+                                    //   ),
+                                    // );
                                   }
                                 },
                                 child: GestureDetector(
@@ -1662,7 +1674,12 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                       onDismissed: (direction) {
                                         // Remove the item immediately from the list
                                         // endtextbottomlist.removeAt(index);
-
+                                        showTopNotification(
+                                          context,
+                                          title: "Cart Delete",
+                                          message: "Saved For Later Cart is deleted Successfully",
+                                          type: NotificationType.error,
+                                        );
                                         setState(() {
                                           savedbottomlist.removeAt(index);
                                         });
