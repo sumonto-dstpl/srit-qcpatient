@@ -1544,7 +1544,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (BuildContext context) {
-                                        return RecommendedViewAll();
+                                        return RecommendedViewAll(usernameValue: "Full Body Checkup",);
                                       },
                                     ),
                                   );
@@ -2123,13 +2123,13 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                   onPressed: () {
                                     // Add specific actions for each index
                                     if (index == 0) {
-                                      /*  Navigator.of(context).push(
+                                      Navigator.of(context).push(
                                         MaterialPageRoute(
                                           builder: (BuildContext context) {
-                                            return DiagnosticMain();
+                                            return RecommendedViewAll(usernameValue: "Health Package",);
                                           },
                                         ),
-                                      );*/
+                                      );
                                     } else if (index == 1) {
                                       /* Navigator.of(context).push(
                                         MaterialPageRoute(
