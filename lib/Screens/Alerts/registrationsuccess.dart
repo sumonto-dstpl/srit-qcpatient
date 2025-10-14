@@ -100,14 +100,14 @@ class RegistrationSuccessModel {
                                 });
                                 if (RegExp(r'^[0-9]{10}$').hasMatch(username!)) {
                                   Navigator.of(context).pop();
-                                  Navigator.of(context).pop();// Close the modal
-                                  // Navigator.of(context).push(
-                                  //   MaterialPageRoute(
-                                  //     builder: (BuildContext context) {
-                                  //       return LoginPage(); // Replace with your Login page widget
-                                  //     },
-                                  //   ),
-                                  // ); // Adjust your home route
+                                  // Navigator.of(context).pop();// Close the modal
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return LoginPage(); // Replace with your Login page widget
+                                      },
+                                    ),
+                                  ); // Adjust your home route
                                 }
                                 else
                                   {

@@ -10,6 +10,7 @@ import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/OnBoarding/onboarding_screen.dart';
 import 'package:newfolder/Screens/Registeration/registeration.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 // import 'package:newfolder/Screens/Settings/mpinreset.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
@@ -991,6 +992,13 @@ class LoginPagestate extends State<LoginPage> {
             // String? username =  await UserSecureStorage.getUsernameid();
             Map<String, dynamic>? userData = await UserSecureStorage.getUser(input.substring(3).trim());
             String? mpin = userData?['mpin'];
+
+            if(userData == null){
+              // showTopNotification(context, title: title, message: message, type: typ)
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Registration())
+              );
+            }
 
             if(mpin!.isEmpty)
               {

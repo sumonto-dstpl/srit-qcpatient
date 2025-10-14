@@ -212,7 +212,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
   @override
   Widget build(BuildContext context) {
 
-    print("dataList : $dataList");
+
 
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
@@ -577,10 +577,16 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                       TextButton(
                         onPressed: () {
                           setState(() {
-                            for(var id in idList){
+                            // for(var id in idList){
+                            //
+                            //   dataList[id]['markAllRead'] = false;
+                            //
+                            // }
 
-                              dataList[id]['markAllRead'] = false;
-
+                            for (var item in dataList) {
+                              if (idList.contains(item['id'])) {
+                                item['markAllRead'] = false; // ✅ matched id → false
+                              }
                             }
                           });
 
@@ -1228,19 +1234,13 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                         );
                       }
                       Future.delayed(Duration(milliseconds: 300), () {
-                        // if (index < dataList.length) {
-                        //   setState(() {
-                        //     dataList.removeAt(index);
-                        //   });
-                        // }
+
 
                         if(index < dataList.length){
                           setState(() {
                             dataList.removeWhere((itemList) => itemList['id'] == item['id']);
                           });
                         }
-
-
 
                       });
 
@@ -1669,13 +1669,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
 
                 TextButton(
                   onPressed: () {
-                    setState(() {
-                      for(var id in idList){
 
-                        dataList[id]['markAllRead'] = false;
-
-                      }
-                    });
 
                   },
                   child: Text(
@@ -2385,10 +2379,15 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                    TextButton(
                                                      onPressed: () {
                                                       setState(() {
-                                                        for(var id in idList){
-
-                                                          dataList[id]['markAllRead'] = false;
-
+                                                        // for(var id in idList){
+                                                        //
+                                                        //   dataList[id]['markAllRead'] = false;
+                                                        //
+                                                        // }
+                                                        for (var item in dataList) {
+                                                          if (idList.contains(item['id'])) {
+                                                            item['markAllRead'] = false; // ✅ matched id → false
+                                                          }
                                                         }
                                                       });
 
@@ -2431,18 +2430,12 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                      );
                                                    }
                                                    Future.delayed(Duration(milliseconds: 300), () {
-                                                     // if (index < dataList.length) {
-                                                     //   setState(() {
-                                                     //     dataList.removeAt(index);
-                                                     //   });
-                                                     // }
-                                                     if(index < dataList.length){
 
+                                                     if(index < dataList.length){
                                                        setState(() {
                                                          dataList.removeWhere((itemList) => itemList['id'] == item['id']);
                                                        });
                                                      }
-
 
 
                                                    });
