@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:newfolder/Screens/AboutUs/aboutusmain.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
+import 'package:newfolder/Screens/Alerts/addmemberbottomsheet.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/Feedback/feedback.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
@@ -759,66 +760,117 @@ class ProfileMainstate extends State<ProfileMain> {
                           ),
                         ),
 
-
                         Container(
                           margin: EdgeInsets.only(
                             right: MediaQuery.of(context).size.height * 0.02,
                             top: MediaQuery.of(context).size.height * 0.01,
                           ),
                           padding: EdgeInsets.all(0), // Removed padding
-
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: List.generate(
-                                myimageslist.length,
-                                (index) =>
-
-                                    //
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          left: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.02,
-                                          right: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.00,
-                                          top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.005,
-                                          bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.005),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.07,
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              0.07,
-                                      // color: Colors.lightBlue,
-                                      child: Padding(
-                                        padding: EdgeInsets.all(
-                                          index == 1 || index ==3
-                                              ? MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.005
-                                              : 0,
-                                        ),
-                                        child: Image.asset(
-                                          myimageslist[index],
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    )),
+                              myimageslist.length,
+                                  (index) => GestureDetector(
+                                onTap: () {
+                                  // 👉 If last image (plus icon) is clicked
+                                  if (index == myimageslist.length - 1) {
+                                    // Open the bottomsheet form
+                                    AddMemberBottomSheet.show(context);
+                                  } else {
+                                    // You can later add what to do for normal images
+                                    debugPrint("Tapped on image ${myimageslist[index]}");
+                                  }
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.height * 0.02,
+                                    right: MediaQuery.of(context).size.height * 0.00,
+                                    top: MediaQuery.of(context).size.height * 0.005,
+                                    bottom: MediaQuery.of(context).size.height * 0.005,
+                                  ),
+                                  height: MediaQuery.of(context).size.height * 0.07,
+                                  width: MediaQuery.of(context).size.height * 0.07,
+                                  // color: Colors.lightBlue,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(
+                                      index == 1 || index == 3
+                                          ? MediaQuery.of(context).size.height * 0.005
+                                          : 0,
+                                    ),
+                                    child: Image.asset(
+                                      myimageslist[index],
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
+
+
+                        // Container(
+                        //   margin: EdgeInsets.only(
+                        //     right: MediaQuery.of(context).size.height * 0.02,
+                        //     top: MediaQuery.of(context).size.height * 0.01,
+                        //   ),
+                        //   padding: EdgeInsets.all(0), // Removed padding
+                        //
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(16),
+                        //   ),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.start,
+                        //     children: List.generate(
+                        //         myimageslist.length,
+                        //         (index) =>
+                        //
+                        //             //
+                        //             Container(
+                        //               margin: EdgeInsets.only(
+                        //                   left: MediaQuery.of(context)
+                        //                           .size
+                        //                           .height *
+                        //                       0.02,
+                        //                   right: MediaQuery.of(context)
+                        //                           .size
+                        //                           .height *
+                        //                       0.00,
+                        //                   top: MediaQuery.of(context)
+                        //                           .size
+                        //                           .height *
+                        //                       0.005,
+                        //                   bottom: MediaQuery.of(context)
+                        //                           .size
+                        //                           .height *
+                        //                       0.005),
+                        //               height:
+                        //                   MediaQuery.of(context).size.height *
+                        //                       0.07,
+                        //               width:
+                        //                   MediaQuery.of(context).size.height *
+                        //                       0.07,
+                        //               // color: Colors.lightBlue,
+                        //               child: Padding(
+                        //                 padding: EdgeInsets.all(
+                        //                   index == 1 || index ==3
+                        //                       ? MediaQuery.of(context)
+                        //                               .size
+                        //                               .height *
+                        //                           0.005
+                        //                       : 0,
+                        //                 ),
+                        //                 child: Image.asset(
+                        //                   myimageslist[index],
+                        //                   fit: BoxFit.fill,
+                        //                 ),
+                        //               ),
+                        //             )),
+                        //   ),
+                        // ),
 
                         //  Appointments
                         GestureDetector(
