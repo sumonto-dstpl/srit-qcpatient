@@ -1016,8 +1016,21 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
           // await UserSecureStorage.setIfLoggedOut("NO");
           // if(await UserSecureStorage.getUsernameid())
           Map<String, dynamic>? userData = await UserSecureStorage.getUser(input.trim());
-
+          print(input.trim());
+          print("userDataUHID: $userData");
           if(userData == null){
+            await UserSecureStorage.saveUser(
+              userId: input.trim(),
+              mpin: "",
+              userData: {
+                "fname": "Priya",
+                "lname": "Krishamurty",
+                "mobile": "1234567890",
+                "email": "uhid@gmail.com",
+                "gender":"M"
+              },
+            );
+
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => ChangeMobileNumber(mobileNumber: input.trim()))
             );

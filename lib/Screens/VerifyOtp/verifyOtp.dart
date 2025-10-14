@@ -1171,14 +1171,14 @@ class Mpinstate extends State<MpinResetSettings> {
 
                                               saveMpin();
 
-                                              Future.delayed(Duration(milliseconds: 500), () {
-                                                connectivityservice.checkconnectivity().then((intenet) async {
-                                                  setState(() => _isLoading = false);
-
-                                                  // ✅ Only show modal when MPIN is successfully set
-                                                  RegistrationSuccessModel().showModel(context);
-                                                });
-                                              });
+                                              // Future.delayed(Duration(milliseconds: 500), () {
+                                              //   connectivityservice.checkconnectivity().then((intenet) async {
+                                              //     setState(() => _isLoading = false);
+                                              //
+                                              //     // ✅ Only show modal when MPIN is successfully set
+                                              //     RegistrationSuccessModel().showModel(context);
+                                              //   });
+                                              // });
                                             }
                                                 : null, // Disabled when _isButtonEnabled == false
                                             style: TextButton.styleFrom(
@@ -1582,8 +1582,20 @@ class Mpinstate extends State<MpinResetSettings> {
         else {
 
           saveMpinAndEnabled(Otp1stdigit2 + Otp2nddigit2 + Otp3rddigit2 + Otp4thdigit2, "true");
+          print("verifyOtp: ${mobileNumber.trim()}");
+          await UserSecureStorage.setUsernameid(mobileNumber.trim());
           await UserSecureStorage.updateUserMpin(mobileNumber.trim(), Otp1stdigit2.trim() + Otp2nddigit2.trim() + Otp3rddigit2.trim() + Otp4thdigit2.trim());
           bool forgetMpin = await  isForgetMpinSet();
+          Future.delayed(Duration(milliseconds: 1000), () {
+            connectivityservice.checkconnectivity().then((intenet) async {
+              setState(() => _isLoading = false);
+
+              // ✅ Only show modal when MPIN is successfully set
+              RegistrationSuccessModel().showModel(context);
+            });
+          });
+
+          // RegistrationSuccessModel().showModel(context);
           if(forgetMpin){
             Timer(Duration(seconds: 1), () {
               deleteForgetMpin();

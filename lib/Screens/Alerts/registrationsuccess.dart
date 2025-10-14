@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 import 'package:newfolder/Screens/Login/loginpage.dart';
+import 'package:newfolder/Screens/Login/loginuhidpage.dart';
+
+import '../Utils/user_secure_storage.dart';
 
 class RegistrationSuccessModel {
   showModel(BuildContext context) async {
@@ -12,7 +15,7 @@ class RegistrationSuccessModel {
 
     showGeneralDialog(
       barrierLabel: "RegistrationSuccessDialog",
-      barrierDismissible: true,
+      barrierDismissible: false,
       barrierColor: Colors.black54,
       transitionDuration: Duration(milliseconds: 200),
       context: context,
@@ -85,15 +88,39 @@ class RegistrationSuccessModel {
 
                             // ✅ Back to Home Button
                             GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop(); // Close the modal
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return LoginPage(); // Replace with your Login page widget
-                                    },
-                                  ),
-                                ); // Adjust your home route
+                              onTap: () async{
+
+                                String? username = await UserSecureStorage.getUsernameid();
+                                Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
+                                // usernameValue +=  isGuestUser ? "Guest01": user?['data']['fname']+" "+user?['data']['lname'];
+                                print("usernameUHID :$username");
+                                print("user: ${user?['data']}");
+                                Future.delayed(Duration(milliseconds: 1000), () {
+
+                                });
+                                if (RegExp(r'^[0-9]{10}$').hasMatch(username!)) {
+                                  Navigator.of(context).pop();
+                                  Navigator.of(context).pop();// Close the modal
+                                  // Navigator.of(context).push(
+                                  //   MaterialPageRoute(
+                                  //     builder: (BuildContext context) {
+                                  //       return LoginPage(); // Replace with your Login page widget
+                                  //     },
+                                  //   ),
+                                  // ); // Adjust your home route
+                                }
+                                else
+                                  {
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();// Close the modal
+                                    // Navigator.of(context).push(
+                                    //   MaterialPageRoute(
+                                    //     builder: (BuildContext context) {
+                                    //       return LoginUHIDPage(); // Replace with your Login page widget
+                                    //     },
+                                    //   ),
+                                    // );
+                                  }
                               },
                               child: Container(
                                 width: 250,

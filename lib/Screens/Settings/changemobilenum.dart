@@ -107,9 +107,12 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
     _pageController = PageController(
       initialPage: hasMobileNumber ? 1 : 0,
     );
-
+      String mobile = widget.mobileNumber!;
     if (hasMobileNumber) {
-      UserNumberEditTextController.text = widget.mobileNumber!;
+        if(!RegExp(r'^[0-9]{10}$').hasMatch(mobile)){
+            mobile = "1234567890";
+        }
+      UserNumberEditTextController.text = mobile;
     }
     // UserNumberEditTextController.text ="9583817953";
     // pin2FocusNode = FocusNode();
@@ -903,7 +906,7 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
         type: NotificationType.success,
       );
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => MpinResetSettings(mobileNumber: UserNumberEditTextController.text)));
+          MaterialPageRoute(builder: (context) => MpinResetSettings(mobileNumber: widget.mobileNumber!)));
     } else {
       // Show error notification
 
