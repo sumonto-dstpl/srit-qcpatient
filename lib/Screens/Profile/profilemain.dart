@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:newfolder/Screens/AboutUs/aboutusmain.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
+import 'package:newfolder/Screens/Alerts/addmemberbottomsheet.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/Feedback/feedback.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
@@ -63,19 +64,51 @@ class ProfileMainstate extends State<ProfileMain> {
   }
   void _loadData() async {
     // await Future.delayed(const Duration(seconds: 2));// Simulating API call
-    isGuestUser=await UserSecureStorage.getIfGuestLogged() == "YES";
-    usernameValue=  isGuestUser ? "Guest01": "Priya Krishnamurty";
-    // setState(() {
-    //   _isLoading = false;
-    // });
+    isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
+
+    String? username = await UserSecureStorage.getUsernameid();
+    Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
+
+    // Dynamic naming: Guest01 for guest, otherwise use stored user name
+    if (isGuestUser) {
+      usernameValue = "Guest01";
+    } else {
+      if (user != null && user['data'] != null) {
+        String? fname = user['data']['fname'];
+        String? lname = user['data']['lname'];
+        usernameValue = ((fname ?? "") + " " + (lname ?? "")).trim();
+      } else {
+        usernameValue = "";
+      }
+    }
+
     myimageslist = isGuestUser ? [myimageslist[3]] : myimageslist;
-    setState(() {}); // Refresh UI if need
+
+    setState(() {}); // Refresh UI if needed
+
     if (isGuestUser) {
       Timer(Duration(seconds: 0), () {
-        LoginBottomSheet.show(context,true);
+        LoginBottomSheet.show(context, true);
       });
     }
   }
+
+
+  // void _loadData() async {
+  //   // await Future.delayed(const Duration(seconds: 2));// Simulating API call
+  //   isGuestUser=await UserSecureStorage.getIfGuestLogged() == "YES";
+  //   usernameValue=  isGuestUser ? "Guest01": "Priya Krishnamurty";
+  //   // setState(() {
+  //   //   _isLoading = false;
+  //   // });
+  //   myimageslist = isGuestUser ? [myimageslist[3]] : myimageslist;
+  //   setState(() {}); // Refresh UI if need
+  //   if (isGuestUser) {
+  //     Timer(Duration(seconds: 0), () {
+  //       LoginBottomSheet.show(context,true);
+  //     });
+  //   }
+  // }
 
   // void checkGuestUser() async {
   //   final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
@@ -759,66 +792,117 @@ class ProfileMainstate extends State<ProfileMain> {
                           ),
                         ),
 
-
                         Container(
                           margin: EdgeInsets.only(
                             right: MediaQuery.of(context).size.height * 0.02,
                             top: MediaQuery.of(context).size.height * 0.01,
                           ),
                           padding: EdgeInsets.all(0), // Removed padding
-
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: List.generate(
-                                myimageslist.length,
-                                (index) =>
-
-                                    //
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          left: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.02,
-                                          right: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.00,
-                                          top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.005,
-                                          bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.005),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.07,
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              0.07,
-                                      // color: Colors.lightBlue,
-                                      child: Padding(
-                                        padding: EdgeInsets.all(
-                                          index == 1 || index ==3
-                                              ? MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.005
-                                              : 0,
-                                        ),
-                                        child: Image.asset(
-                                          myimageslist[index],
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    )),
+                              myimageslist.length,
+                                  (index) => GestureDetector(
+                                onTap: () {
+                                  // 👉 If last image (plus icon) is clicked
+                                  if (index == myimageslist.length - 1) {
+                                    // Open the bottomsheet form
+                                    AddMemberBottomSheet.show(context);
+                                  } else {
+                                    // You can later add what to do for normal images
+                                    debugPrint("Tapped on image ${myimageslist[index]}");
+                                  }
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.height * 0.02,
+                                    right: MediaQuery.of(context).size.height * 0.00,
+                                    top: MediaQuery.of(context).size.height * 0.005,
+                                    bottom: MediaQuery.of(context).size.height * 0.005,
+                                  ),
+                                  height: MediaQuery.of(context).size.height * 0.07,
+                                  width: MediaQuery.of(context).size.height * 0.07,
+                                  // color: Colors.lightBlue,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(
+                                      index == 1 || index == 3
+                                          ? MediaQuery.of(context).size.height * 0.005
+                                          : 0,
+                                    ),
+                                    child: Image.asset(
+                                      myimageslist[index],
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
+
+
+                        // Container(
+                        //   margin: EdgeInsets.only(
+                        //     right: MediaQuery.of(context).size.height * 0.02,
+                        //     top: MediaQuery.of(context).size.height * 0.01,
+                        //   ),
+                        //   padding: EdgeInsets.all(0), // Removed padding
+                        //
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(16),
+                        //   ),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.start,
+                        //     children: List.generate(
+                        //         myimageslist.length,
+                        //         (index) =>
+                        //
+                        //             //
+                        //             Container(
+                        //               margin: EdgeInsets.only(
+                        //                   left: MediaQuery.of(context)
+                        //                           .size
+                        //                           .height *
+                        //                       0.02,
+                        //                   right: MediaQuery.of(context)
+                        //                           .size
+                        //                           .height *
+                        //                       0.00,
+                        //                   top: MediaQuery.of(context)
+                        //                           .size
+                        //                           .height *
+                        //                       0.005,
+                        //                   bottom: MediaQuery.of(context)
+                        //                           .size
+                        //                           .height *
+                        //                       0.005),
+                        //               height:
+                        //                   MediaQuery.of(context).size.height *
+                        //                       0.07,
+                        //               width:
+                        //                   MediaQuery.of(context).size.height *
+                        //                       0.07,
+                        //               // color: Colors.lightBlue,
+                        //               child: Padding(
+                        //                 padding: EdgeInsets.all(
+                        //                   index == 1 || index ==3
+                        //                       ? MediaQuery.of(context)
+                        //                               .size
+                        //                               .height *
+                        //                           0.005
+                        //                       : 0,
+                        //                 ),
+                        //                 child: Image.asset(
+                        //                   myimageslist[index],
+                        //                   fit: BoxFit.fill,
+                        //                 ),
+                        //               ),
+                        //             )),
+                        //   ),
+                        // ),
 
                         //  Appointments
                         GestureDetector(
