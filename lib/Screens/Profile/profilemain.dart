@@ -64,19 +64,51 @@ class ProfileMainstate extends State<ProfileMain> {
   }
   void _loadData() async {
     // await Future.delayed(const Duration(seconds: 2));// Simulating API call
-    isGuestUser=await UserSecureStorage.getIfGuestLogged() == "YES";
-    usernameValue=  isGuestUser ? "Guest01": "Priya Krishnamurty";
-    // setState(() {
-    //   _isLoading = false;
-    // });
+    isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
+
+    String? username = await UserSecureStorage.getUsernameid();
+    Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
+
+    // Dynamic naming: Guest01 for guest, otherwise use stored user name
+    if (isGuestUser) {
+      usernameValue = "Guest01";
+    } else {
+      if (user != null && user['data'] != null) {
+        String? fname = user['data']['fname'];
+        String? lname = user['data']['lname'];
+        usernameValue = ((fname ?? "") + " " + (lname ?? "")).trim();
+      } else {
+        usernameValue = "";
+      }
+    }
+
     myimageslist = isGuestUser ? [myimageslist[3]] : myimageslist;
-    setState(() {}); // Refresh UI if need
+
+    setState(() {}); // Refresh UI if needed
+
     if (isGuestUser) {
       Timer(Duration(seconds: 0), () {
-        LoginBottomSheet.show(context,true);
+        LoginBottomSheet.show(context, true);
       });
     }
   }
+
+
+  // void _loadData() async {
+  //   // await Future.delayed(const Duration(seconds: 2));// Simulating API call
+  //   isGuestUser=await UserSecureStorage.getIfGuestLogged() == "YES";
+  //   usernameValue=  isGuestUser ? "Guest01": "Priya Krishnamurty";
+  //   // setState(() {
+  //   //   _isLoading = false;
+  //   // });
+  //   myimageslist = isGuestUser ? [myimageslist[3]] : myimageslist;
+  //   setState(() {}); // Refresh UI if need
+  //   if (isGuestUser) {
+  //     Timer(Duration(seconds: 0), () {
+  //       LoginBottomSheet.show(context,true);
+  //     });
+  //   }
+  // }
 
   // void checkGuestUser() async {
   //   final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
