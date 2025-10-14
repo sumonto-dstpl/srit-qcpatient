@@ -25,6 +25,7 @@ import 'package:newfolder/Screens/Login/loginhome.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Registeration/registeration.dart';
 import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
@@ -943,6 +944,12 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                             GestureDetector(
                                                                               onTap: () async {
                                                                                  addToCart(item['id'],item['plan'],item['test'],item['qr']);
+                                                                                 showTopNotification(
+                                                                                   context,
+                                                                                   title: "Add Cart",
+                                                                                   message: "Cart is added successfully",
+                                                                                   type: NotificationType.success,
+                                                                                 );
                                                                               },
                                                                               child: Container(
                                                                                 padding: new EdgeInsets.only(

@@ -5,17 +5,57 @@ import 'package:flutter/material.dart';
 enum NotificationType { success, error }
 
 /// Function to show top notification
+// void showTopNotification(
+//     BuildContext context, {
+//       required String title,
+//       required String message,
+//       required NotificationType type,
+//       Duration duration = const Duration(seconds: 3),
+//     }) {
+//   final overlay = Overlay.of(context);
+//   late OverlayEntry entry;
+//
+//   entry = OverlayEntry(
+//     builder: (context) {
+//       Color bgColor =
+//       type == NotificationType.success ? Color(0xFF0000FF) : Color(0xFFC40000);
+//       IconData icon = type == NotificationType.success ? Icons.check : Icons.close;
+//
+//       return _TopNotificationWidget(
+//         title: title,
+//         message: message,
+//         icon: icon,
+//         bgColor: bgColor,
+//         onDismiss: () => entry.remove(),
+//         duration: duration,
+//       );
+//     },
+//   );
+//
+//   overlay.insert(entry);
+// }
+
 void showTopNotification(
     BuildContext context, {
       required String title,
       required String message,
       required NotificationType type,
-      Duration duration = const Duration(seconds: 3),
+      Duration duration = const Duration(seconds: 1),
     }) {
   final overlay = Overlay.of(context);
-  late OverlayEntry entry;
+  late OverlayEntry barrierEntry;
+  late OverlayEntry notificationEntry;
 
-  entry = OverlayEntry(
+  // 1️⃣ Barrier entry (background unclickable)
+  barrierEntry = OverlayEntry(
+    builder: (_) => const ModalBarrier(
+      dismissible: false, // cannot tap to dismiss
+      color: Colors.black26, // slight transparent overlay
+    ),
+  );
+
+  // 2️⃣ Notification entry
+  notificationEntry = OverlayEntry(
     builder: (context) {
       Color bgColor =
       type == NotificationType.success ? Color(0xFF0000FF) : Color(0xFFC40000);
@@ -26,14 +66,20 @@ void showTopNotification(
         message: message,
         icon: icon,
         bgColor: bgColor,
-        onDismiss: () => entry.remove(),
+        onDismiss: () {
+          notificationEntry.remove();
+          barrierEntry.remove(); // remove barrier when notification is gone
+        },
         duration: duration,
       );
     },
   );
 
-  overlay.insert(entry);
+  // 3️⃣ Insert barrier first, then notification on top
+  overlay.insert(barrierEntry);
+  overlay.insert(notificationEntry);
 }
+
 
 /// Widget for the notification
 class _TopNotificationWidget extends StatefulWidget {
