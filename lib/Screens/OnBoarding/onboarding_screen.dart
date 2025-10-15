@@ -540,6 +540,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
 
               // Image and Text Container
+
               Expanded(
                 flex: 9,
                 child: GestureDetector(
@@ -580,60 +581,60 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ],
                           ),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween, // ✅ Keeps button pinned bottom
                             children: [
-                              SizedBox(height: height * 0.03),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: height * 0.1),
-                                child: Text(
-                                  _onboardingData[_currentIndex]["title"]!,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: height * 0.021,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xFF1F1F1F),
+                              Column(
+                                children: [
+                                  SizedBox(height: height * 0.03),
+                                  Padding(
+                                    padding:
+                                    EdgeInsets.symmetric(horizontal: height * 0.1),
+                                    child: Text(
+                                      _onboardingData[_currentIndex]["title"]!,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: height * 0.021,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color(0xFF1F1F1F),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              SizedBox(height: height * 0.01),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: height * 0.04),
-                                child: Text(
-                                  _onboardingData[_currentIndex]["description"]!,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: height * 0.017,
-                                    color: Color(0xFF6A6E83),
-                                    fontWeight: FontWeight.w400,
+                                  SizedBox(height: height * 0.01),
+                                  Padding(
+                                    padding:
+                                    EdgeInsets.symmetric(horizontal: height * 0.04),
+                                    child: Text(
+                                      _onboardingData[_currentIndex]["description"]!,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: height * 0.017,
+                                        color: Color(0xFF6A6E83),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              SizedBox(height: height * 0.025),
-
-                              // Indicators
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: List.generate(
-                                  _onboardingData.length,
-                                      (index) =>
-                                      _indicator(index == _currentIndex),
-                                ),
+                                  SizedBox(height: height * 0.025),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: List.generate(
+                                      _onboardingData.length,
+                                          (index) => _indicator(index == _currentIndex),
+                                    ),
+                                  ),
+                                ],
                               ),
 
-                              SizedBox(height: height * 0.025),
-
-                              // Next / Get Started Button
+                              // ✅ Button stays fixed at bottom
                               Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: height * 0.04),
+                                padding:
+                                EdgeInsets.symmetric(horizontal: height * 0.04, vertical: height * 0.035),
                                 child: Row(
                                   children: [
                                     Expanded(
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                              height * 0.012),
+                                          borderRadius:
+                                          BorderRadius.circular(height * 0.012),
                                           gradient: LinearGradient(
                                             colors: [
                                               Color(0xFF126086),
@@ -645,14 +646,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                           onPressed: _nextPage,
                                           style: TextButton.styleFrom(
                                             padding: EdgeInsets.symmetric(
-                                                vertical: 10.0,
-                                                horizontal: 12.0),
-                                            tapTargetSize: MaterialTapTargetSize
-                                                .shrinkWrap,
+                                                vertical: 10.0, horizontal: 12.0),
+                                            tapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
                                           ),
                                           child: Text(
-                                            _currentIndex <
-                                                _onboardingData.length - 1
+                                            _currentIndex < _onboardingData.length - 1
                                                 ? "Next"
                                                 : "Get started",
                                             style: TextStyle(
@@ -673,7 +672,142 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ],
                   ),
                 ),
-              ),
+              )
+
+              // Expanded(
+              //   flex: 9,
+              //   child: GestureDetector(
+              //     onHorizontalDragEnd: (details) {
+              //       if (details.primaryVelocity! < 0) {
+              //         _nextPage();
+              //       } else if (details.primaryVelocity! > 0) {
+              //         _previousPage();
+              //       }
+              //     },
+              //     child: Column(
+              //       children: [
+              //         AnimatedSwitcher(
+              //           duration: Duration(milliseconds: 500),
+              //           transitionBuilder: (child, animation) =>
+              //               FadeTransition(opacity: animation, child: child),
+              //           child: OnboardingImage(
+              //             key: ValueKey<int>(_currentIndex),
+              //             image: _onboardingData[_currentIndex]["image"]!,
+              //           ),
+              //         ),
+              //         Expanded(
+              //           child: Container(
+              //             width: double.infinity,
+              //             decoration: BoxDecoration(
+              //               color: Colors.white.withOpacity(0.9),
+              //               borderRadius: BorderRadius.only(
+              //                 topLeft: Radius.circular(24),
+              //                 topRight: Radius.circular(24),
+              //               ),
+              //               boxShadow: [
+              //                 BoxShadow(
+              //                   color: Colors.grey.withOpacity(0.2),
+              //                   offset: Offset(0, -4),
+              //                   blurRadius: 10,
+              //                   spreadRadius: 2,
+              //                 ),
+              //               ],
+              //             ),
+              //             child: Column(
+              //               children: [
+              //                 SizedBox(height: height * 0.03),
+              //                 Padding(
+              //                   padding: EdgeInsets.symmetric(
+              //                       horizontal: height * 0.1),
+              //                   child: Text(
+              //                     _onboardingData[_currentIndex]["title"]!,
+              //                     textAlign: TextAlign.center,
+              //                     style: TextStyle(
+              //                       fontSize: height * 0.021,
+              //                       fontWeight: FontWeight.w600,
+              //                       color: Color(0xFF1F1F1F),
+              //                     ),
+              //                   ),
+              //                 ),
+              //                 SizedBox(height: height * 0.01),
+              //                 Padding(
+              //                   padding: EdgeInsets.symmetric(
+              //                       horizontal: height * 0.04),
+              //                   child: Text(
+              //                     _onboardingData[_currentIndex]["description"]!,
+              //                     textAlign: TextAlign.center,
+              //                     style: TextStyle(
+              //                       fontSize: height * 0.017,
+              //                       color: Color(0xFF6A6E83),
+              //                       fontWeight: FontWeight.w400,
+              //                     ),
+              //                   ),
+              //                 ),
+              //                 SizedBox(height: height * 0.025),
+              //
+              //                 // Indicators
+              //                 Row(
+              //                   mainAxisAlignment: MainAxisAlignment.center,
+              //                   children: List.generate(
+              //                     _onboardingData.length,
+              //                         (index) =>
+              //                         _indicator(index == _currentIndex),
+              //                   ),
+              //                 ),
+              //
+              //                 SizedBox(height: height * 0.025),
+              //
+              //                 // Next / Get Started Button
+              //                 Padding(
+              //                   padding: EdgeInsets.symmetric(
+              //                       horizontal: height * 0.04),
+              //                   child: Row(
+              //                     children: [
+              //                       Expanded(
+              //                         child: Container(
+              //                           decoration: BoxDecoration(
+              //                             borderRadius: BorderRadius.circular(
+              //                                 height * 0.012),
+              //                             gradient: LinearGradient(
+              //                               colors: [
+              //                                 Color(0xFF126086),
+              //                                 Color(0xFF126086)
+              //                               ],
+              //                             ),
+              //                           ),
+              //                           child: TextButton(
+              //                             onPressed: _nextPage,
+              //                             style: TextButton.styleFrom(
+              //                               padding: EdgeInsets.symmetric(
+              //                                   vertical: 10.0,
+              //                                   horizontal: 12.0),
+              //                               tapTargetSize: MaterialTapTargetSize
+              //                                   .shrinkWrap,
+              //                             ),
+              //                             child: Text(
+              //                               _currentIndex <
+              //                                   _onboardingData.length - 1
+              //                                   ? "Next"
+              //                                   : "Get started",
+              //                               style: TextStyle(
+              //                                 color: Colors.white,
+              //                                 fontSize: height * 0.018,
+              //                               ),
+              //                             ),
+              //                           ),
+              //                         ),
+              //                       ),
+              //                     ],
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

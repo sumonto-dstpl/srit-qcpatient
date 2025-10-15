@@ -750,8 +750,8 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
                       child: TextFormField(
                         controller: otpControllers[index],
                         focusNode: focusNodes[index],
-                        // obscureText: true,
-                        // obscuringCharacter: '•',
+                        obscureText: true,
+                        obscuringCharacter: '•',
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
                         inputFormatters: [
