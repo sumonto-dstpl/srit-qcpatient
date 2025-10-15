@@ -15,6 +15,7 @@ import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
 import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/dotteddivider.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class AddToCartMain extends StatefulWidget {
   int selectedIndex = 4;
@@ -35,7 +36,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
   int _selectedIndex = 4;
   bool isExpanded = false; // For collapse/expand toggle
 
-    List<Map<String, dynamic>> carttoplist = [
+  List<Map<String, dynamic>> carttoplist = [
       {"id" : 1,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
       {"id" : 2,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
       {"id" : 3,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
@@ -44,11 +45,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
     ];
 
   final List<Map<String, dynamic>> savedbottomlist = [
-    // { "qr": "QR 999",  "plan": "QCT Superior Health Plan", "test": "50" },
-    //
-    // { "qr": "QR 99", "plan": "QCT Diabetic Health Plan", "test": "100"},
-    //
-    // { "qr": "QR 1009", "plan": "QCT Master Health Check Package", "test": "200"},
+
 
     {"id" : 11,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
     {"id" : 12,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
@@ -58,6 +55,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
   ];
 
   List<Map<String, dynamic>> _currentList = [];
+
 
 
 
@@ -75,6 +73,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
   void initState() {
     super.initState();
     _loadCart();
+
   }
 
   @override
@@ -546,116 +545,207 @@ class AddToCartMainstate extends State<AddToCartMain> {
                           itemBuilder: (context, index) {
                             final file = _currentList[index]['plan'];
                             final item = _currentList[index];
-                            return Dismissible(
-                                key: UniqueKey(), // Unique key for each item
-                                direction: DismissDirection
-                                    .horizontal, // Allow both left & right swipes
-                                background: Container(
-                                  color: Colors.white,
-                                  alignment: Alignment.centerLeft,
-                                  padding: EdgeInsets.symmetric(horizontal: 20),
-                                  child: Row(
-                                    children: [
-                                      Image.asset(
-                                        "assets/addtofoldersaveicon.png", // Path to your local image
-                                        width: 24, // Adjust width
-                                        height: 24, // Adjust height
-                                        color:
-                                            Colors.green, // Apply white color
-                                        colorBlendMode: BlendMode
-                                            .srcIn, // Blend mode to colorize
+                            // return Dismissible(
+                            //     key: UniqueKey(), // Unique key for each item
+                            //     direction: DismissDirection
+                            //         .horizontal, // Allow both left & right swipes
+                            //     background: Container(
+                            //       color: Colors.white,
+                            //       alignment: Alignment.centerLeft,
+                            //       padding: EdgeInsets.symmetric(horizontal: 20),
+                            //       child: Row(
+                            //         children: [
+                            //           Image.asset(
+                            //             "assets/addtofoldersaveicon.png", // Path to your local image
+                            //             width: 24, // Adjust width
+                            //             height: 24, // Adjust height
+                            //             color:
+                            //                 Colors.green, // Apply white color
+                            //             colorBlendMode: BlendMode
+                            //                 .srcIn, // Blend mode to colorize
+                            //           ),
+                            //           SizedBox(width: 10),
+                            //           Text(
+                            //             "Saved",
+                            //             style: TextStyle(
+                            //                 color: Colors.white,
+                            //                 fontWeight: FontWeight.bold),
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //     secondaryBackground: Container(
+                            //       color: Colors.white,
+                            //       alignment: Alignment.centerRight,
+                            //       padding: EdgeInsets.symmetric(horizontal: 20),
+                            //       child: Row(
+                            //         mainAxisAlignment: MainAxisAlignment.end,
+                            //         children: [
+                            //           Text("Delete",
+                            //               style: TextStyle(
+                            //                   color: Colors.white,
+                            //                   fontWeight: FontWeight.bold)),
+                            //           SizedBox(width: 10),
+                            //           Icon(Icons.delete, color: Colors.red),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //     onDismissed: (direction) {
+                            //       if (direction ==
+                            //           DismissDirection.endToStart) {
+                            //         // setState((){
+                            //              // carttoplist.removeAt(index);
+                            //              // ScaffoldMessenger.of(context).showSnackBar(
+                            //              //    SnackBar(content: Text("$file deleted"), duration: Duration(seconds: 2)),
+                            //              // );
+                            //         // });
+                            //       _deleteCart(item['id']);
+                            //       showTopNotification(
+                            //         context,
+                            //         title: "Cart Delete",
+                            //         message: "Cart is deleted Successfully",
+                            //         type: NotificationType.error,
+                            //       );
+                            //       } else if (direction ==
+                            //           DismissDirection.startToEnd) {
+                            //         showTopNotification(
+                            //           context,
+                            //           title: "Cart Save For Later",
+                            //           message: "Cart is Saved for Later Successfully",
+                            //           type: NotificationType.success,
+                            //         );
+                            //
+                            //         if (index >= carttoplist.length) {
+                            //
+                            //
+                            //           savedbottomlist
+                            //               .add(carttoplist.last);
+                            //
+                            //           carttoplist.removeLast();
+                            //           setState(() {});
+                            //           return;
+                            //         }
+                            //
+                            //         setState(() {
+                            //           // Swiped Left to Right (Move to another list)
+                            //           // if (endtextbottomlist.length > 0)
+                            //           savedbottomlist.insert(
+                            //               0, carttoplist[index]);
+                            //           // else {
+                            //           //   endtextbottomlist
+                            //           //       .add(uploadfilestime[index]);
+                            //           // }
+                            //
+                            //           carttoplist.removeAt(index);
+                            //
+                            //         });
+                            //         // Mark item as "Saved" when swiped left to right
+                            //         // ScaffoldMessenger.of(context).showSnackBar(
+                            //         //   SnackBar(
+                            //         //     content: Text(
+                            //         //       "$file Saved",
+                            //         //       style: TextStyle(
+                            //         //           color: Colors.white,
+                            //         //           fontWeight: FontWeight.bold),
+                            //         //     ),
+                            //         //     backgroundColor: Colors
+                            //         //         .green, // Set background color to green
+                            //         //     duration: Duration(seconds: 2),
+                            //         //   ),
+                            //         // );
+                            //       }
+                            //     },
+                            return Slidable(
+                                // key: ValueKey(plan["title"]),
+                                key : UniqueKey(),
+                                closeOnScroll: true,
+                                endActionPane: ActionPane(
+                                  extentRatio: 0.15,
+                                  motion: const ScrollMotion(),
+                                  children: [
+                                    Container(
+                                      width: 50,
+                                      height: double.infinity,
+
+                                      child: Column(
+                                        children: [
+                                          // Upper icon (Save)
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                        showTopNotification(
+                                                          context,
+                                                          title: "Cart Save For Later",
+                                                          message: "Cart is Saved for Later Successfully",
+                                                          type: NotificationType.success,
+                                                        );
+
+                                                        if (index >= _currentList.length) {
+
+
+                                                          savedbottomlist
+                                                              .add(_currentList.last);
+
+                                                          _currentList.removeLast();
+                                                          setState(() {});
+                                                          return;
+                                                        }
+
+                                                        setState(() {
+                                                          // Swiped Left to Right (Move to another list)
+                                                          // if (endtextbottomlist.length > 0)
+                                                          savedbottomlist.insert(
+                                                              0, _currentList[index]);
+                                                          // else {
+                                                          //   endtextbottomlist
+                                                          //       .add(uploadfilestime[index]);
+                                                          // }
+
+                                                          _currentList.removeAt(index);
+
+                                                        });
+                                                        _deleteCart(item['id']);
+
+                                              },
+
+                                              child: Container(
+
+                                                alignment: Alignment.center,
+                                                child: Image.asset(
+                                                  "assets/addtofoldersaveicon.png",
+                                                  width: 20,
+                                                  height: 20,
+                                                  color: Colors.black,
+                                                  colorBlendMode: BlendMode.srcIn,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+
+                                          // Lower icon (Delete)
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                _deleteCart(item['id']);
+                                                showTopNotification(
+                                                  context,
+                                                  title: "Cart Delete",
+                                                  message: "Cart is deleted Successfully",
+                                                  type: NotificationType.error,
+                                                );
+                                              },
+                                              child: Container(
+
+                                                alignment: Alignment.center,
+                                                child: Icon(Icons.delete, color: Colors.red),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      SizedBox(width: 10),
-                                      Text(
-                                        "Saved",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                                secondaryBackground: Container(
-                                  color: Colors.white,
-                                  alignment: Alignment.centerRight,
-                                  padding: EdgeInsets.symmetric(horizontal: 20),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text("Delete",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold)),
-                                      SizedBox(width: 10),
-                                      Icon(Icons.delete, color: Colors.red),
-                                    ],
-                                  ),
-                                ),
-                                onDismissed: (direction) {
-                                  if (direction ==
-                                      DismissDirection.endToStart) {
-                                    // setState((){
-                                         // carttoplist.removeAt(index);
-                                         // ScaffoldMessenger.of(context).showSnackBar(
-                                         //    SnackBar(content: Text("$file deleted"), duration: Duration(seconds: 2)),
-                                         // );
-                                    // });
-                                  _deleteCart(item['id']);
-                                  showTopNotification(
-                                    context,
-                                    title: "Cart Delete",
-                                    message: "Cart is deleted Successfully",
-                                    type: NotificationType.error,
-                                  );
-                                  } else if (direction ==
-                                      DismissDirection.startToEnd) {
-                                    showTopNotification(
-                                      context,
-                                      title: "Cart Save For Later",
-                                      message: "Cart is Saved for Later Successfully",
-                                      type: NotificationType.success,
-                                    );
-
-                                    if (index >= carttoplist.length) {
-
-
-                                      savedbottomlist
-                                          .add(carttoplist.last);
-
-                                      carttoplist.removeLast();
-                                      setState(() {});
-                                      return;
-                                    }
-
-                                    setState(() {
-                                      // Swiped Left to Right (Move to another list)
-                                      // if (endtextbottomlist.length > 0)
-                                      savedbottomlist.insert(
-                                          0, carttoplist[index]);
-                                      // else {
-                                      //   endtextbottomlist
-                                      //       .add(uploadfilestime[index]);
-                                      // }
-
-                                      carttoplist.removeAt(index);
-
-                                    });
-                                    // Mark item as "Saved" when swiped left to right
-                                    // ScaffoldMessenger.of(context).showSnackBar(
-                                    //   SnackBar(
-                                    //     content: Text(
-                                    //       "$file Saved",
-                                    //       style: TextStyle(
-                                    //           color: Colors.white,
-                                    //           fontWeight: FontWeight.bold),
-                                    //     ),
-                                    //     backgroundColor: Colors
-                                    //         .green, // Set background color to green
-                                    //     duration: Duration(seconds: 2),
-                                    //   ),
-                                    // );
-                                  }
-                                },
                                 child: GestureDetector(
                                   onTap: () {
                                     Navigator.of(context).push(
@@ -1656,51 +1746,102 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                 itemBuilder: (context, index) {
                                   final file = savedbottomlist[index]['plan'];
                                   final item = savedbottomlist[index];
-                                  return Dismissible(
-                                      key:
-                                          UniqueKey(), // Unique key for each item
-                                      direction: DismissDirection
-                                          .endToStart, // Allow swipe from right to left
-                                      background: Container(
-                                        color: Colors.white,
-                                        alignment: Alignment.centerRight,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 20),
-                                        child: Icon(
-                                          Icons.delete,
-                                          color: Colors.red,
-                                        ),
+                                  // return Dismissible(
+                                  //     key:UniqueKey(), // Unique key for each item
+                                  //     direction: DismissDirection.endToStart, // Allow swipe from right to left
+                                  //     background: Container(
+                                  //       color: Colors.white,
+                                  //       alignment: Alignment.centerRight,
+                                  //       padding: EdgeInsets.symmetric(
+                                  //           horizontal: 20),
+                                  //       child: Icon(
+                                  //         Icons.delete,
+                                  //         color: Colors.red,
+                                  //       ),
+                                  //     ),
+                                  //     onDismissed: (direction) {
+                                  //       // Remove the item immediately from the list
+                                  //       // endtextbottomlist.removeAt(index);
+                                  //       showTopNotification(
+                                  //         context,
+                                  //         title: "Cart Delete",
+                                  //         message: "Saved For Later Cart is deleted Successfully",
+                                  //         type: NotificationType.error,
+                                  //       );
+                                  //       setState(() {
+                                  //         savedbottomlist.removeAt(index);
+                                  //       });
+                                  //       // If the list is empty, show a message
+                                  //       if (savedbottomlist.isEmpty) {
+                                  //
+                                  //
+                                  //         isSavedForLater = false;
+                                  //       }
+                                  //       /* setState(() {
+                                  //
+                                  //   });*/
+                                  //
+                                  //       // Show a snackbar for feedback
+                                  //       /* ScaffoldMessenger.of(context).showSnackBar(
+                                  //                               SnackBar(
+                                  //                                 content: Text("$file deleted"),
+                                  //                                 duration: Duration(seconds: 2),
+                                  //                               ),
+                                  //                             );*/
+                                  //     },
+                                  return Slidable(
+                                    // key: ValueKey(plan["title"]),
+                                      key : UniqueKey(),
+                                      closeOnScroll: true,
+                                      endActionPane: ActionPane(
+                                        extentRatio: 0.15,
+                                        motion: const ScrollMotion(),
+                                        children: [
+                                          Container(
+                                            width: 50,
+                                            height: double.infinity,
+
+                                            child: Column(
+                                              children: [
+
+
+
+                                                // Lower icon (Delete)
+                                                Expanded(
+                                                  child: GestureDetector(
+                                                    onTap: (){
+
+                                                            showTopNotification(
+                                                              context,
+                                                              title: "Cart Delete",
+                                                              message: "Saved For Later Cart is deleted Successfully",
+                                                              type: NotificationType.error,
+                                                            );
+                                                            setState(() {
+                                                              savedbottomlist.removeAt(index);
+                                                            });
+                                                            // If the list is empty, show a message
+                                                            if (savedbottomlist.isEmpty) {
+
+
+                                                              isSavedForLater = false;
+                                                            }
+
+
+
+                                                    },
+                                                    child: Container(
+
+                                                      alignment: Alignment.center,
+                                                      child: Icon(Icons.delete, color: Colors.red),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      onDismissed: (direction) {
-                                        // Remove the item immediately from the list
-                                        // endtextbottomlist.removeAt(index);
-                                        showTopNotification(
-                                          context,
-                                          title: "Cart Delete",
-                                          message: "Saved For Later Cart is deleted Successfully",
-                                          type: NotificationType.error,
-                                        );
-                                        setState(() {
-                                          savedbottomlist.removeAt(index);
-                                        });
-                                        // If the list is empty, show a message
-                                        if (savedbottomlist.isEmpty) {
-
-
-                                          isSavedForLater = false;
-                                        }
-                                        /* setState(() {
-
-                                    });*/
-
-                                        // Show a snackbar for feedback
-                                        /* ScaffoldMessenger.of(context).showSnackBar(
-                                                                SnackBar(
-                                                                  content: Text("$file deleted"),
-                                                                  duration: Duration(seconds: 2),
-                                                                ),
-                                                              );*/
-                                      },
                                       child: GestureDetector(
                                         onTap: () {
                                           Navigator.of(context).push(
@@ -2112,7 +2253,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
       ),
 
       // Bottom Navigation with another  positioned on the right
-      bottomNavigationBar: (carttoplist.isEmpty && savedbottomlist.isEmpty)  ? null : Container(
+      bottomNavigationBar: (_currentList.isEmpty && savedbottomlist.isEmpty)  ? null : Container(
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -3285,39 +3426,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
     // ),
   );
 
-  // void _loadCart() async{
-  //   bool isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
 
-  //   String? username =  await UserSecureStorage.getUsernameid();
-
-  //
-  //   if(isGuestUser) {
-  //     username = "GUEST";
-  //   }
-  //
-  //   List<dynamic> _loadedCart  = await UserSecureStorage.getAddToCart(username ?? '');
-
-  //
-  //
-  //   List<Map<String, dynamic>> formattedCart = _loadedCart.map((item){
-  //      return {
-  //        "images" : "assets/Harmonebackground.png",
-  //        "qr": item["qr"] ?? "",
-  //        "plan": item["plan"] ?? "",
-  //        "test": item["textincluded"] ?? ""
-  //      };
-  //   }).toList();
-  //
-  //   formattedCart = formattedCart.reversed.toList();
-  //
-  //   setState(() {
-  //     carttoplist = [...formattedCart, ...carttoplist];
-  //   });
-  //
-
-  //
-  //
-  // }
 
   void _loadCart() async {
       bool isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
@@ -3406,6 +3515,9 @@ class AddToCartMainstate extends State<AddToCartMain> {
     print("After deleter check : $addToCardDeletedFlag1");
     _loadCart();
   }
+
+
+
 
 }
 
