@@ -110,14 +110,12 @@ class LoginHome extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(screenHeight * 0.012),
                                   gradient: LinearGradient(
-                                    begin: Alignment.centerRight,
-                                    end: Alignment.center,
-                                    stops: [0.5, 0.9],
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                    // stops: [0.5, 4.9],
                                     colors: [
-
-                                      Color(0xFF126086),
-                                      Color(0xFF126086)
-
+                                      Color(0xFF00C7BE),
+                                      Color(0xFF2F7495),
                                     ],
                                   ),
                                 ),
@@ -157,8 +155,8 @@ class LoginHome extends StatelessWidget {
                                     end: Alignment.center,
                                     stops: [0.5, 0.9],
                                     colors: [
-                                      Color(0xFF126086),
-                                      Color(0xFF126086),
+                                      Color(0xFF2F7495),
+                                      Color(0xFF2F7495),
                                     ],
                                   ),
                                 ),

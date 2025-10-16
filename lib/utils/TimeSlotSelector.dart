@@ -69,13 +69,13 @@ class _TimeSlotSelectorState extends State<TimeSlotSelector> {
           textColor = Colors.grey;
           border = null;
         } else if (isSelected) {
-          backgroundColor = const Color(0xFF126086);
+          backgroundColor = const Color(0xFF00C9BD);
           textColor = Colors.white;
           border = null;
         } else {
-          backgroundColor = const Color(0xFF13668E).withOpacity(0.3);
+          backgroundColor = const Color(0xFF13668E).withOpacity(0.1);
           textColor = const Color(0xFF126086);
-          border = Border.all(color: const Color(0xFF126086), width: 1.0);
+          border = Border.all(color: const Color(0x4D13668E), width: 0.4);
         }
 
         return IgnorePointer(

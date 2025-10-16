@@ -219,7 +219,7 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                             children: [
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.blue[100]!.withOpacity(0.9),
+                                  color: Colors.blue[100]!.withOpacity(0.3),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 padding: EdgeInsets.only(

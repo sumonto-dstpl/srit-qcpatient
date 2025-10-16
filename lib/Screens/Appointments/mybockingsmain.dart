@@ -245,7 +245,7 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                             children: [
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.blue[100]!.withOpacity(0.9),
+                                  color: Colors.blue[100]!.withOpacity(0.3),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 padding: EdgeInsets.only(
@@ -483,19 +483,19 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                                     left: MediaQuery.of(context).size.height *
                                         0.00,
                                   ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(130.0),
-                                    child: Image.asset(
-                                      'assets/Infodocdetails.png',
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.014, // Adjust height
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              0.014, // Adjust width
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
+                                  // child: ClipRRect(
+                                  //   borderRadius: BorderRadius.circular(130.0),
+                                  //   child: Image.asset(
+                                  //     'assets/Infodocdetails.png',
+                                  //     height:
+                                  //         MediaQuery.of(context).size.height *
+                                  //             0.014, // Adjust height
+                                  //     width:
+                                  //         MediaQuery.of(context).size.height *
+                                  //             0.014, // Adjust width
+                                  //     fit: BoxFit.fill,
+                                  //   ),
+                                  // ),
                                 ),
                               ),
                             ]),
