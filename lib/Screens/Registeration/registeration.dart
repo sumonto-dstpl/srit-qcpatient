@@ -1416,7 +1416,7 @@ class Registrationstate extends State<Registration> {
                                     // Updated TextFormField inside Column
                                     Padding(
                                       padding: EdgeInsets.only(
-                                        left: MediaQuery.of(context).size.height * 0.005,
+                                        left: MediaQuery.of(context).size.height * 0.000,
                                         bottom: MediaQuery.of(context).size.height * 0.01,
                                       ),
                                       child: Column(
@@ -1425,39 +1425,82 @@ class Registrationstate extends State<Registration> {
                                           // SizedBox(height: MediaQuery.of(context).size.height * 0.01),
   
                                           // 🔹 Radio Buttons Row
+                                          // _buildLabelWithAsterisk(context, 'Gender', required: true),
+
                                           Row(
+                                            mainAxisAlignment: MainAxisAlignment.start, // left align the whole row
                                             children: genderOptions.map((gender) {
-                                              return Expanded(
-                                                  child: Theme(
-                                                    data: Theme.of(context).copyWith(
-                                                      unselectedWidgetColor: Color(0xFFD0D5DD), // ✅ Set background color here
+                                              return InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    genderselectedval = gender["key"]!;
+                                                    _isGenderValid = true;
+                                                  });
+                                                },
+                                                child: Row(
+                                                  mainAxisSize: MainAxisSize.min, // take only as much space as needed
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  children: [
+                                                    Radio<String>(
+                                                      value: gender["key"]!,
+                                                      groupValue: genderselectedval,
+                                                      activeColor: const Color(0xFF00C7BE),
+                                                      visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+                                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          genderselectedval = value!;
+                                                          _isGenderValid = true;
+                                                        });
+                                                      },
                                                     ),
-                                                child: RadioListTile<String>(
-                                                  dense: true,
-                                                  contentPadding: EdgeInsets.zero,
-                                                  title: Text(
-                                                    gender["label"]!,
-                                                    style: TextStyle(
-                                                      fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                      // fontWeight: FontWeight.normal,
+                                                    SizedBox(width: 2), // small gap between radio and text
+                                                    Text(
+                                                      gender["label"]!,
+                                                      style: TextStyle(
+                                                        fontSize: screenHeight * 0.014,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  value: gender["key"]!,
-                                                  groupValue: genderselectedval,
-                                                  activeColor: const Color(0xFF00C7BE), // ✅ Mint color
-                                                  visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-                                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      genderselectedval = value!;
-                                                      _isGenderValid = true;
-                                                    });
-                                                  },
+                                                    SizedBox(width: 10), // optional: gap between different options
+                                                  ],
                                                 ),
-                                                  ),
                                               );
                                             }).toList(),
                                           ),
+
+                                          // Row(
+                                          //   children: genderOptions.map((gender) {
+                                          //     return Expanded(
+                                          //         child: Theme(
+                                          //           data: Theme.of(context).copyWith(
+                                          //             unselectedWidgetColor: Color(0xFFD0D5DD), // ✅ Set background color here
+                                          //           ),
+                                          //       child: RadioListTile<String>(
+                                          //         dense: true,
+                                          //         contentPadding: EdgeInsets.zero,
+                                          //         title: Text(
+                                          //           gender["label"]!,
+                                          //           style: TextStyle(
+                                          //             fontSize: MediaQuery.of(context).size.height * 0.012,
+                                          //             // fontWeight: FontWeight.normal,
+                                          //           ),
+                                          //         ),
+                                          //         value: gender["key"]!,
+                                          //         groupValue: genderselectedval,
+                                          //         activeColor: const Color(0xFF00C7BE), // ✅ Mint color
+                                          //         visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+                                          //         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                          //         onChanged: (value) {
+                                          //           setState(() {
+                                          //             genderselectedval = value!;
+                                          //             _isGenderValid = true;
+                                          //           });
+                                          //         },
+                                          //       ),
+                                          //         ),
+                                          //     );
+                                          //   }).toList(),
+                                          // ),
   
                                           // 🔻 Validation Error
                                           if (!_isGenderValid)

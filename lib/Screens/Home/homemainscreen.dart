@@ -2460,7 +2460,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                       "View All",
                                       style: TextStyle(
                                         color: Color(0xFF126086),
-                                        fontWeight: FontWeight.w400,
+                                        fontWeight: FontWeight.w600,
                                         overflow: TextOverflow.ellipsis,
                                         fontSize: MediaQuery
                                             .of(context)
@@ -2909,7 +2909,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                       "View All",
                                       style: TextStyle(
                                         color: Color(0xFF126086),
-                                        fontWeight: FontWeight.w400,
+                                        fontWeight: FontWeight.w600,
                                         overflow: TextOverflow.ellipsis,
                                         fontSize: MediaQuery
                                             .of(context)
