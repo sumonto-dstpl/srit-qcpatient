@@ -11,6 +11,7 @@ import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
 import 'package:newfolder/Screens/Appointments/addFilterForFindDoctorList.dart';
+import 'package:newfolder/Screens/Appointments/doctordetailpage.dart';
 import 'package:newfolder/Screens/Appointments/selecttimeslot.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
@@ -1380,14 +1381,14 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                             // color: Colors.blue[100]!.withOpacity(0.9),
                                                             shape: BoxShape.circle,
                                                           ),
-                                                          child: Center( // Ensures the image is centered
-                                                            child: Image.asset(
-                                                              'assets/Directionicon.png', // Replace with your actual asset path
-                                                              // color: Color(0xFF126086), // Optional: Apply color tint
-                                                              height: screenHeight * 0.027,
-                                                              width: screenHeight * 0.027,
-                                                            ),
-                                                          ),
+                                                          // child: Center( // Ensures the image is centered
+                                                          //   child: Image.asset(
+                                                          //     'assets/Directionicon.png', // Replace with your actual asset path
+                                                          //     // color: Color(0xFF126086), // Optional: Apply color tint
+                                                          //     height: screenHeight * 0.027,
+                                                          //     width: screenHeight * 0.027,
+                                                          //   ),
+                                                          // ),
                                                         ),
                                                       ),
 
@@ -1566,7 +1567,8 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                                       MaterialPageRoute(
                                                                                         builder:
                                                                                             (BuildContext context) {
-                                                                                          return SelectTimeSlot(responselist![index].doctorId!);
+                                                                                          // return SelectTimeSlot(responselist![index].doctorId!);
+                                                                                              return DoctorDetilPage("Practitioner/f002");
                                                                                         },
                                                                                       ),
                                                                                     );
