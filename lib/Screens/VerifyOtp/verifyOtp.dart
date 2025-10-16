@@ -316,7 +316,7 @@ class Mpinstate extends State<MpinResetSettings> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: screenHeight * 0.022,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w800,
                             color: Color(0xFF1F1F1F),
                             fontFamily: "Inter"
                         ),
@@ -331,7 +331,7 @@ class Mpinstate extends State<MpinResetSettings> {
                         right : screenHeight * 0.08,
                       ),
                       child: Text(
-                        "By setting up a strong you can help protect your mobile device and personal Information from unauthorized access.",
+                        "By setting up a strong MPIN, you can help protect your mobile device and personal Information from unauthorized access.",
                         style: TextStyle(
                           height: 1.8,
                           fontSize: screenHeight * 0.012,

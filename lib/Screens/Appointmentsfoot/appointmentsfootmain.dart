@@ -2967,20 +2967,17 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                                                     right: MediaQuery.of(context).size.height * 0.01,
                                                                                   ),
                                                                                   decoration: BoxDecoration(
-                                                                                    color: Colors.white,
+                                                                                    // color: Colors.white,
                                                                                     borderRadius: BorderRadius.circular(10),
                                                                                   ),
-                                                                                  child:
-                                                                                  Row(
+                                                                                  child: Column(
                                                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                                                     children: List.generate(
                                                                                       3, // Number of dots
                                                                                           (index) => Padding(
                                                                                         padding: EdgeInsets.only(
-                                                                                          left: MediaQuery.of(context).size.height * 0.001,
-                                                                                          right: MediaQuery.of(context).size.height * 0.001,
-                                                                                          top: MediaQuery.of(context).size.height * 0.0,
-                                                                                          bottom: MediaQuery.of(context).size.height * 0.0,
+                                                                                          top: MediaQuery.of(context).size.height * 0.001,
+                                                                                          bottom: MediaQuery.of(context).size.height * 0.001,
                                                                                         ), // Spacing between dots
                                                                                         child: Container(
                                                                                           width: MediaQuery.of(context).size.height * 0.004, // Diameter of the dot
@@ -2994,6 +2991,48 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                                                     ),
                                                                                   ),
                                                                                 ),
+
+                                                                                // Container(
+                                                                                //   padding: EdgeInsets.only(
+                                                                                //     left: MediaQuery.of(context).size.height * 0.005,
+                                                                                //     right: MediaQuery.of(context).size.height * 0.005,
+                                                                                //     top: MediaQuery.of(context).size.height * 0.005,
+                                                                                //     bottom: MediaQuery.of(context).size.height * 0.005,
+                                                                                //   ),
+                                                                                //   margin: EdgeInsets.only(
+                                                                                //     left: MediaQuery.of(context).size.height * 0.00,
+                                                                                //     top: MediaQuery.of(context).size.height * 0.0,
+                                                                                //     bottom: MediaQuery.of(context).size.height * 0.00,
+                                                                                //     right: MediaQuery.of(context).size.height * 0.01,
+                                                                                //   ),
+                                                                                //   decoration: BoxDecoration(
+                                                                                //     color: Colors.white,
+                                                                                //     borderRadius: BorderRadius.circular(10),
+                                                                                //   ),
+                                                                                //   child:
+                                                                                //   Row(
+                                                                                //     mainAxisAlignment: MainAxisAlignment.center,
+                                                                                //     children: List.generate(
+                                                                                //       3, // Number of dots
+                                                                                //           (index) => Padding(
+                                                                                //         padding: EdgeInsets.only(
+                                                                                //           left: MediaQuery.of(context).size.height * 0.001,
+                                                                                //           right: MediaQuery.of(context).size.height * 0.001,
+                                                                                //           top: MediaQuery.of(context).size.height * 0.0,
+                                                                                //           bottom: MediaQuery.of(context).size.height * 0.0,
+                                                                                //         ), // Spacing between dots
+                                                                                //         child: Container(
+                                                                                //           width: MediaQuery.of(context).size.height * 0.004, // Diameter of the dot
+                                                                                //           height: MediaQuery.of(context).size.height * 0.004,
+                                                                                //           decoration: BoxDecoration(
+                                                                                //             color: Color(0x85116A94), // Dot color
+                                                                                //             shape: BoxShape.circle, // Makes it circular
+                                                                                //           ),
+                                                                                //         ),
+                                                                                //       ),
+                                                                                //     ),
+                                                                                //   ),
+                                                                                // ),
                                                                               ),
                                                                             ],
                                                                           ),
@@ -4019,10 +4058,6 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                   ),
                                   SizedBox(height : MediaQuery.of(context).size.height * 0.02),
 
-
-
-
-
                                   GestureDetector(
                                     onTap: () {
                                       // Navigator.of(context).push(
@@ -4307,7 +4342,6 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                       ),
                                     ),
                                   ),
-
                                   //  Test And Services
                                   GestureDetector(
                                     onTap: () {
