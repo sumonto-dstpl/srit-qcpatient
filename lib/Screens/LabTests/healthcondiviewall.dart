@@ -9,6 +9,7 @@ import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
+import 'package:newfolder/Screens/LabTests/recomendtestviewall.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
@@ -530,7 +531,13 @@ class HealthCondiViewallstate
                                         ),
                                       );*/
                                     }
-                                    // Add more cases as needed
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                          return RecommendedViewAll(usernameValue: "Health Package",);
+                                        },
+                                      ),
+                                    );
                                   },
                                   style: TextButton.styleFrom(
                                     backgroundColor: Color(0xFFE8F0F3),

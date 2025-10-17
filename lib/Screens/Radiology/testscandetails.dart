@@ -43,6 +43,7 @@ import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
 import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
+import 'package:share_plus/share_plus.dart';
 
 
 class TestScanDetails extends StatefulWidget {
@@ -82,13 +83,10 @@ class TestScanDetailsstate extends State<TestScanDetails> {
         body: Container(
           width: double.infinity,
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              colors: [
-                Color(0xFF126086),
-                Color(0xFF126086),
-                Color(0xFF126086),
-              ],
+            image: DecorationImage(
+              // image: AssetImage("assets/patternbackground.png"), // Replace with your image path
+              image: AssetImage("assets/Background Pattern.png"),
+              fit: BoxFit.cover, // Adjusts how the image fills the container
             ),
           ),
           child: Stack(
@@ -412,6 +410,7 @@ class TestScanDetailsstate extends State<TestScanDetails> {
                                     MediaQuery.of(context).size.height * 0.00,
                                 top: MediaQuery.of(context).size.height * 0.04),
                             child: Stack(
+                              clipBehavior: Clip.none,
                               children: [
                                 // Center image
                                 Center(
@@ -438,43 +437,94 @@ class TestScanDetailsstate extends State<TestScanDetails> {
                                 ),
 
                                 // Top-right image
+                                // Positioned(
+                                //   top: 0,
+                                //   right: 0,
+                                //   child: Container(
+                                //     margin: EdgeInsets.only(
+                                //         left:
+                                //             MediaQuery.of(context).size.height *
+                                //                 0.0,
+                                //         right:
+                                //             MediaQuery.of(context).size.height *
+                                //                 0.02,
+                                //         bottom:
+                                //             MediaQuery.of(context).size.height *
+                                //                 0.00,
+                                //         top:
+                                //             MediaQuery.of(context).size.height *
+                                //                 0.0),
+                                //     padding: EdgeInsets.only(
+                                //       left: MediaQuery.of(context).size.height *
+                                //           0.00,
+                                //     ),
+                                //     child: ClipRRect(
+                                //       borderRadius:
+                                //           BorderRadius.circular(130.0),
+                                //       child: Image.asset(
+                                //         'assets/radiologyShare.png',
+                                //         height:
+                                //             MediaQuery.of(context).size.height *
+                                //                 0.03, // Adjust height
+                                //         width:
+                                //             MediaQuery.of(context).size.height *
+                                //                 0.03, // Adjust width
+                                //         fit: BoxFit.fill,
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
+
                                 Positioned(
-                                  top: 0,
+                                  top: -10,
                                   right: 0,
-                                  child: Container(
-                                    margin: EdgeInsets.only(
-                                        left:
-                                            MediaQuery.of(context).size.height *
-                                                0.0,
-                                        right:
-                                            MediaQuery.of(context).size.height *
-                                                0.02,
-                                        bottom:
-                                            MediaQuery.of(context).size.height *
-                                                0.00,
-                                        top:
-                                            MediaQuery.of(context).size.height *
-                                                0.0),
-                                    padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.00,
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.circular(130.0),
-                                      child: Image.asset(
-                                        'assets/radiologyShare.png',
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.03, // Adjust height
-                                        width:
-                                            MediaQuery.of(context).size.height *
-                                                0.03, // Adjust width
-                                        fit: BoxFit.fill,
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      await Share.share(
+                                        'Check out this awesome report!',
+                                        subject: 'Radiology Report',
+                                      );
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(
+                                        right: MediaQuery.of(context).size.height * 0.02,
+                                      ),
+
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent, // transparent to keep tap area visible
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Container(
+                                        height: MediaQuery.of(context).size.height * 0.05,
+                                        width: MediaQuery.of(context).size.height * 0.05,
+                                        decoration: BoxDecoration(
+
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Center(
+                                          child: Container(
+                                            height: MediaQuery.of(context).size.height * 0.03,
+                                            width: MediaQuery.of(context).size.height * 0.03,
+                                            decoration: const BoxDecoration(
+
+                                              shape: BoxShape.circle,
+                                            ),
+                                            padding: EdgeInsets.all(
+                                              MediaQuery.of(context).size.height * 0.00, // 🔹 inner spacing
+                                            ),
+                                            child: Image.asset(
+                                              'assets/radiologyShare.png',
+                                              fit: BoxFit.fill,
+                                              height: MediaQuery.of(context).size.height * 0.03,
+                                              width: MediaQuery.of(context).size.height * 0.03,
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
+
                               ],
                             ),
                           ),
