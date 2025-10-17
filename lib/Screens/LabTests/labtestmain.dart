@@ -1445,7 +1445,14 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                         ),
                                       );*/
                                     }
-                                    // Add more cases as needed
+
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                          return RecommendedViewAll(usernameValue: "Health Package",);
+                                        },
+                                      ),
+                                    );
                                   },
                                   style: TextButton.styleFrom(
                                     backgroundColor: Color(0xFFE8F0F3),
@@ -2123,13 +2130,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                   onPressed: () {
                                     // Add specific actions for each index
                                     if (index == 0) {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (BuildContext context) {
-                                            return RecommendedViewAll(usernameValue: "Health Package",);
-                                          },
-                                        ),
-                                      );
+
                                     } else if (index == 1) {
                                       /* Navigator.of(context).push(
                                         MaterialPageRoute(
@@ -2164,6 +2165,14 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                       );*/
                                     }
                                     // Add more cases as needed
+
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                          return RecommendedViewAll(usernameValue: "Health Package",);
+                                        },
+                                      ),
+                                    );
                                   },
                                   style: TextButton.styleFrom(
                                     backgroundColor: Color(0xFFE8F0F3),

@@ -401,12 +401,13 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                     child: Container(
                       padding: EdgeInsets.only(
                                 left:
-                                    MediaQuery.of(context).size.height * 0.02,
+                                    MediaQuery.of(context).size.height * 0.01,
                                 right:
-                                    MediaQuery.of(context).size.height * 0.02,
+                                    MediaQuery.of(context).size.height * 0.01,
                                 bottom:
                                     MediaQuery.of(context).size.height * 0.00,
-                                top: MediaQuery.of(context).size.height * 0.04),
+                                top: MediaQuery.of(context).size.height * 0.04
+                      ),
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -439,10 +440,10 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                         'assets/NutanBhatt.png',
                                         height:
                                             MediaQuery.of(context).size.height *
-                                                0.10, // Adjust height
+                                                0.11, // Adjust height
                                         width:
                                             MediaQuery.of(context).size.height *
-                                                0.10, // Adjust width
+                                                0.11, // Adjust width
                                         fit: BoxFit.fill,
                                       ),
                                     ),
@@ -463,7 +464,7 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                     right: MediaQuery.of(context).size.height *
                                         0.01,
                                     top: MediaQuery.of(context).size.height *
-                                        0.00,
+                                        0.01,
                                     bottom: MediaQuery.of(context).size.height *
                                         0.00),
                                 child: Text(
@@ -474,7 +475,8 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                       fontWeight: FontWeight.bold,
                                       fontSize:
                                           MediaQuery.of(context).size.height *
-                                              0.016),
+                                              0.016
+                                  ),
                                 ),
                               ),
                               Container(
@@ -490,12 +492,13 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                 child: Text(
                                   "General physician / Internal Medicine",
                                   style: TextStyle(
-                                      color: Colors.black54,
-                                      fontWeight: FontWeight.bold,
+                                      color: Color(0x80000000),
+                                      fontWeight: FontWeight.w500,
                                       overflow: TextOverflow.ellipsis,
                                       fontSize:
                                           MediaQuery.of(context).size.height *
-                                              0.014),
+                                              0.014
+                                  ),
                                 ),
                               ),
                             ],
@@ -667,18 +670,19 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                     right: MediaQuery.of(context).size.height *
                                         0.01,
                                     top: MediaQuery.of(context).size.height *
-                                        0.0,
+                                        0.01,
                                     bottom: MediaQuery.of(context).size.height *
                                         0.00),
                                 child: Text(
                                   "Symptoms",
                                   style: TextStyle(
-                                      color: Colors.black,
+                                      color: Color(0xFF1F1F1F),
                                       overflow: TextOverflow.ellipsis,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w600,
                                       fontSize:
                                           MediaQuery.of(context).size.height *
-                                              0.016),
+                                              0.014
+                                  ),
                                 ),
                               ),
                               Container(
@@ -688,18 +692,19 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                     right: MediaQuery.of(context).size.height *
                                         0.01,
                                     top: MediaQuery.of(context).size.height *
-                                        0.02,
+                                        0.01,
                                     bottom: MediaQuery.of(context).size.height *
                                         0.00),
                                 child: Text(
                                   "C/O Rt shoulder pain with difficulty in moving his shoulder",
                                   style: TextStyle(
-                                      color: Colors.black54,
-                                      fontWeight: FontWeight.w500,
+                                      color: Color(0x99000000),
+                                      fontWeight: FontWeight.w400,
                                       // overflow: TextOverflow.ellipsis,
                                       fontSize:
                                           MediaQuery.of(context).size.height *
-                                              0.015),
+                                              0.012
+                                  ),
                                 ),
                               ),
                             ],
@@ -723,18 +728,19 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                 child: Text(
                                   "Diagnoses",
                                   style: TextStyle(
-                                      color: Colors.black,
+                                      color: Color(0xFF1F1F1F),
                                       overflow: TextOverflow.ellipsis,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w600,
                                       fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.016),
+                                      MediaQuery.of(context).size.height *
+                                          0.014
+                                  ),
                                 ),
                               ),
                               Container(
                                 padding: EdgeInsets.only(
                                   top: MediaQuery.of(context).size.height *
-                                      0.005, // Dynamic top padding
+                                      0.01, // Dynamic top padding
                                   bottom: MediaQuery.of(context).size.height *
                                       0.0, // Dynamic bottom padding
                                   left: MediaQuery.of(context).size.height *
@@ -760,7 +766,7 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                                 0.01,
                                         top:
                                             MediaQuery.of(context).size.height *
-                                                0.002,
+                                                0.00,
                                         bottom:
                                             MediaQuery.of(context).size.height *
                                                 0.00,
@@ -769,12 +775,13 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                         '${myopinions[index]}',
                                         // Display the string at the current index
                                         style: TextStyle(
-                                          color: Colors.black54,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.015,
+                                            color: Color(0x99000000),
+                                            fontWeight: FontWeight.w400,
+                                            // overflow: TextOverflow.ellipsis,
+                                            fontSize:
+                                            MediaQuery.of(context).size.height *
+                                                0.012,
+                                          height: 1,
                                         ),
                                       ),
                                     );
@@ -804,12 +811,13 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                 child: Text(
                                   "Treatment and Medication",
                                   style: TextStyle(
-                                      color: Colors.black,
+                                      color: Color(0xFF1F1F1F),
                                       overflow: TextOverflow.ellipsis,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w600,
                                       fontSize:
                                       MediaQuery.of(context).size.height *
-                                          0.016),
+                                          0.014
+                                  ),
                                 ),
                               ),
 
@@ -833,7 +841,8 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                 bottom:
                                     MediaQuery.of(context).size.height * 0.01),
                             decoration: BoxDecoration(
-                              color: Colors.blue.withOpacity(0.2),
+                              // color: Colors.blue.withOpacity(0.2),
+                              color : Color(0xFFF3FAFD),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(10.0),
                                 topRight: Radius.circular(10.0),
@@ -850,12 +859,12 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                     Text(
                                       "Medication",
                                       style: TextStyle(
-                                          color: Colors.black54,
+                                          color: Color(0xFF667085),
                                           overflow: TextOverflow.ellipsis,
                                           fontWeight: FontWeight.w500,
                                           fontSize:
                                           MediaQuery.of(context).size.height *
-                                              0.016),
+                                              0.014),
                                     ),
 
 
@@ -867,13 +876,13 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                     child:
                                     Text(
                                       "Dosage",
-                                      style:  TextStyle(
-                                          color: Colors.black54,
+                                      style: TextStyle(
+                                          color: Color(0xFF667085),
                                           overflow: TextOverflow.ellipsis,
                                           fontWeight: FontWeight.w500,
                                           fontSize:
                                           MediaQuery.of(context).size.height *
-                                              0.016),
+                                              0.014),
                                     ),
 
                                 
@@ -885,18 +894,12 @@ class TimelineDetailsstate extends State<TimelineDetails> {
 
                           // 2nd row
                           Container(
-                            margin: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.height * 0.0,
-                                right:
-                                MediaQuery.of(context).size.height * 0.0,
-                                top: MediaQuery.of(context).size.height * 0.0,
-                                bottom:
-                                MediaQuery.of(context).size.height * 0.00),
+
                             padding: EdgeInsets.only(
                                 left: MediaQuery.of(context).size.height * 0.01,
                                 right:
                                 MediaQuery.of(context).size.height * 0.01,
-                                top: MediaQuery.of(context).size.height * 0.005,
+                                top: MediaQuery.of(context).size.height * 0.001,
                                 bottom:
                                 MediaQuery.of(context).size.height * 0.0),
                             decoration: BoxDecoration(
@@ -907,54 +910,10 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
 
-                                Expanded(
-                                  child: Container(
-                                    color: Colors.grey.withOpacity(0.1),
-                                    padding: EdgeInsets.only(
-                                        left: MediaQuery.of(context).size.height * 0.015,
-                                        right: MediaQuery.of(context).size.height * 0.015,
-                                        top: MediaQuery.of(context).size.height * 0.01,
-                                        bottom: MediaQuery.of(context).size.height * 0.01),
-                                    alignment: Alignment.center,
-                                    child:
-                                    Text(
-                                      "EZIPAN 100 ML - AND THYME EXTRACT(OD 70 GM)098 CM",
-                                      style: TextStyle(
-                                          color: Colors.black54,
-                                          // overflow: TextOverflow.ellipsis,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.012),
-                                    ),
 
+                                TreatmentMedicationDetail(text: "EZIPAN 100 ML - AND THYME EXTRACT(OD 70 GM)098 CM", backgroundcolor: Color(0x66F0F0F0)),
 
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    // color: Colors.grey.withOpacity(0.1),
-                                    padding: EdgeInsets.only(
-                                        left: MediaQuery.of(context).size.height * 0.015,
-                                        right: MediaQuery.of(context).size.height * 0.015,
-                                        top: MediaQuery.of(context).size.height * 0.01,
-                                        bottom: MediaQuery.of(context).size.height * 0.01),
-                                    alignment: Alignment.center,
-                                    child:
-                                    Text(
-                                      "CAPSULE • ORAL - IBID) at 600.18 00",
-                                      style: TextStyle(
-                                          color: Colors.black54,
-                                          // overflow: TextOverflow.ellipsis,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.012),
-                                    ),
-
-
-                                  ),
-                                ),
+                                TreatmentMedicationDetail(text: "CAPSULE • ORAL - IBID) at 600.18 00", backgroundcolor: Color(0xFFFFFFFF)),
                               ],
                             ),
                           ),
@@ -982,38 +941,16 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+
+                                TreatmentMedicationDetail(text: "VOLTAREN EMULGEL G Bx/l EACH", backgroundcolor: Color(0xFFFFFFFFF)),
                                 Expanded(
                                   child: Container(
-                                    // color: Colors.grey.withOpacity(0.1),
+                                    color : Color(0x66F0F0F0),
                                     padding: EdgeInsets.only(
                                         left: MediaQuery.of(context).size.height * 0.015,
                                         right: MediaQuery.of(context).size.height * 0.015,
-                                        top: MediaQuery.of(context).size.height * 0.01,
-                                        bottom: MediaQuery.of(context).size.height * 0.01),
-                                    alignment: Alignment.center,
-                                    child:
-                                    Text(
-                                      "VOLTAREN EMULGEL G Bx/l EACH",
-                                      style: TextStyle(
-                                          color: Colors.black54,
-                                          // overflow: TextOverflow.ellipsis,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.012),
-                                    ),
-
-
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    color: Colors.grey.withOpacity(0.1),
-                                    padding: EdgeInsets.only(
-                                        left: MediaQuery.of(context).size.height * 0.015,
-                                        right: MediaQuery.of(context).size.height * 0.015,
-                                        top: MediaQuery.of(context).size.height * 0.01,
-                                        bottom: MediaQuery.of(context).size.height * 0.01),
+                                        top: MediaQuery.of(context).size.height * 0.008,
+                                        bottom: MediaQuery.of(context).size.height * 0.008),
                                     alignment: Alignment.center,
                                     child:
                                     Text(
@@ -1030,6 +967,8 @@ class TimelineDetailsstate extends State<TimelineDetails> {
 
                                   ),
                                 ),
+
+
 
                               ],
                             ),
@@ -1070,13 +1009,14 @@ class TimelineDetailsstate extends State<TimelineDetails> {
 
                                             },
                                             child: Container(
-                                              padding: new EdgeInsets.only(
-                                                  left: MediaQuery.of(context).size.height * 0.015,
-                                                  right: MediaQuery.of(context).size.height * 0.015,
-                                                  top: MediaQuery.of(context).size.height * 0.01,
-                                                  bottom: MediaQuery.of(context).size.height * 0.01),
+                                              padding: new EdgeInsets.symmetric(
+                                                  horizontal: MediaQuery.of(context).size.height * 0.02,
+
+                                                  vertical: MediaQuery.of(context).size.height * 0.006,
+
+                                              ),
                                               decoration: BoxDecoration(
-                                                color: Color(0xFF126086),
+                                                color: Color(0xFF13678F),
                                                 borderRadius: BorderRadius.circular(5),
                                               ),
 
@@ -1094,9 +1034,9 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                               child: Text("Radiology Report",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize:  MediaQuery.of(context).size.height * 0.013)),
+                                                      color: Color(0xFFFFFFFF),
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize:  MediaQuery.of(context).size.height * 0.01)),
                                             ),
                                           ),
                                           GestureDetector(
@@ -1104,13 +1044,14 @@ class TimelineDetailsstate extends State<TimelineDetails> {
 
                                             },
                                             child: Container(
-                                              padding: new EdgeInsets.only(
-                                                  left: MediaQuery.of(context).size.height * 0.015,
-                                                  right: MediaQuery.of(context).size.height * 0.015,
-                                                  top: MediaQuery.of(context).size.height * 0.01,
-                                                  bottom: MediaQuery.of(context).size.height * 0.01),
+                                              padding: new EdgeInsets.symmetric(
+                                                horizontal: MediaQuery.of(context).size.height * 0.02,
+
+                                                vertical: MediaQuery.of(context).size.height * 0.006,
+
+                                              ),
                                               decoration: BoxDecoration(
-                                                color: Color(0xFF126086),
+                                                color: Color(0xFF13678F),
                                                 borderRadius: BorderRadius.circular(5),
                                               ),
 
@@ -1128,9 +1069,9 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                               child: Text("Lab Reports",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize:  MediaQuery.of(context).size.height * 0.013)),
+                                                      color: Color(0xFFFFFFFF),
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize:  MediaQuery.of(context).size.height * 0.01)),
                                             ),
                                           ),
 
@@ -2369,4 +2310,50 @@ class TimelineDetailsstate extends State<TimelineDetails> {
             );
           }
       );
+}
+
+
+class TreatmentMedicationDetail extends StatelessWidget {
+  final String text;
+  final Color backgroundcolor;
+
+  const TreatmentMedicationDetail(
+      {
+        super.key,
+        required this.text,
+        required this.backgroundcolor
+      });
+
+
+
+  @override
+  Widget build(BuildContext context) {
+      return Expanded(
+        child: Container(
+          color : backgroundcolor,
+          padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.height * 0.02,
+
+            vertical: MediaQuery.of(context).size.height * 0.005,
+
+          ),
+          alignment: Alignment.center,
+          child:
+          Text(
+              text,
+            style: TextStyle(
+                color: Color(0x80101828),
+                // overflow: TextOverflow.ellipsis,
+                fontWeight: FontWeight.w500,
+                fontSize:
+                MediaQuery.of(context).size.height *
+                    0.011
+            ),
+          ),
+
+
+        ),
+      );
+  }
+
 }
