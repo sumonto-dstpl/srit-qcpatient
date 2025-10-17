@@ -451,12 +451,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       setState(() {
         _currentIndex++;
       });
-    } else {
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => LoginHome()),
-            (route) => false,
-      );
     }
+    // else {
+    //   Navigator.of(context).pushAndRemoveUntil(
+    //     MaterialPageRoute(builder: (_) => LoginHome()),
+    //         (route) => false,
+    //   );
+    // }
   }
 
   void _previousPage() {
