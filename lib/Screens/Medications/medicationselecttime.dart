@@ -218,7 +218,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                             children: [
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.blue[100]!.withOpacity(0.9),
+                                  color: Color(0x4EFFFFFF),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 padding: EdgeInsets.only(
@@ -238,6 +238,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                                       size: MediaQuery.of(context).size.height *
                                           0.015,
                                     ),
+                                    SizedBox(width: 5),
                                     Text(
                                       "4.2",
                                       style: TextStyle(

@@ -374,6 +374,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
+import 'package:newfolder/Screens/VerifyOtp/verifyOtp.dart';
 
 
 
@@ -996,9 +997,9 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                                 children: <Widget>[
                                   TextButton(
                                     onPressed : () {
-                                      // Navigator.of(context).push(
-                                      //     MaterialPageRoute(builder: (context) => MobileNumberVerificationForMPIN())
-                                      // );
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) => MpinResetSettings())
+                                      );
 
                                     },
                                     child: Text(

@@ -186,7 +186,8 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                             children: [
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.blue[100]!.withOpacity(0.9),
+                                  // color: Colors.blue[100]!.withOpacity(0.9),
+                                  color: Color(0x4EFFFFFF),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 padding: EdgeInsets.only(
@@ -206,6 +207,7 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
                                       size: MediaQuery.of(context).size.height *
                                           0.025,
                                     ),
+                                    SizedBox(width: 5),
                                     Text(
                                       "4.2",
                                       style: TextStyle(

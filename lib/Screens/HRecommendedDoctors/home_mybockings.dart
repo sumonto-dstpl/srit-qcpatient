@@ -431,7 +431,8 @@ class MyBookingsMainstate extends State<HomeMyBookingsMain> {
                             children: [
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.blue[100]!.withOpacity(0.9),
+                                  color: Color(0x4EFFFFFF),
+                                  // color: Colors.blue[100]!.withOpacity(0.9),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 padding: EdgeInsets.only(
@@ -451,6 +452,7 @@ class MyBookingsMainstate extends State<HomeMyBookingsMain> {
                                       size: MediaQuery.of(context).size.height *
                                           0.015,
                                     ),
+                                    SizedBox(width: 5),
                                     Text(
                                       "4.2",
                                       style: TextStyle(
