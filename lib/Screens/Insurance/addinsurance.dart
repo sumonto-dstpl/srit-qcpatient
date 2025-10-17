@@ -16,8 +16,10 @@ import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
+import 'package:newfolder/Screens/Widgets/UploadBox.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
+import 'package:newfolder/Screens/Widgets/custom_type_calender.dart';
 
 class AddInsuranceMain extends StatefulWidget {
   int selectedIndex = 0;
@@ -771,57 +773,75 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                               right: MediaQuery.of(context).size.height * 0.02,
                               top: MediaQuery.of(context).size.height * 0.01,
                             ),
-                            child: new TextFormField(
-                              controller: StartDateController,
-                              keyboardType: TextInputType.datetime,
-                              inputFormatters: [
-                                // LengthLimitingTextInputFormatter(15),
-                                FilteringTextInputFormatter.allow(
-                                    RegExp('[0-9]'))
-                              ],
-                              style: TextStyle(
-                                color: Color(0xFF111111),
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.012,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              validator: (input) => input!.length < 3
-                                  ? "Mobile Number should be more than 3 characters"
-                                  : null,
-                              decoration: new InputDecoration(
-                                isDense: true,
-                                contentPadding: EdgeInsets.fromLTRB(
-                                  MediaQuery.of(context).size.height * 0.02,
-                                  MediaQuery.of(context).size.height * 0.01,
-                                  MediaQuery.of(context).size.height * 0.01,
-                                  MediaQuery.of(context).size.height * 0.01,
-                                ),
-                                filled: true,
-                                fillColor: Color(0xFFFFFFFF),
-                                hintText: "Enter Membership Number",
-                                hintStyle: TextStyle(
-                                  color: Color(0x4D111111),
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.012,
+                            child: SizedBox(
+                              height: 32,
+                              child: TextFormField(
+                                controller: StartDateController,
+                                readOnly: true,
+                                onTap: () async {
+                                  FocusScope.of(context).unfocus(); // Hide keyboard
+
+                                  // Open Custom Calendar in Bottom Sheet
+                                  showModalBottomSheet(
+                                    context: context,
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+                                    ),
+                                    builder: (_) {
+                                      return Container(
+                                        padding: EdgeInsets.all(16),
+                                        height: 350, // Adjust as needed
+                                        child: CustomTypeCalendar(
+                                          onDateSelected: (selectedDate) {
+                                            String formattedDate =
+                                                "${selectedDate.day.toString().padLeft(2, '0')}-${selectedDate.month.toString().padLeft(2, '0')}-${selectedDate.year}";
+
+                                            StartDateController.text = formattedDate;
+                                            checkSubmitButtonEnabled();
+
+                                            Navigator.pop(context); // Close bottom sheet after selection
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                style: TextStyle(
+                                  color: Color(0xFF111111),
+                                  fontSize: MediaQuery.of(context).size.height * 0.012,
                                   fontWeight: FontWeight.w500,
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide:
-                                      BorderSide(color: Color(0xFFF1F1F1)),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5.0)),
-                                  borderSide:
-                                      BorderSide(color: Color(0xFFF1F1F1)),
+                                validator: (input) => input!.isEmpty ? "Please select a date" : null,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 10,
+                                  ),
+                                  filled: true,
+                                  fillColor: Color(0xFFFFFFFF),
+                                  hintText: "Select Date",
+                                  hintStyle: TextStyle(
+                                    color: Color(0x4D111111),
+                                    fontSize: MediaQuery.of(context).size.height * 0.012,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  suffixIcon: Icon(Icons.calendar_today, size: 13, color: Color(0xFF126086)),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    borderSide: BorderSide(color: Color(0xFFF1F1F1)),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                    borderSide: BorderSide(color: Color(0xFFF1F1F1)),
+                                  ),
                                 ),
                               ),
-                              onChanged: (value) {
-                                checkSubmitButtonEnabled();
-                              },
-                            ),
-                          ),
+                            )
+                            ,
+                          )
+                          ,
                           if (startDateerrorMessage != null)
                             Padding(
                               padding: EdgeInsets.only(
@@ -885,56 +905,70 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                               right: MediaQuery.of(context).size.height * 0.02,
                               top: MediaQuery.of(context).size.height * 0.01,
                             ),
-                            child: new TextFormField(
-                              controller: ExpiryDateTextController,
-                              keyboardType: TextInputType.datetime,
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(15),
-                                FilteringTextInputFormatter.allow(
-                                    RegExp('[0-9]'))
-                              ],
-                              style: TextStyle(
-                                color: Color(0xFF111111),
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.012,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              validator: (input) => input!.length < 3
-                                  ? "Mobile Number should be more than 3 characters"
-                                  : null,
-                              decoration: new InputDecoration(
-                                isDense: true,
-                                contentPadding: EdgeInsets.fromLTRB(
-                                  MediaQuery.of(context).size.height * 0.02,
-                                  MediaQuery.of(context).size.height * 0.01,
-                                  MediaQuery.of(context).size.height * 0.01,
-                                  MediaQuery.of(context).size.height * 0.01,
-                                ),
-                                filled: true,
-                                fillColor: Color(0xFFFFFFFF),
-                                hintText: "Enter the expiration date",
-                                hintStyle: TextStyle(
-                                  color: Color(0x4D111111),
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.012,
+                            child: SizedBox(
+                              height: 32, // 🔽 Same compact height
+                              child: TextFormField(
+                                controller: ExpiryDateTextController,
+                                readOnly: true, // Disable manual input
+                                onTap: () {
+                                  FocusScope.of(context).unfocus(); // Hide keyboard
+
+                                  showModalBottomSheet(
+                                    context: context,
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+                                    ),
+                                    builder: (_) {
+                                      return Container(
+                                        padding: EdgeInsets.all(16),
+                                        height: 350,
+                                        child: CustomTypeCalendar(
+                                          onDateSelected: (selectedDate) {
+                                            String formattedDate =
+                                                "${selectedDate.day.toString().padLeft(2, '0')}-${selectedDate.month.toString().padLeft(2, '0')}-${selectedDate.year}";
+                                            ExpiryDateTextController.text = formattedDate;
+                                            checkSubmitButtonEnabled();
+                                            Navigator.pop(context); // Close calendar
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                style: TextStyle(
+                                  color: Color(0xFF111111),
+                                  fontSize: MediaQuery.of(context).size.height * 0.012,
                                   fontWeight: FontWeight.w500,
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide:
-                                      BorderSide(color: Color(0xFFF1F1F1)),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5.0)),
-                                  borderSide:
-                                      BorderSide(color: Color(0xFFF1F1F1)),
+                                validator: (input) => input!.isEmpty ? "Please select expiry date" : null,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 10,
+                                  ),
+                                  filled: true,
+                                  fillColor: Color(0xFFFFFFFF),
+                                  hintText: "Select Date",
+                                  hintStyle: TextStyle(
+                                    color: Color(0x4D111111),
+                                    fontSize: MediaQuery.of(context).size.height * 0.012,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  suffixIcon: Icon(Icons.calendar_today, size: 13, color: Color(0xFF126086)),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    borderSide: BorderSide(color: Color(0xFFF1F1F1)),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                    borderSide: BorderSide(color: Color(0xFFF1F1F1)),
+                                  ),
                                 ),
                               ),
-                              onChanged: (value) {
-                                checkSubmitButtonEnabled();
-                              },
-                            ),
+                            )
+                            ,
                           ),
                           if (expiryDateerrorMessage != null)
                             Padding(
@@ -1184,150 +1218,7 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                           ),
 
                           // Upload File
-                          Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * 0.02,
-                              bottom: MediaQuery.of(context).size.height * 0.0,
-                              right: MediaQuery.of(context).size.height * 0.020,
-                              left: MediaQuery.of(context).size.height * 0.02,
-                            ),
-                            // height: MediaQuery.of(context).size.height * 0.150,
-                            child: DottedBorder(
-                              color: Color(0xFF343434).withOpacity(0.3),
-                              strokeWidth: 1,
-                              borderType: BorderType.RRect,
-                              radius: Radius.circular(8),
-                              child: Center(
-                                // Ensures the content is centered within the border
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .center, // Aligns content vertically
-                                  crossAxisAlignment: CrossAxisAlignment
-                                      .center, // Aligns content horizontally
-                                  children: <Widget>[
-                                    Container(
-                                      margin:
-                                          EdgeInsets.only(
-                                              left: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.00,
-                                              right: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.00,
-                                              top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.02,
-                                              bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.01),
-                                      width: screenHeight * 0.04,
-                                      height: screenHeight * 0.04,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image:
-                                              AssetImage("assets/homecare.png"),
-                                          fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                    ),
-                                    Column(
-                                      children: <Widget>[
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                              left: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.00,
-                                              right: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.00,
-                                              top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.00,
-                                              bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.006),
-                                          child: Text(
-                                            "choose file to upload",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: Color(0xFF1F1F1F),
-                                              fontSize: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.014,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                              left: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.00,
-                                              right: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.00,
-                                              top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.00,
-                                              bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.02),
-                                          child: RichText(
-                                            text: TextSpan(
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge!
-                                                  .merge(
-                                                    TextStyle(
-                                                        color: Theme.of(context)
-                                                            .primaryColor),
-                                                  ),
-                                              children: [
-                                                TextSpan(
-                                                  text:
-                                                      'image or pdf Should be less than',
-                                                  style: TextStyle(
-                                                    color: Color(0xFF000000)
-                                                        .withOpacity(0.4),
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize:
-                                                        screenHeight * 0.012,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: ' 10MB',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize:
-                                                        screenHeight * 0.012,
-                                                    color: Color(0xFF126086),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                          UploadBox(),
 
                           Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
