@@ -1,74 +1,67 @@
+
 import 'dart:convert';
 import 'dart:ui';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
+import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
-import 'package:newfolder/Screens/Appointments/appointmentsfindspecialities.dart';
-import 'package:newfolder/Screens/Appointments/finddoctorslist.dart';
-import 'package:newfolder/Screens/Appointments/quicksearchwithdata.dart';
-import 'package:newfolder/Screens/Appointments/quicksearchwithoutdata.dart';
-import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
+import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
-import 'package:newfolder/Screens/HomeCare/diagnosticmain.dart';
-import 'package:newfolder/Screens/HomeCare/doctorhcmain.dart';
-import 'package:newfolder/Screens/HomeCare/medicalequipmentshcmain.dart';
-import 'package:newfolder/Screens/HomeCare/nursehcmain.dart';
-import 'package:newfolder/Screens/HomeCare/physiohcmain.dart';
-import 'package:newfolder/Screens/Login/loginhome.dart';
-import 'package:newfolder/Screens/Notifications/notifications.dart';
-import 'package:newfolder/Screens/Registeration/registeration.dart';
-import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
-import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
-import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
-import 'package:newfolder/Screens/Widgets/badge.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
+import 'package:newfolder/Screens/Maps/google_map_screen.dart';
+import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
+import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
-import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
-import 'package:newfolder/Screens/Home/homemainscreen.dart';
-import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
-import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
-import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
-import 'package:newfolder/Screens/Widgets/homecare_otherservice_detail.dart';
+import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
+import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
+import 'package:newfolder/Screens/Widgets/badge.dart';
+import 'package:newfolder/constants/time_slot_constants.dart';
 
-class HomeCareMain extends StatefulWidget {
+import '../../utils/TimeSlotSelector.dart';
+
+class HomecareOtherserviceDetail extends StatefulWidget {
+  String usernameValue;
   int selectedIndex = 0;
-  HomeCareMain({
+  HomecareOtherserviceDetail({
     super.key,
+    required this.usernameValue,
   });
   @override
-  State<HomeCareMain> createState() => HomeCareMainstate();
+  State<HomecareOtherserviceDetail> createState() => HomecareOtherserviceDetailState();
 }
 
-class HomeCareMainstate extends State<HomeCareMain> {
-  String usernameValue = "Home Care Services";
+class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> {
+
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
   int _selectedIndex = 0;
-  final mytopspecialities = [
-    ["assets/Diagnostic.png", "Diagnostic"],
-    ["assets/Doctor.png", "Doctor"],
-    ["assets/Nurse.png", "Nurse"],
-    ["assets/Physio.png", "Physio"],
-    ["assets/MedicalEquipment.png", "Medical Equipment's"],
-  ];
+  bool _isExpandedtime = true;
+  bool _isExpandedlocation = true;
+  String selectedSlot = "";
+  DateTime? _selectedDay;
 
   EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
   AppointmentCancel appointmentcancelalert = new AppointmentCancel();
 
+  List location = [
+    ["Home Address", "65 Mohamed Bin Al Qassim St, Doha, Qatar"],
+    ["Home Address", "65 Mohamed Bin Al Qassim St, Doha, Qatar"],
+  ];
+
+
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
+    final height = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    TextEditingController SearchEditTextController = TextEditingController();
+
+    DateTime now = DateTime.now();
+    String todayDate = DateFormat('MMMM d yyyy').format(now);
 
     return Scaffold(
       body: Container(
@@ -85,21 +78,20 @@ class HomeCareMainstate extends State<HomeCareMain> {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.only(
-                  top: screenHeight * 0.07,
+                  top: height * 0.07,
                   left: screenWidth * 0.045,
                   right: screenWidth * 0.045,
                   bottom: screenWidth * 0.06,
                 ),
                 margin: EdgeInsets.only(
-                  right: screenHeight * 0.0,
-                  top: screenHeight * 0.0,
-                  bottom: screenHeight * 0.01,
-                  left: screenHeight * 0.0,
+                  right: height * 0.0,
+                  top: height * 0.0,
+                  bottom: height * 0.01,
+                  left: height * 0.0,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-
                     InkWell(
                       onTap: () => Navigator.pop(context),
                       child: Container(
@@ -112,12 +104,10 @@ class HomeCareMainstate extends State<HomeCareMain> {
                           bottom: MediaQuery.of(context).size.height * 0.00,
                         ),
                         decoration: BoxDecoration(
-
                           color: Color(0xFF126086).withOpacity(0.2),
-
                           shape: BoxShape.circle,
-                          border: Border.all(
-                              width: 0.0, color: Color(0xFF126086)),
+                          border:
+                          Border.all(width: 0.0, color: Color(0xFF126086)),
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(130.0),
@@ -134,31 +124,16 @@ class HomeCareMainstate extends State<HomeCareMain> {
                       children: [
                         Container(
                           padding: EdgeInsets.only(
-                            top: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.00,
-                            bottom: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.005,
-                            left: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.00,
-                            right: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.00,
+                            top: MediaQuery.of(context).size.height * 0.00,
+                            bottom: MediaQuery.of(context).size.height * 0.005,
+                            left: MediaQuery.of(context).size.height * 0.00,
+                            right: MediaQuery.of(context).size.height * 0.00,
                           ),
                           child: Text(
-                            usernameValue,
+                            widget.usernameValue,
                             style: TextStyle(
                               fontSize:
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * 0.018,
+                              MediaQuery.of(context).size.height * 0.018,
                               color: Color(0xFFFFFFFF),
                               fontWeight: FontWeight.w600,
                             ),
@@ -166,8 +141,6 @@ class HomeCareMainstate extends State<HomeCareMain> {
                             textAlign: TextAlign.left,
                           ),
                         ),
-
-
                         GestureDetector(
                           onTap: () {
                             /* Navigator.of(context).push(
@@ -179,30 +152,24 @@ class HomeCareMainstate extends State<HomeCareMain> {
                                   ),
                                 );*/
                           },
-                          child:
-                          Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             // Align items to the start
                             children: [
                               Container(
                                 padding: EdgeInsets.symmetric(
-                                  vertical: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.00,
-                                  horizontal: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.00,
+                                  vertical:
+                                  MediaQuery.of(context).size.height * 0.00,
+                                  horizontal:
+                                  MediaQuery.of(context).size.height * 0.00,
                                 ),
                                 child: Text(
                                   useraddressValue,
                                   style: TextStyle(
                                     overflow: TextOverflow.ellipsis,
-                                    fontSize: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * 0.012,
+                                    fontSize:
+                                    MediaQuery.of(context).size.height *
+                                        0.012,
                                     color: Colors.white,
                                   ),
                                   textAlign: TextAlign.left,
@@ -212,10 +179,8 @@ class HomeCareMainstate extends State<HomeCareMain> {
                                 Icons.keyboard_arrow_down,
                                 // Downward pointing arrow
                                 color: Colors.white,
-                                size: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.02, // Responsive size
+                                size: MediaQuery.of(context).size.height *
+                                    0.02, // Responsive size
                               ),
                             ],
                           ),
@@ -223,57 +188,47 @@ class HomeCareMainstate extends State<HomeCareMain> {
                       ],
                     ),
 
-
                     // Action Bar 2nd half
                     Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-
                           // Cart
                           GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder:
-                                      (BuildContext context) {
+                                  builder: (BuildContext context) {
                                     return AddToCartMain();
                                   },
                                 ),
                               );
                             },
-                            child:
-                            AppointmentIconBadge(
+                            child: AppointmentIconBadge(
                               appointmentcount: "",
                             ),
                           ),
-
 
                           // Notification
                           GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder:
-                                      (BuildContext context) {
+                                  builder: (BuildContext context) {
                                     return NotificationMain();
                                   },
                                 ),
                               );
                             },
-                            child:
-                            IconBadge(
+                            child: IconBadge(
                               notificationcount: "",
                             ),
                           ),
 
-
                           // Profile Image
                           userprofilepValue != "NA"
-                              ?
-
-                          GestureDetector(
+                              ? GestureDetector(
                               onTap: () async {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -282,34 +237,26 @@ class HomeCareMainstate extends State<HomeCareMain> {
                                     },
                                   ),
                                 );
-                              }, child:
-                          Container(
-                            height: MediaQuery
-                                .of(context)
-                                .size
-                                .height *
-                                0.050,
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .height *
-                                0.050,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1.0,
-                                color: Colors.white,
-                              ),
-                              shape: BoxShape.circle,
-                              image: new DecorationImage(
-                                fit: BoxFit.fill,
-                                image: Image
-                                    .memory(
-                                    base64Decode(userprofilepValue))
-                                    .image,
-                              ),
-                            ),
-                          )
-                          )
+                              },
+                              child: Container(
+                                height: MediaQuery.of(context).size.height *
+                                    0.050,
+                                width: MediaQuery.of(context).size.height *
+                                    0.050,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1.0,
+                                    color: Colors.white,
+                                  ),
+                                  shape: BoxShape.circle,
+                                  image: new DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: Image.memory(
+                                        base64Decode(userprofilepValue))
+                                        .image,
+                                  ),
+                                ),
+                              ))
                               : GestureDetector(
                             onTap: () async {
                               Navigator.of(context).push(
@@ -319,51 +266,34 @@ class HomeCareMainstate extends State<HomeCareMain> {
                                   },
                                 ),
                               );
-                            }, child: Container(
-                            height: MediaQuery
-                                .of(context)
-                                .size
-                                .height *
-                                0.04,
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .height *
-                                0.04,
-                            padding: EdgeInsets.only(
-                              left: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height *
-                                  0.00,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: 1.0,
-                                color: Colors.white,
+                            },
+                            child: Container(
+                              height: MediaQuery.of(context).size.height *
+                                  0.04,
+                              width: MediaQuery.of(context).size.height *
+                                  0.04,
+                              padding: EdgeInsets.only(
+                                left: MediaQuery.of(context).size.height *
+                                    0.00,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.green,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  width: 1.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              child: ClipRRect(
+                                borderRadius:
+                                BorderRadius.circular(130.0),
+                                child: Image.asset(
+                                  'assets/drsujeet.png',
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(130.0),
-                              child: Image.asset(
-                                'assets/drsujeet.png',
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
                           )
-
-
-
-
-
-
-
-
-
-
                         ],
                       ),
                     ),
@@ -371,324 +301,155 @@ class HomeCareMainstate extends State<HomeCareMain> {
                 ),
               ),
 
-      Expanded(
-
-        child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(screenHeight * 0.03),
-                  topRight: Radius.circular(screenHeight * 0.03),
-                  bottomLeft: Radius.circular(screenHeight * 0.0),
-                  bottomRight: Radius.circular(screenHeight * 0.00),
-                  // bottomCenter: 0,
-                ),
-              ),
-          child : Column(
-            children: [
-
-              Container(
-                padding: EdgeInsets.only(
-                left: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.01,
-                right: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.01,
-                top: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.01,
-                bottom: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.01),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(screenHeight * 0.03),
-                    topRight: Radius.circular(screenHeight * 0.03),
-                    bottomLeft: Radius.circular(screenHeight * 0.0),
-                    bottomRight: Radius.circular(screenHeight * 0.00),
-                    // bottomCenter: 0,
-                  ),
-                ),
-                child:
-                Column(
-                  children: [
-                  // Search Input Field
-
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              return QuickSearchWithoutData();
-                            },
-                          ),
-                        );
-                        print('Navigating to QuickSearchWithData!');
-                      },
-                      child: Container(
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.05,
-                        alignment: Alignment.centerRight,
-                        padding: EdgeInsets.only(
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.0,
-                          bottom: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.0,
-                          left: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.00,
-                          right: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.00,
-                        ),
-                        margin: EdgeInsets.only(
-                          right: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.02,
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.01,
-                          bottom: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.0,
-                          left: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.02,
-                        ),
-                        child: AbsorbPointer(
-                          // Prevents the field from gaining focus or triggering gestures
-                          child: TextFormField(
-                            readOnly: true,
-                            controller: SearchEditTextController,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(15),
-                              FilteringTextInputFormatter.allow(
-                                  RegExp('[a-zA-Z0-9]')),
-                            ],
-                            textCapitalization: TextCapitalization.characters,
-                            style: TextStyle(color: Colors.black45),
-                            keyboardType: TextInputType.emailAddress,
-                            validator: (input) => input!.length < 3
-                                ? "Search should be more than 3 characters"
-                                : null,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              contentPadding:
-                              EdgeInsets.only(
-                                top :  screenHeight * 0.012,
-                                right :  screenHeight * 0.012,
-                                bottom :  screenHeight * 0.012,
-                                left :  screenHeight * 0.02,
-                              ),
-                              filled: true,
-                              fillColor: Colors.grey[200],
-                              hintText: "Search for Lab tests",
-                              hintStyle: TextStyle(
-                                  color: Color(0xFF999999),
-                                  // overflow: TextOverflow.ellipsis,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize:
-                                  MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height *
-                                      0.014
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide(color: Colors.grey),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)),
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  Icons.search,
-                                  color: Colors.black45,
-                                  size: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.02,
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) {
-                                        return QuickSearchWithData();
-                                      },
-                                    ),
-                                  );
-                                  print('Search icon clicked!');
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-
-                  ]
-                ),
-              ),
               // Main Content Section
               Expanded(
                 child: Container(
                   padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.02,
-                      right: MediaQuery.of(context).size.height * 0.02,
+                      left: MediaQuery.of(context).size.height * 0.00,
+                      right: MediaQuery.of(context).size.height * 0.00,
                       top: MediaQuery.of(context).size.height * 0.00,
                       bottom: MediaQuery.of(context).size.height * 0.00),
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(screenHeight * 0.03),
-                      topRight: Radius.circular(screenHeight * 0.03),
+                      topLeft: Radius.circular(height * 0.03),
+                      topRight: Radius.circular(height * 0.03),
                     ),
                   ),
                   child: ListView(
                     children: [
-
-
-                      // Home Care Services Grid
+                      // File Upload
                       Container(
-                        color: Colors.white,
-                        child: GridView.count(
-                          shrinkWrap:
-                              true, // GridView takes only as much space as needed
-                          physics:
-                              NeverScrollableScrollPhysics(), // Disable scrolling inside GridView
-                          padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.00,
-                            right: MediaQuery.of(context).size.height * 0.00,
-                            top: MediaQuery.of(context).size.height * 0.005,
-                            bottom: MediaQuery.of(context).size.height * 0.00,
-                          ),
-                          crossAxisCount: 4,
-                          crossAxisSpacing: screenHeight * 0.02,
-                          mainAxisSpacing: screenHeight * 0.01,
-                          children: List.generate(
-                            mytopspecialities.length,
-                            (index) => Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                TextButton(
-                                  // onPressed: () {
-                                  //   // Add specific actions for each index
-                                  //   if (index == 0) {
-                                  //     Navigator.of(context).push(
-                                  //       MaterialPageRoute(
-                                  //         builder: (BuildContext context) {
-                                  //           return DiagnosticMain();
-                                  //         },
-                                  //       ),
-                                  //     );
-                                  //   } else if (index == 1) {
-                                  //     Navigator.of(context).push(
-                                  //       MaterialPageRoute(
-                                  //         builder: (BuildContext context) {
-                                  //           return DoctorHCMain();
-                                  //         },
-                                  //       ),
-                                  //     );
-                                  //   }else if (index == 2) {
-                                  //     Navigator.of(context).push(
-                                  //       MaterialPageRoute(
-                                  //         builder: (BuildContext context) {
-                                  //           return NurseHCMain();
-                                  //         },
-                                  //       ),
-                                  //     );
-                                  //   }else if (index == 3) {
-                                  //     Navigator.of(context).push(
-                                  //       MaterialPageRoute(
-                                  //         builder: (BuildContext context) {
-                                  //           return PhysioHCMain();
-                                  //         },
-                                  //       ),
-                                  //     );
-                                  //   } else if (index == 4) {
-                                  //     Navigator.of(context).push(
-                                  //       MaterialPageRoute(
-                                  //         builder: (BuildContext context) {
-                                  //           return MedicalEquipHCMain();
-                                  //         },
-                                  //       ),
-                                  //     );
-                                  //   }
-                                  //   // Add more cases as needed
-                                  // },
-
-                                  onPressed: (){
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) {
-                                          // return HomecareOtherserviceDetail(usernameValue : "Asgar");
-                                          return HomecareOtherserviceDetail(usernameValue: mytopspecialities[index][1],);
-
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: Color(0xFFE8F0F3),
-                                    padding:
-                                        EdgeInsets.all(screenHeight * 0.01),
-                                    minimumSize: Size(screenHeight * 0.04,
-                                        screenHeight * 0.04),
-                                  ),
-                                  child: Container(
-                                    width: screenHeight * 0.03,
-                                    height: screenHeight * 0.03,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            mytopspecialities[index][0]),
-                                        fit: BoxFit.contain,
-                                      ),
+                        width: double.infinity,
+                        padding: EdgeInsets.only(
+                          top: 0,
+                          bottom: MediaQuery.of(context).size.height * 0.0,
+                          right: MediaQuery.of(context).size.height * 0.020,
+                          left: MediaQuery.of(context).size.height * 0.02,
+                        ),
+                        // height: MediaQuery.of(context).size.height * 0.150,
+                        child: DottedBorder(
+                          color: Color(0xFF343434).withOpacity(0.3),
+                          strokeWidth: 1,
+                          borderType: BorderType.RRect,
+                          radius: Radius.circular(8),
+                          child: Center(
+                            // Ensures the content is centered within the border
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment
+                                  .center, // Aligns content vertically
+                              crossAxisAlignment: CrossAxisAlignment
+                                  .center, // Aligns content horizontally
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      left: MediaQuery.of(context).size.height *
+                                          0.00,
+                                      right:
+                                      MediaQuery.of(context).size.height *
+                                          0.00,
+                                      top: MediaQuery.of(context).size.height *
+                                          0.02,
+                                      bottom:
+                                      MediaQuery.of(context).size.height *
+                                          0.01),
+                                  width: height * 0.04,
+                                  height: height * 0.04,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage("assets/homecare.png"),
+                                      fit: BoxFit.contain,
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.all(screenHeight * 0.00),
-                                    child: Text(
-                                      mytopspecialities[index][1],
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.black87,
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                (10 /
-                                                    MediaQuery.of(context)
-                                                        .size
-                                                        .height),
-                                        // overflow: TextOverflow.ellipsis,
+                                Column(
+                                  children: <Widget>[
+                                    Container(
+                                      padding:
+                                      EdgeInsets.only(
+                                          left: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.00,
+                                          right: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.00,
+                                          top: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.00,
+                                          bottom: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.006),
+                                      child: Text(
+                                        "choose file to upload",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFF1F1F1F),
+                                          fontSize: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.014,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
-                                  ),
+                                    Container(
+                                      padding:
+                                      EdgeInsets.only(
+                                          left: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.00,
+                                          right: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.00,
+                                          top: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.00,
+                                          bottom: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.02),
+                                      child: RichText(
+                                        text: TextSpan(
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge!
+                                              .merge(
+                                            TextStyle(
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text:
+                                              'image or pdf Should be less than',
+                                              style: TextStyle(
+                                                color: Color(0xFF000000)
+                                                    .withOpacity(0.4),
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: height * 0.012,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: ' 10MB',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: height * 0.012,
+                                                color: Color(0xFF126086),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -696,31 +457,674 @@ class HomeCareMainstate extends State<HomeCareMain> {
                         ),
                       ),
 
+                      // Select Time
+                      Container(
+                        padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.01,
+                          bottom: MediaQuery.of(context).size.height * 0.0,
+                          right: MediaQuery.of(context).size.height * 0.015,
+                          left: MediaQuery.of(context).size.height * 0.015,
+                        ),
+                        child: Card(
+                          color: Colors.white,
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.height *
+                                  0.01, // Dynamic border radius for top
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    _isExpandedtime = !_isExpandedtime;
+                                  });
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors
+                                        .white, // Background color (optional)
+                                    border: Border(
+                                      top: BorderSide(
+                                        color: Color(
+                                            0x24000000), // Top border color
+                                        width: 2.0, // Top border thickness
+                                      ),
+                                      right: BorderSide(
+                                        color: Color(
+                                            0x24000000), // Right border color
+                                        width: 2.0, // Right border thickness
+                                      ),
+                                      bottom: BorderSide(
+                                        color: Color(
+                                            0x24000000), // Bottom border color
+                                        width: _isExpandedtime
+                                            ? 1.0
+                                            : 2.0, // Reduced bottom border thickness on expansion
+                                      ),
+                                      left: BorderSide(
+                                        color: Color(
+                                            0x24000000), // Left border color
+                                        width: 2.0, // Left border thickness
+                                      ),
+                                    ),
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(
+                                          MediaQuery.of(context).size.height *
+                                              0.01), // Dynamic top left radius
+                                      topRight: Radius.circular(
+                                          MediaQuery.of(context).size.height *
+                                              0.01), // Dynamic top right radius
+                                      bottomLeft: Radius.circular(
+                                          MediaQuery.of(context).size.height *
+                                              0.01), // Bottom-left curve radius
+                                      bottomRight: Radius.circular(MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height *
+                                          0.01), // Bottom-right curve radius
+                                    ),
+                                  ),
+                                  padding: EdgeInsets.only(
+                                    top: MediaQuery.of(context).size.height *
+                                        0.005, // Dynamic top padding
+                                    bottom: MediaQuery.of(context).size.height *
+                                        0.005, // Dynamic bottom padding
+                                    left: MediaQuery.of(context).size.height *
+                                        0.015, // Dynamic left padding
+                                    right: MediaQuery.of(context).size.height *
+                                        0.015, // Dynamic right padding
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Select Time",
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.014, // Dynamic font size
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      Icon(
+                                        _isExpandedtime
+                                            ? Icons.keyboard_arrow_down
+                                            : Icons.keyboard_arrow_up,
+                                        size:
+                                        MediaQuery.of(context).size.height *
+                                            0.02, // Dynamic icon size
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              if (_isExpandedtime)
 
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: height * 0.01,
+                                        horizontal: (widget.usernameValue == "Medical Equipment's") ? 16 : 0,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        // Left side (Title + Count)
+                                        Flexible(
+                                          child: Row(
+                                            children: [
+                                              Flexible(
+                                                child: Text(
+                                                  (widget.usernameValue == "Medical Equipment's") ? "Pick Data" :  "Select Data",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    color: const Color(0xCC056390),
+                                                    fontSize: height * 0.012,
+                                                  ),
+                                                  overflow: TextOverflow.ellipsis,
+                                                  maxLines: 2,
+                                                ),
+                                              ),
+
+                                            ],
+                                          ),
+                                        ),
+                                        // Right side (Date)
+                                        Flexible(
+                                          child: Text(
+                                            todayDate,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: const Color(0x9913668E),
+                                              fontSize: height * 0.012,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                              if(_isExpandedtime)
+                                TimeSlotSelector(
+                                  timeSlots: timeSlots,
+                                  selectedDate: _selectedDay ?? DateTime.now(),
+                                  onSelected: (selectedTime) {
+                                    setState(() {
+                                      selectedSlot = selectedTime;
+                                    });
+                                    // print("Selected Slot: $selectedSlot");
+                                    // print("Selected Slot: $selectedSlot");
+                                  },
+                                  pagename: "${widget.usernameValue}",
+                                ),
+                              if (_isExpandedtime)
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: MediaQuery.of(context).size.height *
+                                          0.02,
+                                      right:
+                                      MediaQuery.of(context).size.height *
+                                          0.00,
+                                      top: MediaQuery.of(context).size.height *
+                                          0.011,
+                                      bottom:
+                                      MediaQuery.of(context).size.height *
+                                          0.0),
+                                  // child: Align(
+                                  //   alignment: Alignment.centerLeft,
+                                  //   child: Text(
+                                  //     "Select Your Time",
+                                  //     style: TextStyle(
+                                  //       fontSize:
+                                  //           MediaQuery.of(context).size.height *
+                                  //               0.014,
+                                  //       fontWeight: FontWeight.w500,
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      // Select Location
+                      Container(
+                        padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.01,
+                          bottom: MediaQuery.of(context).size.height * 0.0,
+                          right: MediaQuery.of(context).size.height * 0.015,
+                          left: MediaQuery.of(context).size.height * 0.015,
+                        ),
+                        child: Card(
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.height *
+                                  0.01, // Dynamic border radius for top
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    _isExpandedlocation = !_isExpandedlocation;
+                                  });
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors
+                                        .white, // Background color (optional)
+                                    border: Border(
+                                      top: BorderSide(
+                                        color: Color(
+                                            0x24000000), // Top border color
+                                        width: 2.0, // Top border thickness
+                                      ),
+                                      right: BorderSide(
+                                        color: Color(0x24000000),
+                                        width: 2.0, // Right border thickness
+                                      ),
+                                      bottom: BorderSide(
+                                        color: Color(0x24000000),
+                                        width: _isExpandedlocation
+                                            ? 1.0
+                                            : 2.0, // Reduced bottom border thickness on expansion
+                                      ),
+                                      left: BorderSide(
+                                        color: Color(0x24000000),
+                                        width: 2.0, // Left border thickness
+                                      ),
+                                    ),
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(
+                                          MediaQuery.of(context).size.height *
+                                              0.01), // Dynamic top left radius
+                                      topRight: Radius.circular(
+                                          MediaQuery.of(context).size.height *
+                                              0.01), // Dynamic top right radius
+                                      bottomLeft: Radius.circular(
+                                          MediaQuery.of(context).size.height *
+                                              0.01), // Bottom-left curve radius
+                                      bottomRight: Radius.circular(MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height *
+                                          0.01), // Bottom-right curve radius
+                                    ),
+                                  ),
+                                  padding: EdgeInsets.only(
+                                    top: MediaQuery.of(context).size.height *
+                                        0.005, // Dynamic top padding
+                                    bottom: MediaQuery.of(context).size.height *
+                                        0.005, // Dynamic bottom padding
+                                    left: MediaQuery.of(context).size.height *
+                                        0.015, // Dynamic left padding
+                                    right: MediaQuery.of(context).size.height *
+                                        0.015, // Dynamic right padding
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Select Location",
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context)
+                                              .size
+                                              .height *
+                                              0.014, // Dynamic font size
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      Icon(
+                                        _isExpandedlocation
+                                            ? Icons.keyboard_arrow_down
+                                            : Icons.keyboard_arrow_up,
+                                        size:
+                                        MediaQuery.of(context).size.height *
+                                            0.02, // Dynamic icon size
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              if (_isExpandedlocation)
+                                Container(
+                                  color: Colors.white,
+                                  padding: EdgeInsets.only(
+                                    top: MediaQuery.of(context).size.height *
+                                        0.005, // Dynamic top padding
+
+                                  ),
+                                  child: ListView.builder(
+                                    shrinkWrap:
+                                    true, // Prevents infinite height
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemCount: location.length,
+                                    itemBuilder: (context, index) {
+                                      final item = location[index];
+                                      return GestureDetector(
+                                        onTap: () {},
+                                        child: Card(
+                                          elevation: 0.0,
+                                          color: Colors.white,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors
+                                                  .white, // Background color of the container
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(
+                                                      0.1), // Shadow color
+                                                  blurRadius:
+                                                  5, // Spread of the shadow
+                                                  offset: Offset(0,
+                                                      0), // Offset in x and y direction
+                                                ),
+                                              ],
+                                              borderRadius: BorderRadius.circular(
+                                                  8), // Optional: Rounded corners
+                                            ),
+
+                                            padding: EdgeInsets.zero,
+                                            // color: Colors.white,
+                                            child: Container(
+                                              // color: Colors.white,
+
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(10),
+                                                  gradient: LinearGradient(
+                                                      begin:
+                                                      Alignment.centerLeft,
+                                                      end:
+                                                      Alignment.centerRight,
+                                                      stops: [
+                                                        0.5,
+                                                        0.9
+                                                      ],
+                                                      colors: [
+                                                        Color(0xFFffffff),
+                                                        Color(0xFFffffff)
+                                                      ])),
+                                              margin: EdgeInsets.zero,
+                                              padding: EdgeInsets.all(
+                                                   height *
+                                                      0.005,
+                                                  ),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Container(
+                                                    padding: EdgeInsets.only(
+                                                      left:height *
+                                                          0.01,
+                                                      right: height *
+                                                          0.005,
+                                                      top: height *
+                                                          0.01,
+                                                      bottom: height *
+                                                          0.01,
+                                                    ),
+                                                    child: Row(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .center,
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .start,
+                                                      children: <Widget>[
+                                                        Expanded(
+                                                          flex: 1,
+                                                          child: Container(
+                                                            padding:
+                                                            EdgeInsets.only(
+                                                              left:  height *
+                                                                  0.00,
+                                                            ),
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                  130.0),
+                                                              child:
+                                                              Image.asset(
+                                                                'assets/Homehomecare.png',
+                                                                fit:
+                                                                BoxFit.fill,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                            width:  height *
+                                                                0.02),
+                                                        Expanded(
+                                                          flex: 8,
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                            children: <Widget>[
+                                                              Container(
+                                                                padding:
+                                                                EdgeInsets.zero,
+
+                                                                child: Text(
+                                                                  item[0],
+                                                                  style:
+                                                                  TextStyle(
+                                                                    color: Colors
+                                                                        .black87,
+                                                                    overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                    fontSize:  height *
+                                                                        0.014,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                padding:
+                                                                EdgeInsets
+                                                                    .zero,
+                                                                child: Text(
+                                                                  item[1],
+                                                                  style:
+                                                                  TextStyle(
+                                                                    color: Color(
+                                                                        0x99000000),
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                    overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                    fontSize:  height *
+                                                                        0.012,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        // Adding the side arrow at the end
+                                                        Icon(
+                                                          Icons
+                                                              .arrow_forward_ios,
+                                                          size:  height *
+                                                              0.018, // Dynamic icon size
+                                                          color:
+                                                          Color(0xFF5F5F5F),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      //
+                      GestureDetector(
+                        onTap: () async{
+                          print( "location");
+
+                          final result = await Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => GoogleMapScreen(),
+                            ),
+                          );
+
+                          print("Selected Address: $result");
+
+                          setState(() {
+                             location.add([
+                                result['name'],
+                               "${result['thoroughfare']} ${result['subLocality']} ${result['city']}",
+                             ]);
+                          });
+                        },
+                        child: Container(
+                          color : Colors.transparent,
+                          padding: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.height * 0.02,
+                            right: MediaQuery.of(context).size.height * 0.015,
+                            bottom: MediaQuery.of(context).size.height * 0.016,
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment
+                                .start, // Align them to the start
+                            children: <Widget>[
+                              Icon(
+                                Icons.add, // The add icon
+                                color: Color(
+                                    0xFF126086), // Set the color for the icon
+                                size: MediaQuery.of(context).size.height *
+                                    0.02, // Set icon size
+                              ),
+                              SizedBox(
+                                  width: MediaQuery.of(context).size.height *
+                                      0.005), // Space between the icon and text
+                              Container(
+                                padding: EdgeInsets.only(
+                                  left: MediaQuery.of(context).size.height * 0.00,
+                                  right:
+                                  MediaQuery.of(context).size.height * 0.00,
+                                  top: MediaQuery.of(context).size.height * 0.005,
+                                  bottom:
+                                  MediaQuery.of(context).size.height * 0.00,
+                                ),
+                                child: Text(
+                                  "Add new Address",
+                                  style: TextStyle(
+                                    color: Color(0xFF126086),
+                                    fontWeight: FontWeight.w500,
+                                    overflow: TextOverflow.ellipsis,
+                                    fontSize:
+                                    MediaQuery.of(context).size.height * 0.01,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      // Add service button
+                      GestureDetector(
+                        onTap: () async {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return HomePageMain();
+                              },
+                            ),
+                          );
+                        },
+                        child: Container(
+                            alignment: Alignment.centerRight,
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.01,
+                                bottom:
+                                MediaQuery.of(context).size.height * 0.00,
+                                left: MediaQuery.of(context).size.height * 0.00,
+                                right:
+                                MediaQuery.of(context).size.height * 0.00),
+                            margin: EdgeInsets.only(
+                                right:
+                                MediaQuery.of(context).size.height * 0.04,
+                                top: MediaQuery.of(context).size.height * 0.00,
+                                bottom:
+                                MediaQuery.of(context).size.height * 0.07,
+                                left:
+                                MediaQuery.of(context).size.height * 0.04),
+                            child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                                  0.012),
+                                          gradient: LinearGradient(
+                                              begin: Alignment.centerRight,
+                                              end: Alignment.center,
+                                              stops: [
+                                                0.5,
+                                                0.9
+                                              ],
+                                              colors: [
+                                                Color(0xFFBDBDBD),
+                                                Color(0xFFBDBDBD),
+                                              ])),
+                                      alignment: Alignment.center,
+                                      padding: EdgeInsets.only(left: 0.0),
+                                      child: TextButton(
+                                        onPressed: () async {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (BuildContext context) {
+                                                return HomePageMain();
+                                              },
+                                            ),
+                                          );
+                                        },
+                                        child: Text("Book Service",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                                  0.018,
+                                              fontWeight: FontWeight.w600,
+                                            )),
+                                        style: TextButton.styleFrom(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 9.0,
+                                              horizontal:
+                                              12.0), // ← Adjust this
+                                          minimumSize: Size(0,
+                                              0), // Removes minimum button constraints
+                                          tapTargetSize: MaterialTapTargetSize
+                                              .shrinkWrap, // Removes extra tap padding
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ])),
+                      )
                     ],
                   ),
                 ),
               ),
-              ],
-            ),
-        ),
-      ),
             ],
           ),
         ]),
       ),
-
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
-        height: screenHeight * 0.07,  // Outer circle height (adjust as needed)
-        width: screenHeight * 0.07, // Outer circle width (adjust as needed)
+        height: height * 0.07, // Outer circle height (adjust as needed)
+        width: height * 0.07, // Outer circle width (adjust as needed)
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.white, // Padding color (background ring)
         ),
         child: Padding(
           padding: EdgeInsets.all(
-              screenHeight * 0.008), // Padding inside the outer circle
+              height * 0.008), // Padding inside the outer circle
           child: FloatingActionButton(
             heroTag: null,
             backgroundColor: Color(0xFF126086),
@@ -735,9 +1139,9 @@ class HomeCareMainstate extends State<HomeCareMain> {
               );
             },
             child: Container(
-              padding: EdgeInsets.all(screenHeight * 0.008),
-              width: screenHeight * 0.03, // Adjust image width
-              height: screenHeight * 0.03, // Adjust image height
+              padding: EdgeInsets.all(height * 0.008),
+              width: height * 0.03, // Adjust image width
+              height: height * 0.03, // Adjust image height
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
@@ -774,8 +1178,7 @@ class HomeCareMainstate extends State<HomeCareMain> {
                 highlightColor: Colors.transparent, // Remove highlight color
               ),
               child: BottomNavigationBar(
-                type: BottomNavigationBarType
-                    .fixed,
+                type: BottomNavigationBarType.fixed,
                 // Set fixed type for equal spacing
                 currentIndex: _selectedIndex,
                 // Track the selected tab
@@ -783,23 +1186,13 @@ class HomeCareMainstate extends State<HomeCareMain> {
                 onTap: _onItemTapped,
 
                 backgroundColor: Colors.white,
-                selectedItemColor:
-                Color(0xFF126086),
+                selectedItemColor: Color(0xFF126086),
                 // Color for the selected item
-                unselectedItemColor:
-                Color(0xFF484C52),
+                unselectedItemColor: Color(0xFF484C52),
                 // Color for unselected items
-                selectedFontSize: MediaQuery
-                    .of(context)
-                    .size
-                    .height *
-                    0.014,
+                selectedFontSize: MediaQuery.of(context).size.height * 0.014,
                 // Hide the label font for selected items
-                unselectedFontSize: MediaQuery
-                    .of(context)
-                    .size
-                    .height *
-                    0.012,
+                unselectedFontSize: MediaQuery.of(context).size.height * 0.012,
                 // Hide the label font for unselected items
                 elevation: 0,
                 // Disable elevation
@@ -807,33 +1200,15 @@ class HomeCareMainstate extends State<HomeCareMain> {
                   BottomNavigationBarItem(
                     icon: Container(
                       padding: EdgeInsets.only(
-                        left: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        right: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        top: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        bottom: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.005,
+                        left: MediaQuery.of(context).size.height * 0.00,
+                        right: MediaQuery.of(context).size.height * 0.00,
+                        top: MediaQuery.of(context).size.height * 0.00,
+                        bottom: MediaQuery.of(context).size.height * 0.005,
                       ), // Add padding
                       child: Image.asset(
                         'assets/Homeactive.png',
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
+                        width: MediaQuery.of(context).size.height * 0.027,
+                        height: MediaQuery.of(context).size.height * 0.027,
                       ),
                     ),
                     label: 'Home',
@@ -841,33 +1216,15 @@ class HomeCareMainstate extends State<HomeCareMain> {
                   BottomNavigationBarItem(
                     icon: Container(
                       padding: EdgeInsets.only(
-                        left: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        right: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        top: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        bottom: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.005,
+                        left: MediaQuery.of(context).size.height * 0.00,
+                        right: MediaQuery.of(context).size.height * 0.00,
+                        top: MediaQuery.of(context).size.height * 0.00,
+                        bottom: MediaQuery.of(context).size.height * 0.005,
                       ), // Add padding
                       child: Image.asset(
                         'assets/MyReports.png',
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
+                        width: MediaQuery.of(context).size.height * 0.027,
+                        height: MediaQuery.of(context).size.height * 0.027,
                       ),
                     ),
                     label: 'My Reports',
@@ -875,22 +1232,10 @@ class HomeCareMainstate extends State<HomeCareMain> {
                   BottomNavigationBarItem(
                     icon: Container(
                       padding: EdgeInsets.only(
-                        left: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        right: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        top: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        bottom: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.025,
+                        left: MediaQuery.of(context).size.height * 0.00,
+                        right: MediaQuery.of(context).size.height * 0.00,
+                        top: MediaQuery.of(context).size.height * 0.00,
+                        bottom: MediaQuery.of(context).size.height * 0.025,
                       ), // Add padding
                       child: Image.asset(
                         'assets/Appoinments.png',
@@ -903,33 +1248,15 @@ class HomeCareMainstate extends State<HomeCareMain> {
                   BottomNavigationBarItem(
                     icon: Container(
                       padding: EdgeInsets.only(
-                        left: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        right: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        top: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        bottom: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.005,
+                        left: MediaQuery.of(context).size.height * 0.00,
+                        right: MediaQuery.of(context).size.height * 0.00,
+                        top: MediaQuery.of(context).size.height * 0.00,
+                        bottom: MediaQuery.of(context).size.height * 0.005,
                       ), // Add padding
                       child: Image.asset(
                         'assets/Appoinments.png',
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
+                        width: MediaQuery.of(context).size.height * 0.027,
+                        height: MediaQuery.of(context).size.height * 0.027,
                       ),
                     ),
                     label: 'Appointments',
@@ -937,33 +1264,15 @@ class HomeCareMainstate extends State<HomeCareMain> {
                   BottomNavigationBarItem(
                     icon: Container(
                       padding: EdgeInsets.only(
-                        left: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        right: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        top: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        bottom: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.005,
+                        left: MediaQuery.of(context).size.height * 0.00,
+                        right: MediaQuery.of(context).size.height * 0.00,
+                        top: MediaQuery.of(context).size.height * 0.00,
+                        bottom: MediaQuery.of(context).size.height * 0.005,
                       ), // Add padding
                       child: Image.asset(
                         'assets/MyHealth.png',
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
+                        width: MediaQuery.of(context).size.height * 0.027,
+                        height: MediaQuery.of(context).size.height * 0.027,
                       ),
                     ),
                     label: 'My Health',
@@ -974,7 +1283,6 @@ class HomeCareMainstate extends State<HomeCareMain> {
           ),
         ],
       ),
-
     );
   }
 
@@ -1004,8 +1312,7 @@ class HomeCareMainstate extends State<HomeCareMain> {
         );
       } else if (selected == 3) {
         showBottomSheet();
-      }
-      else if (selected == 4) {
+      } else if (selected == 4) {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (BuildContext context) {
