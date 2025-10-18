@@ -5,13 +5,14 @@ class TimeSlotSelector extends StatefulWidget {
   final int defaultSelectedIndex;
   final ValueChanged<String> onSelected;
   final DateTime selectedDate;
-
-  const TimeSlotSelector({
+    String? pagename;
+    TimeSlotSelector({
     super.key,
     required this.timeSlots,
     required this.onSelected,
     required this.selectedDate,
     this.defaultSelectedIndex = -1,
+    this.pagename,
   });
 
   @override
@@ -35,7 +36,14 @@ class _TimeSlotSelectorState extends State<TimeSlotSelector> {
     return GridView.builder(
       shrinkWrap: true, // ✅ allows height to match content
       physics: NeverScrollableScrollPhysics(), // ✅ disables inner scroll
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding:   EdgeInsets.symmetric(
+        horizontal: (widget.pagename == "Diagnostic" ||
+            widget.pagename == "Doctor"   ||
+            widget.pagename == "Nurse"    ||
+            widget.pagename == "Physio")
+            ? 0
+            : 16,
+      ),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
         mainAxisSpacing: 8,

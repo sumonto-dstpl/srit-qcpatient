@@ -50,8 +50,14 @@ import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
 class TimelineDetails extends StatefulWidget {
   int selectedIndex = 0;
 
+  String? image;
+  String? doctorName;
+  String? profession;
   TimelineDetails({
     super.key,
+    this.doctorName,
+    this.profession,
+    this.image,
   });
 
   @override
@@ -437,7 +443,7 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                       borderRadius:
                                           BorderRadius.circular(130.0),
                                       child: Image.asset(
-                                        'assets/NutanBhatt.png',
+                                       widget.image ??  'assets/NutanBhatt.png',
                                         height:
                                             MediaQuery.of(context).size.height *
                                                 0.11, // Adjust height
@@ -468,7 +474,7 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                     bottom: MediaQuery.of(context).size.height *
                                         0.00),
                                 child: Text(
-                                  "Dr. Nutan Bhatt",
+                                 widget.doctorName ??  "Dr. Nutan Bhatt",
                                   style: TextStyle(
                                       color: Colors.black,
                                       overflow: TextOverflow.ellipsis,
@@ -490,7 +496,7 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                     bottom: MediaQuery.of(context).size.height *
                                         0.00),
                                 child: Text(
-                                  "General physician / Internal Medicine",
+                                 widget.profession ??  "General physician / Internal Medicine",
                                   style: TextStyle(
                                       color: Color(0x80000000),
                                       fontWeight: FontWeight.w500,
