@@ -62,6 +62,33 @@ class TimelineMainstate extends State<TimelineMain> {
       color: Color(0x1A2BFF00),
     ),
     TimelineEntry(
+      date: DateTime(2023, 12, 27),
+      displayDate: "02-01",
+      title: "Difficulty in breathing (OP)",
+      doctor: "Dr. Steve, Cardiology",
+      description:
+      "Duration: 6 Days • Intensity: Severe\nOnset/Time course: Acute • Radiation of Pain: Chest\nAssociated Symptoms: Wheezing",
+      color:   Color(0xFFFFF1E6),
+    ),
+    TimelineEntry(
+      date: DateTime(2023, 12, 29),
+      displayDate: "25-12",
+      title: "Chest Pain (IP)",
+      doctor: "Dr. Steve, Cardiology",
+      description:
+      "Duration: 3 Days • Intensity: Severe\nOnset/Time course: Acute • Radiation of Pain: Chest\nAssociated Symptoms: Sweating",
+      color: Color(0x1A2BFF00),
+    ),
+    TimelineEntry(
+      date: DateTime(2024, 1, 11),
+      displayDate: "11-01",
+      title: "Chest Pain (IP)",
+      doctor: "Dr. Steve, Cardiology",
+      description:
+      "Duration: 3 Days • Intensity: Severe\nOnset/Time course: Acute • Radiation of Pain: Chest\nAssociated Symptoms: Sweating",
+      color: Color(0x1A2BFF00),
+    ),
+    TimelineEntry(
       date: DateTime(2024, 1, 2),
       displayDate: "02-01",
       title: "Difficulty in breathing (OP)",
@@ -79,6 +106,16 @@ class TimelineMainstate extends State<TimelineMain> {
       "Duration: 3 Days • Intensity: Severe\nOnset/Time course: Acute • Radiation of Pain: Chest\nAssociated Symptoms: Sweating",
       color: Color(0x1A2BFF00),
     ),
+
+    TimelineEntry(
+      date: DateTime(2024, 2, 11),
+      displayDate: "11-01",
+      title: "Chest Pain (IP)",
+      doctor: "Dr. Steve, Cardiology",
+      description:
+      "Duration: 3 Days • Intensity: Severe\nOnset/Time course: Acute • Radiation of Pain: Chest\nAssociated Symptoms: Sweating",
+      color: Color(0x1A2BFF00),
+    ),
   ];
   late List<DateTime> allDates;
   late int _startIndex;
@@ -86,7 +123,7 @@ class TimelineMainstate extends State<TimelineMain> {
 
   Map<String, bool> _expandedMonths = {};
   String lastMonth = "";
-    String formattedDate = "";
+  String formattedDate = "";
   void initState() {
     super.initState();
     allDates = allEntries.map((e) => e.date).toList();
@@ -99,15 +136,19 @@ class TimelineMainstate extends State<TimelineMain> {
     final formatter = DateFormat('MMMM yyyy');
       formattedDate = formatter.format(lastEntry.date);
 
-    print(formattedDate); // Output: January 2024
+      // Output: January 2024
   }
 
   int count = 0;
   int everyValueLength = 0;
 
+  var grouped= {};
 
   @override
   Widget build(BuildContext context) {
+    grouped =  _groupEntriesByMonth(allEntries);
+    lastMonth = grouped.keys.last;
+
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     // double progressWidth = MediaQuery.of(context).size.width * 0.92;
@@ -423,109 +464,119 @@ class TimelineMainstate extends State<TimelineMain> {
               // Main Content Section
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.0,
-                      right: MediaQuery.of(context).size.height * 0.00,
-                      top: MediaQuery.of(context).size.height * 0.01,
-                      bottom: MediaQuery.of(context).size.height * 0.00),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(screenHeight * 0.03),
-                      topRight: Radius.circular(screenHeight * 0.03),
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.height * 0.0,
+                        right: MediaQuery.of(context).size.height * 0.00,
+                        top: MediaQuery.of(context).size.height * 0.00,
+                        bottom: MediaQuery.of(context).size.height * 0.00),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(screenHeight * 0.03),
+                        topRight: Radius.circular(screenHeight * 0.03),
+                      ),
                     ),
-                  ),
 
-                  child : Column(
-                    children: [
+                    child : Column(
+                      children: [
 
-                      SizedBox(height: screenHeight * 0.02,),
+                        SizedBox(height: screenHeight * 0.02,),
 
-                      // Start and End Range Sliders
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: SliderTheme(
-                          data: SliderTheme.of(context).copyWith(
-                            thumbColor: Colors.white, // Customize to your desired color
-                            thumbShape: RingThumbShape(),
-                            overlayColor: Colors.transparent, // 🔹 removes purple effect
-                            overlayShape: SliderComponentShape.noOverlay, // 🔹 removes overlay shape
-                            showValueIndicator: ShowValueIndicator.never, // 🔹 disables tooltip text
-                            activeTrackColor: Color(0xFF0F5C83),
-                            inactiveTrackColor: Colors.grey.shade200,
+                        // Start and End Range Sliders
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: SliderTheme(
+                            data: SliderTheme.of(context).copyWith(
+                              thumbColor: Colors.white, // Customize to your desired color
+                              thumbShape: RingThumbShape(),
+                              overlayColor: Colors.transparent, // 🔹 removes purple effect
+                              overlayShape: SliderComponentShape.noOverlay, // 🔹 removes overlay shape
+                              showValueIndicator: ShowValueIndicator.never, // 🔹 disables tooltip text
+                              activeTrackColor: Color(0xFF0F5C83),
+                              inactiveTrackColor: Colors.grey.shade200,
+                            ),
+                            // child: RangeSlider(
+                            //   values: RangeValues(_startIndex.toDouble(), _endIndex.toDouble()),
+                            //   min: 0,
+                            //   max: (allDates.length - 1).toDouble(),
+                            //   divisions: allDates.length - 1,
+                            //   labels: RangeLabels(
+                            //     dateFormatter.format(allDates[_startIndex]),
+                            //     dateFormatter.format(allDates[_endIndex]),
+                            //   ),
+                            //   onChanged: (values) {
+                            //     setState(() {
+                            //       _startIndex = values.start.round();
+                            //       _endIndex = values.end.round();
+                            //     });
+                            //   },
+                            //
+                            //
+                            // ),
+                            child: Slider(
+                              value: _endIndex.toDouble(),
+                              min: 0,
+                              max: (allDates.length - 1).toDouble(),
+                              divisions: allDates.length - 1,
+                              label: dateFormatter.format(allDates[_endIndex]),
+                              onChanged: (value) {
+                                setState(() {
+                                  _endIndex = value.round();
+                                });
+                              },
+                            ),
                           ),
-                          // child: RangeSlider(
-                          //   values: RangeValues(_startIndex.toDouble(), _endIndex.toDouble()),
-                          //   min: 0,
-                          //   max: (allDates.length - 1).toDouble(),
-                          //   divisions: allDates.length - 1,
-                          //   labels: RangeLabels(
-                          //     dateFormatter.format(allDates[_startIndex]),
-                          //     dateFormatter.format(allDates[_endIndex]),
-                          //   ),
-                          //   onChanged: (values) {
-                          //     setState(() {
-                          //       _startIndex = values.start.round();
-                          //       _endIndex = values.end.round();
-                          //     });
-                          //   },
-                          //
-                          //
-                          // ),
-                           child: Slider(
-                            value: _endIndex.toDouble(),
-                            min: 0,
-                            max: (allDates.length - 1).toDouble(),
-                            divisions: allDates.length - 1,
-                            label: dateFormatter.format(allDates[_endIndex]),
-                            onChanged: (value) {
-                              setState(() {
-                              _endIndex = value.round();
-                            });
-                            },
+                        ),
+                        SizedBox(height: screenHeight * 0.005,),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(dateFormatter.format(allDates[_startIndex]),
+                                  style: TextStyle(
+                                      color : Color(0xFF13668E),
+                                      fontSize: screenHeight * 0.01,
+                                      fontWeight: FontWeight.w600
+                                  )),
+                              Text(dateFormatter.format(allDates[_endIndex]),
+                                  style: TextStyle(color : Color(0xFF858585),
+                                      fontSize: screenHeight * 0.01,
+                                      fontWeight: FontWeight.w600)),
+                            ],
                           ),
                         ),
-                      ),
-                      SizedBox(height: screenHeight * 0.005,),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(dateFormatter.format(allDates[_startIndex]),
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            Text(dateFormatter.format(allDates[_endIndex]),
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                      ),
 
 
-                      Expanded(
-                        child: ListView(
-                          padding: EdgeInsets.zero,
-                          children: _groupEntriesByMonth(filteredEntries).entries.map((entry) {
-                            final month = entry.key;
-                            lastMonth = month;
-                            print( "month : $month");
-                            final values = entry.value;
-                            print( "value length : ${values.length}");
-                            everyValueLength =  values.length ;
-                            print("-------------------------");
-                            print( "count : $count");
-                            final tiles = entry.value.map(_buildTimelineTile).toList();
-                            count = 0;
-                            everyValueLength = 0;
-                            return _buildMonthSection(month, tiles);
-                          }).toList(),
+                        Expanded(
+                          child: ListView(
+                            padding: EdgeInsets.zero,
+                            children: _groupEntriesByMonth(filteredEntries).entries.map((entry) {
+                              final month = entry.key;
+
+
+                              final values = entry.value;
+
+                              everyValueLength =  values.length ;
+
+
+                              final tiles = entry.value.map(_buildTimelineTile).toList();
+                              count = 0;
+                              everyValueLength = 0;
+                              return _buildMonthSection(month, tiles);
+                            }).toList(),
+                          ),
                         ),
-                      ),
-                    ],
-                  )
+
+
+                      ],
+                    )
 
                 ),
               ),
+
+
             ],
           ),
         ]),
@@ -819,10 +870,11 @@ class TimelineMainstate extends State<TimelineMain> {
   Widget _buildMonthSection(String month, List<Widget> tiles) {
     final isExpanded = _expandedMonths[month] ?? true;
 
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 16),
+
         InkWell(
           onTap: () {
             setState(() {
@@ -830,478 +882,485 @@ class TimelineMainstate extends State<TimelineMain> {
             });
           },
           child: Container(
-            decoration: BoxDecoration(
-              color: Color(0xFFD9D9D9).withOpacity(0.2),
+            padding: EdgeInsets.symmetric(
+              vertical: 12,
+            ),
+            // color: Colors.red,
+            color : Colors.transparent,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Color(0xFFD9D9D9).withOpacity(0.2),
 
-            ),
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height *
-                  0.01, // Dynamic top padding
-              bottom: MediaQuery.of(context).size.height *
-                  0.01, // Dynamic bottom padding
-              left: MediaQuery.of(context).size.height *
-                  0.025, // Dynamic left padding
-              right: MediaQuery.of(context).size.height *
-                  0.025 , // Dynamic right padding
-            ),
-            child: Row(
-              mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  month,
-                  style: TextStyle(
-                    fontSize: MediaQuery.of(context)
-                        .size
-                        .height *
-                        0.016, // Dynamic font size
-                    fontWeight: FontWeight.bold,
+              ),
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height *
+                    0.005, // Dynamic top padding
+                bottom: MediaQuery.of(context).size.height *
+                    0.005, // Dynamic bottom padding
+                left: MediaQuery.of(context).size.height *
+                    0.025, // Dynamic left padding
+                right: MediaQuery.of(context).size.height *
+                    0.025 , // Dynamic right padding
+              ),
+              child: Row(
+                mainAxisAlignment:
+                MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    month,
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context)
+                          .size
+                          .height *
+                          0.013, // Dynamic font size
+                      fontWeight: FontWeight.w600,
+                      color : Color(0xB2000000),
+                    ),
                   ),
-                ),
-                Icon(
-                  isExpanded
-                      ? Icons.keyboard_arrow_up
-                      : Icons.keyboard_arrow_down,
-                  size:
-                  MediaQuery.of(context).size.height *
-                      0.02, // Dynamic icon size
-                ),
-              ],
+                  Icon(
+                    isExpanded
+                        ? Icons.keyboard_arrow_up
+                        : Icons.keyboard_arrow_down,
+                    size:
+                    MediaQuery.of(context).size.height *
+                        0.02, // Dynamic icon size
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-        SizedBox(height: 16),
+
 
 
         if (isExpanded) ...tiles,
 
+        if(lastMonth == month)
+          SizedBox(height: 40,),
+
+
       ],
     );
   }
+
   Widget _buildTimelineTile(TimelineEntry entry) {
     count = count + 1 ;
 
-     return  Container(
-       margin: EdgeInsets.zero,
-       padding: EdgeInsets.only(
-         left: MediaQuery.of(context).size.height *
-             0.02,
-         right:
-         MediaQuery.of(context).size.height *
-             0.02,
-       ),
+    final isFirst = count == 1;
+    final isLast = count == everyValueLength;
+    final height = MediaQuery.of(context).size.height;
+    const lineColor = Color(0xFF126086);
 
-       child: Container(
+    return  Container(
 
-         padding: EdgeInsets.only(
-             left: MediaQuery.of(context).size.height *
-                 0.0,
-             right:
-             MediaQuery.of(context).size.height *
-                 0.00,
-             top: MediaQuery.of(context).size.height *
-                 0.0,
-             bottom:
-             MediaQuery.of(context).size.height *
-                 0.0),
-         child: Row(
-           mainAxisAlignment: MainAxisAlignment.start,
-           crossAxisAlignment:
-           CrossAxisAlignment.start,
-           children: [
+      margin: EdgeInsets.zero,
+      padding: EdgeInsets.only(
+        left: MediaQuery.of(context).size.height *
+            0.02,
+        right:
+        MediaQuery.of(context).size.height *
+            0.02,
+      ),
 
-             Container(
-               padding: EdgeInsets.only(
-                   left: MediaQuery.of(context)
-                       .size
-                       .height *
-                       0.01,
-                   right: MediaQuery.of(context)
-                       .size
-                       .height *
-                       0.01,
-                   top: MediaQuery.of(context)
-                       .size
-                       .height *
-                       0.00,
-                   bottom: MediaQuery.of(context)
-                       .size
-                       .height *
-                       0.00),
-               child: Column(
-                 mainAxisAlignment:
-                 MainAxisAlignment.end,
-                 crossAxisAlignment:
-                 CrossAxisAlignment.end,
-                 children: [
-                   SizedBox(
-                       height: MediaQuery.of(context)
-                           .size
-                           .height *
-                           0.044),
-                   Container(
+      child: Container(
 
-                     padding: EdgeInsets.only(
-                         left: MediaQuery.of(context)
-                             .size
-                             .height *
-                             0.0,
-                         right: MediaQuery.of(context)
-                             .size
-                             .height *
-                             0.005,
-                         top: MediaQuery.of(context)
-                             .size
-                             .height *
-                             0.00,
-                         bottom: MediaQuery.of(context)
-                             .size
-                             .height *
-                             0.00),
-                     child: Text(
-                       entry.displayDate,
-                       style: TextStyle(
-                           color: Color(0xFF126086),
-                           overflow:
-                           TextOverflow.ellipsis,
-                           fontWeight: FontWeight.bold,
-                           fontSize:
-                           MediaQuery.of(context)
-                               .size
-                               .height *
-                               0.014),
-                     ),
-                   ),
+        padding: EdgeInsets.zero,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment:
+          CrossAxisAlignment.start,
+          children: [
 
-                 ],
+            Container(
+              padding: EdgeInsets.only(
+                  left: MediaQuery.of(context)
+                      .size
+                      .height *
+                      0.01,
+                  right: MediaQuery.of(context)
+                      .size
+                      .height *
+                      0.01,
+                  top: MediaQuery.of(context)
+                      .size
+                      .height *
+                      0.00,
+                  bottom: MediaQuery.of(context)
+                      .size
+                      .height *
+                      0.00),
+              child: Column(
+                mainAxisAlignment:
+                MainAxisAlignment.end,
+                crossAxisAlignment:
+                CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                      height: MediaQuery.of(context)
+                          .size
+                          .height *
+                          0.044),
+                  Container(
+
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context)
+                            .size
+                            .height *
+                            0.0,
+                        right: MediaQuery.of(context)
+                            .size
+                            .height *
+                            0.005,
+                        top: MediaQuery.of(context)
+                            .size
+                            .height *
+                            0.00,
+                        bottom: MediaQuery.of(context)
+                            .size
+                            .height *
+                            0.00),
+                    child: Text(
+                      entry.displayDate,
+                      style: TextStyle(
+                          color: Color(0xFF126086),
+                          overflow:
+                          TextOverflow.ellipsis,
+                          fontWeight: FontWeight.w700,
+                          fontSize:
+                          MediaQuery.of(context)
+                              .size
+                              .height *
+                              0.012
+                      ),
+                    ),
+                  ),
+
+                ],
+              ),
+            ),
+            Column(
+              children: [
+                if (isFirst)
+                  Transform.rotate(
+                    angle: 45 * (3.14159 / 180),
+                    child: Container(
+                      width: height * 0.01,
+                      height: height * 0.01,
+                      color: lineColor,
+                    ),
+                  ),
+
+                Container(
+                  width:  height * 0.002,
+
+                  height: isFirst ?  height *  0.04 : height *  0.05 ,
+
+                  color: Color(0xFF126086),
+                  // color : Colors.green,
+                ),
+                //   Circle
+                Container(
+                  width: MediaQuery.of(context)
+                      .size
+                      .height *
+                      0.01,
+                  height: MediaQuery.of(context)
+                      .size
+                      .height *
+                      0.01,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFF126086),
+                    border: Border.all(
+                        color: Color(0xFF126086),
+                        width: 2),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context)
+                      .size
+                      .height *
+                      0.002,
+                  height: MediaQuery.of(context)
+                      .size
+                      .height *
+                      0.04,
+                  color: Color(0xFF126086),
+                  // color : Colors.red,
+                ),
+                Container(
+                  width:  height *
+                      0.002,
+                  height:  isLast ?  height * 0.04 : height * 0.03 ,
+
+                  color: Color(0xFF126086),
+                  // color : Colors.blue,
+                ),
+                // if(count == everyValueLength)
+                //   Transform.rotate(
+                //     angle: 45 * (3.14159 / 180),
+                //     // Convert 45 degrees to radians
+                //     child: Container(
+                //       width: MediaQuery.of(context)
+                //           .size
+                //           .height *
+                //           0.01,
+                //       height: MediaQuery.of(context)
+                //           .size
+                //           .height *
+                //           0.01,
+                //       decoration: BoxDecoration(
+                //         color: Color(0xFF126086),
+                //         border: Border.all(
+                //             color: Color(0xFF126086),
+                //             width:
+                //             MediaQuery.of(context)
+                //                 .size
+                //                 .height *
+                //                 0.01),
+                //       ),
+                //     ),
+                //   ),
+                // if(  formattedDate == lastMonth && count == everyValueLength)
+                //   SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
+                if (isLast)
+                  Transform.rotate(
+                    angle: 45 * (3.14159 / 180),
+                    child: Container(
+                      width: height * 0.01,
+                      height: height * 0.01,
+                      color: lineColor,
+                    ),
+                  ),
+              ],
+            ),
+              Container(
+                margin: EdgeInsets.only(
+                    left : 10,
+                    top : 40
+                ),
+               child: CustomPaint(
+                 size: Size(10, 20),
+                 painter: LeftTrainglePainter(color: entry.color),
                ),
-             ),
-             Column(
-               children: [
-                 if(count == 1)
-                 Transform.rotate(
-                   angle: 45 * (3.14159 / 180),
-                   // Convert 45 degrees to radians
-                   child: Container(
-                     width: MediaQuery.of(context)
-                         .size
-                         .height *
-                         0.01,
-                     height: MediaQuery.of(context)
-                         .size
-                         .height *
-                         0.01,
-                     decoration: BoxDecoration(
-                       color: Color(0xFF126086),
-                       border: Border.all(
-                           color: Color(0xFF126086),
-                           width:
-                           MediaQuery.of(context)
-                               .size
-                               .height *
-                               0.01),
-                     ),
-                   ),
-                 ),
-                 Container(
-                   width: MediaQuery.of(context)
-                       .size
-                       .height *
-                       0.002,
-                   height: MediaQuery.of(context)
-                       .size
-                       .height *
-                       0.04,
-                   color: Color(0xFF126086),
-                 ),
-                 Container(
-                   width: MediaQuery.of(context)
-                       .size
-                       .height *
-                       0.01,
-                   height: MediaQuery.of(context)
-                       .size
-                       .height *
-                       0.01,
-                   decoration: BoxDecoration(
-                     shape: BoxShape.circle,
-                     color: Color(0xFF126086),
-                     border: Border.all(
-                         color: Color(0xFF126086),
-                         width: 2),
-                   ),
-                 ),
-                 Container(
-                   width: MediaQuery.of(context)
-                       .size
-                       .height *
-                       0.002,
-                   height: MediaQuery.of(context)
-                       .size
-                       .height *
-                       0.04,
-                   color: Color(0xFF126086),
-                 ),
-                 Container(
-                   width: MediaQuery.of(context)
-                       .size
-                       .height *
-                       0.002,
-                   height: MediaQuery.of(context)
-                       .size
-                       .height *
-                       0.04,
-                   color: Color(0xFF126086),
-                 ),
-                 if(count == everyValueLength)
-                 Transform.rotate(
-                   angle: 45 * (3.14159 / 180),
-                   // Convert 45 degrees to radians
-                   child: Container(
-                     width: MediaQuery.of(context)
-                         .size
-                         .height *
-                         0.01,
-                     height: MediaQuery.of(context)
-                         .size
-                         .height *
-                         0.01,
-                     decoration: BoxDecoration(
-                       color: Color(0xFF126086),
-                       border: Border.all(
-                           color: Color(0xFF126086),
-                           width:
-                           MediaQuery.of(context)
-                               .size
-                               .height *
-                               0.01),
-                     ),
-                   ),
-                 ),
-                 if(  formattedDate == lastMonth && count == everyValueLength)
-                   SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
+              ),
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.only(
 
-               ],
-             ),
-             Expanded(
-               child: Container(
-                 margin: EdgeInsets.only(
-                     left: MediaQuery.of(context)
-                         .size
-                         .height *
-                         0.015,
-                     right: MediaQuery.of(context)
-                         .size
-                         .height *
-                         0.015,
-                     top: MediaQuery.of(context)
-                         .size
-                         .height *
-                         0.025,
-                     bottom: MediaQuery.of(context)
-                         .size
-                         .height *
-                         0.0),
-                 child: Column(
-                   mainAxisAlignment:
-                   MainAxisAlignment.spaceAround,
-                   crossAxisAlignment:
-                   CrossAxisAlignment.start,
-                   children: [
-                     // 1st column
+                    right: MediaQuery.of(context)
+                        .size
+                        .height *
+                        0.015,
+                    top: MediaQuery.of(context)
+                        .size
+                        .height *
+                        0.025,
+                    bottom: MediaQuery.of(context)
+                        .size
+                        .height *
+                        0.0),
+                child: Column(
+                  mainAxisAlignment:
+                  MainAxisAlignment.spaceAround,
+                  crossAxisAlignment:
+                  CrossAxisAlignment.start,
+                  children: [
+                    // 1st column
 
-                     GestureDetector(
-                       onTap: () {
-                         Navigator.of(context).push(
-                           MaterialPageRoute(
-                             builder: (BuildContext
-                             context) {
-                               return TimelineDetails();
-                             },
-                           ),
-                         );
-                       },
-                       child: Container(
-                         padding:
-                         const EdgeInsets.all(8.0),
-                         decoration: BoxDecoration(
-                           color: entry.color,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext
+                            context) {
+                              return TimelineDetails();
+                            },
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding:
+                        const EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          color: entry.color,
 
-                           borderRadius:
-                           BorderRadius.circular(
-                               8.0),
-                         ),
-                         child: Column(
-                           crossAxisAlignment:
-                           CrossAxisAlignment
-                               .start,
-                           children: [
-                             Container(
-                               padding: EdgeInsets.only(
-                                   left: MediaQuery.of(
-                                       context)
-                                       .size
-                                       .height *
-                                       0.0,
-                                   right: MediaQuery
-                                       .of(
-                                       context)
-                                       .size
-                                       .height *
-                                       0.015,
-                                   top: MediaQuery.of(
-                                       context)
-                                       .size
-                                       .height *
-                                       0.00,
-                                   bottom: MediaQuery.of(
-                                       context)
-                                       .size
-                                       .height *
-                                       0.00),
-                               child: Text(
-                                 "Difficulty in breathing (OP)",
-                                 style: TextStyle(
-                                     color: Color(
-                                         0xFF126086),
-                                     overflow:
-                                     TextOverflow
-                                         .ellipsis,
-                                     fontWeight:
-                                     FontWeight
-                                         .bold,
-                                     fontSize: MediaQuery.of(
-                                         context)
-                                         .size
-                                         .height *
-                                         0.016),
-                               ),
-                             ),
-                             Container(
-                               padding: EdgeInsets.only(
-                                   left: MediaQuery.of(
-                                       context)
-                                       .size
-                                       .height *
-                                       0.0,
-                                   right: MediaQuery
-                                       .of(
-                                       context)
-                                       .size
-                                       .height *
-                                       0.015,
-                                   top: MediaQuery.of(
-                                       context)
-                                       .size
-                                       .height *
-                                       0.00,
-                                   bottom: MediaQuery.of(
-                                       context)
-                                       .size
-                                       .height *
-                                       0.00),
-                               child: Text(
-                                 "Dr. Steve, Cardiology",
-                                 style: TextStyle(
-                                     color:
-                                     Colors.black,
-                                     overflow:
-                                     TextOverflow
-                                         .ellipsis,
-                                     fontWeight:
-                                     FontWeight
-                                         .w400,
-                                     fontSize: MediaQuery.of(
-                                         context)
-                                         .size
-                                         .height *
-                                         0.014),
-                               ),
-                             ),
-                             Container(
-                               padding:
-                               EdgeInsets.only(
-                                 left: MediaQuery.of(
-                                     context)
-                                     .size
-                                     .height *
-                                     0.0,
-                                 right: MediaQuery.of(
-                                     context)
-                                     .size
-                                     .height *
-                                     0.015,
-                                 top: MediaQuery.of(
-                                     context)
-                                     .size
-                                     .height *
-                                     0.00,
-                                 bottom: MediaQuery.of(
-                                     context)
-                                     .size
-                                     .height *
-                                     0.00,
-                               ),
-                               child: RichText(
-                                 text: TextSpan(
-                                   children: [
-                                     TextSpan(
-                                       text: "HIP: ",
-                                       style:
-                                       TextStyle(
-                                         // backgroundColor: Colors.black, // Background color for "HIP:"
-                                         color: Colors
-                                             .black,
-                                         // Text color for "HIP:"
-                                         fontWeight:
-                                         FontWeight
-                                             .bold,
-                                         // Make "HIP:" bold
-                                         fontSize: MediaQuery.of(
-                                             context)
-                                             .size
-                                             .height *
-                                             0.014,
-                                       ),
-                                     ),
-                                     TextSpan(
-                                       text:
-                                       "Duration: 6 Days : Intensity: Severe Onset/Time course: Acute : Radiation of Pain: Chest Associated Symptoms:vomiting",
-                                       style:
-                                       TextStyle(
-                                         color: Colors
-                                             .black38,
-                                         // Color for the rest of the text
-                                        //  fontWeight:
-                                        //  FontWeight
-                                        //      .,
-                                         // Bold for the rest of the text (optional)
-                                         fontSize: MediaQuery.of(
-                                             context)
-                                             .size
-                                             .height *
-                                             0.014,
-                                       ),
-                                     ),
-                                   ],
-                                 ),
-                               ),
-                             )
-                           ],
-                         ),
-                       ),
-                     ),
+                          borderRadius:
+                          BorderRadius.circular(
+                              8.0),
+                        ),
+                        child: Column(
+                          crossAxisAlignment:
+                          CrossAxisAlignment
+                              .start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(
+                                  left: MediaQuery.of(
+                                      context)
+                                      .size
+                                      .height *
+                                      0.0,
+                                  right: MediaQuery
+                                      .of(
+                                      context)
+                                      .size
+                                      .height *
+                                      0.015,
+                                  top: MediaQuery.of(
+                                      context)
+                                      .size
+                                      .height *
+                                      0.00,
+                                  bottom: MediaQuery.of(
+                                      context)
+                                      .size
+                                      .height *
+                                      0.00),
+                              child: Text(
+                                "Difficulty in breathing (OP)",
+                                style: TextStyle(
+                                    color: Color(
+                                        0xFF126086),
+                                    overflow:
+                                    TextOverflow
+                                        .ellipsis,
+                                    fontWeight:
+                                    FontWeight
+                                        .w600,
+                                    fontSize: MediaQuery.of(
+                                        context)
+                                        .size
+                                        .height *
+                                        0.014
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(
+                                  left: MediaQuery.of(
+                                      context)
+                                      .size
+                                      .height *
+                                      0.0,
+                                  right: MediaQuery
+                                      .of(
+                                      context)
+                                      .size
+                                      .height *
+                                      0.015,
+                                  top: MediaQuery.of(
+                                      context)
+                                      .size
+                                      .height *
+                                      0.00,
+                                  bottom: MediaQuery.of(
+                                      context)
+                                      .size
+                                      .height *
+                                      0.00),
+                              child: Text(
+                                "Dr. Steve, Cardiology",
+                                style: TextStyle(
+                                    color:
+                                    Color(0xB2000000),
+                                    overflow:
+                                    TextOverflow
+                                        .ellipsis,
+                                    fontWeight:
+                                    FontWeight
+                                        .w400,
+                                    fontSize: MediaQuery.of(
+                                        context)
+                                        .size
+                                        .height *
+                                        0.012),
+                              ),
+                            ),
+                            Container(
+                              padding:
+                              EdgeInsets.only(
+                                left: MediaQuery.of(
+                                    context)
+                                    .size
+                                    .height *
+                                    0.0,
+                                right: MediaQuery.of(
+                                    context)
+                                    .size
+                                    .height *
+                                    0.015,
+                                top: MediaQuery.of(
+                                    context)
+                                    .size
+                                    .height *
+                                    0.00,
+                                bottom: MediaQuery.of(
+                                    context)
+                                    .size
+                                    .height *
+                                    0.00,
+                              ),
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: "HIP: ",
+                                      style:
+                                      TextStyle(
+                                        // backgroundColor: Colors.black, // Background color for "HIP:"
+                                        color:Color(0xE5292929),
+                                        // Text color for "HIP:"
+                                        fontWeight:
+                                        FontWeight
+                                            .w700,
+                                        // Make "HIP:" bold
+                                        fontSize: MediaQuery.of(
+                                            context)
+                                            .size
+                                            .height *
+                                            0.012,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text:
+                                      "Duration: 6 Days : Intensity: Severe Onset/Time course: Acute : Radiation of Pain: Chest Associated Symptoms:vomiting",
+                                      style:
+                                      TextStyle(
+                                        color: Color(0x4D000000),
+                                        // Color for the rest of the text
+                                        fontWeight:
+                                        FontWeight
+                                            .w400,
+                                        // Bold for the rest of the text (optional)
+                                        fontSize: MediaQuery.of(
+                                            context)
+                                            .size
+                                            .height *
+                                            0.012,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
 
 
-                   ],
-                 ),
-               ),
-             ),
-           ],
-         ),
-       ),
-     );
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
+
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -1344,7 +1403,7 @@ class TimelineMainstate extends State<TimelineMain> {
       _selectedIndex = widget.selectedIndex;*/
 
       // Fluttertoast.showToast(msg: "test", toastLength: Toast.LENGTH_LONG);
-      print(selected);
+
     });
   }
 
@@ -2329,6 +2388,33 @@ class RingThumbShape extends SliderComponentShape {
 }
 
 
+class LeftTrainglePainter extends CustomPainter {
+   final Color color ;
+
+   LeftTrainglePainter({
+
+     required this.color,
+    }) ;
+   @override
+  void paint(Canvas canvas, Size size) {
+     final paint = Paint()..color = color;
+
+     var path = Path();
+     path.moveTo(0, size.height / 2);
+     path.lineTo(size.width, 0);
+     path.lineTo(size.width, size.height);
+     path.close();
+
+     canvas.drawPath(path,paint);
+
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    // TODO: implement shouldRepaint
+    return false;
+  }
+}
 
 
 
