@@ -59,6 +59,9 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
   String qualificationval = "";
   bool _isSharing = false;
 
+  bool _isExpandedtime = true;
+  bool _isExpandedDate = false;
+
   @override
   void initState() {
     // getSharedPrefs();
@@ -463,6 +466,8 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                         // child: Column(
                         children: [
                           // Select Your Date
+
+                          SizedBox(height: screenHeight * 0.01,),
                           CustomCalendar(
                             onDateSelected: (date) {
                               setState(() {
@@ -477,24 +482,75 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                             },
                           ),
 
+                          SizedBox(height: screenHeight * 0.01,),
                           // Select Your Time
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.height * 0.02,
-                                right:
-                                    MediaQuery.of(context).size.height * 0.00,
-                                top: MediaQuery.of(context).size.height * 0.03,
-                                bottom:
-                                    MediaQuery.of(context).size.height * 0.02),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                "Select Your Time",
-                                style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.014,
-                                  fontWeight: FontWeight.w500,
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                _isExpandedtime = !_isExpandedtime;
+                              });
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                horizontal: screenHeight * 0.018,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors
+                                    .white, // Background color (optional)
+                                border: Border.all(
+                                  color: Color(0x24000000),
+                                  width: 1
                                 ),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(
+                                      MediaQuery.of(context).size.height *
+                                          0.01), // Dynamic top left radius
+                                  topRight: Radius.circular(
+                                      MediaQuery.of(context).size.height *
+                                          0.01), // Dynamic top right radius
+                                  bottomLeft: Radius.circular(
+                                      MediaQuery.of(context).size.height *
+                                          0.01), // Bottom-left curve radius
+                                  bottomRight: Radius.circular(MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height *
+                                      0.01), // Bottom-right curve radius
+                                ),
+                              ),
+                              padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height *
+                                    0.005, // Dynamic top padding
+                                bottom: MediaQuery.of(context).size.height *
+                                    0.005, // Dynamic bottom padding
+                                left: MediaQuery.of(context).size.height *
+                                    0.015, // Dynamic left padding
+                                right: MediaQuery.of(context).size.height *
+                                    0.015, // Dynamic right padding
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Select Your Time",
+                                    style: TextStyle(
+                                      fontSize: MediaQuery.of(context)
+                                          .size
+                                          .height *
+                                          0.014, // Dynamic font size
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  Icon(
+                                    _isExpandedtime
+                                        ? Icons.keyboard_arrow_down
+                                        : Icons.keyboard_arrow_up,
+                                    size:
+                                    MediaQuery.of(context).size.height *
+                                        0.02, // Dynamic icon size
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -502,6 +558,9 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                           // Top timeslot Grid
                           // Static  Time slots
                           // const TimeSlotSelector(timeSlots: ["04:00", "04:30", "07:00", "07:30"],)
+                          if(_isExpandedtime)
+                            SizedBox(height: screenHeight * 0.01,),
+                          if(_isExpandedtime)
                           TimeSlotSelector(
                             timeSlots: timeSlots,
                             selectedDate: _selectedDay ?? DateTime.now(),

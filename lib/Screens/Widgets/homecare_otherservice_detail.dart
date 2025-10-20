@@ -18,6 +18,8 @@ import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
+import 'package:newfolder/Screens/Widgets/UploadBox.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
 import 'package:newfolder/constants/time_slot_constants.dart';
@@ -54,9 +56,11 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
     ["Home Address", "65 Mohamed Bin Al Qassim St, Doha, Qatar"],
   ];
 
+  bool timeSelectFlag = false;
 
   @override
   Widget build(BuildContext context) {
+
     final height = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
@@ -320,144 +324,146 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                   child: ListView(
                     children: [
                       // File Upload
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.only(
-                          top: 0,
-                          bottom: MediaQuery.of(context).size.height * 0.0,
-                          right: MediaQuery.of(context).size.height * 0.020,
-                          left: MediaQuery.of(context).size.height * 0.02,
-                        ),
-                        // height: MediaQuery.of(context).size.height * 0.150,
-                        child: DottedBorder(
-                          color: Color(0xFF343434).withOpacity(0.3),
-                          strokeWidth: 1,
-                          borderType: BorderType.RRect,
-                          radius: Radius.circular(8),
-                          child: Center(
-                            // Ensures the content is centered within the border
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment
-                                  .center, // Aligns content vertically
-                              crossAxisAlignment: CrossAxisAlignment
-                                  .center, // Aligns content horizontally
-                              children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.00,
-                                      right:
-                                      MediaQuery.of(context).size.height *
-                                          0.00,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.02,
-                                      bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.01),
-                                  width: height * 0.04,
-                                  height: height * 0.04,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage("assets/homecare.png"),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                      padding:
-                                      EdgeInsets.only(
-                                          left: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.00,
-                                          right: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.00,
-                                          top: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.00,
-                                          bottom: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.006),
-                                      child: Text(
-                                        "choose file to upload",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xFF1F1F1F),
-                                          fontSize: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.014,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    Container(
-                                      padding:
-                                      EdgeInsets.only(
-                                          left: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.00,
-                                          right: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.00,
-                                          top: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.00,
-                                          bottom: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.02),
-                                      child: RichText(
-                                        text: TextSpan(
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge!
-                                              .merge(
-                                            TextStyle(
-                                                color: Theme.of(context)
-                                                    .primaryColor),
-                                          ),
-                                          children: [
-                                            TextSpan(
-                                              text:
-                                              'image or pdf Should be less than',
-                                              style: TextStyle(
-                                                color: Color(0xFF000000)
-                                                    .withOpacity(0.4),
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: height * 0.012,
-                                              ),
-                                            ),
-                                            TextSpan(
-                                              text: ' 10MB',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: height * 0.012,
-                                                color: Color(0xFF126086),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Container(
+                      //   width: double.infinity,
+                      //   padding: EdgeInsets.only(
+                      //     top: 0,
+                      //     bottom: MediaQuery.of(context).size.height * 0.0,
+                      //     right: MediaQuery.of(context).size.height * 0.020,
+                      //     left: MediaQuery.of(context).size.height * 0.02,
+                      //   ),
+                      //   // height: MediaQuery.of(context).size.height * 0.150,
+                      //   child: DottedBorder(
+                      //     color: Color(0xFF343434).withOpacity(0.3),
+                      //     strokeWidth: 1,
+                      //     borderType: BorderType.RRect,
+                      //     radius: Radius.circular(8),
+                      //     child: Center(
+                      //       // Ensures the content is centered within the border
+                      //       child: Column(
+                      //         mainAxisAlignment: MainAxisAlignment
+                      //             .center, // Aligns content vertically
+                      //         crossAxisAlignment: CrossAxisAlignment
+                      //             .center, // Aligns content horizontally
+                      //         children: <Widget>[
+                      //           Container(
+                      //             margin: EdgeInsets.only(
+                      //                 left: MediaQuery.of(context).size.height *
+                      //                     0.00,
+                      //                 right:
+                      //                 MediaQuery.of(context).size.height *
+                      //                     0.00,
+                      //                 top: MediaQuery.of(context).size.height *
+                      //                     0.02,
+                      //                 bottom:
+                      //                 MediaQuery.of(context).size.height *
+                      //                     0.01),
+                      //             width: height * 0.04,
+                      //             height: height * 0.04,
+                      //             decoration: BoxDecoration(
+                      //               image: DecorationImage(
+                      //                 image: AssetImage("assets/homecare.png"),
+                      //                 fit: BoxFit.contain,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //           Column(
+                      //             children: <Widget>[
+                      //               Container(
+                      //                 padding:
+                      //                 EdgeInsets.only(
+                      //                     left: MediaQuery.of(context)
+                      //                         .size
+                      //                         .height *
+                      //                         0.00,
+                      //                     right: MediaQuery.of(context)
+                      //                         .size
+                      //                         .height *
+                      //                         0.00,
+                      //                     top: MediaQuery.of(context)
+                      //                         .size
+                      //                         .height *
+                      //                         0.00,
+                      //                     bottom: MediaQuery.of(context)
+                      //                         .size
+                      //                         .height *
+                      //                         0.006),
+                      //                 child: Text(
+                      //                   "choose file to upload",
+                      //                   style: TextStyle(
+                      //                     fontWeight: FontWeight.w600,
+                      //                     color: Color(0xFF1F1F1F),
+                      //                     fontSize: MediaQuery.of(context)
+                      //                         .size
+                      //                         .height *
+                      //                         0.014,
+                      //                   ),
+                      //                   overflow: TextOverflow.ellipsis,
+                      //                 ),
+                      //               ),
+                      //               Container(
+                      //                 padding:
+                      //                 EdgeInsets.only(
+                      //                     left: MediaQuery.of(context)
+                      //                         .size
+                      //                         .height *
+                      //                         0.00,
+                      //                     right: MediaQuery.of(context)
+                      //                         .size
+                      //                         .height *
+                      //                         0.00,
+                      //                     top: MediaQuery.of(context)
+                      //                         .size
+                      //                         .height *
+                      //                         0.00,
+                      //                     bottom: MediaQuery.of(context)
+                      //                         .size
+                      //                         .height *
+                      //                         0.02),
+                      //                 child: RichText(
+                      //                   text: TextSpan(
+                      //                     style: Theme.of(context)
+                      //                         .textTheme
+                      //                         .titleLarge!
+                      //                         .merge(
+                      //                       TextStyle(
+                      //                           color: Theme.of(context)
+                      //                               .primaryColor),
+                      //                     ),
+                      //                     children: [
+                      //                       TextSpan(
+                      //                         text:
+                      //                         'image or pdf Should be less than',
+                      //                         style: TextStyle(
+                      //                           color: Color(0xFF000000)
+                      //                               .withOpacity(0.4),
+                      //                           fontWeight: FontWeight.w600,
+                      //                           fontSize: height * 0.012,
+                      //                         ),
+                      //                       ),
+                      //                       TextSpan(
+                      //                         text: ' 10MB',
+                      //                         style: TextStyle(
+                      //                           fontWeight: FontWeight.w600,
+                      //                           fontSize: height * 0.012,
+                      //                           color: Color(0xFF126086),
+                      //                         ),
+                      //                       ),
+                      //                     ],
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ],
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
 
                       // Select Time
+
+                      UploadBox(),
                       Container(
                         padding: EdgeInsets.only(
                           top: MediaQuery.of(context).size.height * 0.01,
@@ -478,92 +484,93 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                           child: Column(
                             children: [
                               InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    _isExpandedtime = !_isExpandedtime;
-                                  });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors
-                                        .white, // Background color (optional)
-                                    border: Border(
-                                      top: BorderSide(
-                                        color: Color(
-                                            0x24000000), // Top border color
-                                        width: 2.0, // Top border thickness
-                                      ),
-                                      right: BorderSide(
-                                        color: Color(
-                                            0x24000000), // Right border color
-                                        width: 2.0, // Right border thickness
-                                      ),
-                                      bottom: BorderSide(
-                                        color: Color(
-                                            0x24000000), // Bottom border color
-                                        width: _isExpandedtime
-                                            ? 1.0
-                                            : 2.0, // Reduced bottom border thickness on expansion
-                                      ),
-                                      left: BorderSide(
-                                        color: Color(
-                                            0x24000000), // Left border color
-                                        width: 2.0, // Left border thickness
-                                      ),
+                              onTap: () {
+                                setState(() {
+                                  _isExpandedtime = !_isExpandedtime;
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors
+                                      .white, // Background color (optional)
+                                  border: Border(
+                                    top: BorderSide(
+                                      color: Color(
+                                          0x24000000), // Top border color
+                                      width: 2.0, // Top border thickness
                                     ),
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(
-                                          MediaQuery.of(context).size.height *
-                                              0.01), // Dynamic top left radius
-                                      topRight: Radius.circular(
-                                          MediaQuery.of(context).size.height *
-                                              0.01), // Dynamic top right radius
-                                      bottomLeft: Radius.circular(
-                                          MediaQuery.of(context).size.height *
-                                              0.01), // Bottom-left curve radius
-                                      bottomRight: Radius.circular(MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height *
-                                          0.01), // Bottom-right curve radius
+                                    right: BorderSide(
+                                      color: Color(
+                                          0x24000000), // Right border color
+                                      width: 2.0, // Right border thickness
+                                    ),
+                                    bottom: BorderSide(
+                                      color: Color(
+                                          0x24000000), // Bottom border color
+                                      width: _isExpandedtime
+                                          ? 1.0
+                                          : 2.0, // Reduced bottom border thickness on expansion
+                                    ),
+                                    left: BorderSide(
+                                      color: Color(
+                                          0x24000000), // Left border color
+                                      width: 2.0, // Left border thickness
                                     ),
                                   ),
-                                  padding: EdgeInsets.only(
-                                    top: MediaQuery.of(context).size.height *
-                                        0.005, // Dynamic top padding
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.005, // Dynamic bottom padding
-                                    left: MediaQuery.of(context).size.height *
-                                        0.015, // Dynamic left padding
-                                    right: MediaQuery.of(context).size.height *
-                                        0.015, // Dynamic right padding
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Select Time",
-                                        style: TextStyle(
-                                          fontSize: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.014, // Dynamic font size
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                      Icon(
-                                        _isExpandedtime
-                                            ? Icons.keyboard_arrow_down
-                                            : Icons.keyboard_arrow_up,
-                                        size:
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(
                                         MediaQuery.of(context).size.height *
-                                            0.02, // Dynamic icon size
-                                      ),
-                                    ],
+                                            0.01), // Dynamic top left radius
+                                    topRight: Radius.circular(
+                                        MediaQuery.of(context).size.height *
+                                            0.01), // Dynamic top right radius
+                                    bottomLeft: Radius.circular(
+                                        MediaQuery.of(context).size.height *
+                                            0.01), // Bottom-left curve radius
+                                    bottomRight: Radius.circular(MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height *
+                                        0.01), // Bottom-right curve radius
                                   ),
                                 ),
+                                padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height *
+                                      0.005, // Dynamic top padding
+                                  bottom: MediaQuery.of(context).size.height *
+                                      0.005, // Dynamic bottom padding
+                                  left: MediaQuery.of(context).size.height *
+                                      0.015, // Dynamic left padding
+                                  right: MediaQuery.of(context).size.height *
+                                      0.015, // Dynamic right padding
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Select Time",
+                                      style: TextStyle(
+                                        fontSize: MediaQuery.of(context)
+                                            .size
+                                            .height *
+                                            0.014, // Dynamic font size
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    Icon(
+                                      _isExpandedtime
+                                          ? Icons.keyboard_arrow_down
+                                          : Icons.keyboard_arrow_up,
+                                      size:
+                                      MediaQuery.of(context).size.height *
+                                          0.02, // Dynamic icon size
+                                    ),
+                                  ],
+                                ),
                               ),
+                            ),
+
                               if (_isExpandedtime)
 
                                   Padding(
@@ -616,7 +623,10 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                                   selectedDate: _selectedDay ?? DateTime.now(),
                                   onSelected: (selectedTime) {
                                     setState(() {
+
                                       selectedSlot = selectedTime;
+                                      timeSelectFlag = true;
+
                                     });
                                     // print("Selected Slot: $selectedSlot");
                                     // print("Selected Slot: $selectedSlot");
@@ -1021,13 +1031,23 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                       // Add service button
                       GestureDetector(
                         onTap: () async {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return HomePageMain();
-                              },
-                            ),
-                          );
+                          if(timeSelectFlag){
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return HomePageMain();
+                                },
+                              ),
+                            );
+                          }
+                          else {
+                            showTopNotification(
+                              context,
+                              title: "Book Service",
+                              message: "Please select Time Slot",
+                              type: NotificationType.error,
+                            );
+                          }
                         },
                         child: Container(
                             alignment: Alignment.centerRight,
@@ -1065,21 +1085,32 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                                                 0.5,
                                                 0.9
                                               ],
-                                              colors: [
-                                                Color(0xFFBDBDBD),
-                                                Color(0xFFBDBDBD),
-                                              ])),
+                                              colors: timeSelectFlag ?[ Color(0xFF13668E) ,Color(0xFF13668E)] : [ Color(0xFFBDBDBD),Color(0xFFBDBDBD), ]
+
+
+
+                                          )),
                                       alignment: Alignment.center,
                                       padding: EdgeInsets.only(left: 0.0),
                                       child: TextButton(
                                         onPressed: () async {
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (BuildContext context) {
-                                                return HomePageMain();
-                                              },
-                                            ),
-                                          );
+                                          if(timeSelectFlag){
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (BuildContext context) {
+                                                  return HomePageMain();
+                                                },
+                                              ),
+                                            );
+                                          }
+                                           else {
+                                            showTopNotification(
+                                              context,
+                                              title: "Book Service",
+                                              message: "Please select Time Slot",
+                                              type: NotificationType.error,
+                                            );
+                                          }
                                         },
                                         child: Text("Book Service",
                                             textAlign: TextAlign.center,

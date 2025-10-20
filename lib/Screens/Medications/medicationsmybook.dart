@@ -29,6 +29,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 import 'package:newfolder/Screens/Widgets/readmoreless.dart';
+import 'package:newfolder/utils/book_appointment_and_payment_footer.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
 import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
@@ -1125,227 +1126,241 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
         ),
       ),
 
-      bottomNavigationBar:Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              offset: Offset(0, -3), // Makes the shadow appear above
-              blurRadius: 6,
-            ),
-          ],
-        ),
-        // height: MediaQuery.of(context).size.height * 0.150,
-        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
+      // bottomNavigationBar:Container(
+      //   decoration: BoxDecoration(
+      //     color: Colors.white,
+      //     boxShadow: [
+      //       BoxShadow(
+      //         color: Colors.black.withOpacity(0.2),
+      //         offset: Offset(0, -3), // Makes the shadow appear above
+      //         blurRadius: 6,
+      //       ),
+      //     ],
+      //   ),
+      //   // height: MediaQuery.of(context).size.height * 0.150,
+      //   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
+      //   child: Column(
+      //     mainAxisSize: MainAxisSize.min,
+      //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //     children: [
+      //
+      //       // Booking Fee
+      //       Padding(
+      //         padding: EdgeInsets.only(
+      //           top: MediaQuery.of(context).size.height * 0.02,
+      //           bottom: MediaQuery.of(context).size.height * 0.01,
+      //           left: MediaQuery.of(context).size.height * 0.05,
+      //           right: MediaQuery.of(context).size.height * 0.05,
+      //         ),
+      //         child: Row(
+      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //           children: [
+      //             Text(
+      //               "Booking Fee",
+      //               style: TextStyle(
+      //                 color: Colors.black,
+      //                 fontWeight: FontWeight.w600,
+      //                 fontSize:
+      //                 MediaQuery.of(context).size.height * 0.015,
+      //               ),
+      //             ),
+      //             Container(
+      //               decoration: BoxDecoration(
+      //                 // color:Colors.white,
+      //                 borderRadius: BorderRadius.circular(15),
+      //               ),
+      //               // color:Colors.green[100],
+      //               padding: EdgeInsets.only(
+      //                   left: MediaQuery.of(context).size.height * 0.0,
+      //                   right: MediaQuery.of(context).size.height * 0.0,
+      //                   top: MediaQuery.of(context).size.height * 0.00,
+      //                   bottom:
+      //                   MediaQuery.of(context).size.height * 0.00),
+      //               child: Row(
+      //                   mainAxisAlignment:
+      //                   MainAxisAlignment.spaceBetween,
+      //                   crossAxisAlignment: CrossAxisAlignment.center,
+      //                   children: <Widget>[
+      //                     Container(
+      //                       margin: EdgeInsets.symmetric(horizontal: 2),
+      //                       height: MediaQuery.of(context).size.height *
+      //                           0.005,
+      //                       width: MediaQuery.of(context).size.height *
+      //                           0.005,
+      //                       decoration: BoxDecoration(
+      //                         color: Colors.black,
+      //                         shape: BoxShape.circle,
+      //                       ),
+      //                     ),
+      //                     Row(
+      //                       children: <Widget>[
+      //                         Container(
+      //                             padding: EdgeInsets.only(
+      //                                 left: MediaQuery.of(context)
+      //                                     .size
+      //                                     .height *
+      //                                     0.005,
+      //                                 right: MediaQuery.of(context)
+      //                                     .size
+      //                                     .height *
+      //                                     0.00,
+      //                                 top: MediaQuery.of(context)
+      //                                     .size
+      //                                     .height *
+      //                                     0.00,
+      //                                 bottom: MediaQuery.of(context)
+      //                                     .size
+      //                                     .height *
+      //                                     0.00),
+      //                             child: Text(
+      //                               'QR 999',
+      //                               style: TextStyle(
+      //                                 // color: Colors.blue[600],
+      //                                   color: Colors.black,
+      //                                   fontWeight: FontWeight.w400,
+      //                                   overflow: TextOverflow.ellipsis,
+      //                                   decoration:
+      //                                   TextDecoration.lineThrough,
+      //                                   decorationThickness: 2,
+      //                                   fontSize: MediaQuery.of(context)
+      //                                       .size
+      //                                       .height *
+      //                                       0.014
+      //                               ),
+      //                             )),
+      //                         Container(
+      //                           padding: EdgeInsets.only(
+      //                               left: MediaQuery.of(context)
+      //                                   .size
+      //                                   .height *
+      //                                   0.005,
+      //                               right: MediaQuery.of(context)
+      //                                   .size
+      //                                   .height *
+      //                                   0.00,
+      //                               top: MediaQuery.of(context)
+      //                                   .size
+      //                                   .height *
+      //                                   0.00,
+      //                               bottom: MediaQuery.of(context)
+      //                                   .size
+      //                                   .height *
+      //                                   0.00),
+      //                           child: Text(
+      //                             "Free",
+      //                             style: TextStyle(
+      //                               // color: Colors.blue[600],
+      //                                 color: Color(0xFF12B76A),
+      //                                 fontWeight: FontWeight.w500,
+      //                                 overflow: TextOverflow.ellipsis,
+      //                                 fontSize: MediaQuery.of(context)
+      //                                     .size
+      //                                     .height *
+      //                                     0.014
+      //                             ),
+      //                           ),
+      //                         ),
+      //                       ],
+      //                     )
+      //                   ]),
+      //             ),
+      //           ],
+      //         ),
+      //       ),
+      //
+      //       // Book Appointment Button
+      //       GestureDetector(
+      //         onTap: () {
+      //           // showsucessalertBottomSheet();
+      //
+      //           showPaymentmethodsBottomSheet();
+      //         },
+      //         child: Container(
+      //             alignment: Alignment.centerRight,
+      //             padding: EdgeInsets.only(
+      //                 top: MediaQuery.of(context).size.height *
+      //                     0.0,
+      //                 bottom: MediaQuery.of(context).size.height *
+      //                     0.00,
+      //                 left: MediaQuery.of(context).size.height *
+      //                     0.005,
+      //                 right: MediaQuery.of(context).size.height *
+      //                     0.005),
+      //             margin: EdgeInsets.only(
+      //                 right: MediaQuery.of(context).size.height *
+      //                     0.04,
+      //                 top: MediaQuery.of(context).size.height *
+      //                     0.01,
+      //                 bottom: MediaQuery.of(context).size.height *
+      //                     0.01,
+      //                 left: MediaQuery.of(context).size.height *
+      //                     0.04),
+      //             child: Row(
+      //                 crossAxisAlignment:
+      //                 CrossAxisAlignment.start,
+      //                 mainAxisAlignment: MainAxisAlignment.center,
+      //                 children: <Widget>[
+      //                   Expanded(
+      //                     child: Container(
+      //                       decoration: BoxDecoration(
+      //                           borderRadius:
+      //                           BorderRadius.circular(
+      //                               MediaQuery.of(context)
+      //                                   .size
+      //                                   .height *
+      //                                   0.012),
+      //                           gradient: LinearGradient(
+      //                               begin: Alignment.centerRight,
+      //                               end: Alignment.center,
+      //                               stops: [
+      //                                 0.5,
+      //                                 0.9
+      //                               ],
+      //                               colors: [
+      //                                 Color(0xFF126086),
+      //                                 Color(0xFF126086),
+      //                               ])),
+      //                       alignment: Alignment.center,
+      //                       padding: EdgeInsets.only(left: 0.0),
+      //                       child: TextButton(
+      //                         onPressed: () async {
+      //                           showPaymentmethodsBottomSheet();
+      //                         },
+      //                         child: Text("Pay & Confirm",
+      //                             textAlign: TextAlign.center,
+      //                             style: TextStyle(
+      //                                 color: Colors.white,
+      //                                 fontSize:
+      //                                 MediaQuery.of(context)
+      //                                     .size
+      //                                     .height *
+      //                                     0.02)),
+      //                         style: TextButton.styleFrom(
+      //                           padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0), // ← Adjust this
+      //                           minimumSize: Size(0, 0), // Removes minimum button constraints
+      //                           tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Removes extra tap padding
+      //                         ),
+      //                       ),
+      //                     ),
+      //                   ),
+      //                 ])),
+      //       ),
+      //     ],
+      //   ),
+      // ),
 
-            // Booking Fee
-            Padding(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.02,
-                bottom: MediaQuery.of(context).size.height * 0.01,
-                left: MediaQuery.of(context).size.height * 0.05,
-                right: MediaQuery.of(context).size.height * 0.05,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Booking Fee",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize:
-                      MediaQuery.of(context).size.height * 0.015,
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      // color:Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    // color:Colors.green[100],
-                    padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.0,
-                        right: MediaQuery.of(context).size.height * 0.0,
-                        top: MediaQuery.of(context).size.height * 0.00,
-                        bottom:
-                        MediaQuery.of(context).size.height * 0.00),
-                    child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 2),
-                            height: MediaQuery.of(context).size.height *
-                                0.005,
-                            width: MediaQuery.of(context).size.height *
-                                0.005,
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Container(
-                                  padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.005,
-                                      right: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.00,
-                                      top: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.00,
-                                      bottom: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.00),
-                                  child: Text(
-                                    'QR 999',
-                                    style: TextStyle(
-                                      // color: Colors.blue[600],
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w400,
-                                        overflow: TextOverflow.ellipsis,
-                                        decoration:
-                                        TextDecoration.lineThrough,
-                                        decorationThickness: 2,
-                                        fontSize: MediaQuery.of(context)
-                                            .size
-                                            .height *
-                                            0.014
-                                    ),
-                                  )),
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.005,
-                                    right: MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.00,
-                                    top: MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.00,
-                                    bottom: MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.00),
-                                child: Text(
-                                  "Free",
-                                  style: TextStyle(
-                                    // color: Colors.blue[600],
-                                      color: Color(0xFF12B76A),
-                                      fontWeight: FontWeight.w500,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontSize: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.014
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                        ]),
-                  ),
-                ],
-              ),
-            ),
+      bottomNavigationBar: BookAppointmentAndPaymentFooter(
+        feesType: "Booking Fees",
+        qr: "QR 29",
+        butotnName: "Pay & Confirm",
+        colors: [
+          Color(0xFF126086),
+          Color(0xFF126086),
+        ],
+        onBookAppointment:   () async {
+          showPaymentmethodsBottomSheet();
+        },
 
-            // Book Appointment Button
-            GestureDetector(
-              onTap: () {
-                // showsucessalertBottomSheet();
-
-                showPaymentmethodsBottomSheet();
-              },
-              child: Container(
-                  alignment: Alignment.centerRight,
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height *
-                          0.0,
-                      bottom: MediaQuery.of(context).size.height *
-                          0.00,
-                      left: MediaQuery.of(context).size.height *
-                          0.005,
-                      right: MediaQuery.of(context).size.height *
-                          0.005),
-                  margin: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.height *
-                          0.04,
-                      top: MediaQuery.of(context).size.height *
-                          0.01,
-                      bottom: MediaQuery.of(context).size.height *
-                          0.01,
-                      left: MediaQuery.of(context).size.height *
-                          0.04),
-                  child: Row(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.circular(
-                                    MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.012),
-                                gradient: LinearGradient(
-                                    begin: Alignment.centerRight,
-                                    end: Alignment.center,
-                                    stops: [
-                                      0.5,
-                                      0.9
-                                    ],
-                                    colors: [
-                                      Color(0xFF126086),
-                                      Color(0xFF126086),
-                                    ])),
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.only(left: 0.0),
-                            child: TextButton(
-                              onPressed: () async {
-                                showPaymentmethodsBottomSheet();
-                              },
-                              child: Text("Pay & Confirm",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize:
-                                      MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.02)),
-                              style: TextButton.styleFrom(
-                                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0), // ← Adjust this
-                                minimumSize: Size(0, 0), // Removes minimum button constraints
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Removes extra tap padding
-                              ),
-                            ),
-                          ),
-                        ),
-                      ])),
-            ),
-          ],
-        ),
       ),
     );
   }
