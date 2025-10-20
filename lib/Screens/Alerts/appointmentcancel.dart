@@ -36,7 +36,7 @@ class AppointmentCancel {
                         horizontal: MediaQuery
                             .of(context)
                             .size
-                            .width * 0.05),
+                            .width * 0.08),
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         return ConstrainedBox(
@@ -56,10 +56,17 @@ class AppointmentCancel {
                               MediaQuery
                                   .of(context)
                                   .size
-                                  .width * 0.04,
+                                  .width * 0.07,
                             ),
                             decoration: BoxDecoration(
                               color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xFFD9D9D9),
+                                  blurRadius: 100,
+
+                                ),
+                              ],
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: IntrinsicHeight(
@@ -72,11 +79,11 @@ class AppointmentCancel {
                                     MediaQuery
                                         .of(context)
                                         .size
-                                        .height * 0.065,
+                                        .height * 0.06,
                                     width: MediaQuery
                                         .of(context)
                                         .size
-                                        .height * 0.065,
+                                        .height * 0.06,
                                     decoration: const BoxDecoration(
                                       // color: Color(0xFFFBEAE9),
                                       color: Color.fromRGBO(251, 234, 233,
@@ -93,12 +100,12 @@ class AppointmentCancel {
                                             .of(context)
                                             .size
                                             .height *
-                                            0.035,
+                                            0.03,
                                         height: MediaQuery
                                             .of(context)
                                             .size
                                             .height *
-                                            0.035,
+                                            0.03,
                                       ),
                                     ),
 
@@ -109,14 +116,14 @@ class AppointmentCancel {
                                       MediaQuery
                                           .of(context)
                                           .size
-                                          .height * 0.01),
+                                          .height * 0.0),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                       vertical:
                                       MediaQuery
                                           .of(context)
                                           .size
-                                          .height * 0.02,
+                                          .height * 0.01,
                                       horizontal:
                                       MediaQuery
                                           .of(context)
@@ -137,7 +144,12 @@ class AppointmentCancel {
                                       ),
                                     ),
                                   ),
-
+                                  SizedBox(
+                                      height:
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height * 0.005),
                                   // -- TextField for reason --
                                   TextFormField(
                                     controller: tracktextcontroller,
@@ -216,91 +228,89 @@ class AppointmentCancel {
                                         .height *
                                         0.01, // space between lines
                                     children: [
-                                      // Close Button
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.white,
-                                          foregroundColor: Colors.black,
-                                          elevation: 0,
-                                          side: BorderSide(
-                                              color: Color(0xFFA8B1CE),
-                                              width: 1),
+                                      GestureDetector(
+                                        onTap : () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(7),
+                                            border: Border.all(
+                                              color: const Color(0xFFA8B1CE),
+                                              width: 1,
+                                            ),
+                                          ),
                                           padding: EdgeInsets.symmetric(
-                                            vertical:
-                                            MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height *
-                                                0.004,
-                                            horizontal:
-                                            MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height *
-                                                0.06,
+                                            horizontal: MediaQuery.of(context).size.width * 0.07,
+                                            vertical: MediaQuery.of(context).size.height * 0.01,
                                           ),
-                                          textStyle: TextStyle(
-                                            fontSize:
-                                            MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height *
-                                                0.014,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                7),
+                                          child: TextButton(
+                                            style: ButtonStyle(
+                                              padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero), // 🔹 No padding at all
+                                              minimumSize: WidgetStateProperty.all(Size.zero), // 🔹 Remove default min constraints
+                                              tapTargetSize: MaterialTapTargetSize.shrinkWrap, // 🔹 Remove extra touch area
+                                              alignment: Alignment.center, // 🔹 Center text properly
+                                              foregroundColor: WidgetStateProperty.all(Colors.black),
+                                              textStyle: WidgetStateProperty.all(
+                                                TextStyle(
+                                                  fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Color(0xFF1F1F1F),
+                                                ),
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text("Close"),
                                           ),
                                         ),
-                                        onPressed: () => Navigator.pop(context),
-                                        child: Text("Close"),
                                       ),
 
-                                      // Okay Button
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Color(0x80D42620),
-                                          foregroundColor: Colors.white,
-                                          shadowColor: Colors.transparent,
+
+
+
+                                      GestureDetector(
+                                        onTap : () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Color(0x80D42620),
+                                            borderRadius: BorderRadius.circular(7),
+
+                                          ),
                                           padding: EdgeInsets.symmetric(
-                                            vertical:
-                                            MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height *
-                                                0.004,
-                                            horizontal:
-                                            MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height *
-                                                0.06,
+                                            horizontal: MediaQuery.of(context).size.width * 0.07,
+                                            vertical: MediaQuery.of(context).size.height * 0.01,
                                           ),
-                                          textStyle: TextStyle(
-                                            fontSize:
-                                            MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height *
-                                                0.015,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white,
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                7),
+                                          child: TextButton(
+                                            style: ButtonStyle(
+                                              padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero), // 🔹 No padding at all
+                                              minimumSize: WidgetStateProperty.all(Size.zero), // 🔹 Remove default min constraints
+                                              tapTargetSize: MaterialTapTargetSize.shrinkWrap, // 🔹 Remove extra touch area
+                                              alignment: Alignment.center, // 🔹 Center text properly
+                                              foregroundColor: WidgetStateProperty.all(Colors.white,),
+                                              textStyle: WidgetStateProperty.all(
+                                                TextStyle(
+                                                  fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text("Okay"),
                                           ),
                                         ),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          // Optional: Navigator.pop(context); for double pop
-                                        },
-                                        child: Text("Okay"),
                                       ),
 
                                     ],
                                   ),
+                                  SizedBox(height: MediaQuery.of(context).size.height * 0.01,)
                                 ],
                               ),
                             ),

@@ -19,6 +19,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
   DateTime? _selectedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.month;
 
+  bool _isExpandedDate = true;
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -26,19 +27,74 @@ class _CustomCalendarState extends State<CustomCalendar> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: EdgeInsets.only(
-            left: screenHeight * 0.02,
-            top: screenHeight * 0.015,
-          ),
-          child: Text(
-            "Select Your Date",
-            style: TextStyle(
-              fontSize: screenHeight * 0.014,
-              fontWeight: FontWeight.w500,
+        InkWell(
+          onTap: () {
+            setState(() {
+              _isExpandedDate = !_isExpandedDate;
+            });
+          },
+          child: Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: screenHeight * 0.018,
+            ),
+            decoration: BoxDecoration(
+              color: Colors
+                  .white, // Background color (optional)
+              border: Border.all(color : Color(0x24000000),width : 1),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(
+                    MediaQuery.of(context).size.height *
+                        0.01), // Dynamic top left radius
+                topRight: Radius.circular(
+                    MediaQuery.of(context).size.height *
+                        0.01), // Dynamic top right radius
+                bottomLeft: Radius.circular(
+                    MediaQuery.of(context).size.height *
+                        0.01), // Bottom-left curve radius
+                bottomRight: Radius.circular(MediaQuery
+                    .of(context)
+                    .size
+                    .height *
+                    0.01), // Bottom-right curve radius
+              ),
+            ),
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height *
+                  0.005, // Dynamic top padding
+              bottom: MediaQuery.of(context).size.height *
+                  0.005, // Dynamic bottom padding
+              left: MediaQuery.of(context).size.height *
+                  0.015, // Dynamic left padding
+              right: MediaQuery.of(context).size.height *
+                  0.015, // Dynamic right padding
+            ),
+            child: Row(
+              mainAxisAlignment:
+              MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Select Your Date",
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context)
+                        .size
+                        .height *
+                        0.014, // Dynamic font size
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Icon(
+                  _isExpandedDate
+                      ? Icons.keyboard_arrow_down
+                      : Icons.keyboard_arrow_up,
+                  size:
+                  MediaQuery.of(context).size.height *
+                      0.02, // Dynamic icon size
+                ),
+              ],
             ),
           ),
         ),
+        if(_isExpandedDate)
         Padding(
           padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.02),
           child: RepaintBoundary(

@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:newfolder/Data/APIServices/api_service.dart';
@@ -7,10 +7,13 @@ import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Data/Models/appointmentselectime.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
+import 'package:newfolder/Screens/Alerts/loginbottomsheet.dart';
 import 'package:newfolder/Screens/Appointments/doctordetailpage.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/Medications/medicationsmybook.dart';
+import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/ShareToOtherApp.dart';
+import 'package:newfolder/utils/book_appointment_and_payment_footer.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -54,6 +57,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
   String qualificationval = "";
   bool _isSharing = false;
 
+  bool _isExpandedtime = true;
   @override
   void initState() {
     // getSharedPrefs();
@@ -922,6 +926,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
+                            SizedBox(height: screenHeight * 0.01,),
                             CustomCalendar(
                               onDateSelected: (date) {
                                 setState(() {
@@ -935,28 +940,75 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                                 // Call your getBookingDetails() function here if needed
                               },
                             ),
-
+                            SizedBox(height: screenHeight * 0.01,),
                             // Select Your Time
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.height * 0.02,
-                                  right:
-                                      MediaQuery.of(context).size.height * 0.00,
-                                  top:
-                                      MediaQuery.of(context).size.height * 0.01,
-                                  bottom: MediaQuery.of(context).size.height *
-                                      0.015),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Select Your Time",
-                                  style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.014,
-                                    fontWeight: FontWeight.w500,
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  _isExpandedtime = !_isExpandedtime;
+                                });
+                              },
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                  horizontal: screenHeight * 0.018,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors
+                                      .white, // Background color (optional)
+                                  border: Border.all(
+                                      color: Color(0x24000000),
+                                      width: 1
                                   ),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(
+                                        MediaQuery.of(context).size.height *
+                                            0.01), // Dynamic top left radius
+                                    topRight: Radius.circular(
+                                        MediaQuery.of(context).size.height *
+                                            0.01), // Dynamic top right radius
+                                    bottomLeft: Radius.circular(
+                                        MediaQuery.of(context).size.height *
+                                            0.01), // Bottom-left curve radius
+                                    bottomRight: Radius.circular(MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height *
+                                        0.01), // Bottom-right curve radius
+                                  ),
+                                ),
+                                padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height *
+                                      0.005, // Dynamic top padding
+                                  bottom: MediaQuery.of(context).size.height *
+                                      0.005, // Dynamic bottom padding
+                                  left: MediaQuery.of(context).size.height *
+                                      0.015, // Dynamic left padding
+                                  right: MediaQuery.of(context).size.height *
+                                      0.015, // Dynamic right padding
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Select Your Time",
+                                      style: TextStyle(
+                                        fontSize: MediaQuery.of(context)
+                                            .size
+                                            .height *
+                                            0.014, // Dynamic font size
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    Icon(
+                                      _isExpandedtime
+                                          ? Icons.keyboard_arrow_down
+                                          : Icons.keyboard_arrow_up,
+                                      size:
+                                      MediaQuery.of(context).size.height *
+                                          0.02, // Dynamic icon size
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -1306,6 +1358,9 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                             //       ]),
                             // ),
                             // const TimeSlotSelector(timeSlots: ["06:00", "06:30", "07:00", "07:30"],)
+                            if(_isExpandedtime)
+                              SizedBox(height: screenHeight * 0.01,),
+                            if(_isExpandedtime)
                             TimeSlotSelector(
                               timeSlots: timeSlots,
                               selectedDate: _selectedDay ?? DateTime.now(),
@@ -1330,270 +1385,316 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
       ),
 
       // Bottom Navigation with another  positioned on the right
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              offset: Offset(0, -3), // Makes the shadow appear above
-              blurRadius: 6,
-            ),
-          ],
-        ),
-        // height: MediaQuery.of(context).size.height * 0.150,
-        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            // Consultation Fees
-            Padding(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.02,
-                bottom: MediaQuery.of(context).size.height * 0.01,
-                left: MediaQuery.of(context).size.height * 0.05,
-                right: MediaQuery.of(context).size.height * 0.05,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Consultation Fees",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: MediaQuery.of(context).size.height * 0.015,
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      // color:Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    // color:Colors.green[100],
-                    padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.0,
-                        right: MediaQuery.of(context).size.height * 0.0,
-                        top: MediaQuery.of(context).size.height * 0.00,
-                        bottom: MediaQuery.of(context).size.height * 0.00),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 2),
-                            height: MediaQuery.of(context).size.height * 0.005,
-                            width: MediaQuery.of(context).size.height * 0.005,
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Container(
-                                  padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.005,
-                                      right:
-                                          MediaQuery.of(context).size.height *
-                                              0.00,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.00,
-                                      bottom:
-                                          MediaQuery.of(context).size.height *
-                                              0.00),
-                                  child: Text(
-                                    'QR 999',
-                                    style: TextStyle(
-                                        // color: Colors.blue[600],
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w400,
-                                        overflow: TextOverflow.ellipsis,
-                                        decoration: TextDecoration.lineThrough,
-                                        decorationThickness: 2,
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                0.014),
-                                  )),
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.005,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
-                                child: Text(
-                                  "Free",
-                                  style: TextStyle(
-                                      // color: Colors.blue[600],
-                                      color: Color(0xFF12B76A),
-                                      fontWeight: FontWeight.w500,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.014),
+      // bottomNavigationBar: Container(
+      //   decoration: BoxDecoration(
+      //     color: Colors.white,
+      //     boxShadow: [
+      //       BoxShadow(
+      //         color: Colors.black.withOpacity(0.2),
+      //         offset: Offset(0, -3), // Makes the shadow appear above
+      //         blurRadius: 6,
+      //       ),
+      //     ],
+      //   ),
+      //   // height: MediaQuery.of(context).size.height * 0.150,
+      //   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
+      //   child: Column(
+      //     mainAxisSize: MainAxisSize.min,
+      //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //     children: [
+      //       // Consultation Fees
+      //       Padding(
+      //         padding: EdgeInsets.only(
+      //           top: MediaQuery.of(context).size.height * 0.02,
+      //           bottom: MediaQuery.of(context).size.height * 0.01,
+      //           left: MediaQuery.of(context).size.height * 0.05,
+      //           right: MediaQuery.of(context).size.height * 0.05,
+      //         ),
+      //         child: Row(
+      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //           children: [
+      //             Text(
+      //               "Consultation Fees",
+      //               style: TextStyle(
+      //                 color: Colors.black,
+      //                 fontWeight: FontWeight.w600,
+      //                 fontSize: MediaQuery.of(context).size.height * 0.015,
+      //               ),
+      //             ),
+      //             Container(
+      //               decoration: BoxDecoration(
+      //                 // color:Colors.white,
+      //                 borderRadius: BorderRadius.circular(15),
+      //               ),
+      //               // color:Colors.green[100],
+      //               padding: EdgeInsets.only(
+      //                   left: MediaQuery.of(context).size.height * 0.0,
+      //                   right: MediaQuery.of(context).size.height * 0.0,
+      //                   top: MediaQuery.of(context).size.height * 0.00,
+      //                   bottom: MediaQuery.of(context).size.height * 0.00),
+      //               child: Row(
+      //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //                   crossAxisAlignment: CrossAxisAlignment.center,
+      //                   children: <Widget>[
+      //                     Container(
+      //                       margin: EdgeInsets.symmetric(horizontal: 2),
+      //                       height: MediaQuery.of(context).size.height * 0.005,
+      //                       width: MediaQuery.of(context).size.height * 0.005,
+      //                       decoration: BoxDecoration(
+      //                         color: Colors.black,
+      //                         shape: BoxShape.circle,
+      //                       ),
+      //                     ),
+      //                     Row(
+      //                       children: <Widget>[
+      //                         Container(
+      //                             padding: EdgeInsets.only(
+      //                                 left: MediaQuery.of(context).size.height *
+      //                                     0.005,
+      //                                 right:
+      //                                     MediaQuery.of(context).size.height *
+      //                                         0.00,
+      //                                 top: MediaQuery.of(context).size.height *
+      //                                     0.00,
+      //                                 bottom:
+      //                                     MediaQuery.of(context).size.height *
+      //                                         0.00),
+      //                             child: Text(
+      //                               'QR 999',
+      //                               style: TextStyle(
+      //                                   // color: Colors.blue[600],
+      //                                   color: Colors.black,
+      //                                   fontWeight: FontWeight.w400,
+      //                                   overflow: TextOverflow.ellipsis,
+      //                                   decoration: TextDecoration.lineThrough,
+      //                                   decorationThickness: 2,
+      //                                   fontSize:
+      //                                       MediaQuery.of(context).size.height *
+      //                                           0.014),
+      //                             )),
+      //                         Container(
+      //                           padding: EdgeInsets.only(
+      //                               left: MediaQuery.of(context).size.height *
+      //                                   0.005,
+      //                               right: MediaQuery.of(context).size.height *
+      //                                   0.00,
+      //                               top: MediaQuery.of(context).size.height *
+      //                                   0.00,
+      //                               bottom: MediaQuery.of(context).size.height *
+      //                                   0.00),
+      //                           child: Text(
+      //                             "Free",
+      //                             style: TextStyle(
+      //                                 // color: Colors.blue[600],
+      //                                 color: Color(0xFF12B76A),
+      //                                 fontWeight: FontWeight.w500,
+      //                                 overflow: TextOverflow.ellipsis,
+      //                                 fontSize:
+      //                                     MediaQuery.of(context).size.height *
+      //                                         0.014),
+      //                           ),
+      //                         ),
+      //                       ],
+      //                     )
+      //                   ]),
+      //             ),
+      //           ],
+      //         ),
+      //       ),
+      //
+      //       // Book Appointment
+      //
+      //       GestureDetector(
+      //         onTap: () async {
+      //           if (selectedSlot.isNotEmpty && slectedDateSlot.isNotEmpty) {
+      //             Navigator.of(context).push(
+      //               MaterialPageRoute(
+      //                 builder: (context) => MedicationMyBookingsMain(
+      //                   selectedDate: slectedDateSlot,
+      //                   selectedTime: selectedSlot,
+      //                 ),
+      //               ),
+      //             );
+      //           }
+      //         },
+      //         // child: Container(
+      //         //     alignment: Alignment.centerRight,
+      //         //     padding: EdgeInsets.only(
+      //         //         top: MediaQuery.of(context).size.height * 0.0,
+      //         //         bottom: MediaQuery.of(context).size.height * 0.00,
+      //         //         left: MediaQuery.of(context).size.height * 0.005,
+      //         //         right: MediaQuery.of(context).size.height * 0.005),
+      //         //     margin: EdgeInsets.only(
+      //         //         right: MediaQuery.of(context).size.height * 0.04,
+      //         //         top: MediaQuery.of(context).size.height * 0.01,
+      //         //         bottom: MediaQuery.of(context).size.height * 0.01,
+      //         //         left: MediaQuery.of(context).size.height * 0.04),
+      //         //     child: Row(
+      //         //         crossAxisAlignment: CrossAxisAlignment.start,
+      //         //         mainAxisAlignment: MainAxisAlignment.center,
+      //         //         children: <Widget>[
+      //         //           Expanded(
+      //         //             child: Container(
+      //         //               decoration: BoxDecoration(
+      //         //                   borderRadius: BorderRadius.circular(
+      //         //                       MediaQuery.of(context).size.height * 0.012),
+      //         //                   gradient: LinearGradient(
+      //         //                       begin: Alignment.centerRight,
+      //         //                       end: Alignment.center,
+      //         //                       stops: [0.5, 0.9],
+      //         //                       colors: (selectedSlot.isNotEmpty &&
+      //         //                               slectedDateSlot.isNotEmpty)
+      //         //                           ? [
+      //         //                               Color(0xFF126086),
+      //         //                               Color(0xFF126086),
+      //         //                             ]
+      //         //                           : [
+      //         //                               Colors.grey.shade300,
+      //         //                               Colors.grey.shade300
+      //         //                             ]
+      //         //                   )
+      //         //               ),
+      //         //               alignment: Alignment.center,
+      //         //               padding: EdgeInsets.only(left: 0.0),
+      //         //               child: TextButton(
+      //         //                 onPressed: () async {
+      //         //                   if (selectedSlot.isNotEmpty &&
+      //         //                       slectedDateSlot.isNotEmpty) {
+      //         //                     Navigator.of(context).push(
+      //         //                       MaterialPageRoute(
+      //         //                         builder: (context) =>
+      //         //                             MedicationMyBookingsMain(
+      //         //                               selectedDate: slectedDateSlot,
+      //         //                               selectedTime: selectedSlot,
+      //         //                             ),
+      //         //                       ),
+      //         //                     );
+      //         //                   }
+      //         //                 },
+      //         //                 child: Text("Book Appointment",
+      //         //                     textAlign: TextAlign.center,
+      //         //                     style: TextStyle(
+      //         //                         color: Colors.white,
+      //         //                         fontSize:
+      //         //                             MediaQuery.of(context).size.height *
+      //         //                                 0.02)),
+      //         //                 style: TextButton.styleFrom(
+      //         //                   padding: EdgeInsets.symmetric(
+      //         //                       vertical: 9.0,
+      //         //                       horizontal: 12.0), // ← Adjust this
+      //         //                   minimumSize: Size(
+      //         //                       0, 0), // Removes minimum button constraints
+      //         //                   tapTargetSize: MaterialTapTargetSize
+      //         //                       .shrinkWrap, // Removes extra tap padding
+      //         //                 ),
+      //         //               ),
+      //         //             ),
+      //         //           ),
+      //         //         ])),
+      //         child: Container(
+      //           alignment: Alignment.centerRight,
+      //           padding: EdgeInsets.only(
+      //             top: MediaQuery.of(context).size.height * 0.0,
+      //             bottom: MediaQuery.of(context).size.height * 0.00,
+      //             left: MediaQuery.of(context).size.height * 0.005,
+      //             right: MediaQuery.of(context).size.height * 0.005,
+      //           ),
+      //           margin: EdgeInsets.only(
+      //             right: MediaQuery.of(context).size.height * 0.04,
+      //             top: MediaQuery.of(context).size.height * 0.01,
+      //             bottom: MediaQuery.of(context).size.height * 0.01,
+      //             left: MediaQuery.of(context).size.height * 0.04,
+      //           ),
+      //           child: Row(
+      //             crossAxisAlignment: CrossAxisAlignment.start,
+      //             mainAxisAlignment: MainAxisAlignment.center,
+      //             children: <Widget>[
+      //               Expanded(
+      //                 child: Container(
+      //                   decoration: BoxDecoration(
+      //                     borderRadius: BorderRadius.circular(
+      //                       MediaQuery.of(context).size.height * 0.012,
+      //                     ),
+      //                     gradient: LinearGradient(
+      //                       begin: Alignment.centerRight,
+      //                       end: Alignment.center,
+      //                       stops: [0.5, 0.9],
+      //                       colors: (selectedSlot.isNotEmpty && slectedDateSlot.isNotEmpty)
+      //                           ? [
+      //                         Color(0xFF126086),
+      //                         Color(0xFF126086),
+      //                       ]
+      //                           : [
+      //                         Colors.grey.shade300,
+      //                         Colors.grey.shade300,
+      //                       ],
+      //                     ),
+      //                   ),
+      //                   alignment: Alignment.center,
+      //                   padding: EdgeInsets.symmetric(vertical: 9.0, horizontal: 12.0),
+      //                   child: Text(
+      //                     "Book Appointment",
+      //                     textAlign: TextAlign.center,
+      //                     style: TextStyle(
+      //                       color: Colors.white,
+      //                       fontSize: MediaQuery.of(context).size.height * 0.02,
+      //                     ),
+      //                   ),
+      //                 ),
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
+      bottomNavigationBar: BookAppointmentAndPaymentFooter(
+        feesType: "Consulation Fees",
+        qr: "Free",
+        butotnName: "Book Appoinmnet",
+        colors: (selectedSlot.isNotEmpty &&
+            slectedDateSlot.isNotEmpty)
+            ? [
+          Color(0xFF126086),
+          Color(0xFF126086),
+        ]
+            : [
+          Colors.grey.shade300,
+          Colors.grey.shade300
+        ],
+        onBookAppointment:   () async {
+          final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ??"NO";
+          String? username =  await UserSecureStorage.getUsernameid();
+          print("username : $username");
+
+          print("isLoggedIn in seletimeslot: $isLoggedIn");
+
+          if (selectedSlot.isNotEmpty &&slectedDateSlot.isNotEmpty) {
+
+            if (isLoggedIn == "YES") {
+              Timer(Duration(seconds: 0), () {
+                LoginBottomSheet.show(context, false);
+              });
+            } else {
+
+                          if (selectedSlot.isNotEmpty && slectedDateSlot.isNotEmpty) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => MedicationMyBookingsMain(
+                                  selectedDate: slectedDateSlot,
+                                  selectedTime: selectedSlot,
                                 ),
                               ),
-                            ],
-                          )
-                        ]),
-                  ),
-                ],
-              ),
-            ),
+                            );
+                          }
 
-            // Book Appointment
+            }
+          }
+        },
 
-            GestureDetector(
-              onTap: () async {
-                if (selectedSlot.isNotEmpty && slectedDateSlot.isNotEmpty) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => MedicationMyBookingsMain(
-                        selectedDate: slectedDateSlot,
-                        selectedTime: selectedSlot,
-                      ),
-                    ),
-                  );
-                }
-              },
-              // child: Container(
-              //     alignment: Alignment.centerRight,
-              //     padding: EdgeInsets.only(
-              //         top: MediaQuery.of(context).size.height * 0.0,
-              //         bottom: MediaQuery.of(context).size.height * 0.00,
-              //         left: MediaQuery.of(context).size.height * 0.005,
-              //         right: MediaQuery.of(context).size.height * 0.005),
-              //     margin: EdgeInsets.only(
-              //         right: MediaQuery.of(context).size.height * 0.04,
-              //         top: MediaQuery.of(context).size.height * 0.01,
-              //         bottom: MediaQuery.of(context).size.height * 0.01,
-              //         left: MediaQuery.of(context).size.height * 0.04),
-              //     child: Row(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         mainAxisAlignment: MainAxisAlignment.center,
-              //         children: <Widget>[
-              //           Expanded(
-              //             child: Container(
-              //               decoration: BoxDecoration(
-              //                   borderRadius: BorderRadius.circular(
-              //                       MediaQuery.of(context).size.height * 0.012),
-              //                   gradient: LinearGradient(
-              //                       begin: Alignment.centerRight,
-              //                       end: Alignment.center,
-              //                       stops: [0.5, 0.9],
-              //                       colors: (selectedSlot.isNotEmpty &&
-              //                               slectedDateSlot.isNotEmpty)
-              //                           ? [
-              //                               Color(0xFF126086),
-              //                               Color(0xFF126086),
-              //                             ]
-              //                           : [
-              //                               Colors.grey.shade300,
-              //                               Colors.grey.shade300
-              //                             ]
-              //                   )
-              //               ),
-              //               alignment: Alignment.center,
-              //               padding: EdgeInsets.only(left: 0.0),
-              //               child: TextButton(
-              //                 onPressed: () async {
-              //                   if (selectedSlot.isNotEmpty &&
-              //                       slectedDateSlot.isNotEmpty) {
-              //                     Navigator.of(context).push(
-              //                       MaterialPageRoute(
-              //                         builder: (context) =>
-              //                             MedicationMyBookingsMain(
-              //                               selectedDate: slectedDateSlot,
-              //                               selectedTime: selectedSlot,
-              //                             ),
-              //                       ),
-              //                     );
-              //                   }
-              //                 },
-              //                 child: Text("Book Appointment",
-              //                     textAlign: TextAlign.center,
-              //                     style: TextStyle(
-              //                         color: Colors.white,
-              //                         fontSize:
-              //                             MediaQuery.of(context).size.height *
-              //                                 0.02)),
-              //                 style: TextButton.styleFrom(
-              //                   padding: EdgeInsets.symmetric(
-              //                       vertical: 9.0,
-              //                       horizontal: 12.0), // ← Adjust this
-              //                   minimumSize: Size(
-              //                       0, 0), // Removes minimum button constraints
-              //                   tapTargetSize: MaterialTapTargetSize
-              //                       .shrinkWrap, // Removes extra tap padding
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //         ])),
-              child: Container(
-                alignment: Alignment.centerRight,
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.0,
-                  bottom: MediaQuery.of(context).size.height * 0.00,
-                  left: MediaQuery.of(context).size.height * 0.005,
-                  right: MediaQuery.of(context).size.height * 0.005,
-                ),
-                margin: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.height * 0.04,
-                  top: MediaQuery.of(context).size.height * 0.01,
-                  bottom: MediaQuery.of(context).size.height * 0.01,
-                  left: MediaQuery.of(context).size.height * 0.04,
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            MediaQuery.of(context).size.height * 0.012,
-                          ),
-                          gradient: LinearGradient(
-                            begin: Alignment.centerRight,
-                            end: Alignment.center,
-                            stops: [0.5, 0.9],
-                            colors: (selectedSlot.isNotEmpty && slectedDateSlot.isNotEmpty)
-                                ? [
-                              Color(0xFF126086),
-                              Color(0xFF126086),
-                            ]
-                                : [
-                              Colors.grey.shade300,
-                              Colors.grey.shade300,
-                            ],
-                          ),
-                        ),
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(vertical: 9.0, horizontal: 12.0),
-                        child: Text(
-                          "Book Appointment",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: MediaQuery.of(context).size.height * 0.02,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
+
     );
   }
 

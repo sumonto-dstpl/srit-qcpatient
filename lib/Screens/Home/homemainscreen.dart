@@ -18,6 +18,7 @@ import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/HRecommendedDoctors/home_doctordetails.dart';
 import 'package:newfolder/Screens/HRecommendedDoctors/home_selecttimeslot.dart';
 import 'package:newfolder/Screens/Medications/medicationselecttime.dart';
+import 'package:newfolder/Screens/Widgets/homecare_otherservice_detail.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
 
 // import 'package:newfolder/Data/APIServices/api_service.dart';
@@ -2345,49 +2346,60 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                       children: [
                                         // ---------- Icon Button ----------
                                         TextButton(
-                                                onPressed: () async {
-                                                  if (index == 0) {
-                                                    Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                        builder: (BuildContext context) {
-                                                          return DiagnosticMain();
-                                                        },
-                                                      ),
-                                                    );
-                                                  } else if (index == 1) {
-                                                    Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                        builder: (BuildContext context) {
-                                                          return DoctorHCMain();
-                                                        },
-                                                      ),
-                                                    );
-                                                  } else if (index == 2) {
-                                                    Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                        builder: (BuildContext context) {
-                                                          return NurseHCMain();
-                                                        },
-                                                      ),
-                                                    );
-                                                  } else if (index == 3) {
-                                                    Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                        builder: (BuildContext context) {
-                                                          return PhysioHCMain();
-                                                        },
-                                                      ),
-                                                    );
-                                                  } else if (index == 4) {
-                                                    Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                        builder: (BuildContext context) {
-                                                          return MedicalEquipHCMain();
-                                                        },
-                                                      ),
-                                                    );
-                                                  }
+                                                // onPressed: () async {
+                                                //   if (index == 0) {
+                                                //     Navigator.of(context).push(
+                                                //       MaterialPageRoute(
+                                                //         builder: (BuildContext context) {
+                                                //           return DiagnosticMain();
+                                                //         },
+                                                //       ),
+                                                //     );
+                                                //   } else if (index == 1) {
+                                                //     Navigator.of(context).push(
+                                                //       MaterialPageRoute(
+                                                //         builder: (BuildContext context) {
+                                                //           return DoctorHCMain();
+                                                //         },
+                                                //       ),
+                                                //     );
+                                                //   } else if (index == 2) {
+                                                //     Navigator.of(context).push(
+                                                //       MaterialPageRoute(
+                                                //         builder: (BuildContext context) {
+                                                //           return NurseHCMain();
+                                                //         },
+                                                //       ),
+                                                //     );
+                                                //   } else if (index == 3) {
+                                                //     Navigator.of(context).push(
+                                                //       MaterialPageRoute(
+                                                //         builder: (BuildContext context) {
+                                                //           return PhysioHCMain();
+                                                //         },
+                                                //       ),
+                                                //     );
+                                                //   } else if (index == 4) {
+                                                //     Navigator.of(context).push(
+                                                //       MaterialPageRoute(
+                                                //         builder: (BuildContext context) {
+                                                //           return MedicalEquipHCMain();
+                                                //         },
+                                                //       ),
+                                                //     );
+                                                //   }
+                                                // },
+                                              onPressed: (){
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (BuildContext context) {
+                                                  // return HomecareOtherserviceDetail(usernameValue : "Asgar");
+                                                  return HomecareOtherserviceDetail(usernameValue: myOtherServices[index][1],);
+
                                                 },
+                                              ),
+                                            );
+                                          },
                                                 style: TextButton.styleFrom(
                                                   backgroundColor: Color(0xFFE8F0F3),
                                                 // backgroundColor : Colors.red,
