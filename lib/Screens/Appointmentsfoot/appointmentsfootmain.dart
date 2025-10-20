@@ -55,7 +55,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
 
     super.initState();
     // commented by asgar
-    // checkGuestUser();
+    checkGuestUser();
 
   }
 
