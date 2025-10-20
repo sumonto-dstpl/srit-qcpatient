@@ -24,9 +24,9 @@ import 'package:progress_dialog2/progress_dialog2.dart';
 
 class FindDoctorsListMain extends StatefulWidget {
 
-
+  final String? physical_virtual_mode;
   final String? consulttype;
-  FindDoctorsListMain(this.consulttype, {Key? key}) : super(key: key);
+  FindDoctorsListMain(this.consulttype, {Key? key,this.physical_virtual_mode = "physical",}) : super(key: key);
 
 
   @override
@@ -44,7 +44,11 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
   ConnectivityService connectivityservice = ConnectivityService();
   APIService apiService = new APIService();
   late ProgressDialog progressDialog;
-  List<DoctorsListResponse>? responselist = [];
+  List<DoctorsListResponse> responselist = [];
+
+
+
+
 
   // List of diseases
   final List<String> diseases = [
@@ -110,8 +114,8 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
   @override
   void initState() {
-
-    getSharedPrefs();
+    getCommonDoctorList();
+    // getSharedPrefs();
     // checkGuestUser();
     super.initState();
   }
@@ -1209,7 +1213,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                         bottom: MediaQuery.of(context).size.height * 0.00),
                                                     child:
                                                     Text(
-                                                      responselist![index].qualification != null ?  responselist![index].qualification! : "",
+                                                      (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
                                                       style: TextStyle(
                                                           color: Color(0xFF126086),
                                                           fontWeight: FontWeight.w600,
@@ -1344,10 +1348,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                             mainAxisAlignment: MainAxisAlignment.center,
                                                             children: <Widget>[
                                                               Container(
-                                                                padding: EdgeInsets.only(
-                                                                  top: MediaQuery.of(context).size.height * 0.0,
-                                                                  bottom: MediaQuery.of(context).size.height * 0.00,
-                                                                ),
+
                                                                 child: Text(
                                                                   maxLines: 2,
                                                                   responselist![index].workLocation != null ?  responselist![index].workLocation! : "",
@@ -1367,7 +1368,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
                                                         // Share icon
                                                         Expanded(
-                                                      flex: 2,
+                                                      flex: 1,
                                                       child:
                                                       InkWell(
                                                         onTap: () {
@@ -1512,7 +1513,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                     visible: index < responselist!.length , // Toggle this value to show/hide
                                     child:
                                                                                       Container(
-                                                                                        margin: EdgeInsets.only(
+                                                                                         margin: EdgeInsets.only(
                                                                                             left: MediaQuery.of(context).size.height * 0.005,
                                                                                             right: MediaQuery.of(context).size.height * 0.00,
                                                                                             top: MediaQuery.of(context).size.height * 0.00,
@@ -1568,7 +1569,15 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                                         builder:
                                                                                             (BuildContext context) {
                                                                                           // return SelectTimeSlot(responselist![index].doctorId!);
-                                                                                              return DoctorDetilPage("Practitioner/f002");
+                                                                                              return DoctorDetilPage(
+                                                                                                "Practitioner/f002",
+                                                                                                doctorDetail : {
+                                                                                                "doctorName" : responselist[index].doctorName ,
+                                                                                                "speciality" : responselist[index].speciality ,
+                                                                                                "experience" : (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
+                                                                                                  } ,
+                                                                                                physical_virtual_mode: widget.physical_virtual_mode,
+                                                                                              );
                                                                                         },
                                                                                       ),
                                                                                     );
@@ -1813,5 +1822,182 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     });
+  }
+
+  void getCommonDoctorList() async{
+
+    connectivityservice.checkconnectivity().then((intenet) async {
+      if (intenet != null && intenet) {
+
+
+
+        final List<Map<String, dynamic>> staticDoctorList = [
+          {
+            "doctorId": "1",
+            "doctorName": "Dr. Arjun Mehta",
+            "qualification": "MBBS, MD (General Medicine)",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "18 YEARS Experience",
+            "regularFee": "₹800",
+            "discountFee": "₹600",
+            "rating": "4.8",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "2",
+            "doctorName": "Dr. Priya Nair",
+            "qualification": "MBBS, DNB (General Medicine)",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "15 YEARS Experience",
+            "regularFee": "₹750",
+            "discountFee": "₹550",
+            "rating": "4.7",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "3",
+            "doctorName": "Dr. Sameer Khan",
+            "qualification": "MBBS, MD (Internal Medicine)",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "20 YEARS Experience",
+            "regularFee": "₹900",
+            "discountFee": "₹700",
+            "rating": "4.9",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "4",
+            "doctorName": "Dr. Neha Sharma",
+            "qualification": "MBBS, Diploma in Family Medicine",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "12 YEARS Experience",
+            "regularFee": "₹700",
+            "discountFee": "₹500",
+            "rating": "4.6",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "5",
+            "doctorName": "Dr. Rajesh Patel",
+            "qualification": "MBBS, MD (General Medicine)",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "25 YEARS Experience",
+            "regularFee": "₹850",
+            "discountFee": "₹650",
+            "rating": "4.5",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "6",
+            "doctorName": "Dr. Anjali Verma",
+            "qualification": "MBBS, DNB (General Medicine)",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "17 YEARS Experience",
+            "regularFee": "₹800",
+            "discountFee": "₹600",
+            "rating": "4.9",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "7",
+            "doctorName": "Dr. Harish Reddy",
+            "qualification": "MBBS, Diploma in Family Medicine",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "22 YEARS Experience",
+            "regularFee": "₹950",
+            "discountFee": "₹750",
+            "rating": "4.8",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "8",
+            "doctorName": "Dr. Meenakshi Rao",
+            "qualification": "MBBS, MD (Internal Medicine)",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "19 YEARS Experience",
+            "regularFee": "₹880",
+            "discountFee": "₹700",
+            "rating": "4.7",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "9",
+            "doctorName": "Dr. Aditya Deshmukh",
+            "qualification": "MBBS, Diploma in Family Medicine",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "14 YEARS Experience",
+            "regularFee": "₹720",
+            "discountFee": "₹520",
+            "rating": "4.6",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "10",
+            "doctorName": "Dr. Kavita Singh",
+            "qualification": "MBBS, MD (General Medicine)",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "21 YEARS Experience",
+            "regularFee": "₹950",
+            "discountFee": "₹750",
+            "rating": "5.0",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+        ];
+
+        progressDialog.show();
+
+// simulate delay (ya API ke jagah ye static data)
+        Future.delayed(Duration(milliseconds: 1000), () {
+          final DoctorsListB staticResponse = DoctorsListB(
+            status: 200,
+            message: null,
+            response: staticDoctorList.map((e) => DoctorsListResponse.fromJson(e)).toList(),
+          );
+
+          var newres = staticResponse;
+
+          if (newres.message != null) {
+            progressDialog.hide();
+            final snackBar = SnackBar(content: Text(newres.message!));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          } else if (newres.response != null && newres.response!.isNotEmpty) {
+            setState(() {
+              responselist = newres.response!;
+            });
+
+            progressDialog.hide(); // <-- ab hide reliably ho jayega
+            print(responselist.toString());
+          } else {
+            progressDialog.hide();
+            final snackBar = SnackBar(content: Text("Details Not Found"));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        });
+
+
+
+
+
+      } else {
+
+        final snackBar = SnackBar(
+          content: Text("No Internet, Check Connectivity!"),
+          behavior: SnackBarBehavior.floating,
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    });
+
   }
 }

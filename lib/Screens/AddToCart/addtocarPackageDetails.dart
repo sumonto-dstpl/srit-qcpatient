@@ -230,7 +230,7 @@ class AddtocardPackageDetails extends StatelessWidget {
                                          right: screenHeight * 0.00,
                                        ),
                                        child: Text(
-                                         "${plan} Asgar",
+                                         "${plan}",
                                          style: TextStyle(
                                            fontSize: screenHeight * 0.018,
                                            color: Color(0xFF000000),

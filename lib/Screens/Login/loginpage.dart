@@ -975,62 +975,108 @@ class LoginPagestate extends State<LoginPage> {
 
 //   UserNumberEditTextController?.text = "babureddy921234567@gmail.com";
         //   PasswordEditTextController?.text = "Test@123456";
+          String? username =  await UserSecureStorage.getUsernameid();
+          print("username : $username");
+        String digitsOnly = input.replaceAll(RegExp(r'\D'), '');
+        String last10 = digitsOnly.substring(digitsOnly.length - 10);
+
           dynamic user = await apiService.submitlogin(
 
               "babureddy921234567@gmail.com",
               base64Encode(utf8.encode("Test@123456")));
 
-          if (user.accessToken != null) {
-            // progressDialog.hide();
-            await UserSecureStorage.setTokenvalue(user.accessToken);
-            await UserSecureStorage.setRefreshTokenvalue(user.refreshToken);
-            // await UserSecureStorage.setIfLogged("YES");
-            // await UserSecureStorage.setIfLoggedOut("NO");
-            await UserSecureStorage.setIfGuestLogged("NO");
-            // await UserSecureStorage.setIfLoggedOut("NO");
 
-            // String? username =  await UserSecureStorage.getUsernameid();
-            Map<String, dynamic>? userData = await UserSecureStorage.getUser(input.substring(3).trim());
-            String? mpin = userData?['mpin'];
+          // if (user.accessToken != null) {
+          //   // progressDialog.hide();
+          //   await UserSecureStorage.setTokenvalue(user.accessToken);
+          //   await UserSecureStorage.setRefreshTokenvalue(user.refreshToken);
+          //   // await UserSecureStorage.setIfLogged("YES");
+          //   // await UserSecureStorage.setIfLoggedOut("NO");
+          //   await UserSecureStorage.setIfGuestLogged("NO");
+          //   // await UserSecureStorage.setIfLoggedOut("NO");
+          //
+          //   // String? username =  await UserSecureStorage.getUsernameid();
+          //   Map<String, dynamic>? userData = await UserSecureStorage.getUser(input.substring(3).trim());
+          //   String? mpin = userData?['mpin'];
+          //
+          //   if(userData == null){
+          //     // showTopNotification(context, title: title, message: message, type: typ)
+          //     Navigator.of(context).push(
+          //         MaterialPageRoute(builder: (context) => Registration())
+          //     );
+          //   }
+          //
+          //   if(mpin!.isEmpty)
+          //     {
+          //       Navigator.of(context).push(
+          //           MaterialPageRoute(builder: (context) => MpinResetSettings(mobileNumber: input.substring(3)))
+          //       );
+          //     }
+          //   else{
+          //     Navigator.of(context).push(
+          //         MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber: input.substring(3)))
+          //     );
+          //   }
+          //
+          //
+          //   // Navigator.of(context).pushAndRemoveUntil(
+          //   //     MaterialPageRoute(builder: (context) => HomePageMain()),
+          //   //     (Route<dynamic> route) => false);
+          // } else if (user.message != null) {
+          //   // progressDialog.hide();
+          //
+          //   final snackBar = SnackBar(
+          //     content: Text(user.message),
+          //     backgroundColor: Colors.red[600],
+          //   );
+          //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          //
+          //   /* Navigator.of(context).pushAndRemoveUntil(
+          //       MaterialPageRoute(builder: (context) => HomePageMain()),
+          //           (Route<dynamic> route) => false);*/
+          //
+          //   // customalert.showError(context, user.error);
+          //
+          //
+          //
+          // }
 
-            if(userData == null){
-              // showTopNotification(context, title: title, message: message, type: typ)
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => Registration())
-              );
-            }
+        if(username == last10) {
+          await UserSecureStorage.setIfGuestLogged("NO");
 
-            if(mpin!.isEmpty)
-              {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => MpinResetSettings(mobileNumber: input.substring(3)))
-                );
-              }
-            else{
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber: input.substring(3)))
-              );
-            }
+          Map<String, dynamic>? userData = await UserSecureStorage.getUser(input.substring(3).trim());
+          String? mpin = userData?['mpin'];
 
-
-            // Navigator.of(context).pushAndRemoveUntil(
-            //     MaterialPageRoute(builder: (context) => HomePageMain()),
-            //     (Route<dynamic> route) => false);
-          } else if (user.message != null) {
-            // progressDialog.hide();
-
-            final snackBar = SnackBar(
-              content: Text(user.message),
-              backgroundColor: Colors.red[600],
+          if(userData == null){
+            // showTopNotification(context, title: title, message: message, type: typ)
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => Registration())
             );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-            /* Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => HomePageMain()),
-                    (Route<dynamic> route) => false);*/
-
-            // customalert.showError(context, user.error);
           }
+
+          if(mpin!.isEmpty)
+          {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => MpinResetSettings(mobileNumber: input.substring(3)))
+            );
+          }
+          else{
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber: input.substring(3)))
+            );
+          }
+
+        }
+
+        else {
+          showTopNotification(
+            context,
+            title: "Login Credential",
+            message: "Invalid User Credentails",
+            type: NotificationType.error,
+          );
+
+        }
       } else {
         // No-Internet Case
         final snackBar = SnackBar(

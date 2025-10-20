@@ -24,14 +24,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 import 'package:newfolder/Screens/Widgets/readmoreless.dart';
+import 'package:newfolder/utils/physical_virtual_bottomnavigationbar.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
 import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 
 class DoctorDetilPage extends StatefulWidget {
   final String? doctoridval;
-
-  DoctorDetilPage(this.doctoridval, {Key? key}) : super(key: key);
+  final Map?  doctorDetail;
+  final String? physical_virtual_mode;
+  DoctorDetilPage(this.doctoridval , {Key? key, this.doctorDetail,this.physical_virtual_mode = "physical",}) : super(key: key);
 
   @override
   State<DoctorDetilPage> createState() => DoctorDetilPagestate();
@@ -62,7 +64,7 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
   void initState() {
 
     super.initState();
-    getSharedPrefs();
+    // getSharedPrefs();
   }
 
   Future getSharedPrefs() async {
@@ -74,6 +76,7 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
 
   @override
   Widget build(BuildContext context) {
+
     progressDialog = ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: true, showLogs: false);
     progressDialog.style(
@@ -96,6 +99,7 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
             color: Colors.black,
             fontSize: MediaQuery.of(context).size.height * 0.018,
             fontWeight: FontWeight.w600));
+
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     TextEditingController SearchEditTextController = TextEditingController();
@@ -362,7 +366,8 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                               bottom:
                                   MediaQuery.of(context).size.height * 0.00),
                           child: Text(
-                            doctornameval,
+                            // doctornameval,
+                            (widget.doctorDetail?['doctorName'] ?? "Dr. Nutan Bhatt") as String,
                             style: TextStyle(
                                 color: Color(0xFF126086),
                                 overflow: TextOverflow.ellipsis,
@@ -379,7 +384,8 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                               bottom:
                                   MediaQuery.of(context).size.height * 0.00),
                           child: Text(
-                            completedSpecialityString,
+                            // completedSpecialityString,
+                            widget.doctorDetail?['speciality'] ?? "General Physician / Internal Medicine",
                             style: TextStyle(
                                 color: Colors.black54,
                                 fontWeight: FontWeight.bold,
@@ -396,13 +402,15 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                               bottom:
                                   MediaQuery.of(context).size.height * 0.00),
                           child: Text(
-                            qualificationval,
-                            style: TextStyle(
+                            // qualificationval,
+                              (widget.doctorDetail?['experience'] ?? "41 YEARS Experience- MBBS, DIPLOMA IN FAMILY MEDICINE") + "(123 Reviews)",
+
+                              style: TextStyle(
                                 color: Color(0xFF126086),
                                 fontWeight: FontWeight.bold,
                                 // overflow: TextOverflow.ellipsis,
                                 fontSize:
-                                    MediaQuery.of(context).size.height * 0.013),
+                                    MediaQuery.of(context).size.height * 0.012),
                           ),
                         ),
                       ],
@@ -428,7 +436,6 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                         ),
                       ),
                     ),
-
                     Container(
                       padding: EdgeInsets.only(
                           left: MediaQuery.of(context).size.height * 0.02,
@@ -468,7 +475,8 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          workingTimeval,
+                          // workingTimeval,
+                          "10:00 am - 08:00 pm" ,
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.height * 0.014,
                             color: Color(0x99000000),
@@ -863,484 +871,23 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
       ),
 
 
-      // Bottom Navigation with another  positioned on the right
-      // bottomNavigationBar:Container(
-      //   // height: MediaQuery.of(context).size.height * 0.150,
-      //   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
-      //   child: Column(
-      //     mainAxisSize: MainAxisSize.min,
-      //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //     children: [
-      //
-      //       // Consultation Fees
-      //       Padding(
-      //         padding: EdgeInsets.only(
-      //             left: MediaQuery.of(context).size.height * 0.015,
-      //             right: MediaQuery.of(context).size.height * 0.015,
-      //             bottom: MediaQuery.of(context).size.height * 0.00),
-      //         child: Row(
-      //             crossAxisAlignment: CrossAxisAlignment.center,
-      //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //             children: <Widget>[
-      //               Container(
-      //                 padding: EdgeInsets.only(
-      //                     left:
-      //                     MediaQuery.of(context).size.height * 0.00,
-      //                     right:
-      //                     MediaQuery.of(context).size.height * 0.00,
-      //                     top:
-      //                     MediaQuery.of(context).size.height * 0.00,
-      //                     bottom: MediaQuery.of(context).size.height *
-      //                         0.00),
-      //                 child: Text(
-      //                   "Consultation Fees",
-      //                   style: TextStyle(
-      //                     color: Colors.black,
-      //                     fontWeight: FontWeight.bold,
-      //                     overflow: TextOverflow.ellipsis,
-      //                     fontSize:
-      //                     MediaQuery.of(context).size.height * 0.016,
-      //                   ),
-      //                 ),
-      //               ),
-      //               Container(
-      //                 decoration: BoxDecoration(
-      //                   // color:Colors.white,
-      //                   borderRadius: BorderRadius.circular(15),
-      //                 ),
-      //                 // color:Colors.green[100],
-      //                 padding: EdgeInsets.only(
-      //                     left:
-      //                     MediaQuery.of(context).size.height * 0.0,
-      //                     right:
-      //                     MediaQuery.of(context).size.height * 0.0,
-      //                     top:
-      //                     MediaQuery.of(context).size.height * 0.00,
-      //                     bottom: MediaQuery.of(context).size.height *
-      //                         0.00),
-      //                 child: Row(
-      //                     mainAxisAlignment:
-      //                     MainAxisAlignment.spaceBetween,
-      //                     crossAxisAlignment: CrossAxisAlignment.center,
-      //                     children: <Widget>[
-      //                       Container(
-      //                         margin:
-      //                         EdgeInsets.symmetric(horizontal: 2),
-      //                         height:
-      //                         MediaQuery.of(context).size.height *
-      //                             0.01,
-      //                         width:
-      //                         MediaQuery.of(context).size.height *
-      //                             0.01,
-      //                         decoration: BoxDecoration(
-      //                           color: Colors.black,
-      //                           shape: BoxShape.circle,
-      //                         ),
-      //                       ),
-      //                       Row(
-      //                         children: <Widget>[
-      //                           Container(
-      //                               padding: EdgeInsets.only(
-      //                                   left: MediaQuery.of(context)
-      //                                       .size
-      //                                       .height *
-      //                                       0.005,
-      //                                   right: MediaQuery.of(context)
-      //                                       .size
-      //                                       .height *
-      //                                       0.00,
-      //                                   top: MediaQuery.of(context)
-      //                                       .size
-      //                                       .height *
-      //                                       0.00,
-      //                                   bottom: MediaQuery.of(context)
-      //                                       .size
-      //                                       .height *
-      //                                       0.00),
-      //                               child: Text(
-      //                                 'QR 999',
-      //                                 style: TextStyle(
-      //                                   // color: Colors.blue[600],
-      //                                     color: Colors.black,
-      //                                     fontWeight: FontWeight.bold,
-      //                                     overflow:
-      //                                     TextOverflow.ellipsis,
-      //                                     decoration: TextDecoration
-      //                                         .lineThrough,
-      //                                     decorationThickness: 2,
-      //                                     fontSize:
-      //                                     MediaQuery.of(context)
-      //                                         .size
-      //                                         .height *
-      //                                         0.016),
-      //                               )),
-      //                           Container(
-      //                             padding: EdgeInsets.only(
-      //                                 left: MediaQuery.of(context)
-      //                                     .size
-      //                                     .height *
-      //                                     0.005,
-      //                                 right: MediaQuery.of(context)
-      //                                     .size
-      //                                     .height *
-      //                                     0.00,
-      //                                 top: MediaQuery.of(context)
-      //                                     .size
-      //                                     .height *
-      //                                     0.00,
-      //                                 bottom: MediaQuery.of(context)
-      //                                     .size
-      //                                     .height *
-      //                                     0.00),
-      //                             child: Text(
-      //                               "Free",
-      //                               style: TextStyle(
-      //                                 // color: Colors.blue[600],
-      //                                   color: Color(0xFF12B76A),
-      //                                   fontWeight: FontWeight.bold,
-      //                                   overflow: TextOverflow.ellipsis,
-      //                                   fontSize: MediaQuery.of(context)
-      //                                       .size
-      //                                       .height *
-      //                                       0.016),
-      //                             ),
-      //                           ),
-      //                         ],
-      //                       )
-      //                     ]),
-      //               ),
-      //             ]),
-      //       ),
-      //
-      //       // Next Button
-      //
-      //       GestureDetector(
-      //         onTap: () {
-      //           Navigator.of(context).push(
-      //             MaterialPageRoute(
-      //               builder: (BuildContext context) {
-      //                 return SelectTimeSlot(widget.doctoridval);
-      //               },
-      //             ),
-      //           );
-      //         },
-      //         child: Padding(
-      //           padding:
-      //           EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
-      //           child: Column(
-      //             mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //             children: [
-      //               // Login Button
-      //               Container(
-      //                   alignment: Alignment.centerRight,
-      //                   padding: EdgeInsets.only(
-      //                       top: MediaQuery.of(context).size.height *
-      //                           0.01,
-      //                       bottom: MediaQuery.of(context).size.height *
-      //                           0.00,
-      //                       left: MediaQuery.of(context).size.height *
-      //                           0.00,
-      //                       right: MediaQuery.of(context).size.height *
-      //                           0.00),
-      //                   margin: EdgeInsets.only(
-      //                       right: MediaQuery.of(context).size.height *
-      //                           0.04,
-      //                       top: MediaQuery.of(context).size.height *
-      //                           0.01,
-      //                       bottom: MediaQuery.of(context).size.height *
-      //                           0.01,
-      //                       left: MediaQuery.of(context).size.height *
-      //                           0.04),
-      //                   child: Row(
-      //                       crossAxisAlignment:
-      //                       CrossAxisAlignment.start,
-      //                       mainAxisAlignment: MainAxisAlignment.center,
-      //                       children: <Widget>[
-      //                         Expanded(
-      //                           child: Container(
-      //                             decoration: BoxDecoration(
-      //                                 borderRadius:
-      //                                 BorderRadius.circular(
-      //                                     MediaQuery.of(context)
-      //                                         .size
-      //                                         .height *
-      //                                         0.012),
-      //                                 gradient: LinearGradient(
-      //                                     begin: Alignment.centerRight,
-      //                                     end: Alignment.center,
-      //                                     stops: [
-      //                                       0.5,
-      //                                       0.9
-      //                                     ],
-      //                                     colors: [
-      //                                       Color(0xFF126086),
-      //                                       Color(0xFF126086),
-      //                                     ])),
-      //                             alignment: Alignment.center,
-      //                             padding: EdgeInsets.only(left: 0.0),
-      //                             child: TextButton(
-      //                               onPressed: () async {
-      //                                 Navigator.of(context).push(
-      //                                   MaterialPageRoute(
-      //                                     builder:
-      //                                         (BuildContext context) {
-      //                                       return SelectTimeSlot(
-      //                                           widget.doctoridval);
-      //                                     },
-      //                                   ),
-      //                                 );
-      //                               },
-      //                               child: Text("Book Appointment",
-      //                                   textAlign: TextAlign.center,
-      //                                   style: TextStyle(
-      //                                       color: Colors.white,
-      //                                       fontSize:
-      //                                       MediaQuery.of(context)
-      //                                           .size
-      //                                           .height *
-      //                                           0.02)),
-      //                             ),
-      //                           ),
-      //                         ),
-      //                       ])),
-      //             ],
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
-      bottomNavigationBar:Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              offset: Offset(0, -3), // Makes the shadow appear above
-              blurRadius: 6,
-            ),
+
+
+      bottomNavigationBar: PhysicalVirtualFooter(
+          feesType: "Consulation Fees",
+          qr: "Free",
+          butotnName: "Book Appoinmnet",
+          colors: [
+            Color(0xFF126086),
+            Color(0xFF126086),
           ],
-        ),
-        // height: MediaQuery.of(context).size.height * 0.150,
-        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-
-            // Consultation Fees
-            Padding(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.02,
-                bottom: MediaQuery.of(context).size.height * 0.01,
-                left: MediaQuery.of(context).size.height * 0.05,
-                right: MediaQuery.of(context).size.height * 0.05,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Consultation Fees",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize:
-                      MediaQuery.of(context).size.height * 0.015,
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      // color:Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    // color:Colors.green[100],
-                    padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.0,
-                        right: MediaQuery.of(context).size.height * 0.0,
-                        top: MediaQuery.of(context).size.height * 0.00,
-                        bottom:
-                        MediaQuery.of(context).size.height * 0.00),
-                    child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 2),
-                            height: MediaQuery.of(context).size.height *
-                                0.005,
-                            width: MediaQuery.of(context).size.height *
-                                0.005,
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Container(
-                                  padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.005,
-                                      right: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.00,
-                                      top: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.00,
-                                      bottom: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.00),
-                                  child: Text(
-                                    'QR 999',
-                                    style: TextStyle(
-                                      // color: Colors.blue[600],
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w400,
-                                        overflow: TextOverflow.ellipsis,
-                                        decoration:
-                                        TextDecoration.lineThrough,
-                                        decorationThickness: 2,
-                                        fontSize: MediaQuery.of(context)
-                                            .size
-                                            .height *
-                                            0.014
-                                    ),
-                                  )),
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.005,
-                                    right: MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.00,
-                                    top: MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.00,
-                                    bottom: MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.00),
-                                child: Text(
-                                  "Free",
-                                  style: TextStyle(
-                                    // color: Colors.blue[600],
-                                      color: Color(0xFF12B76A),
-                                      fontWeight: FontWeight.w500,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontSize: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.014
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                        ]),
-                  ),
-                ],
-              ),
-            ),
-
-            // Book Appointment
-
-            GestureDetector(
-              onTap: () async {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => SelectTimeSlot(widget.doctoridval),
-                  ),
-                );
-              },
-              child:
-              Container(
-                  alignment: Alignment.centerRight,
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height *
-                          0.0,
-                      bottom: MediaQuery.of(context).size.height *
-                          0.00,
-                      left: MediaQuery.of(context).size.height *
-                          0.005,
-                      right: MediaQuery.of(context).size.height *
-                          0.005),
-                  margin: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.height *
-                          0.04,
-                      top: MediaQuery.of(context).size.height *
-                          0.01,
-                      bottom: MediaQuery.of(context).size.height *
-                          0.01,
-                      left: MediaQuery.of(context).size.height *
-                          0.04),
-                  child: Row(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.circular(
-                                    MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.012),
-                                gradient: LinearGradient(
-                                    begin: Alignment.centerRight,
-                                    end: Alignment.center,
-                                    stops: [
-                                      0.5,
-                                      0.9
-                                    ],
-                                    colors: [
-                                      Color(0xFF126086),
-                                      Color(0xFF126086),
-                                    ])),
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.only(left: 0.0),
-                            child: TextButton(
-                              onPressed: () async {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => SelectTimeSlot(widget.doctoridval),
-                                  ),
-                                );
-                              },
-                              child: Text("Book Appointment",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize:
-                                      MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.02)
-                              ),
-                              style: TextButton.styleFrom(
-                                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0), // ← Adjust this
-                                minimumSize: Size(0, 0), // Removes minimum button constraints
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Removes extra tap padding
-                              ),
-
-                            ),
-                          ),
-                        ),
-                      ])),
-            ),
-          ],
-        ),
+          onBookAppointment: () async {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => SelectTimeSlot(widget.doctoridval,doctorDetail: widget.doctorDetail,physical_virtual_mode: widget.physical_virtual_mode,),
+                                        ),
+                                      );
+                                    },
       ),
     );
   }

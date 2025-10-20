@@ -42,7 +42,8 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
 
   Future getSharedPrefs() async {
     // CheckSession();
-    getDoctorDetails();
+    // getDoctorDetails();
+    getText();
   }
 
   ConnectivityService connectivityservice = ConnectivityService();
@@ -81,6 +82,47 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
             print("secondHalf : $secondHalf");
           });
         }
+      } else {
+        // No-Internet Case
+        final snackBar = SnackBar(
+          content: Text("No Internet, Check Connectivity!"),
+          behavior: SnackBarBehavior.floating,
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    });
+  }
+
+  void getText() {
+    connectivityservice.checkconnectivity().then((intenet) async {
+      if (intenet != null && intenet) {
+
+
+
+
+          about = "Dr Nutan Bhatt Km is a highly experienced General Physician/Internal Medicine specialist in Bengaluru with over ten years of medical practice. He has a wealth of knowledge about treating a wide range of health conditions, including diabetes, diabetic ulcers, insulin treatment, hypertension, and chronic respiratory issues. Dr Faseeh Km also carefully diagnoses and treats common ailments such as fever, cold, infections, and minor injuries.";
+          setState(() {
+            if (about != null) {
+              List<String> words = about.split(" ");
+
+              // Setting approximately 4-5 lines in firstHalf
+              if (words.length > 40) {
+                firstHalf = words.sublist(0, 40).join(" ");
+                secondHalf = words.sublist(40).join(" ");
+              } else {
+                firstHalf = about;
+                secondHalf = "";
+              }
+            } else {
+              firstHalf = "";
+              secondHalf = "";
+            }
+
+            print("firstHalf : $firstHalf");
+            print("secondHalf : $secondHalf");
+          });
+
       } else {
         // No-Internet Case
         final snackBar = SnackBar(

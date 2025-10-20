@@ -32,7 +32,7 @@ class BottomSheetForPaymentState extends State<BottomSheetForPaymentForMedicatio
   int selectedCategoryIndex = 0;
 
 
-  double _currentChildSize = 0.55;
+  double _currentChildSize = 0.52;
   bool _isDismissed = false;
   double _lastExtent = 0.55;
   final DraggableScrollableController _sheetController = DraggableScrollableController();
@@ -1172,6 +1172,9 @@ class BottomSheetForPaymentState extends State<BottomSheetForPaymentForMedicatio
                             ),
                           ])),
                 ),
+
+                SizedBox(height: MediaQuery.of(context).size.height *0.015,),
+
               ],
             ),
   ),

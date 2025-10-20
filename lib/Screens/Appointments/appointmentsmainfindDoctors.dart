@@ -874,7 +874,9 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                                           MaterialPageRoute(
                                             builder: (BuildContext context) {
                                               return FindDoctorsListMain(
-                                                  "videoconference"); // Replace with your specific widget
+                                                  "videoconference",
+                                                physical_virtual_mode: "virtual",
+                                              ); // Replace with your specific widget
                                             },
                                           ),
                                         );
