@@ -3828,7 +3828,9 @@ class ProfileMainstate extends State<ProfileMain> {
                                     onTap: () async {
                                       // await UserSecureStorage.setIfLogged(
                                       //     "NO");
-                                      await UserSecureStorage.clearAllExceptUsers();
+                                      // await UserSecureStorage.clearAllExceptUsers();
+                                      await UserSecureStorage.clearSessionDataOnly();
+
                                       Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
                                           builder: (BuildContext context) =>

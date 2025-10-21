@@ -229,6 +229,25 @@ class UserSecureStorage {
     }
   }
 
+  // Clears only session-related data while preserving users and cart info
+  static Future<void> clearSessionDataOnly() async {
+    // Only clear keys related to session or authentication
+    final keysToClear = [
+      _keyTokenvalue,
+      _keyTokenrefreshvalue,
+      _keyTokenresetpasswordvalue,
+      _keyChecklogin,
+      _keyCheckGuestlogin,
+      _keyChecklogout,
+      _keydashid,
+    ];
+
+    for (final key in keysToClear) {
+      await _storage.delete(key: key);
+    }
+  }
+
+
 
 
   static Future<void> saveAddToCard({
