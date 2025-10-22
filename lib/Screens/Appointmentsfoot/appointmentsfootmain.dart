@@ -788,7 +788,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                       display3Dots: true,
                                                       onThreeDotsTap: () async {
                                                         print("click");
-                                                        showBottomSheet();
+                                                        showBottomSheet(username: item['doctorName'],profession: item['profession']);
                                                       },
                                                       doctorName: item['doctorName'],
                                                       profession: item['profession'],
@@ -1140,7 +1140,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
 
 
 
-  void showBottomSheet() {
+  void showBottomSheet({String? username,String? profession}) {
     double height = MediaQuery.of(context).size.height ;
     double width = MediaQuery.of(context).size.width ;
 
@@ -1405,7 +1405,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                 Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                     builder: (BuildContext context) {
-                                                      return MedicatiSelectTimeSlot( "");
+                                                      return MedicatiSelectTimeSlot("",username: username,profession: profession,);
                                                     },
                                                   ),
                                                 );

@@ -22,16 +22,18 @@ import '../../utils/TimeSlotSelector.dart';
 import '../../utils/custom_calendar.dart';
 
 class MedicatiSelectTimeSlot extends StatefulWidget {
+  String? username ;
+  String? profession;
   final String? doctoridval;
 
-  MedicatiSelectTimeSlot(this.doctoridval, {Key? key}) : super(key: key);
+  MedicatiSelectTimeSlot(this.doctoridval, {Key? key,this.username,this.profession}) : super(key: key);
 
   @override
   State<MedicatiSelectTimeSlot> createState() => MedicatiSelectTimeSlotstate();
 }
 
 class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
-  String usernameValue = "Hello, Priya Krishnamurty";
+
   String useraddressValue = "Reg: TSMC/FMR/09823";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
@@ -78,7 +80,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
   @override
   Widget build(BuildContext context) {
     progressDialog = ProgressDialog(context,
-        type: ProgressDialogType.Normal, isDismissible: true, showLogs: false);
+        type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
     progressDialog.style(
         message: 'Loading..' '\nPlease Wait',
         borderRadius: 10.0,
@@ -608,7 +610,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                "Dr. Nutan Bhatt",
+                                 widget.username ?? "Dr. Nutan Bhatt",
                                 style: TextStyle(
                                   color: Color(0xFF126086),
                                   fontWeight: FontWeight.w600,
@@ -616,52 +618,52 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                                   MediaQuery.of(context).size.height * 0.02,
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () async {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) {
-                                        return DoctorDetilPage(
-                                            widget.doctoridval);
-                                      },
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.005,
-                                      right:
-                                      MediaQuery.of(context).size.height *
-                                          0.0,
-                                      bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.0,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.005),
-                                  padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.00,
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(130.0),
-                                    child: Image.asset(
-                                      'assets/Infodocdetails.png',
-                                      height:
-                                      MediaQuery.of(context).size.height *
-                                          0.014, // Adjust height
-                                      width:
-                                      MediaQuery.of(context).size.height *
-                                          0.014, // Adjust width
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              // GestureDetector(
+                              //   onTap: () async {
+                              //     Navigator.of(context).push(
+                              //       MaterialPageRoute(
+                              //         builder: (BuildContext context) {
+                              //           return DoctorDetilPage(
+                              //               widget.doctoridval);
+                              //         },
+                              //       ),
+                              //     );
+                              //   },
+                              //   child: Container(
+                              //     margin: EdgeInsets.only(
+                              //         left: MediaQuery.of(context).size.height *
+                              //             0.005,
+                              //         right:
+                              //         MediaQuery.of(context).size.height *
+                              //             0.0,
+                              //         bottom:
+                              //         MediaQuery.of(context).size.height *
+                              //             0.0,
+                              //         top: MediaQuery.of(context).size.height *
+                              //             0.005),
+                              //     padding: EdgeInsets.only(
+                              //       left: MediaQuery.of(context).size.height *
+                              //           0.00,
+                              //     ),
+                              //     child: ClipRRect(
+                              //       borderRadius: BorderRadius.circular(130.0),
+                              //       child: Image.asset(
+                              //         'assets/Infodocdetails.png',
+                              //         height:
+                              //         MediaQuery.of(context).size.height *
+                              //             0.014, // Adjust height
+                              //         width:
+                              //         MediaQuery.of(context).size.height *
+                              //             0.014, // Adjust width
+                              //         fit: BoxFit.fill,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                             ]),
                         SizedBox(height: 4),
                         Text(
-                          "General physician / Internal Medicine",
+                          widget.profession ?? "General physician / Internal Medicine",
                           // completedSpecialityString,
                           style: TextStyle(
                             color: Colors.black54,

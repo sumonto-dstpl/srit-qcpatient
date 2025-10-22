@@ -22,6 +22,7 @@ import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Widgets/UploadBox.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
+import 'package:newfolder/Screens/Widgets/homecare_otherservices_address_screen.dart';
 import 'package:newfolder/constants/time_slot_constants.dart';
 import 'package:newfolder/utils/custom_calendar.dart';
 
@@ -984,18 +985,20 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
 
                           final result = await Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (BuildContext context) => GoogleMapScreen(),
+                              builder: (BuildContext context) => HomecareOtherservicesAddressScreen(),
                             ),
                           );
 
                           print("Selected Address: $result");
+                          if(result != null) {
+                            setState(() {
+                              location.add([
+                                result['street'],
+                                "${result['landmark'].toString().isNotEmpty ? result['landmark'].toString().isNotEmpty :  result['thoroughfare']} ${result['address'].toString().isNotEmpty ? result['address'].toString().isNotEmpty : result['subLocality']} ${result['city']}",
+                              ]);
+                            });
+                          }
 
-                          setState(() {
-                             location.add([
-                                result['name'],
-                               "${result['thoroughfare']} ${result['subLocality']} ${result['city']}",
-                             ]);
-                          });
                         },
                         child: Container(
                           color : Colors.transparent,

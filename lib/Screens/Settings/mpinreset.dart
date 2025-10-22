@@ -142,7 +142,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 //   @override
 //   Widget build(BuildContext context) {
 //     progressDialog = ProgressDialog(context,
-//         type: ProgressDialogType.Normal, isDismissible: true, showLogs: false);
+//         type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
 //     progressDialog.style(
 //         message: 'Loading..' '\nPlease Wait',
 //         borderRadius: 10.0,

@@ -8,17 +8,53 @@ class AddFilterForFullBodyCheckup extends StatefulWidget {
 }
 
 class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup> {
-  final FocusNode _focusNode = FocusNode();
+  final FocusNode _focusNode1 = FocusNode();
+  final FocusNode _focusNode2 = FocusNode();
 
   DraggableScrollableController  _scrollController = DraggableScrollableController();
 
 
-  TextEditingController SearchEditTextController = TextEditingController();
-  TextEditingController SearchfilterEditTextController = TextEditingController();
+
+  TextEditingController SearchfilterEditTextController1 = TextEditingController();
+  TextEditingController SearchfilterEditTextController2 = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+
+    // Listen for focus changes (keyboard open)
+    _focusNode1.addListener(() {
+      if (_focusNode1.hasFocus) {
+        // Expand sheet when textfield gets focus
+        Future.delayed(const Duration(milliseconds: 150), () {
+          _sheetController.animateTo(
+            0.95, // expand to top
+            duration: const Duration(milliseconds: 250),
+            curve: Curves.easeOut,
+          );
+        });
+      }
+    });
+
+    _focusNode2.addListener(() {
+      if (_focusNode2.hasFocus) {
+        // Expand sheet when textfield gets focus
+        Future.delayed(const Duration(milliseconds: 150), () {
+          _sheetController.animateTo(
+            0.95, // expand to top
+            duration: const Duration(milliseconds: 250),
+            curve: Curves.easeOut,
+          );
+        });
+      }
+    });
+  }
   @override
   void dispose() {
 
-    _focusNode.dispose();
+    _focusNode1.dispose();
+    _focusNode2.dispose();
     _scrollController.dispose();
     super.dispose();
   }
@@ -87,6 +123,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
   bool _isDismissed = false;
   double _lastExtent = 0.55;
   final DraggableScrollableController _sheetController = DraggableScrollableController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -531,7 +568,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
         // Search Input Field
         GestureDetector(
           onTap: () {
-            _focusNode.requestFocus(); // Show keyboard
+            _focusNode1.requestFocus(); // Show keyboard
           },
           child: Container(
 
@@ -550,10 +587,10 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
               left: MediaQuery.of(context).size.height * 0.01,
             ),
             child: TextFormField(
-              focusNode: _focusNode, // Attach the focus node
+              focusNode: _focusNode1, // Attach the focus node
               readOnly: false, // Important: set to false so it can accept input
 
-              controller: SearchfilterEditTextController,
+              controller: SearchfilterEditTextController1,
               inputFormatters: [
                 LengthLimitingTextInputFormatter(15),
                 FilteringTextInputFormatter.allow(
@@ -1432,7 +1469,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
         // Search Input Field
         GestureDetector(
           onTap: () {
-            _focusNode.requestFocus(); // Show keyboard
+            _focusNode2.requestFocus(); // Show keyboard
           },
           child: Container(
 
@@ -1451,10 +1488,10 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
               left: MediaQuery.of(context).size.height * 0.01,
             ),
             child: TextFormField(
-              focusNode: _focusNode, // Attach the focus node
+              focusNode: _focusNode2, // Attach the focus node
               readOnly: false, // Important: set to false so it can accept input
 
-              controller: SearchfilterEditTextController,
+              controller: SearchfilterEditTextController2,
               inputFormatters: [
                 LengthLimitingTextInputFormatter(15),
                 FilteringTextInputFormatter.allow(
