@@ -1336,7 +1336,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                                   width:  height * 0.025,
                                                                   child:
                                                                   Image.asset(
-                                                                    'assets/AppointmentBs.png',
+                                                                    'assets/CancelAppointment.png',
                                                                     fit:
                                                                     BoxFit.fill,
                                                                   ),
@@ -1493,9 +1493,11 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                                   width:  height * 0.025,
                                                                   child:
                                                                   Image.asset(
-                                                                    'assets/TestServicesBs.png',
+                                                                    'assets/RescheduleAppointment.png',
                                                                     fit:
                                                                     BoxFit.fill,
+
+
                                                                   ),
                                                                 ),
 
