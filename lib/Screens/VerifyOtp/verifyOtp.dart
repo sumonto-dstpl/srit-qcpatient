@@ -6,6 +6,7 @@ import 'package:newfolder/Screens/Utils/auth_service.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:newfolder/Screens/VerifyOtp/forgetMpin.dart';
 
 import '../Utils/user_secure_storage.dart';
 
@@ -1600,8 +1601,11 @@ class Mpinstate extends State<MpinResetSettings> {
             Timer(Duration(seconds: 1), () {
               deleteForgetMpin();
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber:mobileNumber))
+                  MaterialPageRoute(builder: (context) => ForgetMpinScreen())
               );
+              // Navigator.of(context).push(
+              //     MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber:mobileNumber))
+              // );
             });
           }
           else{
