@@ -115,7 +115,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   Future getSharedPrefs() async {
 
     // progressDialog = ProgressDialog(context,
-    //     type: ProgressDialogType.Normal, isDismissible: true, showLogs: false);
+    //     type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
     // progressDialog.style(
     //     message: 'Loading..' '\nPlease Wait',
     //     borderRadius: 10.0,
@@ -163,7 +163,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   @override
   Widget build(BuildContext context) {
     // progressDialog = ProgressDialog(context,
-    //     type: ProgressDialogType.Normal, isDismissible: true, showLogs: false);
+    //     type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
     // progressDialog.style(
     //     message: 'Loading..' '\nPlease Wait',
     //     borderRadius: 10.0,

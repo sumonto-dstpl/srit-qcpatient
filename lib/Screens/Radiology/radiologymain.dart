@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:ui';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
@@ -10,44 +8,20 @@ import 'package:flutter/services.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
-import 'package:newfolder/Screens/Appointments/appointmentsfindspecialities.dart';
-import 'package:newfolder/Screens/Appointments/finddoctorslist.dart';
-import 'package:newfolder/Screens/Appointments/quicksearchwithdata.dart';
-import 'package:newfolder/Screens/Appointments/quicksearchwithoutdata.dart';
-import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
-import 'package:newfolder/Screens/HomeCare/diagnosticmain.dart';
-import 'package:newfolder/Screens/HomeCare/doctorhcmain.dart';
-import 'package:newfolder/Screens/HomeCare/medicalequipmentshcmain.dart';
-import 'package:newfolder/Screens/HomeCare/nursehcmain.dart';
-import 'package:newfolder/Screens/HomeCare/physiohcmain.dart';
-import 'package:newfolder/Screens/Login/loginhome.dart';
-import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Radiology/pastupcomingtestscan.dart';
-import 'package:newfolder/Screens/Registeration/registeration.dart';
-import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
-import 'package:newfolder/Screens/Utils/customNotification.dart';
-import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
+import 'package:newfolder/Screens/Widgets/custom_type_calender.dart';
 import 'package:newfolder/utils/UploadBox.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
-
-import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
-
-import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
-import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
 import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
-
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Alerts/loginbottomsheet.dart';
 import 'dart:async';
-import 'package:image_picker/image_picker.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 
 class RadiologyMain extends StatefulWidget {
@@ -1350,80 +1324,185 @@ class RadiologyMainstate extends State<RadiologyMain> {
                                 ),
                               ),
                             ),
+                            // Padding(
+                            //   padding: EdgeInsets.only(
+                            //     left: MediaQuery.of(context).size.height *
+                            //         0.02,
+                            //     right:
+                            //     MediaQuery.of(context).size.height *
+                            //         0.02,
+                            //     top :  MediaQuery.of(context).size.height *
+                            //         0.01,
+                            //   ),
+                            //   child: new TextFormField(
+                            //     controller:
+                            //     preffereddateEditTextController,
+                            //     readOnly: true,
+                            //     // onChanged: (value) => checkRadiologyField(),
+                            //
+                            //     onTap: () async {
+                            //       FocusScope.of(context).unfocus(); // Hide keyboard
+                            //
+                            //       // Open Custom Calendar in Bottom Sheet
+                            //       showModalBottomSheet(
+                            //         context: context,
+                            //         backgroundColor: Colors.white,
+                            //         shape: RoundedRectangleBorder(
+                            //           borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+                            //         ),
+                            //         builder: (_) {
+                            //           return Container(
+                            //             padding: EdgeInsets.all(16),
+                            //             height: 350, // Adjust as needed
+                            //             child: CustomTypeCalendar(
+                            //               onDateSelected: (selectedDate) {
+                            //                 String formattedDate =
+                            //                     "${selectedDate.day.toString().padLeft(2, '0')}-${selectedDate.month.toString().padLeft(2, '0')}-${selectedDate.year}";
+                            //
+                            //                 preffereddateEditTextController.text = formattedDate;
+                            //
+                            //
+                            //                 Navigator.pop(context); // Close bottom sheet after selection
+                            //               },
+                            //             ),
+                            //           );
+                            //         },
+                            //       );
+                            //
+                            //       checkRadiologyField();
+                            //     },
+                            //     inputFormatters: [
+                            //       LengthLimitingTextInputFormatter(15),
+                            //       // FilteringTextInputFormatter.allow(
+                            //       //     RegExp('[0-9]'))
+                            //     ],
+                            //
+                            //
+                            //     style: TextStyle(
+                            //       color: Color(0xFF111111),
+                            //       fontSize: MediaQuery.of(context).size.height * 0.012,
+                            //       fontWeight: FontWeight.w500,
+                            //     ),
+                            //
+                            //     validator: (input) => input!.length < 3
+                            //         ? "Mobile Number should be more than 3 characters"
+                            //         : null,
+                            //     /* validator: (input) => !input.contains('@')
+                            //   ? "Email Id should be valid"
+                            //   : null,*/
+                            //     decoration: new InputDecoration(
+                            //       isDense: true,
+                            //       contentPadding: EdgeInsets.fromLTRB(
+                            //         MediaQuery.of(context).size.height *
+                            //             0.02,
+                            //         MediaQuery.of(context).size.height *
+                            //             0.01,
+                            //         MediaQuery.of(context).size.height *
+                            //             0.01,
+                            //         MediaQuery.of(context).size.height *
+                            //             0.01,
+                            //       ),
+                            //       filled: true,
+                            //       fillColor: Color(0xFFFFFFFF),
+                            //       hintText: "Enter appointment date",
+                            //       hintStyle: TextStyle(
+                            //         color: Color(0x4D111111),
+                            //         fontSize: MediaQuery.of(context)
+                            //             .size
+                            //             .height *
+                            //             0.012,
+                            //         fontWeight: FontWeight.w500,
+                            //       ),
+                            //       focusedBorder: OutlineInputBorder(
+                            //         borderRadius:
+                            //         BorderRadius.circular(5.0),
+                            //         borderSide: BorderSide(
+                            //             color: Color(0xFFF1F1F1)),
+                            //       ),
+                            //       enabledBorder: OutlineInputBorder(
+                            //         borderRadius: BorderRadius.all(
+                            //             Radius.circular(5.0)),
+                            //         borderSide:
+                            //         BorderSide(color: Color(0xFFF1F1F1)),
+                            //       ),
+                            //       suffixIcon: Icon(Icons.calendar_today,  color: Color(0xFF126086)),
+                            //     ),
+                            //   ),
+                            // ),
                             Padding(
                               padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.height *
-                                    0.02,
-                                right:
-                                MediaQuery.of(context).size.height *
-                                    0.02,
-                                top :  MediaQuery.of(context).size.height *
-                                    0.01,
+                                left: MediaQuery.of(context).size.height * 0.02,
+                                right: MediaQuery.of(context).size.height * 0.02,
+                                top: MediaQuery.of(context).size.height * 0.01,
                               ),
-                              child: new TextFormField(
-                                controller:
-                                preffereddateEditTextController,
-                                onChanged: (value) => checkRadiologyField(),
-                                keyboardType: TextInputType.text,
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(15),
-                                  // FilteringTextInputFormatter.allow(
-                                  //     RegExp('[0-9]'))
-                                ],
+                              child: SizedBox(
+                                height: 32,
+                                child: TextFormField(
+                                  controller: preffereddateEditTextController,
+                                  readOnly: true,
+                                  onTap: () async {
+                                    FocusScope.of(context).unfocus(); // Hide keyboard
 
+                                    // Open Custom Calendar in Bottom Sheet
+                                    showModalBottomSheet(
+                                      context: context,
+                                      backgroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+                                      ),
+                                      builder: (_) {
+                                        return Container(
+                                          padding: EdgeInsets.all(16),
+                                          height: 350, // Adjust as needed
+                                          child: CustomTypeCalendar(
+                                            onDateSelected: (selectedDate) {
+                                              String formattedDate =
+                                                  "${selectedDate.day.toString().padLeft(2, '0')}-${selectedDate.month.toString().padLeft(2, '0')}-${selectedDate.year}";
 
-                                style: TextStyle(
-                                  color: Color(0xFF111111),
-                                  fontSize: MediaQuery.of(context).size.height * 0.012,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                              preffereddateEditTextController.text = formattedDate;
+                                              checkRadiologyField();
 
-                                validator: (input) => input!.length < 3
-                                    ? "Mobile Number should be more than 3 characters"
-                                    : null,
-                                /* validator: (input) => !input.contains('@')
-                              ? "Email Id should be valid"
-                              : null,*/
-                                decoration: new InputDecoration(
-                                  isDense: true,
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                    MediaQuery.of(context).size.height *
-                                        0.02,
-                                    MediaQuery.of(context).size.height *
-                                        0.01,
-                                    MediaQuery.of(context).size.height *
-                                        0.01,
-                                    MediaQuery.of(context).size.height *
-                                        0.01,
-                                  ),
-                                  filled: true,
-                                  fillColor: Color(0xFFFFFFFF),
-                                  hintText: "Enter appointment date",
-                                  hintStyle: TextStyle(
-                                    color: Color(0x4D111111),
-                                    fontSize: MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.012,
+                                              Navigator.pop(context); // Close bottom sheet after selection
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  style: TextStyle(
+                                    color: Color(0xFF111111),
+                                    fontSize: MediaQuery.of(context).size.height * 0.012,
                                     fontWeight: FontWeight.w500,
                                   ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius:
-                                    BorderRadius.circular(5.0),
-                                    borderSide: BorderSide(
-                                        color: Color(0xFFF1F1F1)),
+                                  validator: (input) => input!.isEmpty ? "Please select a date" : null,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    contentPadding: EdgeInsets.symmetric(
+                                      vertical: 8,
+                                      horizontal: 10,
+                                    ),
+                                    filled: true,
+                                    fillColor: Color(0xFFFFFFFF),
+                                    hintText: "Select Date",
+                                    hintStyle: TextStyle(
+                                      color: Color(0x4D111111),
+                                      fontSize: MediaQuery.of(context).size.height * 0.012,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    suffixIcon: Icon(Icons.calendar_today, size: 13, color: Color(0xFF126086)),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderSide: BorderSide(color: Color(0xFFF1F1F1)),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                      borderSide: BorderSide(color: Color(0xFFF1F1F1)),
+                                    ),
                                   ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(5.0)),
-                                    borderSide:
-                                    BorderSide(color: Color(0xFFF1F1F1)),
-                                  ),
-
                                 ),
-                              ),
+                              )
+                              ,
                             ),
-
 
                             //Choose Tests
                             Padding(

@@ -25,7 +25,7 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
   DraggableScrollableController  _scrollController = DraggableScrollableController();
 
 
-  TextEditingController SearchEditTextController = TextEditingController();
+
   TextEditingController SearchfilterEditTextController = TextEditingController();
   @override
   void dispose() {
@@ -205,8 +205,22 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
   @override
   void initState() {
     super.initState();
+
     filteredDoctors = filterDoctors(widget.getDoctors() ?? [], selectedFilters);
-    print(filteredDoctors);
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        // Expand sheet when textfield gets focus
+        Future.delayed(const Duration(milliseconds: 150), () {
+          _sheetController.animateTo(
+            0.95, // expand to top
+            duration: const Duration(milliseconds: 250),
+            curve: Curves.easeOut,
+          );
+        });
+      }
+    });
+
+
   }
 
 

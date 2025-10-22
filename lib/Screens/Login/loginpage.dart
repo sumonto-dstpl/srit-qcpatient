@@ -149,7 +149,7 @@ class LoginPagestate extends State<LoginPage> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     progressDialog = ProgressDialog(context,
-        type: ProgressDialogType.Normal, isDismissible: true, showLogs: false);
+        type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
     progressDialog.style(
         message: 'Authenticating..' '\nPlease Wait',
         borderRadius: 10.0,
