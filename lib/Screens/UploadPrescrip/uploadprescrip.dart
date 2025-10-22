@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
+import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
 import 'package:flutter/material.dart';
@@ -2322,35 +2323,47 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                               ),
                             ),
 
-                            Container(
-                              padding: EdgeInsets.only(
-                                  left: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.02,
-                                  right: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.0,
-                                  bottom: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.00,
-                                  top: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.01),
-                              color: Colors.white,
-                              child: Text(
-                                "Click Here for QuadraCyte Doctor Consultation",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontSize: MediaQuery
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (
+                                        BuildContext context) {
+                                      return AppointmentsFootMain();
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery
                                         .of(context)
                                         .size
-                                        .height * 0.012,
-                                    color: Color(0xFF126086),
-                                    fontWeight: FontWeight.w500
+                                        .height * 0.02,
+                                    right: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.0,
+                                    bottom: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.00,
+                                    top: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.01),
+                                color: Colors.white,
+                                child: Text(
+                                  "Click Here for QuadraCyte Doctor Consultation",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      fontSize: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height * 0.012,
+                                      color: Color(0xFF126086),
+                                      fontWeight: FontWeight.w500
+                                  ),
                                 ),
                               ),
                             ),

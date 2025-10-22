@@ -1007,23 +1007,23 @@ class PastUpcomingscanMainstate extends State<PastUpcomingscanMain> {
                                             bottom: MediaQuery.of(context).size.height * 0.0,
                                             top: MediaQuery.of(context).size.height * 0.04),
                                         color: Colors.white,
-                                        child:
-                                      Image.asset(
-                                        'assets/NoPreviousPrescriptionstoview.png',
-                                        // Replace with your image asset
-                                        height: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .height *
-                                            0.340,
-                                        // Adjust the height of the image
-                                        width: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .height *
-                                            0.340, // Adjust the width of the image
+                                        child: Image.asset(
+                                          'assets/NoPreviousPrescriptionstoview.png',
+                                          // Replace with your image asset
+                                          height: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height *
+                                              0.340,
+                                          // Adjust the height of the image
+                                          width: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height *
+                                              0.340, // Adjust the width of the image
+                                        ),
+
                                       ),
-                                  ),
                                       Container(
                                         padding: EdgeInsets.only(
                                           top: MediaQuery
