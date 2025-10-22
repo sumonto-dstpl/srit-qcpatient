@@ -8,7 +8,7 @@ class AppointmentCancel {
     TextEditingController? tracktextcontroller = TextEditingController();
 
     showDialog(
-      barrierDismissible: true,
+      barrierDismissible: false,
       barrierColor: Colors.transparent, // No dim overlay
       context: context,
       builder: (BuildContext context) {
@@ -18,7 +18,7 @@ class AppointmentCancel {
               filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop(); // ✅ Close on tap outside
+
               },
               child: Container(
                 width: double.infinity,

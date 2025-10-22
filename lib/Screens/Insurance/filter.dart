@@ -393,7 +393,19 @@ class AddFilterForFindDoctorListState extends State<FilterForImsurance> {
                     // Apply Filters
                     GestureDetector(
                       onTap: () async {
+                        if(selectedCount != 0) {
+                          List<String> selectedStatuses = [];
 
+                          if (_is_All_Selected) {
+                            selectedStatuses = ['approved', 'pending', 'rejected'];
+                          } else {
+                            if (_is_Approved_Selected) selectedStatuses.add('approved');
+                            if (_is_Approval_Selected) selectedStatuses.add('pending');
+                            if (_is_Rejected_Selected) selectedStatuses.add('rejected');
+                          }
+
+                          Navigator.pop(context, selectedStatuses); // return selected statuses
+                        }
                       },
                       child: Container(
                           alignment: Alignment.centerRight,
@@ -429,17 +441,7 @@ class AddFilterForFindDoctorListState extends State<FilterForImsurance> {
                                               .size
                                               .height *
                                               0.012),
-                                      // gradient: LinearGradient(
-                                      //     begin: Alignment.centerRight,
-                                      //     end: Alignment.center,
-                                      //     stops: [
-                                      //       0.5,
-                                      //       0.9
-                                      //     ],
-                                      //     colors: [
-                                      //       Color(0xFFA8B1CE),
-                                      //       Color(0xFFA8B1CE),
-                                      //     ])
+
                                       color: selectedCount == 0 ?  Color(0x99909090) : Color(0xFF126086),
 
                                     ),
@@ -447,6 +449,20 @@ class AddFilterForFindDoctorListState extends State<FilterForImsurance> {
                                     padding: EdgeInsets.zero,
                                     child: TextButton(
                                       onPressed: () async {
+                                        if(selectedCount != 0) {
+                                          List<String> selectedStatuses = [];
+
+                                          if (_is_All_Selected) {
+                                            selectedStatuses = ['approved', 'pending', 'rejected'];
+                                          } else {
+                                            if (_is_Approved_Selected) selectedStatuses.add('approved');
+                                            if (_is_Approval_Selected) selectedStatuses.add('pending');
+                                            if (_is_Rejected_Selected) selectedStatuses.add('rejected');
+                                          }
+
+                                          Navigator.pop(context, selectedStatuses); // return selected statuses
+                                        }
+
 
                                       },
                                       child: Text("Apply Filters",

@@ -24,8 +24,10 @@ import 'package:newfolder/Screens/Widgets/custom_type_calender.dart';
 class AddInsuranceMain extends StatefulWidget {
   int selectedIndex = 0;
 
+  Map? item;
   AddInsuranceMain({
     super.key,
+    this.item,
   });
 
   @override
@@ -38,39 +40,47 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
   int _selectedIndex = 0;
-  final mytopspecialities = [
-    ["assets/Diagnostic.png", "Diagnostic"],
-    ["assets/Doctor.png", "Doctor"],
-    ["assets/Nurse.png", "Nurse"],
-    ["assets/Physio.png", "Physio"],
-    ["assets/MedicalEquipment.png", "Medical Equipment's"],
-  ];
+
   String? selectedCity;
 
   String? selectedCountryId;
 
-  // Define the country values and names
-  final List<Map<String, String>> countries = [
-    {'id': '1', 'name': 'India'},
-    {'id': '2', 'name': 'United States'},
-    {'id': '3', 'name': 'Canada'},
-    {'id': '4', 'name': 'Australia'},
-    {'id': '5', 'name': 'United Kingdom'},
-  ];
 
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
 
-  TextEditingController InsurnceProviderTextController =
-      TextEditingController();
+
+
+
+  TextEditingController InsurnceProviderTextController =TextEditingController();
+
   TextEditingController NationalIDTextController = TextEditingController();
   TextEditingController PolicyNameEditTextController = TextEditingController();
   TextEditingController StartDateController = TextEditingController();
   TextEditingController ExpiryDateTextController = TextEditingController();
-  TextEditingController PrimaryinsuredNameTextController =
-      TextEditingController();
+  TextEditingController PrimaryinsuredNameTextController = TextEditingController();
+
   TextEditingController InsuranceTypeTextController = TextEditingController();
   TextEditingController CoverageLimitController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Agar item null nahi hai, matlab edit mode
+    if (widget.item != null) {
+      InsurnceProviderTextController.text = widget.item!['insuranceProvider'] ?? '';
+      NationalIDTextController.text = widget.item!['nationalId'] ?? '';
+      PolicyNameEditTextController.text = widget.item!['policyName'] ?? '';
+      StartDateController.text = widget.item!['startDate'] ?? '';
+      ExpiryDateTextController.text = widget.item!['expiryDate'] ?? '';
+      PrimaryinsuredNameTextController.text = widget.item!['primaryInsuredName'] ?? '';
+      InsuranceTypeTextController.text = widget.item!['insuranceType'] ?? '';
+      CoverageLimitController.text = widget.item!['coverageLimit'] ?? '';
+
+      checkSubmitButtonEnabled();
+    }
+  }
+
+
   ConnectivityService connectivityservice = ConnectivityService();
 
   String? errorMessage;
@@ -94,6 +104,8 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
   bool expiryDatehasStartedTyping = false;
 
   bool _isSubmitButtonEnabled = false;
+
+
 
   void checkSubmitButtonEnabled() {
     String input = InsurnceProviderTextController.text.trim();
@@ -123,6 +135,7 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     TextEditingController SearchEditTextController = TextEditingController();
+
 
     return Scaffold(
       body: Container(
@@ -2586,6 +2599,23 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
             expiryDateisValid = true;
           });
         }
+
+        if(input.isNotEmpty && input2.isNotEmpty && input3.isNotEmpty && input4.isNotEmpty && input5.isNotEmpty){
+          Map<String, dynamic> newPolicy = {
+            "id": widget.item?['id'], // keep existing ID if edit
+            "insuranceProvider": InsurnceProviderTextController.text,
+            "nationalId": NationalIDTextController.text,
+            "policyName": PolicyNameEditTextController.text,
+            "startDate": StartDateController.text,
+            "expiryDate": ExpiryDateTextController.text,
+            "primaryInsuredName": PrimaryinsuredNameTextController.text,
+            "insuranceType": InsuranceTypeTextController.text,
+            "coverageLimit": CoverageLimitController.text,
+          };
+
+          Navigator.pop(context, newPolicy); // return the map
+        }
+
       } else {
         final snackBar = SnackBar(
             content: Text("No Internet, Check Connectivity!"),
@@ -2594,4 +2624,6 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
       }
     });
   }
+
+
 }

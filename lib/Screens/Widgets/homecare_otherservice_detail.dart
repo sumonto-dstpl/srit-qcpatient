@@ -23,6 +23,7 @@ import 'package:newfolder/Screens/Widgets/UploadBox.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
 import 'package:newfolder/constants/time_slot_constants.dart';
+import 'package:newfolder/utils/custom_calendar.dart';
 
 import '../../utils/TimeSlotSelector.dart';
 
@@ -58,6 +59,7 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
 
   bool timeSelectFlag = false;
 
+  String slectedDateSlot = DateFormat('dd-MM-yyyy').format(DateTime.now());
   @override
   Widget build(BuildContext context) {
 
@@ -464,6 +466,20 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                       // Select Time
 
                       UploadBox(),
+
+                      CustomCalendar(
+                        onDateSelected: (date) {
+                          setState(() {
+                            _selectedDay = date;
+                            slectedDateSlot =
+                                DateFormat('dd-MM-yyyy').format(date);
+                          });
+
+                          print(
+                              "Selected Date: ${DateFormat('dd-MM-yyyy').format(date)}");
+                          // Call your getBookingDetails() function here if needed
+                        },
+                      ),
                       Container(
                         padding: EdgeInsets.only(
                           top: MediaQuery.of(context).size.height * 0.01,
@@ -1031,7 +1047,7 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                       // Add service button
                       GestureDetector(
                         onTap: () async {
-                          if(timeSelectFlag){
+                          if(timeSelectFlag && slectedDateSlot.isNotEmpty ){
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) {
@@ -1085,7 +1101,7 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                                                 0.5,
                                                 0.9
                                               ],
-                                              colors: timeSelectFlag ?[ Color(0xFF13668E) ,Color(0xFF13668E)] : [ Color(0xFFBDBDBD),Color(0xFFBDBDBD), ]
+                                              colors: (timeSelectFlag && slectedDateSlot.isNotEmpty ) ?[ Color(0xFF13668E) ,Color(0xFF13668E)] : [ Color(0xFFBDBDBD),Color(0xFFBDBDBD), ]
 
 
 
