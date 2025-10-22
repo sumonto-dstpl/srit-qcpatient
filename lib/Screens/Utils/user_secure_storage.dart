@@ -423,6 +423,13 @@ class UserSecureStorage {
     }
   }
 
+  /// Returns a map of all users stored
+  static Future<Map<String, dynamic>> getAllUsers() async {
+    String? jsonString = await _storage.read(key: _keyAllUsers);
+    if (jsonString == null || jsonString.isEmpty) return {};
+    return Map<String, dynamic>.from(jsonDecode(jsonString));
+  }
+
 
 
 

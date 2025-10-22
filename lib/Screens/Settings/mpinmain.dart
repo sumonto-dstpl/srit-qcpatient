@@ -374,6 +374,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
+import 'package:newfolder/Screens/VerifyOtp/forgetMpin.dart';
 import 'package:newfolder/Screens/VerifyOtp/verifyOtp.dart';
 
 
@@ -998,7 +999,7 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                                   TextButton(
                                     onPressed : () {
                                       Navigator.of(context).push(
-                                          MaterialPageRoute(builder: (context) => MpinResetSettings())
+                                          MaterialPageRoute(builder: (context) => ForgetMpinScreen())
                                       );
 
                                     },
