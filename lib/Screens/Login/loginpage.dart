@@ -981,6 +981,11 @@ class LoginPagestate extends State<LoginPage> {
         String last10 = digitsOnly.substring(digitsOnly.length - 10);
         print("last : $last10");
 
+         var allUsers = await UserSecureStorage.getAllUsers();
+         print("allUsers : $allUsers");
+
+         var specificUser = await UserSecureStorage.getUser(last10);
+         print("specificUser : $specificUser");
           dynamic user = await apiService.submitlogin(
 
               "babureddy921234567@gmail.com",
@@ -1042,7 +1047,7 @@ class LoginPagestate extends State<LoginPage> {
           //
           // }
 
-        if(username != null && username.endsWith(last10)) {
+        if(specificUser != null && specificUser.isNotEmpty) {
           await UserSecureStorage.setIfGuestLogged("NO");
 
           Map<String, dynamic>? userData = await UserSecureStorage.getUser(input.substring(3).trim());
