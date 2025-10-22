@@ -1016,7 +1016,7 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                             },
                                             child: Container(
                                               padding: new EdgeInsets.symmetric(
-                                                  horizontal: MediaQuery.of(context).size.height * 0.02,
+                                                  horizontal: MediaQuery.of(context).size.height * 0.01,
 
                                                   vertical: MediaQuery.of(context).size.height * 0.006,
 
@@ -1037,12 +1037,24 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                               alignment: Alignment.center,
                                               // height:
                                               // MediaQuery.of(context).size.height * 0.070,
-                                              child: Text("Radiology Report",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      color: Color(0xFFFFFFFF),
-                                                      fontWeight: FontWeight.w600,
-                                                      fontSize:  MediaQuery.of(context).size.height * 0.01)),
+                                              child: Row(
+                                                children: [
+                                                  Image.asset(
+                                                    "assets/Downlaod.png",
+                                                    fit: BoxFit.fill,
+                                                    color: Colors.white,
+                                                    height: 10,
+                                                    width: 10,
+                                                  ),
+                                                  SizedBox(width : 5),
+                                                  Text("Radiology Report",
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Color(0xFFFFFFFF),
+                                                          fontWeight: FontWeight.w600,
+                                                          fontSize:  MediaQuery.of(context).size.height * 0.01)),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                           GestureDetector(
@@ -1051,7 +1063,7 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                             },
                                             child: Container(
                                               padding: new EdgeInsets.symmetric(
-                                                horizontal: MediaQuery.of(context).size.height * 0.02,
+                                                horizontal: MediaQuery.of(context).size.height * 0.01,
 
                                                 vertical: MediaQuery.of(context).size.height * 0.006,
 
@@ -1072,12 +1084,24 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                               alignment: Alignment.center,
                                               // height:
                                               // MediaQuery.of(context).size.height * 0.070,
-                                              child: Text("Lab Reports",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      color: Color(0xFFFFFFFF),
-                                                      fontWeight: FontWeight.w600,
-                                                      fontSize:  MediaQuery.of(context).size.height * 0.01)),
+                                              child: Row(
+                                                children: [
+                                                  Image.asset(
+                                                    "assets/Downlaod.png",
+                                                    fit: BoxFit.fill,
+                                                    color: Colors.white,
+                                                    height: 10,
+                                                    width: 10,
+                                                  ),
+                                                  SizedBox(width : 5),
+                                                  Text("Lab Reports",
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Color(0xFFFFFFFF),
+                                                          fontWeight: FontWeight.w600,
+                                                          fontSize:  MediaQuery.of(context).size.height * 0.01)),
+                                                ],
+                                              ),
                                             ),
                                           ),
 
