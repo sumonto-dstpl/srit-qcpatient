@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 // import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'dart:math';
@@ -12,6 +13,7 @@ import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
+import 'package:newfolder/Screens/Alerts/loginbottomsheet.dart';
 import 'package:newfolder/Screens/Appointments/appointmentsmainfindDoctors.dart';
 import 'package:newfolder/Screens/Appointments/quicksearchwithoutdata.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
@@ -135,10 +137,18 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   }
   void _loadData() async {
     // await Future.delayed(const Duration(seconds: 2));// Simulating API call
-    isGuestUser=await UserSecureStorage.getIfGuestLogged() == "YES";
-    String? username =  await UserSecureStorage.getUsernameid();
-    Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
-    usernameValue +=  isGuestUser ? "Guest01": user?['data']['fname']+" "+user?['data']['lname'];
+    var guestUser = await UserSecureStorage.getIfGuestLogged();
+    print("guestUser: $guestUser");
+    isGuestUser=guestUser == "YES";
+
+    if(!isGuestUser){
+      String? username =  await UserSecureStorage.getUsernameid();
+      Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
+      usernameValue += user?['data']['fname']+" "+user?['data']['lname'];
+    }else{
+      usernameValue +="Guest";
+    }
+
     setState(() {
       _isLoading = false;
     });
@@ -332,18 +342,26 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                             ),
                             // Google Map
                             GestureDetector(
-                              onTap: () {
-                                if(!_isLoading)
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder:
-                                        (BuildContext context) {
+                                onTap: () async {
+                                  final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+
+                                  if (isLoggedIn == "YES") {
+                                    // Show login bottom sheet for guest users
+                                    Timer(const Duration(milliseconds: 0), () {
+                                      LoginBottomSheet.show(context, false);
+                                    });
+                                  } else {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) {
                                       // return GoogleMapScreen();
                                       return AddressScreen();
                                     },
                                   ),
                                 );
-                              },
+                                  }
+                                },
+
                               child:
 
                               Row(
@@ -410,41 +428,56 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                             children: [
 
                               // Cart
+                              // 🛒 Appointment (Cart)
                               GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder:
-                                          (BuildContext context) {
-                                        return AddToCartMain();
-                                      },
-                                    ),
-                                  );
+                                onTap: () async {
+                                  final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+
+                                  if (isLoggedIn == "YES") {
+                                    // Show login bottom sheet for guest users
+                                    Timer(const Duration(milliseconds: 0), () {
+                                      LoginBottomSheet.show(context, false);
+                                    });
+                                  } else {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                          return AddToCartMain();
+                                        },
+                                      ),
+                                    );
+                                  }
                                 },
-                                child:
-                                AppointmentIconBadge(
+                                child: AppointmentIconBadge(
                                   appointmentcount: "",
                                 ),
                               ),
 
-
-                              // Notification
+// 🔔 Notification
                               GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder:
-                                          (BuildContext context) {
-                                        return NotificationMain();
-                                      },
-                                    ),
-                                  );
+                                onTap: () async {
+                                  final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+
+                                  if (isLoggedIn == "YES") {
+                                    // Show login bottom sheet for guest users
+                                    Timer(const Duration(milliseconds: 0), () {
+                                      LoginBottomSheet.show(context, false);
+                                    });
+                                  } else {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                          return NotificationMain();
+                                        },
+                                      ),
+                                    );
+                                  }
                                 },
-                                child:
-                                IconBadge(
+                                child: IconBadge(
                                   notificationcount: "",
                                 ),
                               ),
+
 
 
                               // Profile Image
@@ -2389,40 +2422,46 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                 //     );
                                                 //   }
                                                 // },
-                                              onPressed: (){
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (BuildContext context) {
-                                                  // return HomecareOtherserviceDetail(usernameValue : "Asgar");
-                                                  return HomecareOtherserviceDetail(usernameValue: myOtherServices[index][1],);
+                                            onPressed: () async {
+                                              final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
 
-                                                },
-                                              ),
-                                            );
-                                          },
-                                                style: TextButton.styleFrom(
-                                                  backgroundColor: Color(0xFFE8F0F3),
-                                                // backgroundColor : Colors.red,
-                                                  padding: EdgeInsets.all(
-                                                      screenHeight * 0.01),
-                                                  minimumSize: Size(
-                                                      screenHeight * 0.04,
-                                                      screenHeight * 0.04
+                                              if (isLoggedIn == "YES") {
+                                                // Show login bottom sheet for guest users
+                                                Timer(const Duration(milliseconds: 0), () {
+                                                  LoginBottomSheet.show(context, false);
+                                                });
+                                              } else {
+                                                // Navigate to details page for logged-in users
+                                                Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (BuildContext context) {
+                                                      return HomecareOtherserviceDetail(
+                                                        usernameValue: myOtherServices[index][1],
+                                                      );
+                                                    },
                                                   ),
-                                                ),
-                                                child: Container(
-                                                  width: screenHeight * 0.03,
-                                                  height: screenHeight * 0.03,
-                                                  decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                      image: AssetImage(
-                                                          myOtherServices[index][0]),
-                                                      fit: BoxFit.contain,
-                                                    ),
-
-                                                  ),
+                                                );
+                                              }
+                                            },
+                                            style: TextButton.styleFrom(
+                                              backgroundColor: const Color(0xFFE8F0F3),
+                                              padding: EdgeInsets.all(screenHeight * 0.01),
+                                              minimumSize: Size(
+                                                screenHeight * 0.04,
+                                                screenHeight * 0.04,
+                                              ),
+                                            ),
+                                            child: Container(
+                                              width: screenHeight * 0.03,
+                                              height: screenHeight * 0.03,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: AssetImage(myOtherServices[index][0]),
+                                                  fit: BoxFit.contain,
                                                 ),
                                               ),
+                                            ),
+                                        ),
 
                                        SizedBox(height :screenHeight * 0.008),
 

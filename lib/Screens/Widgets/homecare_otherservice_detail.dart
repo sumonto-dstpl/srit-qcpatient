@@ -1,4 +1,5 @@
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
 
@@ -9,6 +10,7 @@ import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
+import 'package:newfolder/Screens/Alerts/loginbottomsheet.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/Maps/google_map_screen.dart';
@@ -25,6 +27,8 @@ import 'package:newfolder/Screens/Widgets/badge.dart';
 import 'package:newfolder/Screens/Widgets/homecare_otherservices_address_screen.dart';
 import 'package:newfolder/constants/time_slot_constants.dart';
 import 'package:newfolder/utils/custom_calendar.dart';
+import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
+
 
 import '../../utils/TimeSlotSelector.dart';
 
@@ -1113,22 +1117,33 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                                       padding: EdgeInsets.only(left: 0.0),
                                       child: TextButton(
                                         onPressed: () async {
-                                          if(timeSelectFlag){
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (BuildContext context) {
-                                                  return HomePageMain();
-                                                },
-                                              ),
-                                            );
-                                          }
-                                           else {
-                                            showTopNotification(
-                                              context,
-                                              title: "Book Service",
-                                              message: "Please select Time Slot",
-                                              type: NotificationType.error,
-                                            );
+                                          final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+
+                                          if (isLoggedIn == "YES") {
+                                            // Show login bottom sheet for guest users
+                                            Timer(const Duration(milliseconds: 0), () {
+                                              LoginBottomSheet.show(context, false);
+                                            });
+                                          } else {
+                                            if (timeSelectFlag) {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (
+                                                      BuildContext context) {
+                                                    return HomePageMain();
+                                                  },
+                                                ),
+                                              );
+                                            }
+
+                                            else {
+                                              showTopNotification(
+                                                context,
+                                                title: "Book Service",
+                                                message: "Please select Time Slot",
+                                                type: NotificationType.error,
+                                              );
+                                            }
                                           }
                                         },
                                         child: Text("Book Service",

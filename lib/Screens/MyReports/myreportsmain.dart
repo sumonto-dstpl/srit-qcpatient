@@ -113,7 +113,7 @@ class MyReportsMainstate extends State<MyReportsMain>
     final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
     if (isLoggedIn == "YES") {
       Timer(Duration(seconds: 0), () {
-        LoginBottomSheet.show(context,false);
+        LoginBottomSheet.show(context,true);
       });
     }
   }
