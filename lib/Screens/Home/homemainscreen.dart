@@ -4709,7 +4709,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
           context: context,
           isScrollControlled: true,
           isDismissible: true,
-          enableDrag: false,
+          enableDrag: true,
           backgroundColor: Colors.transparent, // Make modal background transparent
           barrierColor: Colors.transparent,
           transitionAnimationController: AnimationController(
@@ -5614,7 +5614,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
           context: context,
           isScrollControlled: true,
           isDismissible: true,
-          enableDrag: false,
+          enableDrag: true,
           backgroundColor: Colors.transparent, // Make modal background transparent
           barrierColor: Colors.transparent,
           transitionAnimationController: AnimationController(

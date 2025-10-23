@@ -443,7 +443,7 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                           top: MediaQuery.of(context).size.height * 0.0,
                           bottom: MediaQuery.of(context).size.height * 0.00),
                       // child: DescriptionTextWidget(text: aboutdoctorval),
-                      child : DescriptionTextWidget(text : widget.doctoridval),
+                      child : DescriptionTextWidget(text : widget.doctoridval,doctorName: widget.doctorDetail?['doctorName'],),
 
                     ),
 

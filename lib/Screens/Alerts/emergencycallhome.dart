@@ -852,7 +852,7 @@ class EmergencyHomeCall {
                                           Text(
                                             "Emergency Call",
                                             style: TextStyle(
-                                              color: Color(0xFFD42620),
+                                              color: Colors.red,
                                               fontWeight: FontWeight.w700,
                                               fontSize: screenHeight * 0.016,
                                             ),
@@ -867,7 +867,7 @@ class EmergencyHomeCall {
                                               "You are about to call ambulance for an emergency. Are you sure you want to proceed?",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
-                                                color: Color(0xFF6A6E83),
+                                                color : Colors.black45,
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: screenHeight * 0.014,
                                               ),
@@ -885,7 +885,7 @@ class EmergencyHomeCall {
                                           .of(context)
                                           .size
                                           .width *
-                                          0.05, // space between buttons
+                                          0.035, // space between buttons
                                       runSpacing: MediaQuery
                                           .of(context)
                                           .size
@@ -941,7 +941,8 @@ class EmergencyHomeCall {
                                           },
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFD42620),
+                                              // color: Color(0xFFD42620).withOpacity(0.8),
+                                              color: Colors.red,
                                               borderRadius: BorderRadius.circular(7),
                     
                                             ),

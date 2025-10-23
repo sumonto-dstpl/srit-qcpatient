@@ -470,7 +470,7 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                     right: MediaQuery.of(context).size.height *
                                         0.01,
                                     top: MediaQuery.of(context).size.height *
-                                        0.01,
+                                        0.015,
                                     bottom: MediaQuery.of(context).size.height *
                                         0.00),
                                 child: Text(
@@ -511,160 +511,225 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                           ),
 
                           //
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFFA8B1CE).withOpacity(0.1),
-                              // Background color of the container
-                              /*border: Border.all(
-              color: Colors.black.withOpacity(0.1), // Border color
-              width: 1, // Border width
-            ),*/
-                              borderRadius: BorderRadius.circular(
-                                  8), // Optional: Rounded corners
-                            ),
-                            padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.height * 0.01,
-                                right:
-                                    MediaQuery.of(context).size.height * 0.002,
-                                bottom:
-                                    MediaQuery.of(context).size.height * 0.01,
-                                top: MediaQuery.of(context).size.height * 0.01),
-                            margin: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.height * 0.05,
-                                right:
-                                    MediaQuery.of(context).size.height * 0.05,
-                                bottom:
-                                    MediaQuery.of(context).size.height * 0.01,
-                                top: MediaQuery.of(context).size.height * 0.01),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                // First row: Image and column with 2 texts
-                                Expanded(
-                                  flex: 2,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: Image.asset(
-                                          'assets/calendercard.png',
-                                          // Replace with your image path
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.022,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.022,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 7,
-                                        child: Container(
-                                          padding: EdgeInsets.only(
-                                              left: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.002,
-                                              right: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.00,
-                                              top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.00,
-                                              bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.00),
-                                          child: Text(
-                                            "December, 20  2023",
-                                            style: TextStyle(
-                                                color: Color(0xFF126086),
-                                                // overflow: TextOverflow.ellipsis,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.014),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-                                // Divider or custom container
-                                Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.height *
-                                                0.002,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.02,
-                                        color: Colors.grey[400],
-                                        // Divider color
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 10.0),
-                                      ),
-                                    ]),
-
-                                // Second row: Image and column with 2 texts
-                                Expanded(
-                                  flex: 1,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.only(
-                                            left: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.002,
-                                            right: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.002,
-                                            top: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.00,
-                                            bottom: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.00),
-                                        child: Text(
-                                          "7:30 AM",
-                                          style: TextStyle(
-                                              color: Color(0xFF126086),
-                                              // overflow: TextOverflow.ellipsis,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.014),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+            //               Container(
+            //                 decoration: BoxDecoration(
+            //                   color: Color(0xFFA8B1CE).withOpacity(0.1),
+            //                   // Background color of the container
+            //                   /*border: Border.all(
+            //   color: Colors.black.withOpacity(0.1), // Border color
+            //   width: 1, // Border width
+            // ),*/
+            //                   borderRadius: BorderRadius.circular(
+            //                       8), // Optional: Rounded corners
+            //                 ),
+            //                 padding: EdgeInsets.only(
+            //                     left: MediaQuery.of(context).size.height * 0.01,
+            //                     right:
+            //                         MediaQuery.of(context).size.height * 0.002,
+            //                     bottom:
+            //                         MediaQuery.of(context).size.height * 0.01,
+            //                     top: MediaQuery.of(context).size.height * 0.01),
+            //                 margin: EdgeInsets.only(
+            //                     left: MediaQuery.of(context).size.height * 0.05,
+            //                     right:
+            //                         MediaQuery.of(context).size.height * 0.05,
+            //                     bottom:
+            //                         MediaQuery.of(context).size.height * 0.01,
+            //                     top: MediaQuery.of(context).size.height * 0.01),
+            //                 child: Row(
+            //                   mainAxisAlignment: MainAxisAlignment.center,
+            //                   crossAxisAlignment: CrossAxisAlignment.center,
+            //                   children: [
+            //                     // First row: Image and column with 2 texts
+            //                     Expanded(
+            //                       flex: 2,
+            //                       child: Row(
+            //                         crossAxisAlignment:
+            //                             CrossAxisAlignment.center,
+            //                         children: [
+            //                           Expanded(
+            //                             flex: 1,
+            //                             child: Image.asset(
+            //                               'assets/calendercard.png',
+            //                               // Replace with your image path
+            //                               height: MediaQuery.of(context)
+            //                                       .size
+            //                                       .height *
+            //                                   0.022,
+            //                               width: MediaQuery.of(context)
+            //                                       .size
+            //                                       .height *
+            //                                   0.022,
+            //                               fit: BoxFit.cover,
+            //                             ),
+            //                           ),
+            //                           Expanded(
+            //                             flex: 7,
+            //                             child: Container(
+            //                               padding: EdgeInsets.only(
+            //                                   left: MediaQuery.of(context)
+            //                                           .size
+            //                                           .height *
+            //                                       0.002,
+            //                                   right: MediaQuery.of(context)
+            //                                           .size
+            //                                           .height *
+            //                                       0.00,
+            //                                   top: MediaQuery.of(context)
+            //                                           .size
+            //                                           .height *
+            //                                       0.00,
+            //                                   bottom: MediaQuery.of(context)
+            //                                           .size
+            //                                           .height *
+            //                                       0.00),
+            //                               child: Text(
+            //                                 "December, 20  2023",
+            //                                 style: TextStyle(
+            //                                     color: Color(0xFF126086),
+            //                                     // overflow: TextOverflow.ellipsis,
+            //                                     fontWeight: FontWeight.bold,
+            //                                     fontSize: MediaQuery.of(context)
+            //                                             .size
+            //                                             .height *
+            //                                         0.014),
+            //                               ),
+            //                             ),
+            //                           ),
+            //                         ],
+            //                       ),
+            //                     ),
+            //
+            //                     // Divider or custom container
+            //                     Row(
+            //                         mainAxisAlignment: MainAxisAlignment.center,
+            //                         crossAxisAlignment:
+            //                             CrossAxisAlignment.center,
+            //                         children: [
+            //                           Container(
+            //                             width:
+            //                                 MediaQuery.of(context).size.height *
+            //                                     0.002,
+            //                             height:
+            //                                 MediaQuery.of(context).size.height *
+            //                                     0.02,
+            //                             color: Colors.grey[400],
+            //                             // Divider color
+            //                             margin: EdgeInsets.symmetric(
+            //                                 horizontal: 10.0),
+            //                           ),
+            //                         ]),
+            //
+            //                     // Second row: Image and column with 2 texts
+            //                     Expanded(
+            //                       flex: 1,
+            //                       child: Row(
+            //                         crossAxisAlignment:
+            //                             CrossAxisAlignment.start,
+            //                         children: [
+            //                           Container(
+            //                             padding: EdgeInsets.only(
+            //                                 left: MediaQuery.of(context)
+            //                                         .size
+            //                                         .height *
+            //                                     0.002,
+            //                                 right: MediaQuery.of(context)
+            //                                         .size
+            //                                         .height *
+            //                                     0.002,
+            //                                 top: MediaQuery.of(context)
+            //                                         .size
+            //                                         .height *
+            //                                     0.00,
+            //                                 bottom: MediaQuery.of(context)
+            //                                         .size
+            //                                         .height *
+            //                                     0.00),
+            //                             child: Text(
+            //                               "7:30 AM",
+            //                               style: TextStyle(
+            //                                   color: Color(0xFF126086),
+            //                                   // overflow: TextOverflow.ellipsis,
+            //                                   fontWeight: FontWeight.bold,
+            //                                   fontSize: MediaQuery.of(context)
+            //                                           .size
+            //                                           .height *
+            //                                       0.014),
+            //                             ),
+            //                           ),
+            //                         ],
+            //                       ),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ),
 
                           // Symptoms
+                          Center(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                vertical: MediaQuery.of(context).size.height * 0.01,
+                                horizontal: MediaQuery.of(context).size.height * 0.015,
+                              ),
+                              margin: EdgeInsets.symmetric(
+                                vertical: MediaQuery.of(context).size.height * 0.01,
+                              ),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFA8B1CE).withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: IntrinsicHeight( // Makes divider full height of tallest child
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    // 🗓️ Date (Flexible to wrap)
+                                    Flexible(
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Image.asset(
+                                            'assets/calendercard.png',
+                                            height: MediaQuery.of(context).size.height * 0.022,
+                                            width: MediaQuery.of(context).size.height * 0.022,
+                                            fit: BoxFit.contain,
+                                          ),
+                                          SizedBox(width: MediaQuery.of(context).size.height * 0.008),
+                                          Flexible(
+                                            child: Text(
+                                              "December, 20  2023",
+                                              style: TextStyle(
+                                                color: const Color(0xFF126086),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: MediaQuery.of(context).size.height * 0.014,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+
+                                    // Vertical Divider
+                                    Container(
+                                      width: 1,
+                                      margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.012),
+                                      color: Colors.grey[400],
+                                    ),
+
+                                    // 🕢 Time (fixed, no wrap unless too long)
+                                    Text(
+                                      "7:30 AM",
+                                      style: TextStyle(
+                                        color: const Color(0xFF126086),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: MediaQuery.of(context).size.height * 0.014,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -1016,7 +1081,7 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                             },
                                             child: Container(
                                               padding: new EdgeInsets.symmetric(
-                                                  horizontal: MediaQuery.of(context).size.height * 0.01,
+                                                  horizontal: MediaQuery.of(context).size.height * 0.015,
 
                                                   vertical: MediaQuery.of(context).size.height * 0.006,
 
@@ -1063,7 +1128,7 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                             },
                                             child: Container(
                                               padding: new EdgeInsets.symmetric(
-                                                horizontal: MediaQuery.of(context).size.height * 0.01,
+                                                horizontal: MediaQuery.of(context).size.height * 0.015,
 
                                                 vertical: MediaQuery.of(context).size.height * 0.006,
 

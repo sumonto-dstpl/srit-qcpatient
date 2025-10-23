@@ -6,8 +6,8 @@ import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 class DescriptionTextWidget extends StatefulWidget {
   final String? text;
   int maxLength;
-
-  DescriptionTextWidget({@required this.text, this.maxLength = 40});
+  String? doctorName;
+  DescriptionTextWidget({@required this.text, this.maxLength = 40,this.doctorName});
 
   @override
   _DescriptionTextWidgetState createState() => _DescriptionTextWidgetState();
@@ -101,7 +101,7 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
 
 
 
-          about = "Dr Nutan Bhatt Km is a highly experienced General Physician/Internal Medicine specialist in Bengaluru with over ten years of medical practice. He has a wealth of knowledge about treating a wide range of health conditions, including diabetes, diabetic ulcers, insulin treatment, hypertension, and chronic respiratory issues. Dr Faseeh Km also carefully diagnoses and treats common ailments such as fever, cold, infections, and minor injuries.";
+          about = "${widget.doctorName ?? 'Dr Nutan Bhatt Km'} is a highly experienced General Physician/Internal Medicine specialist in Bengaluru with over ten years of medical practice. He has a wealth of knowledge about treating a wide range of health conditions, including diabetes, diabetic ulcers, insulin treatment, hypertension, and chronic respiratory issues. Dr Faseeh Km also carefully diagnoses and treats common ailments such as fever, cold, infections, and minor injuries.";
           setState(() {
             if (about != null) {
               List<String> words = about.split(" ");

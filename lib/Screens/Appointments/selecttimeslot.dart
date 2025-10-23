@@ -371,7 +371,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
 
                       children: [
                         Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
@@ -383,13 +383,17 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                                       MediaQuery.of(context).size.height * 0.02,
                                 ),
                               ),
+                              if(widget.physical_virtual_mode == "physical")
+                                SizedBox(width: 5,),
+                                if(widget.physical_virtual_mode == "physical")
                               GestureDetector(
                                 onTap: () async {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (BuildContext context) {
                                         return DoctorDetilPage(
-                                            widget.doctoridval);
+                                            widget.doctoridval,doctorDetail: widget.doctorDetail,
+                                        );
                                       },
                                     ),
                                   );
@@ -410,19 +414,20 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                                     left: MediaQuery.of(context).size.height *
                                         0.00,
                                   ),
-                                  // child: ClipRRect(
-                                  //   borderRadius: BorderRadius.circular(130.0),
-                                  //   child: Image.asset(
-                                  //     'assets/Infodocdetails.png',
-                                  //     height:
-                                  //         MediaQuery.of(context).size.height *
-                                  //             0.014, // Adjust height
-                                  //     width:
-                                  //         MediaQuery.of(context).size.height *
-                                  //             0.014, // Adjust width
-                                  //     fit: BoxFit.fill,
-                                  //   ),
-                                  // ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(130.0),
+                                    child: Image.asset(
+                                      color: Color(0xFF126086),
+                                      'assets/Infodocdetails.png',
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.014, // Adjust height
+                                      width:
+                                          MediaQuery.of(context).size.height *
+                                              0.014, // Adjust width
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ]),

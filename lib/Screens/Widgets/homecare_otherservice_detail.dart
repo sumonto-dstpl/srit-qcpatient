@@ -468,18 +468,20 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
 
                       UploadBox(),
 
-                      CustomCalendar(
-                        onDateSelected: (date) {
-                          setState(() {
-                            _selectedDay = date;
-                            slectedDateSlot =
-                                DateFormat('dd-MM-yyyy').format(date);
-                          });
+                      Container(
+                        child: CustomCalendar(
+                          onDateSelected: (date) {
+                            setState(() {
+                              _selectedDay = date;
+                              slectedDateSlot =
+                                  DateFormat('dd-MM-yyyy').format(date);
+                            });
 
-                          print(
-                              "Selected Date: ${DateFormat('dd-MM-yyyy').format(date)}");
-                          // Call your getBookingDetails() function here if needed
-                        },
+                            print(
+                                "Selected Date: ${DateFormat('dd-MM-yyyy').format(date)}");
+                            // Call your getBookingDetails() function here if needed
+                          },
+                        ),
                       ),
                       Container(
                         padding: EdgeInsets.only(
@@ -587,53 +589,8 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                                 ),
                               ),
                             ),
-
-                              if (_isExpandedtime)
-
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: height * 0.01,
-                                        horizontal: (widget.usernameValue == "Medical Equipment's") ? 16 : 0,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        // Left side (Title + Count)
-                                        Flexible(
-                                          child: Row(
-                                            children: [
-                                              Flexible(
-                                                child: Text(
-                                                  (widget.usernameValue == "Medical Equipment's") ? "Pick Data" :  "Select Data",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    color: const Color(0xCC056390),
-                                                    fontSize: height * 0.012,
-                                                  ),
-                                                  overflow: TextOverflow.ellipsis,
-                                                  maxLines: 2,
-                                                ),
-                                              ),
-
-                                            ],
-                                          ),
-                                        ),
-                                        // Right side (Date)
-                                        Flexible(
-                                          child: Text(
-                                            todayDate,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: const Color(0x9913668E),
-                                              fontSize: height * 0.012,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.right,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                              if(_isExpandedtime)
+                                SizedBox(height: height * 0.015,),
                               if(_isExpandedtime)
                                 TimeSlotSelector(
                                   timeSlots: timeSlots,

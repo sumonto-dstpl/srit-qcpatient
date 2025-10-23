@@ -31,7 +31,7 @@ class _IconBadgeState extends State<IconBadge> {
         ),
         Positioned(
           right: 15,
-          top : 2,
+          top : 0,
           child: Container(
             padding: EdgeInsets.all(1),
             decoration: BoxDecoration(
@@ -44,15 +44,18 @@ class _IconBadgeState extends State<IconBadge> {
             ),
             child: Padding(
               padding: EdgeInsets.only(top: 1),
-              child: Text(
-                "12",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: MediaQuery.of(context).size.height * 0.008,
-                  overflow: TextOverflow.ellipsis,
-                  fontWeight: FontWeight.w600
+              child: MediaQuery(
+                data: MediaQuery.of(context).copyWith(textScaleFactor: MediaQuery.of(context).textScaleFactor.clamp(1.0, 1.2)),
+                child: Text(
+                  "12",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: MediaQuery.of(context).size.height * 0.008,
+                    overflow: TextOverflow.ellipsis,
+                    fontWeight: FontWeight.w600
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
               ),
             ),
           ),
