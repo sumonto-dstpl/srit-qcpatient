@@ -66,19 +66,20 @@ class ProfileMainstate extends State<ProfileMain> {
     // await Future.delayed(const Duration(seconds: 2));// Simulating API call
     isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
 
-    String? username = await UserSecureStorage.getUsernameid();
-    Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
 
     // Dynamic naming: Guest01 for guest, otherwise use stored user name
     if (isGuestUser) {
-      usernameValue = "Guest01";
+      usernameValue = "Guest";
     } else {
+      String? username = await UserSecureStorage.getUsernameid();
+      Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
+
       if (user != null && user['data'] != null) {
         String? fname = user['data']['fname'];
         String? lname = user['data']['lname'];
         usernameValue = ((fname ?? "") + " " + (lname ?? "")).trim();
       } else {
-        usernameValue = "";
+        usernameValue = "ashdsaj";
       }
     }
 
@@ -1109,15 +1110,24 @@ class ProfileMainstate extends State<ProfileMain> {
 
                         //  Uploads
                         GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
+                            onTap: () async {
+                              final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+
+                              if (isLoggedIn == "YES") {
+                                // Show login bottom sheet for guest users
+                                Timer(const Duration(milliseconds: 0), () {
+                                  LoginBottomSheet.show(context, false);
+                                });
+                              } else {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) {
                                   return ProfileMyUploadMain();
                                 },
                               ),
                             );
-                          },
+                          }
+                              },
                           child: Card(
                             elevation: 0.0,
                             color: Colors.white,
@@ -1302,15 +1312,24 @@ class ProfileMainstate extends State<ProfileMain> {
 
                         //  Payment history
                         GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
+                            onTap: () async {
+                              final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+
+                              if (isLoggedIn == "YES") {
+                                // Show login bottom sheet for guest users
+                                Timer(const Duration(milliseconds: 0), () {
+                                  LoginBottomSheet.show(context, false);
+                                });
+                              } else {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) {
                                   return PaymentHistoryMain();
                                 },
                               ),
                             );
-                          },
+                          }
+                              },
                           child: Card(
                             elevation: 0.0,
                             color: Colors.white,
@@ -1495,15 +1514,24 @@ class ProfileMainstate extends State<ProfileMain> {
 
                         //  My Address
                         GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return GoogleMapScreen();
-                                },
-                              ),
-                            );
-                          },
+                            onTap: () async {
+                              final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+
+                              if (isLoggedIn == "YES") {
+                                // Show login bottom sheet for guest users
+                                Timer(const Duration(milliseconds: 0), () {
+                                  LoginBottomSheet.show(context, false);
+                                });
+                              } else {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                      return GoogleMapScreen();
+                                    },
+                                  ),
+                                );
+                              }
+                              },
                           child: Card(
                             elevation: 0.0,
                             color: Colors.white,
@@ -1688,15 +1716,24 @@ class ProfileMainstate extends State<ProfileMain> {
 
                         // Feedback
                         GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return FeedbackMain();
-                                },
-                              ),
-                            );
-                          },
+                            onTap: () async {
+                              final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+
+                              if (isLoggedIn == "YES") {
+                                // Show login bottom sheet for guest users
+                                Timer(const Duration(milliseconds: 0), () {
+                                  LoginBottomSheet.show(context, false);
+                                });
+                              } else {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                      return FeedbackMain();
+                                    },
+                                  ),
+                                );
+                              }
+                              },
                           child: Card(
                             elevation: 0.0,
                             color: Colors.white,
@@ -1881,15 +1918,24 @@ class ProfileMainstate extends State<ProfileMain> {
 
                         //  About us
                         GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return AboutUsMain();
-                                },
-                              ),
-                            );
-                          },
+                            onTap: () async {
+                              final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+
+                              if (isLoggedIn == "YES") {
+                                // Show login bottom sheet for guest users
+                                Timer(const Duration(milliseconds: 0), () {
+                                  LoginBottomSheet.show(context, false);
+                                });
+                              } else {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                      return AboutUsMain();
+                                    },
+                                  ),
+                                );
+                              }
+                              },
                           child: Card(
                             elevation: 0.0,
                             color: Colors.white,
@@ -2074,15 +2120,24 @@ class ProfileMainstate extends State<ProfileMain> {
 
                         //  Settings
                         GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
+                            onTap: () async {
+                              final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+
+                              if (isLoggedIn == "YES") {
+                                // Show login bottom sheet for guest users
+                                Timer(const Duration(milliseconds: 0), () {
+                                  LoginBottomSheet.show(context, false);
+                                });
+                              } else {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) {
                                   return SettingsMain();
                                 },
                               ),
                             );
-                          },
+                          }
+                              },
                           child: Card(
                             elevation: 0.0,
                             color: Colors.white,

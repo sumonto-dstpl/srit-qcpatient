@@ -246,6 +246,7 @@ class LoginHome extends StatelessWidget {
                           onTap: () async {
                             print("coming from guest");
                             await UserSecureStorage.setIfGuestLogged("YES");
+                            // await Future.delayed(const Duration(seconds: 2));// Simulating API call
                             Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(builder: (context) => HomePageMain()),
                                   (Route<dynamic> route) => false,
