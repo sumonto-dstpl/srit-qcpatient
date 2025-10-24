@@ -1654,7 +1654,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
       bottomNavigationBar: BookAppointmentAndPaymentFooter(
         feesType: "Consulation Fees",
         qr: "Free",
-        butotnName: "Book Appoinmnet",
+        butotnName: "Book Appointment",
         colors: (selectedSlot.isNotEmpty &&
             slectedDateSlot.isNotEmpty)
             ? [

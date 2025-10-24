@@ -836,7 +836,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
       bottomNavigationBar: PhysicalVirtualFooter(
       feesType: "Consulation Fees",
       qr: "Free",
-      butotnName: "Book Appoinmnet",
+      butotnName: "Book Appointment",
           colors: (selectedSlot.isNotEmpty &&
               slectedDateSlot.isNotEmpty)
               ? [
