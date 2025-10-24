@@ -702,7 +702,7 @@ class Mpinstate extends State<MpinResetSettings> {
                                     ),
                                     onChanged: (value) {
                                       if (value.length == 1) {
-                                        pin4FocusNode!.unfocus(); // Last field, can unfocus
+                                        FocusScope.of(context).requestFocus(pin1FocusNode2); // move to 4th field
                                         setState(() {
                                           Otp4thdigithasStartedTyping = false;
                                         });
@@ -778,7 +778,7 @@ class Mpinstate extends State<MpinResetSettings> {
                                   if (event is RawKeyDownEvent && event.logicalKey == LogicalKeyboardKey.backspace) {
                                     if (Otp1stdigitTextController2.text.isEmpty) {
                                       // Move to previous field and clear it
-                                      pin1FocusNode2!.requestFocus();
+                                      pin4FocusNode!.requestFocus();
                                       Otp1stdigitTextController2.clear();
                                     } else {
                                       // Just clear this field

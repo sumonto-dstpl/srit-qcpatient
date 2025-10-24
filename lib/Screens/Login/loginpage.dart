@@ -76,12 +76,13 @@ class LoginPagestate extends State<LoginPage> {
         isValid = true;
         errorMessage = null;
       });
-    } else {
-      setState(() {
-        isValid = false;
-        errorMessage ="Please enter a 10-digit mobile number";
-      });
     }
+    // else {
+    //   setState(() {
+    //     isValid = false;
+    //     errorMessage ="Please enter a 10-digit mobile number";
+    //   });
+    // }
   }
 
   void validateInput() {
@@ -413,6 +414,8 @@ class LoginPagestate extends State<LoginPage> {
                                     ),
                                     keyboardType: TextInputType.number,
                                     onChanged: (value) {
+                                      hasStartedTyping = false;
+                                      errorMessage = null;
                                       // Automatically add "+91" if user starts typing and it’s not there
                                       if (value.isNotEmpty &&
                                           !value.startsWith("+91 ")) {
@@ -948,6 +951,10 @@ class LoginPagestate extends State<LoginPage> {
       if (intenet != null && intenet) {
         String input = UserNumberEditTextController.text.trim();
 
+        print("input : $input");
+        String digitsOnly = input.replaceAll(RegExp(r'\D'), '');
+        String last10 = digitsOnly.substring(2);
+        print("last10 : ${last10.length}");
         if (input.isEmpty) {
           setState(() {
             hasStartedTyping = true;
@@ -962,6 +969,23 @@ class LoginPagestate extends State<LoginPage> {
           return;
         }
 
+        else if (last10.length != 10 ) {
+          setState(() {
+            hasStartedTyping = true;
+            errorMessage = "Please enter a 10-digit mobile number";
+            isValid = false;
+          });
+          return;
+        }
+
+        else {
+          setState(() {
+            hasStartedTyping = false;
+            errorMessage = null;
+            isValid = false;
+          });
+
+        }
         // if (isValid) {
           print("input: $input");
           // Navigator.of(context).push(
@@ -977,8 +1001,7 @@ class LoginPagestate extends State<LoginPage> {
         //   PasswordEditTextController?.text = "Test@123456";
           String? username =  await UserSecureStorage.getUsernameid();
           print("username : $username");
-        String digitsOnly = input.replaceAll(RegExp(r'\D'), '');
-        String last10 = digitsOnly.substring(digitsOnly.length - 10);
+
         print("last : $last10");
 
          var allUsers = await UserSecureStorage.getAllUsers();

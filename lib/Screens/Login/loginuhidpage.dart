@@ -76,12 +76,13 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
         isValid = true;
         errorMessage = null;
       });
-    } else {
-      setState(() {
-        isValid = false;
-        errorMessage ="Please enter a 10-digit mobile number";
-      });
     }
+    // else {
+    //   setState(() {
+    //     isValid = false;
+    //     errorMessage ="Please enter a 10-digit mobile number";
+    //   });
+    // }
   }
 
   void validateInput() {
@@ -974,7 +975,7 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
       if (intenet != null && intenet) {
         String input = UserNumberEditTextController.text.trim();
 
-        if (input.isEmpty || input.length < 3) {
+        if (input.isEmpty) {
           setState(() {
             hasStartedTyping = true;
             errorMessage = "UHID should be more than 3 characters";
@@ -986,6 +987,21 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
           //   });
           // });
           return;
+        }
+        else if (input.length < 3){
+          setState(() {
+            hasStartedTyping = true;
+            errorMessage = "UHID should be more than 3 characters";
+            isValid = false;
+          });
+          return;
+        }
+        else {
+          setState(() {
+            hasStartedTyping = false;
+            errorMessage = null;
+            isValid = false;
+          });
         }
 
         // if (isValid) {

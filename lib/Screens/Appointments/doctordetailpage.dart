@@ -876,7 +876,7 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
       bottomNavigationBar: PhysicalVirtualFooter(
           feesType: "Consulation Fees",
           qr: "Free",
-          butotnName: "Book Appoinmnet",
+          butotnName: "Book Appointment",
           colors: [
             Color(0xFF126086),
             Color(0xFF126086),
