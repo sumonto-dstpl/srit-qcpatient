@@ -1004,7 +1004,7 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
 
                                     },
                                     child: Text(
-                                      "Forget MPIN?",
+                                      "Forgot MPIN?",
                                       style: TextStyle(
                                         fontSize:
                                         MediaQuery.of(context).size.height * 0.012,

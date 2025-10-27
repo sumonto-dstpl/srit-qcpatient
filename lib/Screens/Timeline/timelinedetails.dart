@@ -114,293 +114,596 @@ class TimelineDetailsstate extends State<TimelineDetails> {
               Column(
                 children: <Widget>[
                   // Top Section
-                Container(
-                padding: EdgeInsets.only(
-                  top: screenHeight * 0.07,
-                  left: screenWidth * 0.045,
-                  right: screenWidth * 0.045,
-                  bottom: screenWidth * 0.06,
-                ),
-                margin: EdgeInsets.only(
-                  right: screenHeight * 0.0,
-                  top: screenHeight * 0.0,
-                  bottom: screenHeight * 0.01,
-                  left: screenHeight * 0.0,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
+              //   Container(
+              //   padding: EdgeInsets.only(
+              //     top: screenHeight * 0.07,
+              //     left: screenWidth * 0.045,
+              //     right: screenWidth * 0.045,
+              //     bottom: screenWidth * 0.06,
+              //   ),
+              //   margin: EdgeInsets.only(
+              //     right: screenHeight * 0.0,
+              //     top: screenHeight * 0.0,
+              //     bottom: screenHeight * 0.01,
+              //     left: screenHeight * 0.0,
+              //   ),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: [
+              //
+              //       InkWell(
+              //         onTap: () => Navigator.pop(context),
+              //         child: Container(
+              //           height: MediaQuery.of(context).size.height * 0.035,
+              //           width: MediaQuery.of(context).size.height * 0.035,
+              //           margin: EdgeInsets.only(
+              //             left: MediaQuery.of(context).size.height * 0.00,
+              //             top: MediaQuery.of(context).size.height * 0.00,
+              //             right: MediaQuery.of(context).size.height * 0.02,
+              //             bottom: MediaQuery.of(context).size.height * 0.00,
+              //           ),
+              //           decoration: BoxDecoration(
+              //
+              //             color: Color(0xFF126086).withOpacity(0.2),
+              //
+              //             shape: BoxShape.circle,
+              //             border: Border.all(
+              //                 width: 0.0, color: Color(0xFF126086)),
+              //           ),
+              //           child: ClipRRect(
+              //             borderRadius: BorderRadius.circular(130.0),
+              //             child: Image.asset(
+              //               'assets/medicationBack.png',
+              //               fit: BoxFit.fill,
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //       Column(
+              //         mainAxisAlignment: MainAxisAlignment.start,
+              //         crossAxisAlignment: CrossAxisAlignment.start,
+              //         children: [
+              //           Container(
+              //             padding: EdgeInsets.only(
+              //               top: MediaQuery
+              //                   .of(context)
+              //                   .size
+              //                   .height * 0.00,
+              //               bottom: MediaQuery
+              //                   .of(context)
+              //                   .size
+              //                   .height * 0.005,
+              //               left: MediaQuery
+              //                   .of(context)
+              //                   .size
+              //                   .height * 0.00,
+              //               right: MediaQuery
+              //                   .of(context)
+              //                   .size
+              //                   .height * 0.00,
+              //             ),
+              //             child: Text(
+              //               usernameValue,
+              //               style: TextStyle(
+              //                 fontSize:
+              //                 MediaQuery
+              //                     .of(context)
+              //                     .size
+              //                     .height * 0.018,
+              //                 color: Color(0xFFFFFFFF),
+              //                 fontWeight: FontWeight.w600,
+              //               ),
+              //               overflow: TextOverflow.ellipsis,
+              //               textAlign: TextAlign.left,
+              //             ),
+              //           ),
+              //
+              //
+              //           GestureDetector(
+              //             onTap: () {
+              //                Navigator.of(context).push(
+              //                     MaterialPageRoute(
+              //                       builder:
+              //                           (BuildContext context) {
+              //                         return AddressScreen();
+              //                       },
+              //                     ),
+              //                   );
+              //             },
+              //             child:
+              //             Row(
+              //               mainAxisAlignment: MainAxisAlignment.start,
+              //               // Align items to the start
+              //               children: [
+              //                 Container(
+              //                   padding: EdgeInsets.symmetric(
+              //                     vertical: MediaQuery
+              //                         .of(context)
+              //                         .size
+              //                         .height * 0.00,
+              //                     horizontal: MediaQuery
+              //                         .of(context)
+              //                         .size
+              //                         .height * 0.00,
+              //                   ),
+              //                   child: Text(
+              //                     useraddressValue,
+              //                     style: TextStyle(
+              //                       overflow: TextOverflow.ellipsis,
+              //                       fontSize: MediaQuery
+              //                           .of(context)
+              //                           .size
+              //                           .height * 0.012,
+              //                       color: Colors.white,
+              //                     ),
+              //                     textAlign: TextAlign.left,
+              //                   ),
+              //                 ),
+              //                 Icon(
+              //                   Icons.keyboard_arrow_down,
+              //                   // Downward pointing arrow
+              //                   color: Colors.white,
+              //                   size: MediaQuery
+              //                       .of(context)
+              //                       .size
+              //                       .height * 0.02, // Responsive size
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //
+              //
+              //       // Action Bar 2nd half
+              //       Expanded(
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.end,
+              //           crossAxisAlignment: CrossAxisAlignment.center,
+              //           children: [
+              //
+              //             // Cart
+              //             GestureDetector(
+              //               onTap: () {
+              //                 Navigator.of(context).push(
+              //                   MaterialPageRoute(
+              //                     builder:
+              //                         (BuildContext context) {
+              //                       return AddToCartMain();
+              //                     },
+              //                   ),
+              //                 );
+              //               },
+              //               child:
+              //               AppointmentIconBadge(
+              //                 appointmentcount: "",
+              //               ),
+              //             ),
+              //
+              //
+              //             // Notification
+              //             GestureDetector(
+              //               onTap: () {
+              //                 Navigator.of(context).push(
+              //                   MaterialPageRoute(
+              //                     builder:
+              //                         (BuildContext context) {
+              //                       return NotificationMain();
+              //                     },
+              //                   ),
+              //                 );
+              //               },
+              //               child:
+              //               IconBadge(
+              //                 notificationcount: "",
+              //               ),
+              //             ),
+              //
+              //
+              //             // Profile Image
+              //             userprofilepValue != "NA"
+              //                 ?
+              //
+              //             GestureDetector(
+              //                 onTap: () async {
+              //                   Navigator.of(context).push(
+              //                     MaterialPageRoute(
+              //                       builder: (BuildContext context) {
+              //                         return ProfileMain();
+              //                       },
+              //                     ),
+              //                   );
+              //                 }, child:
+              //             Container(
+              //               height: MediaQuery
+              //                   .of(context)
+              //                   .size
+              //                   .height *
+              //                   0.050,
+              //               width: MediaQuery
+              //                   .of(context)
+              //                   .size
+              //                   .height *
+              //                   0.050,
+              //               decoration: BoxDecoration(
+              //                 border: Border.all(
+              //                   width: 1.0,
+              //                   color: Colors.white,
+              //                 ),
+              //                 shape: BoxShape.circle,
+              //                 image: new DecorationImage(
+              //                   fit: BoxFit.fill,
+              //                   image: Image
+              //                       .memory(
+              //                       base64Decode(userprofilepValue))
+              //                       .image,
+              //                 ),
+              //               ),
+              //             )
+              //             )
+              //                 : GestureDetector(
+              //               onTap: () async {
+              //                 Navigator.of(context).push(
+              //                   MaterialPageRoute(
+              //                     builder: (BuildContext context) {
+              //                       return ProfileMain();
+              //                     },
+              //                   ),
+              //                 );
+              //               }, child: Container(
+              //               height: MediaQuery
+              //                   .of(context)
+              //                   .size
+              //                   .height *
+              //                   0.04,
+              //               width: MediaQuery
+              //                   .of(context)
+              //                   .size
+              //                   .height *
+              //                   0.04,
+              //               padding: EdgeInsets.only(
+              //                 left: MediaQuery
+              //                     .of(context)
+              //                     .size
+              //                     .height *
+              //                     0.00,
+              //               ),
+              //               decoration: BoxDecoration(
+              //                 color: Colors.green,
+              //                 shape: BoxShape.circle,
+              //                 border: Border.all(
+              //                   width: 1.0,
+              //                   color: Colors.white,
+              //                 ),
+              //               ),
+              //               child: ClipRRect(
+              //                 borderRadius: BorderRadius.circular(130.0),
+              //                 child: Image.asset(
+              //                   'assets/drsujeet.png',
+              //                   fit: BoxFit.fill,
+              //                 ),
+              //               ),
+              //             ),
+              //             )
+              //
+              //
+              //
+              //
+              //
+              //
+              //
+              //
+              //
+              //
+              //           ],
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
 
-                    InkWell(
-                      onTap: () => Navigator.pop(context),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.035,
-                        width: MediaQuery.of(context).size.height * 0.035,
-                        margin: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.height * 0.00,
-                          top: MediaQuery.of(context).size.height * 0.00,
-                          right: MediaQuery.of(context).size.height * 0.02,
-                          bottom: MediaQuery.of(context).size.height * 0.00,
-                        ),
-                        decoration: BoxDecoration(
-
-                          color: Color(0xFF126086).withOpacity(0.2),
-
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                              width: 0.0, color: Color(0xFF126086)),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(130.0),
-                          child: Image.asset(
-                            'assets/medicationBack.png',
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      ),
+                  Container(
+                    padding: EdgeInsets.only(
+                      top: screenHeight * 0.07,
+                      left: screenWidth * 0.045,
+                      right: screenWidth * 0.045,
+                      bottom: screenWidth * 0.06,
                     ),
-                    Column(
+                    margin: EdgeInsets.only(
+                      right: screenHeight * 0.0,
+                      top: screenHeight * 0.0,
+                      bottom: screenHeight * 0.01,
+                      left: screenHeight * 0.0,
+                    ),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          padding: EdgeInsets.only(
-                            top: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.00,
-                            bottom: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.005,
-                            left: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.00,
-                            right: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.00,
-                          ),
-                          child: Text(
-                            usernameValue,
-                            style: TextStyle(
-                              fontSize:
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * 0.018,
-                              color: Color(0xFFFFFFFF),
-                              fontWeight: FontWeight.w600,
+
+                        InkWell(
+                          onTap: () => Navigator.pop(context),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.03,
+                            width: MediaQuery.of(context).size.height * 0.03,
+                            margin: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.height * 0.00,
+                              top: MediaQuery.of(context).size.height * 0.00,
+                              right: MediaQuery.of(context).size.height * 0.01,
+                              bottom: MediaQuery.of(context).size.height * 0.00,
                             ),
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF126086).withOpacity(0.2),
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  width: 0.0, color: Color(0xFF126086)),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(130.0),
+                              child: Image.asset(
+                                'assets/medicationBack.png',
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                           ),
                         ),
+                        Expanded(
 
-
-                        GestureDetector(
-                          onTap: () {
-                             Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder:
-                                        (BuildContext context) {
-                                      return AddressScreen();
-                                    },
-                                  ),
-                                );
-                          },
-                          child:
-                          Row(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            // Align items to the start
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: MediaQuery
+                                padding: EdgeInsets.only(
+                                  top: MediaQuery
                                       .of(context)
                                       .size
                                       .height * 0.00,
-                                  horizontal: MediaQuery
+                                  bottom: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.005,
+                                  left: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.00,
+                                  right: MediaQuery
                                       .of(context)
                                       .size
                                       .height * 0.00,
                                 ),
                                 child: Text(
-                                  useraddressValue,
+                                  usernameValue,
                                   style: TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    fontSize: MediaQuery
+                                    fontSize:
+                                    MediaQuery
                                         .of(context)
                                         .size
-                                        .height * 0.012,
-                                    color: Colors.white,
+                                        .height * 0.018,
+                                    color: Color(0xFFFFFFFF),
+                                    fontWeight: FontWeight.w600,
                                   ),
+                                  overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
+                                  softWrap: true,
+                                  maxLines: 2,
+
                                 ),
                               ),
-                              Icon(
-                                Icons.keyboard_arrow_down,
-                                // Downward pointing arrow
-                                color: Colors.white,
-                                size: MediaQuery
+
+
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder:
+                                          (BuildContext context) {
+                                        return AddressScreen();
+                                      },
+                                    ),
+                                  );
+                                },
+                                child:
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  // Align items to the start
+                                  children: [
+                                    Expanded(
+                                      flex : 6,
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.00,
+                                          horizontal: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.00,
+                                        ),
+                                        child: Text(
+                                          useraddressValue,
+                                          style: TextStyle(
+                                            overflow: TextOverflow.ellipsis,
+                                            fontSize: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.012,
+                                            color: Colors.white,
+                                          ),
+                                          textAlign: TextAlign.left,
+
+                                          softWrap: true,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.keyboard_arrow_down,
+                                        // Downward pointing arrow
+                                        color: Colors.white,
+                                        size: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height * 0.02, // Responsive size
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+
+                        // Action Bar 2nd half
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+
+                              // Cart
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder:
+                                          (BuildContext context) {
+                                        return AddToCartMain();
+                                      },
+                                    ),
+                                  );
+                                },
+                                child:
+                                AppointmentIconBadge(
+                                  appointmentcount: "",
+                                ),
+                              ),
+
+
+                              // Notification
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder:
+                                          (BuildContext context) {
+                                        return NotificationMain();
+                                      },
+                                    ),
+                                  );
+                                },
+                                child:
+                                IconBadge(
+                                  notificationcount: "",
+                                ),
+                              ),
+
+
+                              // Profile Image
+                              userprofilepValue != "NA"
+                                  ?
+
+                              GestureDetector(
+                                  onTap: () async {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                          return ProfileMain();
+                                        },
+                                      ),
+                                    );
+                                  }, child:
+                              Container(
+                                height: MediaQuery
                                     .of(context)
                                     .size
-                                    .height * 0.02, // Responsive size
+                                    .height *
+                                    0.050,
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height *
+                                    0.050,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1.0,
+                                    color: Colors.white,
+                                  ),
+                                  shape: BoxShape.circle,
+                                  image: new DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: Image
+                                        .memory(
+                                        base64Decode(userprofilepValue))
+                                        .image,
+                                  ),
+                                ),
+                              )
+                              )
+                                  : GestureDetector(
+                                onTap: () async {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return ProfileMain();
+                                      },
+                                    ),
+                                  );
+                                }, child: Container(
+                                height: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height *
+                                    0.04,
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height *
+                                    0.04,
+                                padding: EdgeInsets.only(
+                                  left: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height *
+                                      0.00,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    width: 1.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(130.0),
+                                  child: Image.asset(
+                                    'assets/drsujeet.png',
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
                               ),
+                              )
+
+
+
+
+
+
+
+
+
+
                             ],
                           ),
                         ),
                       ],
                     ),
-
-
-                    // Action Bar 2nd half
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-
-                          // Cart
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder:
-                                      (BuildContext context) {
-                                    return AddToCartMain();
-                                  },
-                                ),
-                              );
-                            },
-                            child:
-                            AppointmentIconBadge(
-                              appointmentcount: "",
-                            ),
-                          ),
-
-
-                          // Notification
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder:
-                                      (BuildContext context) {
-                                    return NotificationMain();
-                                  },
-                                ),
-                              );
-                            },
-                            child:
-                            IconBadge(
-                              notificationcount: "",
-                            ),
-                          ),
-
-
-                          // Profile Image
-                          userprofilepValue != "NA"
-                              ?
-
-                          GestureDetector(
-                              onTap: () async {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return ProfileMain();
-                                    },
-                                  ),
-                                );
-                              }, child:
-                          Container(
-                            height: MediaQuery
-                                .of(context)
-                                .size
-                                .height *
-                                0.050,
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .height *
-                                0.050,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1.0,
-                                color: Colors.white,
-                              ),
-                              shape: BoxShape.circle,
-                              image: new DecorationImage(
-                                fit: BoxFit.fill,
-                                image: Image
-                                    .memory(
-                                    base64Decode(userprofilepValue))
-                                    .image,
-                              ),
-                            ),
-                          )
-                          )
-                              : GestureDetector(
-                            onTap: () async {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return ProfileMain();
-                                  },
-                                ),
-                              );
-                            }, child: Container(
-                            height: MediaQuery
-                                .of(context)
-                                .size
-                                .height *
-                                0.04,
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .height *
-                                0.04,
-                            padding: EdgeInsets.only(
-                              left: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height *
-                                  0.00,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: 1.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(130.0),
-                              child: Image.asset(
-                                'assets/drsujeet.png',
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                          )
-
-
-
-
-
-
-
-
-
-
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  ),
 
                   // Main Content Section
                   Expanded(

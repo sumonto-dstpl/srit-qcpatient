@@ -31,6 +31,8 @@ import 'package:newfolder/Screens/Login/loginhome.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Registeration/registeration.dart';
 import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
+import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
@@ -96,7 +98,14 @@ class LabTestsMainstate extends State<LabTestsMain> {
   bool new20 = false;
   bool new10 = false;
   @override
-  Widget build(BuildContext context) {
+
+  List<Map<String,dynamic>> recommendedCartList = [
+  {"id" : 1001,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+  {"id" : 1002,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+  {"id" : 1003,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+ ];
+
+Widget build(BuildContext context) {
     final bool isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
@@ -533,7 +542,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                         .height *
                                         0.0),
                                 child: Text(
-                                  "Search for lab results",
+                                  "Search by service name",
                                   style: TextStyle(
                                       color: Color(0xFF999999),
                                       // overflow: TextOverflow.ellipsis,
@@ -1601,8 +1610,10 @@ class LabTestsMainstate extends State<LabTestsMain> {
                               physics: ScrollPhysics(),  // Ensures scrolling
                               shrinkWrap: true,  // Prevents ListView from taking up extra space
                               scrollDirection: Axis.horizontal,  // Makes the ListView horizontal
-                              itemCount: 3,  // You can adjust the item count
+                              itemCount: recommendedCartList.length
+                              ,  // You can adjust the item count
                               itemBuilder: (BuildContext context, int index) {
+                                final item = recommendedCartList[index];
                                 return GestureDetector(
                                   onTap: () {
 
@@ -1710,7 +1721,8 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                                                 bottom: MediaQuery.of(context).size.height * 0.00),
                                                             child:
                                                             Text(
-                                                              "QCT Superior Health Plan",
+                                                              // "QCT Superior Health Plan",
+                                                              item['plan'],
                                                               style: TextStyle(
                                                                   color: Colors.black87,
                                                                   overflow: TextOverflow.ellipsis,
@@ -1731,7 +1743,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                                                 bottom: MediaQuery.of(context).size.height * 0.00),
                                                             child:
                                                             Text(
-                                                              "100 Tests Included : Complete Blood Count",
+                                                              "${item['test']} Tests Included : Complete Blood Count",
                                                               style: TextStyle(
                                                                   color: Colors.black54,
                                                                   fontWeight: FontWeight.w500,
@@ -1873,7 +1885,9 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                                                                         top: MediaQuery.of(context).size.height * 0.00,
                                                                                         bottom: MediaQuery.of(context).size.height * 0.00),
                                                                                     child:
-                                                                                    Text( "QR 1999",
+                                                                                    Text(
+                                                                                      // "QR 1999",
+                                                                                      item['qr'],
                                                                                       style: TextStyle(
                                                                                         // color: Colors.blue[600],
                                                                                           color: Color(0xFF12B76A),
@@ -1937,7 +1951,13 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                                                           children: <Widget>[
                                                                             GestureDetector(
                                                                               onTap: () async {
-                                                                                // Navigator.of(context, rootNavigator: true).pop();
+                                                                                addToCart(item['id'],item['plan'],item['test'],item['qr']);
+                                                                                showTopNotification(
+                                                                                  context,
+                                                                                  title: "Add Cart",
+                                                                                  message: "Cart is added successfully",
+                                                                                  type: NotificationType.success,
+                                                                                );
                                                                               },
                                                                               child: Container(
                                                                                 padding: new EdgeInsets.only(
@@ -4357,4 +4377,32 @@ class LabTestsMainstate extends State<LabTestsMain> {
             );
           }
       );
+
+  void addToCart(int id,String plan,String test,String qr) async{
+    Map<String,dynamic> addToCart = {
+      "id": id,
+      "plan" : plan,
+      "test" : test,
+      "qr" : qr
+    };
+
+    print("addToCart : $addToCart");
+
+    bool isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
+    print("isGuestUser : $isGuestUser");
+    String? username =  await UserSecureStorage.getUsernameid();
+
+    Map<String, dynamic>? user = await UserSecureStorage.getUser(username ?? '');
+
+    print("user : $user");
+
+    if(isGuestUser){
+      String userId = "GUEST";
+      UserSecureStorage.saveAddToCard(key: "addToCart2",userId: userId, newData: addToCart);
+    }
+    else {
+      String userId = username ?? '';
+      UserSecureStorage.saveAddToCard(key: "addToCart2",userId: userId, newData: addToCart);
+    }
+  }
 }

@@ -448,7 +448,7 @@ class MpinSubSettingsstate extends State<MpinSubSettings> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Text(
-                                    "Forget MPIN?",
+                                    "Forgot MPIN?",
                                     style: TextStyle(
                                       fontSize:
                                       MediaQuery.of(context).size.height * 0.016,

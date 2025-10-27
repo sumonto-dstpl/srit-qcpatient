@@ -9,12 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
+import 'package:newfolder/Data/Models/doctorslistres.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
 import 'package:newfolder/Screens/Alerts/loginbottomsheet.dart';
 import 'package:newfolder/Screens/Appointments/appointmentsmainfindDoctors.dart';
+import 'package:newfolder/Screens/Appointments/finddoctorslist.dart';
 import 'package:newfolder/Screens/Appointments/quicksearchwithoutdata.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/HRecommendedDoctors/home_doctordetails.dart';
@@ -124,10 +126,13 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   late final AnimationController _rotateController;
   double _pullDistance = 0;
   bool _isRefreshing = false;
+
+  List<DoctorsListResponse> responselist = [];
   @override
   void initState(){
     getSharedPrefs();
      _loadData();
+    getCommonDoctorList();
     super.initState();
     _rotateController = AnimationController(
       vsync: this,
@@ -2947,16 +2952,17 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                     .of(context)
                                     .size
                                     .height * 0.03,
-                                top: MediaQuery.of(context).size.height *
-                                    0.015,
-                                right: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.03,
-                                bottom: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.005),
+                                // top: MediaQuery.of(context).size.height *
+                                //     0.015,
+                                // right: MediaQuery
+                                //     .of(context)
+                                //     .size
+                                //     .height * 0.03,
+                                // bottom: MediaQuery
+                                //     .of(context)
+                                //     .size
+                                //     .height * 0.005
+                            ),
                             child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment
@@ -2973,14 +2979,13 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                             .of(context)
                                             .size
                                             .height * 0.00,
-                                        top: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .height * 0.00,
-                                        bottom: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .height * 0.00),
+                                      top: MediaQuery.of(context).size.height *
+                                          0.015,
+                                      bottom: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height * 0.005,
+                                    ),
                                     child:
                                     Text(
                                       "Recommend Doctors",
@@ -2995,35 +3000,65 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                     ),
                                   ),
 
-                                  Container(
-                                    padding: EdgeInsets.only(
-                                        left: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .height * 0.00,
+                                  GestureDetector(
+                                    onTap : () async {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context) {
+                                            return FindDoctorsListMain(
+                                                "in-person"); // Replace with another widget
+                                          },
+                                        ),
+                                      );
+                                    },
+
+                                    child: Container(
+
+                                      padding : EdgeInsets.only(
+                                        top: MediaQuery.of(context).size.height *
+                                            0.015,
+                                            bottom: MediaQuery
+                                                .of(context)
+                                                  .size
+                                                .height * 0.005,
                                         right: MediaQuery
                                             .of(context)
                                             .size
-                                            .height * 0.00,
-                                        top: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .height * 0.00,
-                                        bottom: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .height * 0.00),
-                                    child:
-                                    Text(
-                                      "View All",
-                                      style: TextStyle(
-                                        color: Color(0xFF126086),
-                                        fontWeight: FontWeight.w600,
-                                        overflow: TextOverflow.ellipsis,
-                                        fontSize: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .height * 0.012,
+                                            .height * 0.03,
+
+                                      ),
+                                      child: Container(
+
+                                        padding: EdgeInsets.only(
+                                            left: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.00,
+                                            right: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.00,
+                                            top: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.00,
+                                            bottom: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.00),
+                                        child:
+                                        Text(
+                                          "View All",
+                                          style: TextStyle(
+                                            color: Color(0xFF126086),
+                                            fontWeight: FontWeight.w600,
+                                            overflow: TextOverflow.ellipsis,
+                                            fontSize: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.012,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -3066,9 +3101,11 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                   physics: ScrollPhysics(),
                                   shrinkWrap: true,
                                   scrollDirection: Axis.horizontal,
-                                  itemCount:  3,
+                                  itemCount:  responselist.length,
                                   itemBuilder: (BuildContext context,
                                       int index) {
+
+                                    final item =  responselist[index];
                                     return GestureDetector(
                                       onTap: () {
                                         // Add your onTap logic here
@@ -3325,7 +3362,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                                 0.00),
                                                                         child:
                                                                         Text(
-                                                                          "Dr. Nutan Bhatt",
+                                                                          item.doctorName ?? "",
                                                                           style: TextStyle(
                                                                               color: Colors
                                                                                   .black87,
@@ -3464,7 +3501,8 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                         0.00),
                                                                 child:
                                                                 Text(
-                                                                  "General physician",
+                                                                  // "General physician",
+                                                                  item.speciality ?? "",
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .black54,
@@ -3514,6 +3552,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                 child:
                                                                 Text(
                                                                   "41 YEARS - MBBS, DIPLOMA IN FAMILY MEDICINE",
+                                                                  //   (item.experience ?? "") ,
                                                                   style: TextStyle(
                                                                       color: Color(
                                                                           0xFF126086),
@@ -3842,7 +3881,14 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                                       MaterialPageRoute(
                                                                                        builder:
                                                                                             (BuildContext context) {
-                                                                                          return DoctorDetilPage("Practitioner/f002");
+                                                                                          return DoctorDetilPage(
+                                                                                              "Practitioner/f002",
+                                                                                             doctorDetail: {
+                                                                                                 "doctorName" : responselist[index].doctorName ,
+                                                                                                 "speciality" : responselist[index].speciality ,
+                                                                                                 "experience" : (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
+                                                                                             } ,
+                                                                                          );
                                                                                         },
                                                                                       ),
                                                                                     );
@@ -3945,7 +3991,15 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                                       MaterialPageRoute(
                                                                                         builder:
                                                                                             (BuildContext context) {
-                                                                                          return SelectTimeSlot("Practitioner/f002");
+                                                                                          return SelectTimeSlot(
+                                                                                              "Practitioner/f002",
+                                                                                            doctorDetail: {
+                                                                                              "doctorName" : responselist[index].doctorName ,
+                                                                                             "speciality" : responselist[index].speciality ,
+                                                                                             "experience" : (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
+
+                                                                                          },
+                                                                                          );
                                                                                         },
                                                                                       ),
                                                                                     );
@@ -6429,5 +6483,182 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
             );
           }
       );
+
+  void getCommonDoctorList() async{
+
+    connectivityservice.checkconnectivity().then((intenet) async {
+      if (intenet != null && intenet) {
+
+
+
+        final List<Map<String, dynamic>> staticDoctorList = [
+          {
+            "doctorId": "1",
+            "doctorName": "Dr. Arjun Mehta",
+            "qualification": "MBBS, MD (General Medicine)",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "18 YEARS Experience",
+            "regularFee": "₹800",
+            "discountFee": "₹600",
+            "rating": "4.8",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "2",
+            "doctorName": "Dr. Priya Nair",
+            "qualification": "MBBS, DNB (General Medicine)",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "15 YEARS Experience",
+            "regularFee": "₹750",
+            "discountFee": "₹550",
+            "rating": "4.7",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "3",
+            "doctorName": "Dr. Sameer Khan",
+            "qualification": "MBBS, MD (Internal Medicine)",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "20 YEARS Experience",
+            "regularFee": "₹900",
+            "discountFee": "₹700",
+            "rating": "4.9",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "4",
+            "doctorName": "Dr. Neha Sharma",
+            "qualification": "MBBS, Diploma in Family Medicine",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "12 YEARS Experience",
+            "regularFee": "₹700",
+            "discountFee": "₹500",
+            "rating": "4.6",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "5",
+            "doctorName": "Dr. Rajesh Patel",
+            "qualification": "MBBS, MD (General Medicine)",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "25 YEARS Experience",
+            "regularFee": "₹850",
+            "discountFee": "₹650",
+            "rating": "4.5",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "6",
+            "doctorName": "Dr. Anjali Verma",
+            "qualification": "MBBS, DNB (General Medicine)",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "17 YEARS Experience",
+            "regularFee": "₹800",
+            "discountFee": "₹600",
+            "rating": "4.9",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "7",
+            "doctorName": "Dr. Harish Reddy",
+            "qualification": "MBBS, Diploma in Family Medicine",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "22 YEARS Experience",
+            "regularFee": "₹950",
+            "discountFee": "₹750",
+            "rating": "4.8",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "8",
+            "doctorName": "Dr. Meenakshi Rao",
+            "qualification": "MBBS, MD (Internal Medicine)",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "19 YEARS Experience",
+            "regularFee": "₹880",
+            "discountFee": "₹700",
+            "rating": "4.7",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "9",
+            "doctorName": "Dr. Aditya Deshmukh",
+            "qualification": "MBBS, Diploma in Family Medicine",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "14 YEARS Experience",
+            "regularFee": "₹720",
+            "discountFee": "₹520",
+            "rating": "4.6",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+          {
+            "doctorId": "10",
+            "doctorName": "Dr. Kavita Singh",
+            "qualification": "MBBS, MD (General Medicine)",
+            "speciality": "General Physician / Internal Medicine",
+            "experience": "21 YEARS Experience",
+            "regularFee": "₹950",
+            "discountFee": "₹750",
+            "rating": "5.0",
+            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+            "photo": null,
+          },
+        ];
+
+
+
+// simulate delay (ya API ke jagah ye static data)
+        Future.delayed(Duration(milliseconds: 1000), () {
+          final DoctorsListB staticResponse = DoctorsListB(
+            status: 200,
+            message: null,
+            response: staticDoctorList.map((e) => DoctorsListResponse.fromJson(e)).toList(),
+          );
+
+          var newres = staticResponse;
+
+          if (newres.message != null) {
+
+            final snackBar = SnackBar(content: Text(newres.message!));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          } else if (newres.response != null && newres.response!.isNotEmpty) {
+            setState(() {
+              responselist = newres.response!;
+            });
+
+
+            print(responselist.toString());
+          } else {
+
+            final snackBar = SnackBar(content: Text("Details Not Found"));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        });
+
+
+
+
+
+      } else {
+
+        final snackBar = SnackBar(
+          content: Text("No Internet, Check Connectivity!"),
+          behavior: SnackBarBehavior.floating,
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    });
+
+  }
 }
 

@@ -1564,20 +1564,33 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
                                                                                 GestureDetector(
                                                                                   onTap: () async {
+
+                                                                                    print("");
                                                                                     Navigator.of(context).push(
                                                                                       MaterialPageRoute(
                                                                                         builder:
                                                                                             (BuildContext context) {
                                                                                           // return SelectTimeSlot(responselist![index].doctorId!);
-                                                                                              return DoctorDetilPage(
-                                                                                                "Practitioner/f002",
-                                                                                                doctorDetail : {
-                                                                                                "doctorName" : responselist[index].doctorName ,
-                                                                                                "speciality" : responselist[index].speciality ,
-                                                                                                "experience" : (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
-                                                                                                  } ,
-                                                                                                physical_virtual_mode: widget.physical_virtual_mode,
-                                                                                              );
+                                                                                          //     return DoctorDetilPage(
+                                                                                          //       "Practitioner/f002",
+                                                                                          //       doctorDetail : {
+                                                                                          //       "doctorName" : responselist[index].doctorName ,
+                                                                                          //       "speciality" : responselist[index].speciality ,
+                                                                                          //       "experience" : (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
+                                                                                          //         } ,
+                                                                                          //       physical_virtual_mode: widget.physical_virtual_mode,
+                                                                                          //     );
+                                                                                           return SelectTimeSlot(
+                                                                                             "Practitioner/f002",
+                                                                                             doctorDetail: {
+                                                                                               "doctorName" : responselist[index].doctorName ,
+                                                                                                     "speciality" : responselist[index].speciality ,
+                                                                                                     "experience" : (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
+
+                                                                                             },
+                                                                                             physical_virtual_mode: widget.physical_virtual_mode,
+                                                                                           )   ;
+
                                                                                         },
                                                                                       ),
                                                                                     );

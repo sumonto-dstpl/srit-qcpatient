@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -43,18 +44,65 @@ class ProfileMainstate extends State<ProfileMain> {
   String userprofilepValue = "NA";
   int _selectedIndex = 0;
   bool isGuestUser =false;
+  String UHID = "UHID";
+  String mobileNumber = "Mobile Number";
   final List<String> myopinions = [
     "PROVISIONAL DIAGNOSIS CODE",
     "S43.4 — Sprain and strain Of shoulder joint(Primary)",
     "S43.4 - Sprain and strain of shoulder joint",
   ];
 
-  List<String> myimageslist = [
-    "assets/profileM1.png",
-    "assets/profileM2.png",
-    "assets/profileM3.png",
-    "assets/profileM4.png",
+  // List<String> myimageslist = [
+  //   "assets/profileM1.png",
+  //   "assets/profileM2.png",
+  //   "assets/profileM3.png",
+  //   "assets/profileM4.png",
+  // ];
+
+  List<Map<String, dynamic>> myimageslist = [
+    {
+      "image": "assets/profileM4.png",
+      "firstName": "",
+      "lastName": "",
+      "uhid": "",
+      "mobileNumber": "",
+      "email": "",
+      "relationship": "",
+      "gender": "",
+    },
+    {
+      "image": "assets/profileM1.png",
+      "firstName": "Nutan",
+      "lastName": "Bhatt",
+      "uhid": "UHID002",
+      "mobileNumber": "+91 9123456789",
+      "email": "nutan@example.com",
+      "relationship": "Spouse",
+      "gender": "Female",
+    },
+    {
+      "image": "",
+      "firstName": "Asgar",
+      "lastName": "Kumar",
+      "uhid": "UHID003",
+      "mobileNumber": "+91 9988776655",
+      "email": "rohan@example.com",
+      "relationship": "Brother",
+      "gender": "Male",
+    },
+    {
+      "image": "assets/profileM3.png",
+      "firstName": "Priya",
+      "lastName": "Sharma",
+      "uhid": "UHID004",
+      "mobileNumber": "+91 8877665544",
+      "email": "priya@example.com",
+      "relationship": "Sister",
+      "gender": "Female",
+    },
+
   ];
+
 
   @override
   void initState(){
@@ -68,24 +116,26 @@ class ProfileMainstate extends State<ProfileMain> {
 
 
     // Dynamic naming: Guest01 for guest, otherwise use stored user name
+    setState(() {});
     if (isGuestUser) {
       usernameValue = "Guest";
     } else {
       String? username = await UserSecureStorage.getUsernameid();
       Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
-
+      print("user 111: $user");
       if (user != null && user['data'] != null) {
         String? fname = user['data']['fname'];
         String? lname = user['data']['lname'];
         usernameValue = ((fname ?? "") + " " + (lname ?? "")).trim();
+        mobileNumber = user['data']['mobile'] ?? "Mobile Number";
       } else {
         usernameValue = "ashdsaj";
       }
     }
 
-    myimageslist = isGuestUser ? [myimageslist[3]] : myimageslist;
+    myimageslist = isGuestUser ? [myimageslist[0]] : myimageslist;
 
-    setState(() {}); // Refresh UI if needed
+
 
     if (isGuestUser) {
       Timer(Duration(seconds: 0), () {
@@ -586,16 +636,17 @@ class ProfileMainstate extends State<ProfileMain> {
                                       MediaQuery.of(context).size.height * 0.00,
                                   bottom: MediaQuery.of(context).size.height *
                                       0.00),
-                              child: Text(
-                                "Email / UHID / Mobile Number",
-                                style: TextStyle(
-                                    color: Colors.black54,
+                              child: RichText(
+                                text: TextSpan(
+                                  text: "SID0007 | ${mobileNumber}",
+                                  style: TextStyle(
+                                    color: Color(0xFF126086),
                                     fontWeight: FontWeight.w500,
                                     overflow: TextOverflow.ellipsis,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.013),
-                              ),
+                                    fontSize: MediaQuery.of(context).size.height * 0.014,
+                                  ),
+                                ),
+                              )
                             ),
                           ],
                         ),
@@ -793,6 +844,7 @@ class ProfileMainstate extends State<ProfileMain> {
                           ),
                         ),
 
+                        // Family Members Details
                         Container(
                           margin: EdgeInsets.only(
                             right: MediaQuery.of(context).size.height * 0.02,
@@ -802,44 +854,159 @@ class ProfileMainstate extends State<ProfileMain> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: List.generate(
-                              myimageslist.length,
-                                  (index) => GestureDetector(
-                                onTap: () {
-                                  // 👉 If last image (plus icon) is clicked
-                                  if (index == myimageslist.length - 1) {
-                                    // Open the bottomsheet form
-                                    AddMemberBottomSheet.show(context);
-                                  } else {
-                                    // You can later add what to do for normal images
-                                    debugPrint("Tapped on image ${myimageslist[index]}");
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: List.generate(
+
+                                myimageslist.length,(index) {
+                                  final item = myimageslist[index];
+
+
+                                    bool isImageNotAvailable = item['image'].toString().isEmpty;
+                                    String firstChar = isImageNotAvailable ? item['firstName'][0] : "";
+
+                                  Widget imageWidget;
+                                  if (isImageNotAvailable) {
+                                    // No image → show first character
+                                    imageWidget = Container(
+                                      margin: EdgeInsets.only(
+                                        left: MediaQuery.of(context).size.height * 0.02,
+                                        right: MediaQuery.of(context).size.height * 0.00,
+                                        top: MediaQuery.of(context).size.height * 0.005,
+                                        bottom: MediaQuery.of(context).size.height * 0.005,
+                                      ),
+                                      height: MediaQuery.of(context).size.height * 0.07,
+                                      width: MediaQuery.of(context).size.height * 0.07,
+                                      decoration: BoxDecoration(
+                                        color : Color(0xFFCF8D41),
+                                        shape: BoxShape.circle,
+
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Container(
+                                          padding: EdgeInsets.all(
+                                              MediaQuery.of(context).size.height * 0.000
+
+                                          ),
+                                          child :
+                                          Text(
+                                            "A",
+                                            style : TextStyle(
+                                                fontSize: screenHeight * 0.038,
+                                                fontWeight: FontWeight.w500,
+                                                color : Color(0xFFFFFFFF)
+                                            ),
+                                          )
+
+                                      ),
+                                    );
                                   }
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height * 0.02,
-                                    right: MediaQuery.of(context).size.height * 0.00,
-                                    top: MediaQuery.of(context).size.height * 0.005,
-                                    bottom: MediaQuery.of(context).size.height * 0.005,
-                                  ),
-                                  height: MediaQuery.of(context).size.height * 0.07,
-                                  width: MediaQuery.of(context).size.height * 0.07,
-                                  // color: Colors.lightBlue,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(
-                                      index == 1 || index == 3
-                                          ? MediaQuery.of(context).size.height * 0.005
-                                          : 0,
-                                    ),
-                                    child: Image.asset(
-                                      myimageslist[index],
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
+                                  else {
+                                    final imagePath = item['image'].toString();
+
+                                    if (imagePath.startsWith("/")) {
+                                      // Local file path → cache / camera image
+                                      imageWidget = Container(
+                                        margin: EdgeInsets.only(
+                                          left: MediaQuery.of(context).size.height * 0.02,
+                                          right: MediaQuery.of(context).size.height * 0.0,
+                                          top: MediaQuery.of(context).size.height * 0.005,
+                                          bottom: MediaQuery.of(context).size.height * 0.005,
+                                        ),
+                                        height: MediaQuery.of(context).size.height * 0.07,
+                                        width: MediaQuery.of(context).size.height * 0.07,
+                                        child: ClipOval(
+                                          child: Image.file(
+                                            File(item['image'].toString()),
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                          ),
+                                        ),
+                                      )
+                                      ;
+                                    } else {
+                                      // Asset image
+                                      imageWidget = Container(
+                                        margin: EdgeInsets.only(
+                                          left: MediaQuery.of(context).size.height * 0.02,
+                                          right: MediaQuery.of(context).size.height * 0.00,
+                                          top: MediaQuery.of(context).size.height * 0.005,
+                                          bottom: MediaQuery.of(context).size.height * 0.005,
+                                        ),
+                                        height: MediaQuery.of(context).size.height * 0.07,
+                                        width: MediaQuery.of(context).size.height * 0.07,
+                                        alignment: Alignment.center,
+                                        child: Container(
+                                            padding: EdgeInsets.all(
+                                                MediaQuery.of(context).size.height * 0.000
+
+                                            ),
+                                            child : Image.asset("assets/profileM2.png")
+                                        ),
+                                      );
+                                    }
+                                  }
+
+
+                                      return GestureDetector(
+
+                                        onTap: () async {
+                                          // 👉 If last image (plus icon) is clicked
+                                          if (index == 0) {
+                                            // Open the bottomsheet form
+                                            final result = await AddMemberBottomSheet.show(context);
+                                            print("result : $result");
+
+                                            if(result != null){
+                                              setState(() {
+                                                myimageslist.insert(1, result);
+                                              });
+
+
+
+                                            }
+                                          } else {
+                                            // You can later add what to do for normal images
+                                            debugPrint("Tapped on image ${myimageslist[index]}");
+                                          }
+                                        },
+                                        child:
+                                        (index == 0 ) ?
+                                           Container(
+                                                                                     margin: EdgeInsets.only(
+                                            left: MediaQuery.of(context).size.height * 0.02,
+                                            right: MediaQuery.of(context).size.height * 0.00,
+                                            top: MediaQuery.of(context).size.height * 0.005,
+                                            bottom: MediaQuery.of(context).size.height * 0.005,
+                                                                                     ),
+                                                                                     height: MediaQuery.of(context).size.height * 0.07,
+                                                                                     width: MediaQuery.of(context).size.height * 0.07,
+
+
+                                                                                     child: Container(
+                                              padding: EdgeInsets.all(
+                                                  MediaQuery.of(context).size.height * 0.000
+
+                                              ),
+                                              child: Image.asset(
+                                                item['image'],
+                                                fit: BoxFit.fill,
+                                              ),
+
+
+
+                                                                                     ),
+                                                                                   )
+                                        :  imageWidget,
+
+                                      );
+                                 },
                               ),
+
+
                             ),
                           ),
                         ),
@@ -2727,7 +2894,7 @@ class ProfileMainstate extends State<ProfileMain> {
       _selectedIndex = widget.selectedIndex;*/
 
       // Fluttertoast.showToast(msg: "test", toastLength: Toast.LENGTH_LONG);
-      print(selected);
+
     });
   }
 

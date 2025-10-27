@@ -6,11 +6,15 @@ import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
+import 'package:newfolder/Screens/Medications/medicationsmain.dart';
 import 'package:newfolder/Screens/MyHealth/helpscreen.dart';
 import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
+import 'package:newfolder/Screens/PaymentHistory/paymenthistory.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
+import 'package:newfolder/Screens/Radiology/pastupcomingtestscan.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
+import 'package:newfolder/Screens/Timeline/timelinemain.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
@@ -820,47 +824,70 @@ class MyHealthMainstate extends State<MyHealthMain> {
                                   // ---------- Icon Button ----------
                                   TextButton(
                                     onPressed: () async {
-                                      //   if (index == 0) {
-                                      //     Navigator.of(context).push(
-                                      //       MaterialPageRoute(
-                                      //         builder: (BuildContext context) {
-                                      //           return DiagnosticMain();
-                                      //         },
-                                      //       ),
-                                      //     );
-                                      //   } else if (index == 1) {
-                                      //     Navigator.of(context).push(
-                                      //       MaterialPageRoute(
-                                      //         builder: (BuildContext context) {
-                                      //           return DoctorHCMain();
-                                      //         },
-                                      //       ),
-                                      //     );
-                                      //   } else if (index == 2) {
-                                      //     Navigator.of(context).push(
-                                      //       MaterialPageRoute(
-                                      //         builder: (BuildContext context) {
-                                      //           return NurseHCMain();
-                                      //         },
-                                      //       ),
-                                      //     );
-                                      //   } else if (index == 3) {
-                                      //     Navigator.of(context).push(
-                                      //       MaterialPageRoute(
-                                      //         builder: (BuildContext context) {
-                                      //           return PhysioHCMain();
-                                      //         },
-                                      //       ),
-                                      //     );
-                                      //   } else if (index == 4) {
-                                      //     Navigator.of(context).push(
-                                      //       MaterialPageRoute(
-                                      //         builder: (BuildContext context) {
-                                      //           return MedicalEquipHCMain();
-                                      //         },
-                                      //       ),
-                                      //     );
-                                      //   }
+                                      print("index : $index");
+                                        if (index == 0) {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (BuildContext context) {
+                                                return MyReportsMain(initialTabIndex: 1,);
+                                              },
+                                            ),
+                                          );
+                                        } else if (index == 1) {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (BuildContext context) {
+                                                return MyReportsMain(initialTabIndex: 1,);
+                                              },
+                                            ),
+                                          );
+                                        } else if (index == 2) {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (BuildContext context) {
+                                                return MedicationsMain();
+                                              },
+                                            ),
+                                          );
+                                        } else if (index == 3) {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (BuildContext context) {
+                                                return MyReportsMain(initialTabIndex: 1,);
+                                              },
+                                            ),
+                                          );
+                                        } else if (index == 4) {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (BuildContext context) {
+                                                return PastUpcomingscanMain();
+                                              },
+                                            ),
+                                          );
+                                        }
+                                        else if (index == 5) {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (BuildContext context) {
+                                                return TimelineMain();
+                                              },
+                                            ),
+                                          );
+                                        } else if (index == 6) {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (BuildContext context) {
+                                                    return PaymentHistoryMain();
+                                                  },
+                                              )
+                                          );
+                                        }
                                     },
                                     style: TextButton.styleFrom(
                                       backgroundColor: Color(0xFFE8F0F3),
@@ -1992,7 +2019,7 @@ class MyHealthMainstate extends State<MyHealthMain> {
           context: context,
           isScrollControlled: true,
           isDismissible: true,
-          enableDrag: false,
+          enableDrag: true,
           backgroundColor: Colors.transparent, // Make modal background transparent
           barrierColor: Colors.transparent,
           transitionAnimationController: AnimationController(
