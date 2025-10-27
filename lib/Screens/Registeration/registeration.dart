@@ -445,6 +445,24 @@ class Registrationstate extends State<Registration> {
   }
 
   bool isExpanded = false;
+
+  bool isButtonEnabled = false;
+  void checkFieldEmpty(){
+
+    print("genderselectedval : $genderselectedval");
+
+     setState(() {
+       if(FirstNameEditTextController.text.isNotEmpty && LastNameEditTextController.text.isNotEmpty
+          && MobileNummberEditTextController.text.isNotEmpty  && EmailEditTextController.text.isNotEmpty
+          && (genderselectedval != null)
+       ){
+         isButtonEnabled = true ;
+       }
+       else {
+         isButtonEnabled = false;
+       }
+     });
+  }
   @override
     Widget build(BuildContext context) {
       progressDialog = ProgressDialog(context,
@@ -741,6 +759,8 @@ class Registrationstate extends State<Registration> {
                                                 });
                                               }
                                               validateInput();*/
+
+                                              checkFieldEmpty();
                                             },
                                             decoration: InputDecoration(
                                               isDense: true,
@@ -918,6 +938,7 @@ class Registrationstate extends State<Registration> {
                                                 });
                                               }
                                               lastnamevalidateInput();*/
+                                              checkFieldEmpty();
                                             },
                                             decoration: InputDecoration(
                                               isDense: true,
@@ -1093,6 +1114,7 @@ class Registrationstate extends State<Registration> {
                                                 });
                                               }
                                               mobilenumvalidateInput();*/
+                                              checkFieldEmpty();
                                             },
                                             decoration: InputDecoration(
                                               isDense: true,
@@ -1273,6 +1295,7 @@ class Registrationstate extends State<Registration> {
                                                 });
                                               }
                                               emailvalidateInput();*/
+                                              checkFieldEmpty();
                                             },
                                             decoration: InputDecoration(
                                               isDense: true,
@@ -1436,6 +1459,8 @@ class Registrationstate extends State<Registration> {
                                                     genderselectedval = gender["key"]!;
                                                     _isGenderValid = true;
                                                   });
+
+                                                  checkFieldEmpty();
                                                 },
                                                 child: Row(
                                                   mainAxisSize: MainAxisSize.min, // take only as much space as needed
@@ -1452,6 +1477,7 @@ class Registrationstate extends State<Registration> {
                                                           genderselectedval = value!;
                                                           _isGenderValid = true;
                                                         });
+                                                        checkFieldEmpty();
                                                       },
                                                     ),
                                                     SizedBox(width: 2), // small gap between radio and text
@@ -1615,6 +1641,7 @@ class Registrationstate extends State<Registration> {
                                     // Navigator.of(context).push(
                                     //   MaterialPageRoute(builder: (context) => MpinResetSettings()),
                                     // );
+                                    if(isButtonEnabled)
                                       validSignupSubmit();
                                   },
                                   child: Container(
@@ -1659,14 +1686,15 @@ class Registrationstate extends State<Registration> {
                                                       0.5,
                                                       0.9
                                                     ],
-                                                    colors: [
-                                                      Color(0xFF126086),
-                                                      Color(0xFF126086),
-                                                    ])),
+                                                    colors: isButtonEnabled ?  [ Color(0xFF126086),Color(0xFF126086),]  :  [ Color(0xFFBCBCBC),Color(0xFFBCBCBC),]
+
+
+                                                     )),
                                             alignment: Alignment.center,
                                             padding: EdgeInsets.only(left: 0.0),
                                             child: TextButton(
                                               onPressed: () async {
+                                                if(isButtonEnabled)
                                                 validSignupSubmit();
                                               },
                                               child: Text("Register",

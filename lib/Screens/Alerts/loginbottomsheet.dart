@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:newfolder/Screens/Login/loginhome.dart';
 import 'package:newfolder/Screens/Login/loginpage.dart';
+import 'package:newfolder/Screens/Registeration/registeration.dart';
 
 import '../Utils/user_secure_storage.dart';
 
@@ -161,9 +162,14 @@ class LoginBottomSheet {
                           onTap: () async{
                             // await UserSecureStorage.setIfGuestLogged("No");
                             await UserSecureStorage.clearAllExceptUsers();
+                            // Navigator.of(context).pushAndRemoveUntil(
+                            //     MaterialPageRoute(builder: (context) => LoginPage()),
+                            //         (Route<dynamic> route) => false
+                            // );
+
                             Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(builder: (context) => LoginPage()),
-                                    (Route<dynamic> route) => false);
+                              MaterialPageRoute(builder: (context) => Registration()),(Route<dynamic> route) => false
+                            );
                           },
                           child: Container(
                             height: MediaQuery.of(context).size.height * 0.04,

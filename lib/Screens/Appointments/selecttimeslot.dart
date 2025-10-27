@@ -383,9 +383,9 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                                       MediaQuery.of(context).size.height * 0.02,
                                 ),
                               ),
-                              if(widget.physical_virtual_mode == "physical")
+
                                 SizedBox(width: 5,),
-                                if(widget.physical_virtual_mode == "physical")
+
                               GestureDetector(
                                 onTap: () async {
                                   Navigator.of(context).push(

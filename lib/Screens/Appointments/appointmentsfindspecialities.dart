@@ -9,6 +9,7 @@ import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
+import 'package:newfolder/Screens/Appointments/finddoctorslist.dart';
 import 'package:newfolder/Screens/Appointments/quicksearchwithoutdata.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
@@ -93,7 +94,7 @@ class AppointmentsFindSpecialitiesstate
 
   @override
   void initState() {
-    getSharedPrefs();
+    // getSharedPrefs();
     super.initState();
   }
 
@@ -981,7 +982,14 @@ class AppointmentsFindSpecialitiesstate
                                 children: [
                                   TextButton(
                                     onPressed: () async {
-                                      // Your onPressed action here
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context) {
+                                            return FindDoctorsListMain(
+                                                "in-person"); // Replace with another widget
+                                          },
+                                        ),
+                                      );
                                     },
                                     style: TextButton.styleFrom(
                                       backgroundColor: Color(0xFFE8F0F3),

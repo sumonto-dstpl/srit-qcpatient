@@ -46,9 +46,11 @@ import '../Address/address_screen.dart';
 
 class MyReportsMain extends StatefulWidget {
   int selectedIndex = 1;
+  final int initialTabIndex;
 
   MyReportsMain({
     super.key,
+    this.initialTabIndex = 0,
   });
 
   @override
@@ -105,6 +107,7 @@ class MyReportsMainstate extends State<MyReportsMain>
   void initState() {
 
     super.initState();
+    _tabController = TabController(length: 2, vsync: this, initialIndex: widget.initialTabIndex);
 
     checkGuestUser();
   }
@@ -127,7 +130,7 @@ class MyReportsMainstate extends State<MyReportsMain>
 
   @override
   Widget build(BuildContext context) {
-    _tabController = TabController(length: 2, vsync: this); // 2 tabs
+
     final screenHeight = MediaQuery
         .of(context)
         .size
@@ -515,6 +518,7 @@ class MyReportsMainstate extends State<MyReportsMain>
                               ),
                             ),
                             child: TabBar(
+                              controller: _tabController,
                               indicatorSize: TabBarIndicatorSize.tab,
                               dividerColor: Colors.transparent,
                               indicator: BoxDecoration(
@@ -569,6 +573,7 @@ class MyReportsMainstate extends State<MyReportsMain>
                           // TabBarView Section
                           Expanded(
                             child: TabBarView(
+                              controller: _tabController,
                               children: [
                                 // Active Prescription List
                                 Container(
@@ -1407,7 +1412,7 @@ class MyReportsMainstate extends State<MyReportsMain>
                                                   .size
                                                   .height * 0.00),
                                           dividerColor: Colors.transparent,
-                                          controller: _tabController,
+
                                           indicatorColor: Color(0xFF00C5BB),
                                             // indicatorColor : Colors.red,
                                           labelColor: Color(0xFF00C5BB),
@@ -1482,7 +1487,7 @@ class MyReportsMainstate extends State<MyReportsMain>
                                       // TabBar content
                                       Expanded(
                                         child: TabBarView(
-                                          controller: _tabController,
+
                                           children: [
                                             // Tab 1 List
                                             ListView.builder(
@@ -2546,7 +2551,7 @@ class MyReportsMainstate extends State<MyReportsMain>
           context: context,
           isScrollControlled: true,
           isDismissible: true,
-          enableDrag: false,
+          enableDrag: true,
           backgroundColor: Colors.transparent, // Make modal background transparent
           barrierColor: Colors.transparent,
           transitionAnimationController: AnimationController(

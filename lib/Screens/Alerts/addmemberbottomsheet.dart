@@ -1,14 +1,47 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class AddMemberBottomSheet {
-  static void show(BuildContext context) {
-    showModalBottomSheet(
+    static Future<Map<String, dynamic>?> show(BuildContext context) {
+
+      File? myProfileImage;    // Camera se capture ki image
+      String? myProfileImagePath; // Image ka path store karne ke liye (cache/storage)
+      final firstNameController = TextEditingController();
+      final lastNameController = TextEditingController();
+      final uhidController = TextEditingController();
+      final mobileController = TextEditingController();
+      final emailController = TextEditingController();
+
+      bool firstNameValid = true;
+      bool lastNameValid = true;
+      bool mobileValid = true;
+
+      // State variables
+      String? relationshipSelected;
+      String? genderSelected;
+      bool isGenderValid = true;
+
+      List<Map<String, String>> genderOptions = [
+        {"key": "M", "label": "Male"},
+        {"key": "F", "label": "Female"},
+        {"key": "O", "label": "Other"},
+      ];
+
+      List<String> relationshipOptions = [
+        "Mother",
+        "Father",
+        "Brother",
+        "Sister",
+        "Other"
+      ];
+      return showModalBottomSheet<Map<String, dynamic>?>(
       context: context,
       isScrollControlled: true,
       isDismissible: true,
-      enableDrag: false,
+      enableDrag: true,
       backgroundColor: Colors.transparent,
       barrierColor: Colors.transparent,
       builder: (BuildContext context) {
@@ -16,30 +49,7 @@ class AddMemberBottomSheet {
         final screenWidth = MediaQuery.of(context).size.width;
 
         // Controllers
-        final firstNameController = TextEditingController();
-        final lastNameController = TextEditingController();
-        final uhidController = TextEditingController();
-        final mobileController = TextEditingController();
-        final emailController = TextEditingController();
 
-        // State variables
-        String? relationshipSelected;
-        String? genderSelected;
-        bool isGenderValid = true;
-
-        List<Map<String, String>> genderOptions = [
-          {"key": "M", "label": "Male"},
-          {"key": "F", "label": "Female"},
-          {"key": "O", "label": "Other"},
-        ];
-
-        List<String> relationshipOptions = [
-          "Mother",
-          "Father",
-          "Brother",
-          "Sister",
-          "Other"
-        ];
 
         return StatefulBuilder(builder: (context, setState) {
           return Stack(
@@ -120,10 +130,35 @@ class AddMemberBottomSheet {
                                 _buildLabelWithAsterisk(context, 'First Name', required: true),
                                 _buildField(context, firstNameController, "Enter First Name"),
 
+                                if (!firstNameValid)
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: screenHeight * 0.005, left: 8),
+                                    child: Text(
+                                      "Please enter First Name",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: screenHeight * 0.013,
+                                      ),
+                                    ),
+                                  ),
+
                                 _buildLabelWithAsterisk(context, 'Last Name', required: true),
                                 _buildField(context, lastNameController, "Enter Last Name"),
 
-                                _buildLabelWithAsterisk(context, 'UHID', required: true),
+                                if (!lastNameValid)
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: screenHeight * 0.005, left: 8),
+                                    child: Text(
+                                      "Please enter Last Name",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: screenHeight * 0.013,
+                                      ),
+                                    ),
+                                  ),
+                                _buildLabelWithAsterisk(context, 'UHID', required: false),
                                 _buildField(context, uhidController, "Enter UHID"),
 
                                 _buildLabelWithAsterisk(context, 'Mobile Number', required: true),
@@ -131,6 +166,18 @@ class AddMemberBottomSheet {
                                     keyboardType: TextInputType.number,
                                     inputFormatters: [LengthLimitingTextInputFormatter(10)]),
 
+                                if (!mobileValid)
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: screenHeight * 0.005, left: 8),
+                                    child: Text(
+                                      "Please enter Mobile Number",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: screenHeight * 0.013,
+                                      ),
+                                    ),
+                                  ),
                                 _buildLabelWithAsterisk(context, 'Email'),
                                 _buildField(context, emailController, "Enter Email Address",
                                     keyboardType: TextInputType.emailAddress),
@@ -279,10 +326,50 @@ class AddMemberBottomSheet {
                                               ),
                                               child: TextButton(
                                                 onPressed: () {
-                                                  if (genderSelected == null) {
+                                                  if(firstNameController == null || firstNameController.text.isEmpty){
+                                                     setState( (){
+                                                       setState(() => firstNameValid = false);
+                                                     });
+                                                  }
+                                                  else {
+                                                    setState(() => firstNameValid = true);
+                                                  }
+                                                  if(lastNameController == null || lastNameController.text.isEmpty){
+                                                    setState( (){
+                                                      setState(() => lastNameValid = false);
+                                                    });
+                                                  }
+                                                  else {
+                                                    setState(() => lastNameValid = true);
+                                                  }
+                                                  if(mobileController == null || mobileController.text.isEmpty){
+                                                    setState( (){
+                                                      setState(() => mobileValid = false);
+                                                    });
+                                                  }
+
+                                                  else {
+                                                    setState(() => mobileValid = true);
+                                                  }
+
+                                                   if (genderSelected == null) {
                                                     setState(() => isGenderValid = false);
-                                                  } else {
-                                                    Navigator.of(context).pop();
+                                                  }
+                                                   else {
+                                                     setState(() => isGenderValid = true);
+                                                   }
+
+                                                   if(firstNameValid && lastNameValid && mobileValid && isGenderValid ) {
+                                                     Navigator.of(context).pop({
+                                                       "firstName": firstNameController.text,
+                                                       "lastName": lastNameController.text,
+                                                       "uhid": uhidController.text,
+                                                       "mobile": mobileController.text,
+                                                       "email": emailController.text,
+                                                       "relationship": relationshipSelected,
+                                                       "gender": genderSelected,
+                                                       "image": myProfileImagePath ?? "", // captured image path
+                                                     });
                                                     // Implement save logic here
                                                   }
                                                 },
@@ -310,31 +397,84 @@ class AddMemberBottomSheet {
                                   ],
                                 ),
 
-                                SizedBox(height: screenHeight * 0.015),
+                                SizedBox(height: screenHeight * 0.5),
                               ],
                             ),
                           ),
                         ),
 
                           Positioned(
-                            top: -50, // move image above the top border
+                            top: -50,
                             left: 0,
                             right: 0,
-                            child: Center(
-                              child: Container(
-                                height: 100,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.white, width: 3),
-                                  image: DecorationImage(
-                                    image: AssetImage('assets/NutanBhatt.png'),
-                                    fit: BoxFit.cover,
+                            child: GestureDetector(
+                              onTap: () async {
+                                final ImagePicker picker = ImagePicker();
+
+                                final XFile? image = await picker.pickImage(source: ImageSource.camera);
+
+                                if (image != null) {
+                                  File imageFile = File(image.path);
+
+                                  setState(() {
+                                    myProfileImage = imageFile;          // UI me turant show
+                                    myProfileImagePath = imageFile.path; // path store for return
+                                  });
+
+                                  debugPrint("Image captured: ${imageFile.path}");
+                                } else {
+                                  debugPrint("No image selected");
+                                }
+                              },
+                              child: Center(
+                                child: GestureDetector(
+
+                                  onTap: () async {
+                                    final ImagePicker picker = ImagePicker();
+
+                                    final XFile? image = await picker.pickImage(source: ImageSource.camera);
+
+                                    if (image != null) {
+                                      File imageFile = File(image.path);
+
+                                      setState(() {
+                                        myProfileImage = imageFile;          // UI me turant show
+                                        myProfileImagePath = imageFile.path; // path store for return
+                                      });
+
+                                      debugPrint("Image captured: ${imageFile.path}");
+                                    } else {
+                                      debugPrint("No image selected");
+                                    }
+                                  },
+                                  child: Container(
+                                    height: 100,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(color: Colors.white, width: 3),
+                                      // color: Color(0xFF608597),
+                                      color : Colors.red,
+                                      image: myProfileImage != null
+                                          ? DecorationImage(
+                                        image: FileImage(myProfileImage!),
+                                        fit: BoxFit.cover,
+                                      )
+                                          : null,
+                                    ),
+                                    child: myProfileImage == null
+                                        ? Icon(
+                                      Icons.camera_alt_outlined,
+                                      color: Colors.white,
+                                      size: 50,
+                                    )
+                                        : null,
                                   ),
                                 ),
                               ),
                             ),
                           ),
+
                         ]
                       ),
                     ),
@@ -438,6 +578,6 @@ class AddMemberBottomSheet {
       ),
     );
   }
-
+ 
 
 }
