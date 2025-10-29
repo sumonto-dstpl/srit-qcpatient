@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'dart:ui';
 
 import 'package:newfolder/Screens/Login/loginpage.dart';
@@ -23,7 +24,7 @@ class RegistrationSuccessModel {
         return BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
           child: GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
+            onTap: () {},
             child: Material(
               color: Colors.transparent,
               child: Center(
@@ -90,37 +91,43 @@ class RegistrationSuccessModel {
                             GestureDetector(
                               onTap: () async{
 
-                                String? username = await UserSecureStorage.getUsernameid();
-                                Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
-                                // usernameValue +=  isGuestUser ? "Guest01": user?['data']['fname']+" "+user?['data']['lname'];
-                                print("usernameUHID :$username");
-                                print("user: ${user?['data']}");
-                                Future.delayed(Duration(milliseconds: 1000), () {
+                                // String? username = await UserSecureStorage.getUsernameid();
+                                // Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
+                                // // usernameValue +=  isGuestUser ? "Guest01": user?['data']['fname']+" "+user?['data']['lname'];
+                                // print("usernameUHID :$username");
+                                // print("user: ${user?['data']}");
+                                // Future.delayed(Duration(milliseconds: 1000), () {
+                                //
+                                // });
+                                // if (RegExp(r'^[0-9]{10}$').hasMatch(username!)) {
+                                //   Navigator.of(context).pop();
+                                //   // Navigator.of(context).pop();// Close the modal
+                                //   Navigator.of(context).push(
+                                //     MaterialPageRoute(
+                                //       builder: (BuildContext context) {
+                                //         return LoginPage(); // Replace with your Login page widget
+                                //       },
+                                //     ),
+                                //   ); // Adjust your home route
+                                // }
+                                // else
+                                //   {
+                                //     Navigator.of(context).pop();
+                                //     Navigator.of(context).pop();// Close the modal
+                                //     // Navigator.of(context).push(
+                                //     //   MaterialPageRoute(
+                                //     //     builder: (BuildContext context) {
+                                //     //       return LoginUHIDPage(); // Replace with your Login page widget
+                                //     //     },
+                                //     //   ),
+                                //     // );
+                                //   }
 
-                                });
-                                if (RegExp(r'^[0-9]{10}$').hasMatch(username!)) {
-                                  Navigator.of(context).pop();
-                                  // Navigator.of(context).pop();// Close the modal
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) {
-                                        return LoginPage(); // Replace with your Login page widget
-                                      },
-                                    ),
-                                  ); // Adjust your home route
-                                }
-                                else
-                                  {
-                                    Navigator.of(context).pop();
-                                    Navigator.of(context).pop();// Close the modal
-                                    // Navigator.of(context).push(
-                                    //   MaterialPageRoute(
-                                    //     builder: (BuildContext context) {
-                                    //       return LoginUHIDPage(); // Replace with your Login page widget
-                                    //     },
-                                    //   ),
-                                    // );
-                                  }
+                                Navigator.of(context, rootNavigator: true).pop();
+
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(builder: (context) => HomePageMain()),
+                                        (Route<dynamic> route) => false);
                               },
                               child: Container(
                                 width: 250,
@@ -154,5 +161,16 @@ class RegistrationSuccessModel {
         );
       },
     );
+
+
+    await Future.delayed(Duration(seconds: 1));
+
+
+    Navigator.of(context, rootNavigator: true).pop();
+
+
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => HomePageMain()),
+          (Route<dynamic> route) => false);
   }
 }

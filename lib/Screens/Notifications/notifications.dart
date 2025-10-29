@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:newfolder/Screens/AddToCart/addtocarPackageDetails.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
@@ -37,14 +38,6 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
   int _selectedIndex = 0;
-
-
-
-
-
-
-
-
 
 
 
@@ -178,13 +171,15 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
       "buttonSelected": "Reports",
       "markAllRead" : true,
     },
+
+
   ];
   DateTime today = DateTime.now();
 
 
 
   int allCount = 0;
-  int offerCount = 3;
+  int offerCount = 0;
   int notificationCount = 0;
   late TabController _tabController; // 👈 yahan define kiya
 
@@ -193,18 +188,21 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
   void initState() {
     // TODO: implement initState
     super.initState();
-    allCount = offerCount + dataList.length;
 
-    notificationCount = dataList.length;
+    notificationCount = dataList.where((item) => item['markAllRead'] == true).length;
+    offerCount = 3;
+    allCount = offerCount + notificationCount;
+
+
     _tabController = TabController(length: 3, vsync: this); // 3 tabs
 
-    _tabController.addListener(() {
-      if (!_tabController.indexIsChanging) {
-        setState(() {
-         selectedTabIndex =  _tabController.index;
-        });
-      }
-    });
+    // _tabController.addListener(() {
+    //   if (!_tabController.indexIsChanging) {
+    //     setState(() {
+    //      selectedTabIndex =  _tabController.index;
+    //     });
+    //   }
+    // });
 
   }
 
@@ -220,7 +218,17 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
 
     DateTime today = DateTime.now();
 
+    Map<String, List<Map<String, dynamic>>> allGroupedData = getAllFilteredGroupedData();
 
+    List<String>  allUniqueDates = allGroupedData.keys.toList();
+    allUniqueDates.sort((a, b) {
+      DateTime dateA = DateTime.parse(a);
+      DateTime dateB = DateTime.parse(b);
+      if (dateA.isAtSameMomentAs(today)) return -1;
+      if (dateB.isAtSameMomentAs(today)) return 1;
+      return dateB.compareTo(dateA);
+    });
+    print("allGroupedData : $allGroupedData");
 
     Map<String, List<Map<String, dynamic>>> notificationGroupedData = getNotificationFilteredGroupedData();
     List<String>  notificationUniqueDates = notificationGroupedData.keys.toList();
@@ -232,15 +240,9 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
         return dateB.compareTo(dateA);
       });
 
-    Map<String, List<Map<String, dynamic>>> allGroupedData = getAllFilteredGroupedData();
-    List<String>  allUniqueDates = allGroupedData.keys.toList();
-    allUniqueDates.sort((a, b) {
-      DateTime dateA = DateTime.parse(a);
-      DateTime dateB = DateTime.parse(b);
-      if (dateA.isAtSameMomentAs(today)) return -1;
-      if (dateB.isAtSameMomentAs(today)) return 1;
-      return dateB.compareTo(dateA);
-    });
+
+
+
 
 
 
@@ -409,11 +411,11 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                             padding: EdgeInsets.zero,
                             labelPadding: EdgeInsets.zero,
                             controller: _tabController,
-                              onTap: (index) {
-                                setState(() {
-                                  selectedTabIndex = index;
-                                });
-                              },
+                              // onTap: (index) {
+                              //   setState(() {
+                              //     selectedTabIndex = index;
+                              //   });
+                              // },
                             indicatorSize: TabBarIndicatorSize.tab,
                             dividerColor: Colors.transparent,
                             indicator: BoxDecoration(
@@ -449,7 +451,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                     Text(
                                       "All",
                                     ),
-                                    if (selectedTabIndex == 0)
+                                    if (allCount != 0)
                                       Text(" ($allCount)")
                                   ],
                                 ),
@@ -461,7 +463,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                     Text(
                                       "Offers",
                                     ),
-                                    if (selectedTabIndex == 1)
+                                    if (offerCount != 0)
                                       Text(" ($offerCount)")
                                   ],
                                 ),
@@ -473,7 +475,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                     Text(
                                       "Notificitation",
                                     ),
-                                    if (selectedTabIndex == 2)
+                                    if (notificationCount != 0)
                                       Text(" ($notificationCount)")
                                   ],
                                 ),
@@ -544,7 +546,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
             List<Map<String, dynamic>> items = allGroupedData[dateKey]!;
 
             List<int> idsToMark = items.map((e) => e["id"] as int).toList();
-
+            print("All idsToMark : $idsToMark") ;
             idList.addAll(idsToMark);
 
             bool isToday = dateKey ==
@@ -577,19 +579,15 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                       TextButton(
                         onPressed: () {
                           setState(() {
-                            // for(var id in idList){
-                            //
-                            //   dataList[id]['markAllRead'] = false;
-                            //
-                            // }
-
+                            offerCount = 0;
                             for (var item in dataList) {
                               if (idList.contains(item['id'])) {
                                 item['markAllRead'] = false; // ✅ matched id → false
                               }
                             }
-                          });
 
+
+                          });
                         },
                         child: Text(
                             "Mark all Read",
@@ -1224,7 +1222,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                     ),
                     onDismissed: (direction) {
 
-                      print('id : ${item['id']}');
+
                       if(index < dataList.length){
                         showTopNotification(
                           context,
@@ -1253,7 +1251,37 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                     },
 
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        String title = item['title'];
+                        if(title == "Appointments"){
+
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (
+                                  BuildContext context) {
+                                return AppointmentsFootMain();
+                              },
+                            ),
+                          );
+                        }
+                        else {
+
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder:
+                                  (BuildContext context) {
+                                return AddtocardPackageDetails(
+                                  test: "100",
+                                  qr: "QR 1999",
+                                  plan: "QCT Prime Health Plan",
+                                  id: 00,
+                                  buttonName: "no",
+                                );
+                              },
+                            ),
+                          );
+                        }
+                      },
                       child: Card(
                         elevation: 0.0,
                         color: Colors.white,
@@ -1669,7 +1697,9 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
 
                 TextButton(
                   onPressed: () {
-
+                     setState(() {
+                       offerCount = 0;
+                     });
 
                   },
                   child: Text(
@@ -2384,6 +2414,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                         //   dataList[id]['markAllRead'] = false;
                                                         //
                                                         // }
+
                                                         for (var item in dataList) {
                                                           if (idList.contains(item['id'])) {
                                                             item['markAllRead'] = false; // ✅ matched id → false
@@ -2420,7 +2451,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                  ),
                                                  onDismissed: (direction) {
 
-                                                   print('id : ${item['id']}');
+
                                                    if(index < dataList.length){
                                                      showTopNotification(
                                                        context,
@@ -2448,7 +2479,37 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
 
                                                  },
                                                  child: GestureDetector(
-                                                   onTap: () {},
+                                                   onTap: () {
+                                                     String title = item['title'];
+                                                     if(title == "Appointments"){
+
+                                                       Navigator.of(context).push(
+                                                         MaterialPageRoute(
+                                                           builder: (
+                                                               BuildContext context) {
+                                                             return AppointmentsFootMain();
+                                                           },
+                                                         ),
+                                                       );
+                                                     }
+                                                     else {
+
+                                                       Navigator.of(context).push(
+                                                         MaterialPageRoute(
+                                                           builder:
+                                                               (BuildContext context) {
+                                                             return AddtocardPackageDetails(
+                                                               test: "100",
+                                                               qr: "QR 1999",
+                                                               plan: "QCT Prime Health Plan",
+                                                               id: 00,
+                                                               buttonName: "no",
+                                                             );
+                                                           },
+                                                         ),
+                                                       );
+                                                     }
+                                                   },
                                                    child: Card(
                                                      elevation: 0.0,
                                                      color: Colors.white,
@@ -2493,9 +2554,9 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                                .height *
                                                                0.00),
                                                        child: Container(
-                                                 
-                                                 
-                                                 
+
+
+
                                                          margin: EdgeInsets.only(
                                                              left: MediaQuery.of(context)
                                                                  .size
@@ -2568,8 +2629,8 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                                    Container(
                                                                      height : MediaQuery.of(context).size.height * 0.05,
                                                                      width :  MediaQuery.of(context).size.height * 0.05,
-                                                 
-                                                 
+
+
                                                                      padding:
                                                                      EdgeInsets.only(
                                                                        left: MediaQuery.of(
@@ -2662,7 +2723,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                            children: [
                                                                              Container(
-                                                 
+
                                                                                margin : EdgeInsets.only(
                                                                                  top : MediaQuery.of(
                                                                                      context)
@@ -2702,7 +2763,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                                                    overflow:
                                                                                    TextOverflow
                                                                                        .ellipsis,
-                                                 
+
                                                                                    fontSize: MediaQuery.of(context)
                                                                                        .size
                                                                                        .height *
@@ -2755,7 +2816,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                                                overflow:
                                                                                TextOverflow
                                                                                    .ellipsis,
-                                                 
+
                                                                                fontSize: MediaQuery.of(context)
                                                                                    .size
                                                                                    .height *
@@ -2780,7 +2841,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                                                  overflow:
                                                                                  TextOverflow
                                                                                      .ellipsis,
-                                                 
+
                                                                                  fontSize: MediaQuery.of(context)
                                                                                      .size
                                                                                      .height *
@@ -2790,15 +2851,15 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                                              ),
                                                                            ),
                                                                          ),
-                                                 
+
                                                                        ],
                                                                      ),
                                                                    ),
                                                                    // Adding the side arrow at the end
-                                                 
-                                                 
-                                                 
-                                                 
+
+
+
+
                                                                  ],
                                                                ),
                                                              ),
@@ -3217,7 +3278,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
     }
 
 
-      notificationCount = filteredList.length;
+      notificationCount  = filteredList.where((item) => item['markAllRead'] == true).length;
       Map<String, List<Map<String, dynamic>>> grouped = {};
       for (var item in filteredList) {
         grouped.putIfAbsent(item["date"], () => []);
@@ -3236,8 +3297,8 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
           .toList();
     }
 
-      allCount=3;
-      allCount += filteredList.length;
+
+      allCount = offerCount + filteredList.where((item) => item['markAllRead'] == true).length;
       Map<String, List<Map<String, dynamic>>> grouped = {};
       for (var item in filteredList) {
         grouped.putIfAbsent(item["date"], () => []);

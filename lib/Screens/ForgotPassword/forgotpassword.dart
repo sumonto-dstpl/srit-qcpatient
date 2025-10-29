@@ -260,7 +260,7 @@ class ForgotPasswordstate extends State<ForgotPassword> {
                     child: Center(
                       child: Text(
                         _currentPage == 0
-                            ? "Forget Password"
+                            ? "Forgot Password"
                             : _currentPage == 1
                                 ? "Verification"
                                 : "Verification",

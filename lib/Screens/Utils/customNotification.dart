@@ -50,7 +50,7 @@ void showTopNotification(
   barrierEntry = OverlayEntry(
     builder: (_) => const ModalBarrier(
       dismissible: false, // cannot tap to dismiss
-      color: Colors.black26, // slight transparent overlay
+      color: Colors.transparent, // slight transparent overlay
     ),
   );
 

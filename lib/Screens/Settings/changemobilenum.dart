@@ -107,7 +107,7 @@ class ChangeMobileNumberstate extends State<ChangeMobileNumber> {
     _pageController = PageController(
       initialPage: hasMobileNumber ? 1 : 0,
     );
-      String mobile = widget.mobileNumber!;
+    String mobile = widget.mobileNumber ?? "";
     if (hasMobileNumber) {
         if(!RegExp(r'^[0-9]{10}$').hasMatch(mobile)){
             mobile = "1234567890";

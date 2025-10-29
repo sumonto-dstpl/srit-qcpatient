@@ -130,7 +130,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   List<DoctorsListResponse> responselist = [];
   @override
   void initState(){
-    getSharedPrefs();
+    // getSharedPrefs();
      _loadData();
     getCommonDoctorList();
     super.initState();
@@ -149,7 +149,12 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
     if(!isGuestUser){
       String? username =  await UserSecureStorage.getUsernameid();
       Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
-      usernameValue += user?['data']['fname']+" "+user?['data']['lname'];
+      print("user : $user");
+      final fname = user?['data']['fname'] ?? '';
+      final lname = user?['data']['lname'] ?? '';
+      final trimmedFname = fname.length > 5 ? fname.substring(0, 5) : fname;
+      final trimmedLname = lname.length > 5 ? lname.substring(0, 5) : lname;
+      usernameValue += fname+" "+lname;
     }else{
       usernameValue +="Guest";
     }
@@ -283,7 +288,9 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
 
+
                   Container(
+
                     padding: EdgeInsets.only(
                       top: screenHeight * 0.07,
                       left: screenWidth * 0.045,
@@ -297,192 +304,146 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                       left: screenHeight * 0.0,
                     ),
                     child: Row(
-                      mainAxisAlignment: !_isLoading ?  MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                         Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(
-                                top: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.00,
-                                bottom: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.005,
-                                left: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.00,
-                                right: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.00,
-                              ),
-                              child:
-                                  !_isLoading ?
-                                  Text(
-                                usernameValue,
-                                style: TextStyle(
-                                  fontSize:
-                                  MediaQuery
+
+
+                        Expanded(
+                          flex : 6,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+
+                                padding: EdgeInsets.only(
+                                  top: MediaQuery
                                       .of(context)
                                       .size
-                                      .height * 0.018,
-                                  color: Color(0xFFFFFFFF),
-                                  fontWeight: FontWeight.w600,
+                                      .height * 0.00,
+                                  bottom: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.005,
+                                  left: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.00,
+                                  right: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.00,
                                 ),
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                              )
-                              : Container(
-
-                                    height : screenHeight * 0.012,
-                                    width : screenWidth * 0.5,
-                                    child: SkeltonLoader(),
-                                  ),
-                            ),
-                            // Google Map
-                            GestureDetector(
-                                onTap: () async {
-                                  final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
-
-                                  if (isLoggedIn == "YES") {
-                                    // Show login bottom sheet for guest users
-                                    Timer(const Duration(milliseconds: 0), () {
-                                      LoginBottomSheet.show(context, false);
-                                    });
-                                  } else {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) {
-                                      // return GoogleMapScreen();
-                                      return AddressScreen();
-                                    },
-                                  ),
-                                );
-                                  }
-                                },
-
-                              child:
-
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                // Align items to the start
-                                children: [
-                                  if(!_isLoading)
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.00,
-                                      horizontal: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.00,
-                                    ),
-                                    child: Text(
-                                      useraddressValue,
-                                      style: TextStyle(
-                                        overflow: TextOverflow.ellipsis,
-                                        fontSize: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .height * 0.012,
-                                        color: Colors.white,
-                                      ),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  ),
-                                  if(!_isLoading)
-                                  Icon(
-                                    Icons.keyboard_arrow_down,
-                                    // Downward pointing arrow
-                                    color: Colors.white,
-                                    size: MediaQuery
+                                child: Text(
+                                  usernameValue,
+                                  style: TextStyle(
+                                    fontSize:
+                                    MediaQuery
                                         .of(context)
                                         .size
-                                        .height * 0.02, // Responsive size
+                                        .height * 0.018,
+                                    color: Color(0xFFFFFFFF),
+                                    fontWeight: FontWeight.w600,
                                   ),
-                                  if(_isLoading)
-                                  Container(
-                                   margin : EdgeInsets.only(
-                                      top : screenHeight * 0.01,
-                                   ),
-                                    height : screenHeight * 0.005,
-                                    width : screenWidth * 0.3,
-                                    child : SkeltonLoader(),
-                                  ),
-                                ],
-                              )
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  softWrap: true,
+                                  maxLines: 1,
 
-                            ),
-                          ],
+                                ),
+                              ),
+
+
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder:
+                                          (BuildContext context) {
+                                        return AddressScreen();
+                                      },
+                                    ),
+                                  );
+                                },
+                                child:
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                useraddressValue,
+                                        style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                          fontSize: MediaQuery.of(context).size.height * 0.012,
+                                          color: Colors.white,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                        softWrap: true,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    SizedBox(width: 4), // Thoda space text aur icon ke beech
+                                    Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: Colors.white,
+                                      size: MediaQuery.of(context).size.height * 0.02,
+                                    ),
+                                  ],
+                                )
+
+                              ),
+                            ],
+                          ),
                         ),
 
 
                         // Action Bar 2nd half
-                        !_isLoading ? Expanded(
+                        Expanded(
+                          flex : 4,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
 
                               // Cart
-                              // 🛒 Appointment (Cart)
                               GestureDetector(
-                                onTap: () async {
-                                  final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
-
-                                  if (isLoggedIn == "YES") {
-                                    // Show login bottom sheet for guest users
-                                    Timer(const Duration(milliseconds: 0), () {
-                                      LoginBottomSheet.show(context, false);
-                                    });
-                                  } else {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) {
-                                          return AddToCartMain();
-                                        },
-                                      ),
-                                    );
-                                  }
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder:
+                                          (BuildContext context) {
+                                        return AddToCartMain();
+                                      },
+                                    ),
+                                  );
                                 },
-                                child: AppointmentIconBadge(
+                                child:
+                                AppointmentIconBadge(
                                   appointmentcount: "",
                                 ),
                               ),
 
-// 🔔 Notification
-                              GestureDetector(
-                                onTap: () async {
-                                  final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
 
-                                  if (isLoggedIn == "YES") {
-                                    // Show login bottom sheet for guest users
-                                    Timer(const Duration(milliseconds: 0), () {
-                                      LoginBottomSheet.show(context, false);
-                                    });
-                                  } else {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) {
-                                          return NotificationMain();
-                                        },
-                                      ),
-                                    );
-                                  }
+                              // Notification
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder:
+                                          (BuildContext context) {
+                                        return NotificationMain();
+                                      },
+                                    ),
+                                  );
                                 },
-                                child: IconBadge(
+                                child:
+                                IconBadge(
                                   notificationcount: "",
                                 ),
                               ),
-
 
 
                               // Profile Image
@@ -561,26 +522,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                     color: Colors.white,
                                   ),
                                 ),
-                                child:
-                                // CircleAvatar(
-                                //   radius: 30, // size of the avatar
-                                //   backgroundColor: Color(0xFF00C7BE), // mint or any color
-                                //   child: Text(
-                                //     "GS", // "GS"
-                                //     style: TextStyle(
-                                //       color: Colors.white,
-                                //       fontSize: 10,
-                                //       fontWeight: FontWeight.bold,
-                                //     ),
-                                //   ),
-                                // ),
-                                isGuestUser?
-                                ProfileAvatar(
-                                  name: "Guest User",
-                                  imageUrl: null, // or provide an image URL
-                                  radius: 30,
-                                )
-                                : ClipRRect(
+                                child: ClipRRect(
                                   borderRadius: BorderRadius.circular(130.0),
                                   child: Image.asset(
                                     'assets/drsujeet.png',
@@ -589,54 +531,23 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                 ),
                               ),
                               )
+
+
+
+
+
+
+
+
+
+
                             ],
                           ),
-                        )
-                        : Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(
-                                right: MediaQuery.of(context).size.height * 0.015,
-                                top: MediaQuery.of(context).size.height * 0.005,
-                                bottom: MediaQuery.of(context).size.height * 0.005,
-                                left: MediaQuery.of(context).size.height * 0.0,
-                              ),
-                              height : screenHeight * 0.025,
-                              width : screenHeight * 0.025,
-
-                              child : SkeltonLoader(),
-
-                            ),
-
-                            Container(
-                              margin: EdgeInsets.only(
-                                right: MediaQuery.of(context).size.height * 0.015,
-                                top: MediaQuery.of(context).size.height * 0.005,
-                                bottom: MediaQuery.of(context).size.height * 0.005,
-                                left: MediaQuery.of(context).size.height * 0.0,
-                              ),
-                              height : screenHeight * 0.025,
-                              width : screenHeight * 0.025,
-
-                              child : SkeltonLoader(),
-
-                            ),
-                            Container(
-                              height : screenHeight * 0.04,
-                              width : screenHeight * 0.04,
-
-                              child : SkeltonLoader(borderRadius: 16,),
-
-                            ),
-                          ],
                         ),
                       ],
                     ),
                   ),
-
-          Expanded(
+                  Expanded(
 
               child: Container(
                   decoration: BoxDecoration(
@@ -2817,14 +2728,10 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                       shape: BoxShape
                                                                           .circle,
                                                                     ),
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .forward_5_outlined,
-                                                                      color: Colors
-                                                                          .white,
-                                                                      size: screenHeight *
-                                                                          0.015,
-                                                                    ),
+                                                                    child : Image.asset(
+                                                                        "assets/ShareIcon_withbg.png",
+                                                                        fit: BoxFit.fill,
+                                                                    )
                                                                   ),
                                                                 ],
                                                               ),
@@ -4127,7 +4034,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                   ),
               ),
           ),
-                    ],
+                ],
               ),
 
                 if(!isGuestUser)
@@ -4208,7 +4115,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
 
         // First  - Center Docked
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Container(
+        floatingActionButton:  Container(
           height: screenHeight * 0.07,  // Outer circle height (adjust as needed)
           width: screenHeight * 0.07, // Outer circle width (adjust as needed)
           decoration: BoxDecoration(
