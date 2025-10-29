@@ -674,7 +674,7 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 RawKeyboardListener(
-                                  focusNode: rawFocus1, // Use a dedicated focus node for RawKeyboardListener
+                                  focusNode: rawFocus1,
                                   onKey: (RawKeyEvent event) {
                                     if (event is RawKeyDownEvent && event.logicalKey == LogicalKeyboardKey.backspace) {
                                       if (Otp1stdigitTextController.text.isEmpty) {
@@ -739,6 +739,7 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                                         ),
                                       ),
                                       onChanged: (value) {
+
                                         if (value.length == 1) {
                                           FocusScope.of(context).requestFocus(pin2FocusNode); // move to 2nd field
                                           setState(() {
@@ -751,7 +752,7 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                                 ),
 
                                 RawKeyboardListener(
-                                  focusNode: rawFocus2, // Use a dedicated focus node for RawKeyboardListener
+                                  focusNode: rawFocus2,
                                   onKey: (RawKeyEvent event) {
                                     if (event is RawKeyDownEvent && event.logicalKey == LogicalKeyboardKey.backspace) {
                                       if (Otp2nddigitTextController.text.isEmpty) {
@@ -816,6 +817,7 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                                         ),
                                       ),
                                       onChanged: (value) {
+
                                         if (value.length == 1) {
                                           FocusScope.of(context).requestFocus(pin3FocusNode); // move to 3rd field
                                           setState(() {
@@ -829,7 +831,7 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                                 ),
 
                                 RawKeyboardListener(
-                                  focusNode: rawFocus3, // Use a dedicated focus node for RawKeyboardListener
+                                  focusNode: rawFocus3,
                                   onKey: (RawKeyEvent event) {
                                     if (event is RawKeyDownEvent && event.logicalKey == LogicalKeyboardKey.backspace) {
                                       if (Otp3rddigitTextController.text.isEmpty) {
@@ -894,6 +896,7 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                                         ),
                                       ),
                                       onChanged: (value) {
+
                                         if (value.length == 1) {
                                           FocusScope.of(context).requestFocus(pin4FocusNode); // move to 4th field
                                           setState(() {
@@ -906,7 +909,7 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                                 ),
 
                                 RawKeyboardListener(
-                                  focusNode: rawFocus4, // Use a dedicated focus node for RawKeyboardListener
+                                  focusNode: rawFocus4,
                                   onKey: (RawKeyEvent event) {
                                     if (event is RawKeyDownEvent && event.logicalKey == LogicalKeyboardKey.backspace) {
                                       if (Otp4thdigitTextController.text.isEmpty) {
@@ -971,6 +974,7 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                                         ),
                                       ),
                                       onChanged: (value) {
+
                                         if (value.length == 1) {
                                           pin4FocusNode!.unfocus(); // Last field, can unfocus
                                           setState(() {
@@ -985,18 +989,62 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
                               ],
                             ),
                           ),
+                          if(Otp1stdigithasStartedTyping && Otp2nddigithasStartedTyping && Otp3rddigithasStartedTyping && Otp4thdigithasStartedTyping)
                           Container(
+
                             padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.height * 0.00,
-                                right: 0,
-                                top: MediaQuery.of(context).size.height * 0.01,
-                                bottom: MediaQuery.of(context).size.height * 0.010),
+                              top : screenHeight * 0.01,
+                            ),
                             child: Row(
-                                mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height : screenHeight * 0.012,
+                                  width : screenHeight * 0.012,
+                                  child: Text(
+                                    "!",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: screenHeight * 0.008,
+                                        color: Colors.white,
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color(0xFFC83532),
+
+                                  ),
+                                  alignment: Alignment.center,
+                                ),
+                                SizedBox(width: screenWidth * 0.01,),
+                                Text(
+                                  "Please re-enter the correct MPIN",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: screenHeight * 0.012,
+                                    color: Color(0xFFC83532)
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+
+
+                            child: Row(
+                                mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   TextButton(
+                                    style: TextButton.styleFrom(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: screenHeight * 0.015,
+                                      ),           // 👈 removes all internal padding
+                                      minimumSize: Size(0, 0),            // 👈 removes min tap target
+                                      tapTargetSize: MaterialTapTargetSize.shrinkWrap, // 👈 prevents extra padding
+
+                                    ),
                                     onPressed : () {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(builder: (context) => ForgetMpinScreen())
@@ -1032,6 +1080,8 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
       ),
     );
   }
+
+
 
   void mpinCheck() {
     print( "mpinCheck");
@@ -1126,10 +1176,18 @@ class MpinAccessScreenState extends State<MpinAccessScreen> {
         print( "checkMpin : ${checkMpin}");
         if(!checkMpin){
 
-          final snackBar = SnackBar(
-              content: Text("Invalid MPIN"),
-              backgroundColor: Colors.red[600]);
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          // final snackBar = SnackBar(
+          //     content: Text("Invalid MPIN"),
+          //     backgroundColor: Colors.red[600]);
+          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          setState(() {
+            Otp1stdigithasStartedTyping = true;
+            Otp2nddigithasStartedTyping = true;
+            Otp3rddigithasStartedTyping = true;
+            Otp4thdigithasStartedTyping = true;
+          });
+
+
           return ;
         }
         else {

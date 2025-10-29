@@ -491,33 +491,29 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                     child : Column(
                     children: [
                   Container(
-                        padding: EdgeInsets.only(
-                                left: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.01,
-                                right: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.01,
-                                top: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.01,
-                                bottom: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.01),
+                        padding: EdgeInsets.all(
+                            MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.01
+                                 ),
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(screenHeight * 0.03),
                                         topRight: Radius.circular(screenHeight * 0.03),
-                                        bottomLeft: Radius.circular(screenHeight * 0.0),
-                                        bottomRight: Radius.circular(screenHeight * 0.00),
+
                                         // bottomCenter: 0,
                                       ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2), // try black or theme color for better visibility
+                                      offset: const Offset(0, 90), // 👈 4px downward only
+                                      blurRadius: 10, // softness
+                                      spreadRadius: 0,
+                                    ),
+                                  ],
                                     ),
                                 child:
                                   Column(
@@ -542,6 +538,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                               decoration: BoxDecoration(
                                                 color: Color(0xFFA8B1CE).withOpacity(0.2),
                                                 borderRadius: BorderRadius.circular(10),
+
                                               ),
 
                                               alignment: Alignment.centerRight,
@@ -1173,8 +1170,8 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                   responselist![index].speciality != null ?  responselist![index].speciality! : "" ,
 
                                                                   style: TextStyle(
-                                                                      color: Colors
-                                                                          .black54,
+                                                                      color: Color(0x80000000),
+
                                                                       fontWeight:
                                                                       FontWeight
                                                                           .w500,
@@ -1185,7 +1182,9 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                           context)
                                                                           .size
                                                                           .height *
-                                                                          0.014),
+                                                                          0.014,
+                                                                    fontFamily: "Inter",
+                                                                  ),
                                                                 ),
                                                               ),
 
@@ -1350,9 +1349,9 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                               Container(
 
                                                                 child: Text(
-                                                                  maxLines: 2,
-                                                                  responselist![index].workLocation != null ?  responselist![index].workLocation! : "",
-
+                                                                  maxLines: 1,
+                                                                  // responselist![index].workLocation != null ?  responselist![index].workLocation! : "",
+                                                                  "2 QuadraCyte, Qatar 560002",
                                                                   style: TextStyle(
                                                                     color: Colors.black54,
                                                                     overflow: TextOverflow.ellipsis,
@@ -1362,6 +1361,20 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                 ),
                                                               ),
 
+                                                              Container(
+
+                                                                child: Text(
+                                                                  maxLines: 1,
+                                                                  // responselist![index].workLocation != null ?  responselist![index].workLocation! : "",
+                                                                  "2 Km . From Your Location",
+                                                                  style: TextStyle(
+                                                                    color: Color(0xFF7F7F7F),
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    fontWeight: FontWeight.w500,
+                                                                    fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                                  ),
+                                                                ),
+                                                              ),
                                                             ],
                                                           ),
                                                         ),

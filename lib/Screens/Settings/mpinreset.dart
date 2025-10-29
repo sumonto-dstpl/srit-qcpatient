@@ -840,11 +840,11 @@ class Mpinstate extends State<MpinResetSettings> {
 
 
   bool _isButtonEnabled = false;
-
+  bool _isLoading = false;
   bool _digitMpin = false;
   bool _reEnterdigitMpin = false;
 
-
+  bool flag = false;
 
   @override
   void initState() {
@@ -922,6 +922,17 @@ class Mpinstate extends State<MpinResetSettings> {
   void _checkInput() {
     print('_checkInput');
     setState(() {
+      _isLoading = false;
+      if(flag){
+        setState(() {
+          flag = !flag;
+          reEnterDigitMpinMessage = null;
+          Otp1stdigithasStartedTyping2 = false;
+          Otp2nddigithasStartedTyping2 = false;
+          Otp3rddigithasStartedTyping2 = false;
+          Otp4thdigithasStartedTyping2 = false;
+        });
+      }
       setState(() {
         if (Otp1stdigitTextController.text.trim().isNotEmpty || Otp2nddigitTextController.text.trim().isNotEmpty || Otp3rddigitTextController.text.trim().isNotEmpty || Otp4thdigitTextController.text.trim().isNotEmpty
             || Otp1stdigitTextController2.text.trim().isNotEmpty || Otp2nddigitTextController2.text.trim().isNotEmpty || Otp3rddigitTextController2.text.trim().isNotEmpty || Otp4thdigitTextController2.text.trim().isNotEmpty
@@ -1887,8 +1898,16 @@ class Mpinstate extends State<MpinResetSettings> {
 
                             GestureDetector(
                               onTap: () {
-                                print('Tapped!');
-                                saveMpin();
+                                _isButtonEnabled
+                                    ? () {
+                                  if (_isLoading) return;
+                                  setState(() => _isLoading = true);
+
+                                  saveMpin();
+
+
+                                }
+                                    : null;
                               },
                               child: Builder(
                                 builder: (context) {
@@ -1918,17 +1937,45 @@ class Mpinstate extends State<MpinResetSettings> {
                                             ),
                                             alignment: Alignment.center,
                                             child: TextButton(
-                                              onPressed: () async {
+                                              onPressed: _isButtonEnabled
+                                                  ? () {
+                                                if (_isLoading) return;
+                                                setState(() => _isLoading = true);
+
                                                 saveMpin();
-                                              },
-                                              child: Text(
-                                                "Submit",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: screenHeight * 0.018,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
+
+
+                                              }
+                                                  : null, // Disabled when _isButtonEnabled == false
+                                              style: TextButton.styleFrom(
+                                                padding: EdgeInsets.symmetric(vertical: 9.5, horizontal: 12.0),
+                                                minimumSize: Size(double.infinity, screenHeight * 0.06),
+                                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    width: screenHeight * 0.022,
+                                                    height: screenHeight * 0.022,
+                                                    margin: EdgeInsets.only(right: screenHeight * 0.008),
+                                                    child: _isLoading
+                                                        ? CircularProgressIndicator(
+                                                      strokeWidth: 2.0,
+                                                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                                    )
+                                                        : SizedBox.shrink(),
+                                                  ),
+                                                  Text(
+                                                    "Submit",
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: screenHeight * 0.018,
+                                                      fontWeight: FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
@@ -2029,7 +2076,7 @@ class Mpinstate extends State<MpinResetSettings> {
             digitMpinMessage = "Please enter 4 Digit Mpin";
 
           });
-          return;
+
         }
         else {
           setState(() {
@@ -2039,7 +2086,18 @@ class Mpinstate extends State<MpinResetSettings> {
           });
         }
 
-
+        if(Otp1stdigit.isEmpty || Otp2nddigit.isEmpty || Otp3rddigit.isEmpty || Otp4thdigit.isEmpty){
+          setState(() {
+            digitMpinMessage = "Please enter 4 Digit Mpin";
+            reEnterDigitMpinMessage = null ;
+          });
+          return;
+        }
+        else {
+          setState(() {
+            digitMpinMessage = null;
+          });
+        }
 
         String Otp1stdigit2 =  Otp1stdigitTextController2.text;
 
@@ -2103,7 +2161,7 @@ class Mpinstate extends State<MpinResetSettings> {
             reEnterDigitMpinMessage = "Please enter 4 Digit Mpin";
 
           });
-          return;
+
         }
         else {
           setState(() {
@@ -2112,16 +2170,34 @@ class Mpinstate extends State<MpinResetSettings> {
 
           });
         }
+        if(Otp1stdigit2.isEmpty || Otp2nddigit2.isEmpty || Otp3rddigit2.isEmpty || Otp4thdigit2.isEmpty){
+          setState(() {
+            reEnterDigitMpinMessage = "Please enter 4 Digit Mpin";
+          });
+          return;
+        }
+        else {
+          setState(() {
+            reEnterDigitMpinMessage = null;
+          });
+        }
 
         String upperDigit = Otp1stdigit + Otp2nddigit + Otp3rddigit + Otp4thdigit ;
         String lowerDigit = Otp1stdigit2 + Otp2nddigit2 + Otp3rddigit2 + Otp4thdigit2 ;
 
         if(upperDigit != lowerDigit){
-
-          final snackBar = SnackBar(
-              content: Text("Re-Enter 4 Digit Pin is not matched"),
-              backgroundColor: Colors.red[600]);
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          setState(() {
+            reEnterDigitMpinMessage = "Re-Enter 4 Digit Pin is not matched";
+            Otp1stdigithasStartedTyping2 = true;
+            Otp2nddigithasStartedTyping2 = true;
+            Otp3rddigithasStartedTyping2 = true;
+            Otp4thdigithasStartedTyping2 = true;
+            flag = true;
+          });
+          // final snackBar = SnackBar(
+          //     content: Text("Re-Enter 4 Digit Pin is not matched"),
+          //     backgroundColor: Colors.red[600]);
+          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
           return ;
         }
         else {

@@ -88,7 +88,7 @@ class Mpinstate extends State<MpinResetSettings> {
   bool _digitMpin = false;
   bool _reEnterdigitMpin = false;
 
-
+  bool flag = false;
 
   @override
   void initState() {
@@ -170,6 +170,17 @@ class Mpinstate extends State<MpinResetSettings> {
   void _checkInput() {
     print('_checkInput');
     setState(() {
+      _isLoading = false;
+      if(flag){
+        setState(() {
+          flag = !flag;
+          reEnterDigitMpinMessage = null;
+          Otp1stdigithasStartedTyping2 = false;
+          Otp2nddigithasStartedTyping2 = false;
+          Otp3rddigithasStartedTyping2 = false;
+          Otp4thdigithasStartedTyping2 = false;
+        });
+      }
       setState(() {
         if (Otp1stdigitTextController.text.trim().isNotEmpty || Otp2nddigitTextController.text.trim().isNotEmpty || Otp3rddigitTextController.text.trim().isNotEmpty || Otp4thdigitTextController.text.trim().isNotEmpty
             || Otp1stdigitTextController2.text.trim().isNotEmpty || Otp2nddigitTextController2.text.trim().isNotEmpty || Otp3rddigitTextController2.text.trim().isNotEmpty || Otp4thdigitTextController2.text.trim().isNotEmpty
@@ -1172,14 +1183,7 @@ class Mpinstate extends State<MpinResetSettings> {
 
                                               saveMpin();
 
-                                              // Future.delayed(Duration(milliseconds: 500), () {
-                                              //   connectivityservice.checkconnectivity().then((intenet) async {
-                                              //     setState(() => _isLoading = false);
-                                              //
-                                              //     // ✅ Only show modal when MPIN is successfully set
-                                              //     RegistrationSuccessModel().showModel(context);
-                                              //   });
-                                              // });
+
                                             }
                                                 : null, // Disabled when _isButtonEnabled == false
                                             style: TextButton.styleFrom(
@@ -1227,178 +1231,7 @@ class Mpinstate extends State<MpinResetSettings> {
 
 
 
-                    //         Container(
-            //           color: Colors.white, // Set the background color to white
-            //           child: Padding(
-            //             padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.04),
-            //             child: Column(
-            //               children: [
-            //                 Padding(
-            //                   padding: EdgeInsets.only(
-            //                     // top : screenHeight * 0.01,
-            //                     left : screenHeight * 0.03,
-            //                     right : screenHeight * 0.03,
-            //                   ),
-            //                   child: Text(
-            //                     "Update Your MPIN Easily Via 'Accounts > Settings: Or Experience The Convenience Of Fingerprint Login For Enhanced Security.",
-            //                     style: TextStyle(
-            //                       height: 1.8,
-            //                       fontSize: screenHeight * 0.012,
-            //                       color: Color(0xFF6A6E83),
-            //                       fontWeight: FontWeight.w500,
-            //                     ),
-            //                     textAlign: TextAlign.center,
-            //                   ),
-            //                 ),
-            //
-            //                 SizedBox(height: screenHeight * 0.015), // Spacing before the button
-            //
-            //
-            //             GestureDetector(
-            //             onTap: () async {
-            // if (_isLoading) return; // prevent multiple taps
-            // setState(() => _isLoading = true);
-            //
-            // saveMpin(); // run your async function
-            // Future.delayed(Duration(milliseconds: 500), () {
-            //   connectivityservice.checkconnectivity().then((intenet) async {
-            //     setState(() => _isLoading = false); // Hide loader after actions
-            //   });
-            // });
-            // },
-            //   child: Builder(
-            //     builder: (context) {
-            //       final textScale = MediaQuery.of(context).textScaleFactor;
-            //       final double bottomMargin =
-            //           screenHeight * 0.02 * textScale; // Adjust margin with font scale
-            //
-            //       return Container(
-            //         margin: EdgeInsets.only(bottom: bottomMargin),
-            //         child: Row(
-            //           mainAxisAlignment: MainAxisAlignment.center,
-            //           children: <Widget>[
-            //             Expanded(
-            //               child: Container(
-            //                 decoration: BoxDecoration(
-            //                   borderRadius: BorderRadius.circular(screenHeight * 0.012),
-            //                   gradient: LinearGradient(
-            //                     begin: Alignment.centerRight,
-            //                     end: Alignment.center,
-            //                     stops: [0.5, 0.9],
-            //                     colors: _isButtonEnabled
-            //                         ? [Color(0xFF126086), Color(0xFF126086)]
-            //                         : [Colors.grey, Colors.grey],
-            //                   ),
-            //                 ),
-            //                 alignment: Alignment.center,
-            //                 child: TextButton(
-            //                   onPressed: () {
-            //                     if (_isLoading) return;
-            //                     setState(() => _isLoading = true);
-            //
-            //                     saveMpin();
-            //
-            //                     Future.delayed(Duration(milliseconds: 500), () {
-            //                       connectivityservice.checkconnectivity().then((intenet) async {
-            //                         setState(() => _isLoading = false);
-            //                       });
-            //                     });
-            //                   },
-            //                   child: Row(
-            //                     mainAxisAlignment: MainAxisAlignment.center,
-            //                     mainAxisSize: MainAxisSize.min,
-            //                     children: [
-            //                       // Loader (only shows when loading)
-            //                       if (_isLoading) ...[
-            //                         SizedBox(
-            //                           height: screenHeight * 0.022,
-            //                           width: screenHeight * 0.022,
-            //                           child: CircularProgressIndicator(
-            //                             color: Colors.white,
-            //                             strokeWidth: 2.2,
-            //                           ),
-            //                         ),
-            //                         SizedBox(width: screenHeight * 0.008),
-            //                       ],
-            //                       Text(
-            //                         "Set your MPIN",
-            //                         textAlign: TextAlign.center,
-            //                         style: TextStyle(
-            //                           color: Colors.white,
-            //                           fontSize: screenHeight * 0.018,
-            //                           fontWeight: FontWeight.w700,
-            //                         ),
-            //                       ),
-            //                     ],
-            //                   ),
-            //                 ),
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // )
-            //
-            // // GestureDetector(
-            //                 //   onTap: () {
-            //                 //     print('Tapped!');
-            //                 //     saveMpin();
-            //                 //   },
-            //                 //   child: Builder(
-            //                 //     builder: (context) {
-            //                 //       final textScale = MediaQuery.of(context).textScaleFactor;
-            //                 //       final double bottomMargin = screenHeight * 0.02 * textScale; // Adjust margin with font scale
-            //                 //
-            //                 //       return Container(
-            //                 //         margin: EdgeInsets.only(bottom: bottomMargin),
-            //                 //         child: Row(
-            //                 //           mainAxisAlignment: MainAxisAlignment.center,
-            //                 //           children: <Widget>[
-            //                 //             Expanded(
-            //                 //               child: Container(
-            //                 //                 decoration: BoxDecoration(
-            //                 //                   borderRadius: BorderRadius.circular(screenHeight * 0.012),
-            //                 //                   gradient: LinearGradient(
-            //                 //                     begin: Alignment.centerRight,
-            //                 //                     end: Alignment.center,
-            //                 //                     stops: [0.5, 0.9],
-            //                 //                     colors: _isButtonEnabled
-            //                 //                         ? [
-            //                 //                       Color(0xFF126086),
-            //                 //                       Color(0xFF126086),
-            //                 //                     ]
-            //                 //                         : [Colors.grey, Colors.grey],
-            //                 //                   ),
-            //                 //                 ),
-            //                 //                 alignment: Alignment.center,
-            //                 //                 child: TextButton(
-            //                 //                   onPressed: () async {
-            //                 //                     saveMpin();
-            //                 //                   },
-            //                 //                   child: Text(
-            //                 //                     "Set your MPIN",
-            //                 //                     textAlign: TextAlign.center,
-            //                 //                     style: TextStyle(
-            //                 //                       color: Colors.white,
-            //                 //                       fontSize: screenHeight * 0.018,
-            //                 //                       fontWeight: FontWeight.w700,
-            //                 //                     ),
-            //                 //                   ),
-            //                 //                 ),
-            //                 //               ),
-            //                 //             ),
-            //                 //           ],
-            //                 //         ),
-            //                 //       );
-            //                 //     },
-            //                 //   ),
-            //                 // ),
-            //               ],
-            //             ),
-            //           ),
-            //         ),
+
 
 
 
@@ -1424,7 +1257,7 @@ class Mpinstate extends State<MpinResetSettings> {
 
 
         String Otp1stdigit =  Otp1stdigitTextController.text;
-
+        print("Otp1stdigit : $Otp1stdigit");
         if(Otp1stdigit.isEmpty){
           setState(() {
             Otp1stdigithasStartedTyping = true;
@@ -1442,7 +1275,7 @@ class Mpinstate extends State<MpinResetSettings> {
         }
 
         String Otp2nddigit =  Otp2nddigitTextController.text;
-
+        print("Otp2nddigit : $Otp2nddigit");
         if(Otp2nddigit.isEmpty){
           setState(() {
             Otp2nddigithasStartedTyping = true;
@@ -1460,7 +1293,7 @@ class Mpinstate extends State<MpinResetSettings> {
         }
 
         String Otp3rddigit =  Otp3rddigitTextController.text;
-
+        print("Otp3rddigit : $Otp3rddigit");
         if(Otp3rddigit.isEmpty){
           setState(() {
             Otp3rddigithasStartedTyping = true;
@@ -1478,14 +1311,14 @@ class Mpinstate extends State<MpinResetSettings> {
         }
 
         String Otp4thdigit =  Otp4thdigitTextController.text;
-
+        print("Otp4thdigit : $Otp4thdigit");
         if(Otp4thdigit.isEmpty){
           setState(() {
             Otp4thdigithasStartedTyping = true;
             digitMpinMessage = "Please enter 4 Digit Mpin";
 
           });
-          return;
+
         }
         else {
           setState(() {
@@ -1495,10 +1328,21 @@ class Mpinstate extends State<MpinResetSettings> {
           });
         }
 
-
+       if(Otp1stdigit.isEmpty || Otp2nddigit.isEmpty || Otp3rddigit.isEmpty || Otp4thdigit.isEmpty){
+         setState(() {
+           digitMpinMessage = "Please enter 4 Digit Mpin";
+           reEnterDigitMpinMessage = null ;
+         });
+         return;
+       }
+       else {
+         setState(() {
+           digitMpinMessage = null;
+         });
+       }
 
         String Otp1stdigit2 =  Otp1stdigitTextController2.text;
-
+        print("Otp1stdigit2 : $Otp1stdigit2");
         if(Otp1stdigit2.isEmpty){
           setState(() {
             Otp1stdigithasStartedTyping2 = true;
@@ -1569,15 +1413,34 @@ class Mpinstate extends State<MpinResetSettings> {
           });
         }
 
+        if(Otp1stdigit2.isEmpty || Otp2nddigit2.isEmpty || Otp3rddigit2.isEmpty || Otp4thdigit2.isEmpty){
+          setState(() {
+            reEnterDigitMpinMessage = "Please enter 4 Digit Mpin";
+          });
+          return;
+        }
+        else {
+          setState(() {
+            reEnterDigitMpinMessage = null;
+          });
+        }
         String upperDigit = Otp1stdigit + Otp2nddigit + Otp3rddigit + Otp4thdigit ;
         String lowerDigit = Otp1stdigit2 + Otp2nddigit2 + Otp3rddigit2 + Otp4thdigit2 ;
 
         if(upperDigit != lowerDigit){
+          setState(() {
+            reEnterDigitMpinMessage = "Re-Enter 4 Digit Pin is not matched";
+            Otp1stdigithasStartedTyping2 = true;
+            Otp2nddigithasStartedTyping2 = true;
+            Otp3rddigithasStartedTyping2 = true;
+            Otp4thdigithasStartedTyping2 = true;
+            flag = true;
+          });
 
-          final snackBar = SnackBar(
-              content: Text("Re-Enter 4 Digit Pin is not matched"),
-              backgroundColor: Colors.red[600]);
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          // final snackBar = SnackBar(
+          //     content: Text("Re-Enter 4 Digit Pin is not matched"),
+          //     backgroundColor: Colors.red[600]);
+          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
           return ;
         }
         else {

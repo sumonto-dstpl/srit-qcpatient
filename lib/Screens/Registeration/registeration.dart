@@ -1636,11 +1636,7 @@ class Registrationstate extends State<Registration> {
   
                                 GestureDetector(
                                   onTap: () async {
-                                    // print('onTap: () async {');
-                                    // validSignupSubmit();
-                                    // Navigator.of(context).push(
-                                    //   MaterialPageRoute(builder: (context) => MpinResetSettings()),
-                                    // );
+
                                     if(isButtonEnabled)
                                       validSignupSubmit();
                                   },
@@ -1907,7 +1903,7 @@ class Registrationstate extends State<Registration> {
           ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
 
           if (checkedValue == false) {
-            print('if (checkedValue == false)');
+
             final snackBar = SnackBar(
               content: Text("Please Select Terms and Conditions"),
               backgroundColor: Colors.red[600],

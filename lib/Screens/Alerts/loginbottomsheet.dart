@@ -103,6 +103,8 @@ class LoginBottomSheet {
                   Padding(
                     padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.02,
+                      left: MediaQuery.of(context).size.width * 0.05,
+                      right: MediaQuery.of(context).size.width * 0.05,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -111,9 +113,9 @@ class LoginBottomSheet {
                           child: Text(
                             "Please create or Sign-in with an account in order to Access this feature",
                             style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: MediaQuery.of(context).size.height * 0.02,
+                              color: Color(0xFF000000),
+                              fontWeight: FontWeight.w500,
+                              fontSize: MediaQuery.of(context).size.height * 0.016,
                             ),
                             softWrap: true, // Allows wrapping
                             textAlign: TextAlign.center, // Optional: center text
@@ -127,7 +129,7 @@ class LoginBottomSheet {
                       vertical: MediaQuery.of(context).size.height * 0.03,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
                           onTap: () {
@@ -138,10 +140,10 @@ class LoginBottomSheet {
                           },
                           child: Container(
                             height: MediaQuery.of(context).size.height * 0.04,
-                            width: MediaQuery.of(context).size.height * 0.17,
+                            width: MediaQuery.of(context).size.height * 0.15,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
+                              borderRadius: BorderRadius.circular(8),
                               border: Border.all(
                                 color: Color(0xFFA8B1CE),
                                 width: 1,
@@ -150,14 +152,15 @@ class LoginBottomSheet {
                             child: Text(
                               "Close",
                               style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF1F1F1F),
+                                fontWeight: FontWeight.w500,
                                 fontSize:
-                                    MediaQuery.of(context).size.height * 0.014,
+                                    MediaQuery.of(context).size.height * 0.013,
                               ),
                             ),
                           ),
                         ),
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.05,),
                         GestureDetector(
                           onTap: () async{
                             // await UserSecureStorage.setIfGuestLogged("No");
@@ -173,17 +176,17 @@ class LoginBottomSheet {
                           },
                           child: Container(
                             height: MediaQuery.of(context).size.height * 0.04,
-                            width: MediaQuery.of(context).size.height * 0.17,
+                            width: MediaQuery.of(context).size.height * 0.15,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: Color(0xFF126086),
-                              borderRadius: BorderRadius.circular(5),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
                               "Sign Up",
                               style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                                color: Color(0xFFFFFFFF),
+                                fontWeight: FontWeight.w600,
                                 fontSize:
                                     MediaQuery.of(context).size.height * 0.016,
                               ),

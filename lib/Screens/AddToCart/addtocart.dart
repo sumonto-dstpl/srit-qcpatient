@@ -1796,6 +1796,52 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                       endActionPane: ActionPane(
                                         extentRatio: 0.15,
                                         motion: const ScrollMotion(),
+                                        // children: [
+                                        //   Container(
+                                        //     width: 50,
+                                        //     height: double.infinity,
+                                        //
+                                        //     child: Column(
+                                        //       children: [
+                                        //
+                                        //
+                                        //
+                                        //         // Lower icon (Delete)
+                                        //         Expanded(
+                                        //           child: GestureDetector(
+                                        //             onTap: (){
+                                        //
+                                        //                     showTopNotification(
+                                        //                       context,
+                                        //                       title: "Cart Delete",
+                                        //                       message: "Saved For Later Cart is deleted Successfully",
+                                        //                       type: NotificationType.error,
+                                        //                     );
+                                        //                     setState(() {
+                                        //                       savedbottomlist.removeAt(index);
+                                        //                     });
+                                        //                     // If the list is empty, show a message
+                                        //                     if (savedbottomlist.isEmpty) {
+                                        //
+                                        //
+                                        //                       isSavedForLater = false;
+                                        //                     }
+                                        //
+                                        //
+                                        //
+                                        //             },
+                                        //             child: Container(
+                                        //
+                                        //               alignment: Alignment.center,
+                                        //               child: Icon(Icons.delete, color: Colors.red),
+                                        //             ),
+                                        //           ),
+                                        //         ),
+                                        //       ],
+                                        //     ),
+                                        //   ),
+                                        // ],
+
                                         children: [
                                           Container(
                                             width: 50,
@@ -1803,32 +1849,71 @@ class AddToCartMainstate extends State<AddToCartMain> {
 
                                             child: Column(
                                               children: [
+                                                // Upper icon (Save)
+                                                Expanded(
+                                                  child: GestureDetector(
+                                                    onTap: () {
+
+                                                      addToCart(item['id'],item['plan'],item['test'],item['qr']);
+                                                      // print("${item['id']} ${item['plan']} ${item['test']} ${item['qr']}");
+                                                      showTopNotification(
+                                                        context,
+                                                        title: "Cart Added",
+                                                        message: "Saved For Later Cart is added back to Cart",
+                                                        type: NotificationType.success,
+                                                      );
 
 
+
+                                                      setState(() {
+                                                        savedbottomlist.removeAt(index);
+                                                      });
+                                                      // If the list is empty, show a message
+                                                      if (savedbottomlist.isEmpty) {
+
+
+                                                        isSavedForLater = false;
+                                                      }
+
+
+
+
+
+                                                    },
+
+                                                    child: Container(
+
+                                                      alignment: Alignment.center,
+                                                      child: Image.asset(
+                                                        "assets/Add to cart.png",
+                                                        width: 20,
+                                                        height: 20,
+                                                        color: Colors.black,
+                                                        colorBlendMode: BlendMode.srcIn,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
 
                                                 // Lower icon (Delete)
                                                 Expanded(
                                                   child: GestureDetector(
                                                     onTap: (){
-
-                                                            showTopNotification(
-                                                              context,
-                                                              title: "Cart Delete",
-                                                              message: "Saved For Later Cart is deleted Successfully",
-                                                              type: NotificationType.error,
-                                                            );
-                                                            setState(() {
-                                                              savedbottomlist.removeAt(index);
-                                                            });
-                                                            // If the list is empty, show a message
-                                                            if (savedbottomlist.isEmpty) {
-
-
-                                                              isSavedForLater = false;
-                                                            }
+                                                                            showTopNotification(
+                                                                              context,
+                                                                              title: "Cart Delete",
+                                                                              message: "Saved For Later Cart is deleted Successfully",
+                                                                              type: NotificationType.error,
+                                                                            );
+                                                                            setState(() {
+                                                                              savedbottomlist.removeAt(index);
+                                                                            });
+                                                                            // If the list is empty, show a message
+                                                                            if (savedbottomlist.isEmpty) {
 
 
-
+                                                                              isSavedForLater = false;
+                                                                            }
                                                     },
                                                     child: Container(
 
@@ -3516,7 +3601,35 @@ class AddToCartMainstate extends State<AddToCartMain> {
     _loadCart();
   }
 
+  void addToCart(int id,String plan,String test,String qr) async{
+    Map<String,dynamic> addToCart = {
+      "id": id,
+      "plan" : plan,
+      "test" : test,
+      "qr" : qr
+    };
 
+    print("addToCart : $addToCart");
+
+    bool isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
+    print("isGuestUser : $isGuestUser");
+    String? username =  await UserSecureStorage.getUsernameid();
+
+    Map<String, dynamic>? user = await UserSecureStorage.getUser(username ?? '');
+
+    print("user : $user");
+
+    if(isGuestUser){
+      String userId = "GUEST";
+      UserSecureStorage.saveAddToCard(key: "addToCart2",userId: userId, newData: addToCart);
+    }
+    else {
+      String userId = username ?? '';
+      UserSecureStorage.saveAddToCard(key: "addToCart2",userId: userId, newData: addToCart);
+    }
+
+    _loadCart();
+  }
 
 
 }

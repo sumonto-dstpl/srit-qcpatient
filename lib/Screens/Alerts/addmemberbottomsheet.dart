@@ -5,8 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class AddMemberBottomSheet {
-    static Future<Map<String, dynamic>?> show(BuildContext context) {
-
+    static Future<Map<String, dynamic>?> show(BuildContext context,{Map? editDetail,String? operation = "add"}) {
+      print("operation : $operation");
       File? myProfileImage;    // Camera se capture ki image
       String? myProfileImagePath; // Image ka path store karne ke liye (cache/storage)
       final firstNameController = TextEditingController();
@@ -37,6 +37,38 @@ class AddMemberBottomSheet {
         "Sister",
         "Other"
       ];
+      String image = "";
+      if(editDetail != null) {
+        print("editDetail : $editDetail");
+        firstNameController.text = editDetail['firstName'] ?? "";
+        lastNameController.text = editDetail['lastName'] ?? "";
+        uhidController.text = editDetail['uhid'] ?? "";
+        mobileController.text = editDetail['mobileNumber'] ?? "";
+        emailController.text = editDetail['email'] ?? "";
+
+        relationshipSelected = editDetail['relationship'] ?? "";
+        final String? genderLabel = editDetail['gender']; // e.g. "Female"
+
+        // ✅ Convert label ("Female") to key ("F")
+        final match = genderOptions.firstWhere(
+              (g) => g['label']?.toLowerCase() == genderLabel?.toLowerCase(),
+          orElse: () => {},
+        );
+
+        genderSelected = match['key']; // will set "F" if found
+
+        // ✅ Image: Check type and set accordingly
+        if (editDetail['image'] != null &&
+            editDetail['image'].toString().isNotEmpty) {
+          final imagePath = editDetail['image'].toString().trim();
+          myProfileImagePath = imagePath;
+
+
+        }
+
+
+
+      }
       return showModalBottomSheet<Map<String, dynamic>?>(
       context: context,
       isScrollControlled: true,
@@ -45,13 +77,81 @@ class AddMemberBottomSheet {
       backgroundColor: Colors.transparent,
       barrierColor: Colors.transparent,
       builder: (BuildContext context) {
+
         final screenHeight = MediaQuery.of(context).size.height;
         final screenWidth = MediaQuery.of(context).size.width;
 
         // Controllers
 
 
+
+
         return StatefulBuilder(builder: (context, setState) {
+          print("builder : ");
+          bool isImageNotAvailable =
+              (myProfileImage == null) &&
+                  (editDetail == null ||
+                      (editDetail['image']?.toString().isEmpty ?? true));
+
+          print("isImageNotAvailable : $isImageNotAvailable");
+          Widget imageWidget;
+          if (isImageNotAvailable) {
+            // No image → show first character
+            imageWidget =  Container(
+                height: 100,
+                width: 100,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 3),
+                  color: Color(0xFF608597),
+                  // color : Colors.red,
+
+                ),
+                child: Icon(
+                  Icons.camera_alt_outlined,
+                  color: Colors.white,
+                  size: 50,
+                )
+            );
+          }
+
+          else {
+            final imagePath  =  myProfileImagePath;
+
+            if(imagePath!.startsWith("/")){
+              imageWidget =  Container(
+                height: 100,
+                width: 100,
+                child: ClipOval(
+                  child: Image.file(
+                    File(imagePath),
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
+                  ),
+                ),
+              );
+            }
+
+            else if(imagePath!.startsWith("assets/")){
+              imageWidget =  Container(
+                  height: 100,
+                  width: 100,
+
+                  child: Image.asset("assets/profileM2.png")
+              );
+            }
+
+            else {
+              imageWidget =  Container(
+                  height: 100,
+                  width: 100,
+
+                  child: Image.asset("assets/profileM4.png")
+              );
+            }
+
+          }
           return Stack(
             children: [
               GestureDetector(
@@ -360,14 +460,22 @@ class AddMemberBottomSheet {
                                                    }
 
                                                    if(firstNameValid && lastNameValid && mobileValid && isGenderValid ) {
+                                                    String gender = "";
+                                                    if (genderSelected == 'M') {
+                                                      gender = 'Male';
+                                                    } else if (genderSelected == 'F') {
+                                                      gender = 'Female';
+                                                    } else if (genderSelected == 'O') {
+                                                      gender = 'Other';
+                                                    }
                                                      Navigator.of(context).pop({
                                                        "firstName": firstNameController.text,
                                                        "lastName": lastNameController.text,
                                                        "uhid": uhidController.text,
-                                                       "mobile": mobileController.text,
+                                                       "mobileNumber": mobileController.text,
                                                        "email": emailController.text,
                                                        "relationship": relationshipSelected,
-                                                       "gender": genderSelected,
+                                                       "gender": gender,
                                                        "image": myProfileImagePath ?? "", // captured image path
                                                      });
                                                     // Implement save logic here
@@ -402,7 +510,7 @@ class AddMemberBottomSheet {
                             ),
                           ),
                         ),
-
+                          if(operation == "add")
                           Positioned(
                             top: -50,
                             left: 0,
@@ -426,6 +534,7 @@ class AddMemberBottomSheet {
                                   debugPrint("No image selected");
                                 }
                               },
+
                               child: Center(
                                 child: GestureDetector(
 
@@ -453,8 +562,8 @@ class AddMemberBottomSheet {
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border: Border.all(color: Colors.white, width: 3),
-                                      // color: Color(0xFF608597),
-                                      color : Colors.red,
+                                      color: Color(0xFF608597),
+                                      // color : Colors.red,
                                       image: myProfileImage != null
                                           ? DecorationImage(
                                         image: FileImage(myProfileImage!),
@@ -474,6 +583,41 @@ class AddMemberBottomSheet {
                               ),
                             ),
                           ),
+
+                          if(operation == "edit")
+                            Positioned(
+                              top: -50,
+                              left: 0,
+                              right: 0,
+                              child: Center(
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    final ImagePicker picker = ImagePicker();
+                                    final XFile? picked = await picker.pickImage(source: ImageSource.camera);
+
+                                    if (picked != null) {
+                                      File imageFile = File(picked.path);
+                                      setState(() {
+                                        myProfileImage = imageFile;
+                                        myProfileImagePath = imageFile.path;
+
+                                      });
+                                      debugPrint("📸 New image selected: ${imageFile.path}");
+                                    } else {
+                                      debugPrint("No image selected");
+                                    }
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+
+                                      color: Color(0xFF608597),
+                                    ),
+                                      child: imageWidget
+                                  ),
+                                ),
+                              ),
+                            ),
 
                         ]
                       ),
@@ -581,3 +725,31 @@ class AddMemberBottomSheet {
  
 
 }
+
+// 👇 Builds correct DecorationImage based on input
+DecorationImage? _buildProfileImage(String? image, File? myProfileImage) {
+
+  if (myProfileImage != null) {
+    // ✅ Camera/Gallery se li gayi image
+    return DecorationImage(image: FileImage(myProfileImage), fit: BoxFit.cover);
+  } else if (image != null && image.isNotEmpty) {
+    if (image.startsWith('assets/')) {
+      // ✅ Local asset image
+      return DecorationImage(image: AssetImage(image), fit: BoxFit.fill);
+    } else if (image.startsWith('/') || image.startsWith('storage/')) {
+      // ✅ Local file from storage
+      return DecorationImage(image: FileImage(File(image)), fit: BoxFit.cover);
+    }
+  }
+  return null; // No image → camera icon visible
+}
+
+// 👇 Shows camera icon only if no image exists
+Widget? _buildCameraIcon(String? image, File? myProfileImage) {
+
+  if (myProfileImage == null && (image == null || image.isEmpty)) {
+    return const Icon(Icons.camera_alt_outlined, color: Colors.white, size: 50);
+  }
+  return null;
+}
+
