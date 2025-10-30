@@ -395,50 +395,50 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
                                         ),
 
                                         floatingLabelBehavior: FloatingLabelBehavior.never,
-                                        // label: Row(
-                                        //   mainAxisAlignment: MainAxisAlignment.center,
-                                        //   crossAxisAlignment: CrossAxisAlignment.center,
-                                        //   mainAxisSize: MainAxisSize.min,
-                                        //   children: [
-                                        //     Text(
-                                        //       "Search by ",
-                                        //       style: TextStyle(
-                                        //         color: Color(0xFF999999),
-                                        //         fontSize: screenHeight * 0.016,
-                                        //         fontWeight: FontWeight.w400,
-                                        //       ),
-                                        //     ),
-                                        //     DefaultTextStyle(
-                                        //       style: TextStyle(
-                                        //         color: Color(0xFF126086),
-                                        //         fontWeight: FontWeight.bold,
-                                        //         fontSize: screenHeight * 0.016,
-                                        //       ),
-                                        //       child: AnimatedTextKit(
-                                        //         repeatForever: true,
-                                        //         pause: Duration(milliseconds: 700),
-                                        //         animatedTexts: hints
-                                        //             .map((e) => RotateAnimatedText(
-                                        //           e,
-                                        //           textStyle: TextStyle(
-                                        //             color: Color(0xFF126086),
-                                        //             fontWeight: FontWeight.bold,
-                                        //             fontSize: screenHeight * 0.016,
-                                        //           ),
-                                        //         ))
-                                        //             .toList(),
-                                        //         onTap: () {
-                                        //           // Optional — navigate to search page
-                                        //           Navigator.of(context).push(
-                                        //             MaterialPageRoute(
-                                        //               builder: (context) => QuickSearchWithoutData(),
-                                        //             ),
-                                        //           );
-                                        //         },
-                                        //       ),
-                                        //     ),
-                                        //   ],
-                                        // ),
+                                        label: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              "Search by ",
+                                              style: TextStyle(
+                                                color: Color(0xFF999999),
+                                                fontSize: screenHeight * 0.016,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                            DefaultTextStyle(
+                                              style: TextStyle(
+                                                color: Color(0xFF126086),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: screenHeight * 0.016,
+                                              ),
+                                              child: AnimatedTextKit(
+                                                repeatForever: true,
+                                                pause: Duration(milliseconds: 700),
+                                                animatedTexts: hints
+                                                    .map((e) => RotateAnimatedText(
+                                                  e,
+                                                  textStyle: TextStyle(
+                                                    color: Color(0xFF126086),
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: screenHeight * 0.016,
+                                                  ),
+                                                ))
+                                                    .toList(),
+                                                onTap: () {
+                                                  // Optional — navigate to search page
+                                                  Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                      builder: (context) => QuickSearchWithoutData(),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
 
