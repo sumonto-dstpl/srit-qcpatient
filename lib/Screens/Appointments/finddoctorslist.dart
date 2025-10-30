@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Data/Models/doctorslistres.dart';
@@ -495,7 +496,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                             MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.01
+                                .height * 0.0
                                  ),
                                 width: double.infinity,
                                 decoration: BoxDecoration(
@@ -508,10 +509,10 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                       ),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black.withOpacity(0.2), // try black or theme color for better visibility
-                                      offset: const Offset(0, 90), // 👈 4px downward only
-                                      blurRadius: 10, // softness
-                                      spreadRadius: 0,
+                                      color: Colors.black.withOpacity(0.15),
+                                      offset: Offset(0, 3), // horizontal, vertical shadow offset
+                                      blurRadius: 24,        // softness
+                                      spreadRadius: 1,      // subtle size of the shadow
                                     ),
                                   ],
                                     ),
@@ -572,7 +573,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                 bottom: MediaQuery
                                                     .of(context)
                                                     .size
-                                                    .height * 0.01,
+                                                    .height * 0.0,
                                                 left: MediaQuery
                                                     .of(context)
                                                     .size
@@ -797,145 +798,145 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
                           // Search Input Field
 
-                        /*  Container(
-                            padding: EdgeInsets.only(
-                              top: screenHeight * 0.0,
-                              left: screenWidth * 0.0,
-                              right: screenWidth * 0.0,
-                              bottom: screenWidth * 0.0,
-                            ),
-                            margin: EdgeInsets.only(
-                                right: MediaQuery.of(context).size.height * 0.01,
-                                top: MediaQuery.of(context).size.height * 0.0,
-                                bottom: MediaQuery.of(context).size.height * 0.0,
-                                left: MediaQuery.of(context).size.height * 0.01),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                               */
-                          /* InkWell(
-                                  onTap: () => Navigator.pop(context),
-                                  child: Container(
-                                    height: screenHeight * 0.045,
-                                    width: screenHeight * 0.045,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[100]!.withOpacity(0.9),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Icon(
-                                      Icons.arrow_back_ios_sharp,
-                                      color: Color(0xFF126086),
-                                      size: screenHeight * 0.025,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                    width: screenHeight *
-                                        0.005),*/
-                          /* // Add spacing between widgets
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        alignment: Alignment.centerRight,
-                                        margin: EdgeInsets.only(
-                                            bottom: screenHeight * 0.01),
-                                        child: TextFormField(
-                                          controller: SearchEditTextController,
-                                          */
-                          /* inputFormatters: [
-                                        LengthLimitingTextInputFormatter(15),
-                                        FilteringTextInputFormatter.allow(
-                                            RegExp('[a-zA-Z0-9]')),
-                                      ],*//*
-                                          *//*textCapitalization:
-                                          TextCapitalization.characters,*//*
-                                          style: TextStyle(color: Colors.black),
-                                          keyboardType: TextInputType.emailAddress,
-                                          validator: (input) => input!.length < 3
-                                              ? "Search should be more than 3 characters"
-                                              : null,
-                                          decoration: InputDecoration(
-                                            isDense: true,
-                                            contentPadding: EdgeInsets.all(
-                                                screenHeight * 0.012),
-                                            filled: true,
-                                            fillColor: Colors.grey[200],
-                                            hintText: "Search By Doctor",
-                                            hintStyle: TextStyle(
-                                              color: Colors.black26,
-                                              fontSize: screenHeight * 0.016,
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(5.0),
-                                              borderSide:
-                                              BorderSide(color: Colors.grey),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              borderSide:
-                                              BorderSide(color: Colors.white),
-                                            ),
-                                            suffixIcon: Container(
-                                              padding: EdgeInsets.symmetric(horizontal: 8),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min, // Ensures the Row only takes as much space as needed
-                                                children: [
-                                                  // Search Icon
-                                                  IconButton(
-                                                    padding: EdgeInsets.zero,
-                                                    icon: const Icon(
-                                                      Icons.search_sharp,
-                                                      color: Colors.black45,
-                                                    ),
-                                                    onPressed: () {
-                                                      // showBottomSheet();
-                                                    },
-                                                  ),
-                                                  // Divider
-                                                  Container(
-                                                    width: 1, // Width of the divider
-                                                    height: 24, // Height of the divider
-                                                    color: Colors.grey, // Color of the divider
-                                                    margin: EdgeInsets.symmetric(horizontal: 4), // Spacing around the divider
-                                                  ),
-                                                  // Icon from Assets
-                                                  InkWell(
-                                                    onTap: () {
-
-                                                      showBottomSheet();
-                                                    *//*  Navigator.of(context).push(
-                                                        MaterialPageRoute(
-                                                          builder: (BuildContext context) {
-                                                            return FilterScreen();
-                                                          },
-                                                        ),
-                                                      );*//*
-
-                                                    },
-                                                    child: Image.asset(
-                                                      'assets/scansearch.png', // Replace with your actual asset path
-                                                      height: 20, // Height of the asset icon
-                                                      width: 20,  // Width of the asset icon
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),*/
+                          // Container(
+                          //   padding: EdgeInsets.only(
+                          //     top: screenHeight * 0.0,
+                          //     left: screenWidth * 0.0,
+                          //     right: screenWidth * 0.0,
+                          //     bottom: screenWidth * 0.0,
+                          //   ),
+                          //   margin: EdgeInsets.only(
+                          //       right: MediaQuery.of(context).size.height * 0.01,
+                          //       top: MediaQuery.of(context).size.height * 0.0,
+                          //       bottom: MediaQuery.of(context).size.height * 0.0,
+                          //       left: MediaQuery.of(context).size.height * 0.01),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.start,
+                          //     crossAxisAlignment: CrossAxisAlignment.center,
+                          //     children: [
+                          //
+                          //  InkWell(
+                          //         onTap: () => Navigator.pop(context),
+                          //         child: Container(
+                          //           height: screenHeight * 0.045,
+                          //           width: screenHeight * 0.045,
+                          //           decoration: BoxDecoration(
+                          //             color: Colors.grey[100]!.withOpacity(0.9),
+                          //             shape: BoxShape.circle,
+                          //           ),
+                          //           child: Icon(
+                          //             Icons.arrow_back_ios_sharp,
+                          //             color: Color(0xFF126086),
+                          //             size: screenHeight * 0.025,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //       SizedBox(
+                          //           width: screenHeight *
+                          //               0.005),
+                          //  // Add spacing between widgets
+                          //       Expanded(
+                          //         child: Column(
+                          //           crossAxisAlignment: CrossAxisAlignment.start,
+                          //           children: [
+                          //             Container(
+                          //               alignment: Alignment.centerRight,
+                          //               margin: EdgeInsets.only(
+                          //                   bottom: screenHeight * 0.01),
+                          //               child: TextFormField(
+                          //                 controller: SearchEditTextController,
+                          //
+                          //  inputFormatters: [
+                          //               LengthLimitingTextInputFormatter(15),
+                          //               FilteringTextInputFormatter.allow(
+                          //                   RegExp('[a-zA-Z0-9]')),
+                          //             ],
+                          //                 textCapitalization:
+                          //                 TextCapitalization.characters,
+                          //                 style: TextStyle(color: Colors.black),
+                          //                 keyboardType: TextInputType.emailAddress,
+                          //                 validator: (input) => input!.length < 3
+                          //                     ? "Search should be more than 3 characters"
+                          //                     : null,
+                          //                 decoration: InputDecoration(
+                          //                   isDense: true,
+                          //                   contentPadding: EdgeInsets.all(
+                          //                       screenHeight * 0.012),
+                          //                   filled: true,
+                          //                   fillColor: Colors.grey[200],
+                          //                   hintText: "Search By Doctor",
+                          //                   hintStyle: TextStyle(
+                          //                     color: Colors.black26,
+                          //                     fontSize: screenHeight * 0.016,
+                          //                   ),
+                          //                   focusedBorder: OutlineInputBorder(
+                          //                     borderRadius:
+                          //                     BorderRadius.circular(5.0),
+                          //                     borderSide:
+                          //                     BorderSide(color: Colors.grey),
+                          //                   ),
+                          //                   enabledBorder: OutlineInputBorder(
+                          //                     borderRadius: BorderRadius.all(
+                          //                         Radius.circular(5.0)),
+                          //                     borderSide:
+                          //                     BorderSide(color: Colors.white),
+                          //                   ),
+                          //                   suffixIcon: Container(
+                          //                     padding: EdgeInsets.symmetric(horizontal: 8),
+                          //                     child: Row(
+                          //                       mainAxisSize: MainAxisSize.min, // Ensures the Row only takes as much space as needed
+                          //                       children: [
+                          //                         // Search Icon
+                          //                         IconButton(
+                          //                           padding: EdgeInsets.zero,
+                          //                           icon: const Icon(
+                          //                             Icons.search_sharp,
+                          //                             color: Colors.black45,
+                          //                           ),
+                          //                           onPressed: () {
+                          //                             // showBottomSheet();
+                          //                           },
+                          //                         ),
+                          //                         // Divider
+                          //                         Container(
+                          //                           width: 1, // Width of the divider
+                          //                           height: 24, // Height of the divider
+                          //                           color: Colors.grey, // Color of the divider
+                          //                           margin: EdgeInsets.symmetric(horizontal: 4), // Spacing around the divider
+                          //                         ),
+                          //                         // Icon from Assets
+                          //                         InkWell(
+                          //                           onTap: () {
+                          //
+                          //                             showBottomSheet();
+                          //                             Navigator.of(context).push(
+                          //                               MaterialPageRoute(
+                          //                                 builder: (BuildContext context) {
+                          //                                   return FilterScreen();
+                          //                                 },
+                          //                               ),
+                          //                             );
+                          //
+                          //                           },
+                          //                           child: Image.asset(
+                          //                             'assets/scansearch.png', // Replace with your actual asset path
+                          //                             height: 20, // Height of the asset icon
+                          //                             width: 20,  // Width of the asset icon
+                          //                           ),
+                          //                         ),
+                          //                       ],
+                          //                     ),
+                          //                   ),
+                          //
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           ],
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
 
                           Column(
                             mainAxisSize: MainAxisSize.min,
@@ -966,7 +967,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                         margin: EdgeInsets.only(
                                             left: MediaQuery.of(context).size.height * 0.01,
                                             right: MediaQuery.of(context).size.height * 0.01,
-                                            top: MediaQuery.of(context).size.height * 0.0,
+                                            top: MediaQuery.of(context).size.height * 0.01,
                                             bottom: MediaQuery.of(context).size.height * 0.0),
                                         decoration: BoxDecoration(
                                           // borderRadius: BorderRadius.circular(32),
