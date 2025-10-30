@@ -853,7 +853,7 @@ class SettingsMainstate extends State<SettingsMain> {
                                                   inactiveColor: Color(0xFFE4E7EC),
                                                   activeToggleColor: Colors.white,
                                                   inactiveToggleColor: Colors.white,
-                                                  onToggle: (bool value) {
+                                                  onToggle: (bool value) async {
                                                     setState(() {
                                                       isMpinEnabled = value;
                                                     });
@@ -866,9 +866,11 @@ class SettingsMainstate extends State<SettingsMain> {
 
                                                     if (value) {
 
-                                                      Navigator.of(context).push(
-                                                        MaterialPageRoute(builder: (context) => MpinResetSettings()),
-                                                      );
+                                                      // Navigator.of(context).push(
+                                                      //   MaterialPageRoute(builder: (context) => MpinResetSettings()),
+                                                      // );
+                                                      await secureStorage.write(key: 'mpinEnabled', value: "true");
+
                                                     } else {
                                                       deleteEnableMpin();
                                                     }

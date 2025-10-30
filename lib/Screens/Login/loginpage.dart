@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
@@ -1072,7 +1073,10 @@ class LoginPagestate extends State<LoginPage> {
 
         if(specificUser != null && specificUser.isNotEmpty) {
           await UserSecureStorage.setIfGuestLogged("NO");
-
+          final storage = FlutterSecureStorage();
+          String? value = await storage.read(key: 'mpinEnabled');
+          bool isEnabled = value == 'true';
+          print("isEnabled : $isEnabled");
           Map<String, dynamic>? userData = await UserSecureStorage.getUser(input.substring(3).trim());
           String? mpin = userData?['mpin'];
 
@@ -1083,17 +1087,28 @@ class LoginPagestate extends State<LoginPage> {
             );
           }
 
-          if(mpin!.isEmpty)
-          {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => MpinResetSettings(mobileNumber: input.substring(3)))
-            );
+          if(isEnabled){
+            if(mpin!.isEmpty)
+            {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => MpinResetSettings(mobileNumber: input.substring(3)))
+              );
+            }
+            else{
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber: input.substring(3)))
+              );
+            }
           }
-          else{
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber: input.substring(3)))
-            );
+          else {
+            await UserSecureStorage.setIfLogged("YES");
+            // await UserSecureStorage.setUsernameid(mobileNumber);
+            print("mobileNumber : ${input.substring(3)}");
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => HomePageMain()),
+                    (Route<dynamic> route) => false);
           }
+
 
         }
 
