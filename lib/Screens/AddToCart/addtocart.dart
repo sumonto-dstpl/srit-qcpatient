@@ -36,20 +36,22 @@ class AddToCartMainstate extends State<AddToCartMain> {
   int _selectedIndex = 4;
   bool isExpanded = false; // For collapse/expand toggle
 
+  String saveForLaterKey = "saveForLater";
+
   List<Map<String, dynamic>> carttoplist = [
-      {"id" : 1,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-      {"id" : 2,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-      {"id" : 3,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+      // {"id" : 1,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+      // {"id" : 2,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+      // {"id" : 3,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
 
 
     ];
 
-  final List<Map<String, dynamic>> savedbottomlist = [
+  List<Map<String, dynamic>> savedbottomlist = [
 
 
-    {"id" : 11,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-    {"id" : 12,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-    {"id" : 13,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+    // {"id" : 11,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+    // {"id" : 12,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+    // {"id" : 13,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
 
 
   ];
@@ -692,19 +694,17 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                         }
 
                                                         setState(() {
-                                                          // Swiped Left to Right (Move to another list)
-                                                          // if (endtextbottomlist.length > 0)
-                                                          savedbottomlist.insert(
-                                                              0, _currentList[index]);
-                                                          // else {
-                                                          //   endtextbottomlist
-                                                          //       .add(uploadfilestime[index]);
-                                                          // }
+
+                                                          // savedbottomlist.insert(
+                                                          //     0, _currentList[index]);
+
+                                                          addToCart(item['id'],item['plan'],item['test'],item['qr'],key: saveForLaterKey);
+                                                          print("${item['id']} ${item['plan']} ${item['test']} ${item['qr']}");
 
                                                           _currentList.removeAt(index);
 
                                                         });
-                                                        _deleteCart(item['id']);
+                                                        _deleteCart(item['id'],index);
 
                                               },
 
@@ -726,7 +726,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                           Expanded(
                                             child: GestureDetector(
                                               onTap: (){
-                                                _deleteCart(item['id']);
+                                                _deleteCart(item['id'],index);
                                                 showTopNotification(
                                                   context,
                                                   title: "Cart Delete",
@@ -1856,6 +1856,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
 
                                                       addToCart(item['id'],item['plan'],item['test'],item['qr']);
                                                       // print("${item['id']} ${item['plan']} ${item['test']} ${item['qr']}");
+
+                                                      _deleteCart(item['id'],index,key: saveForLaterKey);
                                                       showTopNotification(
                                                         context,
                                                         title: "Cart Added",
@@ -1906,7 +1908,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                                               type: NotificationType.error,
                                                                             );
                                                                             setState(() {
-                                                                              savedbottomlist.removeAt(index);
+                                                                              // savedbottomlist.removeAt(index);
+                                                                              _deleteCart(item['id'],index,key: saveForLaterKey);
                                                                             });
                                                                             // If the list is empty, show a message
                                                                             if (savedbottomlist.isEmpty) {
@@ -3522,34 +3525,32 @@ class AddToCartMainstate extends State<AddToCartMain> {
       }
       print("username : $username");
 
-      List<dynamic> _loadedCart1  = await UserSecureStorage.getAddToCart("addToCart1",username ?? '');
+
       List<dynamic> _loadedCart2  = await UserSecureStorage.getAddToCart("addToCart2",username ?? '');
+      List<dynamic> saveForLater  = await UserSecureStorage.getAddToCart(saveForLaterKey,username ?? '');
 
-      print("_loadedCart1 : $_loadedCart1");
+
       print("_loadedCart2 : $_loadedCart2");
-
-      bool addToCardDeletedFlag1 =  await UserSecureStorage.getDeleteFlag(username ?? '');
-      print("addToCardDeletedFlag1 : $addToCardDeletedFlag1");
+      print("saveForLater : $saveForLater");
 
 
-      if(!addToCardDeletedFlag1){
-        Future.delayed(const Duration(milliseconds: 500), () {
-          setState(() {
-            _currentList = [..._loadedCart2, ...carttoplist];
-          });
+
+
+      Future.delayed(const Duration(milliseconds: 500), () {
+        setState(() {
+          _currentList = [..._loadedCart2,];
         });
-      }
-      else {
-        Future.delayed(const Duration(milliseconds: 500), () {
-          setState(() {
-            _currentList = [..._loadedCart2, ..._loadedCart1];
-          });
+      });
+
+      Future.delayed(const Duration(milliseconds: 500), () {
+        setState(() {
+          savedbottomlist = [...saveForLater];
         });
-      }
+      });
 
   }
 
-  void _deleteCart(int id) async {
+  void _deleteCart(int id,int index,{String? key}) async {
 
     bool isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
     String? username =  await UserSecureStorage.getUsernameid();
@@ -3558,50 +3559,39 @@ class AddToCartMainstate extends State<AddToCartMain> {
       username = "GUEST";
     }
 
+    if(key == null || key.isEmpty){
 
-    List<dynamic> _loadedCart1  = await UserSecureStorage.getAddToCart("addToCart1",username ?? '');
-    List<dynamic> _loadedCart2  = await UserSecureStorage.getAddToCart("addToCart2",username ?? '');
+      List<dynamic> addToCart2 = await UserSecureStorage.getAddToCart("addToCart2",username ?? '');
+      bool _loadedCartCache = addToCart2.any((item) => item['id'] == id);
 
-
-    print("id : $id");
-    bool _loadedCart2Cache = _loadedCart2.any((item) => item['id'] == id);
-
-
-    if(_loadedCart2Cache){
-      await UserSecureStorage.deleteFromAddToCart(
-        key: "addToCart2", // tumhara constant key name
-        userId: username ?? '',
-        idToDelete: id,
-      );
-    }
-    else {
-      bool addToCardDeletedFlag1 =  await UserSecureStorage.getDeleteFlag(username ?? '');
-
-      if(!addToCardDeletedFlag1){
-
-          await UserSecureStorage.saveDeleteFlag(flag: true,userId: username ?? '');
-          carttoplist.removeWhere((item) => item['id'] == id);
-          print("carttoplist : $carttoplist");
-
-          for(var item in carttoplist){
-             await UserSecureStorage.saveAddToCard(key: "addToCart1", userId: username ?? '', newData: item);
-          }
-      }
-      else {
+      if(_loadedCartCache){
         await UserSecureStorage.deleteFromAddToCart(
-          key: "addToCart1", // tumhara constant key name
+          key: "addToCart2", // tumhara constant key name
           userId: username ?? '',
-          idToDelete: id,
+          index: index,
         );
       }
 
+
+
     }
-    bool addToCardDeletedFlag1 =  await UserSecureStorage.getDeleteFlag(username ?? '');
-    print("After deleter check : $addToCardDeletedFlag1");
+    else if(key.isNotEmpty && key == saveForLaterKey){
+      List<dynamic> saveForLaterCache = await UserSecureStorage.getAddToCart(saveForLaterKey,username ?? '');
+      bool _loadedCartCache = saveForLaterCache.any((item) => item['id'] == id);
+
+      if(_loadedCartCache){
+        await UserSecureStorage.deleteFromAddToCart(
+          key: saveForLaterKey, // tumhara constant key name
+          userId: username ?? '',
+          index: index,
+        );
+      }
+    }
+
     _loadCart();
   }
 
-  void addToCart(int id,String plan,String test,String qr) async{
+  void addToCart(int id,String plan,String test,String qr,{String? key}) async{
     Map<String,dynamic> addToCart = {
       "id": id,
       "plan" : plan,
@@ -3609,25 +3599,27 @@ class AddToCartMainstate extends State<AddToCartMain> {
       "qr" : qr
     };
 
-    print("addToCart : $addToCart");
-
     bool isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
     print("isGuestUser : $isGuestUser");
     String? username =  await UserSecureStorage.getUsernameid();
 
     Map<String, dynamic>? user = await UserSecureStorage.getUser(username ?? '');
 
-    print("user : $user");
 
+    String userId = "";
     if(isGuestUser){
-      String userId = "GUEST";
-      UserSecureStorage.saveAddToCard(key: "addToCart2",userId: userId, newData: addToCart);
+      userId  = "GUEST";
     }
     else {
-      String userId = username ?? '';
-      UserSecureStorage.saveAddToCard(key: "addToCart2",userId: userId, newData: addToCart);
+        userId = username ?? '';
     }
 
+    if(key == saveForLaterKey){
+      UserSecureStorage.saveAddToCard(key: key!,userId: userId, newData: addToCart);
+    }
+    else {
+      UserSecureStorage.saveAddToCard(key: "addToCart2",userId: userId, newData: addToCart);
+    }
     _loadCart();
   }
 

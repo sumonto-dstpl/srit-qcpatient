@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
-enum NotificationType { success, error }
+enum NotificationType { success, error,notice }
 
 /// Function to show top notification
 // void showTopNotification(
@@ -57,9 +57,22 @@ void showTopNotification(
   // 2️⃣ Notification entry
   notificationEntry = OverlayEntry(
     builder: (context) {
-      Color bgColor =
-      type == NotificationType.success ? Color(0xFF0000FF) : Color(0xFFC40000);
-      IconData icon = type == NotificationType.success ? Icons.check : Icons.close;
+      // Color bgColor =
+      // type == NotificationType.success ? Color(0xFF0000FF) : Color(0xFFC40000);
+      // IconData icon = type == NotificationType.success ? Icons.check : Icons.close;
+
+      Color bgColor = type == NotificationType.success
+          ? Color(0xFF0000FF) // Blue for Success
+          : type == NotificationType.error
+          ? Color(0xFFC40000) // Red for Error
+          : Color(0xFFFFCC00); // Yellow/Amber for Notice (0xFFFFCC00 is a good standard yellow)
+
+      // Icon Determination
+      IconData icon = type == NotificationType.success
+          ? Icons.check_circle_outline
+          : type == NotificationType.error
+          ? Icons.close
+          : Icons.info_outline; // Example icon for Notice
 
       return _TopNotificationWidget(
         title: title,
