@@ -435,6 +435,55 @@ class UserSecureStorage {
   }
 
 
+  static Future<void> updateUserId({
+    required String oldUserId,
+    required String newUserId,
+  }) async {
+    String oldId = oldUserId.trim();
+    String newId = newUserId.trim();
+
+    if (oldId.isEmpty || newId.isEmpty) {
+      print("❌ UserId cannot be empty");
+      return;
+    }
+
+    String? jsonString = await _storage.read(key: _keyAllUsers);
+    if (jsonString == null) {
+      print("⚠️ No users found in storage");
+      return;
+    }
+
+    Map<String, dynamic> allUsers = jsonDecode(jsonString);
+
+    if (!allUsers.containsKey(oldId)) {
+      print("⚠️ Old userId not found: $oldId");
+      return;
+    }
+
+    // Get old user data
+    var oldUserData = allUsers[oldId];
+
+    // Clone the old data and update the mobile field inside 'data'
+    Map<String, dynamic> updatedUserData = Map<String, dynamic>.from(oldUserData);
+    Map<String, dynamic> userInnerData = Map<String, dynamic>.from(updatedUserData['data']);
+
+    userInnerData['mobile'] = newId; // ✅ update mobile number in data
+    updatedUserData['data'] = userInnerData;
+
+
+    print("old : $allUsers");
+    allUsers[newId] = updatedUserData;
+    allUsers.remove(oldId);
+    print("new : $allUsers");
+    // Save back to storage
+    await _storage.write(key: _keyAllUsers, value: jsonEncode(allUsers));
+
+    await Future.delayed(const Duration(milliseconds: 100));
+
+    print("✅ UserId and mobile number updated successfully from $oldId → $newId");
+  }
+
+
 
 
 }

@@ -202,6 +202,7 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
         }
         else{
           _showHint = true;
+          showDetails(text);
         }
       });
 

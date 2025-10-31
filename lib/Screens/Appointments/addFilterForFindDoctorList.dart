@@ -564,7 +564,61 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                           // Apply Filters
                           GestureDetector(
                             onTap: () async {
+                              if(selectedCount > 0 ){
+                                Map<String,dynamic> filters = {
+                                  "experience" : {
+                                    "0-5" : _is0_5_Selected,
+                                    "6-10" : _is6_10_Selected,
+                                    "11-16" : _is11_16_Selected,
+                                    "17-21" : _is17_21_Selected
+                                  },
+                                  "fees" : {
+                                    "qr100" : _isQR_100_Selected,
+                                    "qr500" : _isQR_500_Selected,
+                                    "qr1000" : _isQR_1000Selected
+                                  },
 
+                                  "availiability" : {
+                                    "now" : _is_Now_Selected,
+                                    "today" : _is_Today_Selected,
+                                    "tomorrow"  : _is_Tomorrow_Selected,
+                                    "next" : _is_Next_Selected
+                                  },
+                                  "areaofexpertiese" : {
+                                    "ai" : _is_AI_Selected,
+                                    "aip" : _is_AIP_Selected,
+                                    "ais" : _is_AIS_Selected,
+                                    "as" : _is_AS_Selected,
+                                    "bd" : _is_BD_Selected,
+                                    "bms" : _is_BMS_Selected
+                                  },
+                                  "genders" : {
+                                    "male": _isMaleSelected,
+                                    "female": _isFemaleSelected,
+
+                                  },
+
+                                  "language" : {
+                                    "english" : _isEnglishSelected,
+                                    "tamil" : _isTamilSelected,
+                                    "kannada" : _isKannadaSelected,
+                                    "hindi" : _isHindiSelected,
+                                    "telugu" : _isTeluguSelected,
+                                    "urdu" : _isUrduSelected
+                                  },
+
+                                  "city" : {
+                                    "bangalore" : _isBangaloreSelected,
+                                    "hosur" : _ishosurSelected,
+                                    "chennai" : _isChennaiSelected,
+                                    "mumbai" : _isMumbaiSelected,
+                                    "agra" : _isAgraSelected,
+                                    "delhi" : _isDelhiSelected
+                                  },
+                                };
+
+                                Navigator.pop(context,filters);
+                              }
                             },
                             child: Container(
                                 alignment: Alignment.centerRight,
@@ -614,6 +668,61 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                                           padding: EdgeInsets.zero,
                                           child: TextButton(
                                             onPressed: () async {
+                                              if(selectedCount > 0 ){
+                                                Map<String,dynamic> filters = {
+                                                  "experience" : {
+                                                    "0-5" : _is0_5_Selected,
+                                                    "6-10" : _is6_10_Selected,
+                                                    "11-16" : _is11_16_Selected,
+                                                    "17-21" : _is17_21_Selected
+                                                  },
+                                                  "fees" : {
+                                                    "qr100" : _isQR_100_Selected,
+                                                    "qr500" : _isQR_500_Selected,
+                                                    "qr1000" : _isQR_1000Selected
+                                                  },
+
+                                                  "availiability" : {
+                                                    "now" : _is_Now_Selected,
+                                                    "today" : _is_Today_Selected,
+                                                    "tomorrow"  : _is_Tomorrow_Selected,
+                                                    "next" : _is_Next_Selected
+                                                   },
+                                                  "areaofexpertiese" : {
+                                                    "ai" : _is_AI_Selected,
+                                                    "aip" : _is_AIP_Selected,
+                                                    "ais" : _is_AIS_Selected,
+                                                    "as" : _is_AS_Selected,
+                                                    "bd" : _is_BD_Selected,
+                                                    "bms" : _is_BMS_Selected
+                                                  },
+                                                  "genders" : {
+                                                    "male": _isMaleSelected,
+                                                    "female": _isFemaleSelected,
+
+                                                  },
+
+                                                  "language" : {
+                                                    "english" : _isEnglishSelected,
+                                                    "tamil" : _isTamilSelected,
+                                                    "kannada" : _isKannadaSelected,
+                                                    "hindi" : _isHindiSelected,
+                                                    "telugu" : _isTeluguSelected,
+                                                    "urdu" : _isUrduSelected
+                                                  },
+
+                                                  "city" : {
+                                                    "bangalore" : _isBangaloreSelected,
+                                                    "hosur" : _ishosurSelected,
+                                                    "chennai" : _isChennaiSelected,
+                                                    "mumbai" : _isMumbaiSelected,
+                                                    "agra" : _isAgraSelected,
+                                                    "delhi" : _isDelhiSelected
+                                                  },
+                                                };
+
+                                                Navigator.pop(context,filters);
+                                              }
 
                                             },
                                             child: Text("Apply Filters",

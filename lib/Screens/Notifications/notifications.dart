@@ -2144,7 +2144,9 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
       onDismissed: (_) => _deleteItem(n),
       child: GestureDetector(
         onTap: () {
-
+          setState(() {
+             _markOneRead(n);
+          });
           if(n.title == "Appointments"){
 
             Navigator.of(context).push(
@@ -2366,7 +2368,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                       0.00,
                                 ),
                                 child: Text(
-                                  n.subtitle1,
+                                  n.title,
                                   style:
                                   TextStyle(
                                     color: Color(0xFF126086),

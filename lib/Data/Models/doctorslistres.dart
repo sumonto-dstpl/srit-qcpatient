@@ -38,6 +38,10 @@ class DoctorsListResponse {
   String? rating;
   String? workLocation;
   Photo? photo;
+  String? availiability;
+  String? gender;
+  String? language;
+  String? city;
 
   DoctorsListResponse(
       {this.doctorId,
@@ -49,7 +53,13 @@ class DoctorsListResponse {
         this.discountFee,
         this.rating,
         this.workLocation,
-        this.photo});
+        this.photo,
+        this.availiability,
+        this.gender,
+        this.language,
+        this.city,
+
+      });
 
   DoctorsListResponse.fromJson(Map<String, dynamic> json) {
     doctorId = json['doctorId'];
@@ -60,7 +70,11 @@ class DoctorsListResponse {
     regularFee = json['regularFee'];
     discountFee = json['discountFee'];
     rating = json['rating'];
-    workLocation = json['workLocation'];
+    availiability = json['availiability'];
+
+    gender = json['gender'];
+    language = json['language'];
+    city = json['city'];
     photo = json['photo'] != null ? new Photo.fromJson(json['photo']) : null;
   }
 
@@ -75,6 +89,10 @@ class DoctorsListResponse {
     data['discountFee'] = this.discountFee;
     data['rating'] = this.rating;
     data['workLocation'] = this.workLocation;
+    data['availiability'] = this.availiability;
+    data['gender'] = this.gender;
+    data['language'] = this.language;
+    data['city'] = this.city;
     if (this.photo != null) {
       data['photo'] = this.photo!.toJson();
     }

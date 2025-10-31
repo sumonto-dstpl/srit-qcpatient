@@ -2208,7 +2208,7 @@ class ProfileMainstate extends State<ProfileMain> {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (BuildContext context) {
-                                          return SettingsMain();
+                                          return SettingsMain(mobileNumber: mobileNumber,);
                                         },
                                       ),
                                     );
@@ -2816,7 +2816,7 @@ class ProfileMainstate extends State<ProfileMain> {
           context: context,
           isScrollControlled: true,
           isDismissible: true,
-          enableDrag: false,
+          enableDrag: true,
           backgroundColor: Colors.transparent, // Make modal background transparent
           barrierColor: Colors.transparent,
           transitionAnimationController: AnimationController(
