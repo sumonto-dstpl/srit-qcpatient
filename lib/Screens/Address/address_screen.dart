@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:newfolder/Screens/Maps/google_map_screen.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
+import 'package:newfolder/Screens/Widgets/app_background.dart';
+
 
 class AddressScreen extends StatefulWidget {
   int selectedIndex = 0;
@@ -18,6 +20,8 @@ class AddressScreenState extends State<AddressScreen> {
   // APIService apiService = new APIService();
   late ProgressDialog progressDialog;
   // AuthFailed customalert = new AuthFailed();
+  bool _isDialogShowing = false;
+
 
   TextEditingController SearchEditTextController = TextEditingController();
 
@@ -69,18 +73,14 @@ class AddressScreenState extends State<AddressScreen> {
             fontWeight: FontWeight.w600));
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    final footerHeight =  MediaQuery.of(context).size.height*0.09;
 
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            // image: AssetImage("assets/patternbackground.png"), // Replace with your image path
-            image: AssetImage("assets/Background Pattern.png"),
-            fit: BoxFit.cover, // Adjusts how the image fills the container
-          ),
-        ),
-        child: Stack(children: [
+
+    return IgnorePointer(
+      ignoring: _isDialogShowing,
+      child: Scaffold(
+      body: AppBackground(
+          child: Stack(children: [
           Column(
             children: <Widget>[
               Container(
@@ -712,6 +712,7 @@ class AddressScreenState extends State<AddressScreen> {
           ),
         ]),
       ),
+    ),
     );
   }
 }
