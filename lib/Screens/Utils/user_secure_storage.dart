@@ -29,6 +29,7 @@ class UserSecureStorage {
   static const _addToCart1 = "addToCart1" ;
   static const _addToCart2 = "addToCart2" ;
   static const addToCartDeleteFlag = "addToCartDeleteFlag";
+  static const saveForLaterKey = "saveForLater";
 
 
   static Future<void> setIsFirstLaunchDone(String value) async =>
@@ -256,8 +257,6 @@ class UserSecureStorage {
     required Map<String, dynamic> newData,
   }) async {
 
-
-
     String? jsonString = "";
     if(key == "addToCart1"){
        jsonString = await _storage.read(key: _addToCart1);
@@ -273,7 +272,12 @@ class UserSecureStorage {
     allUsers[userId] != null ? Map<String, dynamic>.from(allUsers[userId]) : {};
     List<dynamic> userDataList =
     userEntry["data"] != null ? List<dynamic>.from(userEntry["data"]) : [];
-    userDataList.add(newData);
+
+    userDataList.insert(0, newData);
+
+
+
+
     userEntry["userId"] = userId;
     userEntry["data"] = userDataList;
     allUsers[userId] = userEntry;
@@ -309,7 +313,7 @@ class UserSecureStorage {
   static Future<void> deleteFromAddToCart({
     required String key,
     required String userId,
-    required int idToDelete,
+    required int index,
   }) async {
     try {
       // 1️⃣ Read existing data
@@ -327,8 +331,8 @@ class UserSecureStorage {
       List<dynamic> userDataList = List<dynamic>.from(userEntry["data"] ?? []);
 
       // 4️⃣ Remove the item with matching id
-      userDataList.removeWhere((item) => item["id"] == idToDelete);
-
+      // userDataList.removeWhere((item) => item["id"] == idToDelete);
+      userDataList.removeAt(index);
       // 5️⃣ Update userEntry
       userEntry["data"] = userDataList;
 
@@ -338,7 +342,7 @@ class UserSecureStorage {
       // 7️⃣ Save back to storage
       await _storage.write(key: key, value: jsonEncode(allUsers));
 
-      print("✅ Deleted item with id $idToDelete for user $userId");
+      print("✅ Deleted item with id $index for user $userId");
     } catch (e) {
       print("❌ Error deleting AddToCart item: $e");
     }
