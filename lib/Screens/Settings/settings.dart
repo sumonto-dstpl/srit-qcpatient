@@ -8,6 +8,7 @@ import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/Settings/changemobilenum.dart';
 import 'package:newfolder/Screens/Settings/mpinmain.dart';
 import 'package:newfolder/Screens/Settings/mpinreset.dart';
+import 'package:newfolder/Screens/Settings/otp_verification.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,9 +47,10 @@ import 'package:newfolder/Screens/Widgets/tab_item.dart';
 
 class SettingsMain extends StatefulWidget {
   int selectedIndex = 0;
-
+  String? mobileNumber;
   SettingsMain({
     super.key,
+    this.mobileNumber,
   });
 
   @override
@@ -437,7 +439,7 @@ class SettingsMainstate extends State<SettingsMain> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (BuildContext context) {
-                                    return ChangeMobileNumber();
+                                    return OtpVerification();
                                   },
                                 ),
                               );

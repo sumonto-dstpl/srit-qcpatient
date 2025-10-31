@@ -38,6 +38,7 @@ class LoginPagestate extends State<LoginPage> {
   RegExp passwordRegExp = RegExp(
       r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$');
 
+  Timer? _errorClearTimer;
   @override
   void initState() {
     super.initState();
@@ -46,6 +47,21 @@ class LoginPagestate extends State<LoginPage> {
     //   UserNumberEditTextController?.text = "babureddy921234567@gmail.com";
     //   PasswordEditTextController?.text = "Test@123456";
     // });
+
+    UserNumberEditTextController.addListener(() {
+      if (errorMessage != null) {
+        // Cancel previous timer agar user type karta rahe
+        _errorClearTimer?.cancel();
+
+        // Naya timer start karo
+        _errorClearTimer = Timer(const Duration(seconds: 1), () {
+          setState(() {
+            errorMessage = null;
+          });
+        });
+      }
+    });
+
   }
 
   String? errorMessage;
@@ -78,12 +94,12 @@ class LoginPagestate extends State<LoginPage> {
         errorMessage = null;
       });
     }
-    // else {
-    //   setState(() {
-    //     isValid = false;
-    //     errorMessage ="Please enter a 10-digit mobile number";
-    //   });
-    // }
+    else {
+      setState(() {
+        isValid = false;
+        // errorMessage ="Please enter a 10-digit mobile number";
+      });
+    }
   }
 
   void validateInput() {

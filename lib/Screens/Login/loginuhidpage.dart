@@ -10,6 +10,7 @@ import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/OnBoarding/onboarding_screen.dart';
 import 'package:newfolder/Screens/Registeration/registeration.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/VerifyOtp/verifyOtp.dart';
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
@@ -37,6 +38,7 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
   RegExp passwordRegExp = RegExp(
       r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#!])[A-Za-z\d@$!%*?&#!]{8,}$');
 
+  Timer? _errorClearTimer;
   @override
   void initState() {
     super.initState();
@@ -45,6 +47,21 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
     //   UserNumberEditTextController?.text = "babureddy921234567@gmail.com";
     //   PasswordEditTextController?.text = "Test@123456";
     // });
+
+    UserNumberEditTextController.addListener(() {
+      if (errorMessage != null) {
+        // Cancel previous timer agar user type karta rahe
+        _errorClearTimer?.cancel();
+
+        // Naya timer start karo
+        _errorClearTimer = Timer(const Duration(seconds: 2), () {
+          setState(() {
+            errorMessage = null;
+
+          });
+        });
+      }
+    });
   }
 
   String? errorMessage;
@@ -114,12 +131,12 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
     if (number.length >=3) {
       setState(() {
         isValid = true;
-        errorMessage = null;
+
       });
     } else {
       setState(() {
         isValid = false;
-        errorMessage ="UHID should be more than 3 characters";
+
       });
     }
   }
@@ -981,11 +998,13 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
             errorMessage = "UHID should be more than 3 characters";
             isValid = false;
           });
-          // Timer(Duration(seconds: 2), () {
-          //   setState(() {
-          //     errorMessage = null;
-          //   });
-          // });
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              errorMessage = null;
+              hasStartedTyping = false;
+
+            });
+          });
           return;
         }
         else if (input.length < 3){
@@ -993,6 +1012,13 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
             hasStartedTyping = true;
             errorMessage = "UHID should be more than 3 characters";
             isValid = false;
+          });
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              errorMessage = null;
+              hasStartedTyping = false;
+
+            });
           });
           return;
         }
@@ -1074,11 +1100,17 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
         } else if (user.message != null) {
           // progressDialog.hide();
 
-          final snackBar = SnackBar(
-            content: Text(user.message),
-            backgroundColor: Colors.red[600],
+          // final snackBar = SnackBar(
+          //   content: Text(user.message),
+          //   backgroundColor: Colors.red[600],
+          // );
+          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          showTopNotification(
+            context,
+            title: "Login Credential",
+            message: "Invalid User Credentails",
+            type: NotificationType.error,
           );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
           /* Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => HomePageMain()),

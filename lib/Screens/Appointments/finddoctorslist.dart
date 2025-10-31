@@ -46,8 +46,9 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
   APIService apiService = new APIService();
   late ProgressDialog progressDialog;
   List<DoctorsListResponse> responselist = [];
+  List<DoctorsListResponse> filterresponselist = [];
 
-
+  final List<String> hints = ["Doctor", "Speciality", "Symptoms"];
 
 
 
@@ -143,7 +144,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
   @override
   Widget build(BuildContext context) {
-    // print(responselist);
+
 
     progressDialog = ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
@@ -491,286 +492,160 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                     ),
                     child : Column(
                     children: [
-                  Container(
-                        padding: EdgeInsets.all(
-                            MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0
-                                 ),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(screenHeight * 0.03),
-                                        topRight: Radius.circular(screenHeight * 0.03),
+                      Container(
+                        margin: EdgeInsets.only(
+                          left: screenHeight * 0.02,
+                          right: screenHeight * 0.02,
+                          top: screenHeight * 0.015,
+                        ),
+                        alignment: Alignment.centerRight,
 
-                                        // bottomCenter: 0,
-                                      ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.15),
-                                      offset: Offset(0, 3), // horizontal, vertical shadow offset
-                                      blurRadius: 24,        // softness
-                                      spreadRadius: 1,      // subtle size of the shadow
-                                    ),
-                                  ],
-                                    ),
-                                child:
-                                  Column(
-                                    children: [
-                                      // Search Input Field
-                                        GestureDetector(
-                                            onTap: () {
-                                              // Navigator.of(context).push(
-                                              //   MaterialPageRoute(
-                                              //     builder: (BuildContext context) {
-                                              //       return QuickSearchWithoutData();
-                                              //     },
-                                              //   ),
-                                              // );
-                                            },
-                                            child:
-                                            Container(
-                                              height: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.05,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFFA8B1CE).withOpacity(0.2),
-                                                borderRadius: BorderRadius.circular(10),
+                        child: TextFormField(
+                          controller: SearchEditTextController,
+                          onChanged: (value){
+                            _search(SearchEditTextController.text.toString());
+                          },
+                          // focusNode: searchFocusNode,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(15),
+                            // FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]')),
+                          ],
+                          textCapitalization: TextCapitalization.characters,
 
-                                              ),
+                          style: const TextStyle(color: Colors.black45),
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (input) => input!.length < 3
+                              ? "Search should be more than 3 characters"
+                              : null,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.fromLTRB(
+                              screenHeight * 0.02,
+                              screenHeight * 0.012,
+                              screenHeight * 0.012,
+                              screenHeight * 0.012,
+                            ),
+                            filled: true,
+                            fillColor: const Color(0xFFF7F5F6),
+                            // hintText: "Search By Doctor",
+                            hintText: null,
+                            hintStyle: TextStyle(
+                              color: Colors.black26,
+                              fontSize: screenHeight * 0.016,
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                              borderSide: const BorderSide(color: Colors.white),
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            // suffixIcon: IconButton(
+                            //   icon: Icon(
+                            //     Icons.search,
+                            //     color: Colors.black45,
+                            //     size: screenHeight * 0.024,
+                            //   ),
+                            //   onPressed: () {
+                            //
+                            //     // showDetails(SearchEditTextController.text);
+                            //   },
+                            // ),
+                            suffixIcon: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
 
-                                              alignment: Alignment.centerRight,
-                                              padding: EdgeInsets.only(
-                                                top: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.0,
-                                                bottom: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.0,
-                                                left: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.00,
-                                                right: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.00,
-                                              ),
-                                              margin: EdgeInsets.only(
-                                                right: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.02,
-                                                top: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.01,
-                                                bottom: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.0,
-                                                left: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.02,
-                                              ),
-                                              child: Row(
-                                                // mainAxisAlignment: MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        left: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.02,
-                                                        right: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.00,
-                                                        top: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.00,
-                                                        bottom: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.0),
-                                                    child: Text(
-                                                      "Search by",
-                                                      style: TextStyle(
-                                                          color: Color(0xFF999999),
-                                                          // overflow: TextOverflow.ellipsis,
-                                                          fontWeight: FontWeight.w400,
-                                                          fontSize:
-                                                          MediaQuery
-                                                              .of(context)
-                                                              .size
-                                                              .height *
-                                                              0.014
-                                                      ),
-                                                    ),
-                                                  ),
-
-
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        left: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.008,
-                                                        right: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.00,
-                                                        top: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.00,
-                                                        bottom: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.0),
-                                                    child:
-                                                    DefaultTextStyle(
-                                                      style: TextStyle(
-                                                          color: Color(0xFF126086),
-                                                          overflow: TextOverflow.ellipsis,
-                                                          fontWeight: FontWeight.bold,
-                                                          fontSize:
-                                                          MediaQuery
-                                                              .of(context)
-                                                              .size
-                                                              .height * 0.016),
-                                                      child: AnimatedTextKit(
-                                                        animatedTexts: [
-                                                          RotateAnimatedText(
-                                                            'Doctor',
-                                                            textStyle: TextStyle(
-                                                                color: Color(0xFF126086),
-                                                                overflow: TextOverflow.ellipsis,
-                                                                fontWeight: FontWeight.bold,
-                                                                fontSize:
-                                                                MediaQuery
-                                                                    .of(context)
-                                                                    .size
-                                                                    .height *
-                                                                    0.014), // Red text
-                                                          ),
-                                                          RotateAnimatedText(
-                                                            'Speciality',
-                                                            textStyle: TextStyle(
-                                                                color: Color(0xFF126086),
-                                                                overflow: TextOverflow.ellipsis,
-                                                                fontWeight: FontWeight.bold,
-                                                                fontSize:
-                                                                MediaQuery
-                                                                    .of(context)
-                                                                    .size
-                                                                    .height *
-                                                                    0.014),
-                                                          ),
-
-                                                          RotateAnimatedText(
-                                                            'Symptoms',
-                                                            textStyle: TextStyle(
-                                                                color: Color(0xFF126086),
-                                                                overflow: TextOverflow.ellipsis,
-                                                                fontWeight: FontWeight.bold,
-                                                                fontSize:
-                                                                MediaQuery
-                                                                    .of(context)
-                                                                    .size
-                                                                    .height *
-                                                                    0.014),
-                                                          ),
-                                                        ],
-                                                        repeatForever: true,
-                                                        pause: Duration(milliseconds: 500),
-                                                        onTap: () {
-                                                          // Navigator.of(context).push(
-                                                          //   MaterialPageRoute(
-                                                          //     builder: (BuildContext context) {
-                                                          //       return QuickSearchWithoutData();
-                                                          //     },
-                                                          //   ),
-                                                          // );
-                                                          // print("Tap Event");
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
-
-                                                  Spacer(),
-                                                  // Pushes the search icon to the end of the Row
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                      right: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.00,
-                                                    ),
-                                                    child: Icon(
-                                                      Icons.search,
-                                                      color: Colors.black45,
-                                                      size: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.02,
-                                                    ),
-                                                  ),
-                                                  // Divider
-                                                  Container(
-                                                    padding : EdgeInsets.only(
-                                                        right:   screenHeight * 0.003,
-                                                      left:   screenHeight * 0.003,
-                                                    ),
-                                                    width: 1, // Width of the divider
-                                                    height: 20, // Height of the divider
-                                                    color: Colors.grey, // Color of the divider
-                                                    margin: EdgeInsets.symmetric(horizontal: 4), // Spacing around the divider
-                                                  ),
-                                                  InkWell(
-                                                    onTap: () {
-
-                                                      showBottomSheet();
-
-
-                                                    },
-                                                    child:   Padding(
-                                                      padding: EdgeInsets.only(
-                                                        right: MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height * 0.01,
-                                                      ),
-                                                      child: Image.asset(
-                                                        'assets/scansearch.png', // Replace with your actual asset path
-                                                        height: 17, // Height of the asset icon
-                                                        width: 17,  // Width of the asset icon
-                                                      ),
-                                                    ),
-                                                  ),
-
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                      ]
+                                InkWell(
+                                  onTap: () {
+                                    // your search action
+                                  },
+                                  child: Icon(
+                                    Icons.search,
+                                    color: Colors.black45,
+                                    size: MediaQuery.of(context).size.height * 0.025,
                                   ),
-                              ),
+                                ),
+
+
+                                Container(
+                                  margin: const EdgeInsets.only(left: 5),
+                                  width: 1,
+                                  height: 24,
+                                  color: Colors.grey,
+                                ),
+
+
+                                GestureDetector(
+                                  behavior: HitTestBehavior.translucent, // ensures full area is tappable
+                                  onTap: () async {
+                                    print("filter");
+                                    FocusScope.of(context).unfocus();
+                                    await Future.delayed(const Duration(milliseconds: 200));
+                                    showBottomSheet();
+                                  },
+                                  child: Container(
+
+                                    height: MediaQuery.of(context).size.height * 0.05,
+                                    width: MediaQuery.of(context).size.height * 0.05,
+                                    // color: Colors.red,
+                                    color: Colors.transparent,
+                                    alignment: Alignment.center,
+                                    child: Image.asset(
+                                      'assets/scansearch.png',
+                                      height: 18,
+                                      width: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            label: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  "Search by ",
+                                  style: TextStyle(
+                                    color: Color(0xFF999999),
+                                    fontSize: screenHeight * 0.016,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                DefaultTextStyle(
+                                  style: TextStyle(
+                                    color: Color(0xFF126086),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: screenHeight * 0.016,
+                                  ),
+                                  child: AnimatedTextKit(
+                                    repeatForever: true,
+                                    pause: Duration(milliseconds: 700),
+                                    animatedTexts: hints
+                                        .map((e) => RotateAnimatedText(
+                                      e,
+                                      textStyle: TextStyle(
+                                        color: Color(0xFF126086),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: screenHeight * 0.016,
+                                      ),
+                                    ))
+                                        .toList(),
+                                    onTap: () {
+                                      // Optional — navigate to search page
+
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+
+                      ),
                   // main content
                   Expanded(
                     child: Container(
@@ -957,7 +832,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                   shrinkWrap:
                                   true, // Prevents ListView from taking up extra space
                                   scrollDirection: Axis.vertical, // Makes the ListView horizontal
-                                  itemCount: responselist!.length!, // You can adjust the item count
+                                  itemCount: filterresponselist!.length!, // You can adjust the item count
                                   itemBuilder: (BuildContext context, int index) {
                                     return GestureDetector(
                                       onTap: () {
@@ -1082,7 +957,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                             bottom: MediaQuery.of(context).size.height * 0.00),
                                                                         child:
                                                                         Text(
-                                                                          responselist![index].doctorName != null ?  responselist![index].doctorName! : "" ,
+                                                                          filterresponselist![index].doctorName != null ?  filterresponselist![index].doctorName! : "" ,
 
                                                                           style: TextStyle(
                                                                               color: Colors
@@ -1168,7 +1043,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                         0.00),
                                                                 child:
                                                                 Text(
-                                                                  responselist![index].speciality != null ?  responselist![index].speciality! : "" ,
+                                                                  filterresponselist![index].speciality != null ?  filterresponselist![index].speciality! : "" ,
 
                                                                   style: TextStyle(
                                                                       color: Color(0x80000000),
@@ -1213,7 +1088,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                         bottom: MediaQuery.of(context).size.height * 0.00),
                                                     child:
                                                     Text(
-                                                      (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
+                                                      (filterresponselist![index].experience ?? "") + " - "+   (filterresponselist![index].qualification ??  ""),
                                                       style: TextStyle(
                                                           color: Color(0xFF126086),
                                                           fontWeight: FontWeight.w600,
@@ -1351,7 +1226,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
                                                                 child: Text(
                                                                   maxLines: 1,
-                                                                  // responselist![index].workLocation != null ?  responselist![index].workLocation! : "",
+
                                                                   "2 QuadraCyte, Qatar 560002",
                                                                   style: TextStyle(
                                                                     color: Colors.black54,
@@ -1366,7 +1241,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
                                                                 child: Text(
                                                                   maxLines: 1,
-                                                                  // responselist![index].workLocation != null ?  responselist![index].workLocation! : "",
+
                                                                   "2 Km . From Your Location",
                                                                   style: TextStyle(
                                                                     color: Color(0xFF7F7F7F),
@@ -1524,7 +1399,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
 
                                     Visibility(
-                                    visible: index < responselist!.length , // Toggle this value to show/hide
+                                    visible: index < filterresponselist!.length , // Toggle this value to show/hide
                                     child:
                                                                                       Container(
                                                                                          margin: EdgeInsets.only(
@@ -1584,22 +1459,22 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                                       MaterialPageRoute(
                                                                                         builder:
                                                                                             (BuildContext context) {
-                                                                                          // return SelectTimeSlot(responselist![index].doctorId!);
+                                                                                          // return SelectTimeSlot(filterresponselist![index].doctorId!);
                                                                                           //     return DoctorDetilPage(
                                                                                           //       "Practitioner/f002",
                                                                                           //       doctorDetail : {
-                                                                                          //       "doctorName" : responselist[index].doctorName ,
-                                                                                          //       "speciality" : responselist[index].speciality ,
-                                                                                          //       "experience" : (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
+                                                                                          //       "doctorName" : filterresponselist[index].doctorName ,
+                                                                                          //       "speciality" : filterresponselist[index].speciality ,
+                                                                                          //       "experience" : (filterresponselist![index].experience ?? "") + " - "+   (filterresponselist![index].qualification ??  ""),
                                                                                           //         } ,
                                                                                           //       physical_virtual_mode: widget.physical_virtual_mode,
                                                                                           //     );
                                                                                            return SelectTimeSlot(
                                                                                              "Practitioner/f002",
                                                                                              doctorDetail: {
-                                                                                               "doctorName" : responselist[index].doctorName ,
-                                                                                                     "speciality" : responselist[index].speciality ,
-                                                                                                     "experience" : (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
+                                                                                               "doctorName" : filterresponselist[index].doctorName ,
+                                                                                                     "speciality" : filterresponselist[index].speciality ,
+                                                                                                     "experience" : (filterresponselist![index].experience ?? "") + " - "+   (filterresponselist![index].qualification ??  ""),
 
                                                                                              },
                                                                                              physical_virtual_mode: widget.physical_virtual_mode,
@@ -1692,52 +1567,132 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
   }
 
 
-  void showBottomSheet() => showModalBottomSheet(
-    enableDrag: false,
-    isScrollControlled: true,
-    isDismissible: true,
-    backgroundColor: Colors.transparent, // Make modal background transparent
-    barrierColor: Colors.transparent,    // Disable default barrier color
-    context: context,
-    builder: (context) {
-      return Stack(
-        children: [
-          GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-              child: Container(
-                color: Colors.transparent,
-                width: double.infinity,
-                height: double.infinity,
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              decoration: const BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 10,
-                    spreadRadius: 2,
-                    offset: Offset(0, -2), // Shadow appears above the sheet
-                  ),
-                ],
-                color: Colors.white, // White background for the bottom sheet
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(24),
-                  topRight: Radius.circular(24),
-                ),
-              ),
-              child: AddFilterForFindDoctorList(responselist: responselist),
-            ),
-          ),
-        ],
-      );
-    },
-  );
+  void showBottomSheet() async {
+     final selectedFilters = await
+     showModalBottomSheet(
+       enableDrag: false,
+       isScrollControlled: true,
+       isDismissible: true,
+       backgroundColor: Colors.transparent, // Make modal background transparent
+       barrierColor: Colors.transparent,    // Disable default barrier color
+       context: context,
+       builder: (context) {
+         return Stack(
+           children: [
+             GestureDetector(
+               onTap: () => Navigator.of(context).pop(),
+               child: BackdropFilter(
+                 filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                 child: Container(
+                   color: Colors.transparent,
+                   width: double.infinity,
+                   height: double.infinity,
+                 ),
+               ),
+             ),
+             Align(
+               alignment: Alignment.bottomCenter,
+               child: Container(
+                 decoration: const BoxDecoration(
+                   boxShadow: [
+                     BoxShadow(
+                       color: Colors.black26,
+                       blurRadius: 10,
+                       spreadRadius: 2,
+                       offset: Offset(0, -2), // Shadow appears above the sheet
+                     ),
+                   ],
+                   color: Colors.white, // White background for the bottom sheet
+                   borderRadius: BorderRadius.only(
+                     topLeft: Radius.circular(24),
+                     topRight: Radius.circular(24),
+                   ),
+                 ),
+                 child: AddFilterForFindDoctorList(responselist: responselist),
+               ),
+             ),
+           ],
+         );
+       },
+     );
+
+
+     print("selectedFilters : $selectedFilters");
+
+     Map<String, List<String>> activeFilters = {};
+
+     selectedFilters.forEach((category, options) {
+       final selectedKeys = (options as Map<String, dynamic>)
+           .entries
+           .where((entry) => entry.value == true)
+           .map((entry) => entry.key.toLowerCase()) // lowercase for safe compare
+           .toList();
+
+       if (selectedKeys.isNotEmpty) {
+         activeFilters[category] = selectedKeys;
+       }
+     });
+
+     print("Active Filters: $activeFilters");
+
+     List<DoctorsListResponse> filteredDoctors = responselist.where((doctor) {
+       bool matches = true;
+
+       // 🔹 Availability Filter
+       if (activeFilters.containsKey("availiability")) {
+         matches = matches &&
+             activeFilters["availiability"]!.contains(
+               doctor.availiability?.toLowerCase() ?? "",
+             );
+       }
+
+       // 🔹 Gender Filter
+       if (activeFilters.containsKey("genders")) {
+         matches = matches &&
+             activeFilters["genders"]!.contains(
+               doctor.gender?.toLowerCase() ?? "",
+             );
+       }
+
+       // 🔹 City Filter
+       if (activeFilters.containsKey("city")) {
+         matches = matches &&
+             activeFilters["city"]!.contains(
+               doctor.city?.toLowerCase() ?? "",
+             );
+       }
+
+       // 🔹 Language Filter
+       if (activeFilters.containsKey("language")) {
+         matches = matches &&
+             activeFilters["language"]!.contains(
+               doctor.language?.toLowerCase() ?? "",
+             );
+       }
+
+       // 🔹 Experience Filter (simple example, adjust as needed)
+       if (activeFilters.containsKey("experience")) {
+         String exp = doctor.experience?.toLowerCase() ?? "";
+         matches = matches &&
+             activeFilters["experience"]!.any((e) => exp.contains(e));
+       }
+
+       // 🔹 Fees Filter (example based on keyword)
+       if (activeFilters.containsKey("fees")) {
+         String fee = doctor.discountFee?.toLowerCase() ?? "";
+         matches = matches &&
+             activeFilters["fees"]!.any((f) => fee.contains(f.replaceAll("qr", "₹")));
+       }
+
+       return matches;
+     }).toList();
+
+     print("filteredDoctors : $filteredDoctors");
+
+     setState(() {
+       filterresponselist = filteredDoctors;
+     });
+  }
 
 
 
@@ -1766,9 +1721,10 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
           setState(() {
             responselist = user.response;
+            filterresponselist = responselist;
           });
 
-          print(responselist.toString());
+
 
           // print("status code : ${responselist.to}");
 
@@ -1821,6 +1777,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
           setState(() {
             responselist = user.response;
+            filterresponselist = responselist;
           });
 
           /*final snackBar = SnackBar(
@@ -1870,6 +1827,10 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
             "rating": "4.8",
             "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
             "photo": null,
+            "availiability" : "today",
+            "gender" : "Male",
+            "language" : "English",
+            "city" : "Bangalore"
           },
           {
             "doctorId": "2",
@@ -1882,6 +1843,10 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
             "rating": "4.7",
             "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
             "photo": null,
+            "availiability" : "today",
+            "gender" : "FeMale",
+            "language" : "Hindi",
+            "city" : "Hosur"
           },
           {
             "doctorId": "3",
@@ -1894,6 +1859,10 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
             "rating": "4.9",
             "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
             "photo": null,
+            "availiability" : "now",
+            "gender" : "FeMale",
+            "language" : "Hindi",
+            "city" : "Delhi"
           },
           {
             "doctorId": "4",
@@ -1906,18 +1875,26 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
             "rating": "4.6",
             "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
             "photo": null,
+            "availiability" : "tomorrow",
+            "gender" : "FeMale",
+            "language" : "Hindi",
+            "city" : "Delhi"
           },
           {
             "doctorId": "5",
             "doctorName": "Dr. Rajesh Patel",
             "qualification": "MBBS, MD (General Medicine)",
             "speciality": "General Physician / Internal Medicine",
-            "experience": "25 YEARS Experience",
+            "experience": "20 YEARS Experience",
             "regularFee": "₹850",
             "discountFee": "₹650",
             "rating": "4.5",
             "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
             "photo": null,
+            "availiability" : "next",
+            "gender" : "FeMale",
+            "language" : "Hindi",
+            "city" : "Delhi"
           },
           {
             "doctorId": "6",
@@ -1936,7 +1913,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
             "doctorName": "Dr. Harish Reddy",
             "qualification": "MBBS, Diploma in Family Medicine",
             "speciality": "General Physician / Internal Medicine",
-            "experience": "22 YEARS Experience",
+            "experience": "20 YEARS Experience",
             "regularFee": "₹950",
             "discountFee": "₹750",
             "rating": "4.8",
@@ -2000,6 +1977,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
           } else if (newres.response != null && newres.response!.isNotEmpty) {
             setState(() {
               responselist = newres.response!;
+              filterresponselist = responselist;
             });
 
             progressDialog.hide(); // <-- ab hide reliably ho jayega
@@ -2027,4 +2005,33 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
     });
 
   }
+
+  void _search(String query) {
+
+    setState(() {
+      if (query.isEmpty || query.length < 3) {
+
+          filterresponselist = responselist;
+
+
+      } else {
+        final pattern = RegExp(RegExp.escape(query), caseSensitive: false);
+
+          filterresponselist = responselist.where((item) {
+            final name = item.doctorName ?? '';
+            final uhid = item.speciality ?? '';
+            return pattern.hasMatch(name) || pattern.hasMatch(uhid) ;
+          }).toList();
+
+
+
+        }
+
+
+
+    });
+  }
+
+
+
 }
