@@ -6,7 +6,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
+import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/Settings/mpinmain.dart';
+import 'package:newfolder/Data/biometric_service.dart';
+import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 
 
 
@@ -23,6 +26,21 @@ class AccessScreenState extends State<AccessScreen> {
 
   ConnectivityService connectivityservice = ConnectivityService();
 
+
+  bool isFingerprintEnabled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBiometricStatus();
+  }
+
+  Future<void> _loadBiometricStatus() async {
+    bool enabled = await BiometricService.isBiometricEnabled();
+    setState(() {
+      isFingerprintEnabled = enabled;
+    });
+  }
 
 
   @override
@@ -145,80 +163,180 @@ class AccessScreenState extends State<AccessScreen> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               // Unlock with Biometrics
-                              GestureDetector(
-                                onTap: () async {
+                              Opacity(
+                                opacity: isFingerprintEnabled ? 1.0 : 0.5, // dim when disabled
+                                child: IgnorePointer(
+                                  ignoring: !isFingerprintEnabled, // block touch when disabled
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      // Optional: additional onTap logic if needed
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.centerRight,
+                                      padding: EdgeInsets.only(
+                                        top: MediaQuery.of(context).size.height * 0.01,
+                                        bottom: MediaQuery.of(context).size.height * 0.00,
+                                        left: MediaQuery.of(context).size.height * 0.00,
+                                        right: MediaQuery.of(context).size.height * 0.00,
+                                      ),
+                                      margin: EdgeInsets.only(
+                                        right: MediaQuery.of(context).size.height * 0.0,
+                                        top: MediaQuery.of(context).size.height * 0.01,
+                                        bottom: MediaQuery.of(context).size.height * 0.01,
+                                        left: MediaQuery.of(context).size.height * 0.0,
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(vertical: 0.0),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(
+                                                  MediaQuery.of(context).size.height * 0.012,
+                                                ),
+                                                gradient: LinearGradient(
+                                                  begin: Alignment.centerRight,
+                                                  end: Alignment.center,
+                                                  stops: [0.5, 0.9],
+                                                  colors: [
+                                                    Color(0xFF126086),
+                                                    Color(0xFF126086),
+                                                  ],
+                                                ),
+                                              ),
+                                              alignment: Alignment.center,
+                                              child: TextButton(
+                                                onPressed: () async {
+                                                  bool success = await BiometricService.authenticateUser(context);
 
-                                },
-                                child: Container(
-                                  alignment: Alignment.centerRight,
-                                  padding: EdgeInsets.only(
-                                    top: MediaQuery.of(context).size.height * 0.01,
-                                    bottom: MediaQuery.of(context).size.height * 0.00,
-                                    left: MediaQuery.of(context).size.height * 0.00,
-                                    right: MediaQuery.of(context).size.height * 0.00,
-                                  ),
-                                  margin: EdgeInsets.only(
-                                    right: MediaQuery.of(context).size.height * 0.0,
-                                    top: MediaQuery.of(context).size.height * 0.01,
-                                    bottom: MediaQuery.of(context).size.height * 0.01,
-                                    left: MediaQuery.of(context).size.height * 0.0,
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Expanded(
+                                                  if (success) {
+                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                      const SnackBar(content: Text("Biometric unlock successful")),
+                                                    );
 
-                                        child: Container(
-                                          padding:  EdgeInsets.symmetric( vertical: 0.0),
-                                          decoration: BoxDecoration(
+                                                    // ✅ Set user session or mark login status
+                                                    await UserSecureStorage.setIfLogged("YES");
+                                                    // await UserSecureStorage.setUsernameid(mobileNumber);
 
-                                            borderRadius: BorderRadius.circular(
-                                              MediaQuery.of(context).size.height *
-                                                  0.012,
-                                            ),
-                                            gradient: LinearGradient(
-                                              begin: Alignment.centerRight,
-                                              end: Alignment.center,
-                                              stops: [0.5, 0.9],
-                                              colors: [
-                                                Color(0xFF126086),
-                                                Color(0xFF126086),
-                                              ],
-                                            ),
-                                          ),
-                                          alignment: Alignment.center,
+                                                    // ✅ Navigate to HomePageMain and clear all previous routes
+                                                    Navigator.of(context).pushAndRemoveUntil(
+                                                      MaterialPageRoute(builder: (context) => HomePageMain()),
+                                                          (Route<dynamic> route) => false,
+                                                    );
+                                                  } else {
+                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                      const SnackBar(content: Text("Authentication failed")),
+                                                    );
+                                                  }
+                                                },
 
-                                          child: TextButton(
-                                            onPressed: () async {
-                                        
-                                            },
-                                            style: ButtonStyle(
-                                              padding: MaterialStateProperty.all(EdgeInsets.symmetric( vertical: 11.0)), // 🔽 Minimal padding
-                                              tapTargetSize: MaterialTapTargetSize.shrinkWrap, // 🔽 Removes extra space from Material
-                                              minimumSize: MaterialStateProperty.all(Size.zero), // 🔽 No min size
-                                              alignment: Alignment.center, // 🔽 Center text properly
-                                              backgroundColor: MaterialStateProperty.all(Colors.transparent), // Optional
-                                              overlayColor: MaterialStateProperty.all(Colors.transparent), // Optional
-                                            ),
-                                            child: Text(
-                                              "Unlock with Biometrics",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize:
-                                                MediaQuery.of(context).size.height *
-                                                    0.018,
-                                                fontWeight: FontWeight.w700
+                                                style: ButtonStyle(
+                                                  padding: MaterialStateProperty.all(
+                                                      EdgeInsets.symmetric(vertical: 11.0)),
+                                                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                  minimumSize: MaterialStateProperty.all(Size.zero),
+                                                  alignment: Alignment.center,
+                                                  backgroundColor:
+                                                  MaterialStateProperty.all(Colors.transparent),
+                                                  overlayColor:
+                                                  MaterialStateProperty.all(Colors.transparent),
+                                                ),
+                                                child: Text(
+                                                  "Unlock with Biometrics",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize:
+                                                    MediaQuery.of(context).size.height * 0.018,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),
+
+                              // GestureDetector(
+                              //   onTap: () async {
+                              //
+                              //   },
+                              //   child: Container(
+                              //     alignment: Alignment.centerRight,
+                              //     padding: EdgeInsets.only(
+                              //       top: MediaQuery.of(context).size.height * 0.01,
+                              //       bottom: MediaQuery.of(context).size.height * 0.00,
+                              //       left: MediaQuery.of(context).size.height * 0.00,
+                              //       right: MediaQuery.of(context).size.height * 0.00,
+                              //     ),
+                              //     margin: EdgeInsets.only(
+                              //       right: MediaQuery.of(context).size.height * 0.0,
+                              //       top: MediaQuery.of(context).size.height * 0.01,
+                              //       bottom: MediaQuery.of(context).size.height * 0.01,
+                              //       left: MediaQuery.of(context).size.height * 0.0,
+                              //     ),
+                              //     child: Row(
+                              //       crossAxisAlignment: CrossAxisAlignment.start,
+                              //       mainAxisAlignment: MainAxisAlignment.center,
+                              //       children: <Widget>[
+                              //         Expanded(
+                              //
+                              //           child: Container(
+                              //             padding:  EdgeInsets.symmetric( vertical: 0.0),
+                              //             decoration: BoxDecoration(
+                              //
+                              //               borderRadius: BorderRadius.circular(
+                              //                 MediaQuery.of(context).size.height *
+                              //                     0.012,
+                              //               ),
+                              //               gradient: LinearGradient(
+                              //                 begin: Alignment.centerRight,
+                              //                 end: Alignment.center,
+                              //                 stops: [0.5, 0.9],
+                              //                 colors: [
+                              //                   Color(0xFF126086),
+                              //                   Color(0xFF126086),
+                              //                 ],
+                              //               ),
+                              //             ),
+                              //             alignment: Alignment.center,
+                              //
+                              //             child: TextButton(
+                              //               onPressed: () async {
+                              //
+                              //               },
+                              //               style: ButtonStyle(
+                              //                 padding: MaterialStateProperty.all(EdgeInsets.symmetric( vertical: 11.0)), // 🔽 Minimal padding
+                              //                 tapTargetSize: MaterialTapTargetSize.shrinkWrap, // 🔽 Removes extra space from Material
+                              //                 minimumSize: MaterialStateProperty.all(Size.zero), // 🔽 No min size
+                              //                 alignment: Alignment.center, // 🔽 Center text properly
+                              //                 backgroundColor: MaterialStateProperty.all(Colors.transparent), // Optional
+                              //                 overlayColor: MaterialStateProperty.all(Colors.transparent), // Optional
+                              //               ),
+                              //               child: Text(
+                              //                 "Unlock with Biometrics",
+                              //                 textAlign: TextAlign.center,
+                              //                 style: TextStyle(
+                              //                   color: Colors.white,
+                              //                   fontSize:
+                              //                   MediaQuery.of(context).size.height *
+                              //                       0.018,
+                              //                   fontWeight: FontWeight.w700
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
 
                               // Unlock with mPIN
                               GestureDetector(
@@ -299,9 +417,7 @@ class AccessScreenState extends State<AccessScreen> {
                                     ],
                                   ),
                                 ),
-                              ),
-
-
+                              )
                             ],
                           ),
                         ),
