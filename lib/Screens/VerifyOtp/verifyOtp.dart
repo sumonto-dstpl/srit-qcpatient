@@ -1103,14 +1103,14 @@ class Mpinstate extends State<MpinResetSettings> {
                             width : screenWidth * 0.5,
                             child: Padding(
                               padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                left : screenHeight * 0.005,
+                                top: MediaQuery.of(context).size.height * 0.01,
+                                left : screenHeight * 0.014,
                               ),
                               child: Text(
                                 reEnterDigitMpinMessage ?? '',
                                 style: TextStyle(
                                   color:  Colors.red,
-                                  fontSize: MediaQuery.of(context).size.height * 0.015,
+                                  fontSize: MediaQuery.of(context).size.height * 0.013,
                                 ),
                               ),
                             ),
