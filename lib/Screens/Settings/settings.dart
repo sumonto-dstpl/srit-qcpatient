@@ -45,6 +45,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 import 'package:newfolder/Screens/Widgets/tab_item.dart';
 
+import 'package:newfolder/Data/biometric_service.dart';
+
+
 class SettingsMain extends StatefulWidget {
   int selectedIndex = 0;
   String? mobileNumber;
@@ -74,6 +77,7 @@ class SettingsMainstate extends State<SettingsMain> {
     // TODO: implement initState
     super.initState();
     _init();
+    _loadBiometricPreference();
 
   }
   void _init() async {
@@ -84,6 +88,15 @@ class SettingsMainstate extends State<SettingsMain> {
       isMpinEnabled = result;
     });
   }
+
+  Future<void> _loadBiometricPreference() async {
+    bool enabled = await BiometricService.isBiometricEnabled();
+    print("_loadBiometricPreference");
+    setState(() {
+      isFingerprintEnabled = enabled;
+    });
+  }
+
   final myimageslist = [
     ["assets/profileM1.png"],
     ["assets/profileM2.png"],
@@ -1077,35 +1090,77 @@ class SettingsMainstate extends State<SettingsMain> {
                                             // ),
 
                                             Expanded(
-                                              child: GestureDetector(
-                                                behavior: HitTestBehavior.translucent, // lets taps go through to child
-                                                onTap: () {
-                                                  setState(() {
-                                                    isFingerprintEnabled = !isFingerprintEnabled;
-                                                  });
+                                              child: FlutterSwitch(
+                                                width: MediaQuery.of(context).size.height * 0.030,
+                                                height: MediaQuery.of(context).size.height * 0.017,
+                                                value: isFingerprintEnabled,
+                                                toggleSize: 11,
+                                                borderRadius: 20,
+                                                padding: 1,
+                                                activeColor: const Color(0xFF00C5BB),
+                                                inactiveColor: const Color(0xFFE4E7EC),
+                                                activeToggleColor: Colors.white,
+                                                inactiveToggleColor: Colors.white,
+                                                onToggle: (value) async {
+                                                  if (value) {
+                                                    bool success = await BiometricService.enableBiometric(context);
+                                                    if (success) {
+                                                      setState(() => isFingerprintEnabled = true);
+                                                    } else {
+                                                      setState(() => isFingerprintEnabled = false);
+                                                    }
+                                                  } else {
+                                                    await BiometricService.disableBiometric();
+                                                    setState(() => isFingerprintEnabled = false);
+                                                  }
                                                 },
-                                                child: FlutterSwitch(
-                                                  // width : MediaQuery.of(context).size.height * 0.025,
-                                                  // height : MediaQuery.of(context).size.height * 0.015,
-                                                  width : MediaQuery.of(context).size.height * 0.030,
-                                                  height : MediaQuery.of(context).size.height * 0.017,
-                                                  value : isFingerprintEnabled,
-                                                  toggleSize: 11,
-                                                  borderRadius: 20,
-                                                  padding : 1,
-                                                  activeColor: Color(0xFF00C5BB),
-                                                  inactiveColor: Color(0xFFE4E7EC),
-                                                  activeToggleColor: Colors.white,
-                                                  inactiveToggleColor: Colors.white,
-                                                  onToggle: (value) {
-                                                    setState(() {
-                                                      isFingerprintEnabled = value;
-                                                    });
-                                                  },
-
-                                                ),
                                               ),
                                             ),
+
+                                            // Expanded(
+                                            //   child: GestureDetector(
+                                            //     behavior: HitTestBehavior.translucent, // lets taps go through to child
+                                            //     onTap: () {
+                                            //       setState(() {
+                                            //         isFingerprintEnabled = !isFingerprintEnabled;
+                                            //       });
+                                            //     },
+                                            //     child:
+                                            //     FlutterSwitch(
+                                            //       // width : MediaQuery.of(context).size.height * 0.025,
+                                            //       // height : MediaQuery.of(context).size.height * 0.015,
+                                            //       width : MediaQuery.of(context).size.height * 0.030,
+                                            //       height : MediaQuery.of(context).size.height * 0.017,
+                                            //       value : isFingerprintEnabled,
+                                            //       toggleSize: 11,
+                                            //       borderRadius: 20,
+                                            //       padding : 1,
+                                            //       activeColor: Color(0xFF00C5BB),
+                                            //       inactiveColor: Color(0xFFE4E7EC),
+                                            //       activeToggleColor: Colors.white,
+                                            //       inactiveToggleColor: Colors.white,
+                                            //       // onToggle: (value) {
+                                            //       //   setState(() {
+                                            //       //     isFingerprintEnabled = value;
+                                            //       //   });
+                                            //       // },
+                                            //       onToggle: (value) async {
+                                            //         if (value) {
+                                            //           bool success = await BiometricService.enableBiometric(context);
+                                            //           if (success) {
+                                            //             setState(() => isFingerprintEnabled = true);
+                                            //           } else {
+                                            //             setState(() => isFingerprintEnabled = false);
+                                            //           }
+                                            //         } else {
+                                            //           await BiometricService.disableBiometric();
+                                            //           setState(() => isFingerprintEnabled = false);
+                                            //         }
+                                            //       },
+                                            //
+                                            //     ),
+                                            //   ),
+                                            // ),
                                           ],
                                         ),
                                       ),
