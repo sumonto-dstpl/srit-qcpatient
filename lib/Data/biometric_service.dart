@@ -6,13 +6,13 @@ class BiometricService {
   static final LocalAuthentication _auth = LocalAuthentication();
 
   /// Enable biometrics and save user preference (called from Settings)
-  static Future<bool> enableBiometric(BuildContext context) async {
+  static Future<bool>   enableBiometric(BuildContext context) async {
     try {
       final canCheck = await _auth.isDeviceSupported();
       if (!canCheck) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Biometric authentication not supported on this device")),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(content: Text("Biometric authentication not supported on this device")),
+        // );
         return false;
       }
 
@@ -27,14 +27,14 @@ class BiometricService {
       if (didAuthenticate) {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setBool('biometric_enabled', true);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Biometric authentication enabled")),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(content: Text("Biometric authentication enabled")),
+        // );
         return true;
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Authentication failed")),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(content: Text("Authentication failed")),
+        // );
         return false;
       }
     } catch (e) {

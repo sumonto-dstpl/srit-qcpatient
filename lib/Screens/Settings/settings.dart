@@ -37,6 +37,7 @@ import 'package:newfolder/Screens/Registeration/registeration.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
 import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
 import 'package:newfolder/Screens/Utils/auth_service.dart';
+import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
@@ -1101,19 +1102,51 @@ class SettingsMainstate extends State<SettingsMain> {
                                                 inactiveColor: const Color(0xFFE4E7EC),
                                                 activeToggleColor: Colors.white,
                                                 inactiveToggleColor: Colors.white,
+                                                // onToggle: (value) async {
+                                                //   if (value) {
+                                                //     bool success = await BiometricService.enableBiometric(context);
+                                                //     if (success) {
+                                                //       setState(() => isFingerprintEnabled = true);
+                                                //     } else {
+                                                //       setState(() => isFingerprintEnabled = false);
+                                                //     }
+                                                //   } else {
+                                                //     await BiometricService.disableBiometric();
+                                                //     setState(() => isFingerprintEnabled = false);
+                                                //   }
+                                                // },
                                                 onToggle: (value) async {
                                                   if (value) {
-                                                    bool success = await BiometricService.enableBiometric(context);
-                                                    if (success) {
-                                                      setState(() => isFingerprintEnabled = true);
+                                                    // get current user id (mobile)
+                                                    String? userId = await UserSecureStorage.getUsernameid();
+
+                                                    // check if MPIN exists for this user
+                                                    final user = await UserSecureStorage.getUser(userId ?? '');
+                                                    final hasMpin = user != null && (user['mpin']?.toString().isNotEmpty ?? false);
+
+                                                    if (hasMpin) {
+                                                      // ✅ MPIN already exists → only enable biometric, no redirection
+                                                      bool success = await BiometricService.enableBiometric(context);
+                                                      if (success) {
+                                                        setState(() => isFingerprintEnabled = true);
+                                                      } else {
+                                                        setState(() => isFingerprintEnabled = false);
+                                                      }
                                                     } else {
-                                                      setState(() => isFingerprintEnabled = false);
+                                                      // 🚨 MPIN not set → go to correct MPIN setup screen
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) => MpinResetSettings(),
+                                                        ),
+                                                      );
                                                     }
                                                   } else {
                                                     await BiometricService.disableBiometric();
                                                     setState(() => isFingerprintEnabled = false);
                                                   }
                                                 },
+
                                               ),
                                             ),
 
