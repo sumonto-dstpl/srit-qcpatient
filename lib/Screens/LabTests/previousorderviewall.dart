@@ -745,178 +745,301 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
 
                                               // Bottom Row
                                               Container(
-                                                padding: EdgeInsets.only(
-                                                    left: MediaQuery.of(context).size.height * 0.005,
-                                                    right: MediaQuery.of(context).size.height * 0.005,
-                                                    top: MediaQuery.of(context).size.height * 0.00,
-                                                    bottom: MediaQuery.of(context).size.height * 0.00),
-                                                width: double.infinity,
-                                                child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(06),
-                                                        ),
-                                                        padding: EdgeInsets.only(
-                                                          left: MediaQuery.of(context).size.height * 0.01,
-                                                          right: MediaQuery.of(context).size.height * 0.01,
-                                                          top: MediaQuery.of(context).size.height * 0.01,
-                                                          bottom: MediaQuery.of(context).size.height * 0.01,),
-                                                        child: Row(
-                                                          // mainAxisSize: MainAxisSize.max,
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                                            children: <Widget>[
-
-                                                              // More Details
-                                                              Container(
-                                                                decoration: BoxDecoration(
-                                                                  // color:Colors.white,
-                                                                  borderRadius: BorderRadius.circular(15),
-                                                                ),
-                                                                // color:Colors.green[100],
-                                                                padding: EdgeInsets.only(
-                                                                    left: MediaQuery.of(context).size.height * 0.0,
-                                                                    right: MediaQuery.of(context).size.height * 0.0,
-                                                                    top: MediaQuery.of(context).size.height * 0.00,
-                                                                    bottom: MediaQuery.of(context).size.height * 0.00),
-                                                                child:
-
-                                                                Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                                    children: <Widget>[
-
-
-
-                                                                      Container(
-                                                                        padding: EdgeInsets.only(
-                                                                          left: MediaQuery.of(context).size.height * 0.005,
-                                                                          right: MediaQuery.of(context).size.height * 0.00,
-                                                                          top: MediaQuery.of(context).size.height * 0.00,
-                                                                          bottom: MediaQuery.of(context).size.height * 0.00,
-                                                                        ),
-                                                                        child: Stack(
-                                                                          alignment: Alignment.bottomLeft,
-                                                                          children: [
-                                                                            Text(
-                                                                              "More Details",
-                                                                              style: TextStyle(
-                                                                                color: Color(0xFF12B76A), // Text color
-                                                                                fontWeight: FontWeight.w500, // Bold text
-                                                                                overflow: TextOverflow.ellipsis, // Handles overflow with ellipsis
-                                                                                fontSize: MediaQuery.of(context).size.height * 0.012, // Dynamic font size
-                                                                              ),
-                                                                            ),
-                                                                            Positioned(
-                                                                              bottom: 0, // Position the underline at the bottom of the text
-                                                                              left: 0,
-                                                                              right: 0,
-                                                                              child: Container(
-                                                                                height: 1, // Thickness of the underline
-                                                                                color: Color(0xFF12B76A),// Color of the underline
-                                                                                margin: EdgeInsets.symmetric(horizontal: 0.0), // Adds padding to the underline
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-
-
-                                                                    ]
-                                                                ),
-
-                                                              ),
-
-                                                              GestureDetector(
-                                                                onTap: () async {
-                                                                  Navigator.of(context).push(
-                                                                    MaterialPageRoute(
-                                                                      builder: (BuildContext context) {
-                                                                        return LabSmartReports();
-                                                                      },
-                                                                    ),
-                                                                  );
-                                                                },
-                                                                child: Container(
-                                                                  padding: new EdgeInsets.only(
-                                                                      left: MediaQuery.of(context).size.height * 0.015,
-                                                                      right: MediaQuery.of(context).size.height * 0.015,
-                                                                      top: MediaQuery.of(context).size.height * 0.007,
-                                                                      bottom: MediaQuery.of(context).size.height * 0.007),
-                                                                  decoration: BoxDecoration(
-                                                                    color: Color(0xFF126086),
-                                                                    borderRadius: BorderRadius.circular(5),
-                                                                  ),
-
-
-                                                                  margin: EdgeInsets.only(
-                                                                    left: MediaQuery.of(context).size.height * 0.00,
-                                                                    top: MediaQuery.of(context).size.height * 0.00,
-                                                                    bottom: MediaQuery.of(context).size.height * 0.00,
-                                                                    right: MediaQuery.of(context).size.height * 0.005,
-                                                                  ),
-                                                                  // color: Colors.grey[300],
-                                                                  alignment: Alignment.center,
-                                                                  // height:
-                                                                  // MediaQuery.of(context).size.height * 0.070,
-                                                                  child: Text("Smart Report",
-                                                                      textAlign: TextAlign.center,
-                                                                      style: TextStyle(
-                                                                          color: Colors.white,
-                                                                          fontWeight: FontWeight.w600,
-                                                                          fontSize:  MediaQuery.of(context).size.height * 0.01)),
-                                                                ),
-                                                              ),
-                                                              GestureDetector(
-                                                                onTap: () async {
-                                                                  Navigator.of(context).push(
-                                                                    MaterialPageRoute(
-                                                                      builder: (BuildContext context) {
-                                                                        return LabViewReports();
-                                                                      },
-                                                                    ),
-                                                                  );
-                                                                },
-                                                                child: Container(
-                                                                  padding: new EdgeInsets.only(
-                                                                      left: MediaQuery.of(context).size.height * 0.015,
-                                                                      right: MediaQuery.of(context).size.height * 0.015,
-                                                                      top: MediaQuery.of(context).size.height * 0.007,
-                                                                      bottom: MediaQuery.of(context).size.height * 0.007),
-                                                                  decoration: BoxDecoration(
-                                                                    color: Color(0xFF126086),
-                                                                    borderRadius: BorderRadius.circular(5),
-                                                                  ),
-
-
-                                                                  margin: EdgeInsets.only(
-                                                                    left: MediaQuery.of(context).size.height * 0.00,
-                                                                    top: MediaQuery.of(context).size.height * 0.00,
-                                                                    bottom: MediaQuery.of(context).size.height * 0.00,
-                                                                    right: MediaQuery.of(context).size.height * 0.005,
-                                                                  ),
-                                                                  // color: Colors.grey[300],
-                                                                  alignment: Alignment.center,
-                                                                  // height:
-                                                                  // MediaQuery.of(context).size.height * 0.070,
-                                                                  child: Text("View Reports",
-                                                                      textAlign: TextAlign.center,
-                                                                      style: TextStyle(
-                                                                          color: Colors.white,
-                                                                          fontWeight: FontWeight.w600,
-                                                                          fontSize:  MediaQuery.of(context).size.height * 0.01)),
-                                                                ),
-                                                              ),
-
-
-
-                                                            ]),
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(6),
+                                                ),
+                                                padding: EdgeInsets.all(8),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    // ✅ LEFT SIDE — “More Details”
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(15),
                                                       ),
-                                                    ]),
-                                              ),
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Container(
+                                                            padding: EdgeInsets.only(
+                                                              left: MediaQuery.of(context).size.height * 0.005,
+                                                            ),
+                                                            child: Stack(
+                                                              alignment: Alignment.bottomLeft,
+                                                              children: [
+                                                                Text(
+                                                                  "More Details",
+                                                                  style: TextStyle(
+                                                                    color: Color(0xFF12B76A),
+                                                                    fontWeight: FontWeight.w500,
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    fontSize: MediaQuery.of(context).size.height * 0.01,
+                                                                  ),
+                                                                ),
+                                                                Positioned(
+                                                                  bottom: 0,
+                                                                  left: 0,
+                                                                  right: 0,
+                                                                  child: Container(
+                                                                    height: 1,
+                                                                    color: Color(0xFF12B76A),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+
+                                                    // ✅ RIGHT SIDE — BOTH BUTTONS GROUPED TOGETHER
+                                                    Row(
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () async {
+                                                            Navigator.of(context).push(
+                                                              MaterialPageRoute(
+                                                                builder: (BuildContext context) {
+                                                                  return LabSmartReports();
+                                                                },
+                                                              ),
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            padding: EdgeInsets.symmetric(
+                                                              horizontal: MediaQuery.of(context).size.height * 0.015,
+                                                              vertical: MediaQuery.of(context).size.height * 0.007,
+                                                            ),
+                                                            decoration: BoxDecoration(
+                                                              color: Color(0xFF126086),
+                                                              borderRadius: BorderRadius.circular(5),
+                                                            ),
+                                                            margin: EdgeInsets.only(
+                                                              right: MediaQuery.of(context).size.height * 0.01,
+                                                            ),
+                                                            alignment: Alignment.center,
+                                                            child: Text(
+                                                              "Smart Report",
+                                                              textAlign: TextAlign.center,
+                                                              style: TextStyle(
+                                                                color: Colors.white,
+                                                                fontWeight: FontWeight.w600,
+                                                                fontSize: MediaQuery.of(context).size.height * 0.01,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () async {
+                                                            Navigator.of(context).push(
+                                                              MaterialPageRoute(
+                                                                builder: (BuildContext context) {
+                                                                  return LabViewReports();
+                                                                },
+                                                              ),
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            padding: EdgeInsets.symmetric(
+                                                              horizontal: MediaQuery.of(context).size.height * 0.015,
+                                                              vertical: MediaQuery.of(context).size.height * 0.007,
+                                                            ),
+                                                            decoration: BoxDecoration(
+                                                              color: Color(0xFF126086),
+                                                              borderRadius: BorderRadius.circular(5),
+                                                            ),
+                                                            alignment: Alignment.center,
+                                                            child: Text(
+                                                              "View Reports",
+                                                              textAlign: TextAlign.center,
+                                                              style: TextStyle(
+                                                                color: Colors.white,
+                                                                fontWeight: FontWeight.w600,
+                                                                fontSize: MediaQuery.of(context).size.height * 0.01,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+
+                                              )
+
+                                              // Container(
+                                              //   padding: EdgeInsets.only(
+                                              //       left: MediaQuery.of(context).size.height * 0.005,
+                                              //       right: MediaQuery.of(context).size.height * 0.005,
+                                              //       top: MediaQuery.of(context).size.height * 0.00,
+                                              //       bottom: MediaQuery.of(context).size.height * 0.00),
+                                              //   width: double.infinity,
+                                              //   child: Column(
+                                              //       crossAxisAlignment: CrossAxisAlignment.start,
+                                              //       mainAxisAlignment: MainAxisAlignment.start,
+                                              //       children: <Widget>[
+                                              //         Container(
+                                              //           decoration: BoxDecoration(
+                                              //             borderRadius: BorderRadius.circular(06),
+                                              //           ),
+                                              //           padding: EdgeInsets.only(
+                                              //             left: MediaQuery.of(context).size.height * 0.01,
+                                              //             right: MediaQuery.of(context).size.height * 0.01,
+                                              //             top: MediaQuery.of(context).size.height * 0.01,
+                                              //             bottom: MediaQuery.of(context).size.height * 0.01,),
+                                              //           child: Row(
+                                              //             // mainAxisSize: MainAxisSize.max,
+                                              //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              //               crossAxisAlignment: CrossAxisAlignment.center,
+                                              //               children: <Widget>[
+                                              //
+                                              //                 // More Details
+                                              //                 Container(
+                                              //                   decoration: BoxDecoration(
+                                              //                     // color:Colors.white,
+                                              //                     borderRadius: BorderRadius.circular(15),
+                                              //                   ),
+                                              //                   // color:Colors.green[100],
+                                              //                   padding: EdgeInsets.only(
+                                              //                       left: MediaQuery.of(context).size.height * 0.0,
+                                              //                       right: MediaQuery.of(context).size.height * 0.0,
+                                              //                       top: MediaQuery.of(context).size.height * 0.00,
+                                              //                       bottom: MediaQuery.of(context).size.height * 0.00),
+                                              //                   child:
+                                              //
+                                              //                   Row(
+                                              //                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              //                       crossAxisAlignment: CrossAxisAlignment.center,
+                                              //                       children: <Widget>[
+                                              //
+                                              //
+                                              //
+                                              //                         Container(
+                                              //                           padding: EdgeInsets.only(
+                                              //                             left: MediaQuery.of(context).size.height * 0.005,
+                                              //                             right: MediaQuery.of(context).size.height * 0.00,
+                                              //                             top: MediaQuery.of(context).size.height * 0.00,
+                                              //                             bottom: MediaQuery.of(context).size.height * 0.00,
+                                              //                           ),
+                                              //                           child: Stack(
+                                              //                             alignment: Alignment.bottomLeft,
+                                              //                             children: [
+                                              //                               Text(
+                                              //                                 "More Details",
+                                              //                                 style: TextStyle(
+                                              //                                   color: Color(0xFF12B76A), // Text color
+                                              //                                   fontWeight: FontWeight.w500, // Bold text
+                                              //                                   overflow: TextOverflow.ellipsis, // Handles overflow with ellipsis
+                                              //                                   fontSize: MediaQuery.of(context).size.height * 0.012, // Dynamic font size
+                                              //                                 ),
+                                              //                               ),
+                                              //                               Positioned(
+                                              //                                 bottom: 0, // Position the underline at the bottom of the text
+                                              //                                 left: 0,
+                                              //                                 right: 0,
+                                              //                                 child: Container(
+                                              //                                   height: 1, // Thickness of the underline
+                                              //                                   color: Color(0xFF12B76A),// Color of the underline
+                                              //                                   margin: EdgeInsets.symmetric(horizontal: 0.0), // Adds padding to the underline
+                                              //                                 ),
+                                              //                               ),
+                                              //                             ],
+                                              //                           ),
+                                              //                         ),
+                                              //
+                                              //
+                                              //                       ]
+                                              //                   ),
+                                              //
+                                              //                 ),
+                                              //
+                                              //                 GestureDetector(
+                                              //                   onTap: () async {
+                                              //                     Navigator.of(context).push(
+                                              //                       MaterialPageRoute(
+                                              //                         builder: (BuildContext context) {
+                                              //                           return LabSmartReports();
+                                              //                         },
+                                              //                       ),
+                                              //                     );
+                                              //                   },
+                                              //                   child: Container(
+                                              //                     padding: new EdgeInsets.only(
+                                              //                         left: MediaQuery.of(context).size.height * 0.015,
+                                              //                         right: MediaQuery.of(context).size.height * 0.015,
+                                              //                         top: MediaQuery.of(context).size.height * 0.007,
+                                              //                         bottom: MediaQuery.of(context).size.height * 0.007),
+                                              //                     decoration: BoxDecoration(
+                                              //                       color: Color(0xFF126086),
+                                              //                       borderRadius: BorderRadius.circular(5),
+                                              //                     ),
+                                              //
+                                              //
+                                              //                     margin: EdgeInsets.only(
+                                              //                       left: MediaQuery.of(context).size.height * 0.00,
+                                              //                       top: MediaQuery.of(context).size.height * 0.00,
+                                              //                       bottom: MediaQuery.of(context).size.height * 0.00,
+                                              //                       right: MediaQuery.of(context).size.height * 0.005,
+                                              //                     ),
+                                              //                     // color: Colors.grey[300],
+                                              //                     alignment: Alignment.center,
+                                              //                     // height:
+                                              //                     // MediaQuery.of(context).size.height * 0.070,
+                                              //                     child: Text("Smart Report",
+                                              //                         textAlign: TextAlign.center,
+                                              //                         style: TextStyle(
+                                              //                             color: Colors.white,
+                                              //                             fontWeight: FontWeight.w600,
+                                              //                             fontSize:  MediaQuery.of(context).size.height * 0.01)),
+                                              //                   ),
+                                              //                 ),
+                                              //                 GestureDetector(
+                                              //                   onTap: () async {
+                                              //                     Navigator.of(context).push(
+                                              //                       MaterialPageRoute(
+                                              //                         builder: (BuildContext context) {
+                                              //                           return LabViewReports();
+                                              //                         },
+                                              //                       ),
+                                              //                     );
+                                              //                   },
+                                              //                   child: Container(
+                                              //                     padding: new EdgeInsets.only(
+                                              //                         left: MediaQuery.of(context).size.height * 0.015,
+                                              //                         right: MediaQuery.of(context).size.height * 0.015,
+                                              //                         top: MediaQuery.of(context).size.height * 0.007,
+                                              //                         bottom: MediaQuery.of(context).size.height * 0.007),
+                                              //                     decoration: BoxDecoration(
+                                              //                       color: Color(0xFF126086),
+                                              //                       borderRadius: BorderRadius.circular(5),
+                                              //                     ),
+                                              //
+                                              //
+                                              //                     margin: EdgeInsets.only(
+                                              //                       left: MediaQuery.of(context).size.height * 0.00,
+                                              //                       top: MediaQuery.of(context).size.height * 0.00,
+                                              //                       bottom: MediaQuery.of(context).size.height * 0.00,
+                                              //                       right: MediaQuery.of(context).size.height * 0.005,
+                                              //                     ),
+                                              //                     // color: Colors.grey[300],
+                                              //                     alignment: Alignment.center,
+                                              //                     // height:
+                                              //                     // MediaQuery.of(context).size.height * 0.070,
+                                              //                     child: Text("View Reports",
+                                              //                         textAlign: TextAlign.center,
+                                              //                         style: TextStyle(
+                                              //                             color: Colors.white,
+                                              //                             fontWeight: FontWeight.w600,
+                                              //                             fontSize:  MediaQuery.of(context).size.height * 0.01)),
+                                              //                   ),
+                                              //                 ),
+                                              //
+                                              //
+                                              //
+                                              //               ]),
+                                              //         ),
+                                              //       ]),
+                                              // ),
 
 
 
