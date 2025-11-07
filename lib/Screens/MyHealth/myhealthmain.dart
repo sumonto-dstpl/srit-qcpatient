@@ -16,6 +16,7 @@ import 'package:newfolder/Screens/Radiology/pastupcomingtestscan.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
 import 'package:newfolder/Screens/Timeline/timelinemain.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
 
@@ -991,6 +992,12 @@ class MyHealthMainstate extends State<MyHealthMain> {
                                   setState(() {
                                     uploadfilestime.removeAt(index);
                                   });
+                                  showTopNotification(
+                                    context,
+                                    title: "Deleted Successfully",
+                                    message: "The prescription has been removed.",
+                                    type: NotificationType.error, // You can change to .success if needed
+                                  );
                                 },
                                 child: GestureDetector(
                                   onTap: () {},

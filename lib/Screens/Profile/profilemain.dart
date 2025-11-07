@@ -3718,7 +3718,7 @@ class ProfileMainstate extends State<ProfileMain> {
 
   void showBottomSheetforlogout() => showModalBottomSheet(
   context: context,
-  enableDrag: false,
+  enableDrag: true,
   isScrollControlled: true,
   isDismissible: true,
   backgroundColor: Colors.transparent, // Make the background transparent
