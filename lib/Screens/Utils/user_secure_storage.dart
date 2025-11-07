@@ -23,6 +23,7 @@ class UserSecureStorage {
   static const _keyChecklogin = 'IfLoggedin';
   static const _keyChecklogout = 'IfLoggedout';
   static const _keyCheckGuestlogin = 'IfGuestLoggedin';
+  static const _keyCartCount = 'cartCount';
   static const _keydashid = 'dashboardid';
   static const _keyIsFirstLaunchDone = 'isFirstLaunchDone';
   static const _keyAllUsers = 'all_users';
@@ -150,6 +151,10 @@ class UserSecureStorage {
   static Future setIfGuestLogged(String IfGuestLoggedin) async =>
       await _storage.write(key: _keyCheckGuestlogin, value: IfGuestLoggedin);
 
+
+  static Future setCartCount(String count) async =>
+      await _storage.write(key: _keyCartCount, value: count);
+
   static Future<String?> getIfGuestLogged() async =>
       await _storage.read(key: _keyCheckGuestlogin);
 
@@ -268,6 +273,7 @@ class UserSecureStorage {
       jsonString = await _storage.read(key: key);
     }
     Map<String, dynamic> allUsers = jsonString != null ? jsonDecode(jsonString) : {};
+    print("allUsers:$allUsers");
     Map<String, dynamic> userEntry =
     allUsers[userId] != null ? Map<String, dynamic>.from(allUsers[userId]) : {};
     List<dynamic> userDataList =
@@ -276,11 +282,14 @@ class UserSecureStorage {
     userDataList.insert(0, newData);
 
 
+    print("userDataList: $userEntry");
+
 
 
     userEntry["userId"] = userId;
     userEntry["data"] = userDataList;
     allUsers[userId] = userEntry;
+    print("userDataList12: ${allUsers[userId]}");
     await _storage.write(key: key, value: jsonEncode(allUsers));
 
   }

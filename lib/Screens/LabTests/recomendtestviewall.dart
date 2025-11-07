@@ -136,7 +136,38 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
     {"id" : 112,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
   ];
 
+  List<dynamic> addedList=[];
 
+  @override
+  void initState(){
+    // getSharedPrefs();
+    setState(() {});
+    _loadData();
+    super.initState();
+  }
+
+  void _loadData() async {
+    var guestUser = await UserSecureStorage.getIfGuestLogged();
+    print("guestUser: $guestUser");
+    final isGuestUser=guestUser == "YES";
+    setState(() {});
+    if(!isGuestUser) {
+      String? username = await UserSecureStorage.getUsernameid();
+      print("username: $username");
+      // Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
+      // print("user : $user");
+      List<dynamic> _loadedCart2  = await UserSecureStorage.getAddToCart("addToCart2",username ?? '');
+
+      if(_loadedCart2.isNotEmpty){
+        print("_loadedCart2.length:${_loadedCart2.length}");
+        setState(() {
+
+          addedList = _loadedCart2 ?? [];
+        });
+      }
+
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -595,6 +626,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                               itemCount: cartList.length, // You can adjust the item count
                               itemBuilder: (BuildContext context, int index) {
                                 final item = cartList[index];
+                                bool isInCart = addedList.any((addedItem) => addedItem['id'] == item['id']);
                                 return GestureDetector(
                                   onTap: () {
 
@@ -941,6 +973,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                         Row(
                                                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           children: <Widget>[
+                                                                            !isInCart ?
                                                                             GestureDetector(
                                                                               onTap: () async {
                                                                                  addToCart(item['id'],item['plan'],item['test'],item['qr']);
@@ -950,6 +983,9 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                                    message: "Cart is added successfully",
                                                                                    type: NotificationType.success,
                                                                                  );
+                                                                                 setState(() {
+
+                                                                                 });
                                                                               },
                                                                               child: Container(
                                                                                 padding: new EdgeInsets.only(
@@ -979,6 +1015,41 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                                         color: Colors.white,
                                                                                         fontWeight: FontWeight.w600,
                                                                                         fontSize:  MediaQuery.of(context).size.height * 0.01)),
+                                                                              ),
+                                                                            ):
+                                                                            GestureDetector(
+                                                                              onTap: () async {
+                                                                                _deleteCart(item['id'],index);
+                                                                                showTopNotification(
+                                                                                  context,
+                                                                                  title: "Cart Delete",
+                                                                                  message: "Cart is deleted Successfully",
+                                                                                  type: NotificationType.error,
+                                                                                );
+                                                                              },
+                                                                              child: Container(
+                                                                                padding: new EdgeInsets.only(
+                                                                                    left: MediaQuery.of(context).size.height * 0.02,
+                                                                                    right: MediaQuery.of(context).size.height * 0.02,
+                                                                                    top: MediaQuery.of(context).size.height * 0.006,
+                                                                                    bottom: MediaQuery.of(context).size.height * 0.006),
+                                                                                decoration: BoxDecoration(
+                                                                                  color: Colors.white,
+                                                                                  borderRadius: BorderRadius.circular(5),
+                                                                                ),
+
+
+                                                                                margin: EdgeInsets.only(
+                                                                                  left: MediaQuery.of(context).size.height * 0.0,
+                                                                                  top: MediaQuery.of(context).size.height * 0.00,
+                                                                                  bottom: MediaQuery.of(context).size.height * 0.00,
+                                                                                  right: MediaQuery.of(context).size.height * 0.005,
+                                                                                ),
+                                                                                // color: Colors.grey[300],
+                                                                                alignment: Alignment.center,
+                                                                                // height:
+                                                                                // MediaQuery.of(context).size.height * 0.070,
+                                                                                child: Icon(Icons.delete, color: Colors.red),
                                                                               ),
                                                                             ),
 
@@ -2047,6 +2118,42 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
        String userId = username ?? '';
        UserSecureStorage.saveAddToCard(key: "addToCart2",userId: userId, newData: addToCart);
      }
+
+
+     setState(() {
+       addedList.insert(0, addToCart);
+     });
+
    }
+
+  void _deleteCart(int id,int index,{String? key}) async {
+
+    bool isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
+    String? username =  await UserSecureStorage.getUsernameid();
+
+    if(isGuestUser) {
+      username = "GUEST";
+    }
+
+    if(key == null || key.isEmpty){
+
+      List<dynamic> addToCart2 = await UserSecureStorage.getAddToCart("addToCart2",username ?? '');
+      print("addToCart2: $addToCart2");
+      bool _loadedCartCache = addToCart2.any((item) => item['id'] == id);
+      print("_loadedCartCache: $_loadedCartCache");
+      print("id: $id , index : $index");
+      setState(() {
+        addedList.removeWhere((addedItem) => addedItem['id'] == id);
+      });
+
+      if(_loadedCartCache){
+        await UserSecureStorage.deleteFromAddToCart(
+          key: "addToCart2", // tumhara constant key name
+          userId: username ?? '',
+          index: index,
+        );
+      }
+    }
+  }
 
 }

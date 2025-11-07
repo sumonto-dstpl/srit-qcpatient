@@ -516,7 +516,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                   ])),
                         )
                       ])
-                      :  ListView(
+                      :
+                  ListView(
                     padding: EdgeInsets.zero,
                     children: [
                       // Top ListView
@@ -3536,17 +3537,18 @@ class AddToCartMainstate extends State<AddToCartMain> {
 
 
 
-      Future.delayed(const Duration(milliseconds: 500), () {
+      // Future.delayed(const Duration(milliseconds: 500), () {
         setState(() {
           _currentList = [..._loadedCart2,];
-        });
-      });
-
-      Future.delayed(const Duration(milliseconds: 500), () {
-        setState(() {
           savedbottomlist = [...saveForLater];
         });
-      });
+      // });
+
+      // Future.delayed(const Duration(milliseconds: 500), () {
+      //   setState(() {
+      //
+      //   });
+      // });
 
   }
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../Utils/user_secure_storage.dart';
+
 class AppointmentIconBadge extends StatefulWidget {
   final String appointmentcount;
 
@@ -11,6 +13,39 @@ class AppointmentIconBadge extends StatefulWidget {
 }
 
 class _IconBadgeState extends State<AppointmentIconBadge> {
+
+  String cartCount ="0";
+  @override
+  void initState(){
+    // getSharedPrefs();
+    setState(() {});
+    _loadData();
+    super.initState();
+  }
+
+  void _loadData() async {
+    var guestUser = await UserSecureStorage.getIfGuestLogged();
+    print("guestUser: $guestUser");
+    final isGuestUser=guestUser == "YES";
+    setState(() {});
+    if(!isGuestUser) {
+      String? username = await UserSecureStorage.getUsernameid();
+      print("username: $username");
+      // Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
+      // print("user : $user");
+      List<dynamic> _loadedCart2  = await UserSecureStorage.getAddToCart("addToCart2",username ?? '');
+      if(_loadedCart2.isNotEmpty){
+        print("_loadedCart2.length:${_loadedCart2.length}");
+        setState(() {
+
+          cartCount = _loadedCart2.length.toString() ?? "0";
+        });
+      }
+
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -112,7 +147,7 @@ class _IconBadgeState extends State<AppointmentIconBadge> {
               child: MediaQuery(
                 data: MediaQuery.of(context).copyWith(textScaleFactor: MediaQuery.of(context).textScaleFactor.clamp(1.0, 1.2)),
                 child: Text(
-                  "12",
+                  cartCount,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: MediaQuery.of(context).size.height * 0.008,

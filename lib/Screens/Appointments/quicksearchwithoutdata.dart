@@ -17,6 +17,9 @@ import 'package:newfolder/Screens/Widgets/badge.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:newfolder/Screens/Appointments/selecttimeslot.dart';
+
+import 'doctordetailpage.dart';
 class QuickSearchWithoutData extends StatefulWidget {
   const QuickSearchWithoutData({super.key});
 
@@ -29,6 +32,7 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
+  String physical_virtual_mode = "physical";
 
   EmergencyHomeCall emergencycallalert = EmergencyHomeCall();
   AppointmentCancel appointmentcancelalert = AppointmentCancel();
@@ -186,13 +190,17 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
 
       final text = SearchEditTextController.text;
 
-      if (text != text.toUpperCase()) {
+      if (text.isNotEmpty) {
         final selection = SearchEditTextController.selection;
-        SearchEditTextController.value = SearchEditTextController.value.copyWith(
-          text: text.toUpperCase(),
-          selection: selection,
-          composing: TextRange.empty,
-        );
+        String formatted = text[0].toUpperCase() + text.substring(1).toLowerCase();
+        if (formatted != text) {
+          SearchEditTextController.value =
+              SearchEditTextController.value.copyWith(
+                text: formatted,
+                selection: selection,
+                composing: TextRange.empty,
+              );
+        }
       }
       setState(() {
         _showDetails = false;
@@ -352,10 +360,11 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
                                         LengthLimitingTextInputFormatter(15),
                                         FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]')),
                                       ],
-                                      textCapitalization: TextCapitalization.characters,
+                                      // textCapitalization: TextCapitalization.characters,
+                                      textCapitalization: TextCapitalization.none,
 
                                       style: const TextStyle(color: Colors.black45),
-                                      keyboardType: TextInputType.emailAddress,
+                                      keyboardType: TextInputType.text,
                                       validator: (input) => input!.length < 3
                                           ? "Search should be more than 3 characters"
                                           : null,
@@ -736,7 +745,41 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
                                         ),
                                       ],
                                     ),
-                                    child: Card(
+                                    child: GestureDetector(
+                                        onTap: () async {
+
+                                          print("");
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (BuildContext context) {
+                                                // return SelectTimeSlot(filterresponselist![index].doctorId!);
+                                                //     return DoctorDetilPage(
+                                                //       "Practitioner/f002",
+                                                //       doctorDetail : {
+                                                //       "doctorName" : filterresponselist[index].doctorName ,
+                                                //       "speciality" : filterresponselist[index].speciality ,
+                                                //       "experience" : (filterresponselist![index].experience ?? "") + " - "+   (filterresponselist![index].qualification ??  ""),
+                                                //         } ,
+                                                //       physical_virtual_mode: widget.physical_virtual_mode,
+                                                //     );
+                                                return DoctorDetilPage(
+                                                  "Practitioner/f002",
+                                                  doctorDetail: {
+                                                    "doctorName" : item["doctorName"] ,
+                                                    "speciality" : item["speciality"] ,
+                                                    "experience" : (item["experience"] ?? "") + " - "+   (item["qualification"] ??  ""),
+
+                                                  },
+                                                  physical_virtual_mode: physical_virtual_mode,
+                                                )   ;
+
+                                              },
+                                            ),
+                                          );
+                                        },
+                                        child:Card(
+
                                       elevation: 0.0,
                                       color: Colors.white,
                                       child:  Container(
@@ -922,7 +965,7 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
                                             ]),
 
                                       ),
-                                    ),
+                                    )),
                                   );
                                 },
                               )

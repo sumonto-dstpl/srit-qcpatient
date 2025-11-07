@@ -132,6 +132,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   @override
   void initState(){
     // getSharedPrefs();
+    setState(() {});
      _loadData();
     getCommonDoctorList();
     super.initState();
@@ -146,9 +147,10 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
     var guestUser = await UserSecureStorage.getIfGuestLogged();
     print("guestUser: $guestUser");
     isGuestUser=guestUser == "YES";
-
+    setState(() {});
     if(!isGuestUser){
       String? username =  await UserSecureStorage.getUsernameid();
+      print("username: $username");
       Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
       print("user : $user");
       final fname = user?['data']['fname'] ?? '';
@@ -159,7 +161,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
     }else{
       usernameValue +="Guest";
     }
-
+    print("usernameValue: $usernameValue");
     setState(() {
       _isLoading = false;
     });

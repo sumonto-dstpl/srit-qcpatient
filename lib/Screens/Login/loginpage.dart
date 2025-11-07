@@ -1091,7 +1091,7 @@ class LoginPagestate extends State<LoginPage> {
           await UserSecureStorage.setIfGuestLogged("NO");
           final storage = FlutterSecureStorage();
           String? value = await storage.read(key: 'mpinEnabled');
-          bool isEnabled = value == 'true';
+          bool isEnabled = value == 'true' ?? false;
           print("isEnabled : $isEnabled");
           Map<String, dynamic>? userData = await UserSecureStorage.getUser(input.substring(3).trim());
           String? mpin = userData?['mpin'];
@@ -1118,7 +1118,7 @@ class LoginPagestate extends State<LoginPage> {
           }
           else {
             await UserSecureStorage.setIfLogged("YES");
-            // await UserSecureStorage.setUsernameid(mobileNumber);
+            await UserSecureStorage.setUsernameid(input.substring(3));
             print("mobileNumber : ${input.substring(3)}");
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => HomePageMain()),

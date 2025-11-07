@@ -1454,7 +1454,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                                 GestureDetector(
                                                                                   onTap: () async {
 
-                                                                                    print("");
+                                                                                    print("Tap on Doctor Card");
                                                                                     Navigator.of(context).push(
                                                                                       MaterialPageRoute(
                                                                                         builder:

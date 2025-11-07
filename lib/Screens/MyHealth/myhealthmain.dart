@@ -39,7 +39,7 @@ class MyHealthMainstate extends State<MyHealthMain> {
   final mytopspecialities = [
     ["assets/myhealthMyPrescription.png", "My Prescription"],
     ["assets/myhealthTestReports.png", "Test Reports"],
-    ["assets/myhealthMyMedications.png", "My Medications"],
+    ["assets/Medications_ls.png", "My Medications"],
     ["assets/myhealthmyhealthHealthRecords.png", "Health Records"],
     ["assets/myhealthRadiology.png", "Radiology"],
     ["assets/myhealthTimeline.png", "Timeline"],
