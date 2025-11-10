@@ -1374,6 +1374,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                                 print("Selected Slot: $selectedSlot");
                               },
                             ),
+                            SizedBox(height: screenHeight * 0.02),
                           ],
                         ),
                       ),

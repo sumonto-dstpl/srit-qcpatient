@@ -40,6 +40,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_emoji_feedback/flutter_emoji_feedback.dart';
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 import 'package:newfolder/Screens/Widgets/tab_item.dart';
+import 'package:newfolder/utils/UploadBoxExpanded.dart';
 
 
 class ProfileMyUploadMain extends StatefulWidget {
@@ -63,6 +64,17 @@ class ProfileMyUploadMainstate extends State<ProfileMyUploadMain> {
     "Now",
     "15 min ago",
   ];
+
+  List<Map<String, dynamic>> selectedFiles = [];
+
+  void handleFilesChanged(List<Map<String, dynamic>> files) {
+    setState(() {
+      selectedFiles = files;
+    });
+    print("📂 Updated files count: ${files.length}");
+  }
+
+
 
 
   TextEditingController? reviewtextcontroller = TextEditingController();
@@ -297,487 +309,488 @@ class ProfileMyUploadMainstate extends State<ProfileMyUploadMain> {
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         children: [
+                          // Container(
+                          //   width: double.infinity,
+                          //   height : MediaQuery.of(context).size.height * 0.32,
+                          //   margin: EdgeInsets.only(
+                          //     top: MediaQuery.of(context).size.height * 0.03,
+                          //     bottom: MediaQuery.of(context).size.height * 0.0,
+                          //     right: MediaQuery.of(context).size.height * 0.00,
+                          //     left: MediaQuery.of(context).size.height * 0.0,
+                          //   ),
+                          //   padding: EdgeInsets.only(
+                          //     top: MediaQuery.of(context).size.height * 0.0,
+                          //     bottom: MediaQuery.of(context).size.height * 0.0,
+                          //     right: MediaQuery.of(context).size.height * 0.020,
+                          //     left: MediaQuery.of(context).size.height * 0.02,
+                          //   ),
+                          //   // height: MediaQuery.of(context).size.height * 0.150,
+                          //   child: DottedBorder(
+                          //     color: Color(0xFF343434).withOpacity(0.3),
+                          //     strokeWidth: 1,
+                          //     borderType: BorderType.RRect,
+                          //     radius: Radius.circular(8),
+                          //     child: Center(
+                          //       // Ensures the content is centered within the border
+                          //       child: Column(
+                          //         mainAxisAlignment: MainAxisAlignment
+                          //             .center, // Aligns content vertically
+                          //         crossAxisAlignment: CrossAxisAlignment
+                          //             .center, // Aligns content horizontally
+                          //         children: <Widget>[
+                          //           Container(
+                          //             margin: EdgeInsets.only(
+                          //                 left: MediaQuery.of(context).size.height *
+                          //                     0.00,
+                          //                 right:
+                          //                 MediaQuery.of(context).size.height *
+                          //                     0.00,
+                          //                 top: MediaQuery.of(context).size.height *
+                          //                     0.07,
+                          //                 bottom:
+                          //                 MediaQuery.of(context).size.height *
+                          //                     0.01),
+                          //             width: screenHeight * 0.04,
+                          //             height: screenHeight * 0.04,
+                          //             decoration: BoxDecoration(
+                          //               image: DecorationImage(
+                          //                 image: AssetImage("assets/homecare.png"),
+                          //                 fit: BoxFit.contain,
+                          //               ),
+                          //             ),
+                          //           ),
+                          //           Column(
+                          //             children: <Widget>[
+                          //               Container(
+                          //                 padding:
+                          //                 EdgeInsets.only(
+                          //                     left: MediaQuery.of(context)
+                          //                         .size
+                          //                         .height *
+                          //                         0.00,
+                          //                     right: MediaQuery.of(context)
+                          //                         .size
+                          //                         .height *
+                          //                         0.00,
+                          //                     top: MediaQuery.of(context)
+                          //                         .size
+                          //                         .height *
+                          //                         0.00,
+                          //                     bottom: MediaQuery.of(context)
+                          //                         .size
+                          //                         .height *
+                          //                         0.006),
+                          //                 child: Text(
+                          //                   "choose file to upload",
+                          //                   style: TextStyle(
+                          //                       fontWeight: FontWeight.w600,
+                          //                       color: Color(0xFF1F1F1F),
+                          //                       fontSize: MediaQuery.of(context)
+                          //                           .size
+                          //                           .height *
+                          //                           0.014
+                          //                   ),
+                          //                   overflow: TextOverflow.ellipsis,
+                          //                 ),
+                          //               ),
+                          //               Container(
+                          //                 padding:
+                          //                 EdgeInsets.only(
+                          //                     left: MediaQuery.of(context)
+                          //                         .size
+                          //                         .height *
+                          //                         0.00,
+                          //                     right: MediaQuery.of(context)
+                          //                         .size
+                          //                         .height *
+                          //                         0.00,
+                          //                     top: MediaQuery.of(context)
+                          //                         .size
+                          //                         .height *
+                          //                         0.00,
+                          //                     bottom: MediaQuery.of(context)
+                          //                         .size
+                          //                         .height *
+                          //                         0.07),
+                          //                 child: RichText(
+                          //                   text: TextSpan(
+                          //                     style: Theme.of(context)
+                          //                         .textTheme
+                          //                         .titleLarge!
+                          //                         .merge(
+                          //                       TextStyle(
+                          //                           color: Theme.of(context)
+                          //                               .primaryColor),
+                          //                     ),
+                          //                     children: [
+                          //                       TextSpan(
+                          //                         text:
+                          //                         'image or pdf Should be less than',
+                          //                         style: TextStyle(
+                          //                           color: Color(0xFF000000)
+                          //                               .withOpacity(0.4),
+                          //                           fontWeight: FontWeight.w600,
+                          //                           fontSize: screenHeight * 0.012,
+                          //                         ),
+                          //                       ),
+                          //                       TextSpan(
+                          //                         text: ' 10MB',
+                          //                         style: TextStyle(
+                          //                           fontWeight: FontWeight.w600,
+                          //                           fontSize: screenHeight * 0.012,
+                          //                           color: Color(0xFF126086),
+                          //                         ),
+                          //                       ),
+                          //                     ],
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //             ],
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                          //
+                          // Container(
+                          //   padding: EdgeInsets.only(
+                          //     top: MediaQuery.of(context).size.height *
+                          //         0.015, // Dynamic top padding
+                          //     bottom: MediaQuery.of(context).size.height *
+                          //         0.0, // Dynamic bottom padding
+                          //     left: MediaQuery.of(context).size.height *
+                          //         0.01, // Dynamic left padding
+                          //     right: MediaQuery.of(context).size.height *
+                          //         0.01, // Dynamic right padding
+                          //   ),
+                          //   child: ListView.builder(
+                          //     padding: EdgeInsets.zero,
+                          //     shrinkWrap:
+                          //     true, // Prevents infinite height
+                          //     physics: NeverScrollableScrollPhysics(),
+                          //     itemCount: uploadfilestime.length,
+                          //     itemBuilder: (context, index) {
+                          //
+                          //
+                          //       final file = uploadfilestime[index];
+                          //
+                          //       return
+                          //
+                          //         Dismissible(
+                          //             key: Key(file), // Unique key for each item
+                          //             direction: DismissDirection.endToStart, // Allow swipe from right to left
+                          //             background: Container(
+                          //               color: Colors.white,
+                          //               alignment: Alignment.centerRight,
+                          //               padding: EdgeInsets.symmetric(horizontal: 20),
+                          //               child: Icon(
+                          //                 Icons.delete,
+                          //                 color: Colors.red,
+                          //               ),
+                          //             ),
+                          //             onDismissed: (direction) {
+                          //               // Remove the item immediately from the list
+                          //               setState(() {
+                          //                 uploadfilestime.removeAt(index);
+                          //               });
+                          //
+                          //
+                          //             },
+                          //             child:
+                          //
+                          //             GestureDetector(
+                          //               onTap: () {},
+                          //               child: Card(
+                          //                 elevation: 0.0,
+                          //                 color: Colors.white,
+                          //                 child: Container(
+                          //                   decoration: BoxDecoration(
+                          //                     color: Colors.white, // Background color of the container
+                          //                     border: Border.all(
+                          //                       color: Colors.black.withOpacity(0.1), // Border color
+                          //                       width: 1, // Border width
+                          //                     ),
+                          //                     borderRadius: BorderRadius.circular(8), // Optional: Rounded corners
+                          //                   ),
+                          //
+                          //                   padding: EdgeInsets.only(
+                          //                       left: MediaQuery.of(context)
+                          //                           .size
+                          //                           .height *
+                          //                           0.00,
+                          //                       right: MediaQuery.of(context)
+                          //                           .size
+                          //                           .height *
+                          //                           0.00,
+                          //                       bottom: MediaQuery.of(context)
+                          //                           .size
+                          //                           .height *
+                          //                           0.0,
+                          //                       top: MediaQuery.of(context)
+                          //                           .size
+                          //                           .height *
+                          //                           0.00),
+                          //                   // color: Colors.white,
+                          //                   child: Container(
+                          //                     // color: Colors.white,
+                          //
+                          //                     decoration: BoxDecoration(
+                          //                         borderRadius:
+                          //                         BorderRadius.circular(10),
+                          //                         gradient: LinearGradient(
+                          //                             begin:
+                          //                             Alignment.centerLeft,
+                          //                             end:
+                          //                             Alignment.centerRight,
+                          //                             stops: [
+                          //                               0.5,
+                          //                               0.9
+                          //                             ],
+                          //                             colors: [
+                          //                               Color(0xFFffffff),
+                          //                               Color(0xFFffffff)
+                          //                             ])),
+                          //                     margin: EdgeInsets.only(
+                          //                         left: MediaQuery.of(context)
+                          //                             .size
+                          //                             .height *
+                          //                             0.00,
+                          //                         right: MediaQuery.of(context)
+                          //                             .size
+                          //                             .height *
+                          //                             0.00,
+                          //                         bottom: MediaQuery.of(context)
+                          //                             .size
+                          //                             .height *
+                          //                             0.00,
+                          //                         top: MediaQuery.of(context)
+                          //                             .size
+                          //                             .height *
+                          //                             0.00),
+                          //                     padding: EdgeInsets.only(
+                          //                         left: MediaQuery.of(context)
+                          //                             .size
+                          //                             .height *
+                          //                             0.005,
+                          //                         right: MediaQuery.of(context)
+                          //                             .size
+                          //                             .height *
+                          //                             0.005,
+                          //                         bottom: MediaQuery.of(context)
+                          //                             .size
+                          //                             .height *
+                          //                             0.005,
+                          //                         top: MediaQuery.of(context)
+                          //                             .size
+                          //                             .height *
+                          //                             0.005),
+                          //                     child: Column(
+                          //                       crossAxisAlignment:
+                          //                       CrossAxisAlignment.start,
+                          //                       children: <Widget>[
+                          //                         Container(
+                          //                           padding: EdgeInsets.only(
+                          //                             left:
+                          //                             MediaQuery.of(context)
+                          //                                 .size
+                          //                                 .height *
+                          //                                 0.005,
+                          //                             right:
+                          //                             MediaQuery.of(context)
+                          //                                 .size
+                          //                                 .height *
+                          //                                 0.005,
+                          //                             top:
+                          //                             MediaQuery.of(context)
+                          //                                 .size
+                          //                                 .height *
+                          //                                 0.00,
+                          //                             bottom:
+                          //                             MediaQuery.of(context)
+                          //                                 .size
+                          //                                 .height *
+                          //                                 0.00,
+                          //                           ),
+                          //                           child: Row(
+                          //                             crossAxisAlignment:
+                          //                             CrossAxisAlignment
+                          //                                 .center,
+                          //                             mainAxisAlignment:
+                          //                             MainAxisAlignment
+                          //                                 .start,
+                          //                             children: <Widget>[
+                          //                               Container(
+                          //                                 height : screenHeight * 0.06,
+                          //                                 width : screenHeight * 0.06,
+                          //                                 padding:
+                          //                                 EdgeInsets.only(
+                          //                                   left: MediaQuery.of(
+                          //                                       context)
+                          //                                       .size
+                          //                                       .height *
+                          //                                       0.00,
+                          //                                 ),
+                          //                                 margin: EdgeInsets.only(
+                          //                                   left: screenHeight * 0.01,
+                          //                                   top: screenHeight * 0.005,
+                          //                                   bottom: screenHeight * 0.005,
+                          //                                   right: screenHeight * 0.01,
+                          //                                 ),
+                          //                                 child: ClipRRect(
+                          //                                   borderRadius:
+                          //                                   BorderRadius
+                          //                                       .circular(
+                          //                                       130.0),
+                          //                                   child:
+                          //                                   Image.asset(
+                          //                                     'assets/medicationjpg.png',
+                          //                                     fit:
+                          //                                     BoxFit.fill,
+                          //                                   ),
+                          //                                 ),
+                          //                               ),
+                          //                               SizedBox(
+                          //                                   width: MediaQuery.of(
+                          //                                       context)
+                          //                                       .size
+                          //                                       .height *
+                          //                                       0.010),
+                          //                               Expanded(
+                          //                                 flex: 6,
+                          //                                 child: Column(
+                          //                                   crossAxisAlignment:
+                          //                                   CrossAxisAlignment
+                          //                                       .start,
+                          //                                   mainAxisAlignment:
+                          //                                   MainAxisAlignment
+                          //                                       .center,
+                          //                                   children: <Widget>[
+                          //                                     Container(
+                          //                                       padding:
+                          //                                       EdgeInsets
+                          //                                           .only(
+                          //                                         left: MediaQuery.of(
+                          //                                             context)
+                          //                                             .size
+                          //                                             .height *
+                          //                                             0.00,
+                          //                                         right: MediaQuery.of(
+                          //                                             context)
+                          //                                             .size
+                          //                                             .height *
+                          //                                             0.00,
+                          //                                         top: MediaQuery.of(
+                          //                                             context)
+                          //                                             .size
+                          //                                             .height *
+                          //                                             0.0,
+                          //                                         bottom: MediaQuery.of(
+                          //                                             context)
+                          //                                             .size
+                          //                                             .height *
+                          //                                             0.00,
+                          //                                       ),
+                          //                                       child: Text(
+                          //                                         "Prescription_1.jpg",
+                          //                                         style:
+                          //                                         TextStyle(
+                          //                                           color: Colors
+                          //                                               .black87,
+                          //                                           overflow:
+                          //                                           TextOverflow
+                          //                                               .ellipsis,
+                          //                                           fontWeight:
+                          //                                           FontWeight
+                          //                                               .bold,
+                          //                                           fontSize: MediaQuery.of(context)
+                          //                                               .size
+                          //                                               .height *
+                          //                                               0.014,
+                          //                                         ),
+                          //                                       ),
+                          //                                     ),
+                          //                                     Container(
+                          //                                       padding:
+                          //                                       EdgeInsets
+                          //                                           .only(
+                          //                                         left: MediaQuery.of(
+                          //                                             context)
+                          //                                             .size
+                          //                                             .height *
+                          //                                             0.00,
+                          //                                         right: MediaQuery.of(
+                          //                                             context)
+                          //                                             .size
+                          //                                             .height *
+                          //                                             0.00,
+                          //                                         top: MediaQuery.of(
+                          //                                             context)
+                          //                                             .size
+                          //                                             .height *
+                          //                                             0.00,
+                          //                                         bottom: MediaQuery.of(
+                          //                                             context)
+                          //                                             .size
+                          //                                             .height *
+                          //                                             0.00,
+                          //                                       ),
+                          //                                       child: Text(
+                          //                                         "5 Mb",
+                          //                                         style:
+                          //                                         TextStyle(
+                          //                                           color: Colors
+                          //                                               .black54,
+                          //                                           fontWeight:
+                          //                                           FontWeight
+                          //                                               .bold,
+                          //                                           overflow:
+                          //                                           TextOverflow
+                          //                                               .ellipsis,
+                          //                                           fontSize: MediaQuery.of(context)
+                          //                                               .size
+                          //                                               .height *
+                          //                                               0.012,
+                          //                                         ),
+                          //                                       ),
+                          //                                     ),
+                          //                                   ],
+                          //                                 ),
+                          //                               ),
+                          //                               Container(
+                          //                                 margin: EdgeInsets.only(
+                          //
+                          //                                 right: screenHeight * 0.01,
+                          //                               ),
+                          //                                 child: Text(
+                          //                                   uploadfilestime[index],
+                          //                                   style: TextStyle(
+                          //                                     fontSize: screenHeight * 0.011,
+                          //                                     color: Color(0xFF126086),
+                          //                                     fontWeight: FontWeight.w500,
+                          //                                   ),
+                          //                                 ),
+                          //                               )
+                          //
+                          //
+                          //
+                          //
+                          //                             ],
+                          //                           ),
+                          //                         ),
+                          //                       ],
+                          //                     ),
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //             )
+                          //
+                          //         );
+                          //     },
+                          //   ),
+                          // ),
 
-                          Container(
-                            width: double.infinity,
-                            height : MediaQuery.of(context).size.height * 0.32,
-                            margin: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * 0.03,
-                              bottom: MediaQuery.of(context).size.height * 0.0,
-                              right: MediaQuery.of(context).size.height * 0.00,
-                              left: MediaQuery.of(context).size.height * 0.0,
-                            ),
-                            padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * 0.0,
-                              bottom: MediaQuery.of(context).size.height * 0.0,
-                              right: MediaQuery.of(context).size.height * 0.020,
-                              left: MediaQuery.of(context).size.height * 0.02,
-                            ),
-                            // height: MediaQuery.of(context).size.height * 0.150,
-                            child: DottedBorder(
-                              color: Color(0xFF343434).withOpacity(0.3),
-                              strokeWidth: 1,
-                              borderType: BorderType.RRect,
-                              radius: Radius.circular(8),
-                              child: Center(
-                                // Ensures the content is centered within the border
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .center, // Aligns content vertically
-                                  crossAxisAlignment: CrossAxisAlignment
-                                      .center, // Aligns content horizontally
-                                  children: <Widget>[
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          left: MediaQuery.of(context).size.height *
-                                              0.00,
-                                          right:
-                                          MediaQuery.of(context).size.height *
-                                              0.00,
-                                          top: MediaQuery.of(context).size.height *
-                                              0.07,
-                                          bottom:
-                                          MediaQuery.of(context).size.height *
-                                              0.01),
-                                      width: screenHeight * 0.04,
-                                      height: screenHeight * 0.04,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: AssetImage("assets/homecare.png"),
-                                          fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                    ),
-                                    Column(
-                                      children: <Widget>[
-                                        Container(
-                                          padding:
-                                          EdgeInsets.only(
-                                              left: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              right: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.006),
-                                          child: Text(
-                                            "choose file to upload",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                color: Color(0xFF1F1F1F),
-                                                fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.014
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                        Container(
-                                          padding:
-                                          EdgeInsets.only(
-                                              left: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              right: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              top: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.07),
-                                          child: RichText(
-                                            text: TextSpan(
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge!
-                                                  .merge(
-                                                TextStyle(
-                                                    color: Theme.of(context)
-                                                        .primaryColor),
-                                              ),
-                                              children: [
-                                                TextSpan(
-                                                  text:
-                                                  'image or pdf Should be less than',
-                                                  style: TextStyle(
-                                                    color: Color(0xFF000000)
-                                                        .withOpacity(0.4),
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: screenHeight * 0.012,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: ' 10MB',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: screenHeight * 0.012,
-                                                    color: Color(0xFF126086),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          Container(
-                            padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height *
-                                  0.015, // Dynamic top padding
-                              bottom: MediaQuery.of(context).size.height *
-                                  0.0, // Dynamic bottom padding
-                              left: MediaQuery.of(context).size.height *
-                                  0.01, // Dynamic left padding
-                              right: MediaQuery.of(context).size.height *
-                                  0.01, // Dynamic right padding
-                            ),
-                            child: ListView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap:
-                              true, // Prevents infinite height
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: uploadfilestime.length,
-                              itemBuilder: (context, index) {
-
-
-                                final file = uploadfilestime[index];
-
-                                return
-
-                                  Dismissible(
-                                      key: Key(file), // Unique key for each item
-                                      direction: DismissDirection.endToStart, // Allow swipe from right to left
-                                      background: Container(
-                                        color: Colors.white,
-                                        alignment: Alignment.centerRight,
-                                        padding: EdgeInsets.symmetric(horizontal: 20),
-                                        child: Icon(
-                                          Icons.delete,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                      onDismissed: (direction) {
-                                        // Remove the item immediately from the list
-                                        setState(() {
-                                          uploadfilestime.removeAt(index);
-                                        });
-
-
-                                      },
-                                      child:
-
-                                      GestureDetector(
-                                        onTap: () {},
-                                        child: Card(
-                                          elevation: 0.0,
-                                          color: Colors.white,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white, // Background color of the container
-                                              border: Border.all(
-                                                color: Colors.black.withOpacity(0.1), // Border color
-                                                width: 1, // Border width
-                                              ),
-                                              borderRadius: BorderRadius.circular(8), // Optional: Rounded corners
-                                            ),
-
-                                            padding: EdgeInsets.only(
-                                                left: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.00,
-                                                right: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.00,
-                                                bottom: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.0,
-                                                top: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.00),
-                                            // color: Colors.white,
-                                            child: Container(
-                                              // color: Colors.white,
-
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(10),
-                                                  gradient: LinearGradient(
-                                                      begin:
-                                                      Alignment.centerLeft,
-                                                      end:
-                                                      Alignment.centerRight,
-                                                      stops: [
-                                                        0.5,
-                                                        0.9
-                                                      ],
-                                                      colors: [
-                                                        Color(0xFFffffff),
-                                                        Color(0xFFffffff)
-                                                      ])),
-                                              margin: EdgeInsets.only(
-                                                  left: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.00,
-                                                  right: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.00,
-                                                  bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.00,
-                                                  top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.00),
-                                              padding: EdgeInsets.only(
-                                                  left: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.005,
-                                                  right: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.005,
-                                                  bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.005,
-                                                  top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.005),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                      left:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.005,
-                                                      right:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.005,
-                                                      top:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.00,
-                                                      bottom:
-                                                      MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                          0.00,
-                                                    ),
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .center,
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .start,
-                                                      children: <Widget>[
-                                                        Container(
-                                                          height : screenHeight * 0.06,
-                                                          width : screenHeight * 0.06,
-                                                          padding:
-                                                          EdgeInsets.only(
-                                                            left: MediaQuery.of(
-                                                                context)
-                                                                .size
-                                                                .height *
-                                                                0.00,
-                                                          ),
-                                                          margin: EdgeInsets.only(
-                                                            left: screenHeight * 0.01,
-                                                            top: screenHeight * 0.005,
-                                                            bottom: screenHeight * 0.005,
-                                                            right: screenHeight * 0.01,
-                                                          ),
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                130.0),
-                                                            child:
-                                                            Image.asset(
-                                                              'assets/medicationjpg.png',
-                                                              fit:
-                                                              BoxFit.fill,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                            width: MediaQuery.of(
-                                                                context)
-                                                                .size
-                                                                .height *
-                                                                0.010),
-                                                        Expanded(
-                                                          flex: 6,
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                            children: <Widget>[
-                                                              Container(
-                                                                padding:
-                                                                EdgeInsets
-                                                                    .only(
-                                                                  left: MediaQuery.of(
-                                                                      context)
-                                                                      .size
-                                                                      .height *
-                                                                      0.00,
-                                                                  right: MediaQuery.of(
-                                                                      context)
-                                                                      .size
-                                                                      .height *
-                                                                      0.00,
-                                                                  top: MediaQuery.of(
-                                                                      context)
-                                                                      .size
-                                                                      .height *
-                                                                      0.0,
-                                                                  bottom: MediaQuery.of(
-                                                                      context)
-                                                                      .size
-                                                                      .height *
-                                                                      0.00,
-                                                                ),
-                                                                child: Text(
-                                                                  "Prescription_1.jpg",
-                                                                  style:
-                                                                  TextStyle(
-                                                                    color: Colors
-                                                                        .black87,
-                                                                    overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                    fontSize: MediaQuery.of(context)
-                                                                        .size
-                                                                        .height *
-                                                                        0.014,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                padding:
-                                                                EdgeInsets
-                                                                    .only(
-                                                                  left: MediaQuery.of(
-                                                                      context)
-                                                                      .size
-                                                                      .height *
-                                                                      0.00,
-                                                                  right: MediaQuery.of(
-                                                                      context)
-                                                                      .size
-                                                                      .height *
-                                                                      0.00,
-                                                                  top: MediaQuery.of(
-                                                                      context)
-                                                                      .size
-                                                                      .height *
-                                                                      0.00,
-                                                                  bottom: MediaQuery.of(
-                                                                      context)
-                                                                      .size
-                                                                      .height *
-                                                                      0.00,
-                                                                ),
-                                                                child: Text(
-                                                                  "5 Mb",
-                                                                  style:
-                                                                  TextStyle(
-                                                                    color: Colors
-                                                                        .black54,
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                    overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                    fontSize: MediaQuery.of(context)
-                                                                        .size
-                                                                        .height *
-                                                                        0.012,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          margin: EdgeInsets.only(
-
-                                                          right: screenHeight * 0.01,
-                                                        ),
-                                                          child: Text(
-                                                            uploadfilestime[index],
-                                                            style: TextStyle(
-                                                              fontSize: screenHeight * 0.011,
-                                                              color: Color(0xFF126086),
-                                                              fontWeight: FontWeight.w500,
-                                                            ),
-                                                          ),
-                                                        )
-
-
-
-
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      )
-
-                                  );
-                              },
-                            ),
-                          ),
+                          UploadBoxExpanded(onFilesChanged: handleFilesChanged),
 
                         ],
                       ),

@@ -577,7 +577,9 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                               print("Selected Slot: $selectedSlot");
                             },
                           ),
+                          SizedBox(height: screenHeight * 0.02),
                         ],
+
                       ),
                     ),
                     // ),
