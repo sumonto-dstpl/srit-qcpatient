@@ -1632,19 +1632,19 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                   left: MediaQuery
                                                                       .of(context)
                                                                       .size
-                                                                      .height * 0.001,
+                                                                      .height * 0.005,
                                                                   right: MediaQuery
                                                                       .of(context)
                                                                       .size
-                                                                      .height * 0.001,
+                                                                      .height * 0.005,
                                                                   top: MediaQuery
                                                                       .of(context)
                                                                       .size
-                                                                      .height * 0.001,
+                                                                      .height * 0.003,
                                                                   bottom: MediaQuery
                                                                       .of(context)
                                                                       .size
-                                                                      .height * 0.00),
+                                                                      .height * 0.003),
                                                               child:
                                                               // RatingBar(
                                                               //   initialRating: 1,

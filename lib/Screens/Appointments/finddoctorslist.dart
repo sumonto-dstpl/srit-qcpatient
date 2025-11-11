@@ -510,7 +510,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                             LengthLimitingTextInputFormatter(15),
                             // FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]')),
                           ],
-                          textCapitalization: TextCapitalization.characters,
+                          textCapitalization: TextCapitalization.words,
 
                           style: const TextStyle(color: Colors.black45),
                           keyboardType: TextInputType.emailAddress,
