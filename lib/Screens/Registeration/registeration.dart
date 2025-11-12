@@ -1450,85 +1450,106 @@ class Registrationstate extends State<Registration> {
                                           // 🔹 Radio Buttons Row
                                           // _buildLabelWithAsterisk(context, 'Gender', required: true),
 
+                                          // Row(
+                                          //   mainAxisAlignment: MainAxisAlignment.start, // left align the whole row
+                                          //   children: genderOptions.map((gender) {
+                                          //     return InkWell(
+                                          //       onTap: () {
+                                          //         setState(() {
+                                          //           genderselectedval = gender["key"]!;
+                                          //           _isGenderValid = true;
+                                          //         });
+                                          //
+                                          //         checkFieldEmpty();
+                                          //       },
+                                          //       child: Row(
+                                          //         mainAxisSize: MainAxisSize.min, // take only as much space as needed
+                                          //         crossAxisAlignment: CrossAxisAlignment.center,
+                                          //         children: [
+                                          //           Radio<String>(
+                                          //             value: gender["key"]!,
+                                          //             groupValue: genderselectedval,
+                                          //             activeColor: const Color(0xFF00C7BE),
+                                          //             visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+                                          //             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                          //             onChanged: (value) {
+                                          //               setState(() {
+                                          //                 genderselectedval = value!;
+                                          //                 _isGenderValid = true;
+                                          //               });
+                                          //               checkFieldEmpty();
+                                          //             },
+                                          //           ),
+                                          //           SizedBox(width: 2), // small gap between radio and text
+                                          //           Text(
+                                          //             gender["label"]!,
+                                          //             style: TextStyle(
+                                          //               fontSize: screenHeight * 0.014,
+                                          //             ),
+                                          //           ),
+                                          //           SizedBox(width: 10), // optional: gap between different options
+                                          //         ],
+                                          //       ),
+                                          //     );
+                                          //   }).toList(),
+                                          // ),
+
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.start, // left align the whole row
+                                            mainAxisAlignment: MainAxisAlignment.start,
                                             children: genderOptions.map((gender) {
+                                              final bool isSelected = genderselectedval == gender["key"];
+
                                               return InkWell(
                                                 onTap: () {
                                                   setState(() {
                                                     genderselectedval = gender["key"]!;
                                                     _isGenderValid = true;
                                                   });
-
                                                   checkFieldEmpty();
                                                 },
                                                 child: Row(
-                                                  mainAxisSize: MainAxisSize.min, // take only as much space as needed
+                                                  mainAxisSize: MainAxisSize.min,
                                                   crossAxisAlignment: CrossAxisAlignment.center,
                                                   children: [
-                                                    Radio<String>(
-                                                      value: gender["key"]!,
-                                                      groupValue: genderselectedval,
-                                                      activeColor: const Color(0xFF00C7BE),
-                                                      visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-                                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                      onChanged: (value) {
-                                                        setState(() {
-                                                          genderselectedval = value!;
-                                                          _isGenderValid = true;
-                                                        });
-                                                        checkFieldEmpty();
-                                                      },
+                                                    // Custom radio circle with stroke color
+                                                    Container(
+                                                      width: screenHeight * 0.022,
+                                                      height: screenHeight * 0.022,
+                                                      margin: const EdgeInsets.only(right: 4),
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        border: Border.all(
+                                                          color: isSelected ? const Color(0xFF00C7BE) : const Color(0xFFD0D5DD),
+                                                          width: isSelected ? 2.0 : 0.7,
+                                                        ),
+                                                      ),
+                                                      child: isSelected
+                                                          ? Center(
+                                                        child: Container(
+                                                          width: screenHeight * 0.010,
+                                                          height: screenHeight * 0.010,
+                                                          decoration: const BoxDecoration(
+                                                            shape: BoxShape.circle,
+                                                            color: Color(0xFF00C7BE),
+                                                          ),
+                                                        ),
+                                                      )
+                                                          : null,
                                                     ),
-                                                    SizedBox(width: 2), // small gap between radio and text
                                                     Text(
                                                       gender["label"]!,
                                                       style: TextStyle(
                                                         fontSize: screenHeight * 0.014,
+                                                        color: Colors.black,
                                                       ),
                                                     ),
-                                                    SizedBox(width: 10), // optional: gap between different options
+                                                    const SizedBox(width: 10),
                                                   ],
                                                 ),
                                               );
                                             }).toList(),
                                           ),
 
-                                          // Row(
-                                          //   children: genderOptions.map((gender) {
-                                          //     return Expanded(
-                                          //         child: Theme(
-                                          //           data: Theme.of(context).copyWith(
-                                          //             unselectedWidgetColor: Color(0xFFD0D5DD), // ✅ Set background color here
-                                          //           ),
-                                          //       child: RadioListTile<String>(
-                                          //         dense: true,
-                                          //         contentPadding: EdgeInsets.zero,
-                                          //         title: Text(
-                                          //           gender["label"]!,
-                                          //           style: TextStyle(
-                                          //             fontSize: MediaQuery.of(context).size.height * 0.012,
-                                          //             // fontWeight: FontWeight.normal,
-                                          //           ),
-                                          //         ),
-                                          //         value: gender["key"]!,
-                                          //         groupValue: genderselectedval,
-                                          //         activeColor: const Color(0xFF00C7BE), // ✅ Mint color
-                                          //         visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-                                          //         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                          //         onChanged: (value) {
-                                          //           setState(() {
-                                          //             genderselectedval = value!;
-                                          //             _isGenderValid = true;
-                                          //           });
-                                          //         },
-                                          //       ),
-                                          //         ),
-                                          //     );
-                                          //   }).toList(),
-                                          // ),
-  
-                                          // 🔻 Validation Error
                                           if (!_isGenderValid)
                                             Padding(
                                               padding: EdgeInsets.only(
@@ -1570,12 +1591,12 @@ class Registrationstate extends State<Registration> {
                                 Row(
                                   children: [
                    
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.04,
-                                    ),
+                                    // SizedBox(
+                                    //   width: MediaQuery.of(context).size.width *
+                                    //       0.04,
+                                    // ),
                                     Container(
-                                      width: MediaQuery.of(context).size.width * 0.7,
+                                      // width: MediaQuery.of(context).size.width * 0.7,
                                       child: RichText(
                                         text: TextSpan(
                                           text: 'By Registering you agree to the ', // Normal black text

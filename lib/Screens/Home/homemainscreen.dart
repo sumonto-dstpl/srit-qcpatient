@@ -92,7 +92,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
 
 
   final myCatagories = [
-    ["assets/AppoinmentLS.png", "Appoinment"],
+    ["assets/AppoinmentLS.png", "Appointment"],
     ["assets/CategoryHomeCare.png", "Home Care"],
     ["assets/Medications_ls.png", "Medications"],
     ["assets/CategoryLab.png", "Lab"],
@@ -3620,13 +3620,13 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                                               context)
                                                                                               .size
                                                                                               .height *
-                                                                                              0.01,
+                                                                                              0.005,
                                                                                           width: MediaQuery
                                                                                               .of(
                                                                                               context)
                                                                                               .size
                                                                                               .height *
-                                                                                              0.01,
+                                                                                              0.005,
                                                                                           decoration: BoxDecoration(
                                                                                             color: Colors
                                                                                                 .black,
@@ -6048,7 +6048,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                             0.00,
                                                                       ),
                                                                       child: Text(
-                                                                        "Cancel Appointments",
+                                                                        "Cancel Appointment",
                                                                         style:
                                                                         TextStyle(
                                                                           color: Color(

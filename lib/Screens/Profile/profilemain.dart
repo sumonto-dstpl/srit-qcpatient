@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:newfolder/Screens/AboutUs/aboutusmain.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
+import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Alerts/addmemberbottomsheet.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/Feedback/feedback.dart';
@@ -279,7 +280,15 @@ class ProfileMainstate extends State<ProfileMain> {
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
                               onTap: () {
-                                // Address tap action
+                                // Address tap actionz
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder:
+                                        (BuildContext context) {
+                                      return AddressScreen();
+                                    },
+                                  ),
+                                );
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
