@@ -9,6 +9,7 @@ import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Data/Models/doctorslistres.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
+import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
 import 'package:newfolder/Screens/Appointments/addFilterForFindDoctorList.dart';
@@ -285,6 +286,14 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                     },
                                   ),
                                 );*/
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder:
+                                        (BuildContext context) {
+                                      return AddressScreen();
+                                    },
+                                  ),
+                                );
                               },
                               child:
                               Row(
@@ -2007,30 +2016,81 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
   }
 
   void _search(String query) {
-
     setState(() {
-      if (query.isEmpty || query.length < 3) {
+      // Show all if query empty
+      if (query.trim().isEmpty) {
+        filterresponselist = responselist;
+        return;
+      }
 
-          filterresponselist = responselist;
+      final lowerQuery = query.toLowerCase().trim();
 
+      // Helper to split a field into words (splits on spaces and common punctuation)
+      List<String> _words(String? s) {
+        if (s == null || s.isEmpty) return [];
+        // split on whitespace, dots, commas, slashes, hyphens, parentheses etc.
+        return s
+            .toLowerCase()
+            .split(RegExp(r'[\s\.,\/\-\(\)]+'))
+            .where((w) => w.isNotEmpty)
+            .toList();
+      }
 
-      } else {
-        final pattern = RegExp(RegExp.escape(query), caseSensitive: false);
+      filterresponselist = responselist.where((item) {
+        // Collect the fields you want to search across
+        final fields = <String?>[
+          item.doctorName,
+          item.qualification,
+          item.speciality,
+          item.experience,
+          item.regularFee,
+          item.discountFee,
+          item.rating,
+          item.workLocation,
+          item.photo?.toString(),
+          item.availiability, // note: your data used "availiability"
+          item.gender,
+          item.language,
+          item.city,
+        ];
 
-          filterresponselist = responselist.where((item) {
-            final name = item.doctorName ?? '';
-            final uhid = item.speciality ?? '';
-            return pattern.hasMatch(name) || pattern.hasMatch(uhid) ;
-          }).toList();
-
-
-
+        // For each field, split into words and see if any word starts with query
+        for (final f in fields) {
+          for (final w in _words(f)) {
+            if (w.startsWith(lowerQuery)) return true;
+          }
         }
 
-
-
+        return false;
+      }).toList();
     });
   }
+
+// void _search(String query) {
+  //
+  //   setState(() {
+  //     if (query.isEmpty || query.length < 3) {
+  //
+  //         filterresponselist = responselist;
+  //
+  //
+  //     } else {
+  //       final pattern = RegExp(RegExp.escape(query), caseSensitive: false);
+  //
+  //         filterresponselist = responselist.where((item) {
+  //           final name = item.doctorName ?? '';
+  //           final uhid = item.speciality ?? '';
+  //           return pattern.hasMatch(name) || pattern.hasMatch(uhid) ;
+  //         }).toList();
+  //
+  //
+  //
+  //       }
+  //
+  //
+  //
+  //   });
+  // }
 
 
 
