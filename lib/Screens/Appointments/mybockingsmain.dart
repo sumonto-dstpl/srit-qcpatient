@@ -590,7 +590,9 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                                     child: Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        "Digital Consult",
+                                        widget.physical_virtual_mode == "physical"
+                                            ? "Hospital Visit"
+                                            : "Digital Consult",
                                         style: TextStyle(
                                           fontSize: MediaQuery.of(context).size.height * 0.014,
                                           color: Colors.black,

@@ -1521,7 +1521,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                                     EdgeInsets.zero,
 
                                                                     child: Text(
-                                                                      "Rescheduled Appoinment",
+                                                                      "Reschedule Appointment",
                                                                       style:
                                                                       TextStyle(
                                                                         color: Color(

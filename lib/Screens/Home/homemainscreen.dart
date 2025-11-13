@@ -4360,7 +4360,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                               .height * 0.005,
                         ), // Add padding
                         child: Image.asset(
-                          'assets/Appointments_ls.png',
+                          'assets/Appoinments.png',
                           width: MediaQuery
                               .of(context)
                               .size
@@ -5182,7 +5182,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                           0.025,
                                                                       child:
                                                                       Image.asset(
-                                                                        'assets/Appointments_ls.png',
+                                                                        'assets/AppointmentBs.png',
                                                                         fit:
                                                                         BoxFit
                                                                             .fill,
@@ -6332,7 +6332,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                             0.00,
                                                                       ),
                                                                       child: Text(
-                                                                        "Rescheduled Appoinment",
+                                                                        "Reschedule Appointment",
                                                                         style:
                                                                         TextStyle(
                                                                           color: Color(

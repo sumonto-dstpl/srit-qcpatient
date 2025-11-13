@@ -796,7 +796,7 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
                             .height * 0.005,
                       ), // Add padding
                       child: Image.asset(
-                        'assets/Appointments_ls.png',
+                        'assets/Appoinments.png',
                         width: MediaQuery
                             .of(context)
                             .size
@@ -2000,7 +2000,7 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
                                                                         0.025,
                                                                     child:
                                                                     Image.asset(
-                                                                      'assets/Appointments_ls.png',
+                                                                      'assets/AppointmentBs.png',
                                                                       fit:
                                                                       BoxFit
                                                                           .fill,

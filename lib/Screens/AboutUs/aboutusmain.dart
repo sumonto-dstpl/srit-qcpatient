@@ -1249,7 +1249,7 @@ class AboutUsMainstate extends State<AboutUsMain> {
                                                                         0.025,
                                                                     child:
                                                                     Image.asset(
-                                                                      'assets/Appointments_ls.png',
+                                                                      'assets/AppointmentBs.png',
                                                                       fit:
                                                                       BoxFit
                                                                           .fill,
