@@ -79,7 +79,36 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
   ];
 
   int _selectedIndex = 0;
+  List<dynamic> addedList=[];
+  bool isInCart =false;
 
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+
+  }
+
+  void _loadData() async {
+    var guestUser = await UserSecureStorage.getIfGuestLogged();
+    // print("guestUser: $guestUser");
+    final isGuestUser=guestUser == "YES";
+
+    if(!isGuestUser) {
+      String? username = await UserSecureStorage.getUsernameid();
+
+      List<dynamic> _loadedCart2  = await UserSecureStorage.getAddToCart("addToCart2",username ?? '');
+
+      if(_loadedCart2.isNotEmpty){
+        print("_loadedCart2.length:${_loadedCart2.length}");
+        bool status =_loadedCart2.any((addedItem) => addedItem['id'] == widget.id);
+        setState(() {
+          isInCart =status;
+        });
+      }
+
+    }
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -852,7 +881,10 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
             ),
           ),
         ],
-      ):  Container(
+      ):
+       !isInCart
+      ?
+      Container(
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -893,7 +925,7 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
                       onTap: () async {
                         if(widget.buttonName == "Add to Cart") {
                            addToCart(widget.id, widget.plan, widget.test, widget.qr);
-                          Navigator.pop(context);
+                          // Navigator.pop(context);
                         }
                         else {
                           showPaymentmethodsBottomSheet(context);
@@ -922,7 +954,7 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
                             if(widget.buttonName == "Add to Cart") {
 
                               addToCart(widget.id, widget.plan, widget.test, widget.qr);
-                              Navigator.pop(context);
+                              // Navigator.pop(context);
                             }
                             else {
                               showPaymentmethodsBottomSheet(context);
@@ -956,7 +988,8 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
 
           ],
         ),
-      )   ,
+      ):
+      null,
     );
   }
 
@@ -1480,6 +1513,10 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
       String userId = username ?? '';
       UserSecureStorage.saveAddToCard(key: "addToCart2",userId: userId, newData: addToCart);
     }
+
+    setState(() {
+      isInCart =true;
+    });
   }
 
   void _onItemTapped(int index) {

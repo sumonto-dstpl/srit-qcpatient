@@ -141,12 +141,15 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
   @override
   void initState(){
     // getSharedPrefs();
-    setState(() {});
-    _loadData();
+
+
     super.initState();
+    _loadData();
+    // setState(() {});
   }
 
   void _loadData() async {
+    print("loadData......................................");
     var guestUser = await UserSecureStorage.getIfGuestLogged();
     print("guestUser: $guestUser");
     final isGuestUser=guestUser == "YES";
