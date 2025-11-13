@@ -2662,7 +2662,7 @@ class MyHealthMainstate extends State<MyHealthMain> {
                                                                         0.025,
                                                                     child:
                                                                     Image.asset(
-                                                                      'assets/Appointments_ls.png',
+                                                                      'assets/AppointmentBs.png',
                                                                       fit:
                                                                       BoxFit
                                                                           .fill,
