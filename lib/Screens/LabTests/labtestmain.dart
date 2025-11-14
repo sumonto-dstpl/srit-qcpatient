@@ -475,7 +475,7 @@ Widget build(BuildContext context) {
                               .size
                               .height * 0.05,
                           decoration: BoxDecoration(
-                            color: Color(0xFFA8B1CE).withOpacity(0.2),
+                            color: Color(0xFFF7F5F6),
                             borderRadius: BorderRadius.circular(10),
                           ),
 
@@ -1114,39 +1114,87 @@ Widget build(BuildContext context) {
                                                                             children: <Widget>[
 
 
-
-                                                                              Container(
-                                                                                padding: EdgeInsets.only(
-                                                                                  left: MediaQuery.of(context).size.height * 0.005,
-                                                                                  right: MediaQuery.of(context).size.height * 0.00,
-                                                                                  top: MediaQuery.of(context).size.height * 0.00,
-                                                                                  bottom: MediaQuery.of(context).size.height * 0.00,
-                                                                                ),
-                                                                                child: Stack(
-                                                                                  alignment: Alignment.bottomLeft,
-                                                                                  children: [
-                                                                                    Text(
-                                                                                      "More Details",
-                                                                                      style: TextStyle(
-                                                                                        color: Color(0xFF12B76A), // Text color
-                                                                                        fontWeight: FontWeight.w500, // Bold text
-                                                                                        overflow: TextOverflow.ellipsis, // Handles overflow with ellipsis
-                                                                                        fontSize: MediaQuery.of(context).size.height * 0.01, // Dynamic font size
-                                                                                      ),
+                                                                              GestureDetector(
+                                                                                onTap: () {
+                                                                                  Navigator.push(
+                                                                                    context,
+                                                                                    MaterialPageRoute(
+                                                                                      builder: (context) => MyReportsMain(initialTabIndex: 1),
                                                                                     ),
-                                                                                    Positioned(
-                                                                                      bottom: 0, // Position the underline at the bottom of the text
-                                                                                      left: 0,
-                                                                                      right: 0,
-                                                                                      child: Container(
-                                                                                        height: 1, // Thickness of the underline
-                                                                                        color: Color(0xFF12B76A),// Color of the underline
-                                                                                        margin: EdgeInsets.symmetric(horizontal: 0.0), // Adds padding to the underline
+                                                                                  );
+                                                                                },
+                                                                                child: Container(
+                                                                                  decoration: BoxDecoration(
+                                                                                    borderRadius: BorderRadius.circular(15),
+                                                                                  ),
+                                                                                  child: Row(
+                                                                                    children: <Widget>[
+                                                                                      Container(
+                                                                                        padding: EdgeInsets.only(
+                                                                                          left: MediaQuery.of(context).size.height * 0.005,
+                                                                                        ),
+                                                                                        child: Stack(
+                                                                                          alignment: Alignment.bottomLeft,
+                                                                                          children: [
+                                                                                            Text(
+                                                                                              "More Details",
+                                                                                              style: TextStyle(
+                                                                                                color: Color(0xFF12B76A),
+                                                                                                fontWeight: FontWeight.w500,
+                                                                                                overflow: TextOverflow.ellipsis,
+                                                                                                fontSize: MediaQuery.of(context).size.height * 0.01,
+                                                                                              ),
+                                                                                            ),
+                                                                                            Positioned(
+                                                                                              bottom: 0,
+                                                                                              left: 0,
+                                                                                              right: 0,
+                                                                                              child: Container(
+                                                                                                height: 1,
+                                                                                                color: Color(0xFF12B76A),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ],
+                                                                                        ),
                                                                                       ),
-                                                                                    ),
-                                                                                  ],
+                                                                                    ],
+                                                                                  ),
                                                                                 ),
                                                                               ),
+
+                                                                              // Container(
+                                                                              //   padding: EdgeInsets.only(
+                                                                              //     left: MediaQuery.of(context).size.height * 0.005,
+                                                                              //     right: MediaQuery.of(context).size.height * 0.00,
+                                                                              //     top: MediaQuery.of(context).size.height * 0.00,
+                                                                              //     bottom: MediaQuery.of(context).size.height * 0.00,
+                                                                              //   ),
+                                                                              //   child: Stack(
+                                                                              //     alignment: Alignment.bottomLeft,
+                                                                              //     children: [
+                                                                              //       Text(
+                                                                              //         "More Details",
+                                                                              //         style: TextStyle(
+                                                                              //           color: Color(0xFF12B76A), // Text color
+                                                                              //           fontWeight: FontWeight.w500, // Bold text
+                                                                              //           overflow: TextOverflow.ellipsis, // Handles overflow with ellipsis
+                                                                              //           fontSize: MediaQuery.of(context).size.height * 0.01, // Dynamic font size
+                                                                              //         ),
+                                                                              //       ),
+                                                                              //       Positioned(
+                                                                              //         bottom: 0, // Position the underline at the bottom of the text
+                                                                              //         left: 0,
+                                                                              //         right: 0,
+                                                                              //         child: Container(
+                                                                              //           height: 1, // Thickness of the underline
+                                                                              //           color: Color(0xFF12B76A),// Color of the underline
+                                                                              //           margin: EdgeInsets.symmetric(horizontal: 0.0), // Adds padding to the underline
+                                                                              //         ),
+                                                                              //       ),
+                                                                              //     ],
+                                                                              //   ),
+                                                                              // ),
+
 
 
                                                                             ]
@@ -1212,17 +1260,25 @@ Widget build(BuildContext context) {
                                                                               ),
                                                                             ),
                                                                             GestureDetector(
-                                                                              onTap: () async {
-
-                                                                                Navigator.of(context).push(
+                                                                              // onTap: () async {
+                                                                              //
+                                                                              //   Navigator.of(context).push(
+                                                                              //     MaterialPageRoute(
+                                                                              //       builder: (BuildContext context) {
+                                                                              //         return LabViewReports();
+                                                                              //       },
+                                                                              //     ),
+                                                                              //   );
+                                                                              //
+                                                                              //   // Navigator.of(context, rootNavigator: true).pop();
+                                                                              // },
+                                                                              onTap: () {
+                                                                                Navigator.push(
+                                                                                  context,
                                                                                   MaterialPageRoute(
-                                                                                    builder: (BuildContext context) {
-                                                                                      return LabViewReports();
-                                                                                    },
+                                                                                    builder: (context) => MyReportsMain(initialTabIndex: 1),
                                                                                   ),
                                                                                 );
-
-                                                                                // Navigator.of(context, rootNavigator: true).pop();
                                                                               },
                                                                               child: Container(
                                                                                 padding: new EdgeInsets.only(
@@ -2505,19 +2561,20 @@ Widget build(BuildContext context) {
                                                     ),
                                                     padding: EdgeInsets.only(
                                                         left: MediaQuery.of(context).size.height * 0.005,
-                                                        right: MediaQuery.of(context).size.height * 0.012,
+                                                        right: MediaQuery.of(context).size.height * 0.00,
                                                         top: MediaQuery.of(context).size.height * 0.00,
-                                                        bottom: MediaQuery.of(context).size.height * 0.00),
+                                                        bottom: MediaQuery.of(context).size.height * 0.005),
                                                     child:
                                                     Row(
                                                       children: <Widget>[
-
-                                                        Icon(
-                                                          Icons.star,
-                                                          color: Colors.amber,
-                                                          size: MediaQuery.of(context).size.height * 0.025,
+                                                        SizedBox(
+                                                          width: 24,
+                                                          height: 24,
+                                                          child: Image.asset(
+                                                            'assets/bookmark.png',
+                                                            fit: BoxFit.fill,
+                                                          ),
                                                         ),
-
                                                       ],
                                                       crossAxisAlignment: CrossAxisAlignment.center,
                                                     ),
@@ -2805,19 +2862,20 @@ Widget build(BuildContext context) {
                                                           ),
                                                           padding: EdgeInsets.only(
                                                               left: MediaQuery.of(context).size.height * 0.005,
-                                                              right: MediaQuery.of(context).size.height * 0.012,
+                                                              right: MediaQuery.of(context).size.height * 0.00,
                                                               top: MediaQuery.of(context).size.height * 0.00,
-                                                              bottom: MediaQuery.of(context).size.height * 0.00),
+                                                              bottom: MediaQuery.of(context).size.height * 0.005),
                                                           child:
                                                           Row(
                                                             children: <Widget>[
-
-                                                              Icon(
-                                                                Icons.star,
-                                                                color: Colors.amber,
-                                                                size: MediaQuery.of(context).size.height * 0.025,
+                                                              SizedBox(
+                                                                width: 24,
+                                                                height: 24,
+                                                                child: Image.asset(
+                                                                  'assets/bookmark.png',
+                                                                  fit: BoxFit.fill,
+                                                                ),
                                                               ),
-
                                                             ],
                                                             crossAxisAlignment: CrossAxisAlignment.center,
                                                           ),
@@ -3052,19 +3110,20 @@ Widget build(BuildContext context) {
                                                         ),
                                                         padding: EdgeInsets.only(
                                                             left: MediaQuery.of(context).size.height * 0.005,
-                                                            right: MediaQuery.of(context).size.height * 0.012,
+                                                            right: MediaQuery.of(context).size.height * 0.00,
                                                             top: MediaQuery.of(context).size.height * 0.00,
-                                                            bottom: MediaQuery.of(context).size.height * 0.00),
+                                                            bottom: MediaQuery.of(context).size.height * 0.005),
                                                         child:
                                                         Row(
                                                           children: <Widget>[
-
-                                                            Icon(
-                                                              Icons.star,
-                                                              color: Colors.amber,
-                                                              size: MediaQuery.of(context).size.height * 0.025,
+                                                            SizedBox(
+                                                              width: 24,
+                                                              height: 24,
+                                                              child: Image.asset(
+                                                                'assets/bookmark.png',
+                                                                fit: BoxFit.fill,
+                                                              ),
                                                             ),
-
                                                           ],
                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                         ),

@@ -470,7 +470,7 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                               .size
                               .height * 0.05,
                           decoration: BoxDecoration(
-                            color: Color(0xFFA8B1CE).withOpacity(0.2),
+                            color: Color(0xFFF7F5F6),
                             borderRadius: BorderRadius.circular(10),
                           ),
 

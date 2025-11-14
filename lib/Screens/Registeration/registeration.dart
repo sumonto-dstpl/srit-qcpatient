@@ -1513,14 +1513,14 @@ class Registrationstate extends State<Registration> {
                                                   children: [
                                                     // Custom radio circle with stroke color
                                                     Container(
-                                                      width: screenHeight * 0.022,
+                                                      width: screenHeight * 0.025,
                                                       height: screenHeight * 0.022,
-                                                      margin: const EdgeInsets.only(right: 4),
+                                                      margin: const EdgeInsets.only(right: 8),
                                                       decoration: BoxDecoration(
                                                         shape: BoxShape.circle,
                                                         border: Border.all(
                                                           color: isSelected ? const Color(0xFF00C7BE) : const Color(0xFFD0D5DD),
-                                                          width: isSelected ? 2.0 : 0.7,
+                                                          width: 0.7,
                                                         ),
                                                       ),
                                                       child: isSelected

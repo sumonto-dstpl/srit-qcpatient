@@ -194,7 +194,8 @@ class QuickSearchWithDatastate extends State<QuickSearchWithData> {
                                         contentPadding: EdgeInsets.all(
                                             screenHeight * 0.012),
                                         filled: true,
-                                        fillColor: Colors.grey[200],
+                                        // fillColor: Colors.grey[200],
+                                        fillColor: const Color(0xFFF7F5F6),
                                         hintText: "Search By Doctor",
                                         hintStyle: TextStyle(
                                           color: Colors.black26,
