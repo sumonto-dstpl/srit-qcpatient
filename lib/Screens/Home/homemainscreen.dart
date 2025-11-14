@@ -651,7 +651,8 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                         .size
                                         .height * 0.05,
                                     decoration: BoxDecoration(
-                                      color:  !_isLoading ? Color(0xFFA8B1CE).withOpacity(0.2) : Colors.white,
+                                      color:  !_isLoading ? Color(0xFFF7F5F6) : Colors.white,
+                                      // color:  !_isLoading ? Color(0xFFF7F5F6).withOpacity(0.2) : Colors.white,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
 

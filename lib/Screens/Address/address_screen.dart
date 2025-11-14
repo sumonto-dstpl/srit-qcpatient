@@ -201,7 +201,8 @@ class AddressScreenState extends State<AddressScreen> {
                                             ),
 
                                             filled: true,
-                                            fillColor: Color(0xFFF7F5F6),
+                                            fillColor: const Color(0xFFF7F5F6),
+                                            // fillColor: Color(0xFFF7F5F6),
                                             hintText:
                                                 "Search for area,street name,locality...",
                                             hintStyle: TextStyle(

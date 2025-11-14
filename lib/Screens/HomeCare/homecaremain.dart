@@ -500,7 +500,8 @@ class HomeCareMainstate extends State<HomeCareMain> {
                                 left :  screenHeight * 0.02,
                               ),
                               filled: true,
-                              fillColor: Colors.grey[200],
+                              // fillColor: Colors.grey[200],
+                              fillColor: const Color(0xFFF7F5F6),
                               hintText: "Search for Lab tests",
                               hintStyle: TextStyle(
                                   color: Color(0xFF999999),

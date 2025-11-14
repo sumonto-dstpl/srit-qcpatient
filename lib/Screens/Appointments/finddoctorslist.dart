@@ -536,6 +536,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                             ),
                             filled: true,
                             fillColor: const Color(0xFFF7F5F6),
+                            // fillColor: Colors.grey[200],
                             // hintText: "Search By Doctor",
                             hintText: null,
                             hintStyle: TextStyle(
