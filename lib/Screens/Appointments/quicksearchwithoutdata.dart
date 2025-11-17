@@ -187,33 +187,17 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
 
     // 👇 Force uppercase conversion listener
     SearchEditTextController.addListener(() {
-
       final text = SearchEditTextController.text;
 
-      if (text.isNotEmpty) {
-        final selection = SearchEditTextController.selection;
-        String formatted = text[0].toUpperCase() + text.substring(1).toLowerCase();
-        if (formatted != text) {
-          SearchEditTextController.value =
-              SearchEditTextController.value.copyWith(
-                text: formatted,
-                selection: selection,
-                composing: TextRange.empty,
-              );
-        }
-      }
       setState(() {
         _showDetails = false;
-        if(text.length < 3){
+        if (text.length < 3) {
           _showHint = false;
-
-        }
-        else{
+        } else {
           _showHint = true;
           showDetails(text);
         }
       });
-
     });
 
   }
@@ -358,10 +342,10 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
                                       focusNode: searchFocusNode,
                                       inputFormatters: [
                                         LengthLimitingTextInputFormatter(15),
-                                        FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]')),
+                                        FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9 ]')),
                                       ],
                                       // textCapitalization: TextCapitalization.characters,
-                                      textCapitalization: TextCapitalization.none,
+                                      textCapitalization: TextCapitalization.sentences,
 
                                       style: const TextStyle(color: Colors.black45),
                                       keyboardType: TextInputType.text,
