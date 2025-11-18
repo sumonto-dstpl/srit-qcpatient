@@ -53,4 +53,21 @@ class LoginResponseModel {
     data['expires_in'] = this.expiresIn;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'LoginResponseModel('
+        'accessToken: $accessToken, '
+        'refreshToken: $refreshToken, '
+        'refreshExpiresIn: $refreshExpiresIn, '
+        'notBeforePolicy: $notBeforePolicy, '
+        'scope: $scope, '
+        'idToken: $idToken, '
+        'tokenType: $tokenType, '
+        'sessionState: $sessionState, '
+        'error: $error, '
+        'message: $message, '
+        'expiresIn: $expiresIn'
+        ')';
+  }
 }

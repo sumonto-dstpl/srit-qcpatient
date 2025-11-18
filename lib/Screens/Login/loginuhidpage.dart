@@ -992,7 +992,7 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
       if (intenet != null && intenet) {
         String input = UserNumberEditTextController.text.trim();
 
-        if (input.isEmpty) {
+        if (input.isEmpty || input.length < 3) {
           setState(() {
             hasStartedTyping = true;
             errorMessage = "UHID should be more than 3 characters";
@@ -1007,21 +1007,21 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
           });
           return;
         }
-        else if (input.length < 3){
-          setState(() {
-            hasStartedTyping = true;
-            errorMessage = "UHID should be more than 3 characters";
-            isValid = false;
-          });
-          Timer(Duration(seconds: 1), () {
-            setState(() {
-              errorMessage = null;
-              hasStartedTyping = false;
-
-            });
-          });
-          return;
-        }
+        // else if (input.length < 3){
+        //   setState(() {
+        //     hasStartedTyping = true;
+        //     errorMessage = "UHID should be more than 3 characters";
+        //     isValid = false;
+        //   });
+        //   Timer(Duration(seconds: 1), () {
+        //     setState(() {
+        //       errorMessage = null;
+        //       hasStartedTyping = false;
+        //
+        //     });
+        //   });
+        //   return;
+        // }
         else {
           setState(() {
             hasStartedTyping = false;
@@ -1043,20 +1043,21 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
 
 //   UserNumberEditTextController?.text = "babureddy921234567@gmail.com";
         //   PasswordEditTextController?.text = "Test@123456";
-        dynamic user = await apiService.submitlogin(
-
-            "babureddy921234567@gmail.com",
-            base64Encode(utf8.encode("Test@123456")));
-
-        if (user.accessToken != null) {
-          // progressDialog.hide();
-          await UserSecureStorage.setTokenvalue(user.accessToken);
-          await UserSecureStorage.setRefreshTokenvalue(user.refreshToken);
-          // await UserSecureStorage.setIfLogged("YES");
-          // await UserSecureStorage.setIfLoggedOut("NO");
-          await UserSecureStorage.setIfGuestLogged("NO");
-          // await UserSecureStorage.setIfLoggedOut("NO");
-          // if(await UserSecureStorage.getUsernameid())
+        // dynamic user = await apiService.submitlogin(
+        //
+        //     "babureddy921234567@gmail.com",
+        //     base64Encode(utf8.encode("Test@123456")));
+        //
+        // print("user: ${user.toString()}");
+        // if (user.accessToken != null) {
+        //   // progressDialog.hide();
+        //   await UserSecureStorage.setTokenvalue(user.accessToken);
+        //   await UserSecureStorage.setRefreshTokenvalue(user.refreshToken);
+        //   // await UserSecureStorage.setIfLogged("YES");
+        //   // await UserSecureStorage.setIfLoggedOut("NO");
+        //   await UserSecureStorage.setIfGuestLogged("NO");
+        //   // await UserSecureStorage.setIfLoggedOut("NO");
+        //   // if(await UserSecureStorage.getUsernameid())
           Map<String, dynamic>? userData = await UserSecureStorage.getUser(input.trim());
           print(input.trim());
           print("userDataUHID: $userData");
@@ -1097,27 +1098,28 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
           // Navigator.of(context).pushAndRemoveUntil(
           //     MaterialPageRoute(builder: (context) => HomePageMain()),
           //     (Route<dynamic> route) => false);
-        } else if (user.message != null) {
-          // progressDialog.hide();
-
-          // final snackBar = SnackBar(
-          //   content: Text(user.message),
-          //   backgroundColor: Colors.red[600],
-          // );
-          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          showTopNotification(
-            context,
-            title: "Login Credential",
-            message: "Invalid User Credentails",
-            type: NotificationType.error,
-          );
-
-          /* Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => HomePageMain()),
-                    (Route<dynamic> route) => false);*/
-
-          // customalert.showError(context, user.error);
-        }
+        // }
+        // else if (user.message != null) {
+        //   // progressDialog.hide();
+        //
+        //   // final snackBar = SnackBar(
+        //   //   content: Text(user.message),
+        //   //   backgroundColor: Colors.red[600],
+        //   // );
+        //   // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        //   showTopNotification(
+        //     context,
+        //     title: "Login Credential",
+        //     message: "Invalid User Credentails",
+        //     type: NotificationType.error,
+        //   );
+        //
+        //   /* Navigator.of(context).pushAndRemoveUntil(
+        //         MaterialPageRoute(builder: (context) => HomePageMain()),
+        //             (Route<dynamic> route) => false);*/
+        //
+        //   // customalert.showError(context, user.error);
+        // }
       } else {
         // No-Internet Case
         final snackBar = SnackBar(
