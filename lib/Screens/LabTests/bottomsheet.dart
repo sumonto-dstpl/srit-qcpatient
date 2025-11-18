@@ -49,7 +49,25 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
         });
       }
     });
+
+    _filteredTests = List.from(_allTests);
+    SearchfilterEditTextController1.addListener(_applyFilter);
   }
+
+  void _applyFilter() {
+    String query = SearchfilterEditTextController1.text.trim().toLowerCase();
+
+    setState(() {
+      if (query.isEmpty) {
+        _filteredTests = List.from(_allTests);
+      } else {
+        _filteredTests = _allTests
+            .where((test) => test.toLowerCase().contains(query))
+            .toList();
+      }
+    });
+  }
+
   @override
   void dispose() {
 
@@ -118,6 +136,18 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
       selectedCount += newState ? 1 : -1;
     });
   }
+
+  List<String> _allTests = [
+    "Complete Blood Count",
+    "Glucose,Post Prandial(PP),2 Hours",
+    "Complete Urine Examination",
+    "Thyroid Profile(Total T3,Total T4)",
+    "Lipid Profile",
+    "Liver Function Text(I-FT)",
+    "C-Reactive Protein(Quantitative)",
+  ];
+
+  List<String> _filteredTests = [];
 
   double _currentChildSize = 0.55;
   bool _isDismissed = false;
@@ -665,6 +695,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Male Button
+                if (_filteredTests.contains("Complete Blood Count"))
                 GestureDetector(
 
                   onTap: () {
@@ -781,6 +812,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
               children: [
 
                 // Female
+                if (_filteredTests.contains("Glucose,Post Prandial(PP),2 Hours"))
                 GestureDetector(
 
                   onTap: () {
@@ -899,6 +931,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
 
 
                 // Others
+                if (_filteredTests.contains("Complete Urine Examination"))
                 GestureDetector(
 
                   onTap: () {
@@ -1013,6 +1046,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Male Button
+                if (_filteredTests.contains("Thyroid Profile(Total T3,Total T4)"))
                 GestureDetector(
 
                   onTap: () {
@@ -1129,6 +1163,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
               children: [
 
                 // Female
+                if (_filteredTests.contains("Lipid Profile"))
                 GestureDetector(
 
                   onTap: () {
@@ -1247,6 +1282,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
 
 
                 // Others
+                if (_filteredTests.contains("Liver Function Text(I-FT)"))
                 GestureDetector(
 
                   onTap: () {
@@ -1362,6 +1398,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
 
 
                 // Others
+                if (_filteredTests.contains("C-Reactive Protein(Quantitative)"))
                 GestureDetector(
 
                   onTap: () {
