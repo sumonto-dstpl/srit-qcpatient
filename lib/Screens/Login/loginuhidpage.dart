@@ -645,227 +645,405 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
+
                                 Container(
-                                  padding: new EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.0,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.0,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.02,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.03,
+                                  padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.height * 0.04,
+                                    right: MediaQuery.of(context).size.height * 0.04,
+                                    bottom: MediaQuery.of(context).size.height * 0.02,
+                                    top: MediaQuery.of(context).size.height * 0.03,
                                   ),
-                                  child: Container(
-                                    alignment: Alignment.centerRight,
-                                    padding: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height *
-                                          0.0,
-                                      bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.00,
-                                      left: MediaQuery.of(context).size.height *
-                                          0.00,
-                                      right:
-                                      MediaQuery.of(context).size.height *
-                                          0.00,
-                                    ),
-                                    margin: EdgeInsets.only(
-                                      right:
-                                      MediaQuery.of(context).size.height *
-                                          0.04,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.00,
-                                      bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.0,
-                                      left: MediaQuery.of(context).size.height *
-                                          0.04,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color:
-                                        Color(0x1A000000), // Border color
-                                        width: 1, // Border width
+
+                                  child: Material(
+                                    color: Colors.transparent, // Needed for Ink ripple to show
+                                    child: Ink(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Color(0x1A000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(
+                                          MediaQuery.of(context).size.height * 0.012,
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.circular(
-                                        MediaQuery.of(context).size.height *
-                                            0.012,
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        // Google Logo
-                                        Padding(
+
+                                      child: InkWell(
+                                        borderRadius: BorderRadius.circular(
+                                          MediaQuery.of(context).size.height * 0.012,
+                                        ),
+                                        splashColor: Colors.black12,
+                                        highlightColor: Colors.black12,
+                                        onTap: () async {},
+
+                                        child: Container(
+                                          alignment: Alignment.centerRight,
                                           padding: EdgeInsets.only(
-                                            right: MediaQuery.of(context)
-                                                .size
-                                                .width *
-                                                0.0,
+                                            top: MediaQuery.of(context).size.height * 0.0,
+                                            bottom: MediaQuery.of(context).size.height * 0.00,
+                                            left: MediaQuery.of(context).size.height * 0.00,
+                                            right: MediaQuery.of(context).size.height * 0.00,
                                           ),
-                                          child: Image.asset(
-                                            'assets/appleicon.png', // Replace with your asset path
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.03, // Adjust size as needed
+                                          margin: EdgeInsets.only(
+                                            right: MediaQuery.of(context).size.height * 0.04,
+                                            top: MediaQuery.of(context).size.height * 0.00,
+                                            bottom: MediaQuery.of(context).size.height * 0.0,
+                                            left: MediaQuery.of(context).size.height * 0.04,
                                           ),
-                                        ),
-                                        // "Sign up with Google" Text
-                                        SizedBox(width: screenWidth * 0.1),
-                                        Flexible(
-                                          child: TextButton(
-                                            style: TextButton.styleFrom(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 11.0,
-                                                  horizontal:
-                                                  12.0), // Remove default button padding
-                                              minimumSize: Size(0,
-                                                  0), // Allow smallest possible size
-                                              tapTargetSize: MaterialTapTargetSize
-                                                  .shrinkWrap, // Shrink tap area
-                                            ),
-                                            onPressed: () async {
-                                              // Navigator.of(context).pushAndRemoveUntil(
-                                              //   MaterialPageRoute(
-                                              //     builder: (BuildContext context) =>
-                                              //         LoginHome(),
-                                              //   ),
-                                              //   (Route route) => false,
-                                              // );
-                                            },
-                                            child: Text(
-                                              "Sign In With Apple",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Color(0xFF1F1F1F),
-                                                  fontSize:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.016,
-                                                  overflow:
-                                                  TextOverflow.ellipsis,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontFamily: "Inter"
-                                                // Enable ellipsis
+
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                  right: MediaQuery.of(context).size.width * 0.0,
+                                                ),
+                                                child: Image.asset(
+                                                  'assets/appleicon.png',
+                                                  height: MediaQuery.of(context).size.height * 0.03,
+                                                ),
                                               ),
-                                            ),
+
+                                              SizedBox(width: screenWidth * 0.1),
+
+                                              Flexible(
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                    vertical: 11.0,
+                                                    horizontal: 12.0,
+                                                  ),
+                                                  child: Text(
+                                                    "Sign In With Apple",
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: Color(0xFF1F1F1F),
+                                                      fontSize: MediaQuery.of(context).size.height * 0.016,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      fontWeight: FontWeight.w500,
+                                                      fontFamily: "Inter",
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ),
                                 ),
+
+
+// ------------------ GOOGLE BUTTON --------------------
+
                                 Container(
-                                  padding: new EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.0,
-                                      right:
-                                      MediaQuery.of(context).size.height *
-                                          0.0,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.01,
-                                      bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.0),
-                                  child: Container(
-                                    alignment: Alignment.centerRight,
-                                    padding: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height *
-                                          0.0,
-                                      bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.00,
-                                      left: MediaQuery.of(context).size.height *
-                                          0.00,
-                                      right:
-                                      MediaQuery.of(context).size.height *
-                                          0.00,
-                                    ),
-                                    margin: EdgeInsets.only(
-                                      right:
-                                      MediaQuery.of(context).size.height *
-                                          0.04,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.00,
-                                      bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.0,
-                                      left: MediaQuery.of(context).size.height *
-                                          0.04,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color:
-                                        Color(0x1A000000), // Border color
-                                        width: 1, // Border width
+                                  padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.height * 0.04,
+                                    right: MediaQuery.of(context).size.height * 0.04,
+                                    top: MediaQuery.of(context).size.height * 0.01,
+                                    bottom: MediaQuery.of(context).size.height * 0.0,
+                                  ),
+
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    child: Ink(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Color(0x1A000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(
+                                          MediaQuery.of(context).size.height * 0.012,
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.circular(
-                                        MediaQuery.of(context).size.height *
-                                            0.012,
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        // Google Logo
-                                        Padding(
+
+                                      child: InkWell(
+                                        borderRadius: BorderRadius.circular(
+                                          MediaQuery.of(context).size.height * 0.012,
+                                        ),
+                                        splashColor: Colors.black12,
+                                        highlightColor: Colors.black12,
+                                        onTap: () async {},
+
+                                        child: Container(
+                                          alignment: Alignment.centerRight,
                                           padding: EdgeInsets.only(
-                                            right: MediaQuery.of(context)
-                                                .size
-                                                .width *
-                                                0.0,
+                                            top: MediaQuery.of(context).size.height * 0.0,
+                                            bottom: MediaQuery.of(context).size.height * 0.00,
+                                            left: MediaQuery.of(context).size.height * 0.0,
+                                            right: MediaQuery.of(context).size.height * 0.0,
                                           ),
-                                          child: Image.asset(
-                                            'assets/googleicon.png', // Replace with your asset path
-                                            height: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.03, // Adjust size as needed
+                                          margin: EdgeInsets.only(
+                                            right: MediaQuery.of(context).size.height * 0.04,
+                                            top: MediaQuery.of(context).size.height * 0.00,
+                                            bottom: MediaQuery.of(context).size.height * 0.0,
+                                            left: MediaQuery.of(context).size.height * 0.04,
                                           ),
-                                        ),
-                                        // "Sign up with Google" Text
-                                        SizedBox(width: screenWidth * 0.1),
-                                        Flexible(
-                                          child: TextButton(
-                                            style: TextButton.styleFrom(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 11.0,
-                                                  horizontal:
-                                                  12.0), // Remove default button padding
-                                              minimumSize: Size(0,
-                                                  0), // Allow smallest possible size
-                                              tapTargetSize: MaterialTapTargetSize
-                                                  .shrinkWrap, // Shrink tap area
-                                            ),
-                                            onPressed: () async {},
-                                            child: Text(
-                                              "Sign In With Google",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Color(0xFF1F1F1F),
-                                                  fontSize:
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                      0.016,
-                                                  overflow:
-                                                  TextOverflow.ellipsis,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontFamily: "Inter"
-                                                // Enable ellipsis
+
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                  right: MediaQuery.of(context).size.width * 0.0,
+                                                ),
+                                                child: Image.asset(
+                                                  'assets/googleicon.png',
+                                                  height: MediaQuery.of(context).size.height * 0.03,
+                                                ),
                                               ),
-                                            ),
+
+                                              SizedBox(width: screenWidth * 0.1),
+
+                                              Flexible(
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                    vertical: 11.0,
+                                                    horizontal: 12.0,
+                                                  ),
+                                                  child: Text(
+                                                    "Sign In With Google",
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: Color(0xFF1F1F1F),
+                                                      fontSize: MediaQuery.of(context).size.height * 0.016,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      fontWeight: FontWeight.w500,
+                                                      fontFamily: "Inter",
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ),
                                 ),
+
+
+
+                                // Container(
+                                //   padding: new EdgeInsets.only(
+                                //     left: MediaQuery.of(context).size.height *
+                                //         0.0,
+                                //     right: MediaQuery.of(context).size.height *
+                                //         0.0,
+                                //     bottom: MediaQuery.of(context).size.height *
+                                //         0.02,
+                                //     top: MediaQuery.of(context).size.height *
+                                //         0.03,
+                                //   ),
+                                //   child: Container(
+                                //     alignment: Alignment.centerRight,
+                                //     padding: EdgeInsets.only(
+                                //       top: MediaQuery.of(context).size.height *
+                                //           0.0,
+                                //       bottom:
+                                //           MediaQuery.of(context).size.height *
+                                //               0.00,
+                                //       left: MediaQuery.of(context).size.height *
+                                //           0.00,
+                                //       right:
+                                //           MediaQuery.of(context).size.height *
+                                //               0.00,
+                                //     ),
+                                //     margin: EdgeInsets.only(
+                                //       right:
+                                //           MediaQuery.of(context).size.height *
+                                //               0.04,
+                                //       top: MediaQuery.of(context).size.height *
+                                //           0.00,
+                                //       bottom:
+                                //           MediaQuery.of(context).size.height *
+                                //               0.0,
+                                //       left: MediaQuery.of(context).size.height *
+                                //           0.04,
+                                //     ),
+                                //     decoration: BoxDecoration(
+                                //       border: Border.all(
+                                //         color:
+                                //             Color(0x1A000000), // Border color
+                                //         width: 1, // Border width
+                                //       ),
+                                //       borderRadius: BorderRadius.circular(
+                                //         MediaQuery.of(context).size.height *
+                                //             0.012,
+                                //       ),
+                                //     ),
+                                //     child: Row(
+                                //       mainAxisAlignment:
+                                //           MainAxisAlignment.center,
+                                //       children: <Widget>[
+                                //         // Google Logo
+                                //         Padding(
+                                //           padding: EdgeInsets.only(
+                                //             right: MediaQuery.of(context)
+                                //                     .size
+                                //                     .width *
+                                //                 0.0,
+                                //           ),
+                                //           child: Image.asset(
+                                //             'assets/appleicon.png', // Replace with your asset path
+                                //             height: MediaQuery.of(context)
+                                //                     .size
+                                //                     .height *
+                                //                 0.03, // Adjust size as needed
+                                //           ),
+                                //         ),
+                                //         // "Sign up with Google" Text
+                                //         SizedBox(width: screenWidth * 0.1),
+                                //         Flexible(
+                                //           child: TextButton(
+                                //             style: TextButton.styleFrom(
+                                //               padding: EdgeInsets.symmetric(
+                                //                   vertical: 11.0,
+                                //                   horizontal:
+                                //                       12.0), // Remove default button padding
+                                //               minimumSize: Size(0,
+                                //                   0), // Allow smallest possible size
+                                //               tapTargetSize: MaterialTapTargetSize
+                                //                   .shrinkWrap, // Shrink tap area
+                                //             ),
+                                //             onPressed: () async {
+                                //               // Navigator.of(context).pushAndRemoveUntil(
+                                //               //   MaterialPageRoute(
+                                //               //     builder: (BuildContext context) =>
+                                //               //         LoginHome(),
+                                //               //   ),
+                                //               //   (Route route) => false,
+                                //               // );
+                                //             },
+                                //             child: Text(
+                                //               "Sign In With Apple",
+                                //               textAlign: TextAlign.center,
+                                //               style: TextStyle(
+                                //                   color: Color(0xFF1F1F1F),
+                                //                   fontSize:
+                                //                       MediaQuery.of(context)
+                                //                               .size
+                                //                               .height *
+                                //                           0.016,
+                                //                   overflow:
+                                //                       TextOverflow.ellipsis,
+                                //                   fontWeight: FontWeight.w500,
+                                //                   fontFamily: "Inter"
+                                //                   // Enable ellipsis
+                                //                   ),
+                                //             ),
+                                //           ),
+                                //         ),
+                                //       ],
+                                //     ),
+                                //   ),
+                                // ),
+                                // Container(
+                                //   padding: new EdgeInsets.only(
+                                //       left: MediaQuery.of(context).size.height *
+                                //           0.0,
+                                //       right:
+                                //           MediaQuery.of(context).size.height *
+                                //               0.0,
+                                //       top: MediaQuery.of(context).size.height *
+                                //           0.01,
+                                //       bottom:
+                                //           MediaQuery.of(context).size.height *
+                                //               0.0),
+                                //   child: Container(
+                                //     alignment: Alignment.centerRight,
+                                //     padding: EdgeInsets.only(
+                                //       top: MediaQuery.of(context).size.height *
+                                //           0.0,
+                                //       bottom:
+                                //           MediaQuery.of(context).size.height *
+                                //               0.00,
+                                //       left: MediaQuery.of(context).size.height *
+                                //           0.00,
+                                //       right:
+                                //           MediaQuery.of(context).size.height *
+                                //               0.00,
+                                //     ),
+                                //     margin: EdgeInsets.only(
+                                //       right:
+                                //           MediaQuery.of(context).size.height *
+                                //               0.04,
+                                //       top: MediaQuery.of(context).size.height *
+                                //           0.00,
+                                //       bottom:
+                                //           MediaQuery.of(context).size.height *
+                                //               0.0,
+                                //       left: MediaQuery.of(context).size.height *
+                                //           0.04,
+                                //     ),
+                                //     decoration: BoxDecoration(
+                                //       border: Border.all(
+                                //         color:
+                                //             Color(0x1A000000), // Border color
+                                //         width: 1, // Border width
+                                //       ),
+                                //       borderRadius: BorderRadius.circular(
+                                //         MediaQuery.of(context).size.height *
+                                //             0.012,
+                                //       ),
+                                //     ),
+                                //     child: Row(
+                                //       mainAxisAlignment:
+                                //           MainAxisAlignment.center,
+                                //       children: <Widget>[
+                                //         // Google Logo
+                                //         Padding(
+                                //           padding: EdgeInsets.only(
+                                //             right: MediaQuery.of(context)
+                                //                     .size
+                                //                     .width *
+                                //                 0.0,
+                                //           ),
+                                //           child: Image.asset(
+                                //             'assets/googleicon.png', // Replace with your asset path
+                                //             height: MediaQuery.of(context)
+                                //                     .size
+                                //                     .height *
+                                //                 0.03, // Adjust size as needed
+                                //           ),
+                                //         ),
+                                //         // "Sign up with Google" Text
+                                //         SizedBox(width: screenWidth * 0.1),
+                                //         Flexible(
+                                //           child: TextButton(
+                                //             style: TextButton.styleFrom(
+                                //               padding: EdgeInsets.symmetric(
+                                //                   vertical: 11.0,
+                                //                   horizontal:
+                                //                       12.0), // Remove default button padding
+                                //               minimumSize: Size(0,
+                                //                   0), // Allow smallest possible size
+                                //               tapTargetSize: MaterialTapTargetSize
+                                //                   .shrinkWrap, // Shrink tap area
+                                //             ),
+                                //             onPressed: () async {},
+                                //             child: Text(
+                                //               "Sign In With Google",
+                                //               textAlign: TextAlign.center,
+                                //               style: TextStyle(
+                                //                   color: Color(0xFF1F1F1F),
+                                //                   fontSize:
+                                //                       MediaQuery.of(context)
+                                //                               .size
+                                //                               .height *
+                                //                           0.016,
+                                //                   overflow:
+                                //                       TextOverflow.ellipsis,
+                                //                   fontWeight: FontWeight.w500,
+                                //                   fontFamily: "Inter"
+                                //                   // Enable ellipsis
+                                //                   ),
+                                //             ),
+                                //           ),
+                                //         ),
+                                //       ],
+                                //     ),
+                                //   ),
+                                // ),
                                 Expanded(
                                   child: Container(
                                     padding: EdgeInsets.only(

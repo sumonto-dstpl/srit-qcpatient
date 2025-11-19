@@ -63,6 +63,8 @@ import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/Login/loginpage.dart';
 import 'package:newfolder/Screens/OnBoarding/onboarding_screen.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
+import 'package:newfolder/utils/cart_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -96,7 +98,16 @@ void main() async {
     }
   }
 
-  runApp(MyApp(initialScreen: initialScreen));
+  // runApp(MyApp(initialScreen: initialScreen));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+      ],
+      child: MyApp(initialScreen: initialScreen),
+    ),
+  );
+
 }
 
 // void main(){

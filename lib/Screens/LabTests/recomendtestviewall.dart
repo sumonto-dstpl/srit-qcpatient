@@ -34,7 +34,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
+import 'package:provider/provider.dart';
 import 'package:universal_html/js_util.dart';
+
+import '../../utils/cart_provider.dart';
 
 class RecommendedViewAll extends StatefulWidget {
   String usernameValue ;
@@ -145,6 +148,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
 
     super.initState();
     _loadData();
+    Provider.of<CartProvider>(context, listen: false).loadCart();
     // setState(() {});
   }
 
@@ -960,107 +964,178 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                       ),
 
                                                                       // Buttons
-                                                                      Container(
-                                                                        decoration: BoxDecoration(
-                                                                          // color:Colors.white,
-                                                                          borderRadius: BorderRadius.circular(15),
-                                                                        ),
-                                                                        // color:Colors.green[100],
-                                                                        padding: EdgeInsets.only(
-                                                                            left: MediaQuery.of(context).size.height * 0.0,
-                                                                            right: MediaQuery.of(context).size.height * 0.0,
-                                                                            top: MediaQuery.of(context).size.height * 0.00,
-                                                                            bottom: MediaQuery.of(context).size.height * 0.00),
-                                                                        child:
+                                                                      // Container(
+                                                                      //   decoration: BoxDecoration(
+                                                                      //     // color:Colors.white,
+                                                                      //     borderRadius: BorderRadius.circular(15),
+                                                                      //   ),
+                                                                      //   // color:Colors.green[100],
+                                                                      //   padding: EdgeInsets.only(
+                                                                      //       left: MediaQuery.of(context).size.height * 0.0,
+                                                                      //       right: MediaQuery.of(context).size.height * 0.0,
+                                                                      //       top: MediaQuery.of(context).size.height * 0.00,
+                                                                      //       bottom: MediaQuery.of(context).size.height * 0.00),
+                                                                      //   child:
+                                                                      //
+                                                                      //   Row(
+                                                                      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                      //     children: <Widget>[
+                                                                      //       !isInCart ?
+                                                                      //       GestureDetector(
+                                                                      //         onTap: () async {
+                                                                      //            addToCart(item['id'],item['plan'],item['test'],item['qr']);
+                                                                      //            showTopNotification(
+                                                                      //              context,
+                                                                      //              title: "Add Cart",
+                                                                      //              message: "Cart is added successfully",
+                                                                      //              type: NotificationType.success,
+                                                                      //            );
+                                                                      //            setState(() {
+                                                                      //
+                                                                      //            });
+                                                                      //         },
+                                                                      //         child: Container(
+                                                                      //           padding: new EdgeInsets.only(
+                                                                      //               left: MediaQuery.of(context).size.height * 0.02,
+                                                                      //               right: MediaQuery.of(context).size.height * 0.02,
+                                                                      //               top: MediaQuery.of(context).size.height * 0.006,
+                                                                      //               bottom: MediaQuery.of(context).size.height * 0.006),
+                                                                      //           decoration: BoxDecoration(
+                                                                      //             color: Color(0xFF126086),
+                                                                      //             borderRadius: BorderRadius.circular(5),
+                                                                      //           ),
+                                                                      //
+                                                                      //
+                                                                      //           margin: EdgeInsets.only(
+                                                                      //             left: MediaQuery.of(context).size.height * 0.0,
+                                                                      //             top: MediaQuery.of(context).size.height * 0.00,
+                                                                      //             bottom: MediaQuery.of(context).size.height * 0.00,
+                                                                      //             right: MediaQuery.of(context).size.height * 0.005,
+                                                                      //           ),
+                                                                      //           // color: Colors.grey[300],
+                                                                      //           alignment: Alignment.center,
+                                                                      //           // height:
+                                                                      //           // MediaQuery.of(context).size.height * 0.070,
+                                                                      //           child: Text("Add",
+                                                                      //               textAlign: TextAlign.center,
+                                                                      //               style: TextStyle(
+                                                                      //                   color: Colors.white,
+                                                                      //                   fontWeight: FontWeight.w600,
+                                                                      //                   fontSize:  MediaQuery.of(context).size.height * 0.01)),
+                                                                      //         ),
+                                                                      //       ):
+                                                                      //       GestureDetector(
+                                                                      //         onTap: () async {
+                                                                      //           _deleteCart(item['id'],index);
+                                                                      //           showTopNotification(
+                                                                      //             context,
+                                                                      //             title: "Cart Delete",
+                                                                      //             message: "Cart is deleted Successfully",
+                                                                      //             type: NotificationType.error,
+                                                                      //           );
+                                                                      //         },
+                                                                      //         child: Container(
+                                                                      //           padding: new EdgeInsets.only(
+                                                                      //               left: MediaQuery.of(context).size.height * 0.02,
+                                                                      //               right: MediaQuery.of(context).size.height * 0.02,
+                                                                      //               top: MediaQuery.of(context).size.height * 0.006,
+                                                                      //               bottom: MediaQuery.of(context).size.height * 0.006),
+                                                                      //           decoration: BoxDecoration(
+                                                                      //             color: Colors.white,
+                                                                      //             borderRadius: BorderRadius.circular(5),
+                                                                      //           ),
+                                                                      //
+                                                                      //
+                                                                      //           margin: EdgeInsets.only(
+                                                                      //             left: MediaQuery.of(context).size.height * 0.0,
+                                                                      //             top: MediaQuery.of(context).size.height * 0.00,
+                                                                      //             bottom: MediaQuery.of(context).size.height * 0.00,
+                                                                      //             right: MediaQuery.of(context).size.height * 0.005,
+                                                                      //           ),
+                                                                      //           // color: Colors.grey[300],
+                                                                      //           alignment: Alignment.center,
+                                                                      //           // height:
+                                                                      //           // MediaQuery.of(context).size.height * 0.070,
+                                                                      //           child: Icon(Icons.delete, color: Colors.red),
+                                                                      //         ),
+                                                                      //       ),
+                                                                      //
+                                                                      //
+                                                                      //     ],
+                                                                      //   ),
+                                                                      //
+                                                                      // ),
+                                                                      Consumer<CartProvider>(
+                                                                        builder: (context, cart, child) {
+                                                                          bool isInCart = cart.isAdded(item['id']);
 
-                                                                        Row(
-                                                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                          children: <Widget>[
-                                                                            !isInCart ?
-                                                                            GestureDetector(
-                                                                              onTap: () async {
-                                                                                 addToCart(item['id'],item['plan'],item['test'],item['qr']);
-                                                                                 showTopNotification(
-                                                                                   context,
-                                                                                   title: "Add Cart",
-                                                                                   message: "Cart is added successfully",
-                                                                                   type: NotificationType.success,
-                                                                                 );
-                                                                                 setState(() {
+                                                                          return Row(
+                                                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                            children: [
+                                                                              !isInCart
+                                                                                  ? GestureDetector(
+                                                                                onTap: () async {
+                                                                                  await cart.addItem({
+                                                                                    "id": item['id'],
+                                                                                    "plan": item['plan'],
+                                                                                    "test": item['test'],
+                                                                                    "qr": item['qr'],
+                                                                                  });
 
-                                                                                 });
-                                                                              },
-                                                                              child: Container(
-                                                                                padding: new EdgeInsets.only(
-                                                                                    left: MediaQuery.of(context).size.height * 0.02,
-                                                                                    right: MediaQuery.of(context).size.height * 0.02,
-                                                                                    top: MediaQuery.of(context).size.height * 0.006,
-                                                                                    bottom: MediaQuery.of(context).size.height * 0.006),
-                                                                                decoration: BoxDecoration(
-                                                                                  color: Color(0xFF126086),
-                                                                                  borderRadius: BorderRadius.circular(5),
-                                                                                ),
-
-
-                                                                                margin: EdgeInsets.only(
-                                                                                  left: MediaQuery.of(context).size.height * 0.0,
-                                                                                  top: MediaQuery.of(context).size.height * 0.00,
-                                                                                  bottom: MediaQuery.of(context).size.height * 0.00,
-                                                                                  right: MediaQuery.of(context).size.height * 0.005,
-                                                                                ),
-                                                                                // color: Colors.grey[300],
-                                                                                alignment: Alignment.center,
-                                                                                // height:
-                                                                                // MediaQuery.of(context).size.height * 0.070,
-                                                                                child: Text("Add",
-                                                                                    textAlign: TextAlign.center,
+                                                                                  showTopNotification(
+                                                                                    context,
+                                                                                    title: "Add Cart",
+                                                                                    message: "Cart is added successfully",
+                                                                                    type: NotificationType.success,
+                                                                                  );
+                                                                                },
+                                                                                child: Container(
+                                                                                  padding: EdgeInsets.symmetric(
+                                                                                    horizontal: MediaQuery.of(context).size.height * 0.02,
+                                                                                    vertical: MediaQuery.of(context).size.height * 0.006,
+                                                                                  ),
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: Color(0xFF126086),
+                                                                                    borderRadius: BorderRadius.circular(5),
+                                                                                  ),
+                                                                                  child: Text(
+                                                                                    "Add",
                                                                                     style: TextStyle(
-                                                                                        color: Colors.white,
-                                                                                        fontWeight: FontWeight.w600,
-                                                                                        fontSize:  MediaQuery.of(context).size.height * 0.01)),
-                                                                              ),
-                                                                            ):
-                                                                            GestureDetector(
-                                                                              onTap: () async {
-                                                                                _deleteCart(item['id'],index);
-                                                                                showTopNotification(
-                                                                                  context,
-                                                                                  title: "Cart Delete",
-                                                                                  message: "Cart is deleted Successfully",
-                                                                                  type: NotificationType.error,
-                                                                                );
-                                                                              },
-                                                                              child: Container(
-                                                                                padding: new EdgeInsets.only(
-                                                                                    left: MediaQuery.of(context).size.height * 0.02,
-                                                                                    right: MediaQuery.of(context).size.height * 0.02,
-                                                                                    top: MediaQuery.of(context).size.height * 0.006,
-                                                                                    bottom: MediaQuery.of(context).size.height * 0.006),
-                                                                                decoration: BoxDecoration(
-                                                                                  color: Colors.white,
-                                                                                  borderRadius: BorderRadius.circular(5),
+                                                                                      color: Colors.white,
+                                                                                      fontWeight: FontWeight.w600,
+                                                                                      fontSize:
+                                                                                      MediaQuery.of(context).size.height * 0.015,
+                                                                                    ),
+                                                                                  ),
                                                                                 ),
+                                                                              )
+                                                                                  : GestureDetector(
+                                                                                onTap: () async {
+                                                                                  await cart.removeItem(item['id']);
 
-
-                                                                                margin: EdgeInsets.only(
-                                                                                  left: MediaQuery.of(context).size.height * 0.0,
-                                                                                  top: MediaQuery.of(context).size.height * 0.00,
-                                                                                  bottom: MediaQuery.of(context).size.height * 0.00,
-                                                                                  right: MediaQuery.of(context).size.height * 0.005,
+                                                                                  showTopNotification(
+                                                                                    context,
+                                                                                    title: "Cart Delete",
+                                                                                    message: "Cart is deleted Successfully",
+                                                                                    type: NotificationType.error,
+                                                                                  );
+                                                                                },
+                                                                                child: Container(
+                                                                                  padding: EdgeInsets.symmetric(
+                                                                                    horizontal: MediaQuery.of(context).size.height * 0.02,
+                                                                                    vertical: MediaQuery.of(context).size.height * 0.006,
+                                                                                  ),
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: Colors.white,
+                                                                                    borderRadius: BorderRadius.circular(5),
+                                                                                  ),
+                                                                                  child: Icon(Icons.delete, color: Colors.red),
                                                                                 ),
-                                                                                // color: Colors.grey[300],
-                                                                                alignment: Alignment.center,
-                                                                                // height:
-                                                                                // MediaQuery.of(context).size.height * 0.070,
-                                                                                child: Icon(Icons.delete, color: Colors.red),
                                                                               ),
-                                                                            ),
-
-
-                                                                          ],
-                                                                        ),
-
-                                                                      ),
+                                                                            ],
+                                                                          );
+                                                                        },
+                                                                      )
 
 
                                                                     ]

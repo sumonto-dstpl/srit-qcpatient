@@ -12,6 +12,9 @@ import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
+import 'package:provider/provider.dart';
+
+import '../../utils/cart_provider.dart';
 
 
 class AddtocardPackageDetails extends StatefulWidget {
@@ -85,7 +88,7 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
   @override
   void initState() {
     super.initState();
-    _loadData();
+    // _loadData();
 
   }
 
@@ -99,13 +102,13 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
 
       List<dynamic> _loadedCart2  = await UserSecureStorage.getAddToCart("addToCart2",username ?? '');
 
-      if(_loadedCart2.isNotEmpty){
-        print("_loadedCart2.length:${_loadedCart2.length}");
-        bool status =_loadedCart2.any((addedItem) => addedItem['id'] == widget.id);
-        setState(() {
-          isInCart =status;
-        });
-      }
+      // if(_loadedCart2.isNotEmpty){
+      //   print("_loadedCart2.length:${_loadedCart2.length}");
+      //   bool status =_loadedCart2.any((addedItem) => addedItem['id'] == widget.id);
+      //   setState(() {
+      //     isInCart =status;
+      //   });
+      // }
 
     }
   }
@@ -114,6 +117,10 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
 
     final screenHeight = MediaQuery.of(context).size.height ;
     final screenWidth = MediaQuery.of(context).size.width ;
+
+    final cart = Provider.of<CartProvider>(context);
+    bool isInCart = cart.isAdded(widget.id);
+
     return  Scaffold(
       body: Container(
         width: double.infinity,
@@ -924,7 +931,12 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
                       behavior: HitTestBehavior.opaque, // ✅ makes the whole container tappable
                       onTap: () async {
                         if(widget.buttonName == "Add to Cart") {
-                           addToCart(widget.id, widget.plan, widget.test, widget.qr);
+                          await cart.addItem({
+                            "id": widget.id,
+                            "plan": widget.plan,
+                            "test": widget.test,
+                            "qr": widget.qr,
+                          });
                           // Navigator.pop(context);
                         }
                         else {
@@ -953,7 +965,12 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
                           onPressed: () async {
                             if(widget.buttonName == "Add to Cart") {
 
-                              addToCart(widget.id, widget.plan, widget.test, widget.qr);
+                              await cart.addItem({
+                                "id": widget.id,
+                                "plan": widget.plan,
+                                "test": widget.test,
+                                "qr": widget.qr,
+                              });
                               // Navigator.pop(context);
                             }
                             else {
@@ -989,7 +1006,7 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
           ],
         ),
       ):
-      null,
+       SizedBox.shrink()
     );
   }
 

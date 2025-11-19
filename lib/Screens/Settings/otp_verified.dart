@@ -755,13 +755,14 @@ class ChangeMobileNumberstate extends State<OtpVerified> {
       print("mobile : $mobile");
 
 
-
       await UserSecureStorage.updateUserId(
         oldUserId: username ?? '',
         newUserId: mobile ?? '',
       );
+      await UserSecureStorage.setUsernameid(mobile);
 
 
+      successnumchangedalert.showticket(context);
 
 
     } else {

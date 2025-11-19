@@ -16,6 +16,9 @@ import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/dotteddivider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
+
+import '../../utils/cart_provider.dart';
 
 class AddToCartMain extends StatefulWidget {
   int selectedIndex = 4;
@@ -58,6 +61,9 @@ class AddToCartMainstate extends State<AddToCartMain> {
 
   List<Map<String, dynamic>> _currentList = [];
 
+  // final cart = Provider.of<CartProvider>(context);
+  // final items = cart.items;
+
 
 
 
@@ -86,12 +92,17 @@ class AddToCartMainstate extends State<AddToCartMain> {
     final screenWidth = MediaQuery.of(context).size.width;
     TextEditingController SearchEditTextController = TextEditingController();
 
-      cartPrice = 0;
-      for(int counter=0; counter<_currentList.length; counter++){
-        int cartValue = int.parse(_currentList[counter]['qr'].split(' ')[1]);
 
-        cartPrice+=cartValue;
-      }
+
+    final cart = Provider.of<CartProvider>(context);
+    int cartPrice = cart.totalPrice;
+    final items = cart.items;
+      cartPrice = 0;
+      // for(int counter=0; counter<_currentList.length; counter++){
+      //   int cartValue = int.parse(_currentList[counter]['qr'].split(' ')[1]);
+      //
+      //   cartPrice+=cartValue;
+      // }
 
     return Scaffold(
       body: Container(
@@ -3549,6 +3560,10 @@ class AddToCartMainstate extends State<AddToCartMain> {
       //
       //   });
       // });
+
+      Future.microtask(() {
+        Provider.of<CartProvider>(context, listen: false).loadCart();
+      });
 
   }
 

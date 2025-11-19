@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../utils/cart_provider.dart';
 import '../Utils/user_secure_storage.dart';
 
 class AppointmentIconBadge extends StatefulWidget {
@@ -43,11 +45,16 @@ class _IconBadgeState extends State<AppointmentIconBadge> {
       }
 
     }
+
+    Future.microtask(() {
+      Provider.of<CartProvider>(context, listen: false).loadCart();
+    });
   }
 
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context).count;
     return Stack(
       clipBehavior: Clip.none,
       children: <Widget>[
@@ -147,7 +154,7 @@ class _IconBadgeState extends State<AppointmentIconBadge> {
               child: MediaQuery(
                 data: MediaQuery.of(context).copyWith(textScaleFactor: MediaQuery.of(context).textScaleFactor.clamp(1.0, 1.2)),
                 child: Text(
-                  cartCount,
+                  cart.toString(),
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: MediaQuery.of(context).size.height * 0.008,
