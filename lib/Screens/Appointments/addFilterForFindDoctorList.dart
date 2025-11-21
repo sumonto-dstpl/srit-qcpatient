@@ -45,6 +45,17 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
     'City': [],
   };
 
+  List<String> _expertiseFilters = [
+    "Adult Allergist",
+    "Allergy and Immunology Practisoner",
+    "Allergy and immunology Specialist",
+    "Asthma Specialist",
+    "Bariatric Dietitian",
+    "Bariatric Medicine Specialist",
+  ];
+
+  List<String> _selectedExpertise = [];
+
   void _toggleButton1({
     required String category,
     required String value,
@@ -220,7 +231,22 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
       }
     });
 
+    _selectedExpertise = List.from(_expertiseFilters);
+    SearchfilterEditTextController.addListener(_applyFilter);
+  }
 
+  void _applyFilter() {
+    String query = SearchfilterEditTextController.text.trim().toLowerCase();
+
+    setState(() {
+      if (query.isEmpty) {
+        _selectedExpertise = List.from(_expertiseFilters);
+      } else {
+        _selectedExpertise = _expertiseFilters
+            .where((test) => test.toLowerCase().contains(query))
+            .toList();
+      }
+    });
   }
 
 
@@ -2036,11 +2062,11 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
               inputFormatters: [
                 LengthLimitingTextInputFormatter(15),
                 FilteringTextInputFormatter.allow(
-                    RegExp('[a-zA-Z0-9]')),
+                    RegExp('[a-zA-Z0-9 ]')),
               ],
-              // textCapitalization: TextCapitalization.characters,
+              textCapitalization: TextCapitalization.words,
               style: TextStyle(color: Colors.black45),
-              keyboardType: TextInputType.emailAddress,
+              keyboardType: TextInputType.text,
               validator: (input) => input!.length < 3
                   ? "Search should be more than 3 characters"
                   : null,
@@ -2107,6 +2133,7 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Male Button
+                if (_selectedExpertise.contains("Adult Allergist"))
                 GestureDetector(
 
                   onTap: () {
@@ -2223,6 +2250,7 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
               children: [
 
                 // Female
+                if (_selectedExpertise.contains("Allergy and immunology Practisoner"))
                 GestureDetector(
 
                   onTap: () {
@@ -2341,6 +2369,7 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                 
 
                 // Others
+                if (_selectedExpertise.contains("Allergy and immunology Specialist"))
                 GestureDetector(
 
                   onTap: () {
@@ -2455,6 +2484,7 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Male Button
+                if (_selectedExpertise.contains("Asthma Specialist"))
                 GestureDetector(
 
                   onTap: () {
@@ -2571,6 +2601,7 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
               children: [
                  
                 // Female
+                if (_selectedExpertise.contains("Bariatric Dietitian"))
                 GestureDetector(
 
                   onTap: () {
@@ -2689,6 +2720,7 @@ class AddFilterForFindDoctorListState extends State<AddFilterForFindDoctorList> 
                  
 
                 // Others
+                if (_selectedExpertise.contains("Bariatric Medicine Specialist"))
                 GestureDetector(
 
                   onTap: () {
