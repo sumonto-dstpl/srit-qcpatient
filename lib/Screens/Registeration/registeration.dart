@@ -7,6 +7,8 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Screens/Login/loginpage.dart';
+import 'package:newfolder/Screens/PrivacyPolicy/PrivacyPolicy.dart';
+import 'package:newfolder/Screens/TnC/TermsAndConditions.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
 
 import '../Settings/changemobilenum.dart';
@@ -1616,6 +1618,13 @@ class Registrationstate extends State<Registration> {
                                               recognizer: TapGestureRecognizer()
                                                 ..onTap = () {
                                                   // Navigate to Terms & Condition page or open URL
+                                                  Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                      builder: (BuildContext context) {
+                                                        return TermsandconditionsMain(); // Replace with your Login page widget
+                                                      },
+                                                    ),
+                                                  );
                                                   print("Terms & Condition clicked");
                                                 },
                                             ),
@@ -1634,6 +1643,13 @@ class Registrationstate extends State<Registration> {
                                               recognizer: TapGestureRecognizer()
                                                 ..onTap = () {
                                                   // Navigate to Privacy Policy page or open URL
+                                                  Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                      builder: (BuildContext context) {
+                                                        return PrivacyPolicyMain(); // Replace with your Login page widget
+                                                      },
+                                                    ),
+                                                  );
                                                   print("Privacy Policy clicked");
                                                 },
                                             ),
