@@ -876,76 +876,139 @@ class PaymentHistoryMainstate extends State<PaymentHistoryMain> {
                                 ),
 
                                 // Receipts
+                                // Receipts Tab Implementation
                                 Container(
-                                  height: double
-                                      .infinity,
-                                  // Ensures it occupies full height
-                                  width: double
-                                      .infinity,
-                                  // Ensures it occupies full width
-                                  color: Colors
-                                      .white,
-                                  // You can change the background color
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment
-                                        .center, // Center vertically
-                                    crossAxisAlignment: CrossAxisAlignment
-                                        .center, // Center horizontally
-                                    children: [
-                                      Image.asset(
-                                        'assets/NoPreviousPrescriptionstoview.png',
-                                        // Replace with your image asset
-                                        height: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .height *
-                                            0.340,
-                                        // Adjust the height of the image
-                                        width: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .height *
-                                            0.340, // Adjust the width of the image
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.only(
-                                          top: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height *
-                                              0.00,
-                                          bottom: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height *
-                                              0.00,
-                                          left: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height *
-                                              0.00,
-                                          right: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height *
-                                              0.00,
-                                        ),
-                                        child: Text(
-                                          "No Receipts to view",
+                                  height: double.infinity,
+                                  width: double.infinity,
+                                  color: Colors.white,
+                                  child: SingleChildScrollView(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: MediaQuery.of(context).size.height * 0.02,
+                                      vertical: MediaQuery.of(context).size.height * 0.02,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        // 1. Header Name
+                                        Text(
+                                          "Receipts",
                                           style: TextStyle(
-                                            fontSize: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height *
-                                                0.016,
                                             color: Color(0xFF126086),
+                                            fontSize: MediaQuery.of(context).size.height * 0.018,
                                             fontWeight: FontWeight.bold,
                                           ),
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.left,
                                         ),
-                                      ),
-                                    ],
+                                        SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                                        Text(
+                                          "Priya Krishnamurthy",
+                                          style: TextStyle(
+                                            color: Colors.black87,
+                                            fontSize: MediaQuery.of(context).size.height * 0.014,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        SizedBox(height: MediaQuery.of(context).size.height * 0.025),
+
+                                        // 2. Booking Details Card
+                                        Container(
+                                          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFF8F9FA), // Light grey background
+                                            borderRadius: BorderRadius.circular(12),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              _buildReceiptRow(context, "Booking ID", "43445789456", isValueBold: true),
+                                              SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                                              _buildReceiptRow(context, "Order Date", "Jan 16, 2024"),
+                                              SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                                              _buildReceiptRow(context, "Sample Collected Date", "Jan 18, 2024", isValueBold: true),
+                                            ],
+                                          ),
+                                        ),
+
+                                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+
+                                        // 3. Test Items Card
+                                        Container(
+                                          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFF8F9FA),
+                                            borderRadius: BorderRadius.circular(12),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              _buildReceiptRow(context, "CBC", "QR 50.00", isValueBold: true),
+                                              SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                                              _buildReceiptRow(context, "Lipid Profile", "QR 120.00", isValueBold: true),
+                                              SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                                              _buildReceiptRow(context, "Liver Function Test", "QR 70.00", isValueBold: true),
+                                            ],
+                                          ),
+                                        ),
+
+                                        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+
+                                        // 4. Payment Totals Card
+                                        Container(
+                                          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFF8F9FA),
+                                            borderRadius: BorderRadius.circular(12),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              _buildReceiptRow(context, "Subtotal", "QR 240.00", isValueBold: true),
+                                              SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                                              _buildReceiptRow(context, "Discount", "-", valueColor: Colors.green),
+
+                                              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+
+                                              // Custom Dashed Line Divider
+                                              Row(
+                                                children: List.generate(40, (index) => Expanded(
+                                                  child: Container(
+                                                    color: index % 2 == 0 ? Colors.grey[400] : Colors.transparent,
+                                                    height: 1,
+                                                  ),
+                                                )),
+                                              ),
+
+                                              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                                              _buildReceiptRow(context, "Total Paid", "QR 240.00", isValueBold: true, fontSize: 0.018),
+                                            ],
+                                          ),
+                                        ),
+
+                                        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+
+                                        // 5. Footer (Credit Card)
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Pay via Credit Card",
+                                              style: TextStyle(
+                                                fontSize: MediaQuery.of(context).size.height * 0.014,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black87,
+                                              ),
+                                            ),
+                                            Text(
+                                              "780383728",
+                                              style: TextStyle(
+                                                fontSize: MediaQuery.of(context).size.height * 0.014,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black87,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+
+                                        // Extra spacing for bottom nav bar
+                                        SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
@@ -965,6 +1028,79 @@ class PaymentHistoryMainstate extends State<PaymentHistoryMain> {
             ],
           ),
         ),
+
+        // Container(
+        //   height: double
+        //       .infinity,
+        //   // Ensures it occupies full height
+        //   width: double
+        //       .infinity,
+        //   // Ensures it occupies full width
+        //   color: Colors
+        //       .white,
+        //   // You can change the background color
+        //   child: Column(
+        //     mainAxisAlignment: MainAxisAlignment
+        //         .center, // Center vertically
+        //     crossAxisAlignment: CrossAxisAlignment
+        //         .center, // Center horizontally
+        //     children: [
+        //       Image.asset(
+        //         'assets/NoPreviousPrescriptionstoview.png',
+        //         // Replace with your image asset
+        //         height: MediaQuery
+        //             .of(context)
+        //             .size
+        //             .height *
+        //             0.340,
+        //         // Adjust the height of the image
+        //         width: MediaQuery
+        //             .of(context)
+        //             .size
+        //             .height *
+        //             0.340, // Adjust the width of the image
+        //       ),
+        //       Container(
+        //         padding: EdgeInsets.only(
+        //           top: MediaQuery
+        //               .of(context)
+        //               .size
+        //               .height *
+        //               0.00,
+        //           bottom: MediaQuery
+        //               .of(context)
+        //               .size
+        //               .height *
+        //               0.00,
+        //           left: MediaQuery
+        //               .of(context)
+        //               .size
+        //               .height *
+        //               0.00,
+        //           right: MediaQuery
+        //               .of(context)
+        //               .size
+        //               .height *
+        //               0.00,
+        //         ),
+        //         child: Text(
+        //           "No Receipts to view",
+        //           style: TextStyle(
+        //             fontSize: MediaQuery
+        //                 .of(context)
+        //                 .size
+        //                 .height *
+        //                 0.016,
+        //             color: Color(0xFF126086),
+        //             fontWeight: FontWeight.bold,
+        //           ),
+        //           overflow: TextOverflow.ellipsis,
+        //           textAlign: TextAlign.left,
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
 
 
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -2185,4 +2321,30 @@ class PaymentHistoryMainstate extends State<PaymentHistoryMain> {
           }
       );
 
+}
+
+// Helper method to build rows in the receipt
+Widget _buildReceiptRow(BuildContext context, String label, String value,
+    {bool isValueBold = false, Color valueColor = Colors.black, double fontSize = 0.012}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text(
+        label,
+        style: TextStyle(
+          color: Colors.grey[600],
+          fontSize: MediaQuery.of(context).size.height * 0.012,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      Text(
+        value,
+        style: TextStyle(
+          color: valueColor,
+          fontWeight: isValueBold ? FontWeight.bold : FontWeight.w500,
+          fontSize: MediaQuery.of(context).size.height * fontSize,
+        ),
+      ),
+    ],
+  );
 }
