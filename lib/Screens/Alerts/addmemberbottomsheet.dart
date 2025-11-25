@@ -277,18 +277,33 @@ class AddMemberBottomSheet {
                                             ),
                                             isExpanded: true,
                                             dropdownColor: Colors.white,
-                                            items: relationshipOptions
-                                                .map((value) => DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(value),
-                                            ))
-                                                .toList(),
+
+                                            // ✅ Add this style to fix selected text size
+                                            style: TextStyle(
+                                              color: Colors.black87,
+                                              fontSize: screenHeight * 0.014,  // same as other fields
+                                              fontWeight: FontWeight.w400,
+                                            ),
+
+                                            items: relationshipOptions.map((value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(
+                                                  value,
+                                                  style: TextStyle(
+                                                    fontSize: screenHeight * 0.014, // dropdown list text
+                                                  ),
+                                                ),
+                                              );
+                                            }).toList(),
+
                                             onChanged: (value) {
                                               setState(() {
                                                 relationshipSelected = value!;
                                               });
                                             },
                                           ),
+
                                         ),
                                       ),
 
@@ -347,7 +362,7 @@ class AddMemberBottomSheet {
                                           ),
                                         ),
 
-                                      SizedBox(height: screenHeight * 0.15),
+                                      SizedBox(height: screenHeight * 0.05),
                                     ],
                                   ),
                                 ),
@@ -355,16 +370,27 @@ class AddMemberBottomSheet {
 
                               Positioned(
                                 top: screenHeight * 0.06,
-                                left: screenHeight * 0.02,
-                                child: Text(
-                                  "Add New Family Member",
-                                  style: TextStyle(
-                                    fontSize: screenHeight * 0.022,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black87,
+                                left: 0,
+                                right: 0,  // ✅ Makes the container full width
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: screenHeight * 0.02,
+                                    vertical: screenHeight * 0.005,
+                                  ),
+                                  width: double.infinity,     // ✅ Ensures full horizontal width
+                                  color: Colors.white,        // ✅ Full-width white background
+                                  child: Text(
+                                    "Add New Family Member",
+                                    style: TextStyle(
+                                      fontSize: screenHeight * 0.022,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black87,
+                                    ),
                                   ),
                                 ),
                               ),
+
+
 
                               /// ✅ Fixed Buttons - Right Half of the Screen
                               Positioned(
@@ -626,7 +652,7 @@ class AddMemberBottomSheet {
           hintText: hint,
           hintStyle: TextStyle(
             color: const Color(0x4D000000),
-            fontSize: MediaQuery.of(context).size.height * 0.014,
+            fontSize: MediaQuery.of(context).size.height * 0.012,
             fontWeight: FontWeight.w400,
           ),
           enabledBorder: OutlineInputBorder(
