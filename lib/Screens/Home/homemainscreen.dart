@@ -11,6 +11,7 @@ import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Data/Models/doctorslistres.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
+import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
@@ -367,7 +368,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                           MaterialPageRoute(
                                             builder:
                                                 (BuildContext context) {
-                                              return AddressScreen();
+                                              return PreferredHospitalLocationScreen();
                                             },
                                           ),
                                         );
