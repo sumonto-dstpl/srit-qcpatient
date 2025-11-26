@@ -37,7 +37,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
   int _selectedIndex = 4;
-  bool isExpanded = false; // For collapse/expand toggle
+  bool isExpanded = true; // For collapse/expand toggle
 
   String saveForLaterKey = "saveForLater";
 

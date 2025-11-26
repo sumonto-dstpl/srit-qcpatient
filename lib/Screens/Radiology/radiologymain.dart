@@ -1311,7 +1311,7 @@ class RadiologyMainstate extends State<RadiologyMain> {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "Prefered Date of Appoinmnet",
+                                  "Prefered Date of Appointment",
                                   style: TextStyle(
                                     fontSize: MediaQuery.of(context)
                                         .size
@@ -1455,6 +1455,7 @@ class RadiologyMainstate extends State<RadiologyMain> {
                                           padding: EdgeInsets.all(16),
                                           height: 350, // Adjust as needed
                                           child: CustomTypeCalendar(
+                                            minDate: DateTime.now(),
                                             onDateSelected: (selectedDate) {
                                               String formattedDate =
                                                   "${selectedDate.day.toString().padLeft(2, '0')}-${selectedDate.month.toString().padLeft(2, '0')}-${selectedDate.year}";
