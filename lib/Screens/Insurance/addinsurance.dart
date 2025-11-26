@@ -937,6 +937,7 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                                         padding: EdgeInsets.all(16),
                                         height: 350,
                                         child: CustomTypeCalendar(
+                                          minDate: DateTime.now().add(Duration(days: 1)),
                                           onDateSelected: (selectedDate) {
                                             String formattedDate =
                                                 "${selectedDate.day.toString().padLeft(2, '0')}-${selectedDate.month.toString().padLeft(2, '0')}-${selectedDate.year}";
