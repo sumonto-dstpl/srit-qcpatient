@@ -398,11 +398,11 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                           top: MediaQuery
                               .of(context)
                               .size
-                              .height * 0.015,
+                              .height * 0.00,
                           bottom: MediaQuery
                               .of(context)
                               .size
-                              .height * 0.01,
+                              .height * 0.0,
                           right: MediaQuery
                               .of(context)
                               .size
@@ -439,7 +439,7 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                   bottom: MediaQuery
                                       .of(context)
                                       .size
-                                      .height * 0.04,
+                                      .height * 0.02,
                               ), // Optional padding for inner content
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment
@@ -466,13 +466,13 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                                             .of(context)
                                             .size
                                             .height *
-                                            0.015,
+                                            0.01,
                                         bottom:
                                         MediaQuery
                                             .of(context)
                                             .size
                                             .height *
-                                            0.015),
+                                            0.01),
                                     child: Text(
                                       "What is a valid Prescription?",
                                       style: TextStyle(
@@ -1868,11 +1868,11 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
                           bottom: MediaQuery
                               .of(context)
                               .size
-                              .height * 0.04,
+                              .height * 0.035,
                           top: MediaQuery
                               .of(context)
                               .size
-                              .height * 0.05,
+                              .height * 0.045,
                         ),
                         padding: EdgeInsets.only(
                           left: MediaQuery
