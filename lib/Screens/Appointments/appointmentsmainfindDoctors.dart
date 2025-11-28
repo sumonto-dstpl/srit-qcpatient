@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
+import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
@@ -193,7 +194,7 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                                   MaterialPageRoute(
                                     builder:
                                         (BuildContext context) {
-                                      return AddressScreen();
+                                      return PreferredHospitalLocationScreen();
                                     },
                                   ),
                                 );

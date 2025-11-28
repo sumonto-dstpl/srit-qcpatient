@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 // import 'package:intl/intl.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
+import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Timeline/timelinedetails.dart';
@@ -557,7 +558,7 @@ class TimelineMainstate extends State<TimelineMain> {
                                 MaterialPageRoute(
                                   builder:
                                       (BuildContext context) {
-                                    return AddressScreen();
+                                    return PreferredHospitalLocationScreen();
                                   },
                                 ),
                               );

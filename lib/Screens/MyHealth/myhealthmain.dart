@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
+import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
@@ -207,7 +208,7 @@ class MyHealthMainstate extends State<MyHealthMain> {
                                 MaterialPageRoute(
                                   builder: (BuildContext context) {
                                     // return GoogleMapScreen();
-                                    return AddressScreen();
+                                    return PreferredHospitalLocationScreen();
                                   },
                                 ),
                               );
