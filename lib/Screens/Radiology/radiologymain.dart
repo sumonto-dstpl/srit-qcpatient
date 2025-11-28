@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
+import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
@@ -228,7 +229,7 @@ class RadiologyMainstate extends State<RadiologyMain> {
                               MaterialPageRoute(
                                 builder:
                                     (BuildContext context) {
-                                  return AddressScreen();
+                                  return PreferredHospitalLocationScreen();
                                 },
                               ),
                             );
@@ -1853,7 +1854,7 @@ class RadiologyMainstate extends State<RadiologyMain> {
                                    Navigator.of(context).push(
                                      MaterialPageRoute(
                                        builder: (BuildContext context) {
-                                         return PastUpcomingscanMain();
+                                         return PastUpcomingscanMain(initialTabIndex: 1);
                                        },
                                      ),
                                    );
@@ -1920,7 +1921,7 @@ class RadiologyMainstate extends State<RadiologyMain> {
                                                   Navigator.of(context).push(
                                                     MaterialPageRoute(
                                                       builder: (BuildContext context) {
-                                                        return PastUpcomingscanMain();
+                                                        return PastUpcomingscanMain(initialTabIndex: 1);
                                                       },
                                                     ),
                                                   );

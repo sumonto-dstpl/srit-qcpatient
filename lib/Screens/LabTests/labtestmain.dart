@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
+import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/LabTests/healthcondiviewall.dart';
 import 'package:newfolder/Screens/LabTests/healthpackages.dart';
@@ -215,7 +216,7 @@ Widget build(BuildContext context) {
                               MaterialPageRoute(
                                 builder:
                                     (BuildContext context) {
-                                  return AddressScreen();
+                                  return PreferredHospitalLocationScreen();
                                 },
                               ),
                             );

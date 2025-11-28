@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter_emoji_feedback/flutter_emoji_feedback.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
 import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
@@ -200,7 +201,7 @@ class TermsAndConditionsMainstate extends State<TermsandconditionsMain> {
                                   MaterialPageRoute(
                                     builder:
                                         (BuildContext context) {
-                                      return AddressScreen();
+                                      return PreferredHospitalLocationScreen();
                                     },
                                   ),
                                 );

@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:newfolder/Screens/AboutUs/aboutusmain.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
+import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Alerts/addmemberbottomsheet.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
@@ -285,7 +286,7 @@ class ProfileMainstate extends State<ProfileMain> {
                                   MaterialPageRoute(
                                     builder:
                                         (BuildContext context) {
-                                      return AddressScreen();
+                                      return PreferredHospitalLocationScreen();
                                     },
                                   ),
                                 );
