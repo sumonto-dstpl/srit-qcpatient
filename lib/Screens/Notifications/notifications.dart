@@ -13,6 +13,7 @@ import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
 import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
+import 'package:newfolder/Screens/Utils/notification_globals.dart';
 
 
 class NotificationMain extends StatefulWidget {
@@ -113,6 +114,13 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
     int notificationsCount = notifications.where((n) => n.markAllRead == false).length;
     int offerCount = offers;
     int allCount =  offerCount + notificationsCount;
+
+    if (globalNotificationCount.value != allCount) {
+      // We use addPostFrameCallback to avoid errors during the build cycle
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        globalNotificationCount.value = allCount;
+      });
+    }
 
     print("notificationsCount : $notificationsCount");
     print("offerCount : $offerCount");
