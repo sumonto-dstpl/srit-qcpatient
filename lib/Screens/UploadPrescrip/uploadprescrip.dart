@@ -17,6 +17,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import '../Utils/user_secure_storage.dart';
+
 class UploadPrescriptionMain extends StatefulWidget {
   int selectedIndex = 0;
 
@@ -57,10 +59,29 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
     final appDir = await getApplicationDocumentsDirectory();
     final fileName = p.basename(tempFile.path);
     final savedImage = await tempFile.copy('${appDir.path}/$fileName');
+    final fileSize = await savedImage.length();
 
     // // Save to secure storage
     // await storage.write(key: 'saved_image', value: savedImage.path);
     // await storage.write(key: 'saved_image_name', value: fileName);
+
+    String? username = await UserSecureStorage.getUsernameid();
+    Map<String, dynamic>? user = await UserSecureStorage.getUser(username ?? '');
+
+    // Ensure uploads list exists
+    user?['data']['uploads'] ??= [];                       // make sure uploads exists
+    (user?['data']['uploads'] as List).add({
+      'file': fileName,
+      'size': fileSize,
+      'time': DateTime.now().toIso8601String(),
+      });
+
+    // Save back
+    await UserSecureStorage.saveUser(
+      userId: username!,
+      mpin: user!['mpin'],
+      userData: user['data'], // existing data
+    );
 
     // Upload to API
     final bytes = await savedImage.readAsBytes();

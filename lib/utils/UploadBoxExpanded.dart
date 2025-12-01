@@ -3,6 +3,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:dotted_border/dotted_border.dart';
 
+import '../Screens/Utils/user_secure_storage.dart';
+
 class UploadBoxExpanded extends StatefulWidget {
   final Function(List<Map<String, dynamic>>) onFilesChanged;
 
@@ -14,6 +16,38 @@ class UploadBoxExpanded extends StatefulWidget {
 
 class _UploadBoxExpandedState extends State<UploadBoxExpanded> {
   List<Map<String, dynamic>> uploadedFiles = [];
+  @override
+  void initState() {
+    super.initState();
+    loadUserUploads();
+  }
+
+  Future<void> loadUserUploads() async {
+    String? username = await UserSecureStorage.getUsernameid();
+    Map<String, dynamic>? user = await UserSecureStorage.getUser(username ?? '');
+
+    if (user == null) return;
+
+    // Ensure 'data' and 'uploads' exist
+    final data = user['data'];
+    if (data == null || data['uploads'] == null) return;
+
+    List uploads = data['uploads'];
+
+    // Convert time back to DateTime
+    List<Map<String, dynamic>> loaded = uploads.map((item) {
+      return {
+        'file': item['file'],              // String
+        'size': item['size'],              // int
+        'time': DateTime.parse(item['time']), // Convert string to DateTime
+      };
+    }).toList();
+
+    setState(() {
+      uploadedFiles = loaded;
+    });
+  }
+
 
   Future<void> pickFile() async {
     final result = await FilePicker.platform.pickFiles(
@@ -32,9 +66,31 @@ class _UploadBoxExpandedState extends State<UploadBoxExpanded> {
         return;
       }
 
+      String? username =  await UserSecureStorage.getUsernameid();
+
+      Map<String, dynamic>? user = await UserSecureStorage.getUser(username ?? '');
+
+      print("user: $user");
+      // user?['data'] ??= {};                                   // make sure data exists
+      user?['data']['uploads'] ??= [];                       // make sure uploads exists
+      (user?['data']['uploads'] as List).add({
+        'file': file.name,
+        'size': file.size,
+        'time': DateTime.now().toIso8601String(),
+      });
+      print("user2: $user");
+
+// Save back to storage
+      await UserSecureStorage.saveUser(
+        userId: username!,
+        mpin: user!['mpin'],
+        userData: user['data'],
+      );
+
       setState(() {
         uploadedFiles.add({
-          'file': file,
+          'file': file.name,
+          'size': file.size,
           'time': DateTime.now(),
         });
       });
@@ -170,11 +226,12 @@ class _UploadBoxExpandedState extends State<UploadBoxExpanded> {
             itemCount: uploadedFiles.length,
             itemBuilder: (context, index) {
               final fileData = uploadedFiles[index];
-              final file = fileData['file'] as PlatformFile;
+              final file = fileData['file'] as String;
               final uploadTime = fileData['time'] as DateTime;
+              final fileSize = fileData['size'] ?? 0;   // bytes
 
               return Dismissible(
-                key: Key(file.name + uploadTime.toString()),
+                key: Key(file + uploadTime.toString()),
                 direction: DismissDirection.endToStart,
                 background: Container(
                   color: Colors.white,
@@ -271,7 +328,7 @@ class _UploadBoxExpandedState extends State<UploadBoxExpanded> {
                                       children: <Widget>[
                                         Container(
                                           child: Text(
-                                            file.name,
+                                            file,
                                             style: TextStyle(
                                               color: Colors.black87,
                                               overflow: TextOverflow.ellipsis,
@@ -282,7 +339,7 @@ class _UploadBoxExpandedState extends State<UploadBoxExpanded> {
                                         ),
                                         Container(
                                           child: Text(
-                                            "${(file.size / 1024 / 1024).toStringAsFixed(2)} Mb",
+                                            "${(fileSize  / 1024 / 1024).toStringAsFixed(2)} Mb",
                                             style: TextStyle(
                                               color: Colors.black54,
                                               fontWeight: FontWeight.bold,

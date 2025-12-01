@@ -167,7 +167,7 @@ class UserSecureStorage {
   static Future<void> saveUser({
     required String userId,
     required String mpin,
-    required Map<String, String> userData,
+    required Map<String, dynamic> userData,
   }) async {
     // Read existing users
     String? jsonString = await _storage.read(key: _keyAllUsers);
