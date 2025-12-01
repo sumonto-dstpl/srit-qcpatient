@@ -49,9 +49,11 @@ import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
 
 class PastUpcomingscanMain extends StatefulWidget {
   int selectedIndex = 0;
+  final int initialTabIndex;
 
   PastUpcomingscanMain({
     super.key,
+    this.initialTabIndex = 0,
   });
 
   @override
@@ -114,6 +116,7 @@ class PastUpcomingscanMainstate extends State<PastUpcomingscanMain> {
 
     return DefaultTabController(
       length: 2,
+      initialIndex: widget.initialTabIndex,
       child: Scaffold(
         body: Container(
           width: double.infinity,
@@ -1594,35 +1597,6 @@ class PastUpcomingscanMainstate extends State<PastUpcomingscanMain> {
                                             crossAxisAlignment: CrossAxisAlignment
                                                 .start,
                                             children: <Widget>[
-                                              // Container(
-                                              //   padding: EdgeInsets.only(
-                                              //     top: MediaQuery
-                                              //         .of(context)
-                                              //         .size
-                                              //         .height * 0.0,
-                                              //     bottom: MediaQuery
-                                              //         .of(context)
-                                              //         .size
-                                              //         .height * 0.03,
-                                              //     left: MediaQuery
-                                              //         .of(context)
-                                              //         .size
-                                              //         .height * 0.18,
-                                              //     right: MediaQuery
-                                              //         .of(context)
-                                              //         .size
-                                              //         .height * 0.18,
-                                              //   ),
-                                              //   child: Divider(
-                                              //     height: 0,
-                                              //     indent: 0,
-                                              //     thickness: MediaQuery
-                                              //         .of(context)
-                                              //         .size
-                                              //         .height * 0.008,
-                                              //     color: Color(0xFF95C8D6).withOpacity(0.3),
-                                              //   ),
-                                              // ),
 
                                               // Select the Type of Appointment
 

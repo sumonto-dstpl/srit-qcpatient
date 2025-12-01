@@ -41,21 +41,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_emoji_feedback/flutter_emoji_feedback.dart';
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 import 'package:newfolder/Screens/Widgets/tab_item.dart';
+import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 
 
-class AboutUsMain extends StatefulWidget {
+
+class TermsandconditionsMain extends StatefulWidget {
   int selectedIndex = 0;
 
-  AboutUsMain({
+  TermsandconditionsMain({
     super.key,
   });
 
   @override
-  State<AboutUsMain> createState() => AboutUsMainstate();
+  State<TermsandconditionsMain> createState() => TermsAndConditionsMainstate();
 }
 
-class AboutUsMainstate extends State<AboutUsMain> {
-  String usernameValue = "About us";
+class TermsAndConditionsMainstate extends State<TermsandconditionsMain> {
+  bool isGuestUser =false;
+  String usernameValue = "Terms & Conditions";
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
@@ -67,6 +70,33 @@ class AboutUsMainstate extends State<AboutUsMain> {
   TextEditingController? reviewtextcontroller = TextEditingController();
   EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
   AppointmentCancel appointmentcancelalert = new AppointmentCancel();
+
+  bool _isLoading = false;
+
+  void _loadData() async {
+    // await Future.delayed(const Duration(seconds: 2));// Simulating API call
+    var guestUser = await UserSecureStorage.getIfGuestLogged();
+    print("guestUser: $guestUser");
+    isGuestUser=guestUser == "YES";
+    setState(() {});
+    if(!isGuestUser){
+      String? username =  await UserSecureStorage.getUsernameid();
+      print("username: $username");
+      Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
+      print("user : $user");
+      final fname = user?['data']['fname'] ?? '';
+      final lname = user?['data']['lname'] ?? '';
+      final trimmedFname = fname.length > 5 ? fname.substring(0, 5) : fname;
+      final trimmedLname = lname.length > 5 ? lname.substring(0, 5) : lname;
+      usernameValue += fname+" "+lname;
+    }else{
+      usernameValue +="Guest";
+    }
+    print("usernameValue: $usernameValue");
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -292,34 +322,6 @@ class AboutUsMainstate extends State<AboutUsMain> {
                       children: [
 
 
-                        Container(
-                          margin: EdgeInsets.only(
-                            right: screenHeight * 0.0,
-                            top: screenHeight * 0.0,
-                            bottom: screenHeight * 0.01,
-                            left: screenHeight * 0.0,
-                          ), // Responsive margin
-                          height: MediaQuery.of(context).size.height * 0.22,
-                          decoration: BoxDecoration(
-                            // color: Color(0xFFC80000), // Fallback color if image fails to load
-                            borderRadius: BorderRadius.circular(15),
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/contactusbanner.png'), // Path to your banner image
-                              fit: BoxFit.fill, // Adjust to cover the entire container
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Theme.of(context).hintColor.withOpacity(0.0),
-                                offset: Offset(0, 4),
-                                blurRadius: 9,
-                              ),
-                            ],
-                          ),
-
-                        ),
-
-
                         // About Us
                         Container(
                           padding: EdgeInsets.only(
@@ -330,124 +332,34 @@ class AboutUsMainstate extends State<AboutUsMain> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
+
                               Container(
                                 padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.015,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
+                                  left: MediaQuery.of(context).size.height * 0.01,
+                                  right: MediaQuery.of(context).size.height * 0.01,
+                                  top: MediaQuery.of(context).size.height * 0.02,
+                                  bottom: MediaQuery.of(context).size.height * 0.00,
+                                ),
                                 child: Text(
-                                  "About Us",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize:
-                                      MediaQuery.of(context).size.height *
-                                          0.018),
-                                ),
-                              ),
-
-
-
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.005,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
-                                child: Text( "Know more about us,",
-                                  style: TextStyle(
-                                      color: Color(0xFF000000).withOpacity(0.4),
-                                      fontWeight: FontWeight.w500,
-                                      // overflow: TextOverflow.ellipsis,
-                                      fontSize:
-                                      MediaQuery.of(context).size.height *
-                                          0.015
-                                  ),
-                                ),
-                              ),
-
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.02,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.005),
-                                child: Text( "Welcome to Quadracyte Hospital, where cutting-edge healthcare meets compassionate care. As a leading multispecialty hospital, we are dedicated to providing comprehensive, patient-centered medical services designed to meet the diverse needs of our community.",
+                                  "These terms may be changed from time to time without further notice, at the discretion of QC. Your continued use of the Site after any such changes constitutes your acceptance of the new terms. If you do not agree to abide by these or any future terms, please do not use the Site or download content from it.\n\n"
+                                      "The Website and App provide you the ability to pay online through a third party payment gateway for some of the Services available on the Website or App. If you choose to pay online, you may be directed to a third party payment gateway to enable processing of the payment. This transaction will be governed by the terms and conditions and privacy policy of the third party payment gateway. QC shall not be liable for any loss or damage arising directly or indirectly arising out of the usage, decline or acceptance of authorization for any transaction, for any reason whatsoever.\n\n"
+                                      "The cancellation and refund policy is only applicable to all online payments made through mobile app and website for booking appointments.\n\n"
+                                      "In case cancellation is initiated by the user, at the time of cancellation, amount will be refunded via same source of payment and will be subject to the payment terms of the source only. Amount will be refunded within 15 working days.\n\n"
+                                      "Some of the content, text, data, graphics, images, information, suggestions, guidance, and other material (collectively, \"Information\") that may be available on the Website (including information provided in direct response to your questions or postings) may be provided by individuals in the medical profession. The provision of such Information does not create a licensed medical professional/patient relationship, between QC and you and does not constitute an opinion, medical advice, or diagnosis or treatment of any particular condition, but is only provided to assist you with locating appropriate medical care from a qualified practitioner. In case of a medical emergency (either on your or another person's behalf), please contact an ambulance service, hospital, doctor or appropriate medical professional directly.\n\n"
+                                      "By using this Website and App, you agree that any information shared by you with QC or with any other person, medical service provider or anyone else using the Website, App or Services will be subject to our Privacy Policy.\n\n"
+                                      "You are solely responsible for the content that you choose to submit for publication on the Website, including any feedback, ratings, or reviews. QC disclaims all responsibility with respect to the content that you post on the Website and QC shall be entitled to re-publishing any content across any of its or its Partners platforms.",
                                   style: TextStyle(
                                     color: Color(0xFF000000).withOpacity(0.4),
                                     fontWeight: FontWeight.w600,
-                                    // overflow: TextOverflow.ellipsis,
-                                    fontSize:
-                                    MediaQuery.of(context).size.height *
-                                        0.012,
-                                    height: screenHeight * 0.0025,
+                                    fontSize: MediaQuery.of(context).size.height * 0.012,
+                                    height: screenHeight * 0.002,
                                   ),
                                 ),
                               ),
 
 
+                              SizedBox(height: screenHeight * 0.05),
 
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.02,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.005),
-                                child: Text( "At Quadracyte Hospital, our mission is to enhance the health and well-being of our patients through exceptional care, innovation, and education. We strive to deliver personalized, high-quality medical treatment with a focus on compassion, integrity, and excellence.",
-                                  style: TextStyle(
-                                    color: Color(0xFF000000).withOpacity(0.4),
-                                    fontWeight: FontWeight.w600,
-                                    // overflow: TextOverflow.ellipsis,
-                                    fontSize:
-                                    MediaQuery.of(context).size.height *
-                                        0.012,
-                                    height: screenHeight * 0.0025,
-                                  ),
-                                ),
-                              ),
-
-
-
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.02,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
-                                child: Text( "We envision a future where every patient receives top-tier healthcare in a supportive, state-of-the-art environment. By integrating the latest medical advancements with a holistic approach to treatment, we aim to set new standards in patient care and clinical outcomes.",
-                                  style: TextStyle(
-                                    color: Color(0xFF000000).withOpacity(0.4),
-                                    fontWeight: FontWeight.w600,
-                                    // overflow: TextOverflow.ellipsis,
-                                    fontSize:
-                                    MediaQuery.of(context).size.height *
-                                        0.012,
-                                    height: screenHeight * 0.0025,
-                                  ),
-                                ),
-                              ),
 
 
 

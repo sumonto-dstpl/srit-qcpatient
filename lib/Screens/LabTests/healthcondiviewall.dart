@@ -9,6 +9,7 @@ import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
+import 'package:newfolder/Screens/Appointments/quicksearchwithoutdata.dart';
 import 'package:newfolder/Screens/LabTests/recomendtestviewall.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
@@ -373,61 +374,308 @@ class HealthCondiViewallstate
                     children: [
                       // Search Input Field
                       Container(
-                        alignment: Alignment.centerRight,
                         padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.0,
-                            bottom: MediaQuery.of(context).size.height * 0.00,
-                            left: MediaQuery.of(context).size.height * 0.00,
-                            right: MediaQuery.of(context).size.height * 0.00),
-                        margin: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.height * 0.02,
-                            top: MediaQuery.of(context).size.height * 0.0,
-                            bottom: MediaQuery.of(context).size.height * 0.01,
-                            left: MediaQuery.of(context).size.height * 0.02),
-                        child: TextFormField(
-                          controller: SearchEditTextController,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(15),
-                            FilteringTextInputFormatter.allow(
-                                RegExp('[a-zA-Z0-9]'))
-                          ],
-                          textCapitalization: TextCapitalization.characters,
-                          style: TextStyle(color: Colors.black45),
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (input) => input!.length < 3
-                              ? "Search should be more than 3 characters"
-                              : null,
-                          decoration: InputDecoration(
-                            isDense: true,
-                            contentPadding:
-                            EdgeInsets.all(screenHeight * 0.012),
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            hintText: "Search By health condition",
-                            hintStyle: TextStyle(
-                              color: Colors.black26,
-                              fontSize: screenHeight * 0.016,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                              borderSide: BorderSide(color: Colors.grey),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(5.0)),
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            suffixIcon: Icon(
-                              Icons.search,
-                              color: Colors.black45,
-                              size: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * 0.02,
-                            ),
+                            left: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.02,
+                            right: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.02,
+                            top: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.0,
+                            bottom: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.02),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(screenHeight * 0.03),
+                            topRight: Radius.circular(screenHeight * 0.03),
                           ),
                         ),
+                        child:
+                        Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return QuickSearchWithoutData();
+                                      },
+                                    ),
+                                  );
+                                },
+                                child:
+                                Container(
+                                  height: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.05,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFF7F5F6),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+
+                                  alignment: Alignment.centerRight,
+                                  padding: EdgeInsets.only(
+                                    top: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.0,
+                                    bottom: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.0,
+                                    left: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.00,
+                                    right: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.00,
+                                  ),
+                                  margin: EdgeInsets.only(
+                                    right: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.0,
+                                    top: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.0,
+                                    bottom: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.0,
+                                    left: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.0,
+                                  ),
+                                  child: Row(
+                                    // mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                            left: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.02,
+                                            right: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.00,
+                                            top: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.00,
+                                            bottom: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.0),
+                                        child: Text(
+                                          "Search by Health Condition",
+                                          style: TextStyle(
+                                              color: Color(0xFF999999),
+                                              // overflow: TextOverflow.ellipsis,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize:
+                                              MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height *
+                                                  0.014
+                                          ),
+                                        ),
+                                      ),
+
+
+                                      // Container(
+                                      //   padding: EdgeInsets.only(
+                                      //       left: MediaQuery
+                                      //           .of(context)
+                                      //           .size
+                                      //           .height *
+                                      //           0.008,
+                                      //       right: MediaQuery
+                                      //           .of(context)
+                                      //           .size
+                                      //           .height *
+                                      //           0.00,
+                                      //       top: MediaQuery
+                                      //           .of(context)
+                                      //           .size
+                                      //           .height *
+                                      //           0.00,
+                                      //       bottom: MediaQuery
+                                      //           .of(context)
+                                      //           .size
+                                      //           .height *
+                                      //           0.0),
+                                      //   child:
+                                      //   DefaultTextStyle(
+                                      //     style: TextStyle(
+                                      //         color: Color(0xFF126086),
+                                      //         overflow: TextOverflow.ellipsis,
+                                      //         fontWeight: FontWeight.bold,
+                                      //         fontSize:
+                                      //         MediaQuery
+                                      //             .of(context)
+                                      //             .size
+                                      //             .height * 0.016),
+                                      //     child: AnimatedTextKit(
+                                      //       animatedTexts: [
+                                      //         RotateAnimatedText(
+                                      //           'Doctor',
+                                      //           textStyle: TextStyle(
+                                      //               color: Color(0xFF126086),
+                                      //               overflow: TextOverflow.ellipsis,
+                                      //               fontWeight: FontWeight.bold,
+                                      //               fontSize:
+                                      //               MediaQuery
+                                      //                   .of(context)
+                                      //                   .size
+                                      //                   .height *
+                                      //                   0.014), // Red text
+                                      //         ),
+                                      //         RotateAnimatedText(
+                                      //           'Speciality',
+                                      //           textStyle: TextStyle(
+                                      //               color: Color(0xFF126086),
+                                      //               overflow: TextOverflow.ellipsis,
+                                      //               fontWeight: FontWeight.bold,
+                                      //               fontSize:
+                                      //               MediaQuery
+                                      //                   .of(context)
+                                      //                   .size
+                                      //                   .height *
+                                      //                   0.014),
+                                      //         ),
+                                      //
+                                      //         RotateAnimatedText(
+                                      //           'Symptoms',
+                                      //           textStyle: TextStyle(
+                                      //               color: Color(0xFF126086),
+                                      //               overflow: TextOverflow.ellipsis,
+                                      //               fontWeight: FontWeight.bold,
+                                      //               fontSize:
+                                      //               MediaQuery
+                                      //                   .of(context)
+                                      //                   .size
+                                      //                   .height *
+                                      //                   0.014),
+                                      //         ),
+                                      //       ],
+                                      //       repeatForever: true,
+                                      //       pause: Duration(milliseconds: 500),
+                                      //       onTap: () {
+                                      //         Navigator.of(context).push(
+                                      //           MaterialPageRoute(
+                                      //             builder: (BuildContext context) {
+                                      //               return QuickSearchWithoutData();
+                                      //             },
+                                      //           ),
+                                      //         );
+                                      //         print("Tap Event");
+                                      //       },
+                                      //     ),
+                                      //   ),
+                                      // ),
+
+                                      Spacer(),
+                                      // Pushes the search icon to the end of the Row
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          right: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.02,
+                                        ),
+                                        child: Icon(
+                                          Icons.search,
+                                          color: Colors.black45,
+                                          size: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.02,
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ]
+                        ),
                       ),
+                      // Container(
+                      //   alignment: Alignment.centerRight,
+                      //   padding: EdgeInsets.only(
+                      //       top: MediaQuery.of(context).size.height * 0.0,
+                      //       bottom: MediaQuery.of(context).size.height * 0.00,
+                      //       left: MediaQuery.of(context).size.height * 0.00,
+                      //       right: MediaQuery.of(context).size.height * 0.00),
+                      //   margin: EdgeInsets.only(
+                      //       right: MediaQuery.of(context).size.height * 0.02,
+                      //       top: MediaQuery.of(context).size.height * 0.0,
+                      //       bottom: MediaQuery.of(context).size.height * 0.01,
+                      //       left: MediaQuery.of(context).size.height * 0.02),
+                      //   child: TextFormField(
+                      //     controller: SearchEditTextController,
+                      //     inputFormatters: [
+                      //       LengthLimitingTextInputFormatter(15),
+                      //       FilteringTextInputFormatter.allow(
+                      //           RegExp('[a-zA-Z0-9]'))
+                      //     ],
+                      //     textCapitalization: TextCapitalization.characters,
+                      //     style: TextStyle(color: Colors.black45),
+                      //     keyboardType: TextInputType.emailAddress,
+                      //     validator: (input) => input!.length < 3
+                      //         ? "Search should be more than 3 characters"
+                      //         : null,
+                      //     decoration: InputDecoration(
+                      //       isDense: true,
+                      //       contentPadding:
+                      //       EdgeInsets.all(screenHeight * 0.012),
+                      //       filled: true,
+                      //       fillColor: Colors.grey[200],
+                      //       hintText: "Search By health condition",
+                      //       hintStyle: TextStyle(
+                      //         color: Colors.black26,
+                      //         fontSize: screenHeight * 0.016,
+                      //       ),
+                      //       focusedBorder: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.circular(5.0),
+                      //         borderSide: BorderSide(color: Colors.grey),
+                      //       ),
+                      //       enabledBorder: OutlineInputBorder(
+                      //         borderRadius:
+                      //         BorderRadius.all(Radius.circular(5.0)),
+                      //         borderSide: BorderSide(color: Colors.white),
+                      //       ),
+                      //       suffixIcon: Icon(
+                      //         Icons.search,
+                      //         color: Colors.black45,
+                      //         size: MediaQuery
+                      //             .of(context)
+                      //             .size
+                      //             .height * 0.02,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
 
                       // Browse by health condition
                       Padding(

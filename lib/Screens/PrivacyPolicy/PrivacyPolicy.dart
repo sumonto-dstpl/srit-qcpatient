@@ -41,21 +41,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_emoji_feedback/flutter_emoji_feedback.dart';
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 import 'package:newfolder/Screens/Widgets/tab_item.dart';
+import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 
 
-class AboutUsMain extends StatefulWidget {
+
+class PrivacyPolicyMain extends StatefulWidget {
   int selectedIndex = 0;
 
-  AboutUsMain({
+  PrivacyPolicyMain({
     super.key,
   });
 
   @override
-  State<AboutUsMain> createState() => AboutUsMainstate();
+  State<PrivacyPolicyMain> createState() => PrivacyPolicyMainstate();
 }
 
-class AboutUsMainstate extends State<AboutUsMain> {
-  String usernameValue = "About us";
+class PrivacyPolicyMainstate extends State<PrivacyPolicyMain> {
+  bool isGuestUser =false;
+  String usernameValue = "Privacy Policy";
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
@@ -67,6 +70,33 @@ class AboutUsMainstate extends State<AboutUsMain> {
   TextEditingController? reviewtextcontroller = TextEditingController();
   EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
   AppointmentCancel appointmentcancelalert = new AppointmentCancel();
+
+  bool _isLoading = false;
+
+  void _loadData() async {
+    // await Future.delayed(const Duration(seconds: 2));// Simulating API call
+    var guestUser = await UserSecureStorage.getIfGuestLogged();
+    print("guestUser: $guestUser");
+    isGuestUser=guestUser == "YES";
+    setState(() {});
+    if(!isGuestUser){
+      String? username =  await UserSecureStorage.getUsernameid();
+      print("username: $username");
+      Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
+      print("user : $user");
+      final fname = user?['data']['fname'] ?? '';
+      final lname = user?['data']['lname'] ?? '';
+      final trimmedFname = fname.length > 5 ? fname.substring(0, 5) : fname;
+      final trimmedLname = lname.length > 5 ? lname.substring(0, 5) : lname;
+      usernameValue += fname+" "+lname;
+    }else{
+      usernameValue +="Guest";
+    }
+    print("usernameValue: $usernameValue");
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -292,34 +322,6 @@ class AboutUsMainstate extends State<AboutUsMain> {
                       children: [
 
 
-                        Container(
-                          margin: EdgeInsets.only(
-                            right: screenHeight * 0.0,
-                            top: screenHeight * 0.0,
-                            bottom: screenHeight * 0.01,
-                            left: screenHeight * 0.0,
-                          ), // Responsive margin
-                          height: MediaQuery.of(context).size.height * 0.22,
-                          decoration: BoxDecoration(
-                            // color: Color(0xFFC80000), // Fallback color if image fails to load
-                            borderRadius: BorderRadius.circular(15),
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/contactusbanner.png'), // Path to your banner image
-                              fit: BoxFit.fill, // Adjust to cover the entire container
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Theme.of(context).hintColor.withOpacity(0.0),
-                                offset: Offset(0, 4),
-                                blurRadius: 9,
-                              ),
-                            ],
-                          ),
-
-                        ),
-
-
                         // About Us
                         Container(
                           padding: EdgeInsets.only(
@@ -330,124 +332,201 @@ class AboutUsMainstate extends State<AboutUsMain> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
+
+// Effective Date
                               Container(
                                 padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.015,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
+                                    left: MediaQuery.of(context).size.height * 0.01,
+                                    right: MediaQuery.of(context).size.height * 0.01,
+                                    top: MediaQuery.of(context).size.height * 0.015,
+                                    bottom: MediaQuery.of(context).size.height * 0.00),
                                 child: Text(
-                                  "About Us",
+                                  "Effective Date: 12/12/2010",
                                   style: TextStyle(
                                       color: Colors.black,
                                       overflow: TextOverflow.ellipsis,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: MediaQuery.of(context).size.height * 0.014),
+                                ),
+                              ),
+
+// Last Updated
+                              Container(
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.height * 0.01,
+                                    right: MediaQuery.of(context).size.height * 0.01,
+                                    top: MediaQuery.of(context).size.height * 0.015,
+                                    bottom: MediaQuery.of(context).size.height * 0.00),
+                                child: Text(
+                                  "Last Updated: 12/12/2029",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      overflow: TextOverflow.ellipsis,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: MediaQuery.of(context).size.height * 0.014),
+                                ),
+                              ),
+
+// 1. Introduction
+                              Container(
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.height * 0.01,
+                                    right: MediaQuery.of(context).size.height * 0.01,
+                                    top: MediaQuery.of(context).size.height * 0.015,
+                                    bottom: MediaQuery.of(context).size.height * 0.00),
+                                child: Text(
+                                  "1. Introduction",
+                                  style: TextStyle(
+                                      color: Color(0xFF126086),
+                                      overflow: TextOverflow.ellipsis,
                                       fontWeight: FontWeight.w700,
-                                      fontSize:
-                                      MediaQuery.of(context).size.height *
-                                          0.018),
+                                      fontSize: MediaQuery.of(context).size.height * 0.015),
                                 ),
                               ),
 
-
-
+// Intro Paragraph
                               Container(
                                 padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.005,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
-                                child: Text( "Know more about us,",
-                                  style: TextStyle(
-                                      color: Color(0xFF000000).withOpacity(0.4),
-                                      fontWeight: FontWeight.w500,
-                                      // overflow: TextOverflow.ellipsis,
-                                      fontSize:
-                                      MediaQuery.of(context).size.height *
-                                          0.015
-                                  ),
-                                ),
-                              ),
-
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.02,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.005),
-                                child: Text( "Welcome to Quadracyte Hospital, where cutting-edge healthcare meets compassionate care. As a leading multispecialty hospital, we are dedicated to providing comprehensive, patient-centered medical services designed to meet the diverse needs of our community.",
+                                    left: MediaQuery.of(context).size.height * 0.01,
+                                    right: MediaQuery.of(context).size.height * 0.01,
+                                    top: MediaQuery.of(context).size.height * 0.005,
+                                    bottom: MediaQuery.of(context).size.height * 0.00),
+                                child: Text(
+                                  "Welcome to QC Hospital us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application (“App”). We are committed to protecting your personal health information in compliance with applicable laws and healthcare data standards. \n"
+                                      "By using the QC Hospital App, you agree to the terms outlined in this Privacy Policy. If you do not agree, please discontinue use of the App.",
                                   style: TextStyle(
                                     color: Color(0xFF000000).withOpacity(0.4),
                                     fontWeight: FontWeight.w600,
-                                    // overflow: TextOverflow.ellipsis,
-                                    fontSize:
-                                    MediaQuery.of(context).size.height *
-                                        0.012,
-                                    height: screenHeight * 0.0025,
+                                    fontSize: MediaQuery.of(context).size.height * 0.012,
+                                    height: screenHeight * 0.002,
                                   ),
                                 ),
                               ),
 
-
-
+// 2. Information We Collect
                               Container(
                                 padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.02,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.005),
-                                child: Text( "At Quadracyte Hospital, our mission is to enhance the health and well-being of our patients through exceptional care, innovation, and education. We strive to deliver personalized, high-quality medical treatment with a focus on compassion, integrity, and excellence.",
+                                    left: MediaQuery.of(context).size.height * 0.01,
+                                    right: MediaQuery.of(context).size.height * 0.01,
+                                    top: MediaQuery.of(context).size.height * 0.015,
+                                    bottom: MediaQuery.of(context).size.height * 0.00),
+                                child: Text(
+                                  "2. Information We Collect",
+                                  style: TextStyle(
+                                      color: Color(0xFF126086),
+                                      overflow: TextOverflow.ellipsis,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: MediaQuery.of(context).size.height * 0.015),
+                                ),
+                              ),
+
+// Info Paragraphs
+                              Container(
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.height * 0.01,
+                                    right: MediaQuery.of(context).size.height * 0.01,
+                                    top: MediaQuery.of(context).size.height * 0.005,
+                                    bottom: MediaQuery.of(context).size.height * 0.00),
+                                child: Text(
+                                  "We may collect the following types of information:\n"
+                                      "a. Personal Information\n"
+                                      "• Full name, contact details (phone number, email address), gender, and date of birth.\n"
+                                      "• Patient ID, hospital registration number, and medical record details.\n"
+                                      "b. Health Information\n"
+                                      "• Doctor consultations, prescriptions, lab reports, diagnoses, and medical history.\n"
+                                      "• Appointment and billing information.\n"
+                                      "c. Device and Usage Information\n"
+                                      "• Device type, operating system, IP address, and app usage data.\n"
+                                      "• Crash reports, analytics, and performance data (for improving app experience).",
                                   style: TextStyle(
                                     color: Color(0xFF000000).withOpacity(0.4),
                                     fontWeight: FontWeight.w600,
-                                    // overflow: TextOverflow.ellipsis,
-                                    fontSize:
-                                    MediaQuery.of(context).size.height *
-                                        0.012,
-                                    height: screenHeight * 0.0025,
+                                    fontSize: MediaQuery.of(context).size.height * 0.012,
+                                    height: screenHeight * 0.002,
                                   ),
                                 ),
                               ),
 
-
+// 3. How We Use Your Information
+                              Container(
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.height * 0.01,
+                                    right: MediaQuery.of(context).size.height * 0.01,
+                                    top: MediaQuery.of(context).size.height * 0.015,
+                                    bottom: MediaQuery.of(context).size.height * 0.00),
+                                child: Text(
+                                  "3. How We Use Your Information",
+                                  style: TextStyle(
+                                      color: Color(0xFF126086),
+                                      overflow: TextOverflow.ellipsis,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: MediaQuery.of(context).size.height * 0.015),
+                                ),
+                              ),
 
                               Container(
                                 padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.02,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
-                                child: Text( "We envision a future where every patient receives top-tier healthcare in a supportive, state-of-the-art environment. By integrating the latest medical advancements with a holistic approach to treatment, we aim to set new standards in patient care and clinical outcomes.",
+                                    left: MediaQuery.of(context).size.height * 0.01,
+                                    right: MediaQuery.of(context).size.height * 0.01,
+                                    top: MediaQuery.of(context).size.height * 0.005,
+                                    bottom: MediaQuery.of(context).size.height * 0.00),
+                                child: Text(
+                                  "We use your information to:\n"
+                                      "• Provide healthcare and hospital-related services.\n"
+                                      "• Manage appointments, lab results, and billing.\n"
+                                      "• Improve our app performance and user experience.\n"
+                                      "• Communicate important updates, notifications, and reminders.\n"
+                                      "• Ensure patient safety and maintain healthcare records securely.",
                                   style: TextStyle(
                                     color: Color(0xFF000000).withOpacity(0.4),
                                     fontWeight: FontWeight.w600,
-                                    // overflow: TextOverflow.ellipsis,
-                                    fontSize:
-                                    MediaQuery.of(context).size.height *
-                                        0.012,
-                                    height: screenHeight * 0.0025,
+                                    fontSize: MediaQuery.of(context).size.height * 0.012,
+                                    height: screenHeight * 0.002,
                                   ),
                                 ),
                               ),
+
+// 4. Data Sharing and Disclosure
+                              Container(
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.height * 0.01,
+                                    right: MediaQuery.of(context).size.height * 0.01,
+                                    top: MediaQuery.of(context).size.height * 0.015,
+                                    bottom: MediaQuery.of(context).size.height * 0.00),
+                                child: Text(
+                                  "4. Data Sharing and Disclosure",
+                                  style: TextStyle(
+                                      color: Color(0xFF126086),
+                                      overflow: TextOverflow.ellipsis,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: MediaQuery.of(context).size.height * 0.015),
+                                ),
+                              ),
+
+                              Container(
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.height * 0.01,
+                                    right: MediaQuery.of(context).size.height * 0.01,
+                                    top: MediaQuery.of(context).size.height * 0.005,
+                                    bottom: MediaQuery.of(context).size.height * 0.00),
+                                child: Text(
+                                  "We do not sell or share your personal data with third parties for marketing purposes.\n"
+                                      "We may share limited information only in the following cases:\n"
+                                      "• With your treating doctors, nurses, or authorized healthcare staff for providing medical care.\n"
+                                      "• With laboratories, pharmacies, or insurance providers as required for your treatment.\n"
+                                      "• To comply with legal or regulatory obligations (e.g., government health authorities).\n"
+                                      "All partners and service providers are required to follow strict confidentiality and data protection standards.",
+                                  style: TextStyle(
+                                    color: Color(0xFF000000).withOpacity(0.4),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: MediaQuery.of(context).size.height * 0.012,
+                                    height: screenHeight * 0.002,
+                                  ),
+                                ),
+                              ),
+
+                              SizedBox(height: screenHeight * 0.05),
+
 
 
 

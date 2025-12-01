@@ -52,6 +52,9 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
 
     _filteredTests = List.from(_allTests);
     SearchfilterEditTextController1.addListener(_applyFilter);
+
+    _filteredCategories = List.from(_allCategories);
+    SearchfilterEditTextController2.addListener(_filterCategories);
   }
 
   void _applyFilter() {
@@ -62,6 +65,20 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
         _filteredTests = List.from(_allTests);
       } else {
         _filteredTests = _allTests
+            .where((test) => test.toLowerCase().contains(query))
+            .toList();
+      }
+    });
+  }
+
+  void _filterCategories() {
+    String query = SearchfilterEditTextController2.text.trim().toLowerCase();
+
+    setState(() {
+      if (query.isEmpty) {
+        _filteredCategories = List.from(_allCategories);
+      } else {
+        _filteredCategories = _allCategories
             .where((test) => test.toLowerCase().contains(query))
             .toList();
       }
@@ -148,6 +165,19 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
   ];
 
   List<String> _filteredTests = [];
+
+  List<String> _allCategories = [
+    "Pregnancy",
+    "X - ray MRI CT Ultrasound",
+    "Blood Studies",
+    "Allergy",
+    "Tax Saver",
+    "Bone",
+    "Men's Health",
+  ];
+
+  List<String> _filteredCategories = [];
+
 
   double _currentChildSize = 0.55;
   bool _isDismissed = false;
@@ -1603,6 +1633,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Male Button
+                if (_filteredCategories.contains("Pregnancy"))
                 GestureDetector(
 
                   onTap: () {
@@ -1719,6 +1750,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
               children: [
 
                 // Female
+                if (_filteredCategories.contains("X - ray MRI CT Ultrasound"))
                 GestureDetector(
 
                   onTap: () {
@@ -1835,8 +1867,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
 
-
-
+                if (_filteredCategories.contains("Blood Studies"))
                 GestureDetector(
 
                   onTap: () {
@@ -1951,6 +1982,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Male Button
+                if (_filteredCategories.contains("Allergy"))
                 GestureDetector(
 
                   onTap: () {
@@ -2067,6 +2099,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
               children: [
 
                 // Female
+                if (_filteredCategories.contains("Tax Saver"))
                 GestureDetector(
 
                   onTap: () {
@@ -2185,6 +2218,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
 
 
                 // Others
+                if (_filteredCategories.contains("Bone"))
                 GestureDetector(
 
                   onTap: () {
@@ -2300,6 +2334,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
 
 
                 // Others
+                if (_filteredCategories.contains("Men's Health"))
                 GestureDetector(
 
                   onTap: () {

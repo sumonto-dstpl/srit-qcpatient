@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
+import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Profile/profilemain.dart';
@@ -228,7 +229,7 @@ class RadiologyMainstate extends State<RadiologyMain> {
                               MaterialPageRoute(
                                 builder:
                                     (BuildContext context) {
-                                  return AddressScreen();
+                                  return PreferredHospitalLocationScreen();
                                 },
                               ),
                             );
@@ -1311,7 +1312,7 @@ class RadiologyMainstate extends State<RadiologyMain> {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "Prefered Date of Appoinmnet",
+                                  "Prefered Date of Appointment",
                                   style: TextStyle(
                                     fontSize: MediaQuery.of(context)
                                         .size
@@ -1455,6 +1456,7 @@ class RadiologyMainstate extends State<RadiologyMain> {
                                           padding: EdgeInsets.all(16),
                                           height: 350, // Adjust as needed
                                           child: CustomTypeCalendar(
+                                            minDate: DateTime.now(),
                                             onDateSelected: (selectedDate) {
                                               String formattedDate =
                                                   "${selectedDate.day.toString().padLeft(2, '0')}-${selectedDate.month.toString().padLeft(2, '0')}-${selectedDate.year}";
@@ -1852,7 +1854,7 @@ class RadiologyMainstate extends State<RadiologyMain> {
                                    Navigator.of(context).push(
                                      MaterialPageRoute(
                                        builder: (BuildContext context) {
-                                         return PastUpcomingscanMain();
+                                         return PastUpcomingscanMain(initialTabIndex: 1);
                                        },
                                      ),
                                    );
@@ -1919,7 +1921,7 @@ class RadiologyMainstate extends State<RadiologyMain> {
                                                   Navigator.of(context).push(
                                                     MaterialPageRoute(
                                                       builder: (BuildContext context) {
-                                                        return PastUpcomingscanMain();
+                                                        return PastUpcomingscanMain(initialTabIndex: 1);
                                                       },
                                                     ),
                                                   );

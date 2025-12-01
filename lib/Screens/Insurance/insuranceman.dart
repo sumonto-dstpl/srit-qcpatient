@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Alerts/loginbottomsheet.dart';
 import 'package:newfolder/Screens/Insurance/filter.dart';
@@ -109,15 +110,15 @@ class InsuranceMainstate extends State<InsuranceMain> {
   ];
 
   final List<List<dynamic>>  uploadfilestime = [
-    ["Balsam Gold", Color(0xFFFFD700).withOpacity(0.8) ],
-    ["Balsam Silver", Color(0xFFADD8E6).withOpacity(0.8) ],
-    ["Balsam Bronze", Color(0xFFB5B5B5).withOpacity(0.8) ]
+    ["Balsam Gold", Color(0xFFD3AB0B).withOpacity(0.8) ],
+    ["Balsam Silver", Color(0xFF768D9F).withOpacity(0.8) ],
+    ["Balsam Bronze", Color(0xFFAB996D).withOpacity(0.8) ]
   ];
 
   final List<List<Color>> gradientColorOptions = [
-    [Color(0xFFFFD700), Colors.black], // Gold to Black
-    [Color(0xFFADD8E6), Colors.black],
-    [Color(0xFFB5B5B5), Colors.black], // Cement to Black
+    [Color(0xFFD3AB0B), Colors.black], // Gold to Black
+    [Color(0xFF768D9F), Colors.black],
+    [Color(0xFFAB996D), Colors.black], // Cement to Black
   ];
 
   late List<Map<String, dynamic>> updatedPolicies;
@@ -398,7 +399,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                   MaterialPageRoute(
                                     builder:
                                         (BuildContext context) {
-                                      return AddressScreen();
+                                      return PreferredHospitalLocationScreen();
                                     },
                                   ),
                                 );
