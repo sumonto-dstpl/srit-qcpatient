@@ -677,153 +677,6 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                         shrinkWrap: true,
                         children: [
 
-
-
-                          
-
-
-                          // Search Input Field
-
-                          // Container(
-                          //   padding: EdgeInsets.only(
-                          //     top: screenHeight * 0.0,
-                          //     left: screenWidth * 0.0,
-                          //     right: screenWidth * 0.0,
-                          //     bottom: screenWidth * 0.0,
-                          //   ),
-                          //   margin: EdgeInsets.only(
-                          //       right: MediaQuery.of(context).size.height * 0.01,
-                          //       top: MediaQuery.of(context).size.height * 0.0,
-                          //       bottom: MediaQuery.of(context).size.height * 0.0,
-                          //       left: MediaQuery.of(context).size.height * 0.01),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.start,
-                          //     crossAxisAlignment: CrossAxisAlignment.center,
-                          //     children: [
-                          //
-                          //  InkWell(
-                          //         onTap: () => Navigator.pop(context),
-                          //         child: Container(
-                          //           height: screenHeight * 0.045,
-                          //           width: screenHeight * 0.045,
-                          //           decoration: BoxDecoration(
-                          //             color: Colors.grey[100]!.withOpacity(0.9),
-                          //             shape: BoxShape.circle,
-                          //           ),
-                          //           child: Icon(
-                          //             Icons.arrow_back_ios_sharp,
-                          //             color: Color(0xFF126086),
-                          //             size: screenHeight * 0.025,
-                          //           ),
-                          //         ),
-                          //       ),
-                          //       SizedBox(
-                          //           width: screenHeight *
-                          //               0.005),
-                          //  // Add spacing between widgets
-                          //       Expanded(
-                          //         child: Column(
-                          //           crossAxisAlignment: CrossAxisAlignment.start,
-                          //           children: [
-                          //             Container(
-                          //               alignment: Alignment.centerRight,
-                          //               margin: EdgeInsets.only(
-                          //                   bottom: screenHeight * 0.01),
-                          //               child: TextFormField(
-                          //                 controller: SearchEditTextController,
-                          //
-                          //  inputFormatters: [
-                          //               LengthLimitingTextInputFormatter(15),
-                          //               FilteringTextInputFormatter.allow(
-                          //                   RegExp('[a-zA-Z0-9]')),
-                          //             ],
-                          //                 textCapitalization:
-                          //                 TextCapitalization.characters,
-                          //                 style: TextStyle(color: Colors.black),
-                          //                 keyboardType: TextInputType.emailAddress,
-                          //                 validator: (input) => input!.length < 3
-                          //                     ? "Search should be more than 3 characters"
-                          //                     : null,
-                          //                 decoration: InputDecoration(
-                          //                   isDense: true,
-                          //                   contentPadding: EdgeInsets.all(
-                          //                       screenHeight * 0.012),
-                          //                   filled: true,
-                          //                   fillColor: Colors.grey[200],
-                          //                   hintText: "Search By Doctor",
-                          //                   hintStyle: TextStyle(
-                          //                     color: Colors.black26,
-                          //                     fontSize: screenHeight * 0.016,
-                          //                   ),
-                          //                   focusedBorder: OutlineInputBorder(
-                          //                     borderRadius:
-                          //                     BorderRadius.circular(5.0),
-                          //                     borderSide:
-                          //                     BorderSide(color: Colors.grey),
-                          //                   ),
-                          //                   enabledBorder: OutlineInputBorder(
-                          //                     borderRadius: BorderRadius.all(
-                          //                         Radius.circular(5.0)),
-                          //                     borderSide:
-                          //                     BorderSide(color: Colors.white),
-                          //                   ),
-                          //                   suffixIcon: Container(
-                          //                     padding: EdgeInsets.symmetric(horizontal: 8),
-                          //                     child: Row(
-                          //                       mainAxisSize: MainAxisSize.min, // Ensures the Row only takes as much space as needed
-                          //                       children: [
-                          //                         // Search Icon
-                          //                         IconButton(
-                          //                           padding: EdgeInsets.zero,
-                          //                           icon: const Icon(
-                          //                             Icons.search_sharp,
-                          //                             color: Colors.black45,
-                          //                           ),
-                          //                           onPressed: () {
-                          //                             // showBottomSheet();
-                          //                           },
-                          //                         ),
-                          //                         // Divider
-                          //                         Container(
-                          //                           width: 1, // Width of the divider
-                          //                           height: 24, // Height of the divider
-                          //                           color: Colors.grey, // Color of the divider
-                          //                           margin: EdgeInsets.symmetric(horizontal: 4), // Spacing around the divider
-                          //                         ),
-                          //                         // Icon from Assets
-                          //                         InkWell(
-                          //                           onTap: () {
-                          //
-                          //                             showBottomSheet();
-                          //                             Navigator.of(context).push(
-                          //                               MaterialPageRoute(
-                          //                                 builder: (BuildContext context) {
-                          //                                   return FilterScreen();
-                          //                                 },
-                          //                               ),
-                          //                             );
-                          //
-                          //                           },
-                          //                           child: Image.asset(
-                          //                             'assets/scansearch.png', // Replace with your actual asset path
-                          //                             height: 20, // Height of the asset icon
-                          //                             width: 20,  // Width of the asset icon
-                          //                           ),
-                          //                         ),
-                          //                       ],
-                          //                     ),
-                          //                   ),
-                          //
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           ],
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
-
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
@@ -1160,33 +1013,71 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                 0.0),
                                                         child:
 
-                                                                SizedBox(
-                                                                  height: MediaQuery.of(context).size.height * 0.045, // Ensures correct height
-                                                                  child: Stack(
-                                                                    children: myimageslist.asMap().entries.map((entry) {
-                                                                      int index = entry.key;
-                                                                      String imagePath = entry.value[0]; // First element of each sublist
+                                                        SizedBox(
+                                                          height: MediaQuery.of(context).size.height * 0.05,
+                                                          child: Stack(
+                                                            children: myimageslist.asMap().entries.map((entry) {
+                                                              int index = entry.key;
+                                                              String imagePath = entry.value[0];
 
-                                                                      return Positioned(
-                                                                        left: index * (MediaQuery.of(context).size.height * 0.042), // Overlaps images
-                                                                        child: ClipRRect(
-                                                                          borderRadius: BorderRadius.only(
-                                                                            topLeft: index == 0 ? Radius.circular(8) : Radius.zero,
-                                                                            bottomLeft: index == 0 ? Radius.circular(8) : Radius.zero,
-                                                                            topRight: index == myimageslist.length - 1 ? Radius.circular(8) : Radius.zero,
-                                                                            bottomRight: index == myimageslist.length - 1 ? Radius.circular(8) : Radius.zero,
-                                                                          ),
-                                                                          child: Image.asset(
-                                                                            imagePath,
-                                                                            width: MediaQuery.of(context).size.height * 0.045,
-                                                                            height: MediaQuery.of(context).size.height * 0.045,
-                                                                            fit: BoxFit.cover,
-                                                                          ),
-                                                                        ),
-                                                                      );
-                                                                    }).toList(),
+                                                              double imageSize = MediaQuery.of(context).size.height * 0.045;
+
+                                                              return Positioned(
+                                                                left: index * (imageSize * 0.9), // Slight overlap but visible borders
+                                                                child: Container(
+                                                                  decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(8),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                        color: Colors.black.withOpacity(0.25), // subtle shadow
+                                                                        blurRadius: 6, // soft spread
+                                                                        spreadRadius: -1, // keeps shadow inside outer area
+                                                                        offset: Offset(2, 2), // direction of shadow
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  child: ClipRRect(
+                                                                    borderRadius: BorderRadius.circular(8),
+                                                                    child: Image.asset(
+                                                                      imagePath,
+                                                                      width: imageSize,
+                                                                      height: imageSize,
+                                                                      fit: BoxFit.cover,
+                                                                    ),
                                                                   ),
                                                                 ),
+                                                              );
+                                                            }).toList(),
+                                                          ),
+                                                        ),
+
+                                                                     // SizedBox(
+                                                                //   height: MediaQuery.of(context).size.height * 0.045, // Ensures correct height
+                                                                //   child: Stack(
+                                                                //     children: myimageslist.asMap().entries.map((entry) {
+                                                                //       int index = entry.key;
+                                                                //       String imagePath = entry.value[0]; // First element of each sublist
+                                                                //
+                                                                //       return Positioned(
+                                                                //         left: index * (MediaQuery.of(context).size.height * 0.042), // Overlaps images
+                                                                //         child: ClipRRect(
+                                                                //           borderRadius: BorderRadius.only(
+                                                                //             topLeft: index == 0 ? Radius.circular(8) : Radius.zero,
+                                                                //             bottomLeft: index == 0 ? Radius.circular(8) : Radius.zero,
+                                                                //             topRight: index == myimageslist.length - 1 ? Radius.circular(8) : Radius.zero,
+                                                                //             bottomRight: index == myimageslist.length - 1 ? Radius.circular(8) : Radius.zero,
+                                                                //           ),
+                                                                //           child: Image.asset(
+                                                                //             imagePath,
+                                                                //             width: MediaQuery.of(context).size.height * 0.045,
+                                                                //             height: MediaQuery.of(context).size.height * 0.045,
+                                                                //             fit: BoxFit.cover,
+                                                                //           ),
+                                                                //         ),
+                                                                //       );
+                                                                //     }).toList(),
+                                                                //   ),
+                                                                // ),
                                                           ),
 
 
@@ -1216,7 +1107,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                       style: TextStyle(
                                                                         color: Color(0xFF126086),
                                                                         fontWeight: FontWeight.w600,
-                                                                        fontSize: MediaQuery.of(context).size.height * 0.01, // Slightly increased for better visibility
+                                                                        fontSize: MediaQuery.of(context).size.height * 0.012, // Slightly increased for better visibility
                                                                       ),
                                                                     ),
                                                                   ),

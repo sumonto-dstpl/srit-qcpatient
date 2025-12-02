@@ -7,8 +7,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Screens/VerifyOtp/forgetMpin.dart';
+import 'package:newfolder/utils/physical_virtual_bottomnavigationbar.dart';
 
 import '../Utils/user_secure_storage.dart';
+import '../Utils/customNotification.dart';
+
 
 class MpinResetSettings extends StatefulWidget {
   // const MpinResetSettings({
@@ -223,7 +226,8 @@ class Mpinstate extends State<MpinResetSettings> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Column(
+        child: Stack(
+          children: [Column(
           children: <Widget>[
             // Top Section with Back Arrow and Login Text
             Container(
@@ -1126,108 +1130,7 @@ class Mpinstate extends State<MpinResetSettings> {
 
 
 
-                    Container(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.04),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                left: screenHeight * 0.03,
-                                right: screenHeight * 0.03,
-                              ),
-                              child: Text(
-                                "Update Your MPIN Easily Via 'Accounts > Settings: Or Experience The Convenience Of Fingerprint Login For Enhanced Security.",
-                                style: TextStyle(
-                                  height: 1.8,
-                                  fontSize: screenHeight * 0.012,
-                                  color: Color(0xFF6A6E83),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            SizedBox(height: screenHeight * 0.015),
 
-                            // 🔹 Main Button Section
-                            Builder(
-                              builder: (context) {
-                                final textScale = MediaQuery.of(context).textScaleFactor;
-                                final double bottomMargin = screenHeight * 0.02 * textScale;
-
-                                return Container(
-                                  margin: EdgeInsets.only(bottom: bottomMargin),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(screenHeight * 0.012),
-                                            gradient: LinearGradient(
-                                              begin: Alignment.centerRight,
-                                              end: Alignment.center,
-                                              stops: [0.5, 0.9],
-                                              colors: _isButtonEnabled
-                                                  ? [Color(0xFF126086), Color(0xFF126086)]
-                                                  : [Colors.grey, Colors.grey],
-                                            ),
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: TextButton(
-                                            onPressed: _isButtonEnabled
-                                                ? () {
-                                              if (_isLoading) return;
-                                              setState(() => _isLoading = true);
-
-                                              saveMpin();
-
-
-                                            }
-                                                : null, // Disabled when _isButtonEnabled == false
-                                            style: TextButton.styleFrom(
-                                              padding: EdgeInsets.symmetric(vertical: 9.5, horizontal: 12.0),
-                                              minimumSize: Size(double.infinity, screenHeight * 0.06),
-                                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  width: screenHeight * 0.022,
-                                                  height: screenHeight * 0.022,
-                                                  margin: EdgeInsets.only(right: screenHeight * 0.008),
-                                                  child: _isLoading
-                                                      ? CircularProgressIndicator(
-                                                    strokeWidth: 2.0,
-                                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                                  )
-                                                      : SizedBox.shrink(),
-                                                ),
-                                                Text(
-                                                  "Set your MPIN",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: screenHeight * 0.018,
-                                                    fontWeight: FontWeight.w700,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
 
 
 
@@ -1241,9 +1144,126 @@ class Mpinstate extends State<MpinResetSettings> {
                 ),
               ),
             ),
+
+
+
+          ],
+                    ),
+
+          ]
+        ),
+      ),
+
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+
+        ),
+        // height: MediaQuery.of(context).size.height * 0.150,
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+
+            Padding(
+              padding: EdgeInsets.only(
+                left: screenHeight * 0.03,
+                right: screenHeight * 0.03,
+              ),
+              child: Text(
+                "Update Your MPIN Easily Via 'Accounts > Settings: Or Experience The Convenience Of Fingerprint Login For Enhanced Security.",
+                style: TextStyle(
+                  height: 1.8,
+                  fontSize: screenHeight * 0.012,
+                  color: Color(0xFF6A6E83),
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+
+            SizedBox(height: screenHeight * 0.015),
+
+            // 🔹 Main Button Section
+            Builder(
+              builder: (context) {
+                final textScale = MediaQuery.of(context).textScaleFactor;
+                final double bottomMargin = screenHeight * 0.02 * textScale;
+
+                return Container(
+                  margin: EdgeInsets.only(bottom: bottomMargin),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(screenHeight * 0.012),
+                            gradient: LinearGradient(
+                              begin: Alignment.centerRight,
+                              end: Alignment.center,
+                              stops: [0.5, 0.9],
+                              colors: _isButtonEnabled
+                                  ? [Color(0xFF126086), Color(0xFF126086)]
+                                  : [Colors.grey, Colors.grey],
+                            ),
+                          ),
+                          alignment: Alignment.center,
+                          child: TextButton(
+                            onPressed: _isButtonEnabled
+                                ? () {
+                              if (_isLoading) return;
+                              setState(() => _isLoading = true);
+
+                              saveMpin();
+
+
+                            }
+                                : null, // Disabled when _isButtonEnabled == false
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.symmetric(vertical: 9.5, horizontal: 12.0),
+                              minimumSize: Size(double.infinity, screenHeight * 0.06),
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: screenHeight * 0.022,
+                                  height: screenHeight * 0.022,
+                                  margin: EdgeInsets.only(right: screenHeight * 0.008),
+                                  child: _isLoading
+                                      ? CircularProgressIndicator(
+                                    strokeWidth: 2.0,
+                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                  )
+                                      : SizedBox.shrink(),
+                                ),
+                                Text(
+                                  "Set your MPIN",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: screenHeight * 0.018,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+            SizedBox(height: screenHeight * 0.015),
           ],
         ),
       ),
+
     );
 
 
@@ -1436,6 +1456,12 @@ class Mpinstate extends State<MpinResetSettings> {
             Otp4thdigithasStartedTyping2 = true;
             flag = true;
           });
+          showTopNotification(
+            context,
+            title: "Failed",
+            message: "Re-Enter 4 Digit Pin is not matched",
+            type: NotificationType.error, // Assuming error type for failure logic
+          );
 
           // final snackBar = SnackBar(
           //     content: Text("Re-Enter 4 Digit Pin is not matched"),
@@ -1453,6 +1479,12 @@ class Mpinstate extends State<MpinResetSettings> {
           Future.delayed(Duration(milliseconds: 1000), () {
             connectivityservice.checkconnectivity().then((intenet) async {
               setState(() => _isLoading = false);
+              showTopNotification(
+                context,
+                title: "Congratulations",
+                message: "MPIN set successfully",
+                type: NotificationType.success,
+              );
 
               // ✅ Only show modal when MPIN is successfully set
               RegistrationSuccessModel().showModel(context);
