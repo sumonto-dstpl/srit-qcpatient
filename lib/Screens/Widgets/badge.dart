@@ -86,10 +86,10 @@ class _IconBadgeState extends State<IconBadge> {
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(
-            right: MediaQuery.of(context).size.height * 0.022,
-            top: MediaQuery.of(context).size.height * 0.005,
-            bottom: MediaQuery.of(context).size.height * 0.005,
-            left: MediaQuery.of(context).size.height * 0.022,
+            right: MediaQuery.of(context).size.height * 0.01,
+            top: MediaQuery.of(context).size.height * 0.01,
+            bottom: MediaQuery.of(context).size.height * 0.01,
+            left: MediaQuery.of(context).size.height * 0.01,
           ),
           width: MediaQuery.of(context).size.height * 0.0205,
           height: MediaQuery.of(context).size.height * 0.0205,
@@ -109,8 +109,8 @@ class _IconBadgeState extends State<IconBadge> {
             if (count == 0) return SizedBox.shrink();
 
             return Positioned(
-              right: 15,
-              top: 0,
+              right: MediaQuery.of(context).size.height * 0.005,
+              top : MediaQuery.of(context).size.height * 0.005,
               child: Container(
                 padding: EdgeInsets.all(1),
                 decoration: BoxDecoration(

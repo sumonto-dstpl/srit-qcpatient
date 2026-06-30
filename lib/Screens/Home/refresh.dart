@@ -15,6 +15,7 @@ import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:newfolder/Screens/HRecommendedDoctors/home_doctordetails.dart';
 import 'package:newfolder/Screens/HRecommendedDoctors/home_selecttimeslot.dart';
+import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/HomeCare/diagnosticmain.dart';
 import 'package:newfolder/Screens/HomeCare/doctorhcmain.dart';
 import 'package:newfolder/Screens/HomeCare/homecaremain.dart';
@@ -49,18 +50,18 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 
-class HomePageMain extends StatefulWidget {
+class RefreshMain extends StatefulWidget {
   int selectedIndex = 0;
 
-  HomePageMain({
+  RefreshMain({
     super.key,
   });
 
   @override
-  State<HomePageMain> createState() => HomePageMainstate();
+  State<RefreshMain> createState() => HomePageMainstate();
 }
 
-class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderStateMixin {
+class HomePageMainstate extends State<RefreshMain> with SingleTickerProviderStateMixin {
   String usernameValue = "Hello, Priya Krishnamurty";
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";

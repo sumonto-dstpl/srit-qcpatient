@@ -61,27 +61,7 @@ class ChangeMobileNumberstate extends State<OtpVerification> {
   // Asgar
   bool _isButtonEnabled = false;
 
-  void validateInput() {
-    String input = UserNumberEditTextController.text.trim();
 
-    if (input.isEmpty) {
-      setState(() {
-        errorMessage = "Please enter your email or mobile number";
-        isValid = false;
-      });
-    } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(input) &&
-        !RegExp(r'^[0-9]{10}$').hasMatch(input)) {
-      setState(() {
-        errorMessage = "Please enter a valid email or mobile number";
-        isValid = false;
-      });
-    } else {
-      setState(() {
-        errorMessage = "Entered email or phone number is valid";
-        isValid = true;
-      });
-    }
-  }
 
 
   @override

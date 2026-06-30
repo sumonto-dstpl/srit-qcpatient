@@ -456,6 +456,12 @@ class UserSecureStorage {
       return;
     }
 
+    // 🔥 THE FIX: Agar user same number daal raha hai, toh kuch mat karo (warga delete ho jayega)
+    if (oldId == newId) {
+      print("⚠️ Old and New Mobile Numbers are the same. No update needed.");
+      return;
+    }
+
     String? jsonString = await _storage.read(key: _keyAllUsers);
     if (jsonString == null) {
       print("⚠️ No users found in storage");

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:newfolder/Core/bottom_navigation_bar.dart';
 import 'package:newfolder/Screens/AddToCart/addtocarPackageDetails.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/LabTests/bottomsheet.dart';
@@ -56,38 +57,11 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
   int _selectedIndex = 0;
-  final mybrowsebyhealthcond = [
-    ["assets/Diagnostic.png", "Harmone"],
-    ["assets/Doctor.png", "Diabetes"],
-    ["assets/Nurse.png", "Joint Pain"],
-    ["assets/Physio.png", "Thyroid"],
-    ["assets/MedicalEquipment.png", "Heart"],
-    ["assets/Diagnostic.png", "Bone"],
-    ["assets/Doctor.png", "Blood Sugar"],
-    ["assets/Nurse.png", "Vitamin"],
-    ["assets/Physio.png", "Hair Fall"],
-    ["assets/MedicalEquipment.png", "Liver"],
-    ["assets/Physio.png", "Kidney"],
-    ["assets/MedicalEquipment.png", "Fever"],
-  ];
 
-  final myhealthpackages = [
-    ["assets/Diagnostic.png", "Full Body Checkup"],
-    ["assets/Doctor.png", "Men’s Wellness"],
-    ["assets/Nurse.png", "Women’s Health"],
-    ["assets/Physio.png", "Thyroid Package"],
-    ["assets/MedicalEquipment.png", "Heart Package"],
-    ["assets/Diagnostic.png", "Diabetes package"],
-    ["assets/Doctor.png", "Blood Studies Package"],
-    ["assets/Nurse.png", "Vitamin package"],
-    ["assets/Physio.png", "Hairfall package"],
-    ["assets/MedicalEquipment.png", "Liver Package"],
-    ["assets/Physio.png", "Kidney Package"],
-    ["assets/MedicalEquipment.png", "Fever Package"],
-  ];
 
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
+
+
+
   TextEditingController SearchfilterEditTextController = TextEditingController();
 
 
@@ -1230,250 +1204,11 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
           ),
         ),
       ),
-      bottomNavigationBar: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.09,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2), // Shadow color
-                  blurRadius: 20, // Spread of the shadow
-                  offset: Offset(
-                      0, -4), // Position the shadow above the BottomAppBar
-                ),
-              ],
-            ),
-            child: Theme(
-              data: Theme.of(context).copyWith(
-                splashColor: Colors.transparent, // Remove splash color
-                highlightColor: Colors.transparent, // Remove highlight color
-              ),
-              child: BottomNavigationBar(
-                type: BottomNavigationBarType
-                    .fixed,
-                // Set fixed type for equal spacing
-                currentIndex: _selectedIndex,
-                // Track the selected tab
-                // Track the selected tab
-                onTap: _onItemTapped,
-
-                backgroundColor: Colors.white,
-                selectedItemColor:
-                Color(0xFF126086),
-                // Color for the selected item
-                unselectedItemColor:
-                Color(0xFF484C52),
-                // Color for unselected items
-                selectedFontSize: MediaQuery
-                    .of(context)
-                    .size
-                    .height *
-                    0.014,
-                // Hide the label font for selected items
-                unselectedFontSize: MediaQuery
-                    .of(context)
-                    .size
-                    .height *
-                    0.012,
-                // Hide the label font for unselected items
-                elevation: 0,
-                // Disable elevation
-                items: [
-                  BottomNavigationBarItem(
-                    icon: Container(
-                      padding: EdgeInsets.only(
-                        left: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        right: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        top: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        bottom: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.005,
-                      ), // Add padding
-                      child: Image.asset(
-                        'assets/Homeactive.png',
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
-                      ),
-                    ),
-                    label: 'Home',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Container(
-                      padding: EdgeInsets.only(
-                        left: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        right: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        top: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        bottom: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.005,
-                      ), // Add padding
-                      child: Image.asset(
-                        'assets/MyReports.png',
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
-                      ),
-                    ),
-                    label: 'My Reports',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Container(
-                      padding: EdgeInsets.only(
-                        left: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        right: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        top: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        bottom: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.025,
-                      ), // Add padding
-                      child: Image.asset(
-                        'assets/Appoinments.png',
-                        width: 0,
-                        height: 0,
-                      ),
-                    ),
-                    label: 'Upload',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Container(
-                      padding: EdgeInsets.only(
-                        left: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        right: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        top: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        bottom: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.005,
-                      ), // Add padding
-                      child: Image.asset(
-                        'assets/Appoinments.png',
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
-                      ),
-                    ),
-                    label: 'Appointments',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Container(
-                      padding: EdgeInsets.only(
-                        left: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        right: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        top: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.00,
-                        bottom: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.005,
-                      ), // Add padding
-                      child: Image.asset(
-                        'assets/MyHealth.png',
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.027,
-                      ),
-                    ),
-                    label: 'My Health',
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+      bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: _selectedIndex),
     );
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      int selected = index;
 
-      if (selected == 0) {
-        /* Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => HomePageMain()),
-            (Route<dynamic> route) => false);*/
-      } else if (selected == 1) {
-      } else if (selected == 2) {
-      } else if (selected == 3) {}
-
-      widget.selectedIndex = index;
-      _selectedIndex = widget.selectedIndex;
-
-      // Fluttertoast.showToast(msg: "test", toastLength: Toast.LENGTH_LONG);
-      print(selected);
-    });
-  }
 
 
   // void showBottomSheet() => showModalBottomSheet(

@@ -1,55 +1,4 @@
-// import 'dart:io';
-//
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:qc_doctor/Data/APIServices/MyHttpOverrides.dart';
-// import 'package:qc_doctor/Screens/SplashScreens/splashscreen.dart';
-//
-// // Developer : Md Asgar Ali
-// void main() {
-//   // WidgetsFlutterBinding.ensureInitialized();
-//   // // Set transparent status bar globally
-//   // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-//   //   statusBarColor: Colors.transparent, // Transparent status bar
-//   //   statusBarIconBrightness: Brightness.light, // Change to Brightness.light if needed
-//   // ));
-//
-//   HttpOverrides.global = new MyHttpOverrides();
-//   runApp(MyApp());
-// }
-//
-// class MyApp  extends StatelessWidget{
-//   MyApp();
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Color(0xFF126086),));
-//
-//     return MaterialApp(
-//       title : 'QC Doctor',
-//       initialRoute: '/',
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData(
-//         splashColor: Colors.transparent,
-//         highlightColor: Colors.transparent,
-//       ),
-//
-//       builder: (context,child) {
-//         return MediaQuery(
-//             data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-//             child: child!);
-//       },
-//       home: SplashScreen(),
-//     );
-//
-//   }
-// }
-//
-//
-//
-//
-//
-//
+
 
 import 'dart:async';
 import 'dart:io';
@@ -110,13 +59,6 @@ void main() async {
 
 }
 
-// void main(){
-//   runApp(MaterialApp(
-//     title: 'My App',
-//     debugShowCheckedModeBanner: false,
-//     home: SplashLogoScreen(),
-//   ));
-// }
 class MyApp extends StatelessWidget {
   final Widget initialScreen;
 
@@ -149,9 +91,16 @@ class MyApp extends StatelessWidget {
       ),
 
       builder: (context, child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: MediaQuery.of(context).textScaleFactor.clamp(1.0, 1.4),),
-          child: child!,
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent, // Background transparent
+            statusBarIconBrightness: Brightness.light, // Android: White icons
+            statusBarBrightness: Brightness.dark,      // iOS: White icons
+          ),
+          child: MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: MediaQuery.of(context).textScaleFactor.clamp(1.0, 1.4),),
+            child: child!,
+          ),
         );
       },
       home: initialScreen,

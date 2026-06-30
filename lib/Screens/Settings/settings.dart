@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:ui';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
+import 'package:newfolder/Screens/Alerts/loginbottomsheet.dart';
 import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
 import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
@@ -49,6 +52,8 @@ import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 import 'package:newfolder/Screens/Widgets/tab_item.dart';
 
 import 'package:newfolder/Data/biometric_service.dart';
+import '../Utils/profile_avatar.dart';
+import 'dart:async';
 
 
 class SettingsMain extends StatefulWidget {
@@ -64,6 +69,7 @@ class SettingsMain extends StatefulWidget {
 }
 
 class SettingsMainstate extends State<SettingsMain> {
+  String username = 'Settings' ;
   String usernameValue = "Settings";
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
@@ -81,7 +87,42 @@ class SettingsMainstate extends State<SettingsMain> {
     super.initState();
     _init();
     _loadBiometricPreference();
+    _loadData();
 
+  }
+
+  void _loadData() async {
+    // await Future.delayed(const Duration(seconds: 2));// Simulating API call
+    isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
+
+
+    // Dynamic naming: Guest01 for guest, otherwise use stored user name
+    setState(() {});
+    if (isGuestUser) {
+      usernameValue = "Guest";
+    } else {
+      String? username = await UserSecureStorage.getUsernameid();
+      Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
+      print("user 111: $user");
+      if (user != null && user['data'] != null) {
+        String? fname = user['data']['fname'];
+        String? lname = user['data']['lname'];
+        usernameValue = ((fname ?? "") + " " + (lname ?? "")).trim();
+        mobileNumber = user['data']['mobile'] ?? "Mobile Number";
+      } else {
+        usernameValue = "ashdsaj";
+      }
+    }
+
+
+
+
+
+    if (isGuestUser) {
+      Timer(Duration(seconds: 0), () {
+        LoginBottomSheet.show(context, true);
+      });
+    }
   }
   void _init() async {
 
@@ -114,6 +155,11 @@ class SettingsMainstate extends State<SettingsMain> {
 
   EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
   AppointmentCancel appointmentcancelalert = new AppointmentCancel();
+
+  bool isGuestUser =false;
+  File? selectedImage;
+  String UHID = "UHID";
+  String mobileNumber = "Mobile Number";
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +259,7 @@ class SettingsMainstate extends State<SettingsMain> {
                                   MediaQuery.of(context).size.height * 0.00,
                                 ),
                                 child: Text(
-                                  usernameValue,
+                                  username,
                                   style: TextStyle(
                                     fontSize:
                                     MediaQuery.of(context).size.height *
@@ -347,111 +393,159 @@ class SettingsMainstate extends State<SettingsMain> {
                               MediaQuery.of(context).size.height * 0.03),
                         ),
                       ),
-                      child: ListView(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
+                      child: Column(
+
                         children: [
                           Container(
                             padding: EdgeInsets.only(
-                                left:
-                                MediaQuery.of(context).size.height * 0.015,
-                                right:
-                                MediaQuery.of(context).size.height * 0.00,
-                                bottom:
-                                MediaQuery.of(context).size.height * 0.01,
-                                top: MediaQuery.of(context).size.height * 0.06),
-                            child: Stack(
-                              children: [
-                                // Center image
-                                Center(
-                                  child: Stack(
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.only(
-                                          left: MediaQuery.of(context).size.height * 0.00,
-                                        ),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(130.0),
-                                          child: Image.asset(
-                                            'assets/profileProfile1.png',
-                                            height: MediaQuery.of(context).size.height * 0.12, // Adjust height
-                                            width: MediaQuery.of(context).size.height * 0.12, // Adjust width
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        bottom: 6, // Adjust positioning slightly above the bottom edge
-                                        right: 4, // Adjust positioning slightly inside the right edge
-                                        child: Container(
-                                          width: MediaQuery.of(context).size.height * 0.018, // Online indicator size
-                                          height: MediaQuery.of(context).size.height * 0.018,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.green, // Online indicator color
-                                            border: Border.all(
-                                              width: MediaQuery.of(context).size.height * 0.002, // White border for a clean look
-                                              color: Colors.white,
+                                left: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.00,
+                                right: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.00,
+                                top: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.05,
+                                bottom: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.00),
+                            margin : EdgeInsets.only(
+                                bottom: MediaQuery.of(context).size.height *
+                                    0.02
+                            ),
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(screenHeight * 0.03),
+                                topRight: Radius.circular(screenHeight * 0.03),
+                              ),
+                            ),
+                            child:
+                            Column(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () async {
+                                      if (isGuestUser) return; // disable picking for guest users
+
+                                      FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                        type: FileType.image,
+                                      );
+
+                                      if (result != null) {
+                                        setState(() {
+                                          selectedImage = File(result.files.single.path!);
+                                        });
+                                      }
+                                    },
+                                    child: Center(
+                                      child: Stack(
+                                        children: [
+                                          isGuestUser
+                                              ? ProfileAvatar(
+                                            name: "Guest User",
+                                            radius: MediaQuery.of(context).size.height * 0.06,
+                                            backgroundColor: Color(0x66D9D9D9),
+                                            textColor: Colors.white,
+                                          )
+                                              : ClipRRect(
+                                            borderRadius: BorderRadius.circular(130.0),
+                                            child: selectedImage != null
+                                                ? Image.file(
+                                              selectedImage!,
+                                              height: MediaQuery.of(context).size.height * 0.12,
+                                              width: MediaQuery.of(context).size.height * 0.12,
+                                              fit: BoxFit.cover,
+                                            )
+                                                : Image.asset(
+                                              'assets/drsujeet.png',
+                                              height: MediaQuery.of(context).size.height * 0.12,
+                                              width: MediaQuery.of(context).size.height * 0.12,
+                                              fit: BoxFit.fill,
                                             ),
                                           ),
+
+                                          if (!isGuestUser)
+                                            Positioned(
+                                              bottom: 6,
+                                              right: 4,
+                                              child: Container(
+                                                width: MediaQuery.of(context).size.height * 0.018,
+                                                height: MediaQuery.of(context).size.height * 0.018,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Colors.green,
+                                                  border: Border.all(
+                                                    width: MediaQuery.of(context).size.height * 0.002,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                            left:
+                                            MediaQuery.of(context).size.height * 0.01,
+                                            right:
+                                            MediaQuery.of(context).size.height * 0.01,
+                                            top:
+                                            MediaQuery.of(context).size.height * 0.00,
+                                            bottom: MediaQuery.of(context).size.height *
+                                                0.00),
+                                        child: Text(
+                                          usernameValue,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              overflow: TextOverflow.ellipsis,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize:
+                                              MediaQuery.of(context).size.height *
+                                                  0.016),
                                         ),
                                       ),
+                                      Container(
+                                          padding: EdgeInsets.only(
+                                              left:
+                                              MediaQuery.of(context).size.height * 0.01,
+                                              right:
+                                              MediaQuery.of(context).size.height * 0.01,
+                                              top:
+                                              MediaQuery.of(context).size.height * 0.00,
+                                              bottom: MediaQuery.of(context).size.height *
+                                                  0.00),
+                                          child: RichText(
+                                            text: TextSpan(
+                                              text: "SID0007 | ${mobileNumber}",
+                                              style: TextStyle(
+                                                color: Color(0xFF126086),
+                                                fontWeight: FontWeight.w500,
+                                                overflow: TextOverflow.ellipsis,
+                                                fontSize: MediaQuery.of(context).size.height * 0.014,
+                                              ),
+                                            ),
+                                          )
+                                      ),
                                     ],
-                                  )
-                                  ,
-                                ),
-                              ],
+                                  ),
+                                ]
                             ),
                           ),
 
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
-                                child: Text(
-                                  "Priya Krishnamurty",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize:
-                                      MediaQuery.of(context).size.height *
-                                          0.016),
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
-                                child: Text(
-                                  "Email / UHID / Mobile Number",
-                                  style: TextStyle(
-                                      color: Colors.black54,
-                                      fontWeight: FontWeight.w500,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontSize:
-                                      MediaQuery.of(context).size.height *
-                                          0.013),
-                                ),
-                              ),
-                            ],
-                          ),
+
 
 
 
@@ -488,7 +582,7 @@ class SettingsMainstate extends State<SettingsMain> {
                                     top: MediaQuery.of(context)
                                         .size
                                         .height *
-                                        0.02),
+                                        0.0),
 
 
                                 padding: EdgeInsets.only(
@@ -1083,22 +1177,7 @@ class SettingsMainstate extends State<SettingsMain> {
                                               ),
                                             ),
 
-                                            // Transform.scale(
-                                            //   scale: 0.6, // Adjust the scale to reduce size (e.g., 0.8 = 80% of original size)
-                                            //   child: Switch(
-                                            //     value: isFingerprintEnabled,
-                                            //     onChanged: (bool value) {
-                                            //       setState(() {
-                                            //         isFingerprintEnabled = value;
-                                            //       });
-                                            //     },
-                                            //     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap, // Reduce tap area padding
-                                            //     activeColor: Color(0xFFFFFFFF), // Thumb color when ON
-                                            //     activeTrackColor: Color(0xFF00C5BB), // Background color when ON
-                                            //     inactiveThumbColor: Colors.grey, // Thumb color when OFF
-                                            //     inactiveTrackColor: Colors.grey.shade300, // Background color when OFF
-                                            //   ),
-                                            // ),
+
 
                                             Expanded(
                                               child: FlutterSwitch(
@@ -1112,19 +1191,7 @@ class SettingsMainstate extends State<SettingsMain> {
                                                 inactiveColor: const Color(0xFFE4E7EC),
                                                 activeToggleColor: Colors.white,
                                                 inactiveToggleColor: Colors.white,
-                                                // onToggle: (value) async {
-                                                //   if (value) {
-                                                //     bool success = await BiometricService.enableBiometric(context);
-                                                //     if (success) {
-                                                //       setState(() => isFingerprintEnabled = true);
-                                                //     } else {
-                                                //       setState(() => isFingerprintEnabled = false);
-                                                //     }
-                                                //   } else {
-                                                //     await BiometricService.disableBiometric();
-                                                //     setState(() => isFingerprintEnabled = false);
-                                                //   }
-                                                // },
+
                                                 onToggle: (value) async {
                                                   if (value) {
                                                     // get current user id (mobile)

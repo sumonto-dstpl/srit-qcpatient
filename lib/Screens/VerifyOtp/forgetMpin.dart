@@ -206,37 +206,98 @@ class _ForgetMpinScreenState extends State<ForgetMpinScreen> {
                       SizedBox(height: screenHeight * 0.03),
 
                       // Mobile number field
+
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
-                        child: TextField(
-                          controller: mobileController,
-                          focusNode: focusMobile,
-                          keyboardType: TextInputType.phone,
-                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          maxLength: 10,
-                          onChanged: validateInput,
-                          decoration: InputDecoration(
-                            hintText: "Enter your Mobile Number",
-                            counterText: "",
-                            filled: true,
-                            fillColor: Colors.white,
-                            contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: const BorderSide(color: Colors.grey),
+                        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.035,
+
+
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Focus(
+                              onFocusChange: (hasFocus) {
+                                if (hasFocus) {
+                                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                }
+                              },
+                              child: TextField(
+                                controller: mobileController, // Tumhara existing controller
+                                keyboardType: TextInputType.phone,
+
+                                // ✅ Top wale ki tarah sirf digits allow kiye aur max length 10 kar di
+                                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                maxLength: 10,
+
+                                onChanged: (value) {
+                                  validateInput(value) ;// Tumhara validation function call
+                                },
+                                style: TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: MediaQuery.of(context).size.height * 0.016,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                decoration: InputDecoration(
+                                  hintText: "Enter your Mobile Number",
+                                  counterText: "", // ✅ maxLength 10 ka niche jo '0/10' aata hai use hide karne ke liye
+                                  filled: true,
+                                  fillColor: Colors.white,
+
+                                  // ✅ Top wale ki padding aur design
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+
+                                  // ✅ Agar number valid hai toh Green Tick dikhayega
+                                  suffixIcon: mobileController.text.length == 10
+                                      ? const Icon(Icons.check_circle, color: Colors.green)
+                                      : null,
+
+                                  // ✅ Top wale ka clean Grey Border aur 8 Border Radius
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: const BorderSide(color: Colors.grey),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: const BorderSide(color: Colors.grey),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: const BorderSide(color: Colors.grey),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: const BorderSide(color: Colors.red),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: const BorderSide(color: Colors.red),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+
+                            // ✅ Tumhara niche wala Error Message structure with Icon
+                            if (errorMessage != null)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 4.0, left: 4.0),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.error, color: Colors.red, size: MediaQuery.of(context).size.height * 0.015),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      errorMessage!,
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: MediaQuery.of(context).size.height * 0.013,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                          ],
                         ),
                       ),
-
-                      if (errorMessage != null)
-                        Padding(
-                          padding: EdgeInsets.only(top: screenHeight * 0.01),
-                          child: Text(
-                            errorMessage!,
-                            style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.015),
-                          ),
-                        ),
 
                       SizedBox(height: screenHeight * 0.05),
 

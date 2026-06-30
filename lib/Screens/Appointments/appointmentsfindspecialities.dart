@@ -62,23 +62,7 @@ class AppointmentsFindSpecialitiesstate
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
   final mytopspecialities = [
-    ["assets/GeneralPhysician.png", "General Physician"],
-    ["assets/ENT.png", "ENT"],
-    ["assets/Dermatology.png", "Dermatology"],
-    ["assets/Cardiology.png", "Cardiology"],
-    ["assets/Urology.png", "Urology"],
-    ["assets/Orthopedics.png", "Orthopedics"],
-    ["assets/Endocrinology.png", "Endocrinology"],
-    ["assets/Pediatrics.png", "Pediatrics"],
-    ["assets/GeneralPhysician.png", "General Physician"],
-    ["assets/ENT.png", "ENT"],
-    ["assets/Dermatology.png", "Dermatology"],
-    ["assets/Cardiology.png", "Cardiology"],
-    ["assets/Urology.png", "Urology"],
-    ["assets/Orthopedics.png", "Orthopedics"],
-    ["assets/Endocrinology.png", "Endocrinology"],
-    ["assets/Pediatrics.png", "Pediatrics"],
-    ["assets/GeneralPhysician.png", "General Physician"],
+    ["assets/GeneralPhysician.png", "General\nPhysician"],
     ["assets/ENT.png", "ENT"],
     ["assets/Dermatology.png", "Dermatology"],
     ["assets/Cardiology.png", "Cardiology"],
@@ -1322,63 +1306,7 @@ class AppointmentsFindSpecialitiesstate
     );
   }
 
-  /*void CheckSession() {
-    connectivityservice.checkconnectivity().then((intenet) async {
-      final prefusertypevalue = await UserSecureStorage.getUserType() ?? 'NA';
-      progressDialog = ProgressDialog(context,
-          type: ProgressDialogType.Normal,
-          isDismissible: true,
-          showLogs: false);
-      progressDialog.style(
-          message: 'Loading Data..' '\nPlease Wait',
-          borderRadius: 10.0,
-          backgroundColor: Colors.white,
-          progressWidget: CircularProgressIndicator(
-            color: Colors.blueAccent,
-            strokeWidth: MediaQuery.of(context).size.height * 0.002,
-          ),
-          elevation: 10.0,
-          insetAnimCurve: Curves.easeInOut,
-          progress: 0.0,
-          maxProgress: 100.0,
-          progressTextStyle: TextStyle(
-            color: Colors.blueAccent,
-            fontSize: 13.0,
-          ),
-          messageTextStyle: TextStyle(
-              color: Colors.black,
-              fontSize: MediaQuery.of(context).size.height * 0.018,
-              fontWeight: FontWeight.w600));
-      if (intenet != null && intenet) {
-        progressDialog.show();
-        var user = await apiService.GetDashboardDetailsnew();
-        final preNRStatuscodeval =
-            await UserSecureStorage.getNRStatuscodeval() ?? 'NA';
 
-        if (preNRStatuscodeval == "401") {
-          var user = await apiService.refreshtoken();
-          final preNRStatuscodevalforrefresh =
-              await UserSecureStorage.getNRStatuscodeval() ?? 'NA';
-
-          if (preNRStatuscodevalforrefresh == "200") {
-            CheckSession();
-          } else if (preNRStatuscodevalforrefresh == "401") {
-            progressDialog.hide();
-            customalert.showError(context);
-          } else if (preNRStatuscodevalforrefresh == "400") {
-            progressDialog.hide();
-            customalert.showError(context);
-          }
-        } else {
-          getPendingRecordList();
-        }
-      } else {
-        final snackBar =
-            SnackBar(content: Text("No Internet, Check Connectivity!"));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      }
-    });
-  }*/
 
   void _onItemTapped(int index) {
     setState(() {

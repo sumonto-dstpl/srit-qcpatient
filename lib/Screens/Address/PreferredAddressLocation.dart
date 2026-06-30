@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:newfolder/Core/Data/dummy_data.dart';
+import 'package:newfolder/Core/Header/header.dart';
 
 class PreferredHospitalLocationScreen extends StatefulWidget {
   const PreferredHospitalLocationScreen({Key? key}) : super(key: key);
@@ -15,7 +17,7 @@ class _PreferredHospitalLocationScreenState
 
   // State variables
   String usernameValue = "Preferred Hospital Location";
-  String useraddressValue = "QCT Clinic A, Qatar 500006";
+  String useraddressValue = "";
   int selectedIndex = -1;
   int selectedFilterIndex = 0;
 
@@ -24,21 +26,76 @@ class _PreferredHospitalLocationScreenState
     "All", "Doha", "Al Wakrah", "Al Khor", "Umm Salal", "Al Rayyan", "Madinat"
   ];
 
-  final List<Map<String, dynamic>> clinics = [
-    {"name": "QCT Clinic A, Doha", "distance": "1.0 km"},
-    {"name": "QCT Clinic B, Doha", "distance": "2.0 km"},
-    {"name": "QCT Clinic C, Doha", "distance": "3.0 km"},
-    {"name": "QCT Clinic D, Doha", "distance": "5.0 km"},
-    {"name": "QCT Clinic E, Doha", "distance": "8.0 km"},
-    {"name": "QCT Clinic F, Doha", "distance": "3.6 km"},
-    {"name": "QCT Clinic G, Doha", "distance": "7.7 km"},
-  ];
+  List<dynamic> list = [];
+  List<dynamic> filterlist = [];
+  List<dynamic> displaylist = [];
 
+  String selectedFilter = "All" ;
+
+  String changeLocation = '';
+  @override
+  void initState() {
+    super.initState();
+    _loadData( selectedFilter);
+
+    SearchEditTextController.addListener(() {
+      _search(SearchEditTextController.text.toString());
+    });
+  }
+
+  void _search(String query) {
+
+    setState(() {
+      if (query.isEmpty ) {
+
+        displaylist = filterlist;
+
+
+      } else {
+        final pattern = RegExp(RegExp.escape(query), caseSensitive: false);
+
+        displaylist = filterlist.where((item) {
+          final name = item["name"] ?? '';
+          final area = item["area"] ?? '';
+          final street = item["street"] ?? '';
+          final locality = item["locality"] ?? '';
+          return pattern.hasMatch(name) || pattern.hasMatch(area) || pattern.hasMatch(street) || pattern.hasMatch(locality) ;
+        }).toList();
+
+      }
+
+    });
+  }
+
+  Future<void> _loadData(String status) async {
+    print("selectedFilter : $selectedFilter");
+    final List phys = DummyData.hospitalLocations;
+
+
+    if (status.toLowerCase() == "all") {
+      list = phys;
+
+    } else {
+      list = phys.where((item) =>
+      item["city"].toString().toLowerCase() ==
+          selectedFilter.toLowerCase()).toList();
+
+    }
+
+    setState(() {
+      filterlist = list;
+      displaylist = filterlist;
+
+    });
+
+    print("displaylist : $displaylist");
+  }
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final Color primaryBlue = const Color(0xFF126086);
+
 
     // Define your custom colors here for easy usage
     final Color distanceColor = const Color(0xFFE89B26); // Orange
@@ -49,104 +106,20 @@ class _PreferredHospitalLocationScreenState
         width: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
+
             image: AssetImage("assets/Background Pattern.png"),
-            fit: BoxFit.cover,
+            fit: BoxFit.cover, // Adjusts how the image fills the container
           ),
         ),
         child: Stack(
           children: [
             Column(
               children: <Widget>[
-                // ---------------------------------------------------------
-                // 1. Header Section
-                // ---------------------------------------------------------
-                Container(
-                  padding: EdgeInsets.only(
-                    top: screenHeight * 0.07,
-                    left: screenWidth * 0.045,
-                    right: screenWidth * 0.045,
-                    bottom: screenWidth * 0.06,
-                  ),
-                  margin: EdgeInsets.only(
-                    bottom: screenHeight * 0.01,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      // Back Button
-                      InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.035,
-                          width: MediaQuery.of(context).size.height * 0.035,
-                          margin: EdgeInsets.only(right: MediaQuery.of(context).size.height * 0.02),
-                          decoration: BoxDecoration(
-                            color: Color(0xFF126086).withOpacity(0.2),
-                            shape: BoxShape.circle,
-                            border: Border.all(width: 0.0, color: Color(0xFF126086)),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(130.0),
-                            child: Image.asset(
-                              'assets/medicationBack.png',
-                              fit: BoxFit.fill,
-                              errorBuilder: (c, o, s) => Icon(Icons.arrow_back_ios_new, size: 15, color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
 
-                      // Title and Dropdown Text
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.005),
-                            child: Text(
-                              usernameValue,
-                              style: TextStyle(
-                                fontSize: MediaQuery.of(context).size.height * 0.018,
-                                color: Color(0xFFFFFFFF),
-                                fontWeight: FontWeight.w600,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: Text(
-                                    useraddressValue,
-                                    style: TextStyle(
-                                      overflow: TextOverflow.ellipsis,
-                                      fontSize: MediaQuery.of(context).size.height * 0.012,
-                                      color: Colors.white,
-                                    ),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.keyboard_arrow_down,
-                                  color: Colors.white,
-                                  size: MediaQuery.of(context).size.height * 0.02,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
 
-                // ---------------------------------------------------------
-                // 2. White Expanded Body
-                // ---------------------------------------------------------
+                // Header(usernameValue : "Prefered Hospital Location",hideInkWell: false,hideNotificationProfile: false,),
+                Header(userName: 'Prefered Hospital Location',showCartNotProfile: false,),
+
                 Expanded(
                   child: Container(
                     width: double.infinity,
@@ -218,6 +191,10 @@ class _PreferredHospitalLocationScreenState
                                 onTap: () {
                                   setState(() {
                                     selectedFilterIndex = index;
+                                    selectedFilter = filters[index];
+                                    _loadData(selectedFilter);
+                                    SearchEditTextController.clear();
+                                    selectedIndex = -1;
                                   });
                                 },
                                 child: Container(
@@ -237,7 +214,7 @@ class _PreferredHospitalLocationScreenState
                                     style: TextStyle(
                                       color: isFilterSelected
                                           ? Colors.white
-                                          : Colors.grey[700],
+                                          : Color(0xFF126086),
                                       fontSize: screenHeight * 0.010,
                                       fontWeight: isFilterSelected
                                           ? FontWeight.bold
@@ -253,99 +230,125 @@ class _PreferredHospitalLocationScreenState
                         // --- Clinic List ---
                         Expanded(
                           child: ListView.builder(
-                            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-                            itemCount: clinics.length,
+                            padding: EdgeInsets.zero,
+                            itemCount: displaylist.length,
                             itemBuilder: (context, index) {
+                              final item = displaylist[index];
                               bool isSelected = selectedIndex == index;
                               return GestureDetector(
                                 onTap: () {
                                   setState(() {
                                     selectedIndex = index;
+                                    changeLocation = "${item['name']}";
+
                                   });
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.only(bottom: screenHeight * 0.015),
-                                  padding: EdgeInsets.all(screenHeight * 0.015),
+                                  margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                                  padding: EdgeInsets.symmetric(horizontal: 0.3,vertical: 0.3),
                                   decoration: BoxDecoration(
-                                    color: isSelected ? primaryBlue : Colors.white,
                                     borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(
-                                      color: isSelected ? primaryBlue : Colors.grey.shade200,
+                                    gradient: LinearGradient(
+                                      colors: isSelected ? [Colors.white,Colors.white]: [Color(0xFF1B99D6), Color(0xFF00C7B7).withOpacity(0.7)],
+
                                     ),
                                   ),
-                                  child: Row(
-                                    children: [
-                                      // Logo
-                                      Container(
-                                        height: screenHeight * 0.05,
-                                        width: screenHeight * 0.05,
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.white,
-                                            border: Border.all(color: Colors.grey.shade300)
-                                        ),
-                                        child: Center(
-                                          child: Text("QC", style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
-                                        ),
-                                      ),
-                                      SizedBox(width: screenWidth * 0.04),
-                                      // Details
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            clinics[index]["name"],
-                                            style: TextStyle(
-                                              color: isSelected ? Colors.white : Colors.black87,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: screenHeight * 0.012,
-                                            ),
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 12,vertical: 8),
+                                    decoration: BoxDecoration(
+                                      color: isSelected ? primaryBlue : Colors.white,
+
+                                      borderRadius: BorderRadius.circular(12),
+
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        // Logo
+                                        Container(
+                                          height: screenHeight * 0.05,
+                                          width: screenHeight * 0.05,
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.white,
+                                              border: Border.all(color: Colors.grey.shade300)
                                           ),
-                                          SizedBox(height: 4),
+                                          child: Center(
+                                            child: Text("QC", style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
+                                          ),
+                                        ),
+                                        SizedBox(width: screenWidth * 0.04),
+                                        // Details
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
 
-                                          // --- LOCATION ROW CHANGED HERE ---
-                                          Row(
-                                            children: [
-                                              // 1. Custom Image Icon
-                                              Image.asset(
-                                                'assets/location_ls.png',
-                                                height: screenHeight * 0.016,
-                                                width: screenHeight * 0.016,
-                                                // If the icon is black/colored and you want it white when selected:
-                                                color: isSelected ? Colors.white70 : null,
-                                                fit: BoxFit.contain,
-                                              ),
-                                              SizedBox(width: 4),
-
-                                              // 2. RichText for colored parts
-                                              RichText(
+                                            RichText(
                                                 text: TextSpan(
-                                                  children: [
-                                                    TextSpan(
-                                                      text: "${clinics[index]["distance"]} ", // e.g., "1.0 km "
-                                                      style: TextStyle(
-                                                        // Use white if selected, otherwise use custom Orange
-                                                        color: isSelected ? Colors.white : distanceColor,
-                                                        fontSize: screenHeight * 0.012,
-                                                        fontWeight: FontWeight.w600,
-                                                      ),
+                                                    style: TextStyle(
+                                                      color: isSelected ? Colors.white : Color(0xFF000000),
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: screenHeight * 0.012,
                                                     ),
-                                                    TextSpan(
-                                                      text: "Far from your location",
-                                                      style: TextStyle(
-                                                        // Use white70 if selected, otherwise use custom Blue
-                                                        color: isSelected ? Colors.white70 : locationTextColor,
-                                                        fontSize: screenHeight * 0.012,
-                                                      ),
-                                                    ),
-                                                  ],
+                                                    children: [
+                                                      TextSpan(text: item["name"]),
+                                                      TextSpan(text: " "),
+                                                      TextSpan(text: item["area"]),
+                                                      TextSpan(text: " "),
+                                                      TextSpan(text: item["street"]),
+                                                      TextSpan(text: " "),
+                                                      TextSpan(text: item["city"]),
+
+
+
+
+                                                    ]
+                                                )),
+                                            SizedBox(height: 4),
+
+                                            // --- LOCATION ROW CHANGED HERE ---
+                                            Row(
+                                              children: [
+                                                // 1. Custom Image Icon
+                                                Image.asset(
+                                                  'assets/location_ls.png',
+                                                  height: screenHeight * 0.009,
+                                                  width: screenHeight * 0.009,
+                                                  // If the icon is black/colored and you want it white when selected:
+                                                  color: isSelected ? Color(0xFFFFFFFF) : Color(0xFF00C5BB),
+                                                  fit: BoxFit.contain,
                                                 ),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      )
-                                    ],
+                                                SizedBox(width: 4),
+
+                                                // 2. RichText for colored parts
+                                                RichText(
+                                                  text: TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text: "${item["distance"]} ", // e.g., "1.0 km "
+                                                        style: TextStyle(
+                                                          // Use white if selected, otherwise use custom Orange
+                                                          color:  distanceColor,
+                                                          fontSize: screenHeight * 0.009,
+                                                          fontWeight: FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                      TextSpan(
+                                                        text: "Far from your location",
+                                                        style: TextStyle(
+                                                          // Use white70 if selected, otherwise use custom Blue
+                                                          color: isSelected ? Colors.white : locationTextColor,
+                                                          fontSize: screenHeight * 0.009,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
@@ -370,7 +373,14 @@ class _PreferredHospitalLocationScreenState
                                 width: double.infinity,
                                 height: screenHeight * 0.06,
                                 child: ElevatedButton(
-                                  onPressed: selectedIndex == -1 ? null : () {},
+                                  onPressed: selectedIndex == -1 ? null : () {
+                                    setState(() {
+                                      print("changeLocation : $changeLocation");
+                                      DummyData.hospitalLocationNotifier.value = changeLocation;
+                                      selectedIndex = -1;
+                                    });
+
+                                  },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: primaryBlue,
                                     disabledBackgroundColor: Colors.grey[400],
@@ -395,3 +405,5 @@ class _PreferredHospitalLocationScreenState
     );
   }
 }
+
+

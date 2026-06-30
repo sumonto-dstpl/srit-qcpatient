@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:newfolder/Core/Dialog/delete_dialog.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
@@ -612,14 +613,26 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                                       key: Key(file), // Unique key for each item
                                                       direction: DismissDirection.endToStart, // Allow swipe from right to left
                                                       background: Container(
-                                                        color: Colors.white,
-                                                        alignment: Alignment.centerRight,
-                                                        padding: EdgeInsets.symmetric(horizontal: 20),
-                                                        child: Icon(
-                                                          Icons.delete,
-                                                          color: Colors.red,
-                                                        ),
+                                                        // color: Colors.red,
+
+                                                          alignment: Alignment.centerRight,
+                                                          padding: EdgeInsets.symmetric(horizontal: 20),
+                                                          child: Image.asset(
+                                                            'assets/deleteicon.png',
+                                                            height: 20,
+                                                            width: 20,
+
+                                                          )
                                                       ),
+                                                      confirmDismiss: (direction) async {
+
+                                                        return await DeleteDialog.show(
+                                                          context: context,
+                                                          barrierLabel: "MedicationDelete",
+                                                          message: "Are you sure to Remove the Selected Medication ?",
+
+                                                        );
+                                                      },
                                                       onDismissed: (direction) {
                                                         // Remove the item immediately from the list
                                                         setState(() {
@@ -628,9 +641,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
 
 
                                                       },
-                                                      child:
-
-                                                      GestureDetector(
+                                                      child: GestureDetector(
                                                         onTap: () {},
                                                         child: Card(
                                                           elevation: 0.0,
@@ -916,6 +927,8 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                                         ),
                                                       )
 
+
+
                                                   );
                                               },
                                             ),
@@ -984,79 +997,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                   ),
                                 ),
 
-                                // Previous Prescription List
-                                // Container(
-                                //   height: double
-                                //       .infinity,
-                                //   // Ensures it occupies full height
-                                //   width: double
-                                //       .infinity,
-                                //   // Ensures it occupies full width
-                                //   color: Colors
-                                //       .white,
-                                //   // You can change the background color
-                                //   child: Column(
-                                //     mainAxisAlignment: MainAxisAlignment
-                                //         .center, // Center vertically
-                                //     crossAxisAlignment: CrossAxisAlignment
-                                //         .center, // Center horizontally
-                                //     children: [
-                                //       Image.asset(
-                                //         'assets/NoPreviousPrescriptionstoview.png',
-                                //         // Replace with your image asset
-                                //         height: MediaQuery
-                                //             .of(context)
-                                //             .size
-                                //             .height *
-                                //             0.340,
-                                //         // Adjust the height of the image
-                                //         width: MediaQuery
-                                //             .of(context)
-                                //             .size
-                                //             .height *
-                                //             0.340, // Adjust the width of the image
-                                //       ),
-                                //       Container(
-                                //         padding: EdgeInsets.only(
-                                //           top: MediaQuery
-                                //               .of(context)
-                                //               .size
-                                //               .height *
-                                //               0.00,
-                                //           bottom: MediaQuery
-                                //               .of(context)
-                                //               .size
-                                //               .height *
-                                //               0.00,
-                                //           left: MediaQuery
-                                //               .of(context)
-                                //               .size
-                                //               .height *
-                                //               0.00,
-                                //           right: MediaQuery
-                                //               .of(context)
-                                //               .size
-                                //               .height *
-                                //               0.00,
-                                //         ),
-                                //         child: Text(
-                                //           "No Previous Prescriptions to view",
-                                //           style: TextStyle(
-                                //             fontSize: MediaQuery
-                                //                 .of(context)
-                                //                 .size
-                                //                 .height *
-                                //                 0.016,
-                                //             color: Color(0xFF126086),
-                                //             fontWeight: FontWeight.bold,
-                                //           ),
-                                //           overflow: TextOverflow.ellipsis,
-                                //           textAlign: TextAlign.left,
-                                //         ),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
+
 
                                 Container(
                                   padding: EdgeInsets.only(

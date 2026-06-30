@@ -1038,7 +1038,7 @@ class RadiologyMainstate extends State<RadiologyMain> {
                                 onChanged: (value) => checkRadiologyField(),
                                 keyboardType: TextInputType.number,
                                 inputFormatters: [
-                                  LengthLimitingTextInputFormatter(15),
+                                  LengthLimitingTextInputFormatter(10),
                                   FilteringTextInputFormatter.allow(
                                       RegExp('[0-9]'))
                                 ],
@@ -1674,7 +1674,7 @@ class RadiologyMainstate extends State<RadiologyMain> {
                                   ),
                                   filled: true,
                                   fillColor: Color(0xFFFFFFFF),
-                                  hintText: "Enter appointment date",
+                                  hintText: "Enter Test Details",
                                   hintStyle: TextStyle(
                                     color: Color(0x4D111111),
                                     fontSize: MediaQuery.of(context)

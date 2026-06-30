@@ -49,18 +49,18 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 
-class HomePageMain extends StatefulWidget {
+class HomePageMainCopy extends StatefulWidget {
   int selectedIndex = 0;
 
-  HomePageMain({
+  HomePageMainCopy({
     super.key,
   });
 
   @override
-  State<HomePageMain> createState() => HomePageMainstate();
+  State<HomePageMainCopy> createState() => HomePageMainstate();
 }
 
-class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderStateMixin {
+class HomePageMainstate extends State<HomePageMainCopy> with SingleTickerProviderStateMixin {
   String usernameValue = "Hello, Priya Krishnamurty";
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";

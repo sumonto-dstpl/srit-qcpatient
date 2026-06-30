@@ -20,9 +20,7 @@ import '../Utils/customNotification.dart';
 import '../VerifyOtp/verifyOtp.dart';
 
 class OtpVerified extends StatefulWidget {
-  // const ChangeMobileNumber({
-  //   super.key,
-  // });
+
   final String? mobileNumber; // Optional numbe
 
   const OtpVerified({Key? key, this.mobileNumber}) : super(key: key);

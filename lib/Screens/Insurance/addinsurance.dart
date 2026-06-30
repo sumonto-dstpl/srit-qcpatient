@@ -67,6 +67,7 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
 
     // Agar item null nahi hai, matlab edit mode
     if (widget.item != null) {
+      usernameValue = 'Edit Insurance' ;
       InsurnceProviderTextController.text = widget.item!['insuranceProvider'] ?? '';
       NationalIDTextController.text = widget.item!['nationalId'] ?? '';
       PolicyNameEditTextController.text = widget.item!['policyName'] ?? '';
@@ -349,6 +350,7 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                   ),
                   child: ListView(
                     children: [
+                      if(widget.item == null)
                       Container(
                         padding: EdgeInsets.only(
                             left: MediaQuery.of(context).size.height * 0.01,
@@ -367,6 +369,7 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                           ),
                         ),
                       ),
+                      if(widget.item == null)
                       Container(
                         padding: EdgeInsets.only(
                             left: MediaQuery.of(context).size.height * 0.01,
@@ -385,11 +388,13 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                           ),
                         ),
                       ),
+                      if(widget.item == null)
+                      SizedBox(height:  MediaQuery.of(context).size.height * 0.02,),
                       Container(
                         margin: EdgeInsets.only(
                           left: MediaQuery.of(context).size.height * 0.02,
                           right: MediaQuery.of(context).size.height * 0.02,
-                          top: MediaQuery.of(context).size.height * 0.02,
+
                         ),
                         padding: EdgeInsets.only(
                             left: MediaQuery.of(context).size.height * 0.00,
