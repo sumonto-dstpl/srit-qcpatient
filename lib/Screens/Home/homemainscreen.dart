@@ -63,8 +63,6 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   // late ProgressDialog progressDialog;
   AuthFailed customalert = new AuthFailed();
 
-  // late ProgressDialog progressDialog;
-  // List<DoctorsListResponse>? responselist = [];
 
 
 

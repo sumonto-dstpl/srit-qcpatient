@@ -16,23 +16,25 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   // Navigation Logic
   void _onItemTapped(int index, BuildContext context) {
-    // Agar user same tab par click kare toh kuch mat karo
-    if (index == selectedIndex && index != 3) return;
+    // FIX 3: Added 'index != 0' so it always allows navigating to Home
+    // even if the current screen (like Profile) shares index 0.
+    if (index == selectedIndex && index != 0 && index != 3) return;
 
     if (index == 0) {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) =>   HomePageMain()),
+          MaterialPageRoute(builder: (context) => HomePageMain()),
               (Route<dynamic> route) => false);
     } else if (index == 1) {
-      // NOTE: Bottom nav me pushReplacement use karna better hai memory ke liye,
-      // par abhi main apka wala push hi use kar raha hu
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) =>   MyReportsMain()));
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => MyReportsMain()));
     } else if (index == 2) {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) =>   UploadPrescriptionMain()));
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => UploadPrescriptionMain()));
     } else if (index == 3) {
       _showBottomSheet(context);
     } else if (index == 4) {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) =>   MyHealthMain()));
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => MyHealthMain()));
     }
   }
 
@@ -154,37 +156,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                                           crossAxisAlignment: CrossAxisAlignment
                                               .start,
                                           children: <Widget>[
-                                            // Container(
-                                            //   padding: EdgeInsets.only(
-                                            //     top: MediaQuery
-                                            //         .of(context)
-                                            //         .size
-                                            //         .height * 0.0,
-                                            //     bottom: MediaQuery
-                                            //         .of(context)
-                                            //         .size
-                                            //         .height * 0.03,
-                                            //     left: MediaQuery
-                                            //         .of(context)
-                                            //         .size
-                                            //         .height * 0.18,
-                                            //     right: MediaQuery
-                                            //         .of(context)
-                                            //         .size
-                                            //         .height * 0.18,
-                                            //   ),
-                                            //   child: Divider(
-                                            //     height: 0,
-                                            //     indent: 0,
-                                            //     thickness: MediaQuery
-                                            //         .of(context)
-                                            //         .size
-                                            //         .height * 0.008,
-                                            //     color: Color(0xFF95C8D6).withOpacity(0.3),
-                                            //   ),
-                                            // ),
 
-                                            // Select the Type of Appointment
 
                                             GestureDetector(
 
@@ -945,6 +917,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Colors ko variables me store kar liya for cleaner code
+    final activeColor = const Color(0xFF126086);
+    final inactiveColor = const Color(0xFF484C52);
+
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -967,31 +943,39 @@ class CustomBottomNavigationBar extends StatelessWidget {
             ),
             child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
-              currentIndex: selectedIndex, // Dynamic selected index yahan use hua
-              onTap: (index) => _onItemTapped(index, context), // Context pass kiya
+              currentIndex: selectedIndex,
+              onTap: (index) => _onItemTapped(index, context),
               backgroundColor: Colors.white,
-              selectedItemColor: const Color(0xFF126086),
-              unselectedItemColor: const Color(0xFF484C52),
+              selectedItemColor: activeColor,
+              unselectedItemColor: inactiveColor,
               selectedFontSize: MediaQuery.of(context).size.height * 0.014,
               unselectedFontSize: MediaQuery.of(context).size.height * 0.012,
               elevation: 0,
               items: [
                 BottomNavigationBarItem(
                   icon: Container(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.005),
-                    child: Image.asset('assets/Homeactive.png',
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height * 0.005),
+                    child: Image.asset(
+                      'assets/Homeactive.png', // Aap chahein toh inactive icon alag lagayen, ya color overlay use karein
                       width: MediaQuery.of(context).size.height * 0.027,
                       height: MediaQuery.of(context).size.height * 0.027,
+                      // FIX 1: Applied active/inactive color overlay to the image
+                      color: selectedIndex == 0 ? activeColor : inactiveColor,
                     ),
                   ),
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
                   icon: Container(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.005),
-                    child: Image.asset('assets/MyReports.png',
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height * 0.005),
+                    child: Image.asset(
+                      'assets/MyReports.png',
                       width: MediaQuery.of(context).size.height * 0.027,
                       height: MediaQuery.of(context).size.height * 0.027,
+                      // FIX 1: Applied color overlay
+                      color: selectedIndex == 1 ? activeColor : inactiveColor,
                     ),
                   ),
                   label: 'My Reports',
@@ -1003,22 +987,31 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   ),
                   label: 'Upload',
                 ),
+
                 BottomNavigationBarItem(
                   icon: Container(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.005),
-                    child: Image.asset('assets/Appoinments.png',
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height * 0.005),
+                    child: Image.asset(
+                      'assets/Appoinments.png',
                       width: MediaQuery.of(context).size.height * 0.027,
                       height: MediaQuery.of(context).size.height * 0.027,
+                      // FIX 1: Applied color overlay
+                      color: selectedIndex == 3 ? activeColor : inactiveColor,
                     ),
                   ),
                   label: 'Appointments',
                 ),
                 BottomNavigationBarItem(
                   icon: Container(
-                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.005),
-                    child: Image.asset('assets/MyHealth.png',
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height * 0.005),
+                    child: Image.asset(
+                      'assets/MyHealth.png',
                       width: MediaQuery.of(context).size.height * 0.027,
                       height: MediaQuery.of(context).size.height * 0.027,
+                      // FIX 1: Applied color overlay
+                      color: selectedIndex == 4 ? activeColor : inactiveColor,
                     ),
                   ),
                   label: 'My Health',

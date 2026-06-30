@@ -79,6 +79,13 @@ class IconBadge extends StatefulWidget {
 }
 
 class _IconBadgeState extends State<IconBadge> {
+
+  @override
+  void initState() {
+    super.initState();
+    // Jaise hi Header load hoga (Home page par), ye function count calculate kar lega
+    calculateAndUpdateGlobalCount();
+  }
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -105,6 +112,7 @@ class _IconBadgeState extends State<IconBadge> {
         ValueListenableBuilder<int>(
           valueListenable: globalNotificationCount,
           builder: (context, count, child) {
+            print("Current Notification Count is: $count");
             // Optional: Hide badge if count is 0
             if (count == 0) return SizedBox.shrink();
 

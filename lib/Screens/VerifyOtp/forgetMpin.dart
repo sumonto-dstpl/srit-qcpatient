@@ -38,10 +38,20 @@ class _ForgetMpinScreenState extends State<ForgetMpinScreen> {
         _isNextButtonEnabled = true;
       });
     }
+
+    if(value.length == 14) {
+      setState(() {
+        errorMessage = null;
+        _isNextButtonEnabled = true;
+      });
+    }
   }
 
   Future<void> checkMobileAndProceed() async {
-    String input = mobileController.text.trim();
+    String input1 = mobileController.text.trim();
+    String digitsOnly = input1.replaceAll(RegExp(r'\D'), '');
+    String input = digitsOnly.substring(2);
+
     if (!_isNextButtonEnabled) return;
 
     setState(() => _isLoading = true);
@@ -226,10 +236,28 @@ class _ForgetMpinScreenState extends State<ForgetMpinScreen> {
                                 keyboardType: TextInputType.phone,
 
                                 // ✅ Top wale ki tarah sirf digits allow kiye aur max length 10 kar di
-                                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                                maxLength: 10,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(14),
+                                ] ,
+
 
                                 onChanged: (value) {
+
+                                  if (value.isNotEmpty &&
+                                      !value.startsWith("+91 ")) {
+                                    mobileController.text =
+                                        "+91 " + value;
+                                    mobileController.selection =
+                                        TextSelection.fromPosition(
+                                          TextPosition(
+                                              offset:
+                                              mobileController
+                                                  .text.length),
+                                        );
+                                  }
+                                  if (value == "+91 ") {
+                                    mobileController.clear();
+                                  }
                                   validateInput(value) ;// Tumhara validation function call
                                 },
                                 style: TextStyle(
@@ -238,39 +266,52 @@ class _ForgetMpinScreenState extends State<ForgetMpinScreen> {
                                   fontWeight: FontWeight.w500,
                                 ),
                                 decoration: InputDecoration(
-                                  hintText: "Enter your Mobile Number",
-                                  counterText: "", // ✅ maxLength 10 ka niche jo '0/10' aata hai use hide karne ke liye
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.symmetric(
+                                    horizontal:
+                                    MediaQuery.of(context).size.height *
+                                        0.02,
+                                    vertical:
+                                    MediaQuery.of(context).size.height *
+                                        0.012,
+                                  ),
                                   filled: true,
-                                  fillColor: Colors.white,
-
-                                  // ✅ Top wale ki padding aur design
-                                  contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
-
-                                  // ✅ Agar number valid hai toh Green Tick dikhayega
-                                  suffixIcon: mobileController.text.length == 10
-                                      ? const Icon(Icons.check_circle, color: Colors.green)
+                                  fillColor: Color(0xFFFFFFFF),
+                                  hintText: "Enter your mobile number",
+                                  hintStyle: TextStyle(
+                                      color: Color(0x4D111111),
+                                      fontSize: MediaQuery.of(context)
+                                          .size
+                                          .height *
+                                          0.012,
+                                      fontWeight: FontWeight.w400),
+                                  suffixIcon: mobileController
+                                      .text.isNotEmpty && mobileController.text.length == 14
+                                      ? Icon(Icons.check_circle,
+                                      color: Colors.green)
                                       : null,
 
                                   // ✅ Top wale ka clean Grey Border aur 8 Border Radius
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: const BorderSide(color: Colors.grey),
-                                  ),
+
                                   enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: const BorderSide(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: const BorderSide(color: Color(0xFFF1F1F1), )
+
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: const BorderSide(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(5),
+                                      borderSide: const BorderSide(color: Color(0xFFF1F1F1), )
+
                                   ),
                                   errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: const BorderSide(color: Colors.red),
+                                      borderRadius: BorderRadius.circular(5),
+                                      borderSide: const BorderSide(color: Color(0xFFF1F1F1), )
+
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: const BorderSide(color: Colors.red),
+                                      borderRadius: BorderRadius.circular(5),
+                                      borderSide: const BorderSide(color: Color(0xFFF1F1F1), )
+
                                   ),
                                 ),
                               ),

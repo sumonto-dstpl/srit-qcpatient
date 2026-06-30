@@ -455,12 +455,7 @@ class LoginPagestate extends State<LoginPage> {
                                       validateNumber(
                                           UserNumberEditTextController.text);
                                     },
-                                    // onEditingComplete: () {
-                                    //   // add error message and icon
-                                    //   checkUserIdEmpty(
-                                    //       UserNumberEditTextController.text
-                                    //           .toString());
-                                    // },
+
                                     decoration: InputDecoration(
                                       isDense: true,
                                       contentPadding: EdgeInsets.symmetric(
@@ -1210,60 +1205,7 @@ class LoginPagestate extends State<LoginPage> {
               base64Encode(utf8.encode("Test@123456")));
 
 
-          // if (user.accessToken != null) {
-          //   // progressDialog.hide();
-          //   await UserSecureStorage.setTokenvalue(user.accessToken);
-          //   await UserSecureStorage.setRefreshTokenvalue(user.refreshToken);
-          //   // await UserSecureStorage.setIfLogged("YES");
-          //   // await UserSecureStorage.setIfLoggedOut("NO");
-          //   await UserSecureStorage.setIfGuestLogged("NO");
-          //   // await UserSecureStorage.setIfLoggedOut("NO");
-          //
-          //   // String? username =  await UserSecureStorage.getUsernameid();
-          //   Map<String, dynamic>? userData = await UserSecureStorage.getUser(input.substring(3).trim());
-          //   String? mpin = userData?['mpin'];
-          //
-          //   if(userData == null){
-          //     // showTopNotification(context, title: title, message: message, type: typ)
-          //     Navigator.of(context).push(
-          //         MaterialPageRoute(builder: (context) => Registration())
-          //     );
-          //   }
-          //
-          //   if(mpin!.isEmpty)
-          //     {
-          //       Navigator.of(context).push(
-          //           MaterialPageRoute(builder: (context) => MpinResetSettings(mobileNumber: input.substring(3)))
-          //       );
-          //     }
-          //   else{
-          //     Navigator.of(context).push(
-          //         MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber: input.substring(3)))
-          //     );
-          //   }
-          //
-          //
-          //   // Navigator.of(context).pushAndRemoveUntil(
-          //   //     MaterialPageRoute(builder: (context) => HomePageMain()),
-          //   //     (Route<dynamic> route) => false);
-          // } else if (user.message != null) {
-          //   // progressDialog.hide();
-          //
-          //   final snackBar = SnackBar(
-          //     content: Text(user.message),
-          //     backgroundColor: Colors.red[600],
-          //   );
-          //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          //
-          //   /* Navigator.of(context).pushAndRemoveUntil(
-          //       MaterialPageRoute(builder: (context) => HomePageMain()),
-          //           (Route<dynamic> route) => false);*/
-          //
-          //   // customalert.showError(context, user.error);
-          //
-          //
-          //
-          // }
+
 
 
 
