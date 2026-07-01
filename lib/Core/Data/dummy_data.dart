@@ -44,4 +44,15 @@ class DummyData {
   // Naya code (Isko Replace karein):
   static ValueNotifier<String> hospitalLocationNotifier = ValueNotifier<String>("QCT Clinic A,QATAR 500006");
 
+  static Map<String, List<String>> globallyBookedSlots = {};
+
+  static void addNewBooking(String dateStr, String timeSlot) {
+    if (globallyBookedSlots.containsKey(dateStr)) {
+      if (!globallyBookedSlots[dateStr]!.contains(timeSlot)) {
+        globallyBookedSlots[dateStr]!.add(timeSlot);
+      }
+    } else {
+      globallyBookedSlots[dateStr] = [timeSlot];
+    }
+  }
 }

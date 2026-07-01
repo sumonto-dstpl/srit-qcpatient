@@ -18,7 +18,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
   void _onItemTapped(int index, BuildContext context) {
     // FIX 3: Added 'index != 0' so it always allows navigating to Home
     // even if the current screen (like Profile) shares index 0.
-    if (index == selectedIndex && index != 0 && index != 3) return;
+    if (index == selectedIndex && index != 0 && index != 3 && index != 4 ) return;
 
     if (index == 0) {
       Navigator.of(context).pushAndRemoveUntil(

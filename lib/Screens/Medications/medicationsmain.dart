@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Core/Dialog/delete_dialog.dart';
+import 'package:newfolder/Core/size.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
@@ -30,6 +31,7 @@ import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Registeration/registeration.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
 import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
@@ -49,10 +51,11 @@ import 'package:newfolder/Core/Header/header.dart';
 import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
 class MedicationsMain extends StatefulWidget {
-  int selectedIndex = 0;
+  final int selectedIndex ;
 
   MedicationsMain({
     super.key,
+    this.selectedIndex = 0,
   });
 
   @override
@@ -64,7 +67,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
-  int _selectedIndex = 0;
+
   final mytopspecialities = [
     ["assets/Diagnostic.png", "Diagnostic"],
     ["assets/Doctor.png", "Doctor"],
@@ -161,6 +164,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
                       ),
                       child: Column(
                         children: [
+                          SizedBox(height: AppSize.headerHeight,),
                           // TabBar Section
                           Container(
                             margin: EdgeInsets.only(
@@ -178,10 +182,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                     .of(context)
                                     .size
                                     .height * 0.01,
-                                top: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.02),
+                                 ),
                             height: MediaQuery
                                 .of(context)
                                 .size
@@ -262,17 +263,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                           .size
                                           .height *
                                           0.005,
-                                      top: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height *
-                                          0.00,
-                                      bottom:
-                                      MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height *
-                                          0.00),
+                                       ),
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -340,9 +331,18 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                                           message: "Are you sure to Remove the Selected Medication ?",
 
                                                         );
+
+
+
                                                       },
                                                       onDismissed: (direction) {
                                                         // Remove the item immediately from the list
+                                                        showTopNotification(
+                                                          context,
+                                                          title: "Deleted Successfully",
+                                                          message: "The prescription has been removed.",
+                                                          type: NotificationType.error,
+                                                        );
                                                         setState(() {
                                                           uploadfilestime.removeAt(index);
                                                         });
@@ -1166,7 +1166,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
 
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton:  CustomFloatingActionButton(),
-        bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: _selectedIndex),
+        bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: widget.selectedIndex),
       ),
     );
   }

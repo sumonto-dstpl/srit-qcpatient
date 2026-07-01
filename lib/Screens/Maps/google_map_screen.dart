@@ -10,6 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/Maps/model/place_model.dart';
 import 'package:newfolder/Screens/Maps/repoapi.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 
 Color color = const Color(0xfffe8903);
 
@@ -20,8 +21,9 @@ class GoogleMapScreen extends StatefulWidget {
   State<GoogleMapScreen> createState() => _GoogleMapScreenState();
 }
 
-class _GoogleMapScreenState extends State<GoogleMapScreen>
-    with WidgetsBindingObserver {
+class _GoogleMapScreenState extends State<GoogleMapScreen> with WidgetsBindingObserver {
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   BitmapDescriptor? currentLocation;
   TextEditingController placeController = TextEditingController();
 
@@ -467,6 +469,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       extendBodyBehindAppBar: true,
       extendBody: true,
       resizeToAvoidBottomInset: false,
@@ -482,22 +485,62 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
                     myLocationButtonEnabled: false,
                     myLocationEnabled: true,
                     zoomControlsEnabled: false,
-                    initialCameraPosition:
-                        CameraPosition(zoom: 16, target: _currentLatLng),
+                    initialCameraPosition:CameraPosition(zoom: 16, target: _currentLatLng),
+
                     onMapCreated: (controller) async {
                       setState(() {
                         _controller = controller;
                       });
-                      // String val = "assets/json/google_map_dark_light.json";
                       String val = "assets/json/google_map_light_theme.json";
                       var c = await rootBundle.loadString(val);
                       _controller.setMapStyle(c);
                     },
+// Yahan onTap add karein
+                    onTap: (LatLng tappedLatLng) async {
+                      try {
+                        List<Placemark> placemarks = await placemarkFromCoordinates(
+                          tappedLatLng.latitude,
+                          tappedLatLng.longitude,
+                        );
+
+                        if (placemarks.isNotEmpty) {
+                          Placemark place = placemarks.first;
+
+                          setState(() {
+                            // Update the marker position
+                            _currentLatLng = tappedLatLng;
+
+                            // Update location variables
+                            name = place.name ?? '';
+                            street = place.street ?? '';
+                            thoroughfare = place.thoroughfare ?? '';
+                            subThoroughfare = place.subThoroughfare ?? '';
+                            city = place.locality ?? '';
+                            subLocality = place.subLocality ?? '';
+                            state = place.administrativeArea ?? '';
+                            subAdminArea = place.subAdministrativeArea ?? '';
+                            postalCode = place.postalCode ?? '';
+                            country = place.country ?? '';
+                            isoCountryCode = place.isoCountryCode ?? '';
+
+                            // Controllers me auto-fill values daalein
+                            LandmarkEditTextController.text = name.isNotEmpty ? name : street;
+
+                            // Address ko format karke daalein (excluding empty fields)
+                            AddressEditTextController.text = [subLocality, city, state, postalCode]
+                                .where((element) => element.isNotEmpty)
+                                .join(', ');
+                          });
+                        }
+                      } catch (e) {
+                        print('Error on map tap: $e');
+                      }
+                    },
                     markers: {
                       Marker(
-                          markerId: const MarkerId("1"),
-                          // icon: currentLocation!,
-                          position: _currentLatLng)
+                        markerId: const MarkerId("1"),
+                        position: _currentLatLng, // Marker current map tap position par aayega
+                      )
                     },
                   ),
                   Container(
@@ -545,7 +588,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
 
 
   void showBottomSheetforAddressDisplay() {
-
+    double height = MediaQuery.of(context).size.height ;
+    double width = MediaQuery.of(context).size.width;
     Map<String, dynamic> addressData = {
       "name": name,
       "street": street,
@@ -589,20 +633,15 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
                   child: NotificationListener<DraggableScrollableNotification>(
                     onNotification: (notification) {
                       final currentExtent = notification.extent;
-
-                      // ✅ Hide keyboard when dragging down
                       if (currentExtent < _lastExtent - 0.01) {
                         print("Dragging down - Hiding keyboard");
                         FocusScope.of(context).unfocus();
                       }
-
-                      // ✅ Dismiss the sheet if dragged below threshold
                       if (!_isDismissed &&
                           currentExtent < _currentChildSize - 0.05) {
                         _isDismissed = true;
                         Navigator.of(context).pop(); // Dismiss sheet
                       }
-
                       _lastExtent = currentExtent;
                       return true;
                     },
@@ -618,12 +657,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
                       },
                       child: Padding(
                         padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context)
-                              .viewInsets
-                              .bottom, // Adjust for keyboard
-                          left: MediaQuery.of(context).size.height * 0.02,
-                          top: MediaQuery.of(context).size.height * 0.01,
-                          right: MediaQuery.of(context).size.height * 0.02,
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
+                          left: height * 0.02,
+                          top: height * 0.01,
+                          right: height * 0.02,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -638,37 +675,14 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
                                       child: Center(
                                         child: Container(
                                           padding: EdgeInsets.only(
-                                            top: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.01,
-                                            bottom: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.03,
-                                            left: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.18,
-                                            right: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.18,
+                                            top: height *0.01,
+                                            bottom:  height *0.03,
+                                            left:  height *0.18,
+                                            right: height *0.18,
                                           ),
-
-                                          width:
-                                          MediaQuery.of(context).size.width *
-                                              0.23,
-                                          // Same thickness as Divider
-                                          height:
-                                          MediaQuery.of(context).size.height *
-                                              0.006,
-                                          // Same thickness as Divider
-                                          decoration: BoxDecoration(
-                                            color: Color(
-                                                0xFFD9D9D9), // Divider color
-                                            borderRadius: BorderRadius.circular(
-                                                10), // Rounded edges
+                                          width:MediaQuery.of(context).size.width *0.23,
+                                          height:height *0.006,
+                                          decoration: BoxDecoration(color: Color(0xFFD9D9D9),borderRadius: BorderRadius.circular(10),
                                           ),
                                         ),
                                       ),
@@ -676,24 +690,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
 
                                     // Select Location
                                     Padding(
-                                      padding: EdgeInsets.only(
-                                        left: MediaQuery.of(context).size.height *
-                                            0.0,
-                                        right:
-                                        MediaQuery.of(context).size.height *
-                                            0.0,
-                                        bottom:
-                                        MediaQuery.of(context).size.height *
-                                            0.005,
-                                        top: MediaQuery.of(context).size.height *
-                                            0.022,
-                                      ),
+                                      padding: EdgeInsets.only(bottom:height *0.005,top: height *0.022,),
                                       child: Row(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.start,
-                                        // Center horizontally
+                                        crossAxisAlignment:CrossAxisAlignment.start,
+                                        mainAxisAlignment:MainAxisAlignment.start,
                                         children: <Widget>[
                                           Container(
                                             padding: EdgeInsets.all(0),
@@ -704,10 +704,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w600,
                                                 overflow: TextOverflow.ellipsis,
-                                                fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.017,
+                                                fontSize:  height *0.017,
                                               ),
                                             ),
                                           ),
@@ -717,15 +714,15 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
 
                                     Padding(
                                       padding: EdgeInsets.only(
-                                        left: MediaQuery.of(context).size.height *
+                                        left: height *
                                             0.0,
                                         right:
-                                        MediaQuery.of(context).size.height *
+                                        height *
                                             0.0,
                                         bottom:
-                                        MediaQuery.of(context).size.height *
+                                        height *
                                             0.005,
-                                        top: MediaQuery.of(context).size.height *
+                                        top: height *
                                             0.022,
                                       ),
                                       child: Row(
@@ -819,15 +816,15 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(
-                                        left: MediaQuery.of(context).size.height *
+                                        left: height *
                                             0.0,
                                         right:
-                                        MediaQuery.of(context).size.height *
+                                        height *
                                             0.0,
                                         bottom:
-                                        MediaQuery.of(context).size.height *
+                                        height *
                                             0.005,
-                                        top: MediaQuery.of(context).size.height *
+                                        top: height *
                                             0.022,
                                       ),
                                       child: Row(
@@ -897,10 +894,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
                             ),
                             Padding(
                               padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.01,
-                                left: MediaQuery.of(context).size.height * 0.00,
-                                right: MediaQuery.of(context).size.height * 0.00,
-                                bottom: MediaQuery.of(context).size.height * 0.05,
+                                top: height * 0.01,
+                                left: height * 0.00,
+                                right: height * 0.00,
+                                bottom: height * 0.05,
                               ),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -917,10 +914,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
                                         child: Container(
 
                                             height:
-                                            MediaQuery.of(context).size.height *
+                                            height *
                                                 0.05,
                                             width:
-                                            MediaQuery.of(context).size.height *
+                                            height *
                                                 0.4,
                                             child: Row(
                                                 crossAxisAlignment:
@@ -994,28 +991,26 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
 
 
   void showBottomSheetforAddressChange() {
-    double height = MediaQuery.of(context).size.height ;
+    // Apne controllers set karne ka logic (jo humne pehle discuss kiya tha)
+    LandmarkEditTextController.text = name.isNotEmpty ? name : street;
+    AddressEditTextController.text = [subLocality, city, state, postalCode]
+        .where((element) => element.isNotEmpty)
+        .join(', ');
+
+    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    showModalBottomSheet(
+
+    // showModalBottomSheet ki jagah isko use karein:
+    _scaffoldKey.currentState?.showBottomSheet(
         enableDrag: false,
-        isScrollControlled: true,
-        isDismissible: false,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
-        ),
-        backgroundColor: Colors.white,
-        barrierColor: Colors.transparent,
-        context: context,
-        builder: (context) {
+        backgroundColor: Colors.transparent, // Transparent zaroori h
+        elevation: 0,
+            (context) {
           return DraggableScrollableSheet(
               controller: _sheetController2,
-              initialChildSize:
-              _currentChildSize2, // Start at 50% of screen height
-              minChildSize: 0.3, // Minimum height (30% of screen)
-              maxChildSize: 0.9, // Max height (90% of screen)
+              initialChildSize: _currentChildSize2,
+              minChildSize: 0.3,
+              maxChildSize: 0.9,
               expand: false,
               builder: (context, scrollController) {
                 return Material(
@@ -1242,27 +1237,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
                                         ),
                                       ),
 
-                                      Container(
-                                        margin: EdgeInsets.only(top:  height * 0.02),
-                                        child: Padding(
-                                          padding: new EdgeInsets.only(
-                                              left:  height *  0.005,
-                                              bottom:  height *0.008),
-                                          child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              "Landmark",
-                                              style: TextStyle(
-                                                fontSize:  height *0.014,
-                                                color: Color(0xFF0000000),
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "Inter",
-                                              ),
-                                              textAlign: TextAlign.start,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                      const SizedBox(height: 12,),
+                                      _buildLabelWithAsterisk(context, 'Landmark', required: true),
                                       GestureDetector(
                                         onTap: () async {
                                           if (_sheetController2.isAttached) {
@@ -1339,27 +1315,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
                                         ),
                                       ),
 
-                                      Container(
-                                        margin: EdgeInsets.only(top:  height *0.01),
-                                        child: Padding(
-                                          padding: new EdgeInsets.only(left:  height *0.005,
-                                              right:  height *0.0,
-                                              bottom:  height *0.008),
-                                          child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              "Address",
-                                              style: TextStyle(
-                                                fontSize:  height *0.014,
-                                                color: Color(0xFF0000000),
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "Inter",
-                                              ),
-                                              textAlign: TextAlign.start,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+
+                                      _buildLabelWithAsterisk(context, 'Address', required: true),
                                       GestureDetector(
                                         onTap: () async {
                                           if (_sheetController2.isAttached) {
@@ -1436,28 +1393,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
                                             flex: 1,
                                             child: Column(
                                               children: [
-                                                Container(
-                                                  margin: EdgeInsets.only(top:  height *0.01),
-                                                  child: Padding(
-                                                    padding: new EdgeInsets.only(
-                                                        left: height * 0.005,
-                                                        right: height * 0.0,
-                                                        bottom: height * 0.008),
-                                                    child: Align(
-                                                      alignment: Alignment.centerLeft,
-                                                      child: Text(
-                                                        "Fullname",
-                                                        style: TextStyle(
-                                                          fontSize:  height * 0.014,
-                                                          color: Color(0xFF0000000),
-                                                          fontWeight: FontWeight.w400,
-                                                          fontFamily: "Inter",
-                                                        ),
-                                                        textAlign: TextAlign.start,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
+                                                _buildLabelWithAsterisk(context, 'Full Name', required: true),
                                                 GestureDetector(
                                                   onTap: () async {
                                                     if (_sheetController2.isAttached) {
@@ -1532,42 +1468,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
                                             flex: 1,
                                             child: Column(
                                               children: [
-                                                Container(
-                                                  margin: EdgeInsets.only(
-                                                      top:  height *
-                                                          0.01),
-                                                  child: Padding(
-                                                    padding: new EdgeInsets.only(
-                                                        left: height *
-                                                            0.005,
-                                                        right: height *
-                                                            0.0,
-                                                        bottom: height *
-                                                            0.008),
-                                                    child: Align(
-                                                      alignment:
-                                                      Alignment.centerLeft,
-                                                      child: Text(
-                                                        "Address Title",
-                                                        style: TextStyle(
-                                                          fontSize: MediaQuery.of(
-                                                              context)
-                                                              .size
-                                                              .height *
-                                                              0.014,
-                                                          // color: Colors.black54,
-                                                          color:
-                                                          Color(0xFF0000000),
-                                                          fontWeight:
-                                                          FontWeight.w400,
-                                                          fontFamily: "Inter",
-                                                        ),
-                                                        textAlign:
-                                                        TextAlign.start,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
+                                                _buildLabelWithAsterisk(context, 'Address Title', required: true),
                                                 GestureDetector(
                                                   onTap: () async {
                                                     if (_sheetController2
@@ -1755,7 +1656,33 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
                                                               alignment: Alignment.center,
                                                               padding:EdgeInsets.zero,
                                                               child: TextButton(
-                                                                onPressed: () async { showBottomSheetforShowNoContent(); },
+                                                                // onPressed: () async { showBottomSheetforShowNoContent(); },
+
+                                                                onPressed: () async {
+                                                                  // 1. Sabhi controllers ki value nikal kar trim karein
+                                                                  String landmark = LandmarkEditTextController.text.trim();
+                                                                  String address = AddressEditTextController.text.trim();
+                                                                  String fullname = FullnameEditTextController.text.trim();
+                                                                  String addressTitle = AddressTitleEditTextController.text.trim();
+
+                                                                  // 2. Validation check: Agar koi bhi field empty h
+                                                                  if (landmark.isEmpty ) {
+
+                                                                    showTopNotification(context, title: 'Location Details', message: 'Please enter the Landmark Field', type: NotificationType.error);
+                                                                  }
+
+                                                                  else if(address.isEmpty)
+                                                                    showTopNotification(context, title: 'Location Details', message: 'Please enter the Address Field', type: NotificationType.error);
+                                                                  else if(fullname.isEmpty)
+                                                                    showTopNotification(context, title: 'Location Details', message: 'Please enter the Full Name Field', type: NotificationType.error);
+                                                                  else if(addressTitle.isEmpty)
+                                                                    showTopNotification(context, title: 'Location Details', message: 'Please enter the Address Title Field', type: NotificationType.error);
+                                                                   else {
+                                                                    // 3. Agar sab sahi se filled h, toh apna agla action perform karein
+                                                                    // (For example: showBottomSheetforShowNoContent call karna)
+                                                                    showBottomSheetforShowNoContent();
+                                                                  }
+                                                                },
                                                                 child: Text(
                                                                     "Save Address",
                                                                     textAlign: TextAlign.center,
@@ -2302,4 +2229,35 @@ class _GoogleMapScreenState extends State<GoogleMapScreen>
               );
             });
       });
+
+  static Widget _buildLabelWithAsterisk(BuildContext context, String label, {bool required = false}) {
+    return Padding(
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.015,
+        left: MediaQuery.of(context).size.height * 0.005,
+        bottom: MediaQuery.of(context).size.height * 0.006,
+      ),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: RichText(
+          text: TextSpan(
+            text: label,
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.height * 0.014,
+              color: const Color(0xFF333333),
+              fontWeight: FontWeight.w500,
+            ),
+            children: required
+                ? [
+              const TextSpan(
+                text: ' *',
+                style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+              ),
+            ]
+                : [],
+          ),
+        ),
+      ),
+    );
+  }
 }

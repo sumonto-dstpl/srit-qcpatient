@@ -35,7 +35,7 @@ import 'package:newfolder/Screens/Widgets/dotteddivider.dart';
 import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 
 class AddToCartMain extends StatefulWidget {
-  int selectedIndex = 4;
+
 
   AddToCartMain({
     super.key,
@@ -50,7 +50,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
-  int _selectedIndex = 4;
+
 
   final List<String> uploadfilestime = [
     "QR 999",

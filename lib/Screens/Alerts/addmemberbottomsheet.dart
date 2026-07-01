@@ -127,8 +127,8 @@ class AddMemberBottomSheet {
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
-                        // ... Yahan se tumhara baaki ka form code same rahega ...
-                        /// Form Content
+
+
                         Padding(
                           key: const ValueKey('form_padding'),
                           padding: EdgeInsets.only(
@@ -138,162 +138,179 @@ class AddMemberBottomSheet {
                             top: screenHeight * 0.07,
                             bottom: screenHeight * 0.09, // space for fixed buttons
                           ),
-                          child: SingleChildScrollView(
-                            physics: const BouncingScrollPhysics(),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.005,),
-                                  color: Colors.white,
-                                  child: Text(
-                                    operation == "edit" ? "Edit Family Member" : "Add New Family Member",
-                                    style: TextStyle(fontSize: screenHeight * 0.022, fontWeight: FontWeight.w600, color: Colors.black87),
-                                  ),
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.005,bottom: 16),
+                                alignment: Alignment.centerLeft,
+                                color: Colors.white,
+                                child: Text(
+                                  operation == "edit" ? "Edit Family Member" : "Add New Family Member",
+                                  style: TextStyle(fontSize: screenHeight * 0.022, fontWeight: FontWeight.w600, color: Colors.black87),
                                 ),
-
-                                _buildLabelWithAsterisk(context, 'First Name', required: true),
-                                _buildField(
-                                  context,
-                                  firstNameController,
-                                  "Enter First Name",
-                                  onChanged: (val) {
-                                    // ✅ Fix Issue 2: Real-time validation clearance
-                                    if (val.isNotEmpty && !firstNameValid) {
-                                      setState(() => firstNameValid = true);
-                                    }
-                                  },
-                                ),
-                                if (!firstNameValid)
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 8, bottom: screenHeight * 0.005),
-                                    child: Text("Please enter First Name", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
-                                  ),
-
-                                _buildLabelWithAsterisk(context, 'Last Name', required: true),
-                                _buildField(
-                                  context,
-                                  lastNameController,
-                                  "Enter Last Name",
-                                  onChanged: (val) {
-                                    if (val.isNotEmpty && !lastNameValid) {
-                                      setState(() => lastNameValid = true);
-                                    }
-                                  },
-                                ),
-                                if (!lastNameValid)
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 8, bottom: screenHeight * 0.005),
-                                    child: Text("Please enter Last Name", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
-                                  ),
-
-                                _buildLabelWithAsterisk(context, 'UHID'),
-                                _buildField(context, uhidController, "Enter UHID"),
-
-                                _buildLabelWithAsterisk(context, 'Mobile Number', required: true),
-                                _buildField(
-                                  context,
-                                  mobileController,
-                                  "Enter Mobile Number",
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: [LengthLimitingTextInputFormatter(10)],
-                                  onChanged: (val) {
-                                    setState(() {
-                                      mobileValid = val.length == 10;
-                                    });
-                                  },
-                                  // ✅ Fix Issue 1: Green Validation Tick Icon appears when 10 digits are filled
-                                  suffixIcon: mobileController.text.length == 10
-                                      ? const Icon(Icons.check_circle, color: Colors.green, size: 22)
-                                      : null,
-                                ),
-                                if (!mobileValid)
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 8, bottom: screenHeight * 0.005),
-                                    child: Text("Please enter a valid 10-digit Mobile Number", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
-                                  ),
-
-                                // ✅ Fix Issue 7: Email field made mandatory with Asterisk mark
-                                _buildLabelWithAsterisk(context, 'Email', required: true),
-                                _buildField(
-                                  context,
-                                  emailController,
-                                  "Enter Email Address",
-                                  keyboardType: TextInputType.emailAddress,
-                                  onChanged: (val) {
-                                    if (val.isNotEmpty && !emailValid) {
-                                      setState(() => emailValid = true);
-                                    }
-                                  },
-                                ),
-                                if (!emailValid)
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 8, bottom: screenHeight * 0.005),
-                                    child: Text("Please enter Email Address", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
-                                  ),
-
-                                _buildLabelWithAsterisk(context, 'Relationship', required: true),
+                              ),
+                              Flexible(
+                                child: SingleChildScrollView(
+                                  physics: const BouncingScrollPhysics(),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
 
 
-                                InnnerDropdown(
-                                  value: relationshipSelected,
-                                  hint: 'Select Relationship',
-                                  items: [ "Mother", "Father",'Brother','Sister','Other'],
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      relationshipSelected = newValue;
-                                      relationshipValid = true ;
-                                    });
-                                  },
-                                ),
-                                if (!relationshipValid)
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 8, top: 4),
-                                    child: Text("Please select Relationship", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
-                                  ),
+                                      _buildLabelWithAsterisk(context, 'First Name', required: true,isFirst: true),
+                                      _buildField(
+                                        context,
+                                        firstNameController,
+                                        "Enter First Name",
+                                        onChanged: (val) {
+                                          // ✅ Fix Issue 2: Real-time validation clearance
+                                          if (val.isNotEmpty && !firstNameValid) {
+                                            setState(() => firstNameValid = true);
+                                          }
+                                        },
+                                      ),
+                                      if (!firstNameValid)
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 8, bottom: screenHeight * 0.005),
+                                          child: Text("Please enter First Name", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
+                                        ),
 
-                                _buildLabelWithAsterisk(context, 'Gender', required: true),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: genderOptions.map((gender) {
-                                    return InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          genderSelected = gender["key"]!;
-                                          isGenderValid = true;
-                                        });
-                                      },
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Radio<String>(
-                                            value: gender["key"]!,
-                                            groupValue: genderSelected,
-                                            activeColor: const Color(0xFF00C7BE),
-                                            visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-                                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                            onChanged: (value) {
+                                      _buildLabelWithAsterisk(context, 'Last Name', required: true),
+                                      _buildField(
+                                        context,
+                                        lastNameController,
+                                        "Enter Last Name",
+                                        onChanged: (val) {
+                                          if (val.isNotEmpty && !lastNameValid) {
+                                            setState(() => lastNameValid = true);
+                                          }
+                                        },
+                                      ),
+                                      if (!lastNameValid)
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 8, bottom: screenHeight * 0.005),
+                                          child: Text("Please enter Last Name", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
+                                        ),
+
+                                      _buildLabelWithAsterisk(context, 'UHID'),
+                                      _buildField(context, uhidController, "Enter UHID"),
+
+                                      _buildLabelWithAsterisk(context, 'Mobile Number', required: true),
+                                      _buildField(
+                                        context,
+                                        mobileController,
+                                        "Enter Mobile Number",
+                                        keyboardType: TextInputType.number,
+                                        inputFormatters: [LengthLimitingTextInputFormatter(10)],
+                                        onChanged: (val) {
+                                          setState(() {
+                                            mobileValid = val.length == 10;
+                                          });
+                                        },
+                                        // ✅ Fix Issue 1: Green Validation Tick Icon appears when 10 digits are filled
+                                        suffixIcon: mobileController.text.length == 10
+                                            ? const Icon(Icons.check_circle, color: Colors.green, size: 22)
+                                            : null,
+                                      ),
+                                      if (!mobileValid)
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 8, bottom: screenHeight * 0.005),
+                                          child: Text("Please enter a valid 10-digit Mobile Number", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
+                                        ),
+
+                                      // ✅ Fix Issue 7: Email field made mandatory with Asterisk mark
+                                      _buildLabelWithAsterisk(context, 'Email', required: true),
+                                      _buildField(
+                                        context,
+                                        emailController,
+                                        "Enter Email Address",
+                                        keyboardType: TextInputType.emailAddress,
+                                        onChanged: (val) {
+                                          if (isValidEmail(val)) {
+                                            setState(() => emailValid = true);
+                                          }
+                                          else{
+                                            setState(() => emailValid = false);
+                                          }
+                                        },
+                                        suffixIcon:  emailController.text.isNotEmpty && emailValid
+                                            ? const Icon(Icons.check_circle, color: Colors.green, size: 22)
+                                            : null,
+                                      ),
+                                      if (!emailValid)
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 8, bottom: screenHeight * 0.005),
+                                          child: Text("Please enter Email Address", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
+                                        ),
+
+                                      _buildLabelWithAsterisk(context, 'Relationship', required: true),
+
+
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                        child: InnnerDropdown(
+                                          value: relationshipSelected,
+                                          hint: 'Select Relationship',
+                                          items: [ "Mother", "Father",'Brother','Sister','Other'],
+                                          onChanged: (newValue) {
+                                            setState(() {
+                                              relationshipSelected = newValue;
+                                              relationshipValid = true ;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      if (!relationshipValid)
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 8, top: 4),
+                                          child: Text("Please select Relationship", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
+                                        ),
+
+                                      _buildLabelWithAsterisk(context, 'Gender', required: true),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: genderOptions.map((gender) {
+                                          return InkWell(
+                                            onTap: () {
                                               setState(() {
-                                                genderSelected = value!;
+                                                genderSelected = gender["key"]!;
                                                 isGenderValid = true;
                                               });
                                             },
-                                          ),
-                                          const SizedBox(width: 4),
-                                          Text(gender["label"]!, style: TextStyle(fontSize: screenHeight * 0.016)),
-                                          const SizedBox(width: 15),
-                                        ],
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Radio<String>(
+                                                  value: gender["key"]!,
+                                                  groupValue: genderSelected,
+                                                  activeColor: const Color(0xFF00C7BE),
+                                                  visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+                                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      genderSelected = value!;
+                                                      isGenderValid = true;
+                                                    });
+                                                  },
+                                                ),
+                                                const SizedBox(width: 4),
+                                                Text(gender["label"]!, style: TextStyle(fontSize: screenHeight * 0.012)),
+                                                const SizedBox(width: 15),
+                                              ],
+                                            ),
+                                          );
+                                        }).toList(),
                                       ),
-                                    );
-                                  }).toList(),
-                                ),
-                                if (!isGenderValid)
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 8, top: 4),
-                                    child: Text("Please select a gender", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
+                                      if (!isGenderValid)
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 8, top: 4),
+                                          child: Text("Please select a gender", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
+                                        ),
+                                    ],
                                   ),
-                              ],
-                            ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
 
@@ -318,7 +335,8 @@ class AddMemberBottomSheet {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(right: screenHeight * 0.015,
+                                  width: 100,
+                                  margin: EdgeInsets.only(
                                   bottom: 10,
                                   ),
                                   alignment: Alignment.center,
@@ -331,7 +349,7 @@ class AddMemberBottomSheet {
                                     style: TextButton.styleFrom(
                                       minimumSize: Size.zero, // 🔥 Ye limit hatayega
                                       padding: EdgeInsets.symmetric(
-                                        vertical: screenHeight * 0.008,   // 🔥 Vertical size yahan se adjust karo
+                                        vertical: screenHeight * 0.007,   // 🔥 Vertical size yahan se adjust karo
                                         horizontal: screenHeight * 0.03,  // 🔥 Horizontal width 0.04 se kam kardi
                                       ),
                                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -347,8 +365,9 @@ class AddMemberBottomSheet {
                                     ),
                                   ),
                                 ),
-
+                                const SizedBox(width: 16,),
                                 Container(
+                                  width: 100,
                                   margin: EdgeInsets.only(
                                     bottom: 10,
                                   ),
@@ -461,10 +480,10 @@ class AddMemberBottomSheet {
     );
   }
 
-  static Widget _buildLabelWithAsterisk(BuildContext context, String label, {bool required = false}) {
+  static Widget _buildLabelWithAsterisk(BuildContext context, String label, {bool required = false,bool isFirst = false}) {
     return Padding(
       padding: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.01,
+        top: isFirst ? 0 : MediaQuery.of(context).size.height * 0.01,
         left: MediaQuery.of(context).size.height * 0.005,
         bottom: MediaQuery.of(context).size.height * 0.006,
       ),
@@ -543,5 +562,12 @@ class AddMemberBottomSheet {
         ),
       ),
     );
+  }
+
+  static bool isValidEmail(String email) {
+    // Regular expression for validating general email addresses
+    String pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+    RegExp regExp = RegExp(pattern);
+    return regExp.hasMatch(email);
   }
 }

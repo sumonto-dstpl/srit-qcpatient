@@ -28,10 +28,11 @@ import 'package:newfolder/Core/Header/header.dart';
 import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
 class TimelineMain extends StatefulWidget {
-  int selectedIndex = 0;
+  final int selectedIndex ;
 
   TimelineMain({
     super.key,
+    this.selectedIndex = 0 ,
   });
 
   @override
@@ -43,7 +44,7 @@ class TimelineMainstate extends State<TimelineMain> {
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
-  int _selectedIndex = 0;
+
 
   final List<TimelineEntry> allEntries = [
     TimelineEntry(
@@ -305,7 +306,7 @@ class TimelineMainstate extends State<TimelineMain> {
       // First  - Center Docked
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton:  CustomFloatingActionButton(),
-      bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: _selectedIndex),
+      bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: widget.selectedIndex),
 
 
     );

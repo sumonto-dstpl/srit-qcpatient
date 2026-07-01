@@ -49,10 +49,11 @@ import 'package:newfolder/Core/Header/header.dart';
 import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
 class PaymentHistoryMain extends StatefulWidget {
-  int selectedIndex = 0;
+  final int selectedIndex ;
 
   PaymentHistoryMain({
     super.key,
+    this.selectedIndex = 0 ,
   });
 
   @override
@@ -64,7 +65,7 @@ class PaymentHistoryMainstate extends State<PaymentHistoryMain> {
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
-  int _selectedIndex = 0;
+
   final mytopspecialities = [
     ["assets/Diagnostic.png", "Diagnostic"],
     ["assets/Doctor.png", "Doctor"],
@@ -819,7 +820,7 @@ class PaymentHistoryMainstate extends State<PaymentHistoryMain> {
 
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton:  CustomFloatingActionButton(),
-        bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: _selectedIndex),
+        bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: widget.selectedIndex),
       ),
     );
   }

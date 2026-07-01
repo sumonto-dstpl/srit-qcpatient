@@ -28,6 +28,9 @@ import 'package:newfolder/Screens/Login/loginhome.dart';
 import 'package:newfolder/Screens/Medications/medicationselecttime.dart';
 import 'package:newfolder/Screens/Medications/medicationsmybook.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
+import 'package:newfolder/Screens/Radiology/pastupcomingtestscan.dart';
+import 'package:newfolder/Screens/Radiology/radiologymain.dart';
+import 'package:newfolder/Screens/Radiology/testscandetails.dart';
 import 'package:newfolder/Screens/Registeration/registeration.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
 import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
@@ -58,71 +61,22 @@ class TestAndServicesMainstate extends State<TestAndServicesMain> {
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
   int _selectedIndex = 3;
-  final mytopspecialities = [
-    ["assets/Diagnostic.png", "Diagnostic"],
-    ["assets/Doctor.png", "Doctor"],
-    ["assets/Nurse.png", "Nurse"],
-    ["assets/Physio.png", "Physio"],
-    ["assets/MedicalEquipment.png", "Medical Equipment's"],
-  ];
-  final List<String> uploadfilestime = [
-    "Now",
-    "15 min ago",
-    "24 hours ago",
-  ];
-
-  List<String> activePrescriptions = [
-    "Active Prescription 1",
-    "Active Prescription 2",
-    "Active Prescription 3"
-  ];
   List<String> previousPrescriptions = [
     "Previous Prescription 1",
     "Previous Prescription 2",
     "Previous Prescription 3"
   ];
 
-  final myspecialities = [
-    ["assets/Hematology.png", "Hematology"],
-    ["assets/Oncology.png", "Oncology"],
-    ["assets/OrganTransplant.png", "Organ Transplant"],
-    ["assets/SupportSpecialties.png", "Support Specialties"],
-  ];
-
-  bool _isExpandeduploadedfiles = true;
-
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
-
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    final screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
-    TextEditingController SearchEditTextController = TextEditingController();
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         body: Container(
           width: double.infinity,
-          /*decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              colors: [
-                Color(0xFF126086),
-                Color(0xFF126086),
-                Color(0xFF126086),
-              ],
-            ),
-          ),*/
-
-          decoration: const BoxDecoration(
+           decoration: const BoxDecoration(
             image: DecorationImage(
               // image: AssetImage("assets/patternbackground.png"), // Replace with your image path
               image: AssetImage("assets/Background Pattern.png"),
@@ -314,6 +268,9 @@ class TestAndServicesMainstate extends State<TestAndServicesMain> {
                                             return GestureDetector(
                                               onTap: () {
 
+                                                Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                                                    return TestScanDetails();
+                                                }));
 
                                               },
                                               child: Card(

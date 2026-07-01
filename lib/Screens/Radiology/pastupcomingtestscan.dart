@@ -50,12 +50,13 @@ import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
 
 class PastUpcomingscanMain extends StatefulWidget {
-  int selectedIndex = 0;
+  final int selectedIndex ;
   final int initialTabIndex;
 
   PastUpcomingscanMain({
     super.key,
     this.initialTabIndex = 0,
+    this.selectedIndex = 0,
   });
 
   @override
@@ -67,7 +68,7 @@ class PastUpcomingscanMainstate extends State<PastUpcomingscanMain> {
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
-  int _selectedIndex = 0;
+
   final mytopspecialities = [
     ["assets/Diagnostic.png", "Diagnostic"],
     ["assets/Doctor.png", "Doctor"],
@@ -885,7 +886,7 @@ class PastUpcomingscanMainstate extends State<PastUpcomingscanMain> {
 
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton:  CustomFloatingActionButton(),
-        bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: _selectedIndex),
+        bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: widget.selectedIndex),
       ),
     );
   }

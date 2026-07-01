@@ -48,12 +48,13 @@ import 'package:newfolder/Core/Header/header.dart';
 import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
 class MyReportsMain extends StatefulWidget {
-  int selectedIndex = 1;
+  final int selectedIndex ;
   final int initialTabIndex;
 
   MyReportsMain({
     super.key,
     this.initialTabIndex = 0,
+    this.selectedIndex = 1,
   });
 
   @override
@@ -66,7 +67,7 @@ class MyReportsMainstate extends State<MyReportsMain>
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
-  int _selectedIndex = 1;
+
   final mytopspecialities = [
     ["assets/Diagnostic.png", "Diagnostic"],
     ["assets/Doctor.png", "Doctor"],
@@ -1958,7 +1959,7 @@ class MyReportsMainstate extends State<MyReportsMain>
 
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton:  CustomFloatingActionButton(),
-        bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: _selectedIndex),
+        bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: widget.selectedIndex),
       ),
     );
   }

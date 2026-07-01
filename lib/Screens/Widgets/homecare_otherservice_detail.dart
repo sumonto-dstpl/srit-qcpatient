@@ -6,6 +6,10 @@ import 'dart:ui';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:newfolder/Core/Button/save.dart';
+import 'package:newfolder/Core/Data/dummy_data.dart';
+import 'package:newfolder/Core/Date%20Time%20Picker/date_time_picker.dart';
+import 'package:newfolder/Core/Text/label.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
@@ -71,7 +75,7 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
   Widget build(BuildContext context) {
 
     final height = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
+    final width = MediaQuery.of(context).size.width;
 
     DateTime now = DateTime.now();
     String todayDate = DateFormat('MMMM d yyyy').format(now);
@@ -94,11 +98,7 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
               // Main Content Section
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.00,
-                      right: MediaQuery.of(context).size.height * 0.00,
-                      top: MediaQuery.of(context).size.height * 0.00,
-                      bottom: MediaQuery.of(context).size.height * 0.00),
+
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -109,332 +109,49 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                   ),
                   child: ListView(
                     children: [
-                      // File Upload
-                      // Container(
-                      //   width: double.infinity,
-                      //   padding: EdgeInsets.only(
-                      //     top: 0,
-                      //     bottom: MediaQuery.of(context).size.height * 0.0,
-                      //     right: MediaQuery.of(context).size.height * 0.020,
-                      //     left: MediaQuery.of(context).size.height * 0.02,
-                      //   ),
-                      //   // height: MediaQuery.of(context).size.height * 0.150,
-                      //   child: DottedBorder(
-                      //     color: Color(0xFF343434).withOpacity(0.3),
-                      //     strokeWidth: 1,
-                      //     borderType: BorderType.RRect,
-                      //     radius: Radius.circular(8),
-                      //     child: Center(
-                      //       // Ensures the content is centered within the border
-                      //       child: Column(
-                      //         mainAxisAlignment: MainAxisAlignment
-                      //             .center, // Aligns content vertically
-                      //         crossAxisAlignment: CrossAxisAlignment
-                      //             .center, // Aligns content horizontally
-                      //         children: <Widget>[
-                      //           Container(
-                      //             margin: EdgeInsets.only(
-                      //                 left: MediaQuery.of(context).size.height *
-                      //                     0.00,
-                      //                 right:
-                      //                 MediaQuery.of(context).size.height *
-                      //                     0.00,
-                      //                 top: MediaQuery.of(context).size.height *
-                      //                     0.02,
-                      //                 bottom:
-                      //                 MediaQuery.of(context).size.height *
-                      //                     0.01),
-                      //             width: height * 0.04,
-                      //             height: height * 0.04,
-                      //             decoration: BoxDecoration(
-                      //               image: DecorationImage(
-                      //                 image: AssetImage("assets/homecare.png"),
-                      //                 fit: BoxFit.contain,
-                      //               ),
-                      //             ),
-                      //           ),
-                      //           Column(
-                      //             children: <Widget>[
-                      //               Container(
-                      //                 padding:
-                      //                 EdgeInsets.only(
-                      //                     left: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.00,
-                      //                     right: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.00,
-                      //                     top: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.00,
-                      //                     bottom: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.006),
-                      //                 child: Text(
-                      //                   "choose file to upload",
-                      //                   style: TextStyle(
-                      //                     fontWeight: FontWeight.w600,
-                      //                     color: Color(0xFF1F1F1F),
-                      //                     fontSize: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.014,
-                      //                   ),
-                      //                   overflow: TextOverflow.ellipsis,
-                      //                 ),
-                      //               ),
-                      //               Container(
-                      //                 padding:
-                      //                 EdgeInsets.only(
-                      //                     left: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.00,
-                      //                     right: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.00,
-                      //                     top: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.00,
-                      //                     bottom: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.02),
-                      //                 child: RichText(
-                      //                   text: TextSpan(
-                      //                     style: Theme.of(context)
-                      //                         .textTheme
-                      //                         .titleLarge!
-                      //                         .merge(
-                      //                       TextStyle(
-                      //                           color: Theme.of(context)
-                      //                               .primaryColor),
-                      //                     ),
-                      //                     children: [
-                      //                       TextSpan(
-                      //                         text:
-                      //                         'image or pdf Should be less than',
-                      //                         style: TextStyle(
-                      //                           color: Color(0xFF000000)
-                      //                               .withOpacity(0.4),
-                      //                           fontWeight: FontWeight.w600,
-                      //                           fontSize: height * 0.012,
-                      //                         ),
-                      //                       ),
-                      //                       TextSpan(
-                      //                         text: ' 10MB',
-                      //                         style: TextStyle(
-                      //                           fontWeight: FontWeight.w600,
-                      //                           fontSize: height * 0.012,
-                      //                           color: Color(0xFF126086),
-                      //                         ),
-                      //                       ),
-                      //                     ],
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
 
-                      // Select Time
 
                       UploadBox(),
 
-                      Container(
-                        child: CustomCalendar(
-                          onDateSelected: (date) {
-                            setState(() {
-                              _selectedDay = date;
-                              slectedDateSlot =
-                                  DateFormat('dd-MM-yyyy').format(date);
-                            });
 
-                            print(
-                                "Selected Date: ${DateFormat('dd-MM-yyyy').format(date)}");
-                            // Call your getBookingDetails() function here if needed
-                          },
-                        ),
+                      Padding(
+                        padding:   EdgeInsets.symmetric(horizontal: height * 0.02,),
+                        child: LabelWithAsterisk(label: 'Select Date & Time',),
+                      ),
+
+
+
+
+                      CustomDateTimePicker(
+                        globallyBookedSlots: DummyData.globallyBookedSlots,
+                        onDateTimeSelected: (date, time) {
+                          print("User selected Date: $date and Time: $time");
+                          // Yahan state update karein aur Book Service button enable karein
+                          setState(() {
+                            // 1. Date update karein (taaki button logic pass ho)
+                            slectedDateSlot = DateFormat('dd-MM-yyyy').format(date);
+
+                            // 2. Time update karein
+                            selectedSlot = time;
+
+                            // 3. Flag ko true karein (YEH SABSE ZAROORI HAI ERROR ROKNE KE LIYE)
+                            timeSelectFlag = true;
+                          });
+                        },
                       ),
                       Container(
                         padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.01,
-                          bottom: MediaQuery.of(context).size.height * 0.0,
-                          right: MediaQuery.of(context).size.height * 0.015,
-                          left: MediaQuery.of(context).size.height * 0.015,
-                        ),
-                        child: Card(
-                          color: Colors.white,
-                          elevation: 0.0,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.white),
-                            borderRadius: BorderRadius.circular(
-                              MediaQuery.of(context).size.height *
-                                  0.01, // Dynamic border radius for top
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              InkWell(
-                              onTap: () {
-                                setState(() {
-                                  _isExpandedtime = !_isExpandedtime;
-                                });
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors
-                                      .white, // Background color (optional)
-                                  border: Border(
-                                    top: BorderSide(
-                                      color: Color(
-                                          0x24000000), // Top border color
-                                      width: 2.0, // Top border thickness
-                                    ),
-                                    right: BorderSide(
-                                      color: Color(
-                                          0x24000000), // Right border color
-                                      width: 2.0, // Right border thickness
-                                    ),
-                                    bottom: BorderSide(
-                                      color: Color(
-                                          0x24000000), // Bottom border color
-                                      width: _isExpandedtime
-                                          ? 1.0
-                                          : 2.0, // Reduced bottom border thickness on expansion
-                                    ),
-                                    left: BorderSide(
-                                      color: Color(
-                                          0x24000000), // Left border color
-                                      width: 2.0, // Left border thickness
-                                    ),
-                                  ),
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(
-                                        MediaQuery.of(context).size.height *
-                                            0.01), // Dynamic top left radius
-                                    topRight: Radius.circular(
-                                        MediaQuery.of(context).size.height *
-                                            0.01), // Dynamic top right radius
-                                    bottomLeft: Radius.circular(
-                                        MediaQuery.of(context).size.height *
-                                            0.01), // Bottom-left curve radius
-                                    bottomRight: Radius.circular(MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height *
-                                        0.01), // Bottom-right curve radius
-                                  ),
-                                ),
-                                padding: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.height *
-                                      0.005, // Dynamic top padding
-                                  bottom: MediaQuery.of(context).size.height *
-                                      0.005, // Dynamic bottom padding
-                                  left: MediaQuery.of(context).size.height *
-                                      0.015, // Dynamic left padding
-                                  right: MediaQuery.of(context).size.height *
-                                      0.015, // Dynamic right padding
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Select Time",
-                                      style: TextStyle(
-                                        fontSize: MediaQuery.of(context)
-                                            .size
-                                            .height *
-                                            0.014, // Dynamic font size
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    Icon(
-                                      _isExpandedtime
-                                          ? Icons.keyboard_arrow_down
-                                          : Icons.keyboard_arrow_up,
-                                      size:
-                                      MediaQuery.of(context).size.height *
-                                          0.02, // Dynamic icon size
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                              if(_isExpandedtime)
-                                SizedBox(height: height * 0.015,),
-                              if(_isExpandedtime)
-                                TimeSlotSelector(
-                                  timeSlots: timeSlots,
-                                  selectedDate: _selectedDay ?? DateTime.now(),
-                                  onSelected: (selectedTime) {
-                                    setState(() {
-
-                                      selectedSlot = selectedTime;
-                                      timeSelectFlag = true;
-
-                                    });
-                                    // print("Selected Slot: $selectedSlot");
-                                    // print("Selected Slot: $selectedSlot");
-                                  },
-                                  pagename: "${widget.usernameValue}",
-                                ),
-                              if (_isExpandedtime)
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.02,
-                                      right:
-                                      MediaQuery.of(context).size.height *
-                                          0.00,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.011,
-                                      bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.0),
-                                  // child: Align(
-                                  //   alignment: Alignment.centerLeft,
-                                  //   child: Text(
-                                  //     "Select Your Time",
-                                  //     style: TextStyle(
-                                  //       fontSize:
-                                  //           MediaQuery.of(context).size.height *
-                                  //               0.014,
-                                  //       fontWeight: FontWeight.w500,
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                ),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      // Select Location
-                      Container(
-                        padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.01,
-                          bottom: MediaQuery.of(context).size.height * 0.0,
-                          right: MediaQuery.of(context).size.height * 0.015,
-                          left: MediaQuery.of(context).size.height * 0.015,
+                          top: height * 0.01,
+                          bottom: height * 0.0,
+                          right: height * 0.015,
+                          left: height * 0.015,
                         ),
                         child: Card(
                           elevation: 0.0,
                           shape: RoundedRectangleBorder(
                             side: BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(
-                              MediaQuery.of(context).size.height *
+                              height *
                                   0.01, // Dynamic border radius for top
                             ),
                           ),
@@ -473,13 +190,13 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                                     ),
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(
-                                          MediaQuery.of(context).size.height *
+                                          height *
                                               0.01), // Dynamic top left radius
                                       topRight: Radius.circular(
-                                          MediaQuery.of(context).size.height *
+                                          height *
                                               0.01), // Dynamic top right radius
                                       bottomLeft: Radius.circular(
-                                          MediaQuery.of(context).size.height *
+                                          height *
                                               0.01), // Bottom-left curve radius
                                       bottomRight: Radius.circular(MediaQuery
                                           .of(context)
@@ -489,13 +206,13 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                                     ),
                                   ),
                                   padding: EdgeInsets.only(
-                                    top: MediaQuery.of(context).size.height *
+                                    top: height *
                                         0.005, // Dynamic top padding
-                                    bottom: MediaQuery.of(context).size.height *
+                                    bottom: height *
                                         0.005, // Dynamic bottom padding
-                                    left: MediaQuery.of(context).size.height *
+                                    left: height *
                                         0.015, // Dynamic left padding
-                                    right: MediaQuery.of(context).size.height *
+                                    right: height *
                                         0.015, // Dynamic right padding
                                   ),
                                   child: Row(
@@ -517,7 +234,7 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                                             ? Icons.keyboard_arrow_down
                                             : Icons.keyboard_arrow_up,
                                         size:
-                                        MediaQuery.of(context).size.height *
+                                        height *
                                             0.02, // Dynamic icon size
                                       ),
                                     ],
@@ -528,7 +245,7 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                                 Container(
                                   color: Colors.white,
                                   padding: EdgeInsets.only(
-                                    top: MediaQuery.of(context).size.height *
+                                    top: height *
                                         0.005, // Dynamic top padding
 
                                   ),
@@ -743,9 +460,9 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                         child: Container(
                           color : Colors.transparent,
                           padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.02,
-                            right: MediaQuery.of(context).size.height * 0.015,
-                            bottom: MediaQuery.of(context).size.height * 0.016,
+                            left: height * 0.02,
+                            right: height * 0.015,
+                            bottom: height * 0.016,
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -756,20 +473,20 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                                 Icons.add, // The add icon
                                 color: Color(
                                     0xFF126086), // Set the color for the icon
-                                size: MediaQuery.of(context).size.height *
+                                size: height *
                                     0.02, // Set icon size
                               ),
                               SizedBox(
-                                  width: MediaQuery.of(context).size.height *
+                                  width: height *
                                       0.005), // Space between the icon and text
                               Container(
                                 padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.height * 0.00,
+                                  left: height * 0.00,
                                   right:
-                                  MediaQuery.of(context).size.height * 0.00,
-                                  top: MediaQuery.of(context).size.height * 0.005,
+                                  height * 0.00,
+                                  top: height * 0.005,
                                   bottom:
-                                  MediaQuery.of(context).size.height * 0.00,
+                                  height * 0.00,
                                 ),
                                 child: Text(
                                   "Add new Address",
@@ -778,7 +495,7 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                                     fontWeight: FontWeight.w500,
                                     overflow: TextOverflow.ellipsis,
                                     fontSize:
-                                    MediaQuery.of(context).size.height * 0.01,
+                                    height * 0.01,
                                   ),
                                 ),
                               ),
@@ -788,124 +505,46 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                       ),
 
                       // Add service button
-                      GestureDetector(
+
+                      GlobalActionButton(
+                        isEnabled: timeSelectFlag && slectedDateSlot.isNotEmpty,
+                        title: "Book Service",
                         onTap: () async {
-                          if(timeSelectFlag && slectedDateSlot.isNotEmpty ){
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return HomePageMain();
-                                },
-                              ),
-                            );
-                          }
-                          else {
+                          // 1. Agar disabled hai, toh error dikhayein
+                          if (!(timeSelectFlag && slectedDateSlot.isNotEmpty)) {
                             showTopNotification(
                               context,
                               title: "Book Service",
-                              message: "Please select Time Slot",
+                              message: "Please select Date & Time Slot",
                               type: NotificationType.error,
+                            );
+                            return; // Code yahan ruk jayega
+                          }
+
+                          // 2. Agar enabled hai, toh user login status check karein
+                          final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+
+                          if (isLoggedIn == "YES") {
+                            // Guest user ko login bottom sheet dikhayein
+                            Timer(const Duration(milliseconds: 0), () {
+                              LoginBottomSheet.show(context, false);
+                            });
+                          } else {
+                            setState(() {
+                              // AppDummyData me naya booking add kar rahe hain
+                              DummyData.addNewBooking(slectedDateSlot, selectedSlot);
+
+                              // Data save hone ke baad UI ke variables reset kar do taaki aage ke liye clean rahe
+                              timeSelectFlag = false;
+                            });
+                            // Normal user ko home page par le jayein
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) => HomePageMain(),
+                              ),
                             );
                           }
                         },
-                        child: Container(
-                            alignment: Alignment.centerRight,
-                            padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.01,
-                                bottom:
-                                MediaQuery.of(context).size.height * 0.00,
-                                left: MediaQuery.of(context).size.height * 0.00,
-                                right:
-                                MediaQuery.of(context).size.height * 0.00),
-                            margin: EdgeInsets.only(
-                                right:
-                                MediaQuery.of(context).size.height * 0.04,
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                bottom:
-                                MediaQuery.of(context).size.height * 0.07,
-                                left:
-                                MediaQuery.of(context).size.height * 0.04),
-                            child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.012),
-                                          gradient: LinearGradient(
-                                              begin: Alignment.centerRight,
-                                              end: Alignment.center,
-                                              stops: [
-                                                0.5,
-                                                0.9
-                                              ],
-                                              colors: (timeSelectFlag && slectedDateSlot.isNotEmpty ) ?[ Color(0xFF13668E) ,Color(0xFF13668E)] : [ Color(0xFFBDBDBD),Color(0xFFBDBDBD), ]
-
-
-
-                                          )),
-                                      alignment: Alignment.center,
-                                      padding: EdgeInsets.only(left: 0.0),
-                                      child: TextButton(
-                                        onPressed: () async {
-                                          final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
-
-                                          if (isLoggedIn == "YES") {
-                                            // Show login bottom sheet for guest users
-                                            Timer(const Duration(milliseconds: 0), () {
-                                              LoginBottomSheet.show(context, false);
-                                            });
-                                          } else {
-                                            if (timeSelectFlag) {
-                                              Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                  builder: (
-                                                      BuildContext context) {
-                                                    return HomePageMain();
-                                                  },
-                                                ),
-                                              );
-                                            }
-
-                                            else {
-                                              showTopNotification(
-                                                context,
-                                                title: "Book Service",
-                                                message: "Please select Time Slot",
-                                                type: NotificationType.error,
-                                              );
-                                            }
-                                          }
-                                        },
-                                        child: Text("Book Service",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.018,
-                                              fontWeight: FontWeight.w600,
-                                            )),
-                                        style: TextButton.styleFrom(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 9.0,
-                                              horizontal:
-                                              12.0), // ← Adjust this
-                                          minimumSize: Size(0,
-                                              0), // Removes minimum button constraints
-                                          tapTargetSize: MaterialTapTargetSize
-                                              .shrinkWrap, // Removes extra tap padding
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ])),
                       )
                     ],
                   ),

@@ -45,19 +45,22 @@ class InnnerDropdown extends StatelessWidget {
         maxWidth: button.size.width,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.01),
         // ✅ Menu ka border bhi TextField ke jaisa halka (F1F1F1) kar diya
         side: const BorderSide(color: Color(0xFFF1F1F1), width: 1),
       ),
       items: items.map((item) {
         return PopupMenuItem<String>(
           value: item,
-          child: Text(
-            item,
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: size == 16 ? 14 : 11,
-              fontWeight: FontWeight.w500, // ✅ Dropdown list ke items ka weight
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.005),
+            child: Text(
+              item,
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: MediaQuery.of(context).size.height * 0.014,
+                fontWeight: FontWeight.w400, // ✅ Dropdown list ke items ka weight
+              ),
             ),
           ),
         );
@@ -87,12 +90,12 @@ class InnnerDropdown extends StatelessWidget {
         width: double.infinity, // Ye space le lega apne parent (Expanded) ke hisaab se
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.01),
           // ✅ Container ka border color TextField wala (F1F1F1)
           border: Border.all(color: const Color(0xFFF1F1F1), width: 1),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding:   EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.018),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -106,7 +109,7 @@ class InnnerDropdown extends StatelessWidget {
                         : isHint
                         ? const Color(0x4D000000) // TextField Hint Color
                         : Colors.black87,         // TextField Text Color
-                    fontSize: size == 16 ? 14 : 11,
+                    fontSize: isHint ? MediaQuery.of(context).size.height * 0.014 : MediaQuery.of(context).size.height * 0.016,
                     // ✅ Hint ke liye w400, Value ke liye w500 (TextField jaisa)
                     fontWeight: isHint ? FontWeight.w400 : FontWeight.w500,
                   ),

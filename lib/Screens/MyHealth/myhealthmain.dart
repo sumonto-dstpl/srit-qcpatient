@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:newfolder/Core/Dialog/delete_dialog.dart';
+import 'package:newfolder/Core/size.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
@@ -24,9 +26,10 @@ import 'package:newfolder/Core/Header/header.dart';
 import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
 class MyHealthMain extends StatefulWidget {
-  int selectedIndex = 4;
+  final int selectedIndex ;
   MyHealthMain({
     super.key,
+    this.selectedIndex = 4,
   });
   @override
   State<MyHealthMain> createState() => MyHealthMainstate();
@@ -37,7 +40,7 @@ class MyHealthMainstate extends State<MyHealthMain> {
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
-  int _selectedIndex = 4;
+
 
   final mytopspecialities = [
     ["assets/myhealthMyPrescription.png", "My Prescription"],
@@ -112,144 +115,10 @@ class MyHealthMainstate extends State<MyHealthMain> {
                     ),
                   ),
                   child: ListView(
+                    padding: EdgeInsets.zero,
                     children: [
-                      // Container(
-                      //   width: double.infinity,
-                      //   padding: EdgeInsets.only(
-                      //     top: 0,
-                      //     bottom: MediaQuery.of(context).size.height * 0.0,
-                      //     right: MediaQuery.of(context).size.height * 0.025,
-                      //     left: MediaQuery.of(context).size.height * 0.025,
-                      //   ),
-                      //   // height: MediaQuery.of(context).size.height * 0.150,
-                      //   child: DottedBorder(
-                      //     color: Color(0xFF343434).withOpacity(0.3),
-                      //     strokeWidth: 1,
-                      //     borderType: BorderType.RRect,
-                      //     radius: Radius.circular(8),
-                      //     child: Center(
-                      //       // Ensures the content is centered within the border
-                      //       child: Column(
-                      //         mainAxisAlignment: MainAxisAlignment
-                      //             .center, // Aligns content vertically
-                      //         crossAxisAlignment: CrossAxisAlignment
-                      //             .center, // Aligns content horizontally
-                      //         children: <Widget>[
-                      //           Container(
-                      //             margin: EdgeInsets.only(
-                      //                 left: MediaQuery.of(context).size.height *
-                      //                     0.00,
-                      //                 right:
-                      //                 MediaQuery.of(context).size.height *
-                      //                     0.00,
-                      //                 top: MediaQuery.of(context).size.height *
-                      //                     0.02,
-                      //                 bottom:
-                      //                 MediaQuery.of(context).size.height *
-                      //                     0.01),
-                      //             width: screenHeight * 0.04,
-                      //             height: screenHeight * 0.04,
-                      //             decoration: BoxDecoration(
-                      //               image: DecorationImage(
-                      //                 image: AssetImage("assets/homecare.png"),
-                      //                 fit: BoxFit.contain,
-                      //               ),
-                      //             ),
-                      //           ),
-                      //           Column(
-                      //             children: <Widget>[
-                      //               Container(
-                      //                 padding:
-                      //                 EdgeInsets.only(
-                      //                     left: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.00,
-                      //                     right: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.00,
-                      //                     top: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.00,
-                      //                     bottom: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.006),
-                      //                 child: Text(
-                      //                   "choose file to upload",
-                      //                   style: TextStyle(
-                      //                     fontWeight: FontWeight.w600,
-                      //                     color: Color(0xFF1F1F1F),
-                      //                     fontSize: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.014,
-                      //
-                      //                   ),
-                      //                   overflow: TextOverflow.ellipsis,
-                      //                 ),
-                      //               ),
-                      //               Container(
-                      //                 padding:
-                      //                 EdgeInsets.only(
-                      //                     left: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.00,
-                      //                     right: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.00,
-                      //                     top: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.00,
-                      //                     bottom: MediaQuery.of(context)
-                      //                         .size
-                      //                         .height *
-                      //                         0.02),
-                      //                 child: RichText(
-                      //                   text: TextSpan(
-                      //                     style: Theme.of(context)
-                      //                         .textTheme
-                      //                         .titleLarge!
-                      //                         .merge(
-                      //                       TextStyle(
-                      //                           color: Theme.of(context)
-                      //                               .primaryColor),
-                      //                     ),
-                      //                     children: [
-                      //                       TextSpan(
-                      //                         text:
-                      //                         'image or pdf Should be less than',
-                      //                         style: TextStyle(
-                      //                           color: Color(0xFF000000)
-                      //                               .withOpacity(0.4),
-                      //                           fontWeight: FontWeight.w600,
-                      //                           fontSize: screenHeight * 0.012,
-                      //                         ),
-                      //                       ),
-                      //                       TextSpan(
-                      //                         text: ' 10MB',
-                      //                         style: TextStyle(
-                      //                           fontWeight: FontWeight.w600,
-                      //                           fontSize: screenHeight * 0.012,
-                      //                           color: Color(0xFF126086),
-                      //                         ),
-                      //                       ),
-                      //                     ],
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
+                      SizedBox(height: AppSize.headerHeight,),
+
                       !_isLoading
                           ? Padding(
                               padding: EdgeInsets.only(
@@ -258,7 +127,7 @@ class MyHealthMainstate extends State<MyHealthMain> {
                                   right:
                                       MediaQuery.of(context).size.height * 0.0,
                                   top: MediaQuery.of(context).size.height *
-                                      0.015,
+                                      0.0,
                                   bottom: MediaQuery.of(context).size.height *
                                       0.00),
                               child: Align(
@@ -304,118 +173,7 @@ class MyHealthMainstate extends State<MyHealthMain> {
                               ),
                             ),
 
-                      //
-                      // Container(
-                      //   color: Colors.white,
-                      //   padding: EdgeInsets.only(
-                      //       left: MediaQuery
-                      //           .of(context)
-                      //           .size
-                      //           .height * 0.02,
-                      //       top: MediaQuery.of(context).size.height *
-                      //           0.00,
-                      //       right: MediaQuery
-                      //           .of(context)
-                      //           .size
-                      //           .height * 0.0,
-                      //       bottom: MediaQuery
-                      //           .of(context)
-                      //           .size
-                      //           .height * 0.005
-                      //   ),
-                      //   child: GridView.count(
-                      //     shrinkWrap:
-                      //     true, // GridView takes only as much space as needed
-                      //     physics:
-                      //     NeverScrollableScrollPhysics(), // Disable scrolling inside GridView
-                      //     padding: EdgeInsets.only(
-                      //       left: MediaQuery
-                      //           .of(context)
-                      //           .size
-                      //           .height * 0.00,
-                      //       right: MediaQuery
-                      //           .of(context)
-                      //           .size
-                      //           .height * 0.00,
-                      //       top: MediaQuery
-                      //           .of(context)
-                      //           .size
-                      //           .height * 0.007,
-                      //       bottom: MediaQuery
-                      //           .of(context)
-                      //           .size
-                      //           .height * 0.00,
-                      //     ),
-                      //     crossAxisCount: 4,
-                      //     crossAxisSpacing: screenHeight * 0.02,
-                      //     mainAxisSpacing: screenHeight * 0.015,
-                      //     children: List.generate(
-                      //       mytopspecialities.length,
-                      //           (index) => Column(
-                      //         mainAxisSize: MainAxisSize.min,
-                      //         children: [
-                      //           TextButton(
-                      //             onPressed: () {
-                      //               // Add specific actions for each index
-                      //
-                      //             },
-                      //             style: TextButton.styleFrom(
-                      //               backgroundColor: Color(0xFFE8F0F3),
-                      //               padding: EdgeInsets.all(
-                      //                   screenHeight * 0.01),
-                      //               minimumSize: Size(
-                      //                 screenHeight * 0.04,
-                      //                 screenHeight * 0.04,
-                      //               ),
-                      //             ),
-                      //             child: Container(
-                      //               width: screenHeight * 0.03,
-                      //               height: screenHeight * 0.03,
-                      //               decoration: BoxDecoration(
-                      //                 image: DecorationImage(
-                      //                   image: AssetImage(
-                      //                       mytopspecialities[index][0]),
-                      //                   fit: BoxFit.contain,
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ),
-                      //           SizedBox(height :screenHeight * 0.005 ),
-                      //           Expanded(
-                      //             child: Padding(
-                      //               padding: EdgeInsets.only(
-                      //                   left: MediaQuery
-                      //                       .of(context)
-                      //                       .size
-                      //                       .height * 0.005,
-                      //                   right: MediaQuery
-                      //                       .of(context)
-                      //                       .size
-                      //                       .height * 0.005,
-                      //                   ),
-                      //               child: Text(
-                      //                 mytopspecialities[index][1],
-                      //                 textAlign: TextAlign.center,
-                      //                 style: TextStyle(
-                      //                   color: Color(0xFF000000),
-                      //                   fontSize: MediaQuery
-                      //                       .of(context)
-                      //                       .size
-                      //                       .height * 0.012,
-                      //                   fontWeight: FontWeight.w400,
-                      //                   // overflow: TextOverflow.ellipsis,
-                      //                 ),
-                      //
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
 
-                      // Upload your Health Records
 
                       Container(
                         padding: EdgeInsets.only(
@@ -453,7 +211,7 @@ class MyHealthMainstate extends State<MyHealthMain> {
                                             MaterialPageRoute(
                                               builder:
                                                   (BuildContext context) {
-                                                return MyReportsMain(initialTabIndex: 0,);
+                                                return MyReportsMain(initialTabIndex: 0,selectedIndex: widget.selectedIndex,);
                                               },
                                             ),
                                           );
@@ -462,7 +220,7 @@ class MyHealthMainstate extends State<MyHealthMain> {
                                             MaterialPageRoute(
                                               builder:
                                                   (BuildContext context) {
-                                                return MyReportsMain(initialTabIndex: 1,);
+                                                return MyReportsMain(initialTabIndex: 1,selectedIndex: widget.selectedIndex,);
                                               },
                                             ),
                                           );
@@ -471,7 +229,7 @@ class MyHealthMainstate extends State<MyHealthMain> {
                                             MaterialPageRoute(
                                               builder:
                                                   (BuildContext context) {
-                                                return MedicationsMain();
+                                                return MedicationsMain(selectedIndex: widget.selectedIndex,);
                                               },
                                             ),
                                           );
@@ -480,7 +238,7 @@ class MyHealthMainstate extends State<MyHealthMain> {
                                             MaterialPageRoute(
                                               builder:
                                                   (BuildContext context) {
-                                                return MyReportsMain(initialTabIndex: 1,);
+                                                return MyReportsMain(initialTabIndex: 1,selectedIndex: widget.selectedIndex,);
                                               },
                                             ),
                                           );
@@ -488,7 +246,7 @@ class MyHealthMainstate extends State<MyHealthMain> {
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
                                               builder: (BuildContext context) {
-                                                return PastUpcomingscanMain();
+                                                return PastUpcomingscanMain(selectedIndex: widget.selectedIndex,);
                                               },
                                             ),
                                           );
@@ -498,7 +256,7 @@ class MyHealthMainstate extends State<MyHealthMain> {
                                             MaterialPageRoute(
                                               builder:
                                                   (BuildContext context) {
-                                                return TimelineMain();
+                                                return TimelineMain(selectedIndex: widget.selectedIndex,);
                                               },
                                             ),
                                           );
@@ -598,21 +356,40 @@ class MyHealthMainstate extends State<MyHealthMain> {
                               key: Key(file),
                               direction: DismissDirection.endToStart,
                               background: Container(
-                                color: Colors.white,
-                                alignment: Alignment.centerRight,
-                                padding: EdgeInsets.symmetric(horizontal: 20),
-                                child: Icon(Icons.delete, color: Colors.red),
+                                // color: Colors.red,
+
+                                  alignment: Alignment.centerRight,
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
+                                  child: Image.asset(
+                                    'assets/deleteicon.png',
+                                    height: 20,
+                                    width: 20,
+
+                                  )
                               ),
+                              confirmDismiss: (direction) async {
+
+                                return await DeleteDialog.show(
+                                  context: context,
+                                  barrierLabel: "MyHealthDelete",
+                                  message: "Are you sure to Remove the Selected Medication ?",
+
+                                );
+
+
+
+                              },
                               onDismissed: (direction) {
-                                setState(() {
-                                  uploadfilestime.removeAt(index);
-                                });
                                 showTopNotification(
                                   context,
                                   title: "Deleted Successfully",
                                   message: "The prescription has been removed.",
                                   type: NotificationType.error,
                                 );
+                                setState(() {
+                                  uploadfilestime.removeAt(index);
+                                });
+
                               },
                               child: GestureDetector(
                                 onTap: () {},
@@ -933,7 +710,7 @@ class MyHealthMainstate extends State<MyHealthMain> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton:  CustomFloatingActionButton(),
-      bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: _selectedIndex),
+      bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: widget.selectedIndex),
     );
   }
 

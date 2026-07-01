@@ -61,7 +61,7 @@ class _UploadBoxState extends State<UploadBox> {
           child: Container(
             width: double.infinity,
             padding: EdgeInsets.symmetric(
-              vertical: screenHeight * 0.02,
+              vertical: screenHeight * 0.01,
               horizontal: screenHeight * 0.02,
             ),
             child: DottedBorder(

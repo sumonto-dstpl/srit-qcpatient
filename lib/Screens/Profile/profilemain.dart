@@ -353,166 +353,150 @@ class ProfileMainstate extends State<ProfileMain> {
                                 // Family Members Details
                                 Container(
                                   margin: EdgeInsets.only(
-
                                     top: MediaQuery.of(context).size.height * 0.01,
                                   ),
-                                  padding: EdgeInsets.all(0), // Removed padding
+                                  padding: EdgeInsets.all(0),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(16),
                                   ),
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: List.generate(
+                                  child: Row( // <-- Main parent ab ek Row hai, SingleChildScrollView nahi
+                                    children: [
 
-                                        myimageslist.length,(index) {
-                                          final item = myimageslist[index];
+                                      // ==========================================
+                                      // 1. FIXED ELEMENT (Index 0)
+                                      // ==========================================
+                                      if (myimageslist.isNotEmpty) // Safety check
+                                        GestureDetector(
+                                          onTap: () async {
+                                            final result = await AddMemberBottomSheet.show(context);
+                                            print("result : $result");
 
-
-                                            bool isImageNotAvailable = item['image'].toString().isEmpty;
-                                            String firstChar = isImageNotAvailable ? item['firstName'][0] : "A";
-
-                                          Widget imageWidget;
-                                          if (isImageNotAvailable) {
-                                            // No image → show first character
-                                            imageWidget = Container(
-                                              margin: EdgeInsets.only(
-                                                left: screenHeight * 0.02,
-
-                                                top: screenHeight * 0.005,
-                                                bottom: screenHeight * 0.005,
-                                              ),
-                                              height: screenHeight * 0.07,
-                                              width: screenHeight * 0.07,
-                                              decoration: BoxDecoration(
-                                                color : Color(0xFFCF8D41),
-                                                shape: BoxShape.circle,
-                                              ),
-                                              alignment: Alignment.center,
-                                              child: Container(
-
-                                                  child :
-                                                  Text(
-                                                      firstChar,
-                                                    style : TextStyle(
-                                                        fontSize: screenHeight * 0.038,
-                                                        fontWeight: FontWeight.w500,
-                                                        color : Color(0xFFFFFFFF)
-                                                    ),
-                                                  )
-
-                                              ),
-                                            );
-                                          }
-                                          else {
-                                            final imagePath = item['image'].toString();
-
-                                            if (imagePath.startsWith("/")) {
-                                              // Local file path → cache / camera image
-                                              imageWidget = Container(
-                                                margin: EdgeInsets.only(
-                                                  left: screenHeight * 0.02,
-
-                                                  top: screenHeight * 0.005,
-                                                  bottom: screenHeight * 0.005,
-                                                ),
-                                                height: screenHeight * 0.07,
-                                                width: screenHeight * 0.07,
-                                                child: ClipOval(
-                                                  child: Image.file(
-                                                    File(item['image'].toString()),
-                                                    fit: BoxFit.cover,
-                                                    width: double.infinity,
-                                                    height: double.infinity,
-                                                  ),
-                                                ),
-                                              )
-                                              ;
-                                            } else {
-                                              // Asset image
-                                              imageWidget = Container(
-                                                margin: EdgeInsets.only(
-                                                  left: screenHeight * 0.02,
-
-                                                  top: screenHeight * 0.005,
-                                                  bottom: screenHeight * 0.005,
-                                                ),
-                                                height: screenHeight * 0.07,
-                                                width: screenHeight * 0.07,
-                                                alignment: Alignment.center,
-                                                child: Container(
-
-                                                    child : Image.asset("assets/profileM2.png")
-                                                ),
-                                              );
+                                            if (result != null) {
+                                              setState(() {
+                                                myimageslist.insert(1, result);
+                                              });
                                             }
-                                          }
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.only(
+                                              left: screenHeight * 0.02,
+                                              right: screenHeight * 0.01,
 
+                                              bottom: screenHeight * 0.01,
+
+                                            ),
+                                            height: screenHeight * 0.07,
+                                            width: screenHeight * 0.07,
+                                            child: Image.asset(
+                                              myimageslist[0]['image'],
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        ),
+
+                                      // ==========================================
+                                      // 2. SCROLLABLE ELEMENTS (Index 1 to End)
+                                      // ==========================================
+                                      Expanded(
+                                        // Expanded isliye use kiya taaki list baaki bachi hui jagah le le
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            // yahan list size (length - 1) kar diya hai
+                                            children: List.generate(myimageslist.length - 1, (i) {
+
+                                              int index = i + 1; // Actual index 1 se start hoga
+                                              final item = myimageslist[index];
+
+                                              bool isImageNotAvailable = item['image'].toString().isEmpty;
+                                              String firstChar = isImageNotAvailable ? item['firstName'][0] : "A";
+
+                                              Widget imageWidget;
+                                              if (isImageNotAvailable) {
+                                                // No image → show first character
+                                                imageWidget = Container(
+                                                  margin: EdgeInsets.only(
+                                                    left: index == 1 ? 0 : screenHeight * 0.01,
+                                                    bottom: screenHeight * 0.01,
+                                                  ),
+                                                  height: screenHeight * 0.07,
+                                                  width: screenHeight * 0.07,
+                                                  decoration: const BoxDecoration(
+                                                    color: Color(0xFFCF8D41),
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    firstChar,
+                                                    style: TextStyle(
+                                                      fontSize: screenHeight * 0.038,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: const Color(0xFFFFFFFF),
+                                                    ),
+                                                  ),
+                                                );
+                                              } else {
+                                                final imagePath = item['image'].toString();
+
+                                                if (imagePath.startsWith("/")) {
+                                                  // Local file path → cache / camera image
+                                                  imageWidget = Container(
+                                                    margin: EdgeInsets.only(
+                                                      left: index == 1 ? 0 : screenHeight * 0.01,
+
+                                                      bottom: screenHeight * 0.01,
+                                                    ),
+                                                    height: screenHeight * 0.07,
+                                                    width: screenHeight * 0.07,
+                                                    child: ClipOval(
+                                                      child: Image.file(
+                                                        File(imagePath),
+                                                        fit: BoxFit.cover,
+                                                        width: double.infinity,
+                                                        height: double.infinity,
+                                                      ),
+                                                    ),
+                                                  );
+                                                } else {
+                                                  // Asset image
+                                                  imageWidget = Container(
+                                                    margin: EdgeInsets.only(
+                                                      left: index == 1 ? 0 : screenHeight * 0.01,
+
+                                                      bottom: screenHeight * 0.01,
+                                                    ),
+                                                    height: screenHeight * 0.07,
+                                                    width: screenHeight * 0.07,
+                                                    alignment: Alignment.center,
+                                                    child: Image.asset("assets/profileM2.png"),
+                                                  );
+                                                }
+                                              }
 
                                               return GestureDetector(
-
                                                 onTap: () async {
-                                                  // 👉 If last image (plus icon) is clicked
-                                                  if (index == 0) {
-                                                    // Open the bottomsheet form
-                                                    final result = await AddMemberBottomSheet.show(context);
-                                                    print("result : $result");
-
-                                                    if(result != null){
-                                                      setState(() {
-                                                        myimageslist.insert(1, result);
-                                                      });
-
-
-
-                                                    }
-                                                  } else {
-                                                    // You can later add what to do for normal images
-                                                    debugPrint("Tapped on image ${myimageslist[index]}");
-
-
-                                                    print("index : $index");
-                                                    final result = await AddMemberBottomSheet.show(context,editDetail: item,operation: "edit");
-                                                     print("result : $result");
-                                                    if(result != null){
-                                                      setState(() {
-                                                        myimageslist[index] = result;
-                                                      });
-
-
-
-                                                    }
-
-
-
+                                                  debugPrint("Tapped on image ${myimageslist[index]}");
+                                                  print("index : $index");
+                                                  final result = await AddMemberBottomSheet.show(
+                                                    context,
+                                                    editDetail: item,
+                                                    operation: "edit",
+                                                  );
+                                                  print("result : $result");
+                                                  if (result != null) {
+                                                    setState(() {
+                                                      myimageslist[index] = result;
+                                                    });
                                                   }
                                                 },
-                                                child:
-                                                (index == 0 ) ?
-                                                   Container(
-                                                     margin: EdgeInsets.only(
-                                                      left: screenHeight * 0.02,
-                                                      top: screenHeight * 0.005,
-                                                      bottom: screenHeight * 0.005,
-                                                     ),
-                                                     height: screenHeight * 0.07,
-                                                     width: screenHeight * 0.07,
-                                                     child: Container(
-                                                      child: Image.asset(
-                                                        item['image'],
-                                                        fit: BoxFit.fill,
-                                                      ),
-                                                      ),
-                                                   )
-                                                :  imageWidget,
-
+                                                child: imageWidget,
                                               );
-                                         },
+                                            }),
+                                          ),
+                                        ),
                                       ),
-
-
-                                    ),
+                                    ],
                                   ),
                                 ),
 

@@ -27,9 +27,11 @@ import 'package:newfolder/Core/bottom_navigation_bar.dart';
 
 class AppointmentsFootMain extends StatefulWidget {
   int selectedIndex = 3;
+  final int initialIndex;
 
   AppointmentsFootMain({
     super.key,
+    this.initialIndex = 0
   });
 
   @override
@@ -80,6 +82,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
     TextEditingController SearchEditTextController = TextEditingController();
 
     return DefaultTabController(
+      initialIndex: widget.initialIndex,
       length: 2,
       child: Scaffold(
         body: Container(
@@ -121,88 +124,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                       ),
                       child: Column(
                         children: [
-                          // TabBar Section
-                          // Container(
-                          //   margin: EdgeInsets.only(
-                          //       left: MediaQuery
-                          //           .of(context)
-                          //           .size
-                          //           .height * 0.02,
-                          //       right:
-                          //       MediaQuery
-                          //           .of(context)
-                          //           .size
-                          //           .height * 0.02,
-                          //       bottom:
-                          //       MediaQuery
-                          //           .of(context)
-                          //           .size
-                          //           .height * 0.00,
-                          //       top: MediaQuery
-                          //           .of(context)
-                          //           .size
-                          //           .height * 0.03),
-                          //   height: MediaQuery
-                          //       .of(context)
-                          //       .size
-                          //       .height * 0.045,
-                          //   decoration: BoxDecoration(
-                          //     borderRadius:
-                          //     const BorderRadius.all(Radius.circular(10)),
-                          //     color: Color(0xFFA8B1CE).withOpacity(0.4),
-                          //     border: Border.all(
-                          //       // Add a red border
-                          //       color: Color(0xFFD9D9D9).withOpacity(
-                          //           0.4), // Red color for the border
-                          //       width: 2, // Border width
-                          //     ),
-                          //   ),
-                          //   child: TabBar(
-                          //     indicatorSize: TabBarIndicatorSize.tab,
-                          //     dividerColor: Colors.transparent,
-                          //     indicator: BoxDecoration(
-                          //       color: Colors.white,
-                          //       borderRadius:
-                          //       BorderRadius.all(Radius.circular(10)),
-                          //     ),
-                          //     labelColor: Color(0xFF126086),
-                          //     labelStyle: TextStyle(
-                          //         fontWeight: FontWeight.bold,
-                          //         fontSize: MediaQuery
-                          //             .of(context)
-                          //             .size
-                          //             .height *
-                          //             0.014),
-                          //     unselectedLabelColor: Colors.black,
-                          //     unselectedLabelStyle:
-                          //     TextStyle(fontWeight: FontWeight.w500),
-                          //     tabs: [
-                          //       Tab(
-                          //         child: Row(
-                          //           mainAxisAlignment: MainAxisAlignment.center,
-                          //           children: [
-                          //             Text(
-                          //               "Past Appointments",
-                          //               overflow: TextOverflow.ellipsis,
-                          //             ),
-                          //           ],
-                          //         ),
-                          //       ),
-                          //       Tab(
-                          //         child: Row(
-                          //           mainAxisAlignment: MainAxisAlignment.center,
-                          //           children: [
-                          //             Text(
-                          //               "Upcoming Appointments",
-                          //             ),
-                          //           ],
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
 
-                          // TabBarView Section
                           Container(
                             margin: EdgeInsets.only(
                                 left: MediaQuery
@@ -222,7 +144,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                 top: MediaQuery
                                     .of(context)
                                     .size
-                                    .height * 0.02),
+                                    .height * 0.025),
                             height: MediaQuery
                                 .of(context)
                                 .size
@@ -293,6 +215,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                           ),
                           Expanded(
                             child: TabBarView(
+
                               children: [
                                 // Past Appointments
                                 Container(
@@ -308,17 +231,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                           .size
                                           .height *
                                           0.005,
-                                      top: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height *
-                                          0.00,
-                                      bottom:
-                                      MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height *
-                                          0.00),
+                                      ),
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -355,7 +268,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                     .of(context)
                                                     .size
                                                     .height *
-                                                    0.010,
+                                                    0.05,
                                                 top: MediaQuery
                                                     .of(context)
                                                     .size
@@ -481,21 +394,12 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                           // Provide a width constraint using SizedBox or Expanded
                                           Container(
                                             margin: EdgeInsets.only(
-                                                left: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height *
-                                                    0.00,
-                                                right: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height *
-                                                    0.00,
+
                                                 bottom: MediaQuery
                                                     .of(context)
                                                     .size
                                                     .height *
-                                                    0.010,
+                                                    0.050,
                                                 top: MediaQuery
                                                     .of(context)
                                                     .size
@@ -557,6 +461,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                               ],
                             ),
                           ),
+
                         ],
                       ),
                     ),

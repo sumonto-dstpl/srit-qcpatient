@@ -3,6 +3,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:newfolder/Core/Data/dummy_data.dart';
+import 'package:newfolder/Core/Date%20Time%20Picker/date_time_picker.dart';
+import 'package:newfolder/Core/Text/label.dart';
 import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Data/Models/appointmentselectime.dart';
@@ -12,6 +15,7 @@ import 'package:newfolder/Screens/Alerts/loginbottomsheet.dart';
 import 'package:newfolder/Screens/Appointments/doctordetailpage.dart';
 import 'package:newfolder/Screens/Appointments/mybockingsmain.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/ShareToOtherApp.dart';
 import 'package:newfolder/constants/time_slot_constants.dart';
@@ -82,6 +86,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
 
   // String selectedSlot = "";
   // final today = DateTime.now();
+  bool timeSelectFlag = false;
 
   @override
   Widget build(BuildContext context) {
@@ -472,112 +477,36 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                         children: [
                           // Select Your Date
 
-                          SizedBox(height: screenHeight * 0.01,),
-                          CustomCalendar(
-                            onDateSelected: (date) {
-                              setState(() {
-                                _selectedDay = date;
-                                slectedDateSlot =
-                                    DateFormat('dd-MM-yyyy').format(date);
-                              });
+                          SizedBox(height: screenHeight * 0.015,),
 
-                              print(
-                                  "Selected Date: ${DateFormat('dd-MM-yyyy').format(date)}");
-                              // Call your getBookingDetails() function here if needed
-                            },
+
+                          Padding(
+                            padding:   EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.02,),
+                            child: LabelWithAsterisk(label: 'Select Date & Time',),
                           ),
 
-                          SizedBox(height: screenHeight * 0.01,),
+
+
+
                           // Select Your Time
-                          InkWell(
-                            onTap: () {
+                          CustomDateTimePicker(
+                            globallyBookedSlots: DummyData.globallyBookedSlots,
+                            onDateTimeSelected: (date, time) {
+                              print("User selected Date: $date and Time: $time");
+                              // Yahan state update karein aur Book Service button enable karein
                               setState(() {
-                                _isExpandedtime = !_isExpandedtime;
-                              });
-                            },
-                            child: Container(
-                              margin: EdgeInsets.symmetric(
-                                horizontal: screenHeight * 0.018,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors
-                                    .white, // Background color (optional)
-                                border: Border.all(
-                                  color: Color(0x24000000),
-                                  width: 1
-                                ),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(
-                                      MediaQuery.of(context).size.height *
-                                          0.01), // Dynamic top left radius
-                                  topRight: Radius.circular(
-                                      MediaQuery.of(context).size.height *
-                                          0.01), // Dynamic top right radius
-                                  bottomLeft: Radius.circular(
-                                      MediaQuery.of(context).size.height *
-                                          0.01), // Bottom-left curve radius
-                                  bottomRight: Radius.circular(MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height *
-                                      0.01), // Bottom-right curve radius
-                                ),
-                              ),
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height *
-                                    0.005, // Dynamic top padding
-                                bottom: MediaQuery.of(context).size.height *
-                                    0.005, // Dynamic bottom padding
-                                left: MediaQuery.of(context).size.height *
-                                    0.015, // Dynamic left padding
-                                right: MediaQuery.of(context).size.height *
-                                    0.015, // Dynamic right padding
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Select Your Time",
-                                    style: TextStyle(
-                                      fontSize: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          0.014, // Dynamic font size
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  Icon(
-                                    _isExpandedtime
-                                        ? Icons.keyboard_arrow_down
-                                        : Icons.keyboard_arrow_up,
-                                    size:
-                                    MediaQuery.of(context).size.height *
-                                        0.02, // Dynamic icon size
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                                // 1. Date update karein (taaki button logic pass ho)
+                                slectedDateSlot = DateFormat('dd-MM-yyyy').format(date);
 
-                          // Top timeslot Grid
-                          // Static  Time slots
-                          // const TimeSlotSelector(timeSlots: ["04:00", "04:30", "07:00", "07:30"],)
-                          if(_isExpandedtime)
-                            SizedBox(height: screenHeight * 0.01,),
-                          if(_isExpandedtime)
-                          TimeSlotSelector(
-                            timeSlots: timeSlots,
-                            selectedDate: _selectedDay ?? DateTime.now(),
-                            onSelected: (selectedTime) {
-                              setState(() {
-                                selectedSlot = selectedTime;
+                                // 2. Time update karein
+                                selectedSlot = time;
+
+                                // 3. Flag ko true karein (YEH SABSE ZAROORI HAI ERROR ROKNE KE LIYE)
+                                timeSelectFlag = true;
                               });
-                              print("Selected Slot: $selectedSlot");
-                              print("Selected Slot: $selectedSlot");
                             },
                           ),
-                          SizedBox(height: screenHeight * 0.02),
+                          SizedBox(height: screenHeight * 0.09,),
                         ],
 
                       ),
@@ -591,249 +520,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
         ),
       ),
 
-      // Bottom Navigation with another  positioned on the right
-      // bottomNavigationBar: Container(
-      //   decoration: BoxDecoration(
-      //     color: Colors.white,
-      //     boxShadow: [
-      //       BoxShadow(
-      //         color: Colors.black.withOpacity(0.2),
-      //         offset: Offset(0, -3), // Makes the shadow appear above
-      //         blurRadius: 6,
-      //       ),
-      //     ],
-      //   ),
-      //   // height: MediaQuery.of(context).size.height * 0.150,
-      //   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0),
-      //   child: Column(
-      //     mainAxisSize: MainAxisSize.min,
-      //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //     children: [
-      //       // Consultation Fees
-      //       Padding(
-      //         padding: EdgeInsets.only(
-      //           top: MediaQuery.of(context).size.height * 0.02,
-      //           bottom: MediaQuery.of(context).size.height * 0.01,
-      //           left: MediaQuery.of(context).size.height * 0.05,
-      //           right: MediaQuery.of(context).size.height * 0.05,
-      //         ),
-      //         child: Row(
-      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //           children: [
-      //             Text(
-      //               "Consultation Fees",
-      //               style: TextStyle(
-      //                 color: Colors.black,
-      //                 fontWeight: FontWeight.w600,
-      //                 fontSize: MediaQuery.of(context).size.height * 0.015,
-      //               ),
-      //             ),
-      //             Container(
-      //               decoration: BoxDecoration(
-      //                 // color:Colors.white,
-      //                 borderRadius: BorderRadius.circular(15),
-      //               ),
-      //               // color:Colors.green[100],
-      //               padding: EdgeInsets.only(
-      //                   left: MediaQuery.of(context).size.height * 0.0,
-      //                   right: MediaQuery.of(context).size.height * 0.0,
-      //                   top: MediaQuery.of(context).size.height * 0.00,
-      //                   bottom: MediaQuery.of(context).size.height * 0.00),
-      //               child: Row(
-      //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                   crossAxisAlignment: CrossAxisAlignment.center,
-      //                   children: <Widget>[
-      //                     Container(
-      //                       margin: EdgeInsets.symmetric(horizontal: 2),
-      //                       height: MediaQuery.of(context).size.height * 0.005,
-      //                       width: MediaQuery.of(context).size.height * 0.005,
-      //                       decoration: BoxDecoration(
-      //                         color: Colors.black,
-      //                         shape: BoxShape.circle,
-      //                       ),
-      //                     ),
-      //                     Row(
-      //                       children: <Widget>[
-      //                         Container(
-      //                             padding: EdgeInsets.only(
-      //                                 left: MediaQuery.of(context).size.height *
-      //                                     0.005,
-      //                                 right:
-      //                                     MediaQuery.of(context).size.height *
-      //                                         0.00,
-      //                                 top: MediaQuery.of(context).size.height *
-      //                                     0.00,
-      //                                 bottom:
-      //                                     MediaQuery.of(context).size.height *
-      //                                         0.00),
-      //                             child: Text(
-      //                               'QR 999',
-      //                               style: TextStyle(
-      //                                   // color: Colors.blue[600],
-      //                                   color: Colors.black,
-      //                                   fontWeight: FontWeight.w400,
-      //                                   overflow: TextOverflow.ellipsis,
-      //                                   decoration: TextDecoration.lineThrough,
-      //                                   decorationThickness: 2,
-      //                                   fontSize:
-      //                                       MediaQuery.of(context).size.height *
-      //                                           0.014),
-      //                             )),
-      //                         Container(
-      //                           padding: EdgeInsets.only(
-      //                               left: MediaQuery.of(context).size.height *
-      //                                   0.005,
-      //                               right: MediaQuery.of(context).size.height *
-      //                                   0.00,
-      //                               top: MediaQuery.of(context).size.height *
-      //                                   0.00,
-      //                               bottom: MediaQuery.of(context).size.height *
-      //                                   0.00),
-      //                           child: Text(
-      //                             "Free",
-      //                             style: TextStyle(
-      //                                 // color: Colors.blue[600],
-      //                                 color: Color(0xFF12B76A),
-      //                                 fontWeight: FontWeight.w500,
-      //                                 overflow: TextOverflow.ellipsis,
-      //                                 fontSize:
-      //                                     MediaQuery.of(context).size.height *
-      //                                         0.014),
-      //                           ),
-      //                         ),
-      //                       ],
-      //                     )
-      //                   ]),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //
-      //       // Book Appointment
-      //
-      //       GestureDetector(
-      //         // onTap: () async {},
-      //          onTap: () async {
-      //                           final isLoggedIn = await UserSecureStorage
-      //                                   .getIfGuestLogged() ??
-      //                               "NO";
-      //                           print(
-      //                               "isLoggedIn in seletimeslot: $isLoggedIn");
-      //                           if (selectedSlot.isNotEmpty &&
-      //                               slectedDateSlot.isNotEmpty) {
-      //                             if (isLoggedIn == "YES") {
-      //                               Timer(Duration(seconds: 0), () {
-      //                                 LoginBottomSheet.show(context, false);
-      //                               });
-      //                             } else {
-      //                               Navigator.of(context).push(
-      //                                 MaterialPageRoute(
-      //                                   builder: (context) => MyBookingsMain(
-      //                                     selectedDate: slectedDateSlot,
-      //                                     selectedTime: selectedSlot,
-      //                                   ),
-      //
-      //                                 ),
-      //                               );
-      //                             }
-      //                           }
-      //                         },
-      //         child: Container(
-      //           // color: Colors.blue,
-      //             alignment: Alignment.centerRight,
-      //             padding: EdgeInsets.only(
-      //                 top: MediaQuery.of(context).size.height * 0.0,
-      //                 bottom: MediaQuery.of(context).size.height * 0.00,
-      //                 left: MediaQuery.of(context).size.height * 0.005,
-      //                 right: MediaQuery.of(context).size.height * 0.005),
-      //             margin: EdgeInsets.only(
-      //                 right: MediaQuery.of(context).size.height * 0.04,
-      //                 top: MediaQuery.of(context).size.height * 0.01,
-      //                 bottom: MediaQuery.of(context).size.height * 0.01,
-      //                 left: MediaQuery.of(context).size.height * 0.04),
-      //             child: Row(
-      //                 crossAxisAlignment: CrossAxisAlignment.start,
-      //                 mainAxisAlignment: MainAxisAlignment.center,
-      //                 children: <Widget>[
-      //                   Expanded(
-      //                     child: Container(
-      //                       decoration: BoxDecoration(
-      //                           borderRadius: BorderRadius.circular(
-      //                               MediaQuery.of(context).size.height * 0.012),
-      //                           gradient: LinearGradient(
-      //                               begin: Alignment.centerRight,
-      //                               end: Alignment.center,
-      //                               stops: [0.5, 0.9],
-      //                               colors: (selectedSlot.isNotEmpty &&
-      //                                       slectedDateSlot.isNotEmpty)
-      //                                   ? [
-      //                                       Color(0xFF126086),
-      //                                       Color(0xFF126086),
-      //                                     ]
-      //                                   : [
-      //                                       Colors.grey.shade300,
-      //                                       Colors.grey.shade300
-      //                                     ]
-      //                           )
-      //                                     ),
-      //                       alignment: Alignment.center,
-      //                        padding: EdgeInsets.symmetric(
-      //                               vertical: 10.0,
-      //                               horizontal: 12.0), // ← Adjust this
-      //                           // minimumSize: Size(
-      //                           //     0, 0), // Removes minimum button constraints
-      //                           // tapTargetSize: MaterialTapTargetSize
-      //                           //     .shrinkWrap,
-      //                       // child: TextButton(
-      //                       //   onPressed: () async {
-      //                       //     final isLoggedIn = await UserSecureStorage
-      //                       //             .getIfGuestLogged() ??
-      //                       //         "NO";
-      //                       //     print(
-      //                       //         "isLoggedIn in seletimeslot: $isLoggedIn");
-      //                       //     if (selectedSlot.isNotEmpty &&
-      //                       //         slectedDateSlot.isNotEmpty) {
-      //                       //       if (isLoggedIn == "YES") {
-      //                       //         Timer(Duration(seconds: 0), () {
-      //                       //           LoginBottomSheet.show(context, false);
-      //                       //         });
-      //                       //       } else {
-      //                       //         Navigator.of(context).push(
-      //                       //           MaterialPageRoute(
-      //                       //             builder: (context) => MyBookingsMain(
-      //                       //               selectedDate: slectedDateSlot,
-      //                       //               selectedTime: selectedSlot,
-      //                       //             ),
-      //
-      //                       //           ),
-      //                       //         );
-      //                       //       }
-      //                       //     }
-      //                       //   },
-      //                         child: Text("Book Appointment",
-      //                             textAlign: TextAlign.center,
-      //                             style: TextStyle(
-      //                                 color: Colors.white,
-      //                                 fontSize:
-      //                                     MediaQuery.of(context).size.height *
-      //                                         0.02)),
-      //                         // style: TextButton.styleFrom(
-      //                         //   padding: EdgeInsets.symmetric(
-      //                         //       vertical: 10.0,
-      //                         //       horizontal: 12.0), // ← Adjust this
-      //                         //   minimumSize: Size(
-      //                         //       0, 0), // Removes minimum button constraints
-      //                         //   tapTargetSize: MaterialTapTargetSize
-      //                         //       .shrinkWrap, // Removes extra tap padding
-      //                         // ),
-      //                       // ),
-      //                     ),
-      //                   ),
-      //                 ])),
-      //       ),
-      //     ],
-      //   ),
-      // ),
+
 
       bottomNavigationBar: PhysicalVirtualFooter(
       feesType: "Consulation Fees",
@@ -850,6 +537,15 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
             Colors.grey.shade300
           ],
        onBookAppointment:   () async {
+         if (!(timeSelectFlag && slectedDateSlot.isNotEmpty)) {
+           showTopNotification(
+             context,
+             title: "Book Appointment",
+             message: "Please select Date & Time Slot",
+             type: NotificationType.error,
+           );
+           return; // Code yahan ruk jayega
+         }
          final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ??"NO";
          String? username =  await UserSecureStorage.getUsernameid();
          print("username : $username");

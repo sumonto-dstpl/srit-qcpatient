@@ -152,44 +152,7 @@ class TestScanDetailsstate extends State<TestScanDetails> {
                                   ),
                                 ),
 
-                                // Top-right image
-                                // Positioned(
-                                //   top: 0,
-                                //   right: 0,
-                                //   child: Container(
-                                //     margin: EdgeInsets.only(
-                                //         left:
-                                //             MediaQuery.of(context).size.height *
-                                //                 0.0,
-                                //         right:
-                                //             MediaQuery.of(context).size.height *
-                                //                 0.02,
-                                //         bottom:
-                                //             MediaQuery.of(context).size.height *
-                                //                 0.00,
-                                //         top:
-                                //             MediaQuery.of(context).size.height *
-                                //                 0.0),
-                                //     padding: EdgeInsets.only(
-                                //       left: MediaQuery.of(context).size.height *
-                                //           0.00,
-                                //     ),
-                                //     child: ClipRRect(
-                                //       borderRadius:
-                                //           BorderRadius.circular(130.0),
-                                //       child: Image.asset(
-                                //         'assets/radiologyShare.png',
-                                //         height:
-                                //             MediaQuery.of(context).size.height *
-                                //                 0.03, // Adjust height
-                                //         width:
-                                //             MediaQuery.of(context).size.height *
-                                //                 0.03, // Adjust width
-                                //         fit: BoxFit.fill,
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
+
 
                                 Positioned(
                                   top: -10,
@@ -555,10 +518,7 @@ class TestScanDetailsstate extends State<TestScanDetails> {
                                         0.015,
                                     right: MediaQuery.of(context).size.height *
                                         0.015,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.0,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
+                                     ),
                                 child: Text(
                                   "ABDOMINAL ULTRASOUND",
                                   style: TextStyle(
@@ -570,16 +530,14 @@ class TestScanDetailsstate extends State<TestScanDetails> {
                                               0.016),
                                 ),
                               ),
+                              SizedBox(height  : MediaQuery.of(context).size.height * 0.01),
                               Container(
                                 padding: EdgeInsets.only(
                                     left: MediaQuery.of(context).size.height *
                                         0.015,
                                     right: MediaQuery.of(context).size.height *
                                         0.015,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.035,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
+                                     ),
                                 child: Text(
                                   "LIVER: average Size shows brjght echogenicity Ot its parenchyma No focal lesions or gross masses detected. No intra hepatic biliary radicals dilatation. Average caliber Of main PV measuring 8 mm. GALL BLADDER: No visible stones or mud. thin walt Average caliber Of the C.B.D. SPLEEN: Average size with normal echogenicity and no focal lesions, PANCREAS: the visualized parts are unremarkable. KIDNEYS Average size of both kidneys With normal parenchymal thickness. Normal parenchymal echogenicity and good cortico-medullary differentiation No stones or back pressure changes could be seen. No cysts or solid masses. URINARY BLADDER : Not full yet no stones or solid masses are seen. NO intraabdominal free fluid could be seen. cou e seen. o cysts or so masses. URINARY BLADDER :Not full. yet no stones or solid masses are seen. No intraabdominal free fluid could be seen.",
                                   style: TextStyle(
@@ -594,7 +552,7 @@ class TestScanDetailsstate extends State<TestScanDetails> {
                               ),
                             ],
                           ),
-
+                          SizedBox(height  : MediaQuery.of(context).size.height * 0.01),
                           // Opinion :
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -606,10 +564,7 @@ class TestScanDetailsstate extends State<TestScanDetails> {
                                         0.015,
                                     right: MediaQuery.of(context).size.height *
                                         0.01,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.03,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
+                                     ),
                                 child: Text(
                                   "Opinion :",
                                   style: TextStyle(
@@ -621,17 +576,9 @@ class TestScanDetailsstate extends State<TestScanDetails> {
                                               0.016),
                                 ),
                               ),
+                              SizedBox(height  : MediaQuery.of(context).size.height * 0.01),
                               Container(
-                                padding: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.height *
-                                      0.005, // Dynamic top padding
-                                  bottom: MediaQuery.of(context).size.height *
-                                      0.0, // Dynamic bottom padding
-                                  left: MediaQuery.of(context).size.height *
-                                      0.0, // Dynamic left padding
-                                  right: MediaQuery.of(context).size.height *
-                                      0.0, // Dynamic right padding
-                                ),
+
                                 child: ListView.builder(
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
@@ -673,7 +620,7 @@ class TestScanDetailsstate extends State<TestScanDetails> {
                               ),
                             ],
                           ),
-
+                          SizedBox(height  : MediaQuery.of(context).size.height * 0.01),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -684,10 +631,7 @@ class TestScanDetailsstate extends State<TestScanDetails> {
                                         0.015,
                                     right: MediaQuery.of(context).size.height *
                                         0.01,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
+                                     ),
                                 child: Row(
                                   children: [
                                     Text(
@@ -717,6 +661,57 @@ class TestScanDetailsstate extends State<TestScanDetails> {
 
                             ],
                           ),
+                          SizedBox(height  : MediaQuery.of(context).size.height * 0.01),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: () async {
+
+                                },
+                                child: Container(
+                                  padding: new EdgeInsets.symmetric(
+                                    horizontal: MediaQuery.of(context).size.height * 0.015,
+
+                                    vertical: MediaQuery.of(context).size.height * 0.008,
+
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF13678F),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+
+
+                                  margin: EdgeInsets.only(
+
+                                    right: MediaQuery.of(context).size.height * 0.02,
+                                  ),
+                                  // color: Colors.grey[300],
+                                  alignment: Alignment.center,
+                                  // height:
+                                  // MediaQuery.of(context).size.height * 0.070,
+                                  child: Row(
+                                    children: [
+                                      Image.asset(
+                                        "assets/Downlaod.png",
+                                        fit: BoxFit.fill,
+                                        color: Colors.white,
+                                        height: 10,
+                                        width: 10,
+                                      ),
+                                      SizedBox(width : 5),
+                                      Text("Radiology Report",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Color(0xFFFFFFFF),
+                                              fontWeight: FontWeight.w600,
+                                              fontSize:  MediaQuery.of(context).size.height * 0.01)),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                           SizedBox(height  : MediaQuery.of(context).size.height * 0.09),
                         ],
                       ),
@@ -734,6 +729,7 @@ class TestScanDetailsstate extends State<TestScanDetails> {
       ),
     );
   }
+
 
 
 }

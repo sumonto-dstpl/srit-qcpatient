@@ -28,10 +28,11 @@ import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
 
 class RadiologyMain extends StatefulWidget {
-  int selectedIndex = 0;
+  final int selectedIndex ;
 
   RadiologyMain({
     super.key,
+    this.selectedIndex = 0,
   });
 
   @override
@@ -43,7 +44,7 @@ class RadiologyMainstate extends State<RadiologyMain> {
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
-  int _selectedIndex = 0;
+
   final mytopspecialities = [
     ["assets/Diagnostic.png", "Diagnostic"],
     ["assets/Doctor.png", "Doctor"],
@@ -1440,7 +1441,7 @@ class RadiologyMainstate extends State<RadiologyMain> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: isKeyboardVisible ? null : CustomFloatingActionButton(),
 
-      bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: _selectedIndex),
+      bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: widget.selectedIndex),
     );
   }
 

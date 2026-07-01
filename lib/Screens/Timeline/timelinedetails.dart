@@ -51,7 +51,7 @@ import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
 
 class TimelineDetails extends StatefulWidget {
-  int selectedIndex = 0;
+  final int selectedIndex ;
 
   String? image;
   String? doctorName;
@@ -61,6 +61,7 @@ class TimelineDetails extends StatefulWidget {
     this.doctorName,
     this.profession,
     this.image,
+    this.selectedIndex = 0
   });
 
   @override
@@ -72,7 +73,7 @@ class TimelineDetailsstate extends State<TimelineDetails> {
   String useraddressValue = "QuadraCyte, Qatar 500006";
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
-  int _selectedIndex = 0;
+
   final List<String> myopinions = [
     "PROVISIONAL DIAGNOSIS CODE",
     "S43.4 — Sprain and strain Of shoulder joint(Primary)",
@@ -908,7 +909,7 @@ class TimelineDetailsstate extends State<TimelineDetails> {
 
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton:  CustomFloatingActionButton(),
-        bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: _selectedIndex),
+        bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: widget.selectedIndex),
       ),
     );
   }
