@@ -374,15 +374,11 @@ class SelectTimeSlotstate extends State<HomeSelectTimeSlot> {
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(130.0),
-                                    child: Image.asset(
-                                      'assets/Infodocdetails.png',
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.02, // Adjust height
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              0.02, // Adjust width
-                                      fit: BoxFit.fill,
+                                    child: Icon(
+
+                                      Icons.info_outline, // Yahan apna relevant icon daal sakte hain
+                                      color: const Color(0xFF126086),
+                                      size: MediaQuery.of(context).size.height * 0.02, // Size thoda badha kar bold effect le sakte hain
                                     ),
                                   ),
                                 ),

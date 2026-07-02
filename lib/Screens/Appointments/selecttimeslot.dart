@@ -389,7 +389,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                                 ),
                               ),
 
-                                SizedBox(width: 5,),
+                              SizedBox(width: 5,),
 
                               GestureDetector(
                                 onTap: () async {
@@ -407,31 +407,21 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                                   margin: EdgeInsets.only(
                                       left: MediaQuery.of(context).size.height *
                                           0.005,
-                                      right:
-                                          MediaQuery.of(context).size.height *
-                                              0.0,
-                                      bottom:
-                                          MediaQuery.of(context).size.height *
-                                              0.0,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.005),
+                                    top :  MediaQuery.of(context).size.height *
+                                        0.002,
+                                      ),
                                   padding: EdgeInsets.only(
                                     left: MediaQuery.of(context).size.height *
                                         0.00,
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(130.0),
-                                    child: Image.asset(
-                                      color: Color(0xFF126086),
-                                      'assets/Infodocdetails.png',
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.014, // Adjust height
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              0.014, // Adjust width
-                                      fit: BoxFit.fill,
-                                    ),
+                                    child: Icon(
+
+                                    Icons.info_outline, // Yahan apna relevant icon daal sakte hain
+                                    color: const Color(0xFF126086),
+                                    size: MediaQuery.of(context).size.height * 0.02, // Size thoda badha kar bold effect le sakte hain
+                                  ),
                                   ),
                                 ),
                               ),
