@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 
 class AppointmentCancel {
   showticket(context) async {
@@ -301,6 +302,12 @@ class AppointmentCancel {
                                               ),
                                             ),
                                             onPressed: () {
+                                              showTopNotification(
+                                                  context,
+                                                  title: 'Cancel Appointments',
+                                                  message: "Appointments is cancel sucessfully", type: NotificationType.success
+                                              );
+                                              Navigator.pop(context);
                                               Navigator.pop(context);
                                             },
                                             child: const Text("Cancel"),

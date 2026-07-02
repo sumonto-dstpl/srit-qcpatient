@@ -77,10 +77,7 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
     ["assets/RunnyNose.png", "Runny Nose"],
     ["assets/Stress.png", "Stress"],
     ["assets/ThroatPain.png", "Throat Pain"],
-    ["assets/Cough.png", "Cough"],
-    ["assets/RunnyNose.png", "Runny Nose"],
-    ["assets/Stress.png", "Stress"],
-    ["assets/ThroatPain.png", "Throat Pain"],
+
   ];
 
   EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();

@@ -1228,7 +1228,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                           context,
                                                           title: "Notification Delete",
                                                           message: "Notification is deleted Successfully",
-                                                          type: NotificationType.error,
+                                                          type: NotificationType.success,
                                                         );
                                                       }
                                                       Future.delayed(Duration(milliseconds: 300), () {
@@ -2457,7 +2457,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                                                           context,
                                                           title: "Notification Delete",
                                                           message: "Notification is deleted Successfully",
-                                                          type: NotificationType.error,
+                                                          type: NotificationType.success,
                                                         );
                                                       }
                                                       Future.delayed(Duration(milliseconds: 300), () {

@@ -18,60 +18,7 @@ class InnnerDropdown extends StatelessWidget {
     this.enabled = true,
   });
 
-  // 🔥 Yeh function click hone par screen par menu show karega
-  // void _showCustomMenu(BuildContext context) async {
-  //   // 1. Button ka current size aur position get karna
-  //   final RenderBox button = context.findRenderObject() as RenderBox;
-  //   final RenderBox overlay = Navigator.of(context).overlay!.context.findRenderObject() as RenderBox;
 
-  //   // 2. Menu kahan khulega uski position set karna (Button ke theek neeche)
-  //   final RelativeRect position = RelativeRect.fromRect(
-  //     Rect.fromPoints(
-  //       button.localToGlobal(button.size.bottomLeft(Offset.zero), ancestor: overlay),
-  //       button.localToGlobal(button.size.bottomRight(Offset.zero), ancestor: overlay),
-  //     ),
-  //     Offset.zero & overlay.size,
-  //   );
-
-  //   // 3. Menu show karna
-  //   final selectedValue = await showMenu<String>(
-  //     context: context,
-  //     position: position,
-  //     color: Colors.white,
-  //     elevation: 0,
-  //     // 🔥 Yahan par hum width fixed kar rahe hain (Button ke size ke barabar)
-  //     constraints: BoxConstraints(
-  //       minWidth: button.size.width,
-  //       maxWidth: button.size.width,
-  //     ),
-  //     shape: RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.01),
-  //       // ✅ Menu ka border bhi TextField ke jaisa halka (F1F1F1) kar diya
-  //       side: const BorderSide(color: Color(0xFFF1F1F1), width: 1),
-  //     ),
-  //     items: items.map((item) {
-  //       return PopupMenuItem<String>(
-  //         value: item,
-  //         child: Container(
-  //           padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.005),
-  //           child: Text(
-  //             item,
-  //             style: TextStyle(
-  //               color: Colors.black87,
-  //               fontSize: MediaQuery.of(context).size.height * 0.014,
-  //               fontWeight: FontWeight.w400, // ✅ Dropdown list ke items ka weight
-  //             ),
-  //           ),
-  //         ),
-  //       );
-  //     }).toList(),
-  //   );
-
-  //   // 4. Agar user ne kuch select kiya h, to usko update karna
-  //   if (selectedValue != null) {
-  //     onChanged(selectedValue);
-  //   }
-  // }
 
   void _showCustomMenu(BuildContext context) async {
     final RenderBox button = context.findRenderObject() as RenderBox;

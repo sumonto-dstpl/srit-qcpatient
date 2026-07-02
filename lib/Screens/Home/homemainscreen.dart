@@ -2712,59 +2712,13 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
               ),
 
                 if(!isGuestUser)
-                Positioned(
-                  bottom: 16.0, // Position it at the bottom of the screen
-                  right: 15.0, // Position it towards the right
-                  child:
-                  !_isLoading ?
-                  Container(
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.06,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.06,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color:   Color(0xFFC80000) , // Button color
-
-                    ),
-                    child:
-
-                       IconButton(
-                      icon: Image.asset(
-                        // 'assets/emergencycall.png',
-                          'assets/Emergency Call Button.png',
-                        //   Replace with your asset path
-                          fit: BoxFit.cover,
-                          height: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.04,
-                          width : MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.04
-                      ),
-                      onPressed: () {
-                        print("Custom FAB pressed!");
-                        emergencycallalert.showticket(context);
-
-                        // appointmentcancelalert.showticket(context);
-
-                      },
-                    ),
-
-                  )
-                       : Container(
-                    height : screenHeight * 0.06,
-                    width : screenHeight * 0.06,
-                    child : SkeltonLoader(),
-
+                  GlobalDraggableEmergencyButton(
+                    onPressed: () {
+                      print("Emergency button clicked from screen!");
+                      // Yahan aap emergencycallalert.showticket(context); call kar sakte hain
+                    },
                   ),
-                ),
+
                 if (_isRefreshing)
                 Positioned(
                   top: min(_pullDistance, 80) + 50,

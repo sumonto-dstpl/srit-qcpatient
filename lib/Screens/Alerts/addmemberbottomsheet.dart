@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 import 'package:newfolder/Core/Dropdown/inner_dropdown.dart';
+import 'package:newfolder/Core/Dropdown/smart_dropdown.dart';
 
 class AddMemberBottomSheet {
   static Future<Map<String, dynamic>?> show(BuildContext context,
@@ -297,24 +298,25 @@ class AddMemberBottomSheet {
                                           context, 'Relationship',
                                           required: true),
 
+
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 5.0),
-                                        child: InnnerDropdown(
-                                          value: relationshipSelected,
-                                          hint: 'Select Relationship',
-                                          items: [
+                                        child: SmartAdaptiveDropdown(
+                                          hint: "Select Relationship",
+                                          items: const [
                                             "Mother",
                                             "Father",
                                             'Brother',
                                             'Sister',
                                             'Other'
                                           ],
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              relationshipSelected = newValue;
-                                              relationshipValid = true;
-                                            });
+                                          onChanged: (String value) {
+                                            print("User selected: $value");
+                                            // Yahan state update kar lo
+                                            relationshipSelected = value ;
+                                            relationshipValid = true;
+
                                           },
                                         ),
                                       ),
@@ -386,6 +388,8 @@ class AddMemberBottomSheet {
                                                   fontSize:
                                                       screenHeight * 0.013)),
                                         ),
+
+                                      const SizedBox(height: 50,),
                                     ],
                                   ),
                                 ),
@@ -403,15 +407,16 @@ class AddMemberBottomSheet {
                             width: MediaQuery.of(context).size.width *
                                 0.65, // right half only
                             padding: EdgeInsets.only(
-                              bottom: screenHeight * 0.015,
-                              top: screenHeight * 0.002,
+                              bottom: screenHeight * 0.025,
+                              top: screenHeight * 0.01,
                               right: screenHeight *
                                   0.02, // more padding for spacious layout
                               left: screenHeight *
                                   0.02, // more padding for spacious layout
                             ),
                             decoration: const BoxDecoration(
-                              color: Colors.transparent,
+                              color: Colors.white,
+
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,

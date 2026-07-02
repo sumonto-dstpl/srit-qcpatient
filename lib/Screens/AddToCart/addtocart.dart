@@ -1,6 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:newfolder/Core/Dialog/bottom_payment_method.dart';
+import 'package:newfolder/Core/Dialog/delete_dialog.dart';
+import 'package:newfolder/Core/Image%20Action/delete.dart';
 import 'package:newfolder/Screens/AddToCart/addtocarPackageDetails.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
@@ -506,7 +509,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                               ),
                                             );
                                           },
-                                          child: Text("Add package to Continue",
+                                          child: Text("Add package",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   color: Colors.white,
@@ -558,116 +561,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                           itemBuilder: (context, index) {
                             final file = _currentList[index]['plan'];
                             final item = _currentList[index];
-                            // return Dismissible(
-                            //     key: UniqueKey(), // Unique key for each item
-                            //     direction: DismissDirection
-                            //         .horizontal, // Allow both left & right swipes
-                            //     background: Container(
-                            //       color: Colors.white,
-                            //       alignment: Alignment.centerLeft,
-                            //       padding: EdgeInsets.symmetric(horizontal: 20),
-                            //       child: Row(
-                            //         children: [
-                            //           Image.asset(
-                            //             "assets/addtofoldersaveicon.png", // Path to your local image
-                            //             width: 24, // Adjust width
-                            //             height: 24, // Adjust height
-                            //             color:
-                            //                 Colors.green, // Apply white color
-                            //             colorBlendMode: BlendMode
-                            //                 .srcIn, // Blend mode to colorize
-                            //           ),
-                            //           SizedBox(width: 10),
-                            //           Text(
-                            //             "Saved",
-                            //             style: TextStyle(
-                            //                 color: Colors.white,
-                            //                 fontWeight: FontWeight.bold),
-                            //           ),
-                            //         ],
-                            //       ),
-                            //     ),
-                            //     secondaryBackground: Container(
-                            //       color: Colors.white,
-                            //       alignment: Alignment.centerRight,
-                            //       padding: EdgeInsets.symmetric(horizontal: 20),
-                            //       child: Row(
-                            //         mainAxisAlignment: MainAxisAlignment.end,
-                            //         children: [
-                            //           Text("Delete",
-                            //               style: TextStyle(
-                            //                   color: Colors.white,
-                            //                   fontWeight: FontWeight.bold)),
-                            //           SizedBox(width: 10),
-                            //           Icon(Icons.delete, color: Colors.red),
-                            //         ],
-                            //       ),
-                            //     ),
-                            //     onDismissed: (direction) {
-                            //       if (direction ==
-                            //           DismissDirection.endToStart) {
-                            //         // setState((){
-                            //              // carttoplist.removeAt(index);
-                            //              // ScaffoldMessenger.of(context).showSnackBar(
-                            //              //    SnackBar(content: Text("$file deleted"), duration: Duration(seconds: 2)),
-                            //              // );
-                            //         // });
-                            //       _deleteCart(item['id']);
-                            //       showTopNotification(
-                            //         context,
-                            //         title: "Cart Delete",
-                            //         message: "Cart is deleted Successfully",
-                            //         type: NotificationType.error,
-                            //       );
-                            //       } else if (direction ==
-                            //           DismissDirection.startToEnd) {
-                            //         showTopNotification(
-                            //           context,
-                            //           title: "Cart Save For Later",
-                            //           message: "Cart is Saved for Later Successfully",
-                            //           type: NotificationType.success,
-                            //         );
-                            //
-                            //         if (index >= carttoplist.length) {
-                            //
-                            //
-                            //           savedbottomlist
-                            //               .add(carttoplist.last);
-                            //
-                            //           carttoplist.removeLast();
-                            //           setState(() {});
-                            //           return;
-                            //         }
-                            //
-                            //         setState(() {
-                            //           // Swiped Left to Right (Move to another list)
-                            //           // if (endtextbottomlist.length > 0)
-                            //           savedbottomlist.insert(
-                            //               0, carttoplist[index]);
-                            //           // else {
-                            //           //   endtextbottomlist
-                            //           //       .add(uploadfilestime[index]);
-                            //           // }
-                            //
-                            //           carttoplist.removeAt(index);
-                            //
-                            //         });
-                            //         // Mark item as "Saved" when swiped left to right
-                            //         // ScaffoldMessenger.of(context).showSnackBar(
-                            //         //   SnackBar(
-                            //         //     content: Text(
-                            //         //       "$file Saved",
-                            //         //       style: TextStyle(
-                            //         //           color: Colors.white,
-                            //         //           fontWeight: FontWeight.bold),
-                            //         //     ),
-                            //         //     backgroundColor: Colors
-                            //         //         .green, // Set background color to green
-                            //         //     duration: Duration(seconds: 2),
-                            //         //   ),
-                            //         // );
-                            //       }
-                            //     },
+
                             return Slidable(
                                 // key: ValueKey(plan["title"]),
                                 key : UniqueKey(),
@@ -736,20 +630,27 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                           // Lower icon (Delete)
                                           Expanded(
                                             child: GestureDetector(
-                                              onTap: (){
-                                                _deleteCart(item['id'],index);
-                                                showTopNotification(
-                                                  context,
-                                                  title: "Cart Delete",
-                                                  message: "Cart is deleted Successfully",
-                                                  type: NotificationType.error,
-                                                );
-                                              },
-                                              child: Container(
+                                              onTap: () async {
+                                                final result = await DeleteDialog.show(
+                                                  context: context,
+                                                  barrierLabel: "InsuranceDelete",
+                                                  message: "Are you sure to Remove the Selected Cart ?",
 
-                                                alignment: Alignment.center,
-                                                child: Icon(Icons.delete, color: Colors.red),
-                                              ),
+                                                );
+                                                print("result : $result");
+                                                if(result!) {
+                                                  showTopNotification(
+                                                    context,
+                                                    title: "Cart Delete",
+                                                    message: "Cart is deleted Successfully",
+                                                    type: NotificationType.success,
+                                                  );
+                                                  _deleteCart(item['id'],index);
+                                                }
+
+                                              },
+
+                                              child: AppDeleteIcon(isCenter: true,),
                                             ),
                                           ),
                                         ],
@@ -1757,49 +1658,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                 itemBuilder: (context, index) {
                                   final file = savedbottomlist[index]['plan'];
                                   final item = savedbottomlist[index];
-                                  // return Dismissible(
-                                  //     key:UniqueKey(), // Unique key for each item
-                                  //     direction: DismissDirection.endToStart, // Allow swipe from right to left
-                                  //     background: Container(
-                                  //       color: Colors.white,
-                                  //       alignment: Alignment.centerRight,
-                                  //       padding: EdgeInsets.symmetric(
-                                  //           horizontal: 20),
-                                  //       child: Icon(
-                                  //         Icons.delete,
-                                  //         color: Colors.red,
-                                  //       ),
-                                  //     ),
-                                  //     onDismissed: (direction) {
-                                  //       // Remove the item immediately from the list
-                                  //       // endtextbottomlist.removeAt(index);
-                                  //       showTopNotification(
-                                  //         context,
-                                  //         title: "Cart Delete",
-                                  //         message: "Saved For Later Cart is deleted Successfully",
-                                  //         type: NotificationType.error,
-                                  //       );
-                                  //       setState(() {
-                                  //         savedbottomlist.removeAt(index);
-                                  //       });
-                                  //       // If the list is empty, show a message
-                                  //       if (savedbottomlist.isEmpty) {
-                                  //
-                                  //
-                                  //         isSavedForLater = false;
-                                  //       }
-                                  //       /* setState(() {
-                                  //
-                                  //   });*/
-                                  //
-                                  //       // Show a snackbar for feedback
-                                  //       /* ScaffoldMessenger.of(context).showSnackBar(
-                                  //                               SnackBar(
-                                  //                                 content: Text("$file deleted"),
-                                  //                                 duration: Duration(seconds: 2),
-                                  //                               ),
-                                  //                             );*/
-                                  //     },
+
                                   return Slidable(
                                     // key: ValueKey(plan["title"]),
                                       key : UniqueKey(),
@@ -1807,51 +1666,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                       endActionPane: ActionPane(
                                         extentRatio: 0.15,
                                         motion: const ScrollMotion(),
-                                        // children: [
-                                        //   Container(
-                                        //     width: 50,
-                                        //     height: double.infinity,
-                                        //
-                                        //     child: Column(
-                                        //       children: [
-                                        //
-                                        //
-                                        //
-                                        //         // Lower icon (Delete)
-                                        //         Expanded(
-                                        //           child: GestureDetector(
-                                        //             onTap: (){
-                                        //
-                                        //                     showTopNotification(
-                                        //                       context,
-                                        //                       title: "Cart Delete",
-                                        //                       message: "Saved For Later Cart is deleted Successfully",
-                                        //                       type: NotificationType.error,
-                                        //                     );
-                                        //                     setState(() {
-                                        //                       savedbottomlist.removeAt(index);
-                                        //                     });
-                                        //                     // If the list is empty, show a message
-                                        //                     if (savedbottomlist.isEmpty) {
-                                        //
-                                        //
-                                        //                       isSavedForLater = false;
-                                        //                     }
-                                        //
-                                        //
-                                        //
-                                        //             },
-                                        //             child: Container(
-                                        //
-                                        //               alignment: Alignment.center,
-                                        //               child: Icon(Icons.delete, color: Colors.red),
-                                        //             ),
-                                        //           ),
-                                        //         ),
-                                        //       ],
-                                        //     ),
-                                        //   ),
-                                        // ],
+
 
                                         children: [
                                           Container(
@@ -1899,8 +1714,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                       alignment: Alignment.center,
                                                       child: Image.asset(
                                                         "assets/Add to cart.png",
-                                                        width: 20,
-                                                        height: 20,
+                                                        width: 25,
+                                                        height: 25,
                                                         color: Colors.black,
                                                         colorBlendMode: BlendMode.srcIn,
                                                       ),
@@ -1911,29 +1726,34 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                 // Lower icon (Delete)
                                                 Expanded(
                                                   child: GestureDetector(
-                                                    onTap: (){
-                                                                            showTopNotification(
-                                                                              context,
-                                                                              title: "Cart Delete",
-                                                                              message: "Saved For Later Cart is deleted Successfully",
-                                                                              type: NotificationType.error,
-                                                                            );
-                                                                            setState(() {
-                                                                              // savedbottomlist.removeAt(index);
-                                                                              _deleteCart(item['id'],index,key: saveForLaterKey);
-                                                                            });
-                                                                            // If the list is empty, show a message
-                                                                            if (savedbottomlist.isEmpty) {
+                                                    onTap: () async {
+                                                      final result = await DeleteDialog.show(
+                                                        context: context,
+                                                        barrierLabel: "InsuranceDelete",
+                                                        message: "Are you sure to Remove the Saved For Later Cart ?",
+
+                                                      );
+                                                      if(result!) {
+                                                        showTopNotification(
+                                                          context,
+                                                          title: "Cart Delete",
+                                                          message: "Saved For Later Cart is deleted Successfully",
+                                                          type: NotificationType.success,
+                                                        );
+                                                        setState(() {
+                                                          // savedbottomlist.removeAt(index);
+                                                          _deleteCart(item['id'],index,key: saveForLaterKey);
+                                                        });
+                                                        // If the list is empty, show a message
+                                                        if (savedbottomlist.isEmpty) {
 
 
-                                                                              isSavedForLater = false;
-                                                                            }
+                                                          isSavedForLater = false;
+                                                        }
+                                                      }
+
                                                     },
-                                                    child: Container(
-
-                                                      alignment: Alignment.center,
-                                                      child: Icon(Icons.delete, color: Colors.red),
-                                                    ),
+                                                    child: AppDeleteIcon(isCenter: true,),
                                                   ),
                                                 ),
                                               ],
@@ -2391,7 +2211,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque, // ✅ makes the whole container tappable
                   onTap: () async {
-                    showPaymentmethodsBottomSheet();
+                    showPaymentBottomSheet(context);
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -2412,7 +2232,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                     padding: EdgeInsets.only(left: 0.0),
                     child: TextButton(
                       onPressed: () async {
-                        showPaymentmethodsBottomSheet();
+                        showPaymentBottomSheet(context);
                       },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.symmetric(
@@ -2451,498 +2271,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
 
 
 
-  void showPaymentmethodsBottomSheet() => showModalBottomSheet(
-    context: context,
-    enableDrag: false,
-    isScrollControlled: true,
-    isDismissible: true,
-    backgroundColor: Colors.transparent, // Transparent for blur
-    barrierColor: Colors.transparent, // Disable dark overlay
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(24),
-        topRight: Radius.circular(24),
-      ),
-    ),
-    builder: (context) {
-      return Stack(
-        children: [
-          GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-              child: Container(
-                width: double.infinity,
-                height: double.infinity,
-                color: Colors.transparent,
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white, // White background for popup
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(24),
-                  topRight: Radius.circular(24),
-                ),
-              ),
-              child: BottomSheetForPaymentForMedication(),
-            ),
-          ),
-        ],
-      );
-    },
 
-
-    //     StatefulBuilder(
-    //   builder: (BuildContext context,
-    //       StateSetter setState /*You can rename this!*/) =>
-    //       Padding(
-    //         padding: EdgeInsets.only(
-    //             bottom: MediaQuery.of(context).viewInsets.bottom),
-    //         child: Column(
-    //           mainAxisSize: MainAxisSize.min,
-    //           children: <Widget>[
-    //             Container(
-    //               padding: EdgeInsets.only(
-    //                   left: MediaQuery.of(context).size.height * 0.020,
-    //                   right: MediaQuery.of(context).size.height * 0.020,
-    //                   top: MediaQuery.of(context).size.height * 0.030,
-    //                   bottom: MediaQuery.of(context).size.height * 0.00),
-    //               child: Row(
-    //                 crossAxisAlignment: CrossAxisAlignment.center,
-    //                 mainAxisAlignment: MainAxisAlignment.start,
-    //                 children: <Widget>[
-    //                   Expanded(
-    //                     child: Column(
-    //                       crossAxisAlignment: CrossAxisAlignment.start,
-    //                       mainAxisAlignment: MainAxisAlignment.center,
-    //                       children: <Widget>[
-    //                         Text(
-    //                           "Payment Methods",
-    //                           style: TextStyle(
-    //                               color: Colors.black,
-    //                               fontWeight: FontWeight.bold,
-    //                               fontSize: MediaQuery.of(context).size.height *
-    //                                   0.024),
-    //                         ),
-    //                         Container(
-    //                           padding: EdgeInsets.only(
-    //                             top: MediaQuery.of(context).size.height * 0.00,
-    //                             bottom:
-    //                             MediaQuery.of(context).size.height * 0.02,
-    //                             left: MediaQuery.of(context).size.height * 0.00,
-    //                             right:
-    //                             MediaQuery.of(context).size.height * 0.00,
-    //                           ),
-    //                           child: Text(
-    //                             "Please Select a payment method",
-    //                             textAlign: TextAlign.center,
-    //                             style: TextStyle(
-    //                                 color: Colors.black54,
-    //                                 fontSize:
-    //                                 MediaQuery.of(context).size.height *
-    //                                     0.018),
-    //                           ),
-    //                         ),
-    //                       ],
-    //                     ),
-    //                   ),
-    //
-    //                   // SizedBox(width: MediaQuery.of(context).size.height * 0.040),
-    //                 ],
-    //               ),
-    //             ),
-    //
-    //             // Payment mode
-    //             // 1
-    //             Container(
-    //               margin: EdgeInsets.only(
-    //                 top: MediaQuery.of(context).size.height * 0.00,
-    //                 bottom: MediaQuery.of(context).size.height * 0.01,
-    //                 left: MediaQuery.of(context).size.height * 0.01,
-    //                 right: MediaQuery.of(context).size.height * 0.01,
-    //               ),
-    //               padding: EdgeInsets.only(
-    //                 top: MediaQuery.of(context).size.height * 0.00,
-    //                 bottom: MediaQuery.of(context).size.height * 0.00,
-    //                 left: MediaQuery.of(context).size.height * 0.01,
-    //                 right: MediaQuery.of(context).size.height * 0.00,
-    //               ),
-    //               decoration: BoxDecoration(
-    //                 border: Border.all(
-    //                   color: Colors.grey,
-    //                   width: 1.0,
-    //                 ),
-    //                 borderRadius: BorderRadius.circular(8.0),
-    //               ),
-    //               child: Row(
-    //                 mainAxisAlignment: MainAxisAlignment.start,
-    //                 crossAxisAlignment: CrossAxisAlignment.center,
-    //                 children: [
-    //                   // Image from assets
-    //                   Container(
-    //                     width: MediaQuery.of(context).size.height * 0.07,
-    //                     height: MediaQuery.of(context).size.height * 0.07,
-    //                     margin: EdgeInsets.only(
-    //                       top: MediaQuery.of(context).size.height * 0.01,
-    //                       bottom: MediaQuery.of(context).size.height * 0.01,
-    //                       left: MediaQuery.of(context).size.height * 0.01,
-    //                       right: MediaQuery.of(context).size.height * 0.01,
-    //                     ),
-    //                     decoration: BoxDecoration(
-    //                       borderRadius: BorderRadius.circular(4.0),
-    //                       image: DecorationImage(
-    //                         image: AssetImage(
-    //                             'assets/visapay.png'), // Replace with your asset path
-    //                         fit: BoxFit.cover,
-    //                       ),
-    //                     ),
-    //                   ),
-    //                   // Column with two Text widgets
-    //                   Expanded(
-    //                     child: Column(
-    //                       crossAxisAlignment: CrossAxisAlignment.start,
-    //                       children: [
-    //                         Text(
-    //                           '**** **** 3434',
-    //                           style: TextStyle(
-    //                             fontWeight: FontWeight.bold,
-    //                             fontSize:
-    //                             MediaQuery.of(context).size.height * 0.018,
-    //                             color: Colors.black,
-    //                           ),
-    //                         ),
-    //                         Text(
-    //                           'Visa',
-    //                           style: TextStyle(
-    //                             fontSize:
-    //                             MediaQuery.of(context).size.height * 0.016,
-    //                             color: Colors.black,
-    //                           ),
-    //                         ),
-    //                       ],
-    //                     ),
-    //                   ),
-    //                   // Circular Radio Button
-    //                   Radio<int>(
-    //                     value: 1, // The value for this radio button
-    //                     groupValue: 0, // The currently selected value
-    //                     onChanged: (int? value) {
-    //                       // Handle radio button change
-    //                     },
-    //                   ),
-    //                 ],
-    //               ),
-    //             ),
-    //
-    //             // 2
-    //             Container(
-    //               margin: EdgeInsets.only(
-    //                 top: MediaQuery.of(context).size.height * 0.00,
-    //                 bottom: MediaQuery.of(context).size.height * 0.01,
-    //                 left: MediaQuery.of(context).size.height * 0.01,
-    //                 right: MediaQuery.of(context).size.height * 0.01,
-    //               ),
-    //               padding: EdgeInsets.only(
-    //                 top: MediaQuery.of(context).size.height * 0.00,
-    //                 bottom: MediaQuery.of(context).size.height * 0.00,
-    //                 left: MediaQuery.of(context).size.height * 0.01,
-    //                 right: MediaQuery.of(context).size.height * 0.00,
-    //               ),
-    //               decoration: BoxDecoration(
-    //                 border: Border.all(
-    //                   color: Colors.grey,
-    //                   width: 1.0,
-    //                 ),
-    //                 borderRadius: BorderRadius.circular(8.0),
-    //               ),
-    //               child: Row(
-    //                 mainAxisAlignment: MainAxisAlignment.start,
-    //                 crossAxisAlignment: CrossAxisAlignment.center,
-    //                 children: [
-    //                   // Image from assets
-    //                   Container(
-    //                     width: MediaQuery.of(context).size.height * 0.07,
-    //                     height: MediaQuery.of(context).size.height * 0.07,
-    //                     margin: EdgeInsets.only(
-    //                       top: MediaQuery.of(context).size.height * 0.01,
-    //                       bottom: MediaQuery.of(context).size.height * 0.01,
-    //                       left: MediaQuery.of(context).size.height * 0.01,
-    //                       right: MediaQuery.of(context).size.height * 0.01,
-    //                     ),
-    //                     decoration: BoxDecoration(
-    //                       borderRadius: BorderRadius.circular(4.0),
-    //                       image: DecorationImage(
-    //                         image: AssetImage(
-    //                             'assets/paypalpay.png'), // Replace with your asset path
-    //                         fit: BoxFit.cover,
-    //                       ),
-    //                     ),
-    //                   ),
-    //                   // Column with two Text widgets
-    //                   Expanded(
-    //                     child: Column(
-    //                       crossAxisAlignment: CrossAxisAlignment.start,
-    //                       children: [
-    //                         Text(
-    //                           '**** **** 3434',
-    //                           style: TextStyle(
-    //                             fontWeight: FontWeight.bold,
-    //                             fontSize:
-    //                             MediaQuery.of(context).size.height * 0.018,
-    //                             color: Colors.black,
-    //                           ),
-    //                         ),
-    //                         Text(
-    //                           'Paypal',
-    //                           style: TextStyle(
-    //                             fontSize:
-    //                             MediaQuery.of(context).size.height * 0.016,
-    //                             color: Colors.black,
-    //                           ),
-    //                         ),
-    //                       ],
-    //                     ),
-    //                   ),
-    //                   // Circular Radio Button
-    //                   Radio<int>(
-    //                     value: 1, // The value for this radio button
-    //                     groupValue: 0, // The currently selected value
-    //                     onChanged: (int? value) {
-    //                       // Handle radio button change
-    //                     },
-    //                   ),
-    //                 ],
-    //               ),
-    //             ),
-    //
-    //             // 3
-    //             Container(
-    //               margin: EdgeInsets.only(
-    //                 top: MediaQuery.of(context).size.height * 0.00,
-    //                 bottom: MediaQuery.of(context).size.height * 0.01,
-    //                 left: MediaQuery.of(context).size.height * 0.01,
-    //                 right: MediaQuery.of(context).size.height * 0.01,
-    //               ),
-    //               padding: EdgeInsets.only(
-    //                 top: MediaQuery.of(context).size.height * 0.00,
-    //                 bottom: MediaQuery.of(context).size.height * 0.00,
-    //                 left: MediaQuery.of(context).size.height * 0.01,
-    //                 right: MediaQuery.of(context).size.height * 0.00,
-    //               ),
-    //               decoration: BoxDecoration(
-    //                 border: Border.all(
-    //                   color: Colors.grey,
-    //                   width: 1.0,
-    //                 ),
-    //                 borderRadius: BorderRadius.circular(8.0),
-    //               ),
-    //               child: Row(
-    //                 mainAxisAlignment: MainAxisAlignment.start,
-    //                 crossAxisAlignment: CrossAxisAlignment.center,
-    //                 children: [
-    //                   // Image from assets
-    //                   Container(
-    //                     width: MediaQuery.of(context).size.height * 0.07,
-    //                     height: MediaQuery.of(context).size.height * 0.07,
-    //                     margin: EdgeInsets.only(
-    //                       top: MediaQuery.of(context).size.height * 0.01,
-    //                       bottom: MediaQuery.of(context).size.height * 0.01,
-    //                       left: MediaQuery.of(context).size.height * 0.01,
-    //                       right: MediaQuery.of(context).size.height * 0.01,
-    //                     ),
-    //                     decoration: BoxDecoration(
-    //                       borderRadius: BorderRadius.circular(4.0),
-    //                       image: DecorationImage(
-    //                         image: AssetImage(
-    //                             'assets/applepay.png'), // Replace with your asset path
-    //                         fit: BoxFit.cover,
-    //                       ),
-    //                     ),
-    //                   ),
-    //                   // Column with two Text widgets
-    //                   Expanded(
-    //                     child: Column(
-    //                       crossAxisAlignment: CrossAxisAlignment.start,
-    //                       children: [
-    //                         Text(
-    //                           'Priya Krishamurty',
-    //                           style: TextStyle(
-    //                             fontWeight: FontWeight.bold,
-    //                             fontSize:
-    //                             MediaQuery.of(context).size.height * 0.018,
-    //                             color: Colors.black,
-    //                           ),
-    //                         ),
-    //                         Text(
-    //                           'Apple Pay',
-    //                           style: TextStyle(
-    //                             fontSize:
-    //                             MediaQuery.of(context).size.height * 0.016,
-    //                             color: Colors.black,
-    //                           ),
-    //                         ),
-    //                       ],
-    //                     ),
-    //                   ),
-    //                   // Circular Radio Button
-    //                   Radio<int>(
-    //                     value: 1, // The value for this radio button
-    //                     groupValue: 0, // The currently selected value
-    //                     onChanged: (int? value) {
-    //                       // Handle radio button change
-    //                     },
-    //                   ),
-    //                 ],
-    //               ),
-    //             ),
-    //
-    //             // 4
-    //             Container(
-    //               margin: EdgeInsets.only(
-    //                 top: MediaQuery.of(context).size.height * 0.00,
-    //                 bottom: MediaQuery.of(context).size.height * 0.00,
-    //                 left: MediaQuery.of(context).size.height * 0.01,
-    //                 right: MediaQuery.of(context).size.height * 0.01,
-    //               ),
-    //               padding: EdgeInsets.only(
-    //                 top: MediaQuery.of(context).size.height * 0.00,
-    //                 bottom: MediaQuery.of(context).size.height * 0.00,
-    //                 left: MediaQuery.of(context).size.height * 0.01,
-    //                 right: MediaQuery.of(context).size.height * 0.00,
-    //               ),
-    //               decoration: BoxDecoration(
-    //                 border: Border.all(
-    //                   color: Colors.grey,
-    //                   width: 1.0,
-    //                 ),
-    //                 borderRadius: BorderRadius.circular(8.0),
-    //               ),
-    //               child: Row(
-    //                 mainAxisAlignment: MainAxisAlignment.start,
-    //                 crossAxisAlignment: CrossAxisAlignment.center,
-    //                 children: [
-    //                   // Image from assets
-    //                   Container(
-    //                     width: MediaQuery.of(context).size.height * 0.07,
-    //                     height: MediaQuery.of(context).size.height * 0.07,
-    //                     margin: EdgeInsets.only(
-    //                       top: MediaQuery.of(context).size.height * 0.01,
-    //                       bottom: MediaQuery.of(context).size.height * 0.01,
-    //                       left: MediaQuery.of(context).size.height * 0.01,
-    //                       right: MediaQuery.of(context).size.height * 0.01,
-    //                     ),
-    //                     decoration: BoxDecoration(
-    //                       borderRadius: BorderRadius.circular(4.0),
-    //                       image: DecorationImage(
-    //                         image: AssetImage(
-    //                             'assets/googlepay.png'), // Replace with your asset path
-    //                         fit: BoxFit.cover,
-    //                       ),
-    //                     ),
-    //                   ),
-    //                   // Column with two Text widgets
-    //                   Expanded(
-    //                     child: Column(
-    //                       crossAxisAlignment: CrossAxisAlignment.start,
-    //                       children: [
-    //                         Text(
-    //                           'Priya Krishamurty',
-    //                           style: TextStyle(
-    //                             fontWeight: FontWeight.bold,
-    //                             fontSize:
-    //                             MediaQuery.of(context).size.height * 0.018,
-    //                             color: Colors.black,
-    //                           ),
-    //                         ),
-    //                         Text(
-    //                           'Google Pay',
-    //                           style: TextStyle(
-    //                             fontSize:
-    //                             MediaQuery.of(context).size.height * 0.016,
-    //                             color: Colors.black,
-    //                           ),
-    //                         ),
-    //                       ],
-    //                     ),
-    //                   ),
-    //                   // Circular Radio Button
-    //                   Radio<int>(
-    //                     value: 1, // The value for this radio button
-    //                     groupValue: 0, // The currently selected value
-    //                     onChanged: (int? value) {
-    //                       // Handle radio button change
-    //                     },
-    //                   ),
-    //                 ],
-    //               ),
-    //             ),
-    //
-    //             // Continue
-    //             GestureDetector(
-    //               onTap: () async {
-    //                 showsucessalertBottomSheet();
-    //               },
-    //               child: Container(
-    //                   alignment: Alignment.centerRight,
-    //                   padding: EdgeInsets.only(
-    //                       top: MediaQuery.of(context).size.height * 0.01,
-    //                       bottom: MediaQuery.of(context).size.height * 0.00,
-    //                       left: MediaQuery.of(context).size.height * 0.00,
-    //                       right: MediaQuery.of(context).size.height * 0.00),
-    //                   margin: EdgeInsets.only(
-    //                       right: MediaQuery.of(context).size.height * 0.03,
-    //                       top: MediaQuery.of(context).size.height * 0.01,
-    //                       bottom: MediaQuery.of(context).size.height * 0.01,
-    //                       left: MediaQuery.of(context).size.height * 0.03),
-    //                   child: Row(
-    //                       crossAxisAlignment: CrossAxisAlignment.start,
-    //                       mainAxisAlignment: MainAxisAlignment.center,
-    //                       children: <Widget>[
-    //                         Expanded(
-    //                           child: Container(
-    //                             decoration: BoxDecoration(
-    //                                 borderRadius: BorderRadius.circular(
-    //                                     MediaQuery.of(context).size.height *
-    //                                         0.012),
-    //                                 gradient: LinearGradient(
-    //                                     begin: Alignment.centerRight,
-    //                                     end: Alignment.center,
-    //                                     stops: [
-    //                                       0.5,
-    //                                       0.9
-    //                                     ],
-    //                                     colors: [
-    //                                       Color(0xFF126086),
-    //                                       Color(0xFF126086),
-    //                                     ])),
-    //                             alignment: Alignment.center,
-    //                             padding: EdgeInsets.only(left: 0.0),
-    //                             child: TextButton(
-    //                               onPressed: () async {
-    //                                 showsucessalertBottomSheet();
-    //                               },
-    //                               child: Text("Continue",
-    //                                   textAlign: TextAlign.center,
-    //                                   style: TextStyle(
-    //                                       color: Colors.white,
-    //                                       fontSize: MediaQuery.of(context)
-    //                                           .size
-    //                                           .height *
-    //                                           0.02)),
-    //                             ),
-    //                           ),
-    //                         ),
-    //                       ])),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    // ),
-  );
 
 
 

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:newfolder/Core/Dialog/delete_dialog.dart';
+import 'package:newfolder/Core/Image%20Action/delete.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 
 class UploadBox extends StatefulWidget {
   final Function(List<Map<String, dynamic>>) onFilesChanged; // 👈 callback
@@ -147,13 +150,26 @@ class _UploadBoxState extends State<UploadBox> {
               return Dismissible(
                 key: Key(file.name + uploadTime.toString()),
                 direction: DismissDirection.endToStart,
-                background: Container(
-                  color: Colors.white,
-                  alignment: Alignment.centerRight,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: const Icon(Icons.delete, color: Colors.red),
-                ),
+                background: AppDeleteIcon(),
+                confirmDismiss: (direction) async {
+
+                  return await DeleteDialog.show(
+                    context: context,
+                    barrierLabel: "Delete",
+                    message: "Are you sure to Remove the Upload Image ?",
+
+                  );
+
+
+
+                },
                 onDismissed: (direction) {
+                  showTopNotification(
+                      context,
+                      title: 'Image',
+                      message: 'Upload Image is delete sucessfully',
+                      type: NotificationType.success
+                  );
                   setState(() {
                     uploadedFiles.removeAt(index);
                   });

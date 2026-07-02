@@ -8,21 +8,20 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
-import 'package:newfolder/Screens/Maps/address_map_screen.dart';
 import 'package:newfolder/Screens/Maps/model/place_model.dart';
 import 'package:newfolder/Screens/Maps/repoapi.dart';
 import 'package:newfolder/Screens/Utils/customNotification.dart';
 
 Color color = const Color(0xfffe8903);
 
-class GoogleMapScreen extends StatefulWidget {
-  const GoogleMapScreen({super.key});
+class AddressFindScreen extends StatefulWidget {
+  const AddressFindScreen({super.key});
 
   @override
-  State<GoogleMapScreen> createState() => _GoogleMapScreenState();
+  State<AddressFindScreen> createState() => _GoogleMapScreenState();
 }
 
-class _GoogleMapScreenState extends State<GoogleMapScreen> with WidgetsBindingObserver {
+class _GoogleMapScreenState extends State<AddressFindScreen> with WidgetsBindingObserver {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   BitmapDescriptor? currentLocation;
@@ -34,8 +33,36 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> with WidgetsBindingOb
   Position? _currentPosition;
   LatLng _currentLatLng = const LatLng(27.671332124757402, 85.3125417636781);
 
-  final DraggableScrollableController _sheetController =DraggableScrollableController();
+  final DraggableScrollableController _sheetController =
+  DraggableScrollableController();
+  double _currentChildSize = 0.3;
+  bool _isDismissed = false;
+  double _lastExtent = 0.2;
 
+  final DraggableScrollableController _sheetController2 = DraggableScrollableController();
+  double _currentChildSize2 = 0.6;
+  bool _isDismissed2 = false;
+  double _lastExtent2 = 0.5;
+
+  TextEditingController LandmarkEditTextController = TextEditingController();
+  TextEditingController AddressEditTextController = TextEditingController();
+  TextEditingController FullnameEditTextController = TextEditingController();
+  TextEditingController AddressTitleEditTextController = TextEditingController();
+
+
+  final FocusNode _focusNode1 = FocusNode();
+  final FocusNode _focusNode2 = FocusNode();
+  final FocusNode _focusNode3 = FocusNode();
+  final FocusNode _focusNode4 = FocusNode();
+
+  final DraggableScrollableController _sheetController3 = DraggableScrollableController();
+
+  double _currentChildSize3 = 0.5;
+  bool _isDismissed3 = false;
+  double _lastExtent3 = 0.4;
+
+  TextEditingController CityAreasEditTextController = TextEditingController();
+  final FocusNode _focusNode5 = FocusNode();
 
   bool openedSettings = false;
 
@@ -164,7 +191,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> with WidgetsBindingOb
       setState(() {});
       print('Location updated: $_currentLatLng');
 
-      showBottomSheetforAddressDisplay();
+      showBottomSheetforShowNoContent();
     } catch (e) {
       print('Error getting location: $e');
     }
@@ -218,7 +245,110 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> with WidgetsBindingOb
                       margin: EdgeInsets.only(
                           top: MediaQuery.of(context).size.height * 0.005,
                           bottom: MediaQuery.of(context).size.height * 0.01),
-
+                      // child: TypeAheadFormField<Description?>(
+                      //   onSuggestionSelected: (suggestion) {
+                      //     setState(() {
+                      //       // placeController.text =suggestion?.structured_formatting?.main_text ?? "";
+                      //     });
+                      //   },
+                      //   getImmediateSuggestions: true,
+                      //   keepSuggestionsOnLoading: true,
+                      //   textFieldConfiguration: TextFieldConfiguration(
+                      //     controller: placeController,
+                      //     style: TextStyle(
+                      //       color: Color(0xFF1F1F1F),
+                      //       fontWeight: FontWeight.w700,
+                      //       fontSize:
+                      //           MediaQuery.of(context).size.height * 0.017,
+                      //     ),
+                      //     decoration: InputDecoration(
+                      //       isDense: true,
+                      //       contentPadding: EdgeInsets.only(
+                      //         left:
+                      //             MediaQuery.of(context).size.height * 0.025,
+                      //         top: MediaQuery.of(context).size.height * 0.02,
+                      //       ),
+                      //       filled: true,
+                      //       fillColor: Color(0x4DFFFFFF),
+                      //       hintText:
+                      //           "Search for area, street name, locality...",
+                      //       hintStyle: TextStyle(
+                      //         color: Color(0xFF1F1F1F),
+                      //         fontSize:
+                      //             MediaQuery.of(context).size.height * 0.014,
+                      //         fontWeight: FontWeight.w400,
+                      //       ),
+                      //       focusedBorder: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.circular(12.0),
+                      //         borderSide:
+                      //             BorderSide(color: Color(0x4DFFFFFF)),
+                      //       ),
+                      //       enabledBorder: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.circular(12.0),
+                      //         borderSide:
+                      //             BorderSide(color: Color(0x4DFFFFFF)),
+                      //       ),
+                      //       suffixIcon: InkWell(
+                      //         onTap: () {
+                      //           setState(() {
+                      //             placeController.clear();
+                      //             // showBottomSheetforAddressDisplay();
+                      //           });
+                      //         },
+                      //         child: Icon(
+                      //           Icons.search,
+                      //           color: Color(0xFF000000),
+                      //           size:
+                      //               MediaQuery.of(context).size.height * 0.03,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      //   itemBuilder: (context, Description? itemData) {
+                      //     return Container(
+                      //       margin: const EdgeInsets.symmetric(
+                      //           horizontal: 8, vertical: 6),
+                      //       child: Row(
+                      //         children: [
+                      //           const Icon(Icons.location_on_outlined,
+                      //               size: 18, color: Colors.grey),
+                      //           SizedBox(width: 6),
+                      //           Expanded(
+                      //             child: Column(
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   "${itemData?.structured_formatting?.main_text}",
+                      //                   style: const TextStyle(
+                      //                       color: Colors.green),
+                      //                 ),
+                      //                 Text(
+                      //                     "${itemData?.structured_formatting?.secondary_text}"),
+                      //               ],
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     );
+                      //   },
+                      //   noItemsFoundBuilder: (context) {
+                      //     return SizedBox.shrink(); // or show a message
+                      //   },
+                      //   suggestionsCallback: (String pattern) async {
+                      //     var predictionModel = await Repo.placeAutoComplete(
+                      //         placeInput: pattern);
+                      //
+                      //     if (predictionModel != null) {
+                      //       return predictionModel.predictions!.where(
+                      //           (element) => element.description!
+                      //               .toLowerCase()
+                      //               .contains(pattern.toLowerCase()));
+                      //     } else {
+                      //       return [];
+                      //     }
+                      //   },
+                      // )
                     ),
                   ],
                 ),
@@ -390,7 +520,13 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> with WidgetsBindingOb
                       country = place.country ?? '';
                       isoCountryCode = place.isoCountryCode ?? '';
 
+                      // Controllers me auto-fill values daalein
+                      LandmarkEditTextController.text = name.isNotEmpty ? name : street;
 
+                      // Address ko format karke daalein (excluding empty fields)
+                      AddressEditTextController.text = [subLocality, city, state, postalCode]
+                          .where((element) => element.isNotEmpty)
+                          .join(', ');
                     });
                   }
                 } catch (e) {
@@ -446,34 +582,15 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> with WidgetsBindingOb
         ));
   }
 
-
-
-  void showBottomSheetforAddressDisplay() {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-
-    Map<String, dynamic> addressData = {
-      "name": name,
-      "street": street,
-      "thoroughfare": thoroughfare,
-      "subThoroughfare": subThoroughfare,
-      "city": city,
-      "subLocality": subLocality,
-      "state": state,
-      "subAdminArea": subAdminArea,
-      "postalCode": postalCode,
-      "country": country,
-      "isoCountryCode": isoCountryCode,
-    };
-
+  void showBottomSheetforShowNoContent() {
     showModalBottomSheet(
-      enableDrag: false, // Drag completely disable kar diya
-      isScrollControlled: true,
-      isDismissible: false, // Background tap par dismiss nahi hoga
+      enableDrag: false, // Ye manually drag ko disable kar dega
+      isScrollControlled: true, // Keyboard aane par sheet ko stretch hone allow karta hai
+      isDismissible: false,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
         ),
       ),
       backgroundColor: Colors.white,
@@ -483,158 +600,182 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> with WidgetsBindingOb
         return PopScope(
           canPop: false,
           onPopInvokedWithResult: (bool didPop, Object? result) {
-            if (didPop) return;
-            Navigator.pop(context); // 1. BottomSheet close
-            Navigator.pop(context); // 2. Pichli screen close
+            if (didPop) {
+              return;
+            }
+            Navigator.pop(context); // 1. Ye BottomSheet ko close karega
+            Navigator.pop(context); // 2. Ye piche wali screen ko close karega
           },
           child: Padding(
+            // SABSE ZARURI LINE: Ye keyboard aane par automatic padding add karke sheet ko top par dhakel dega
             padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom,
-              left: height * 0.02,
-              top: height * 0.01,
-              right: height * 0.02,
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min, // Content ke hisaab se hi jagah lega
-              children: [
-                // Top Handle (Divider)
-                Center(
-                  child: Container(
-                    margin: EdgeInsets.only(
-                      top: height * 0.01,
-                      bottom: height * 0.03,
-                    ),
-                    width: width * 0.23,
-                    height: height * 0.006,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFD9D9D9),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
+            child: SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.height * 0.02,
+                  top: MediaQuery.of(context).size.height * 0.01,
+                  right: MediaQuery.of(context).size.height * 0.02,
+                  bottom: MediaQuery.of(context).size.height * 0.04,
                 ),
-
-                // Select Location Title
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Select Location",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: height * 0.017,
-                    ),
-                  ),
-                ),
-
-                SizedBox(height: height * 0.02),
-
-                // Location Details Row
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min, // Content ke hisaab se height lega
                   children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          InkWell(
-                            onTap: () => Navigator.pop(context),
-                            child: Container(
-                              height: height * 0.04,
-                              width: height * 0.04,
-                              decoration: const BoxDecoration(
-                                color: Colors.transparent,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                Icons.location_on_rounded,
-                                color: const Color(0xFF1E6588),
-                                size: height * 0.02,
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: height * 0.01),
-                          Expanded(
-                            child: Text(
-                              name,
-                              style: TextStyle(
-                                color: const Color(0xFF000000),
-                                fontWeight: FontWeight.w700,
-                                overflow: TextOverflow.ellipsis,
-                                fontSize: height * 0.0165,
-                              ),
-                            ),
-                          ),
-                        ],
+                    // Handle line (Top Divider)
+                    Center(
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.01,
+                          bottom: MediaQuery.of(context).size.height * 0.02,
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.23,
+                        height: MediaQuery.of(context).size.height * 0.006,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFD9D9D9),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => const AddressMapScreen()),
-                        );
-                      },
+
+                    // Center Image
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(130.0),
+                      child: Image.asset(
+                        'assets/insurancealert.png',
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        width: MediaQuery.of(context).size.height * 0.1,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+
+                    // Title Text
+                    Text(
+                      "Sorry! We aren’t there yet.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height * 0.017,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFF000000),
+                      ),
+                    ),
+
+                    // Description Text
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.02,
+                        vertical: MediaQuery.of(context).size.height * 0.01,
+                      ),
                       child: Text(
-                        "Change",
+                        "We’re increasing our operational areas everyday. We will notify you when we start operations in your area.",
                         style: TextStyle(
-                          color: const Color(0xFF1E6588),
-                          fontWeight: FontWeight.w600,
-                          fontSize: height * 0.0135,
+                          height: 1.8,
+                          fontSize: MediaQuery.of(context).size.height * 0.012,
+                          color: const Color(0xFF6A6E83),
+                          fontWeight: FontWeight.w400,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+
+                    // Input Label
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "City and Area",
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.014,
+                          color: const Color(0xFF000000),
+                          fontWeight: FontWeight.w400,
+                          fontFamily: "Inter",
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+
+                    // TextField
+                    TextFormField(
+                      focusNode: _focusNode5,
+                      controller: CityAreasEditTextController,
+                      inputFormatters: [LengthLimitingTextInputFormatter(100)],
+                      style: TextStyle(
+                        color: const Color(0xFF171717),
+                        fontSize: MediaQuery.of(context).size.height * 0.014,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.all(
+                          MediaQuery.of(context).size.height * 0.015,
+                        ),
+                        filled: true,
+                        fillColor: const Color(0xFFFFFFFF),
+                        hintText: "Enter city & areas",
+                        hintStyle: TextStyle(
+                          color: const Color(0xFF727272),
+                          fontSize: MediaQuery.of(context).size.height * 0.014,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          borderSide: const BorderSide(color: Color(0xFFF1F1F1)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          borderSide: const BorderSide(color: Color(0xFFF1F1F1)),
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+
+                    // Back to Home Button
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      width: MediaQuery.of(context).size.height * 0.4,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          MediaQuery.of(context).size.height * 0.012,
+                        ),
+                        gradient: const LinearGradient(
+                          begin: Alignment.centerRight,
+                          end: Alignment.center,
+                          colors: [Color(0xFF126086), Color(0xFF126086)],
+                        ),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>  HomePageMain(), // Make sure HomePageMain is imported properly
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "Back to Home",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: const Color(0xFFFFFFFF),
+                            fontSize: MediaQuery.of(context).size.height * 0.015,
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
-
-                // Sub-address text
-                Padding(
-                  padding: EdgeInsets.only(top: height * 0.01, bottom: height * 0.03),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "${subLocality.isNotEmpty ? '$subLocality, ' : ''}${city.isNotEmpty ? '$city, ' : ''}$country",
-                      style: TextStyle(
-                        color: const Color(0xFF454545),
-                        fontWeight: FontWeight.w400,
-                        fontSize: height * 0.017,
-                      ),
-                    ),
-                  ),
-                ),
-
-                // Confirm Location Button
-                Container(
-                  margin: EdgeInsets.only(bottom: height * 0.04),
-                  height: height * 0.05,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(height * 0.012),
-                    gradient: const LinearGradient(
-                      begin: Alignment.centerRight,
-                      end: Alignment.center,
-                      colors: [Color(0xFF126086), Color(0xFF126086)],
-                    ),
-                  ),
-                  child: TextButton(
-                    onPressed: () async {
-                      Navigator.pop(context); // Bottom sheet band karega
-                      Navigator.pop(context, addressData); // Data pass karke wapas bhejega
-                    },
-                    child: Text(
-                      "Confirm Location",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: const Color(0xFFFFFFFF),
-                        fontSize: height * 0.015,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         );
       },
     );
   }
+
 
 }

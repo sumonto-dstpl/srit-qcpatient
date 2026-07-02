@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:newfolder/Core/Dialog/delete_dialog.dart';
+import 'package:newfolder/Core/Image%20Action/delete.dart';
 import 'package:newfolder/Screens/AddToCart/addtocarPackageDetails.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
@@ -1702,7 +1704,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
              ),
 
 
-            ...items.map((n) => _notificationTile(n)).toList(),
+            ...items.map((n) => _notificationTile(context,n)).toList(),
             const SizedBox(height: 50),
           ],
         );
@@ -1768,7 +1770,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
 
 
 
-            ...items.map((n) => _notificationTile(n)).toList(),
+            ...items.map((n) => _notificationTile(context,n)).toList(),
             const SizedBox(height: 50),
           ],
         );
@@ -1809,19 +1811,23 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
     calculateAndUpdateGlobalCount(); // Isse badge turant sync hoga
   }
 
-  Widget _notificationTile(NotificationModel n) {
+  Widget _notificationTile(BuildContext context,NotificationModel n) {
     return Dismissible(
       key: ValueKey('notif_${n.id}'),
       direction: DismissDirection.endToStart, // Allow swipe from right to left
-      background: Container(
-        color: Colors.white,
-        alignment: Alignment.centerRight,
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Icon(
-          Icons.delete,
-          color: Colors.red,
-        ),
-      ),
+      confirmDismiss: (direction) async {
+
+        return await DeleteDialog.show(
+          context: context,
+          barrierLabel: "NotificationDelete",
+          message: "Are you sure to Remove the Selected Notification ?",
+
+        );
+
+
+
+      },
+      background: AppDeleteIcon(),
       onDismissed: (_) => _deleteItem(n),
       child: GestureDetector(
         onTap: () {
@@ -2224,7 +2230,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
       context,
       title: "Notification Delete",
       message: "Notification is deleted Successfully",
-      type: NotificationType.error,
+      type: NotificationType.success,
     );
     setState(() {
       _recentlyDeletedIndex = globalNotifications.indexWhere((n) => n.id == item.id);

@@ -38,6 +38,7 @@ import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/Registeration/registeration.dart';
 import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
 import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
@@ -619,6 +620,12 @@ class InsuranceMainstate extends State<InsuranceMain> {
 
                                                   onDismissed: (direction) {
                                                     // gradientColorOptions.removeAt(index); // Remove gradient when dismissed
+
+                                                    showTopNotification(
+                                                        context,
+                                                        title: 'Delete Insurance',
+                                                        message: 'Insurance is deleted sucessfully',
+                                                        type: NotificationType.success);
                                                     setState(() {
                                                       insurancePolicies.removeWhere((items) {
                                                               return items['id'] == item['id'];

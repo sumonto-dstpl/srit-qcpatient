@@ -275,97 +275,7 @@ Widget build(BuildContext context) {
                               ),
 
 
-                              // Container(
-                              //   padding: EdgeInsets.only(
-                              //       left: MediaQuery
-                              //           .of(context)
-                              //           .size
-                              //           .height *
-                              //           0.008,
-                              //       right: MediaQuery
-                              //           .of(context)
-                              //           .size
-                              //           .height *
-                              //           0.00,
-                              //       top: MediaQuery
-                              //           .of(context)
-                              //           .size
-                              //           .height *
-                              //           0.00,
-                              //       bottom: MediaQuery
-                              //           .of(context)
-                              //           .size
-                              //           .height *
-                              //           0.0),
-                              //   child:
-                              //   DefaultTextStyle(
-                              //     style: TextStyle(
-                              //         color: Color(0xFF126086),
-                              //         overflow: TextOverflow.ellipsis,
-                              //         fontWeight: FontWeight.bold,
-                              //         fontSize:
-                              //         MediaQuery
-                              //             .of(context)
-                              //             .size
-                              //             .height * 0.016),
-                              //     child: AnimatedTextKit(
-                              //       animatedTexts: [
-                              //         RotateAnimatedText(
-                              //           'Doctor',
-                              //           textStyle: TextStyle(
-                              //               color: Color(0xFF126086),
-                              //               overflow: TextOverflow.ellipsis,
-                              //               fontWeight: FontWeight.bold,
-                              //               fontSize:
-                              //               MediaQuery
-                              //                   .of(context)
-                              //                   .size
-                              //                   .height *
-                              //                   0.014), // Red text
-                              //         ),
-                              //         RotateAnimatedText(
-                              //           'Speciality',
-                              //           textStyle: TextStyle(
-                              //               color: Color(0xFF126086),
-                              //               overflow: TextOverflow.ellipsis,
-                              //               fontWeight: FontWeight.bold,
-                              //               fontSize:
-                              //               MediaQuery
-                              //                   .of(context)
-                              //                   .size
-                              //                   .height *
-                              //                   0.014),
-                              //         ),
-                              //
-                              //         RotateAnimatedText(
-                              //           'Symptoms',
-                              //           textStyle: TextStyle(
-                              //               color: Color(0xFF126086),
-                              //               overflow: TextOverflow.ellipsis,
-                              //               fontWeight: FontWeight.bold,
-                              //               fontSize:
-                              //               MediaQuery
-                              //                   .of(context)
-                              //                   .size
-                              //                   .height *
-                              //                   0.014),
-                              //         ),
-                              //       ],
-                              //       repeatForever: true,
-                              //       pause: Duration(milliseconds: 500),
-                              //       onTap: () {
-                              //         Navigator.of(context).push(
-                              //           MaterialPageRoute(
-                              //             builder: (BuildContext context) {
-                              //               return QuickSearchWithoutData();
-                              //             },
-                              //           ),
-                              //         );
-                              //         print("Tap Event");
-                              //       },
-                              //     ),
-                              //   ),
-                              // ),
+
 
                               Spacer(),
                               // Pushes the search icon to the end of the Row
@@ -414,97 +324,7 @@ Widget build(BuildContext context) {
                       padding: EdgeInsets.zero,
                     shrinkWrap: true,
                     children: [
-                      // Search Input Field
 
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     Navigator.of(context).push(
-                      //       MaterialPageRoute(
-                      //         builder: (BuildContext context) {
-                      //           return QuickSearchWithoutData();
-                      //         },
-                      //       ),
-                      //     );
-                      //     print('Navigating to QuickSearchWithData!');
-                      //   },
-                      //   child: Container(
-                      //     alignment: Alignment.centerRight,
-                      //     padding: EdgeInsets.only(
-                      //       top: MediaQuery.of(context).size.height * 0.0,
-                      //       bottom: MediaQuery.of(context).size.height * 0.00,
-                      //       left: MediaQuery.of(context).size.height * 0.00,
-                      //       right: MediaQuery.of(context).size.height * 0.00,
-                      //     ),
-                      //     margin: EdgeInsets.only(
-                      //       right: MediaQuery.of(context).size.height * 0.02,
-                      //       top: MediaQuery.of(context).size.height * 0.0,
-                      //       bottom: MediaQuery.of(context).size.height * 0.01,
-                      //       left: MediaQuery.of(context).size.height * 0.02,
-                      //     ),
-                      //     child: AbsorbPointer(
-                      //       // Prevents the field from gaining focus or triggering gestures
-                      //       child: TextFormField(
-                      //         readOnly: true,
-                      //         controller: SearchEditTextController,
-                      //         inputFormatters: [
-                      //           LengthLimitingTextInputFormatter(15),
-                      //           FilteringTextInputFormatter.allow(
-                      //               RegExp('[a-zA-Z0-9]')),
-                      //         ],
-                      //         textCapitalization: TextCapitalization.characters,
-                      //         style: TextStyle(color: Colors.black45),
-                      //         keyboardType: TextInputType.emailAddress,
-                      //         validator: (input) => input!.length < 3
-                      //             ? "Search should be more than 3 characters"
-                      //             : null,
-                      //         decoration: InputDecoration(
-                      //           isDense: true,
-                      //           contentPadding:
-                      //           EdgeInsets.all(screenHeight * 0.012),
-                      //           filled: true,
-                      //           fillColor: Colors.grey[200],
-                      //           hintText: "Search for Lab tests",
-                      //           hintStyle: TextStyle(
-                      //             color: Colors.black26,
-                      //             fontSize: screenHeight * 0.016,
-                      //           ),
-                      //           focusedBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(5.0),
-                      //             borderSide: BorderSide(color: Colors.grey),
-                      //           ),
-                      //           enabledBorder: OutlineInputBorder(
-                      //             borderRadius:
-                      //             BorderRadius.all(Radius.circular(5.0)),
-                      //             borderSide: BorderSide(color: Colors.white),
-                      //           ),
-                      //           suffixIcon: IconButton(
-                      //             icon: Icon(
-                      //               Icons.search,
-                      //               color: Colors.black45,
-                      //               size: MediaQuery
-                      //                   .of(context)
-                      //                   .size
-                      //                   .height * 0.02,
-                      //             ),
-                      //             onPressed: () {
-                      //               Navigator.of(context).push(
-                      //                 MaterialPageRoute(
-                      //                   builder: (BuildContext context) {
-                      //                     return QuickSearchWithData();
-                      //                   },
-                      //                 ),
-                      //               );
-                      //               print('Search icon clicked!');
-                      //             },
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-
-
-                      // Previous Orders
 
                      
 
@@ -2124,10 +1944,7 @@ Widget build(BuildContext context) {
                           color: Colors.white,
                           alignment: Alignment.centerRight,
                           padding: EdgeInsets.symmetric(horizontal: 20),
-                          // child: Icon(
-                          //   Icons.delete,
-                          //   color: Colors.red,
-                          // ),
+
                         ),
                         onDismissed: (direction) {
                           // Remove the item immediately from the list
@@ -2425,10 +2242,7 @@ Widget build(BuildContext context) {
                           color: Colors.white,
                           alignment: Alignment.centerRight,
                           padding: EdgeInsets.symmetric(horizontal: 20),
-                          // child: Icon(
-                          //   Icons.delete,
-                          //   color: Colors.red,
-                          // ),
+
                         ),
                         onDismissed: (direction) {
                           // Remove the item immediately from the list

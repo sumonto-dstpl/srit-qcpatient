@@ -193,7 +193,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Past Appoinments",
+                                          "Past Appointments",
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                       ],
@@ -204,7 +204,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Upcoming Appoinments",
+                                          "Upcoming Appointments",
                                         ),
                                       ],
                                     ),

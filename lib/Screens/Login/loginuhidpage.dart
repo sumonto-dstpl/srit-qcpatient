@@ -1273,31 +1273,7 @@ class LoginuhidPagestate extends State<LoginUHIDPage> {
             }
 
 
-          // Navigator.of(context).pushAndRemoveUntil(
-          //     MaterialPageRoute(builder: (context) => HomePageMain()),
-          //     (Route<dynamic> route) => false);
-        // }
-        // else if (user.message != null) {
-        //   // progressDialog.hide();
-        //
-        //   // final snackBar = SnackBar(
-        //   //   content: Text(user.message),
-        //   //   backgroundColor: Colors.red[600],
-        //   // );
-        //   // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        //   showTopNotification(
-        //     context,
-        //     title: "Login Credential",
-        //     message: "Invalid User Credentails",
-        //     type: NotificationType.error,
-        //   );
-        //
-        //   /* Navigator.of(context).pushAndRemoveUntil(
-        //         MaterialPageRoute(builder: (context) => HomePageMain()),
-        //             (Route<dynamic> route) => false);*/
-        //
-        //   // customalert.showError(context, user.error);
-        // }
+
       } else {
         // No-Internet Case
         final snackBar = SnackBar(

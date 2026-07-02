@@ -1,6 +1,10 @@
 import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:newfolder/Core/Dialog/delete_dialog.dart';
+import 'package:newfolder/Core/Header/header.dart';
+import 'package:newfolder/Core/Image%20Action/delete.dart';
+import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
 import 'package:newfolder/Screens/AddToCart/addtocarPackageDetails.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
@@ -39,6 +43,7 @@ import 'package:provider/provider.dart';
 import 'package:universal_html/js_util.dart';
 
 import '../../utils/cart_provider.dart';
+import 'package:newfolder/Core/Header/header.dart';
 
 class RecommendedViewAll extends StatefulWidget {
   String usernameValue ;
@@ -170,235 +175,9 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
         child: Stack(children: [
           Column(
             children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(
-                  top: screenHeight * 0.07,
-                  left: screenWidth * 0.045,
-                  right: screenWidth * 0.045,
-                  bottom: screenWidth * 0.06,
-                ),
-                margin: EdgeInsets.only(
-                  right: screenHeight * 0.0,
-                  top: screenHeight * 0.0,
-                  bottom: screenHeight * 0.01,
-                  left: screenHeight * 0.0,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
+              Header(  userName: '${widget.usernameValue}',),
 
-                    InkWell(
-                      onTap: () => Navigator.pop(context),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.035,
-                        width: MediaQuery.of(context).size.height * 0.035,
-                        margin: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.height * 0.00,
-                          top: MediaQuery.of(context).size.height * 0.00,
-                          right: MediaQuery.of(context).size.height * 0.02,
-                          bottom: MediaQuery.of(context).size.height * 0.00,
-                        ),
-                        decoration: BoxDecoration(
-
-                          color: Color(0xFF126086).withOpacity(0.2),
-
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                              width: 0.0, color: Color(0xFF126086)),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(130.0),
-                          child: Image.asset(
-                            'assets/medicationBack.png',
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(
-                            top: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.00,
-                            bottom: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.005,
-                            left: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.00,
-                            right: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.00,
-                          ),
-                          child: Text(
-                            "${widget.usernameValue}",
-                            style: TextStyle(
-                              fontSize:
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * 0.018,
-                              color: Color(0xFFFFFFFF),
-                              fontWeight: FontWeight.w600,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-
-
-
-                      ],
-                    ),
-
-
-                    // Action Bar 2nd half
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-
-                          // Cart
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder:
-                                      (BuildContext context) {
-                                    return AddToCartMain();
-                                  },
-                                ),
-                              );
-                            },
-                            child:
-                            AppointmentIconBadge(
-                              appointmentcount: "",
-                            ),
-                          ),
-
-
-                          // Notification
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder:
-                                      (BuildContext context) {
-                                    return NotificationMain();
-                                  },
-                                ),
-                              );
-                            },
-                            child:
-                            IconBadge(
-                              notificationcount: "",
-                            ),
-                          ),
-
-
-                          // Profile Image
-                          userprofilepValue != "NA"
-                              ?
-
-                          GestureDetector(
-                              onTap: () async {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return ProfileMain();
-                                    },
-                                  ),
-                                );
-                              }, child:
-                          Container(
-                            height: MediaQuery
-                                .of(context)
-                                .size
-                                .height *
-                                0.050,
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .height *
-                                0.050,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1.0,
-                                color: Colors.white,
-                              ),
-                              shape: BoxShape.circle,
-                              image: new DecorationImage(
-                                fit: BoxFit.fill,
-                                image: Image
-                                    .memory(
-                                    base64Decode(userprofilepValue))
-                                    .image,
-                              ),
-                            ),
-                          )
-                          )
-                              : GestureDetector(
-                            onTap: () async {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return ProfileMain();
-                                  },
-                                ),
-                              );
-                            }, child: Container(
-                            height: MediaQuery
-                                .of(context)
-                                .size
-                                .height *
-                                0.045,
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .height *
-                                0.045,
-                            padding: EdgeInsets.only(
-                              left: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height *
-                                  0.00,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: 1.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(130.0),
-                              child: Image.asset(
-                                'assets/drsujeet.png',
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                          )
-
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-      Expanded(
+              Expanded(
 
         child: Container(
             decoration: BoxDecoration(
@@ -937,108 +716,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
 
                                                                       ),
 
-                                                                      // Buttons
-                                                                      // Container(
-                                                                      //   decoration: BoxDecoration(
-                                                                      //     // color:Colors.white,
-                                                                      //     borderRadius: BorderRadius.circular(15),
-                                                                      //   ),
-                                                                      //   // color:Colors.green[100],
-                                                                      //   padding: EdgeInsets.only(
-                                                                      //       left: MediaQuery.of(context).size.height * 0.0,
-                                                                      //       right: MediaQuery.of(context).size.height * 0.0,
-                                                                      //       top: MediaQuery.of(context).size.height * 0.00,
-                                                                      //       bottom: MediaQuery.of(context).size.height * 0.00),
-                                                                      //   child:
-                                                                      //
-                                                                      //   Row(
-                                                                      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                      //     children: <Widget>[
-                                                                      //       !isInCart ?
-                                                                      //       GestureDetector(
-                                                                      //         onTap: () async {
-                                                                      //            addToCart(item['id'],item['plan'],item['test'],item['qr']);
-                                                                      //            showTopNotification(
-                                                                      //              context,
-                                                                      //              title: "Add Cart",
-                                                                      //              message: "Cart is added successfully",
-                                                                      //              type: NotificationType.success,
-                                                                      //            );
-                                                                      //            setState(() {
-                                                                      //
-                                                                      //            });
-                                                                      //         },
-                                                                      //         child: Container(
-                                                                      //           padding: new EdgeInsets.only(
-                                                                      //               left: MediaQuery.of(context).size.height * 0.02,
-                                                                      //               right: MediaQuery.of(context).size.height * 0.02,
-                                                                      //               top: MediaQuery.of(context).size.height * 0.006,
-                                                                      //               bottom: MediaQuery.of(context).size.height * 0.006),
-                                                                      //           decoration: BoxDecoration(
-                                                                      //             color: Color(0xFF126086),
-                                                                      //             borderRadius: BorderRadius.circular(5),
-                                                                      //           ),
-                                                                      //
-                                                                      //
-                                                                      //           margin: EdgeInsets.only(
-                                                                      //             left: MediaQuery.of(context).size.height * 0.0,
-                                                                      //             top: MediaQuery.of(context).size.height * 0.00,
-                                                                      //             bottom: MediaQuery.of(context).size.height * 0.00,
-                                                                      //             right: MediaQuery.of(context).size.height * 0.005,
-                                                                      //           ),
-                                                                      //           // color: Colors.grey[300],
-                                                                      //           alignment: Alignment.center,
-                                                                      //           // height:
-                                                                      //           // MediaQuery.of(context).size.height * 0.070,
-                                                                      //           child: Text("Add",
-                                                                      //               textAlign: TextAlign.center,
-                                                                      //               style: TextStyle(
-                                                                      //                   color: Colors.white,
-                                                                      //                   fontWeight: FontWeight.w600,
-                                                                      //                   fontSize:  MediaQuery.of(context).size.height * 0.01)),
-                                                                      //         ),
-                                                                      //       ):
-                                                                      //       GestureDetector(
-                                                                      //         onTap: () async {
-                                                                      //           _deleteCart(item['id'],index);
-                                                                      //           showTopNotification(
-                                                                      //             context,
-                                                                      //             title: "Cart Delete",
-                                                                      //             message: "Cart is deleted Successfully",
-                                                                      //             type: NotificationType.error,
-                                                                      //           );
-                                                                      //         },
-                                                                      //         child: Container(
-                                                                      //           padding: new EdgeInsets.only(
-                                                                      //               left: MediaQuery.of(context).size.height * 0.02,
-                                                                      //               right: MediaQuery.of(context).size.height * 0.02,
-                                                                      //               top: MediaQuery.of(context).size.height * 0.006,
-                                                                      //               bottom: MediaQuery.of(context).size.height * 0.006),
-                                                                      //           decoration: BoxDecoration(
-                                                                      //             color: Colors.white,
-                                                                      //             borderRadius: BorderRadius.circular(5),
-                                                                      //           ),
-                                                                      //
-                                                                      //
-                                                                      //           margin: EdgeInsets.only(
-                                                                      //             left: MediaQuery.of(context).size.height * 0.0,
-                                                                      //             top: MediaQuery.of(context).size.height * 0.00,
-                                                                      //             bottom: MediaQuery.of(context).size.height * 0.00,
-                                                                      //             right: MediaQuery.of(context).size.height * 0.005,
-                                                                      //           ),
-                                                                      //           // color: Colors.grey[300],
-                                                                      //           alignment: Alignment.center,
-                                                                      //           // height:
-                                                                      //           // MediaQuery.of(context).size.height * 0.070,
-                                                                      //           child: Icon(Icons.delete, color: Colors.red),
-                                                                      //         ),
-                                                                      //       ),
-                                                                      //
-                                                                      //
-                                                                      //     ],
-                                                                      //   ),
-                                                                      //
-                                                                      // ),
+
                                                                       Consumer<CartProvider>(
                                                                         builder: (context, cart, child) {
                                                                           bool isInCart = cart.isAdded(item['id']);
@@ -1085,14 +763,25 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                               )
                                                                                   : GestureDetector(
                                                                                 onTap: () async {
-                                                                                  await cart.removeItem(item['id']);
 
-                                                                                  showTopNotification(
-                                                                                    context,
-                                                                                    title: "Cart Delete",
-                                                                                    message: "Cart is deleted Successfully",
-                                                                                    type: NotificationType.error,
+                                                                                  final result = await DeleteDialog.show(
+                                                                                    context: context,
+                                                                                    barrierLabel: "InsuranceDelete",
+                                                                                    message: "Are you sure to Remove the Selected Cart ?",
+
                                                                                   );
+                                                                                  if(result!) {
+                                                                                    showTopNotification(
+                                                                                      context,
+                                                                                      title: "Cart Delete",
+                                                                                      message: "Cart is deleted Successfully",
+                                                                                      type: NotificationType.success,
+                                                                                    );
+                                                                                     cart.removeItem(item['id']);
+                                                                                  }
+
+
+
                                                                                 },
                                                                                 child: Container(
                                                                                   padding: EdgeInsets.symmetric(
@@ -1103,7 +792,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                                     color: Colors.white,
                                                                                     borderRadius: BorderRadius.circular(5),
                                                                                   ),
-                                                                                  child: Icon(Icons.delete, color: Colors.red),
+                                                                                  child: AppDeleteIcon(isCenter: true,),
                                                                                 ),
                                                                               ),
                                                                             ],
@@ -1163,47 +852,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
       ),
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: isKeyboardVisible ? null : Container(
-        height: screenHeight * 0.07,  // Outer circle height (adjust as needed)
-        width: screenHeight * 0.07, // Outer circle width (adjust as needed)
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white, // Padding color (background ring)
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(
-              screenHeight * 0.008), // Padding inside the outer circle
-          child: FloatingActionButton(
-            heroTag: null,
-            backgroundColor: Color(0xFF126086),
-            // Button color
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return UploadPrescriptionMain();
-                  },
-                ),
-              );
-            },
-            child: Container(
-              padding: EdgeInsets.all(screenHeight * 0.008),
-              width: screenHeight * 0.03, // Adjust image width
-              height: screenHeight * 0.03, // Adjust image height
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                      'assets/Upload.png'), // Replace with your asset path
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-
-            elevation: 0.0,
-            shape: CircleBorder(), // Ensures the button remains circular
-          ),
-        ),
-      ),
+      floatingActionButton: isKeyboardVisible ? null : CustomFloatingActionButton(),
       bottomNavigationBar: CustomBottomNavigationBar(selectedIndex: _selectedIndex),
     );
   }
@@ -1211,21 +860,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
 
 
 
-  // void showBottomSheet() => showModalBottomSheet(
-  //   enableDrag: false,
-  //   isScrollControlled: true,
-  //   isDismissible: true,
-  //   shape: const RoundedRectangleBorder(
-  //     borderRadius: BorderRadius.only(
-  //       topLeft: Radius.circular(24),
-  //       topRight: Radius.circular(24),
-  //     ),
-  //   ),
-  //   barrierColor: Colors.grey.withOpacity(0.9),
-  //   context: context,
-  //   builder: (context) {
-  //     return AddFilterForFullBodyCheckup();
-  //   }
+
 
       void showBottomSheet() => showModalBottomSheet(
   enableDrag: false,
@@ -1561,349 +1196,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
     // ),
   );
 
-  // Dynamically return the filter widget based on the selected category
-  // Widget _getFilterWidget(String category, BuildContext context) {
-  //   switch (category) {
-  //     case 'Must have tests':
-  //       return _MusthavetestsFilterWidget(context);
-  //     case 'Category':
-  //       return _CategoryFilterWidget(context);
-  //     default:
-  //       return Container();
-  //   }
-  // }
-  //
-  //
-  // // Area of Expertise
-  // Widget _MusthavetestsFilterWidget(BuildContext context) {
-  //   return ListView(
-  //     // crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       // Search Input Field
-  //       GestureDetector(
-  //         onTap: () {
-  //
-  //         },
-  //         child: Container(
-  //           height: MediaQuery.of(context).size.height * 0.06,
-  //           alignment: Alignment.centerRight,
-  //           padding: EdgeInsets.only(
-  //             top: MediaQuery.of(context).size.height * 0.0,
-  //             bottom: MediaQuery.of(context).size.height * 0.00,
-  //             left: MediaQuery.of(context).size.height * 0.00,
-  //             right: MediaQuery.of(context).size.height * 0.00,
-  //           ),
-  //           margin: EdgeInsets.only(
-  //             right: MediaQuery.of(context).size.height * 0.01,
-  //             top: MediaQuery.of(context).size.height * 0.0,
-  //             bottom: MediaQuery.of(context).size.height * 0.01,
-  //             left: MediaQuery.of(context).size.height * 0.01,
-  //           ),
-  //           child: AbsorbPointer(
-  //             // Prevents the field from gaining focus or triggering gestures
-  //             child: TextFormField(
-  //               readOnly: true,
-  //               controller: SearchfilterEditTextController,
-  //               inputFormatters: [
-  //                 LengthLimitingTextInputFormatter(15),
-  //                 FilteringTextInputFormatter.allow(
-  //                     RegExp('[a-zA-Z0-9]')),
-  //               ],
-  //               textCapitalization: TextCapitalization.characters,
-  //               style: TextStyle(color: Colors.black45),
-  //               keyboardType: TextInputType.emailAddress,
-  //               validator: (input) => input!.length < 3
-  //                   ? "Search should be more than 3 characters"
-  //                   : null,
-  //               decoration: InputDecoration(
-  //                 isDense: true,
-  //                 contentPadding:
-  //                 EdgeInsets.all(MediaQuery.of(context).size.height * 0.012),
-  //                 filled: true,
-  //                 fillColor: Colors.grey[200],
-  //                 hintText:
-  //                 "Search",
-  //                 hintStyle: TextStyle(
-  //                   color: Colors.black26,
-  //                   fontSize: MediaQuery.of(context).size.height * 0.016,
-  //                 ),
-  //                 focusedBorder: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.circular(5.0),
-  //                   borderSide: BorderSide(color: Colors.grey),
-  //                 ),
-  //                 enabledBorder: OutlineInputBorder(
-  //                   borderRadius:
-  //                   BorderRadius.all(Radius.circular(5.0)),
-  //                   borderSide: BorderSide(color: Colors.grey.shade200),
-  //                 ),
-  //                 suffixIcon: IconButton(
-  //                   icon: Icon(
-  //                     Icons.search,
-  //                     color: Colors.black45,
-  //                     size: MediaQuery
-  //                         .of(context)
-  //                         .size
-  //                         .height * 0.02,
-  //                   ),
-  //                   onPressed: () {
-  //
-  //                   },
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //
-  //       Column(
-  //         mainAxisSize: MainAxisSize.min,
-  //         children: <Widget>[
-  //           Container(
-  //             margin: EdgeInsets.only(
-  //               left: MediaQuery.of(context).size.height * 0.00,
-  //               right: MediaQuery.of(context).size.height * 0.00,
-  //               bottom: MediaQuery.of(context).size.height * 0.0,
-  //               top: MediaQuery.of(context).size.height * 0.00,
-  //             ),
-  //             child: ListView.builder(
-  //               physics: ScrollPhysics(), // Ensures scrolling
-  //               shrinkWrap: true, // Prevents ListView from taking up extra space
-  //               scrollDirection: Axis.vertical, // Keeps the ListView vertical
-  //               itemCount: musthavetests.length, // Use the diseases list length
-  //               itemBuilder: (BuildContext context, int index) {
-  //                 return GestureDetector(
-  //                   onTap: () {
-  //                     // Add your onTap logic here
-  //                   },
-  //                   child: Container(
-  //                     margin: EdgeInsets.only(
-  //                       top: MediaQuery.of(context).size.height * 0.00,
-  //                       bottom: MediaQuery.of(context).size.height * 0.01,
-  //                       left: MediaQuery.of(context).size.height * 0.01,
-  //                       right: MediaQuery.of(context).size.height * 0.0,
-  //                     ),
-  //                     padding: EdgeInsets.only(
-  //                       top: MediaQuery.of(context).size.height * 0.00,
-  //                       bottom: MediaQuery.of(context).size.height * 0.00,
-  //                       left: MediaQuery.of(context).size.height * 0.00,
-  //                       right: MediaQuery.of(context).size.height * 0.00,
-  //                     ),
-  //                     child: Row(
-  //                       mainAxisSize: MainAxisSize.max, // Full width
-  //                       children: <Widget>[
-  //                         Container(
-  //                           padding: EdgeInsets.only(
-  //                             left: MediaQuery.of(context).size.height * 0.005,
-  //                             right: MediaQuery.of(context).size.height * 0.005,
-  //                             top: MediaQuery.of(context).size.height * 0.005,
-  //                             bottom: MediaQuery.of(context).size.height * 0.005,
-  //                           ),
-  //                           margin: EdgeInsets.only(
-  //                             left: MediaQuery.of(context).size.height * 0.0,
-  //                             right: MediaQuery.of(context).size.height * 0.0,
-  //                             top: MediaQuery.of(context).size.height * 0.0,
-  //                             bottom: MediaQuery.of(context).size.height * 0.0,
-  //                           ),
-  //                           decoration: BoxDecoration(
-  //                             color: Color(0xFFEEEEEE),
-  //                             borderRadius: BorderRadius.circular(5),
-  //                           ),
-  //                           child: Column(
-  //                             mainAxisAlignment: MainAxisAlignment.center, // Center content
-  //                             children: <Widget>[
-  //                               Text(
-  //                                 musthavetests[index], // Display disease name
-  //                                 textAlign: TextAlign.center,
-  //                                 style: TextStyle(
-  //                                   color: Colors.black87,
-  //                                   overflow: TextOverflow.ellipsis,
-  //                                   fontWeight: FontWeight.w400,
-  //                                   fontSize: MediaQuery.of(context).size.height * 0.016,
-  //                                 ),
-  //                               ),
-  //                             ],
-  //                           ),
-  //                         ),
-  //                       ],
-  //                     ),
-  //                   ),
-  //                 );
-  //               },
-  //             ),
-  //           ),
-  //           // Additional widgets can be added here
-  //         ],
-  //       ),
-  //
-  //     ],
-  //   );
-  // }
-  //
-  //
-  // // Category Filter Widget
-  // Widget _CategoryFilterWidget(BuildContext context) {
-  //   return ListView(
-  //     // crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       // Search Input Field
-  //       GestureDetector(
-  //         onTap: () {
-  //
-  //         },
-  //         child: Container(
-  //           height: MediaQuery.of(context).size.height * 0.06,
-  //           alignment: Alignment.centerRight,
-  //           padding: EdgeInsets.only(
-  //             top: MediaQuery.of(context).size.height * 0.0,
-  //             bottom: MediaQuery.of(context).size.height * 0.00,
-  //             left: MediaQuery.of(context).size.height * 0.00,
-  //             right: MediaQuery.of(context).size.height * 0.00,
-  //           ),
-  //           margin: EdgeInsets.only(
-  //             right: MediaQuery.of(context).size.height * 0.01,
-  //             top: MediaQuery.of(context).size.height * 0.0,
-  //             bottom: MediaQuery.of(context).size.height * 0.01,
-  //             left: MediaQuery.of(context).size.height * 0.01,
-  //           ),
-  //           child: AbsorbPointer(
-  //             // Prevents the field from gaining focus or triggering gestures
-  //             child: TextFormField(
-  //               readOnly: true,
-  //               controller: SearchfilterEditTextController,
-  //               inputFormatters: [
-  //                 LengthLimitingTextInputFormatter(15),
-  //                 FilteringTextInputFormatter.allow(
-  //                     RegExp('[a-zA-Z0-9]')),
-  //               ],
-  //               textCapitalization: TextCapitalization.characters,
-  //               style: TextStyle(color: Colors.black45),
-  //               keyboardType: TextInputType.emailAddress,
-  //               validator: (input) => input!.length < 3
-  //                   ? "Search should be more than 3 characters"
-  //                   : null,
-  //               decoration: InputDecoration(
-  //                 isDense: true,
-  //                 contentPadding:
-  //                 EdgeInsets.all(MediaQuery.of(context).size.height * 0.012),
-  //                 filled: true,
-  //                 fillColor: Colors.grey[200],
-  //                 hintText:
-  //                 "Search",
-  //                 hintStyle: TextStyle(
-  //                   color: Colors.black26,
-  //                   fontSize: MediaQuery.of(context).size.height * 0.016,
-  //                 ),
-  //                 focusedBorder: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.circular(5.0),
-  //                   borderSide: BorderSide(color: Colors.grey),
-  //                 ),
-  //                 enabledBorder: OutlineInputBorder(
-  //                   borderRadius:
-  //                   BorderRadius.all(Radius.circular(5.0)),
-  //                   borderSide: BorderSide(color: Colors.grey.shade200),
-  //                 ),
-  //                 suffixIcon: IconButton(
-  //                   icon: Icon(
-  //                     Icons.search,
-  //                     color: Colors.black45,
-  //                     size: MediaQuery
-  //                         .of(context)
-  //                         .size
-  //                         .height * 0.02,
-  //                   ),
-  //                   onPressed: () {
-  //
-  //                   },
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //
-  //       Column(
-  //         mainAxisSize: MainAxisSize.min,
-  //         children: <Widget>[
-  //           Container(
-  //             margin: EdgeInsets.only(
-  //               left: MediaQuery.of(context).size.height * 0.00,
-  //               right: MediaQuery.of(context).size.height * 0.00,
-  //               bottom: MediaQuery.of(context).size.height * 0.0,
-  //               top: MediaQuery.of(context).size.height * 0.00,
-  //             ),
-  //             child: ListView.builder(
-  //               physics: ScrollPhysics(), // Ensures scrolling
-  //               shrinkWrap: true, // Prevents ListView from taking up extra space
-  //               scrollDirection: Axis.vertical, // Keeps the ListView vertical
-  //               itemCount: categorieslast.length, // Use the diseases list length
-  //               itemBuilder: (BuildContext context, int index) {
-  //                 return GestureDetector(
-  //                   onTap: () {
-  //                     // Add your onTap logic here
-  //                   },
-  //                   child: Container(
-  //                     margin: EdgeInsets.only(
-  //                       top: MediaQuery.of(context).size.height * 0.00,
-  //                       bottom: MediaQuery.of(context).size.height * 0.01,
-  //                       left: MediaQuery.of(context).size.height * 0.01,
-  //                       right: MediaQuery.of(context).size.height * 0.0,
-  //                     ),
-  //                     padding: EdgeInsets.only(
-  //                       top: MediaQuery.of(context).size.height * 0.00,
-  //                       bottom: MediaQuery.of(context).size.height * 0.00,
-  //                       left: MediaQuery.of(context).size.height * 0.00,
-  //                       right: MediaQuery.of(context).size.height * 0.00,
-  //                     ),
-  //                     child: Row(
-  //                       mainAxisSize: MainAxisSize.max, // Full width
-  //                       children: <Widget>[
-  //                         Container(
-  //                           padding: EdgeInsets.only(
-  //                             left: MediaQuery.of(context).size.height * 0.005,
-  //                             right: MediaQuery.of(context).size.height * 0.005,
-  //                             top: MediaQuery.of(context).size.height * 0.005,
-  //                             bottom: MediaQuery.of(context).size.height * 0.005,
-  //                           ),
-  //                           margin: EdgeInsets.only(
-  //                             left: MediaQuery.of(context).size.height * 0.0,
-  //                             right: MediaQuery.of(context).size.height * 0.0,
-  //                             top: MediaQuery.of(context).size.height * 0.0,
-  //                             bottom: MediaQuery.of(context).size.height * 0.0,
-  //                           ),
-  //                           decoration: BoxDecoration(
-  //                             color: Color(0xFFEEEEEE),
-  //                             borderRadius: BorderRadius.circular(5),
-  //                           ),
-  //                           child: Column(
-  //                             mainAxisAlignment: MainAxisAlignment.center, // Center content
-  //                             children: <Widget>[
-  //                               Text(
-  //                                 categorieslast[index], // Display disease name
-  //                                 textAlign: TextAlign.center,
-  //                                 style: TextStyle(
-  //                                   color: Colors.black87,
-  //                                   overflow: TextOverflow.ellipsis,
-  //                                   fontWeight: FontWeight.w400,
-  //                                   fontSize: MediaQuery.of(context).size.height * 0.016,
-  //                                 ),
-  //                               ),
-  //                             ],
-  //                           ),
-  //                         ),
-  //                       ],
-  //                     ),
-  //                   ),
-  //                 );
-  //               },
-  //             ),
-  //           ),
-  //           // Additional widgets can be added here
-  //         ],
-  //       ),
-  //
-  //     ],
-  //   );
-  // }
+
 
    void addToCart(int id,String plan,String test,String qr) async{
      Map<String,dynamic> addToCart = {
@@ -1939,34 +1232,6 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
 
    }
 
-  void _deleteCart(int id,int index,{String? key}) async {
 
-    bool isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
-    String? username =  await UserSecureStorage.getUsernameid();
-
-    if(isGuestUser) {
-      username = "GUEST";
-    }
-
-    if(key == null || key.isEmpty){
-
-      List<dynamic> addToCart2 = await UserSecureStorage.getAddToCart("addToCart2",username ?? '');
-      print("addToCart2: $addToCart2");
-      bool _loadedCartCache = addToCart2.any((item) => item['id'] == id);
-      print("_loadedCartCache: $_loadedCartCache");
-      print("id: $id , index : $index");
-      setState(() {
-        addedList.removeWhere((addedItem) => addedItem['id'] == id);
-      });
-
-      if(_loadedCartCache){
-        await UserSecureStorage.deleteFromAddToCart(
-          key: "addToCart2", // tumhara constant key name
-          userId: username ?? '',
-          index: index,
-        );
-      }
-    }
-  }
 
 }

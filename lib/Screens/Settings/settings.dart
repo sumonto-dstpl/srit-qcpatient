@@ -191,7 +191,7 @@ class SettingsMainstate extends State<SettingsMain> {
                                 top: MediaQuery
                                     .of(context)
                                     .size
-                                    .height * 0.05,
+                                    .height * 0.03,
                                 bottom: MediaQuery
                                     .of(context)
                                     .size
