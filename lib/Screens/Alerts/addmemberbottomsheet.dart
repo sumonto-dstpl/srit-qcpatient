@@ -9,7 +9,6 @@ import 'package:newfolder/Core/Dropdown/inner_dropdown.dart';
 class AddMemberBottomSheet {
   static Future<Map<String, dynamic>?> show(BuildContext context,
       {Map? editDetail, String? operation = "add"}) {
-
     File? myProfileImage;
     String? myProfileImagePath;
 
@@ -29,8 +28,6 @@ class AddMemberBottomSheet {
 
     String? relationshipSelected;
     String? genderSelected;
-
-
 
     List<Map<String, String>> genderOptions = [
       {"key": "M", "label": "Male"},
@@ -56,12 +53,13 @@ class AddMemberBottomSheet {
 
       final String? genderLabel = editDetail['gender'];
       final match = genderOptions.firstWhere(
-            (g) => g['label']?.toLowerCase() == genderLabel?.toLowerCase(),
+        (g) => g['label']?.toLowerCase() == genderLabel?.toLowerCase(),
         orElse: () => {},
       );
       genderSelected = match['key'];
 
-      if (editDetail['image'] != null && editDetail['image'].toString().isNotEmpty) {
+      if (editDetail['image'] != null &&
+          editDetail['image'].toString().isNotEmpty) {
         myProfileImagePath = editDetail['image'].toString().trim();
         if (myProfileImagePath.startsWith("/")) {
           myProfileImage = File(myProfileImagePath);
@@ -84,7 +82,6 @@ class AddMemberBottomSheet {
         final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
 
         return StatefulBuilder(builder: (context, setState) {
-
           // Image Preview Logic for both Add & Edit Mode
           ImageProvider? imageProvider;
           if (myProfileImagePath != null && myProfileImagePath!.isNotEmpty) {
@@ -114,161 +111,230 @@ class AddMemberBottomSheet {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-
                     // ✅ 2. FIX HERE: Jab keyboard khule, toh Container ki height thodi kam kar do
                     // Isse sheet pura upar nahi bhagegi, aur thodi niche hi rahegi.
-                    height: (screenHeight * 0.75) - (keyboardHeight > 0 ? (keyboardHeight * 0.5) : 0),
+                    height: (screenHeight * 0.75) -
+                        (keyboardHeight > 0 ? (keyboardHeight * 0.5) : 0),
 
                     width: double.infinity,
                     decoration: const BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20)),
                     ),
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
-
-
                         Padding(
                           key: const ValueKey('form_padding'),
                           padding: EdgeInsets.only(
-
                             left: screenHeight * 0.02,
                             right: screenHeight * 0.02,
                             top: screenHeight * 0.07,
-                            bottom: screenHeight * 0.09, // space for fixed buttons
+                            bottom:
+                                screenHeight * 0.065, // space for fixed buttons
                           ),
                           child: Column(
                             children: [
                               Container(
-                                padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.005,bottom: 16),
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.height *
+                                        0.005,
+                                    bottom: 16),
                                 alignment: Alignment.centerLeft,
                                 color: Colors.white,
                                 child: Text(
-                                  operation == "edit" ? "Edit Family Member" : "Add New Family Member",
-                                  style: TextStyle(fontSize: screenHeight * 0.022, fontWeight: FontWeight.w600, color: Colors.black87),
+                                  operation == "edit"
+                                      ? "Edit Family Member"
+                                      : "Add New Family Member",
+                                  style: TextStyle(
+                                      fontSize: screenHeight * 0.020,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black87),
                                 ),
                               ),
                               Flexible(
                                 child: SingleChildScrollView(
                                   physics: const BouncingScrollPhysics(),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-
-
-                                      _buildLabelWithAsterisk(context, 'First Name', required: true,isFirst: true),
+                                      _buildLabelWithAsterisk(
+                                          context, 'First Name',
+                                          required: true, isFirst: true),
                                       _buildField(
                                         context,
                                         firstNameController,
                                         "Enter First Name",
                                         onChanged: (val) {
                                           // ✅ Fix Issue 2: Real-time validation clearance
-                                          if (val.isNotEmpty && !firstNameValid) {
-                                            setState(() => firstNameValid = true);
+                                          if (val.isNotEmpty &&
+                                              !firstNameValid) {
+                                            setState(
+                                                () => firstNameValid = true);
                                           }
                                         },
                                       ),
                                       if (!firstNameValid)
                                         Padding(
-                                          padding: EdgeInsets.only(left: 8, bottom: screenHeight * 0.005),
-                                          child: Text("Please enter First Name", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
+                                          padding: EdgeInsets.only(
+                                              left: 8,
+                                              bottom: screenHeight * 0.005),
+                                          child: Text("Please enter First Name",
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize:
+                                                      screenHeight * 0.013)),
                                         ),
 
-                                      _buildLabelWithAsterisk(context, 'Last Name', required: true),
+                                      _buildLabelWithAsterisk(
+                                          context, 'Last Name',
+                                          required: true),
                                       _buildField(
                                         context,
                                         lastNameController,
                                         "Enter Last Name",
                                         onChanged: (val) {
-                                          if (val.isNotEmpty && !lastNameValid) {
-                                            setState(() => lastNameValid = true);
+                                          if (val.isNotEmpty &&
+                                              !lastNameValid) {
+                                            setState(
+                                                () => lastNameValid = true);
                                           }
                                         },
                                       ),
                                       if (!lastNameValid)
                                         Padding(
-                                          padding: EdgeInsets.only(left: 8, bottom: screenHeight * 0.005),
-                                          child: Text("Please enter Last Name", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
+                                          padding: EdgeInsets.only(
+                                              left: 8,
+                                              bottom: screenHeight * 0.005),
+                                          child: Text("Please enter Last Name",
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize:
+                                                      screenHeight * 0.013)),
                                         ),
 
                                       _buildLabelWithAsterisk(context, 'UHID'),
-                                      _buildField(context, uhidController, "Enter UHID"),
+                                      _buildField(context, uhidController,
+                                          "Enter UHID"),
 
-                                      _buildLabelWithAsterisk(context, 'Mobile Number', required: true),
+                                      _buildLabelWithAsterisk(
+                                          context, 'Mobile Number',
+                                          required: true),
                                       _buildField(
                                         context,
                                         mobileController,
                                         "Enter Mobile Number",
                                         keyboardType: TextInputType.number,
-                                        inputFormatters: [LengthLimitingTextInputFormatter(10)],
+                                        inputFormatters: [
+                                          LengthLimitingTextInputFormatter(10)
+                                        ],
                                         onChanged: (val) {
                                           setState(() {
                                             mobileValid = val.length == 10;
                                           });
                                         },
                                         // ✅ Fix Issue 1: Green Validation Tick Icon appears when 10 digits are filled
-                                        suffixIcon: mobileController.text.length == 10
-                                            ? const Icon(Icons.check_circle, color: Colors.green, size: 22)
-                                            : null,
+                                        suffixIcon:
+                                            mobileController.text.length == 10
+                                                ? const Icon(Icons.check_circle,
+                                                    color: Colors.green,
+                                                    size: 22)
+                                                : null,
                                       ),
                                       if (!mobileValid)
                                         Padding(
-                                          padding: EdgeInsets.only(left: 8, bottom: screenHeight * 0.005),
-                                          child: Text("Please enter a valid 10-digit Mobile Number", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
+                                          padding: EdgeInsets.only(
+                                              left: 8,
+                                              bottom: screenHeight * 0.005),
+                                          child: Text(
+                                              "Please enter a valid 10-digit Mobile Number",
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize:
+                                                      screenHeight * 0.013)),
                                         ),
 
                                       // ✅ Fix Issue 7: Email field made mandatory with Asterisk mark
-                                      _buildLabelWithAsterisk(context, 'Email', required: true),
+                                      _buildLabelWithAsterisk(context, 'Email',
+                                          required: true),
                                       _buildField(
                                         context,
                                         emailController,
                                         "Enter Email Address",
-                                        keyboardType: TextInputType.emailAddress,
+                                        keyboardType:
+                                            TextInputType.emailAddress,
                                         onChanged: (val) {
                                           if (isValidEmail(val)) {
                                             setState(() => emailValid = true);
-                                          }
-                                          else{
+                                          } else {
                                             setState(() => emailValid = false);
                                           }
                                         },
-                                        suffixIcon:  emailController.text.isNotEmpty && emailValid
-                                            ? const Icon(Icons.check_circle, color: Colors.green, size: 22)
-                                            : null,
+                                        suffixIcon:
+                                            emailController.text.isNotEmpty &&
+                                                    emailValid
+                                                ? const Icon(Icons.check_circle,
+                                                    color: Colors.green,
+                                                    size: 22)
+                                                : null,
                                       ),
                                       if (!emailValid)
                                         Padding(
-                                          padding: EdgeInsets.only(left: 8, bottom: screenHeight * 0.005),
-                                          child: Text("Please enter Email Address", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
+                                          padding: EdgeInsets.only(
+                                              left: 8,
+                                              bottom: screenHeight * 0.005),
+                                          child: Text(
+                                              "Please enter Email Address",
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize:
+                                                      screenHeight * 0.013)),
                                         ),
 
-                                      _buildLabelWithAsterisk(context, 'Relationship', required: true),
-
+                                      _buildLabelWithAsterisk(
+                                          context, 'Relationship',
+                                          required: true),
 
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5.0),
                                         child: InnnerDropdown(
                                           value: relationshipSelected,
                                           hint: 'Select Relationship',
-                                          items: [ "Mother", "Father",'Brother','Sister','Other'],
+                                          items: [
+                                            "Mother",
+                                            "Father",
+                                            'Brother',
+                                            'Sister',
+                                            'Other'
+                                          ],
                                           onChanged: (newValue) {
                                             setState(() {
                                               relationshipSelected = newValue;
-                                              relationshipValid = true ;
+                                              relationshipValid = true;
                                             });
                                           },
                                         ),
                                       ),
                                       if (!relationshipValid)
                                         Padding(
-                                          padding: EdgeInsets.only(left: 8, top: 4),
-                                          child: Text("Please select Relationship", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
+                                          padding:
+                                              EdgeInsets.only(left: 8, top: 4),
+                                          child: Text(
+                                              "Please select Relationship",
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize:
+                                                      screenHeight * 0.013)),
                                         ),
 
-                                      _buildLabelWithAsterisk(context, 'Gender', required: true),
+                                      _buildLabelWithAsterisk(context, 'Gender',
+                                          required: true),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: genderOptions.map((gender) {
                                           return InkWell(
                                             onTap: () {
@@ -283,9 +349,15 @@ class AddMemberBottomSheet {
                                                 Radio<String>(
                                                   value: gender["key"]!,
                                                   groupValue: genderSelected,
-                                                  activeColor: const Color(0xFF00C7BE),
-                                                  visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-                                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                  activeColor:
+                                                      const Color(0xFF00C7BE),
+                                                  visualDensity:
+                                                      const VisualDensity(
+                                                          horizontal: -4,
+                                                          vertical: -4),
+                                                  materialTapTargetSize:
+                                                      MaterialTapTargetSize
+                                                          .shrinkWrap,
                                                   onChanged: (value) {
                                                     setState(() {
                                                       genderSelected = value!;
@@ -294,7 +366,10 @@ class AddMemberBottomSheet {
                                                   },
                                                 ),
                                                 const SizedBox(width: 4),
-                                                Text(gender["label"]!, style: TextStyle(fontSize: screenHeight * 0.012)),
+                                                Text(gender["label"]!,
+                                                    style: TextStyle(
+                                                        fontSize: screenHeight *
+                                                            0.012)),
                                                 const SizedBox(width: 15),
                                               ],
                                             ),
@@ -303,8 +378,13 @@ class AddMemberBottomSheet {
                                       ),
                                       if (!isGenderValid)
                                         Padding(
-                                          padding: EdgeInsets.only(left: 8, top: 4),
-                                          child: Text("Please select a gender", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013)),
+                                          padding:
+                                              EdgeInsets.only(left: 8, top: 4),
+                                          child: Text("Please select a gender",
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize:
+                                                      screenHeight * 0.013)),
                                         ),
                                     ],
                                   ),
@@ -314,19 +394,21 @@ class AddMemberBottomSheet {
                           ),
                         ),
 
-
-
-
                         /// ✅ Fix Issue 8: Re-proportioned Full width equal-sized compact buttons
                         Positioned(
                           bottom: 0,
                           left: 0,
                           right: 0,
                           child: Container(
-                            width: MediaQuery.of(context).size.width * 0.65, // right half only
-                            padding: EdgeInsets.symmetric(
-                              vertical: screenHeight * 0.015,
-                              horizontal: screenHeight * 0.02, // more padding for spacious layout
+                            width: MediaQuery.of(context).size.width *
+                                0.65, // right half only
+                            padding: EdgeInsets.only(
+                              bottom: screenHeight * 0.015,
+                              top: screenHeight * 0.002,
+                              right: screenHeight *
+                                  0.02, // more padding for spacious layout
+                              left: screenHeight *
+                                  0.02, // more padding for spacious layout
                             ),
                             decoration: const BoxDecoration(
                               color: Colors.transparent,
@@ -337,22 +419,30 @@ class AddMemberBottomSheet {
                                 Container(
                                   width: 100,
                                   margin: EdgeInsets.only(
-                                  bottom: 10,
+                                    bottom: 0,
                                   ),
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: const Color(0xFFA8B1CE), width: 1),
-                                    borderRadius: BorderRadius.circular(screenHeight * 0.012),
+                                    border: Border.all(
+                                        color: const Color(0xFFA8B1CE),
+                                        width: 1),
+                                    borderRadius: BorderRadius.circular(
+                                        screenHeight * 0.012),
                                   ),
                                   child: TextButton(
-                                    onPressed: () => Navigator.of(context).pop(),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
                                     style: TextButton.styleFrom(
-                                      minimumSize: Size.zero, // 🔥 Ye limit hatayega
+                                      minimumSize:
+                                          Size.zero, // 🔥 Ye limit hatayega
                                       padding: EdgeInsets.symmetric(
-                                        vertical: screenHeight * 0.007,   // 🔥 Vertical size yahan se adjust karo
-                                        horizontal: screenHeight * 0.03,  // 🔥 Horizontal width 0.04 se kam kardi
+                                        vertical: screenHeight *
+                                            0.007, // 🔥 Vertical size yahan se adjust karo
+                                        horizontal: screenHeight *
+                                            0.03, // 🔥 Horizontal width 0.04 se kam kardi
                                       ),
-                                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
                                     ),
                                     child: Text(
                                       "Close",
@@ -365,40 +455,67 @@ class AddMemberBottomSheet {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 16,),
+                                const SizedBox(
+                                  width: 16,
+                                ),
                                 Container(
                                   width: 100,
                                   margin: EdgeInsets.only(
-                                    bottom: 10,
+                                    bottom: 0,
                                   ),
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     color: const Color(0xFF126086),
-                                    borderRadius: BorderRadius.circular(screenHeight * 0.012),
+                                    borderRadius: BorderRadius.circular(
+                                        screenHeight * 0.012),
                                   ),
                                   child: TextButton(
                                     onPressed: () {
                                       // ✅ Fix Issue 4: Full Validation Check before triggering Pop/Save
                                       setState(() {
-                                        firstNameValid = firstNameController.text.trim().isNotEmpty;
-                                        lastNameValid = lastNameController.text.trim().isNotEmpty;
-                                        mobileValid = mobileController.text.trim().length == 10;
-                                        emailValid = emailController.text.trim().isNotEmpty;
-                                        relationshipValid = relationshipSelected != null && relationshipSelected!.isNotEmpty;
+                                        firstNameValid = firstNameController
+                                            .text
+                                            .trim()
+                                            .isNotEmpty;
+                                        lastNameValid = lastNameController.text
+                                            .trim()
+                                            .isNotEmpty;
+                                        mobileValid = mobileController.text
+                                                .trim()
+                                                .length ==
+                                            10;
+                                        emailValid = emailController.text
+                                            .trim()
+                                            .isNotEmpty;
+                                        relationshipValid =
+                                            relationshipSelected != null &&
+                                                relationshipSelected!
+                                                    .isNotEmpty;
                                         isGenderValid = genderSelected != null;
                                       });
 
-                                      if (firstNameValid && lastNameValid && mobileValid && emailValid && relationshipValid && isGenderValid) {
+                                      if (firstNameValid &&
+                                          lastNameValid &&
+                                          mobileValid &&
+                                          emailValid &&
+                                          relationshipValid &&
+                                          isGenderValid) {
                                         String gender = "";
-                                        if (genderSelected == 'M') gender = 'Male';
-                                        else if (genderSelected == 'F') gender = 'Female';
-                                        else if (genderSelected == 'O') gender = 'Other';
+                                        if (genderSelected == 'M')
+                                          gender = 'Male';
+                                        else if (genderSelected == 'F')
+                                          gender = 'Female';
+                                        else if (genderSelected == 'O')
+                                          gender = 'Other';
 
                                         Navigator.of(context).pop({
-                                          "firstName": firstNameController.text.trim(),
-                                          "lastName": lastNameController.text.trim(),
+                                          "firstName":
+                                              firstNameController.text.trim(),
+                                          "lastName":
+                                              lastNameController.text.trim(),
                                           "uhid": uhidController.text.trim(),
-                                          "mobileNumber": mobileController.text.trim(),
+                                          "mobileNumber":
+                                              mobileController.text.trim(),
                                           "email": emailController.text.trim(),
                                           "relationship": relationshipSelected,
                                           "gender": gender,
@@ -407,12 +524,16 @@ class AddMemberBottomSheet {
                                       }
                                     },
                                     style: TextButton.styleFrom(
-                                      minimumSize: Size.zero, // 🔥 Ye limit hatayega
+                                      minimumSize:
+                                          Size.zero, // 🔥 Ye limit hatayega
                                       padding: EdgeInsets.symmetric(
-                                        vertical: screenHeight * 0.008,   // 🔥 Vertical size yahan se adjust karo
-                                        horizontal: screenHeight * 0.03,  // 🔥 Horizontal width 0.04 se kam kardi
+                                        vertical: screenHeight *
+                                            0.008, // 🔥 Vertical size yahan se adjust karo
+                                        horizontal: screenHeight *
+                                            0.03, // 🔥 Horizontal width 0.04 se kam kardi
                                       ),
-                                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
                                     ),
                                     child: Text(
                                       "Save",
@@ -430,7 +551,6 @@ class AddMemberBottomSheet {
                           ),
                         ),
 
-
                         /// ✅ Fix Issue 5: Condition removed so Camera Profile widget appears in both Add & Edit modes
                         Positioned(
                           top: -50,
@@ -440,7 +560,8 @@ class AddMemberBottomSheet {
                             child: GestureDetector(
                               onTap: () async {
                                 final ImagePicker picker = ImagePicker();
-                                final XFile? image = await picker.pickImage(source: ImageSource.camera);
+                                final XFile? image = await picker.pickImage(
+                                    source: ImageSource.camera);
 
                                 if (image != null) {
                                   File imageFile = File(image.path);
@@ -455,14 +576,18 @@ class AddMemberBottomSheet {
                                 width: 100,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.white, width: 3),
+                                  border:
+                                      Border.all(color: Colors.white, width: 3),
                                   color: const Color(0xFF608597),
                                   image: imageProvider != null
-                                      ? DecorationImage(image: imageProvider, fit: BoxFit.cover)
+                                      ? DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover)
                                       : null,
                                 ),
                                 child: imageProvider == null
-                                    ? const Icon(Icons.camera_alt_outlined, color: Colors.white, size: 50)
+                                    ? const Icon(Icons.camera_alt_outlined,
+                                        color: Colors.white, size: 50)
                                     : null,
                               ),
                             ),
@@ -480,7 +605,8 @@ class AddMemberBottomSheet {
     );
   }
 
-  static Widget _buildLabelWithAsterisk(BuildContext context, String label, {bool required = false,bool isFirst = false}) {
+  static Widget _buildLabelWithAsterisk(BuildContext context, String label,
+      {bool required = false, bool isFirst = false}) {
     return Padding(
       padding: EdgeInsets.only(
         top: isFirst ? 0 : MediaQuery.of(context).size.height * 0.01,
@@ -499,11 +625,12 @@ class AddMemberBottomSheet {
             ),
             children: required
                 ? [
-              const TextSpan(
-                text: ' *',
-                style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-              ),
-            ]
+                    const TextSpan(
+                      text: ' *',
+                      style: TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.bold),
+                    ),
+                  ]
                 : [],
           ),
         ),
@@ -512,14 +639,14 @@ class AddMemberBottomSheet {
   }
 
   static Widget _buildField(
-      BuildContext context,
-      TextEditingController controller,
-      String hint, {
-        TextInputType keyboardType = TextInputType.text,
-        List<TextInputFormatter>? inputFormatters,
-        ValueChanged<String>? onChanged,
-        Widget? suffixIcon,
-      }) {
+    BuildContext context,
+    TextEditingController controller,
+    String hint, {
+    TextInputType keyboardType = TextInputType.text,
+    List<TextInputFormatter>? inputFormatters,
+    ValueChanged<String>? onChanged,
+    Widget? suffixIcon,
+  }) {
     return Padding(
       padding: EdgeInsets.only(
         left: MediaQuery.of(context).size.height * 0.005,
@@ -553,11 +680,13 @@ class AddMemberBottomSheet {
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Color(0xFFF1F1F1), width: 1),
-            borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.01),
+            borderRadius: BorderRadius.circular(
+                MediaQuery.of(context).size.height * 0.01),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Color(0xFF00C7BE), width: 1),
-            borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.01),
+            borderRadius: BorderRadius.circular(
+                MediaQuery.of(context).size.height * 0.01),
           ),
         ),
       ),
