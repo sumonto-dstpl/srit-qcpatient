@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:newfolder/Core/Dialog/delete_dialog.dart';
 import 'package:newfolder/Core/Image%20Action/delete.dart';
+import 'package:newfolder/Core/size.dart';
 import 'package:newfolder/Screens/Utils/customNotification.dart';
 
 import '../Screens/Utils/user_secure_storage.dart';
@@ -219,8 +220,8 @@ class _UploadBoxExpandedState extends State<UploadBoxExpanded> {
         Container(
           padding: EdgeInsets.only(
             top: screenHeight * 0.015,
-            left: screenHeight * 0.01,
-            right: screenHeight * 0.01,
+            left: screenHeight * 0.015,
+            right: screenHeight * 0.015,
           ),
           child: ListView.builder(
             padding: EdgeInsets.zero,
@@ -251,7 +252,7 @@ class _UploadBoxExpandedState extends State<UploadBoxExpanded> {
                       context,
                       title: 'Image',
                       message: 'Upload Image is delete sucessfully',
-                      type: NotificationType.success);
+                      type: NotificationType.error);
                   setState(() {
                     uploadedFiles.removeAt(index);
                   });

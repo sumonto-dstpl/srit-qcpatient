@@ -652,51 +652,52 @@ class PastUpcomingscanMainstate extends State<PastUpcomingscanMain> {
                                       ),
 
                                       // Book Radiology Test button
-                                      GestureDetector(
-                                        onTap: () async {
-                                          // Add your onTap functionality here
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder:
-                                                  (BuildContext context) {
-                                                return RadiologyMain();
-                                              },
-                                            ),
-                                          );
-                                        },
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center, // Centers the button
-                                          children: [
-                                            Container(
-                                              padding: EdgeInsets.only(
-                                                left: MediaQuery.of(context).size.height * 0.04,
-                                                right: MediaQuery.of(context).size.height * 0.04,
-                                                top: MediaQuery.of(context).size.height * 0.013,
-                                                bottom: MediaQuery.of(context).size.height * 0.013,
-                                              ),
-                                              margin: EdgeInsets.only(
-                                                left: MediaQuery.of(context).size.height * 0.00,
-                                                top: MediaQuery.of(context).size.height * 0.035,
-                                                bottom: MediaQuery.of(context).size.height * 0.00,
-                                                right: MediaQuery.of(context).size.height * 0.005,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF126086),
-                                                borderRadius: BorderRadius.circular(10),
-                                              ),
-                                              child: Text(
-                                                "Book Radiology Test",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: MediaQuery.of(context).size.height * 0.016,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+
+                                      // GestureDetector(
+                                      //   onTap: () async {
+                                      //     // Add your onTap functionality here
+                                      //     Navigator.of(context).push(
+                                      //       MaterialPageRoute(
+                                      //         builder:
+                                      //             (BuildContext context) {
+                                      //           return RadiologyMain();
+                                      //         },
+                                      //       ),
+                                      //     );
+                                      //   },
+                                      //   child: Row(
+                                      //     mainAxisAlignment: MainAxisAlignment.center, // Centers the button
+                                      //     children: [
+                                      //       Container(
+                                      //         padding: EdgeInsets.only(
+                                      //           left: MediaQuery.of(context).size.height * 0.04,
+                                      //           right: MediaQuery.of(context).size.height * 0.04,
+                                      //           top: MediaQuery.of(context).size.height * 0.013,
+                                      //           bottom: MediaQuery.of(context).size.height * 0.013,
+                                      //         ),
+                                      //         margin: EdgeInsets.only(
+                                      //           left: MediaQuery.of(context).size.height * 0.00,
+                                      //           top: MediaQuery.of(context).size.height * 0.035,
+                                      //           bottom: MediaQuery.of(context).size.height * 0.00,
+                                      //           right: MediaQuery.of(context).size.height * 0.005,
+                                      //         ),
+                                      //         decoration: BoxDecoration(
+                                      //           color: Color(0xFF126086),
+                                      //           borderRadius: BorderRadius.circular(10),
+                                      //         ),
+                                      //         child: Text(
+                                      //           "Book Radiology Test",
+                                      //           textAlign: TextAlign.center,
+                                      //           style: TextStyle(
+                                      //             color: Colors.white,
+                                      //             fontWeight: FontWeight.w600,
+                                      //             fontSize: MediaQuery.of(context).size.height * 0.016,
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     ],
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
 

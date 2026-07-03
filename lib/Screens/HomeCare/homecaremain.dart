@@ -311,51 +311,6 @@ class HomeCareMainstate extends State<HomeCareMain> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 TextButton(
-                                  // onPressed: () {
-                                  //   // Add specific actions for each index
-                                  //   if (index == 0) {
-                                  //     Navigator.of(context).push(
-                                  //       MaterialPageRoute(
-                                  //         builder: (BuildContext context) {
-                                  //           return DiagnosticMain();
-                                  //         },
-                                  //       ),
-                                  //     );
-                                  //   } else if (index == 1) {
-                                  //     Navigator.of(context).push(
-                                  //       MaterialPageRoute(
-                                  //         builder: (BuildContext context) {
-                                  //           return DoctorHCMain();
-                                  //         },
-                                  //       ),
-                                  //     );
-                                  //   }else if (index == 2) {
-                                  //     Navigator.of(context).push(
-                                  //       MaterialPageRoute(
-                                  //         builder: (BuildContext context) {
-                                  //           return NurseHCMain();
-                                  //         },
-                                  //       ),
-                                  //     );
-                                  //   }else if (index == 3) {
-                                  //     Navigator.of(context).push(
-                                  //       MaterialPageRoute(
-                                  //         builder: (BuildContext context) {
-                                  //           return PhysioHCMain();
-                                  //         },
-                                  //       ),
-                                  //     );
-                                  //   } else if (index == 4) {
-                                  //     Navigator.of(context).push(
-                                  //       MaterialPageRoute(
-                                  //         builder: (BuildContext context) {
-                                  //           return MedicalEquipHCMain();
-                                  //         },
-                                  //       ),
-                                  //     );
-                                  //   }
-                                  //   // Add more cases as needed
-                                  // },
 
                                   onPressed: (){
                                     Navigator.of(context).push(

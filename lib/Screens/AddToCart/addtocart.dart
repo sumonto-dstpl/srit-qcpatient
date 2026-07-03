@@ -643,7 +643,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                     context,
                                                     title: "Cart Delete",
                                                     message: "Cart is deleted Successfully",
-                                                    type: NotificationType.success,
+                                                    type: NotificationType.error,
                                                   );
                                                   _deleteCart(item['id'],index);
                                                 }
@@ -1738,7 +1738,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                                           context,
                                                           title: "Cart Delete",
                                                           message: "Saved For Later Cart is deleted Successfully",
-                                                          type: NotificationType.success,
+                                                          type: NotificationType.error
+                                                          ,
                                                         );
                                                         setState(() {
                                                           // savedbottomlist.removeAt(index);

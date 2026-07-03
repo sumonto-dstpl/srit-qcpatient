@@ -112,7 +112,7 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
 
 
                       UploadBox(),
-
+                      SizedBox(height: height * 0.02,),
 
                       Padding(
                         padding:   EdgeInsets.symmetric(horizontal: height * 0.02,),

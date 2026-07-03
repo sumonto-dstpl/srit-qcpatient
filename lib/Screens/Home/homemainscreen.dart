@@ -2983,79 +2983,45 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              // Container(
-                                              //   padding: EdgeInsets.only(
-                                              //     top: MediaQuery
-                                              //         .of(context)
-                                              //         .size
-                                              //         .height * 0.0,
-                                              //     bottom: MediaQuery
-                                              //         .of(context)
-                                              //         .size
-                                              //         .height * 0.03,
-                                              //     left: MediaQuery
-                                              //         .of(context)
-                                              //         .size
-                                              //         .height * 0.18,
-                                              //     right: MediaQuery
-                                              //         .of(context)
-                                              //         .size
-                                              //         .height * 0.18,
-                                              //   ),
-                                              //   child: Divider(
-                                              //     height: 0,
-                                              //     indent: 0,
-                                              //     thickness: MediaQuery
-                                              //         .of(context)
-                                              //         .size
-                                              //         .height * 0.008,
-                                              //     color: Color(0xFF95C8D6).withOpacity(0.3),
-                                              //   ),
-                                              // ),
-
-                                              // Select the Type of Appointment
-
-                                              GestureDetector(
 
 
-                                                child: Center(
-                                                  child: Container(
+                                              Center(
+                                                child: Container(
 
-                                                    padding: EdgeInsets.only(
-                                                      top: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.01,
-                                                      bottom: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.03,
-                                                      left: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.18,
-                                                      right: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.18,
-                                                    ),
-
-
-                                                    width: MediaQuery
+                                                  padding: EdgeInsets.only(
+                                                    top: MediaQuery
                                                         .of(context)
                                                         .size
-                                                        .width * 0.23,
-                                                    // Same thickness as Divider
-                                                    height: MediaQuery
+                                                        .height * 0.01,
+                                                    bottom: MediaQuery
                                                         .of(context)
                                                         .size
-                                                        .height * 0.006,
-                                                    // Same thickness as Divider
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0xFFD9D9D9), // Divider color
-                                                      borderRadius: BorderRadius.circular(
-                                                          10), // Rounded edges
-                                                    ),
+                                                        .height * 0.03,
+                                                    left: MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .height * 0.18,
+                                                    right: MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .height * 0.18,
+                                                  ),
+
+
+                                                  width: MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .width * 0.23,
+                                                  // Same thickness as Divider
+                                                  height: MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .height * 0.006,
+                                                  // Same thickness as Divider
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xFFD9D9D9), // Divider color
+                                                    borderRadius: BorderRadius.circular(
+                                                        10), // Rounded edges
                                                   ),
                                                 ),
                                               ),

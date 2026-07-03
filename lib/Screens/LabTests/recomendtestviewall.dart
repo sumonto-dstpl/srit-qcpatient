@@ -775,7 +775,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                                       context,
                                                                                       title: "Cart Delete",
                                                                                       message: "Cart is deleted Successfully",
-                                                                                      type: NotificationType.success,
+                                                                                      type: NotificationType.error,
                                                                                     );
                                                                                      cart.removeItem(item['id']);
                                                                                   }

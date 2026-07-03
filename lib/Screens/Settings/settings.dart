@@ -55,7 +55,7 @@ class SettingsMainstate extends State<SettingsMain> {
   }
 
   void _loadData() async {
-    // await Future.delayed(const Duration(seconds: 2));// Simulating API call
+
     isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
 
 

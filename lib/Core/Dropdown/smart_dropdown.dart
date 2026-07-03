@@ -5,6 +5,7 @@ class SmartAdaptiveDropdown extends StatefulWidget {
   final List<String> items;
   final String hint;
   final Function(String) onChanged;
+  final String? initialValue;
 
   const SmartAdaptiveDropdown({
 
@@ -12,6 +13,7 @@ class SmartAdaptiveDropdown extends StatefulWidget {
     required this.items,
     required this.hint,
     required this.onChanged,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -24,6 +26,13 @@ class _SmartAdaptiveDropdownState extends State<SmartAdaptiveDropdown> {
   OverlayEntry? _overlayEntry;
   bool _isOpen = false;
   String? _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    // ✅ 3. Init state me initial value set karein taki edit me value show ho
+    _selectedValue = widget.initialValue;
+  }
 
   void _toggleDropdown() {
     if (_isOpen) {

@@ -59,7 +59,8 @@ class _PreferredHospitalLocationScreenState
           final area = item["area"] ?? '';
           final street = item["street"] ?? '';
           final locality = item["locality"] ?? '';
-          return pattern.hasMatch(name) || pattern.hasMatch(area) || pattern.hasMatch(street) || pattern.hasMatch(locality) ;
+          final city = item["city"] ?? '';
+          return pattern.hasMatch(name) || pattern.hasMatch(area) || pattern.hasMatch(street) || pattern.hasMatch(locality) || pattern.hasMatch(city) ;
         }).toList();
 
       }
@@ -239,7 +240,7 @@ class _PreferredHospitalLocationScreenState
                                 onTap: () {
                                   setState(() {
                                     selectedIndex = index;
-                                    changeLocation = "${item['name']}";
+                                    changeLocation = "${item['name']} ${item['area']}";
 
                                   });
                                 },

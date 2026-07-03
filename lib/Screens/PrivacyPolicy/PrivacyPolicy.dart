@@ -76,7 +76,7 @@ class PrivacyPolicyMainstate extends State<PrivacyPolicyMain> {
   bool _isLoading = false;
 
   void _loadData() async {
-    // await Future.delayed(const Duration(seconds: 2));// Simulating API call
+
     var guestUser = await UserSecureStorage.getIfGuestLogged();
     print("guestUser: $guestUser");
     isGuestUser=guestUser == "YES";

@@ -90,6 +90,8 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
 
   @override
   Widget build(BuildContext context) {
+
+
     progressDialog = ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
     progressDialog.style(
@@ -538,9 +540,7 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
          }
          final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ??"NO";
          String? username =  await UserSecureStorage.getUsernameid();
-         print("username : $username");
 
-         print("isLoggedIn in seletimeslot: $isLoggedIn");
 
          if (selectedSlot.isNotEmpty &&slectedDateSlot.isNotEmpty) {
 

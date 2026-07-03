@@ -1,21 +1,11 @@
 import 'dart:convert';
 import 'dart:ui';
 
-import 'package:dotted_border/dotted_border.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
-import 'package:newfolder/Screens/AddToCart/addtocart.dart';
-import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
-import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
-import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
-import 'package:newfolder/Screens/Home/homemainscreen.dart';
-import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
-import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
-import 'package:newfolder/Screens/Notifications/notifications.dart';
-import 'package:newfolder/Screens/Profile/profilemain.dart';
-import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
-import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Widgets/UploadBox.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
 import 'package:newfolder/Screens/Widgets/badge.dart';
@@ -1059,8 +1049,12 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                             ),
                           ),
 
+                          SizedBox(height: screenHeight * 0.02,),
                           // Upload File
+
                           UploadBox(),
+                          SizedBox(height: screenHeight * 0.02,),
+
 
                           Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -1070,18 +1064,8 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                                   margin: EdgeInsets.only(
                                       left: MediaQuery.of(context).size.height *
                                           0.01,
-                                      right:
-                                          MediaQuery.of(context).size.height *
-                                              0.0,
-                                      bottom:
-                                          MediaQuery.of(context).size.height *
-                                              0.00,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.0),
-                                  padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.00,
-                                  ),
+                                       ),
+
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(130.0),
                                     child: Image.asset(
@@ -1098,19 +1082,8 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    padding: EdgeInsets.only(
-                                        left:
-                                            MediaQuery.of(context).size.height *
-                                                0.01,
-                                        right:
-                                            MediaQuery.of(context).size.height *
-                                                0.01,
-                                        top:
-                                            MediaQuery.of(context).size.height *
-                                                0.02,
-                                        bottom:
-                                            MediaQuery.of(context).size.height *
-                                                0.0),
+
+                                    padding: EdgeInsets.symmetric( horizontal: screenHeight * 0.01, ),
                                     child: Text(
                                       "Please note your request will be reviewed. and we will notify you once it's verified.",
                                       style: TextStyle(
@@ -1125,90 +1098,78 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                                   ),
                                 ),
                               ]),
-
+                          SizedBox(height: screenHeight * 0.02,),
                           // Submit Button
+
+
                           GestureDetector(
                             onTap: () async {
-                              if (_isSubmitButtonEnabled) {
-                                saveInsurance();
-                              }
+                              saveInsurance();
+
+
+
+
+
                             },
                             child: Container(
                                 alignment: Alignment.centerRight,
-                                padding: EdgeInsets.only(
-                                    top: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    left: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.00),
+
                                 margin: EdgeInsets.only(
-                                    right: MediaQuery.of(context).size.height *
-                                        0.02,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.01,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.05,
-                                    left: MediaQuery.of(context).size.height *
-                                        0.02),
+                                    right:
+                                    MediaQuery.of(context).size.height * 0.02,
+
+                                    bottom:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                    left:
+                                    MediaQuery.of(context).size.height * 0.02),
                                 child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Expanded(
                                         child: Container(
                                           decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .height *
-                                                          0.012),
+                                              borderRadius: BorderRadius.circular(
+                                                  MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                      0.012),
                                               gradient: LinearGradient(
                                                   begin: Alignment.centerRight,
                                                   end: Alignment.center,
-                                                  stops: [0.5, 0.9],
-                                                  colors: _isSubmitButtonEnabled
-                                                      ? [
-                                                          Color(0xFF126086),
-                                                          Color(0xFF126086),
-                                                        ]
-                                                      : [
-                                                          Color(0x99909090),
-                                                          Color(0x99909090),
-                                                        ])),
+                                                  stops: [
+                                                    0.5,
+                                                    0.9
+                                                  ],
+                                                  colors: _isSubmitButtonEnabled ? [  Color(0xFF126086), Color(0xFF126086)  ] :[  Color(0x99909090), Color(0x99909090), ]
+
+
+
+
+                                              )),
                                           alignment: Alignment.center,
                                           padding: EdgeInsets.only(left: 0.0),
                                           child: TextButton(
                                             onPressed: () async {
-                                              if (_isSubmitButtonEnabled) {
-                                                saveInsurance();
-                                              }
+                                              saveInsurance();
                                             },
                                             child: Text("Submit",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .height *
-                                                          0.018,
+                                                  fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                      0.018,
                                                   fontWeight: FontWeight.w600,
-                                                )),
-                                            style: TextButton.styleFrom(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 9.5,
-                                                  horizontal:
-                                                      12.0), // ← Adjust this
-                                              minimumSize: Size(0,
-                                                  0), // Removes minimum button constraints
-                                              tapTargetSize: MaterialTapTargetSize
-                                                  .shrinkWrap, // Removes extra tap padding
+                                                )
                                             ),
+                                            style: TextButton.styleFrom(
+                                              padding: EdgeInsets.symmetric(vertical: 9.5, horizontal: 12.0), // ← Adjust this
+                                              minimumSize: Size(0, 0), // Removes minimum button constraints
+                                              tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Removes extra tap padding
+                                            ),
+
                                           ),
                                         ),
                                       ),
@@ -1238,84 +1199,55 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
 
 
   void saveInsurance() {
-    print("saveInsurance");
+
 
     connectivityservice.checkconnectivity().then((intenet) async {
       if (intenet != null && intenet) {
         String input = InsurnceProviderTextController.text.trim();
-        if (input.isEmpty) {
-          setState(() {
-            hasStartedTyping = true;
-            errorMessage = "Please enter your Insurance Provider";
-            isValid = false;
-          });
-        } else {
-          setState(() {
-            hasStartedTyping = false;
-            errorMessage = null;
-            isValid = true;
-          });
-        }
-
         String input2 = NationalIDTextController.text.trim();
-        if (input2.isEmpty) {
-          setState(() {
-            nationalIDhasStartedTyping = true;
-            nationalIDerrorMessage = "Please enter your National ID or Iqama";
-            nationalIDisValid = false;
-          });
-        } else {
-          setState(() {
-            nationalIDhasStartedTyping = false;
-            nationalIDerrorMessage = null;
-            nationalIDisValid = true;
-          });
-        }
-
         String input3 = PolicyNameEditTextController.text.trim();
-        if (input3.isEmpty) {
-          setState(() {
-            policynamehasStartedTyping = true;
-            policynameerrorMessage = "Please enter your Policy Name";
-            policynameisValid = false;
-          });
-        } else {
-          setState(() {
-            policynamehasStartedTyping = false;
-            policynameerrorMessage = null;
-            policynameisValid = true;
-          });
-        }
-
         String input4 = StartDateController.text.trim();
-        if (input4.isEmpty) {
-          setState(() {
-            startDatehasStartedTyping = true;
-            startDateerrorMessage = "Please enter your Start Date";
-            startDateisValid = false;
-          });
-        } else {
-          setState(() {
-            startDatehasStartedTyping = false;
-            startDateerrorMessage = null;
-            startDateisValid = true;
-          });
+        String input5 = ExpiryDateTextController.text.trim();
+
+        // 1. Insurance Provider Validation
+        if (InsurnceProviderTextController.text.trim().isEmpty) {
+          showTopNotification(context, title: 'Insurance', message: 'Please enter Insurance Provider', type: NotificationType.error);
+          setState(() { _isSubmitButtonEnabled = false; });
+          return;
         }
 
-        String input5 = ExpiryDateTextController.text.trim();
-        if (input5.isEmpty) {
-          setState(() {
-            expiryDatehasStartedTyping = true;
-            expiryDateerrorMessage = "Please enter your Expiry Date";
-            expiryDateisValid = false;
-          });
-        } else {
-          setState(() {
-            expiryDatehasStartedTyping = false;
-            expiryDateerrorMessage = null;
-            expiryDateisValid = true;
-          });
+        // 2. National ID Validation
+        if (NationalIDTextController.text.trim().isEmpty) {
+          showTopNotification(context, title: 'Insurance', message: 'Please enter National ID', type: NotificationType.error);
+          setState(() { _isSubmitButtonEnabled = false; });
+          return;
         }
+
+        // 3. Policy Name Validation
+        if (PolicyNameEditTextController.text.trim().isEmpty) {
+          showTopNotification(context, title: 'Insurance', message: 'Please enter Policy Name', type: NotificationType.error);
+          setState(() { _isSubmitButtonEnabled = false; });
+          return;
+        }
+
+        // 4. Start Date Validation
+        if (StartDateController.text.trim().isEmpty) {
+          showTopNotification(context, title: 'Insurance', message: 'Please select Start Date', type: NotificationType.error);
+          setState(() { _isSubmitButtonEnabled = false; });
+          return;
+        }
+
+        // 5. Expiry Date Validation
+        if (ExpiryDateTextController.text.trim().isEmpty) {
+          showTopNotification(context, title: 'Insurance', message: 'Please select Expiry Date', type: NotificationType.error);
+          setState(() { _isSubmitButtonEnabled = false; });
+          return;
+        }
+
+        // Agar yahan tak aa gaye, matlab saari fields properly fill ho chuki hain
+        setState(() {
+          _isSubmitButtonEnabled = true;
+        });
 
         if(input.isNotEmpty && input2.isNotEmpty && input3.isNotEmpty && input4.isNotEmpty && input5.isNotEmpty){
           Map<String, dynamic> newPolicy = {
@@ -1329,8 +1261,21 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
             "insuranceType": InsuranceTypeTextController.text,
             "coverageLimit": CoverageLimitController.text,
           };
-
-          Navigator.pop(context, newPolicy); // return the map
+          if(usernameValue == 'Edit Insurance'){
+            showTopNotification(
+                context,
+                title: 'Update Insurance',
+                message: 'Insurance is update sucessfully',
+                type: NotificationType.success);
+          }
+          else {
+            showTopNotification(
+                context,
+                title: 'Add Insurance',
+                message: 'Insurance is add sucessfully',
+                type: NotificationType.success);
+          }
+          Navigator.pop(context, newPolicy); // return the mapoose
         }
 
       } else {

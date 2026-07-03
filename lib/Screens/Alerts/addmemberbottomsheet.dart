@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:newfolder/Core/Dropdown/inner_dropdown.dart';
 import 'package:newfolder/Core/Dropdown/smart_dropdown.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 
 class AddMemberBottomSheet {
   static Future<Map<String, dynamic>?> show(BuildContext context,
@@ -77,7 +78,7 @@ class AddMemberBottomSheet {
       barrierColor: Colors.black45,
       builder: (BuildContext context) {
         final screenHeight = MediaQuery.of(context).size.height;
-        final screenWidth = MediaQuery.of(context).size.width;
+
 
         // ✅ 1. Keyboard ki height ko capture karo
         final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
@@ -114,7 +115,7 @@ class AddMemberBottomSheet {
                   child: Container(
                     // ✅ 2. FIX HERE: Jab keyboard khule, toh Container ki height thodi kam kar do
                     // Isse sheet pura upar nahi bhagegi, aur thodi niche hi rahegi.
-                    height: (screenHeight * 0.75) -
+                    height: (screenHeight * 0.78) -
                         (keyboardHeight > 0 ? (keyboardHeight * 0.5) : 0),
 
                     width: double.infinity,
@@ -169,12 +170,9 @@ class AddMemberBottomSheet {
                                         firstNameController,
                                         "Enter First Name",
                                         onChanged: (val) {
-                                          // ✅ Fix Issue 2: Real-time validation clearance
-                                          if (val.isNotEmpty &&
-                                              !firstNameValid) {
-                                            setState(
-                                                () => firstNameValid = true);
-                                          }
+                                          setState(() {
+                                            firstNameValid = val.trim().isNotEmpty;
+                                          });
                                         },
                                       ),
                                       if (!firstNameValid)
@@ -197,11 +195,9 @@ class AddMemberBottomSheet {
                                         lastNameController,
                                         "Enter Last Name",
                                         onChanged: (val) {
-                                          if (val.isNotEmpty &&
-                                              !lastNameValid) {
-                                            setState(
-                                                () => lastNameValid = true);
-                                          }
+                                          setState(() {
+                                            lastNameValid = val.trim().isNotEmpty;
+                                          });
                                         },
                                       ),
                                       if (!lastNameValid)
@@ -303,6 +299,7 @@ class AddMemberBottomSheet {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 5.0),
                                         child: SmartAdaptiveDropdown(
+                                          initialValue: relationshipSelected,
                                           hint: "Select Relationship",
                                           items: const [
                                             "Mother",
@@ -313,9 +310,12 @@ class AddMemberBottomSheet {
                                           ],
                                           onChanged: (String value) {
                                             print("User selected: $value");
-                                            // Yahan state update kar lo
-                                            relationshipSelected = value ;
-                                            relationshipValid = true;
+                                            setState(() {
+                                              relationshipSelected = value ;
+                                              relationshipValid = true;
+                                            });
+
+
 
                                           },
                                         ),
@@ -478,24 +478,11 @@ class AddMemberBottomSheet {
                                     onPressed: () {
                                       // ✅ Fix Issue 4: Full Validation Check before triggering Pop/Save
                                       setState(() {
-                                        firstNameValid = firstNameController
-                                            .text
-                                            .trim()
-                                            .isNotEmpty;
-                                        lastNameValid = lastNameController.text
-                                            .trim()
-                                            .isNotEmpty;
-                                        mobileValid = mobileController.text
-                                                .trim()
-                                                .length ==
-                                            10;
-                                        emailValid = emailController.text
-                                            .trim()
-                                            .isNotEmpty;
-                                        relationshipValid =
-                                            relationshipSelected != null &&
-                                                relationshipSelected!
-                                                    .isNotEmpty;
+                                        firstNameValid = firstNameController.text.trim().isNotEmpty;
+                                        lastNameValid = lastNameController.text.trim().isNotEmpty;
+                                        mobileValid = mobileController.text.trim().length ==10;
+                                        emailValid =  isValidEmail(emailController.text) ;
+                                        relationshipValid = relationshipSelected != null && relationshipSelected!.isNotEmpty;
                                         isGenderValid = genderSelected != null;
                                       });
 
@@ -513,19 +500,34 @@ class AddMemberBottomSheet {
                                         else if (genderSelected == 'O')
                                           gender = 'Other';
 
+                                        if(operation == 'add') {
+                                          showTopNotification(
+                                              context,
+                                              title: 'Family Member',
+                                              message: 'Family Member is added sucessfully',
+                                              type: NotificationType.success);
+                                        }
+                                        else {
+                                          showTopNotification(
+                                              context,
+                                              title: 'Family Member',
+                                              message: 'Family Member is updated sucessfully',
+                                              type: NotificationType.success);
+                                        }
                                         Navigator.of(context).pop({
                                           "firstName":
-                                              firstNameController.text.trim(),
+                                          firstNameController.text.trim(),
                                           "lastName":
-                                              lastNameController.text.trim(),
+                                          lastNameController.text.trim(),
                                           "uhid": uhidController.text.trim(),
                                           "mobileNumber":
-                                              mobileController.text.trim(),
+                                          mobileController.text.trim(),
                                           "email": emailController.text.trim(),
                                           "relationship": relationshipSelected,
                                           "gender": gender,
                                           "image": myProfileImagePath ?? "",
                                         });
+
                                       }
                                     },
                                     style: TextButton.styleFrom(

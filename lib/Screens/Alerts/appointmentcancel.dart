@@ -274,7 +274,17 @@ class AppointmentCancel {
 
                                       GestureDetector(
                                         onTap : () {
-                                          Navigator.pop(context);
+                                          if(tracktextcontroller.text.isNotEmpty){
+                                            showTopNotification(
+                                                context,
+                                                title: 'Cancel Appointments',
+                                                message: "Appointments is cancel sucessfully", type: NotificationType.error
+                                            );
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                          }
+
+
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -302,13 +312,18 @@ class AppointmentCancel {
                                               ),
                                             ),
                                             onPressed: () {
-                                              showTopNotification(
-                                                  context,
-                                                  title: 'Cancel Appointments',
-                                                  message: "Appointments is cancel sucessfully", type: NotificationType.success
-                                              );
-                                              Navigator.pop(context);
-                                              Navigator.pop(context);
+                                              if(tracktextcontroller.text.isNotEmpty){
+                                                showTopNotification(
+                                                    context,
+                                                    title: 'Cancel Appointments',
+                                                    message: "Appointments is cancel sucessfully", type: NotificationType.error
+                                                );
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
+                                              }
+
+
+
                                             },
                                             child: const Text("Cancel"),
                                           ),

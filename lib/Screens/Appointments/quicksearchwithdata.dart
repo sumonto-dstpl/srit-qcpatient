@@ -507,29 +507,7 @@ class QuickSearchWithDatastate extends State<QuickSearchWithData> {
                               itemBuilder: (BuildContext context, int index) {
                                 return GestureDetector(
                                   onTap: () {
-                                    /*if (index == 0) {
-                                      print("Custom FAB pressed!");
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder:
-                                              (BuildContext context) {
-                                            return FindDoctorsListMain();
-                                          },
-                                        ),
-                                      );
-                                    } else if (index == 1) {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder:
-                                              (BuildContext context) {
-                                            return FindDoctorsListMain();
-                                          },
-                                        ),
-                                      );
-                                    } else {
-                                      // Handle other indices
-                                      print("Button $index clicked!");
-                                    }*/
+
                                   },
                                   child: Card(
                                     elevation: 0.0,

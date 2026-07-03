@@ -94,16 +94,7 @@ class ProfileMyUploadMainstate extends State<ProfileMyUploadMain> {
       child: Scaffold(
         body: Container(
           width: double.infinity,
-          /*decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              colors: [
-                Color(0xFF126086),
-                Color(0xFF126086),
-                Color(0xFF126086),
-              ],
-            ),
-          ),*/
+
 
           decoration: const BoxDecoration(
             image: DecorationImage(

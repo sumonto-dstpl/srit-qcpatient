@@ -625,7 +625,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                         context,
                                                         title: 'Delete Insurance',
                                                         message: 'Insurance is deleted sucessfully',
-                                                        type: NotificationType.success);
+                                                        type: NotificationType.error);
                                                     setState(() {
                                                       insurancePolicies.removeWhere((items) {
                                                               return items['id'] == item['id'];

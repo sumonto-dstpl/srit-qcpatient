@@ -2230,7 +2230,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
       context,
       title: "Notification Delete",
       message: "Notification is deleted Successfully",
-      type: NotificationType.success,
+      type: NotificationType.error,
     );
     setState(() {
       _recentlyDeletedIndex = globalNotifications.indexWhere((n) => n.id == item.id);

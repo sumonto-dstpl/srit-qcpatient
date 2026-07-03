@@ -341,7 +341,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                                           context,
                                                           title: "Deleted Successfully",
                                                           message: "The prescription has been removed.",
-                                                          type: NotificationType.success,
+                                                          type: NotificationType.error,
                                                         );
                                                         setState(() {
                                                           uploadfilestime.removeAt(index);

@@ -69,11 +69,10 @@ class _UploadBoxState extends State<UploadBox> {
         GestureDetector(
           onTap: pickFile,
           child: Container(
+
             width: double.infinity,
-            padding: EdgeInsets.symmetric(
-              vertical: screenHeight * 0.02,
-              horizontal: screenHeight * 0.02,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.02,),
+
             child: DottedBorder(
               color: const Color(0xFF343434).withOpacity(0.3),
               strokeWidth: 1,
@@ -130,13 +129,14 @@ class _UploadBoxState extends State<UploadBox> {
           ),
         ),
 
+        SizedBox(height: uploadedFiles.length > 0 ? screenHeight * 0.02 : 0,),
         // Display uploaded files
         Container(
-          padding: EdgeInsets.only(
-            top: screenHeight * 0.015,
-            left: screenHeight * 0.01,
-            right: screenHeight * 0.01,
-          ),
+
+          padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.02),
+
+
+
           child: ListView.builder(
             padding: EdgeInsets.zero,
             shrinkWrap: true,
@@ -147,100 +147,104 @@ class _UploadBoxState extends State<UploadBox> {
               final file = fileData['file'] as PlatformFile;
               final uploadTime = fileData['time'] as DateTime;
 
-              return Dismissible(
-                key: Key(file.name + uploadTime.toString()),
-                direction: DismissDirection.endToStart,
-                background: AppDeleteIcon(),
-                confirmDismiss: (direction) async {
+              return Column(
+                children: [
+                  Dismissible(
 
-                  return await DeleteDialog.show(
-                    context: context,
-                    barrierLabel: "Delete",
-                    message: "Are you sure to Remove the Upload Image ?",
+                    key: Key(file.name + uploadTime.toString()),
+                    direction: DismissDirection.endToStart,
+                    background: AppDeleteIcon(),
+                    confirmDismiss: (direction) async {
 
-                  );
+                      return await DeleteDialog.show(
+                        context: context,
+                        barrierLabel: "Delete",
+                        message: "Are you sure to Remove the Upload Image ?",
+
+                      );
 
 
 
-                },
-                onDismissed: (direction) {
-                  showTopNotification(
-                      context,
-                      title: 'Image',
-                      message: 'Upload Image is delete sucessfully',
-                      type: NotificationType.success
-                  );
-                  setState(() {
-                    uploadedFiles.removeAt(index);
-                  });
-                  // 🔹 Notify parent again after delete
-                  widget.onFilesChanged(uploadedFiles);
-                },
-                child: Card(
-                  elevation: 0.0,
-                  color: Colors.white,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.black.withOpacity(0.1),
-                        width: 1,
+                    },
+                    onDismissed: (direction) {
+                      showTopNotification(
+                          context,
+                          title: 'Image',
+                          message: 'Upload Image is delete sucessfully',
+                          type: NotificationType.error
+                      );
+                      setState(() {
+                        uploadedFiles.removeAt(index);
+                      });
+                      // 🔹 Notify parent again after delete
+                      widget.onFilesChanged(uploadedFiles);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.black.withOpacity(0.1),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: EdgeInsets.all(screenHeight * 0.012),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(width: screenHeight * 0.01),
-                        Container(
-                          height: screenHeight * 0.04,
-                          width: screenHeight * 0.04,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.asset(
-                              'assets/medicationjpg.png',
-                              fit: BoxFit.cover,
+
+                      padding: EdgeInsets.all(screenHeight * 0.012),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(width: screenHeight * 0.01),
+                          Container(
+                            height: screenHeight * 0.04,
+                            width: screenHeight * 0.04,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.asset(
+                                'assets/medicationjpg.png',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: screenHeight * 0.015),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                file.name,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: screenHeight * 0.014,
-                                  color: Colors.black87,
+                          SizedBox(width: screenHeight * 0.015),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  file.name,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: screenHeight * 0.014,
+                                    color: Colors.black87,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Text(
-                                "${(file.size / 1024 / 1024).toStringAsFixed(2)} MB",
-                                style: TextStyle(
-                                  fontSize: screenHeight * 0.012,
-                                  color: Colors.black54,
+                                Text(
+                                  "${(file.size / 1024 / 1024).toStringAsFixed(2)} MB",
+                                  style: TextStyle(
+                                    fontSize: screenHeight * 0.012,
+                                    color: Colors.black54,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Text(
-                          getTimeAgo(uploadTime),
-                          style: TextStyle(
-                            fontSize: screenHeight * 0.011,
-                            color: const Color(0xFF126086),
-                            fontWeight: FontWeight.w500,
+                          Text(
+                            getTimeAgo(uploadTime),
+                            style: TextStyle(
+                              fontSize: screenHeight * 0.011,
+                              color: const Color(0xFF126086),
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                        SizedBox(width: screenHeight * 0.01),
-                      ],
+                          SizedBox(width: screenHeight * 0.01),
+                        ],
+                      ),
                     ),
                   ),
-                ),
+                  if(index != uploadedFiles.length - 1)
+                  SizedBox(height: screenHeight * 0.01,),
+                ],
               );
             },
           ),

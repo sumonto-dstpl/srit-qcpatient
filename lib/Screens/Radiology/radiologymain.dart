@@ -11,6 +11,7 @@ import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/Radiology/pastupcomingtestscan.dart';
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Widgets/custom_type_calender.dart';
 import 'package:newfolder/utils/UploadBox.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
@@ -1315,30 +1316,15 @@ class RadiologyMainstate extends State<RadiologyMain> {
 
 
 
-
+                             SizedBox(height: screenHeight * 0.02,),
                             UploadBox(onFilesChanged: handleFilesChanged),
-
+                            SizedBox(height: screenHeight * 0.02,),
 
                             // Request Call Button
                             GestureDetector(
                               onTap: () async {
-                                checkRadiologyField();
-                                 if(isAllFilled){
-                                   Navigator.of(context).push(
-                                     MaterialPageRoute(
-                                       builder: (BuildContext context) {
-                                         return PastUpcomingscanMain(initialTabIndex: 1);
-                                       },
-                                     ),
-                                   );
-                                 }
+                                validate(context);
 
-
-
-
-                                 else{
-                                   print("Fill all the FIeld");
-                                 }
 
 
 
@@ -1346,17 +1332,11 @@ class RadiologyMainstate extends State<RadiologyMain> {
                               },
                               child: Container(
                                   alignment: Alignment.centerRight,
-                                  padding: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height * 0.01,
-                                      bottom:
-                                      MediaQuery.of(context).size.height * 0.00,
-                                      left: MediaQuery.of(context).size.height * 0.00,
-                                      right:
-                                      MediaQuery.of(context).size.height * 0.00),
+
                                   margin: EdgeInsets.only(
                                       right:
                                       MediaQuery.of(context).size.height * 0.02,
-                                      top: MediaQuery.of(context).size.height * 0.03,
+
                                       bottom:
                                       MediaQuery.of(context).size.height * 0.05,
                                       left:
@@ -1390,18 +1370,7 @@ class RadiologyMainstate extends State<RadiologyMain> {
                                             padding: EdgeInsets.only(left: 0.0),
                                             child: TextButton(
                                               onPressed: () async {
-                                                if(isAllFilled){
-                                                  Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                      builder: (BuildContext context) {
-                                                        return PastUpcomingscanMain(initialTabIndex: 1);
-                                                      },
-                                                    ),
-                                                  );
-                                                }
-                                                else {
-                                                    print("Fill all the Filed");
-                                                }
+                                                 validate(context);
                                               },
                                               child: Text("Request Call",
                                                   textAlign: TextAlign.center,
@@ -1472,5 +1441,97 @@ class RadiologyMainstate extends State<RadiologyMain> {
 
 
 
+  }
+
+  // Function mein context pass karein taaki notification show ho sake
+  void validate(BuildContext context) {
+
+    // 1. Full Name Validation
+    if (FullNameEditTextController.text.trim().isEmpty) {
+      showTopNotification(context, title: 'Radiology', message: 'Please enter Full Name', type: NotificationType.error);
+      setState(() { isAllFilled = false; });
+      return; // Ye code ko yahin rok dega
+    }
+
+    // 2. Mobile Number Validation (Empty aur 10-digit check dono add kar diye hain)
+    if (MobileNummberEditTextController.text.trim().isEmpty) {
+      showTopNotification(context, title: 'Radiology', message: 'Please enter Mobile Number', type: NotificationType.error);
+      setState(() { isAllFilled = false; });
+      return;
+    } else if (MobileNummberEditTextController.text.trim().length != 10) {
+      showTopNotification(context, title: 'Radiology', message: 'Please enter a valid 10-digit Mobile Number', type: NotificationType.error);
+      setState(() { isAllFilled = false; });
+      return;
+    }
+
+    // 3. City Validation
+    if (choosecityEditTextController.text.trim().isEmpty) {
+      showTopNotification(context, title: 'Radiology', message: 'Please choose a City', type: NotificationType.error);
+      setState(() { isAllFilled = false; });
+      return;
+    }
+
+    // 4. Hospital Validation
+    if (selecthosEditTextController.text.trim().isEmpty) {
+      showTopNotification(context, title: 'Required', message: 'Please select a Hospital', type: NotificationType.error);
+      setState(() { isAllFilled = false; });
+      return;
+    }
+
+    // 5. Preferred Date Validation
+    if (preffereddateEditTextController.text.trim().isEmpty) {
+      showTopNotification(context, title: 'Radiology', message: 'Please select Preferred Date', type: NotificationType.error);
+      setState(() { isAllFilled = false; });
+      return;
+    }
+
+    // 6. Test Validation
+    if (choosetestEditTextController.text.trim().isEmpty) {
+      showTopNotification(context, title: 'Radiology', message: 'Please choose a Test', type: NotificationType.error);
+      setState(() { isAllFilled = false; });
+      return;
+    }
+
+    // 7. Test Details Validation
+    if (AddTestDetailsTextController.text.trim().isEmpty) {
+      showTopNotification(context, title: 'Radiology', message: 'Please add Test Details', type: NotificationType.error);
+      setState(() { isAllFilled = false; });
+      return;
+    }
+
+    // 8. File Upload Validation
+    if (selectedFiles.isEmpty) {
+      showTopNotification(context, title: 'Radiology', message: 'Please upload at least one file', type: NotificationType.error);
+      setState(() { isAllFilled = false; });
+      return;
+    }
+
+    // Agar code yahan tak aa gaya, matlab upar ka koi bhi 'return' hit nahi hua
+    // Jiska matlab hai saari fields proper fill ho chuki hain!
+
+    print("All fields filled successfully");
+    setState(() {
+      isAllFilled = true;
+    });
+
+    if(isAllFilled){
+
+      showTopNotification(
+          context, title: 'Radiology', message: 'Radiology is added sucessfully', type: NotificationType.success);
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (BuildContext context) {
+            return PastUpcomingscanMain(initialTabIndex: 0);
+          },
+        ),
+      );
+    }
+
+
+
+
+    else{
+      print("Fill all the FIeld");
+    }
   }
 }

@@ -107,7 +107,7 @@ class ProfileMainstate extends State<ProfileMain> {
     super.initState();
   }
   void _loadData() async {
-    // await Future.delayed(const Duration(seconds: 2));// Simulating API call
+
     isGuestUser = await UserSecureStorage.getIfGuestLogged() == "YES";
 
 

@@ -18,8 +18,8 @@ enum NotificationType { success, error,notice }
 //   entry = OverlayEntry(
 //     builder: (context) {
 //       Color bgColor =
-//       type == NotificationType.success ? Color(0xFF0000FF) : Color(0xFFC40000);
-//       IconData icon = type == NotificationType.success ? Icons.check : Icons.close;
+//
+//
 //
 //       return _TopNotificationWidget(
 //         title: title,
@@ -58,8 +58,8 @@ void showTopNotification(
   notificationEntry = OverlayEntry(
     builder: (context) {
       // Color bgColor =
-      // type == NotificationType.success ? Color(0xFF0000FF) : Color(0xFFC40000);
-      // IconData icon = type == NotificationType.success ? Icons.check : Icons.close;
+      //
+      //
 
       Color bgColor = type == NotificationType.success
           ? Color(0xFF0000FF) // Blue for Success

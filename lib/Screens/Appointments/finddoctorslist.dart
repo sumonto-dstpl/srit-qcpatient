@@ -29,6 +29,7 @@ import 'package:newfolder/Core/bottom_navigation_bar.dart';
 
 class FindDoctorsListMain extends StatefulWidget {
 
+
   final String? physical_virtual_mode;
   final String? consulttype;
   FindDoctorsListMain(this.consulttype, {Key? key,this.physical_virtual_mode = "physical",}) : super(key: key);
@@ -55,42 +56,6 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
   final List<String> hints = ["Doctor", "Speciality", "Symptoms"];
 
 
-
-  // List of diseases
-  final List<String> diseases = [
-    "Adult Allergist",
-    "Allergy and Immunology Practitioner",
-    "Allergy and Immunology Specialist",
-    "Asthma Specialist",
-    "Bariatric Dietitian",
-    "Bariatric Medicine Specialist",
-  ];
-
-  final myCatagories = [
-    ["assets/CategoryAppoinment.png", "Appoinment"],
-    ["assets/CategoryHomeCare.png", "Home Care"],
-    ["assets/CategoryMedications.png", "Medications"],
-    ["assets/CategoryLab.png", "Lab"],
-    ["assets/CategoryRadiology.png", "Radiology"],
-    ["assets/CategoryTimelin.png", "Timeline"],
-    ["assets/CategoryInsurance.png", "Insurance"],
-  ];
-
-  final myOtherServices = [
-    ["assets/OtherServicesDiagnostic.png", "Diagnostic"],
-    ["assets/OtherServicesDoctor.png", "Doctor"],
-    ["assets/OtherServicesNurse.png", "Nurse"],
-    ["assets/OtherServicesPhysio.png", "Physio"],
-    ["assets/OtherServicesMedicalEquipment's.png", "Medical Equipment's"],
-  ];
-
-  final myhealyhblogbanner = [
-    ["assets/healthblogbanner1.png", "Appoinment"],
-    ["assets/healthblogbanner2.png", "Home Care"],
-    ["assets/healthblogbanner3.png", "Medications"],
-    ["assets/healthblogbanner4.png", "Lab"],
-  ];
-
   final myimageslist = [
     ["assets/appointmentimg1.png"],
     ["assets/appointmentimg2.png"],
@@ -98,8 +63,6 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
     ["assets/appointmentimg5.png"],
   ];
 
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
 
 
 
