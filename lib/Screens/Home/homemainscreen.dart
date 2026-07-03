@@ -78,11 +78,11 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   ];
 
   final myOtherServices = [
-    ["assets/OtherServicesDiagnostic.png", "Diagnostic"],
-    ["assets/OtherServicesDoctor.png", "Doctor"],
-    ["assets/OtherServicesNurse.png", "Nurse"],
-    ["assets/OtherServicesPhysio.png", "Physio"],
-    ["assets/OtherServicesMedicalEquipment's.png", "Medical Equipment's"],
+    ["assets/Diagnostic.png", "Diagnostic",'diagnostic'],
+    ["assets/Doctor.png", "Doctor", 'doctor'],
+    ["assets/Nurse.png", "Nurse" , 'nurse'],
+    ["assets/Physio.png", "Physio", 'physio'],
+    ["assets/MedicalEquipment.png", "Medical Equipment's", 'medical_equipments'],
   ];
 
   final myhealyhblogbanner = [
@@ -1036,6 +1036,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                           builder: (BuildContext context) {
                                                             return HomecareOtherserviceDetail(
                                                               usernameValue: myOtherServices[index][1],
+                                                              category: myOtherServices[index][2],
                                                             );
                                                           },
                                                         ),

@@ -56,11 +56,11 @@ class HomeCareMainstate extends State<HomeCareMain> {
   String userprofilepValue = "NA";
   int _selectedIndex = 0;
   final mytopspecialities = [
-    ["assets/Diagnostic.png", "Diagnostic"],
-    ["assets/Doctor.png", "Doctor"],
-    ["assets/Nurse.png", "Nurse"],
-    ["assets/Physio.png", "Physio"],
-    ["assets/MedicalEquipment.png", "Medical Equipment's"],
+    ["assets/Diagnostic.png", "Diagnostic",'diagnostic'],
+    ["assets/Doctor.png", "Doctor", 'doctor'],
+    ["assets/Nurse.png", "Nurse" , 'nurse'],
+    ["assets/Physio.png", "Physio", 'physio'],
+    ["assets/MedicalEquipment.png", "Medical Equipment's", 'medical_equipments'],
   ];
 
   EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
@@ -317,7 +317,10 @@ class HomeCareMainstate extends State<HomeCareMain> {
                                       MaterialPageRoute(
                                         builder: (BuildContext context) {
                                           // return HomecareOtherserviceDetail(usernameValue : "Asgar");
-                                          return HomecareOtherserviceDetail(usernameValue: mytopspecialities[index][1],);
+                                          return HomecareOtherserviceDetail(
+                                            usernameValue: mytopspecialities[index][1],
+                                            category: mytopspecialities[index][2],
+                                          );
 
                                         },
                                       ),

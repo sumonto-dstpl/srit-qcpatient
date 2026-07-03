@@ -41,9 +41,12 @@ import 'package:newfolder/Core/bottom_navigation_bar.dart';
 class HomecareOtherserviceDetail extends StatefulWidget {
   String usernameValue;
   int selectedIndex = 0;
+  final String category;
   HomecareOtherserviceDetail({
     super.key,
     required this.usernameValue,
+    required this.category,
+
   });
   @override
   State<HomecareOtherserviceDetail> createState() => HomecareOtherserviceDetailState();
@@ -73,7 +76,7 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
   String slectedDateSlot = DateFormat('dd-MM-yyyy').format(DateTime.now());
   @override
   Widget build(BuildContext context) {
-
+    print("Homecare slots : ${DummyData.homecareCategoryBookedSlots}");
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
@@ -123,18 +126,13 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
 
 
                       CustomDateTimePicker(
-                        globallyBookedSlots: DummyData.globallyBookedSlots,
+                        globallyBookedSlots: DummyData.homecareCategoryBookedSlots[widget.category.toLowerCase()] ?? {},
                         onDateTimeSelected: (date, time) {
                           print("User selected Date: $date and Time: $time");
                           // Yahan state update karein aur Book Service button enable karein
                           setState(() {
-                            // 1. Date update karein (taaki button logic pass ho)
                             slectedDateSlot = DateFormat('dd-MM-yyyy').format(date);
-
-                            // 2. Time update karein
                             selectedSlot = time;
-
-                            // 3. Flag ko true karein (YEH SABSE ZAROORI HAI ERROR ROKNE KE LIYE)
                             timeSelectFlag = true;
                           });
                         },
@@ -531,13 +529,9 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                             });
                           } else {
                             setState(() {
-                              // AppDummyData me naya booking add kar rahe hain
-                              DummyData.addNewBooking(slectedDateSlot, selectedSlot);
-
-                              // Data save hone ke baad UI ke variables reset kar do taaki aage ke liye clean rahe
+                              DummyData.addNewBookingForHomecare(widget.category, slectedDateSlot, selectedSlot);
                               timeSelectFlag = false;
                             });
-                            // Normal user ko home page par le jayein
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (BuildContext context) => HomePageMain(),

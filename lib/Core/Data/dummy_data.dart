@@ -55,4 +55,26 @@ class DummyData {
       globallyBookedSlots[dateStr] = [timeSlot];
     }
   }
+
+  static Map<String, Map<String, List<String>>> homecareCategoryBookedSlots = {
+    'doctor': {},
+    'diagnosis': {},
+    'nurse': {},
+    'physio': {},
+    'medical equipments': {},
+  };
+
+  static void addNewBookingForHomecare(String category, String dateStr, String timeSlot) {
+    String key = category.toLowerCase();
+    if (!homecareCategoryBookedSlots.containsKey(key)) {
+      homecareCategoryBookedSlots[key] = {};
+    }
+    if (homecareCategoryBookedSlots[key]!.containsKey(dateStr)) {
+      if (!homecareCategoryBookedSlots[key]![dateStr]!.contains(timeSlot)) {
+        homecareCategoryBookedSlots[key]![dateStr]!.add(timeSlot);
+      }
+    } else {
+      homecareCategoryBookedSlots[key]![dateStr] = [timeSlot];
+    }
+  }
 }
