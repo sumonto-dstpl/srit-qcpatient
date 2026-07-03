@@ -5,9 +5,10 @@ import 'package:newfolder/Screens/Utils/customNotification.dart';
 
 class AppointmentCancel {
   showticket(context) async {
+    final height = MediaQuery.of(context).size.height ;
     await Future.delayed(Duration(microseconds: 1));
     TextEditingController? tracktextcontroller = TextEditingController();
-
+    bool firstNameValid = true;
     showDialog(
       barrierDismissible: false,
       barrierColor: Colors.transparent, // No dim overlay
@@ -212,7 +213,20 @@ class AppointmentCancel {
                                       ),
                                       isDense: true,
                                     ),
+
+                                    onChanged: (val) {
+                                      setState( () {
+                                          val.isEmpty ?  firstNameValid = false  :  firstNameValid = true ;
+                                      });
+                                    },
                                   ),
+                                  if (!firstNameValid)
+                                  SizedBox(height: 5),
+                                  if (!firstNameValid)
+                                    Container(
+                                        alignment : Alignment.centerLeft,
+
+                                        child: Text("Please enter reason for cancel", style: TextStyle(color: Colors.red, fontSize: height * 0.013))),
                                   SizedBox(height: 20),
 
                                   // -- Buttons Row --
@@ -283,6 +297,12 @@ class AppointmentCancel {
                                             Navigator.pop(context);
                                             Navigator.pop(context);
                                           }
+                                          else {
+                                            setState( () {
+
+                                              firstNameValid = false ;
+                                            });
+                                          }
 
 
                                         },
@@ -320,6 +340,12 @@ class AppointmentCancel {
                                                 );
                                                 Navigator.pop(context);
                                                 Navigator.pop(context);
+                                              }
+                                              else {
+                                                setState( () {
+
+                                                  firstNameValid = false ;
+                                                });
                                               }
 
 
