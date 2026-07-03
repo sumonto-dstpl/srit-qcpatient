@@ -126,7 +126,7 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
 
 
                       CustomDateTimePicker(
-                        globallyBookedSlots: DummyData.homecareCategoryBookedSlots[widget.category.toLowerCase()] ?? {},
+                        homecareBookedSlots: DummyData.homecareCategoryBookedSlots[widget.category.toLowerCase()] ?? {},
                         onDateTimeSelected: (date, time) {
                           print("User selected Date: $date and Time: $time");
                           // Yahan state update karein aur Book Service button enable karein

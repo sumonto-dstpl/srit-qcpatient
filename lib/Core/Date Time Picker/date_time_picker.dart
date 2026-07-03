@@ -7,13 +7,17 @@ import 'package:newfolder/utils/custom_calendar.dart';
 // import 'path_to_your_custom_calendar.dart';
 
 class CustomDateTimePicker extends StatefulWidget {
+  final String mode ;
   final Function(DateTime selectedDate, String selectedTime) onDateTimeSelected;
   final Map<String, List<String>> globallyBookedSlots;
+  final Map<String, List<String>> homecareBookedSlots;
 
   const CustomDateTimePicker({
     Key? key,
     required this.onDateTimeSelected,
     this.globallyBookedSlots = const {},
+    this.mode = '',
+    this.homecareBookedSlots = const {},
   }) : super(key: key);
 
   @override
