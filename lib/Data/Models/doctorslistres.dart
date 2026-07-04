@@ -32,6 +32,7 @@ class DoctorsListResponse {
   String? doctorName;
   String? qualification;
   String? speciality;
+  String? category;
   String? experience;
   String? regularFee;
   String? discountFee;
@@ -48,6 +49,7 @@ class DoctorsListResponse {
         this.doctorName,
         this.qualification,
         this.speciality,
+        this.category,
         this.experience,
         this.regularFee,
         this.discountFee,
@@ -66,6 +68,7 @@ class DoctorsListResponse {
     doctorName = json['doctorName'];
     qualification = json['qualification'];
     speciality = json['speciality'];
+    category = json['category'];
     experience = json['experience'];
     regularFee = json['regularFee'];
     discountFee = json['discountFee'];
@@ -84,6 +87,7 @@ class DoctorsListResponse {
     data['doctorName'] = this.doctorName;
     data['qualification'] = this.qualification;
     data['speciality'] = this.speciality;
+    data['category'] = this.category;
     data['experience'] = this.experience;
     data['regularFee'] = this.regularFee;
     data['discountFee'] = this.discountFee;
@@ -101,7 +105,7 @@ class DoctorsListResponse {
 
   @override
   String toString() {
-    return '{doctorName: $doctorName, speciality: $speciality, experience: $experience}';
+    return '{doctorName: $doctorName, speciality: $speciality, experience: $experience}, category: $category';
   }
 }
 

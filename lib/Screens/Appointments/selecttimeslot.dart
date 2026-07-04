@@ -28,9 +28,23 @@ import '../../utils/custom_calendar.dart';
 
 class SelectTimeSlot extends StatefulWidget {
   final String? doctoridval;
-  final Map?  doctorDetail;
+  final Map? doctorDetail;
   final String? physical_virtual_mode;
-  SelectTimeSlot(this.doctoridval, {Key? key, this.doctorDetail,this.physical_virtual_mode = "physical",}) : super(key: key);
+
+  // 🌟 NAYE VARIABLES: Reschedule ke liye
+  final bool isReschedule;
+  final DateTime? previousDate;
+  final String? previousTime;
+
+  SelectTimeSlot(
+      this.doctoridval, {
+        Key? key,
+        this.doctorDetail,
+        this.physical_virtual_mode = "physical",
+        this.isReschedule = false,
+        this.previousDate,
+        this.previousTime,
+      }) : super(key: key);
 
   @override
   State<SelectTimeSlot> createState() => SelectTimeSlotstate();
@@ -68,13 +82,21 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
 
   @override
   void initState() {
-    // getSharedPrefs();
     super.initState();
     _focusedDay = DateTime.now();
     _selectedDay = null;
 
-    // formattedDate = DateFormat('dd-MM-yyyy').format(_selectedDay!);
-    // print('Selected Date on Load: $formattedDate');
+    // 🌟 YAHAN NAYA LOGIC ADD KAREIN: Reschedule data ko local variables me set karna
+    if (widget.isReschedule) {
+      if (widget.previousDate != null) {
+        slectedDateSlot = DateFormat('dd-MM-yyyy').format(widget.previousDate!);
+      }
+      if (widget.previousTime != null) {
+        selectedSlot = widget.previousTime!;
+      }
+      // Flag ko true kar dein taaki button click ho sake
+      timeSelectFlag = true;
+    }
   }
 
   Future getSharedPrefs() async {
@@ -481,19 +503,23 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
 
 
                           // Select Your Time
+                          // Select Your Time
                           CustomDateTimePicker(
-                            globallyBookedSlots: DummyData.globallyBookedSlots,
+                            // 🌟 NAYA LOGIC
+                            mode: 'appointment',
+                            appointmentBookedSlots: DummyData.categoryDoctorBookedSlots[
+                            (widget.doctorDetail?['category'] ?? "General").toString().toLowerCase()
+                            ]?[widget.doctorDetail?['doctorId'] ?? "unknown"] ?? {},
+
+                            // 🌟 RESCHEDULE LOGIC: Agar purana data aaya hai, toh picker me select ho jayega
+                            initialDate: widget.isReschedule ? widget.previousDate : null,
+                            initialTime: widget.isReschedule ? widget.previousTime : null,
+
                             onDateTimeSelected: (date, time) {
                               print("User selected Date: $date and Time: $time");
-                              // Yahan state update karein aur Book Service button enable karein
                               setState(() {
-                                // 1. Date update karein (taaki button logic pass ho)
                                 slectedDateSlot = DateFormat('dd-MM-yyyy').format(date);
-
-                                // 2. Time update karein
                                 selectedSlot = time;
-
-                                // 3. Flag ko true karein (YEH SABSE ZAROORI HAI ERROR ROKNE KE LIYE)
                                 timeSelectFlag = true;
                               });
                             },
@@ -549,13 +575,16 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                LoginBottomSheet.show(context, false);
              });
            } else {
+
              Navigator.of(context).push(
                MaterialPageRoute(
                  builder: (context) => MyBookingsMain(
+                   doctoridval: widget.doctoridval ?? 'unknown',
                    selectedDate: slectedDateSlot,
                    selectedTime: selectedSlot,
                    doctorDetail: widget.doctorDetail,
                    physical_virtual_mode: widget.physical_virtual_mode,
+
                  ),
 
                ),

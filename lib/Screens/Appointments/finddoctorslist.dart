@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:newfolder/Core/Data/dummy_data.dart';
 import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Data/Models/doctorslistres.dart';
@@ -28,11 +29,18 @@ import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
 
 class FindDoctorsListMain extends StatefulWidget {
-
-
   final String? physical_virtual_mode;
   final String? consulttype;
-  FindDoctorsListMain(this.consulttype, {Key? key,this.physical_virtual_mode = "physical",}) : super(key: key);
+
+  final String category    ;
+  FindDoctorsListMain(
+      this.consulttype,
+      {
+        Key? key,
+        this.physical_virtual_mode = "physical",
+        this.category = 'all',
+
+      }) : super(key: key);
 
 
   @override
@@ -166,9 +174,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                       borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(screenHeight * 0.03),
                                         topRight: Radius.circular(screenHeight * 0.03),
-                                        bottomLeft: Radius.circular(screenHeight * 0.0),
-                                        bottomRight: Radius.circular(screenHeight * 0.00),
-                                        // bottomCenter: 0,
+
                                       ),
                                     ),
                     child : Column(
@@ -178,6 +184,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                           left: screenHeight * 0.02,
                           right: screenHeight * 0.02,
                           top: screenHeight * 0.015,
+                          bottom: screenHeight * 0.015,
                         ),
                         alignment: Alignment.centerRight,
 
@@ -338,10 +345,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                          ),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        // borderRadius: BorderRadius.only(
-                        //   topLeft: Radius.circular(screenHeight * 0.03),
-                        //   topRight: Radius.circular(screenHeight * 0.03),
-                        // ),
+
                       ),
                       child: ListView(
                         padding: EdgeInsets.zero,
@@ -369,6 +373,8 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                   scrollDirection: Axis.vertical, // Makes the ListView horizontal
                                   itemCount: filterresponselist!.length!, // You can adjust the item count
                                   itemBuilder: (BuildContext context, int index) {
+
+                                    final item = filterresponselist[index] ;
                                     return GestureDetector(
                                       onTap: () {
                                       },
@@ -492,7 +498,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                             bottom: MediaQuery.of(context).size.height * 0.00),
                                                                         child:
                                                                         Text(
-                                                                          filterresponselist![index].doctorName != null ?  filterresponselist![index].doctorName! : "" ,
+                                                                          item.doctorName != null ?  item.doctorName! : "" ,
 
                                                                           style: TextStyle(
                                                                               color: Colors
@@ -578,7 +584,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                         0.00),
                                                                 child:
                                                                 Text(
-                                                                  filterresponselist![index].speciality != null ?  filterresponselist![index].speciality! : "" ,
+                                                                  item.speciality != null ?  "${item.speciality!} " : "" ,
 
                                                                   style: TextStyle(
                                                                       color: Color(0x80000000),
@@ -623,7 +629,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                         bottom: MediaQuery.of(context).size.height * 0.00),
                                                     child:
                                                     Text(
-                                                      (filterresponselist![index].experience ?? "") + " - "+   (filterresponselist![index].qualification ??  ""),
+                                                      (item.experience ?? "") + " - "+   (item.qualification ??  ""),
                                                       style: TextStyle(
                                                           color: Color(0xFF126086),
                                                           fontWeight: FontWeight.w600,
@@ -722,33 +728,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                           ),
                                                         ),
 
-                                                                     // SizedBox(
-                                                                //   height: MediaQuery.of(context).size.height * 0.045, // Ensures correct height
-                                                                //   child: Stack(
-                                                                //     children: myimageslist.asMap().entries.map((entry) {
-                                                                //       int index = entry.key;
-                                                                //       String imagePath = entry.value[0]; // First element of each sublist
-                                                                //
-                                                                //       return Positioned(
-                                                                //         left: index * (MediaQuery.of(context).size.height * 0.042), // Overlaps images
-                                                                //         child: ClipRRect(
-                                                                //           borderRadius: BorderRadius.only(
-                                                                //             topLeft: index == 0 ? Radius.circular(8) : Radius.zero,
-                                                                //             bottomLeft: index == 0 ? Radius.circular(8) : Radius.zero,
-                                                                //             topRight: index == myimageslist.length - 1 ? Radius.circular(8) : Radius.zero,
-                                                                //             bottomRight: index == myimageslist.length - 1 ? Radius.circular(8) : Radius.zero,
-                                                                //           ),
-                                                                //           child: Image.asset(
-                                                                //             imagePath,
-                                                                //             width: MediaQuery.of(context).size.height * 0.045,
-                                                                //             height: MediaQuery.of(context).size.height * 0.045,
-                                                                //             fit: BoxFit.cover,
-                                                                //           ),
-                                                                //         ),
-                                                                //       );
-                                                                //     }).toList(),
-                                                                //   ),
-                                                                // ),
+
                                                           ),
 
 
@@ -933,7 +913,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                                               bottom: MediaQuery.of(context).size.height * 0.00),
                                                                                           child:
                                                                                           Text(
-                                                                                            'QR 299',
+                                                                                            '${item.regularFee}',
                                                                                             style: TextStyle(
                                                                                               // color: Colors.blue[600],
                                                                                                 color: Colors.black,
@@ -956,7 +936,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                                             top: MediaQuery.of(context).size.height * 0.00,
                                                                                             bottom: MediaQuery.of(context).size.height * 0.00),
                                                                                         child:
-                                                                                        Text( "QR 199",
+                                                                                        Text( "${item.discountFee}",
                                                                                           style: TextStyle(
                                                                                             // color: Colors.blue[600],
                                                                                               color: Color(0xFF12B76A),
@@ -1032,22 +1012,15 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                                       MaterialPageRoute(
                                                                                         builder:
                                                                                             (BuildContext context) {
-                                                                                          // return SelectTimeSlot(filterresponselist![index].doctorId!);
-                                                                                          //     return DoctorDetilPage(
-                                                                                          //       "Practitioner/f002",
-                                                                                          //       doctorDetail : {
-                                                                                          //       "doctorName" : filterresponselist[index].doctorName ,
-                                                                                          //       "speciality" : filterresponselist[index].speciality ,
-                                                                                          //       "experience" : (filterresponselist![index].experience ?? "") + " - "+   (filterresponselist![index].qualification ??  ""),
-                                                                                          //         } ,
-                                                                                          //       physical_virtual_mode: widget.physical_virtual_mode,
-                                                                                          //     );
+
                                                                                            return SelectTimeSlot(
                                                                                              "Practitioner/f002",
                                                                                              doctorDetail: {
-                                                                                               "doctorName" : filterresponselist[index].doctorName ,
-                                                                                                     "speciality" : filterresponselist[index].speciality ,
-                                                                                                     "experience" : (filterresponselist![index].experience ?? "") + " - "+   (filterresponselist![index].qualification ??  ""),
+                                                                                               'doctorId' : item.doctorId,
+                                                                                               "doctorName" : item.doctorName ,
+                                                                                                     "speciality" : item.speciality ,
+                                                                                                     "experience" : (item.experience ?? "") + " - "+   (item.qualification ??  ""),
+                                                                                               'category' : item.category,
 
                                                                                              },
                                                                                              physical_virtual_mode: widget.physical_virtual_mode,
@@ -1388,149 +1361,152 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
 
 
-        final List<Map<String, dynamic>> staticDoctorList = [
-          {
-            "doctorId": "1",
-            "doctorName": "Dr. Arjun Mehta",
-            "qualification": "MBBS, MD (General Medicine)",
-            "speciality": "General Physician / Internal Medicine",
-            "experience": "18 YEARS Experience",
-            "regularFee": "₹800",
-            "discountFee": "₹600",
-            "rating": "4.8",
-            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-            "photo": null,
-            "availiability" : "today",
-            "gender" : "Male",
-            "language" : "English",
-            "city" : "Bangalore"
-          },
-          {
-            "doctorId": "2",
-            "doctorName": "Dr. Priya Nair",
-            "qualification": "MBBS, DNB (General Medicine)",
-            "speciality": "General Physician / Internal Medicine",
-            "experience": "15 YEARS Experience",
-            "regularFee": "₹750",
-            "discountFee": "₹550",
-            "rating": "4.7",
-            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-            "photo": null,
-            "availiability" : "today",
-            "gender" : "FeMale",
-            "language" : "Hindi",
-            "city" : "Hosur"
-          },
-          {
-            "doctorId": "3",
-            "doctorName": "Dr. Sameer Khan",
-            "qualification": "MBBS, MD (Internal Medicine)",
-            "speciality": "General Physician / Internal Medicine",
-            "experience": "20 YEARS Experience",
-            "regularFee": "₹900",
-            "discountFee": "₹700",
-            "rating": "4.9",
-            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-            "photo": null,
-            "availiability" : "now",
-            "gender" : "FeMale",
-            "language" : "Hindi",
-            "city" : "Delhi"
-          },
-          {
-            "doctorId": "4",
-            "doctorName": "Dr. Neha Sharma",
-            "qualification": "MBBS, Diploma in Family Medicine",
-            "speciality": "General Physician / Internal Medicine",
-            "experience": "12 YEARS Experience",
-            "regularFee": "₹700",
-            "discountFee": "₹500",
-            "rating": "4.6",
-            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-            "photo": null,
-            "availiability" : "tomorrow",
-            "gender" : "FeMale",
-            "language" : "Hindi",
-            "city" : "Delhi"
-          },
-          {
-            "doctorId": "5",
-            "doctorName": "Dr. Rajesh Patel",
-            "qualification": "MBBS, MD (General Medicine)",
-            "speciality": "General Physician / Internal Medicine",
-            "experience": "20 YEARS Experience",
-            "regularFee": "₹850",
-            "discountFee": "₹650",
-            "rating": "4.5",
-            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-            "photo": null,
-            "availiability" : "next",
-            "gender" : "FeMale",
-            "language" : "Hindi",
-            "city" : "Delhi"
-          },
-          {
-            "doctorId": "6",
-            "doctorName": "Dr. Anjali Verma",
-            "qualification": "MBBS, DNB (General Medicine)",
-            "speciality": "General Physician / Internal Medicine",
-            "experience": "17 YEARS Experience",
-            "regularFee": "₹800",
-            "discountFee": "₹600",
-            "rating": "4.9",
-            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-            "photo": null,
-          },
-          {
-            "doctorId": "7",
-            "doctorName": "Dr. Harish Reddy",
-            "qualification": "MBBS, Diploma in Family Medicine",
-            "speciality": "General Physician / Internal Medicine",
-            "experience": "20 YEARS Experience",
-            "regularFee": "₹950",
-            "discountFee": "₹750",
-            "rating": "4.8",
-            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-            "photo": null,
-          },
-          {
-            "doctorId": "8",
-            "doctorName": "Dr. Meenakshi Rao",
-            "qualification": "MBBS, MD (Internal Medicine)",
-            "speciality": "General Physician / Internal Medicine",
-            "experience": "19 YEARS Experience",
-            "regularFee": "₹880",
-            "discountFee": "₹700",
-            "rating": "4.7",
-            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-            "photo": null,
-          },
-          {
-            "doctorId": "9",
-            "doctorName": "Dr. Aditya Deshmukh",
-            "qualification": "MBBS, Diploma in Family Medicine",
-            "speciality": "General Physician / Internal Medicine",
-            "experience": "14 YEARS Experience",
-            "regularFee": "₹720",
-            "discountFee": "₹520",
-            "rating": "4.6",
-            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-            "photo": null,
-          },
-          {
-            "doctorId": "10",
-            "doctorName": "Dr. Kavita Singh",
-            "qualification": "MBBS, MD (General Medicine)",
-            "speciality": "General Physician / Internal Medicine",
-            "experience": "21 YEARS Experience",
-            "regularFee": "₹950",
-            "discountFee": "₹750",
-            "rating": "5.0",
-            "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-            "photo": null,
-          },
-        ];
-
+        // final List<Map<String, dynamic>> staticDoctorList = [
+        //   {
+        //     "doctorId": "1",
+        //     "doctorName": "Dr. Arjun Mehta",
+        //     "qualification": "MBBS, MD (General Medicine)",
+        //     "speciality": "General Physician / Internal Medicine",
+        //     "experience": "18 YEARS Experience",
+        //     "regularFee": "₹800",
+        //     "discountFee": "₹600",
+        //     "rating": "4.8",
+        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+        //     "photo": null,
+        //     "availiability" : "today",
+        //     "gender" : "Male",
+        //     "language" : "English",
+        //     "city" : "Bangalore"
+        //   },
+        //   {
+        //     "doctorId": "2",
+        //     "doctorName": "Dr. Priya Nair",
+        //     "qualification": "MBBS, DNB (General Medicine)",
+        //     "speciality": "General Physician / Internal Medicine",
+        //     "experience": "15 YEARS Experience",
+        //     "regularFee": "₹750",
+        //     "discountFee": "₹550",
+        //     "rating": "4.7",
+        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+        //     "photo": null,
+        //     "availiability" : "today",
+        //     "gender" : "FeMale",
+        //     "language" : "Hindi",
+        //     "city" : "Hosur"
+        //   },
+        //   {
+        //     "doctorId": "3",
+        //     "doctorName": "Dr. Sameer Khan",
+        //     "qualification": "MBBS, MD (Internal Medicine)",
+        //     "speciality": "General Physician / Internal Medicine",
+        //     "experience": "20 YEARS Experience",
+        //     "regularFee": "₹900",
+        //     "discountFee": "₹700",
+        //     "rating": "4.9",
+        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+        //     "photo": null,
+        //     "availiability" : "now",
+        //     "gender" : "FeMale",
+        //     "language" : "Hindi",
+        //     "city" : "Delhi"
+        //   },
+        //   {
+        //     "doctorId": "4",
+        //     "doctorName": "Dr. Neha Sharma",
+        //     "qualification": "MBBS, Diploma in Family Medicine",
+        //     "speciality": "General Physician / Internal Medicine",
+        //     "experience": "12 YEARS Experience",
+        //     "regularFee": "₹700",
+        //     "discountFee": "₹500",
+        //     "rating": "4.6",
+        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+        //     "photo": null,
+        //     "availiability" : "tomorrow",
+        //     "gender" : "FeMale",
+        //     "language" : "Hindi",
+        //     "city" : "Delhi"
+        //   },
+        //   {
+        //     "doctorId": "5",
+        //     "doctorName": "Dr. Rajesh Patel",
+        //     "qualification": "MBBS, MD (General Medicine)",
+        //     "speciality": "General Physician / Internal Medicine",
+        //     "experience": "20 YEARS Experience",
+        //     "regularFee": "₹850",
+        //     "discountFee": "₹650",
+        //     "rating": "4.5",
+        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+        //     "photo": null,
+        //     "availiability" : "next",
+        //     "gender" : "FeMale",
+        //     "language" : "Hindi",
+        //     "city" : "Delhi"
+        //   },
+        //   {
+        //     "doctorId": "6",
+        //     "doctorName": "Dr. Anjali Verma",
+        //     "qualification": "MBBS, DNB (General Medicine)",
+        //     "speciality": "General Physician / Internal Medicine",
+        //     "experience": "17 YEARS Experience",
+        //     "regularFee": "₹800",
+        //     "discountFee": "₹600",
+        //     "rating": "4.9",
+        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+        //     "photo": null,
+        //   },
+        //   {
+        //     "doctorId": "7",
+        //     "doctorName": "Dr. Harish Reddy",
+        //     "qualification": "MBBS, Diploma in Family Medicine",
+        //     "speciality": "General Physician / Internal Medicine",
+        //     "experience": "20 YEARS Experience",
+        //     "regularFee": "₹950",
+        //     "discountFee": "₹750",
+        //     "rating": "4.8",
+        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+        //     "photo": null,
+        //   },
+        //   {
+        //     "doctorId": "8",
+        //     "doctorName": "Dr. Meenakshi Rao",
+        //     "qualification": "MBBS, MD (Internal Medicine)",
+        //     "speciality": "General Physician / Internal Medicine",
+        //     "experience": "19 YEARS Experience",
+        //     "regularFee": "₹880",
+        //     "discountFee": "₹700",
+        //     "rating": "4.7",
+        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+        //     "photo": null,
+        //   },
+        //   {
+        //     "doctorId": "9",
+        //     "doctorName": "Dr. Aditya Deshmukh",
+        //     "qualification": "MBBS, Diploma in Family Medicine",
+        //     "speciality": "General Physician / Internal Medicine",
+        //     "experience": "14 YEARS Experience",
+        //     "regularFee": "₹720",
+        //     "discountFee": "₹520",
+        //     "rating": "4.6",
+        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+        //     "photo": null,
+        //   },
+        //   {
+        //     "doctorId": "10",
+        //     "doctorName": "Dr. Kavita Singh",
+        //     "qualification": "MBBS, MD (General Medicine)",
+        //     "speciality": "General Physician / Internal Medicine",
+        //     "experience": "21 YEARS Experience",
+        //     "regularFee": "₹950",
+        //     "discountFee": "₹750",
+        //     "rating": "5.0",
+        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
+        //     "photo": null,
+        //   },
+        // ];
+      print('widget.category : ${widget.category}');
+      final List<Map<String, dynamic>> staticDoctorList = DummyData.getAppointmentsDoctorsByCategory(category: widget.category);
+      print("staticDoctor List : ${staticDoctorList.length}");
+      print("staticDoctor : ${staticDoctorList}");
         progressDialog.show();
 
 // simulate delay (ya API ke jagah ye static data)

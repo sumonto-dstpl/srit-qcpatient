@@ -56,6 +56,10 @@ class DummyData {
     }
   }
 
+  /////////////////////////////////////////////////////////////////////////////////////////////
+  // Home Care
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////
   static Map<String, Map<String, List<String>>> homecareCategoryBookedSlots = {
     'doctor': {},
     'diagnosis': {},
@@ -63,6 +67,7 @@ class DummyData {
     'physio': {},
     'medical equipments': {},
   };
+
 
   static void addNewBookingForHomecare(String category, String dateStr, String timeSlot) {
     String key = category.toLowerCase();
@@ -79,4 +84,214 @@ class DummyData {
   }
 
 
+   /////////////////////////////////////////////////////////////////////////////////////////////
+  // Appointments
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////
+
+  static List<Map<String, dynamic>> appointmentsDoctorList = [
+    for (int i = 1; i <= 100; i++)
+      {
+        "doctorId": "doc_$i",
+
+        "doctorName": (i % 8 == 0)
+            ? "Dr. Arjun Mehta $i"
+            : (i % 8 == 1)
+            ? "Dr. Priya Nair $i"
+            : (i % 8 == 2)
+            ? "Dr. Sameer Khan $i"
+            : (i % 8 == 3)
+            ? "Dr. Neha Sharma $i"
+            : (i % 8 == 4)
+            ? "Dr. Rajesh Patel $i"
+            : (i % 8 == 5)
+            ? "Dr. Anjali Verma $i"
+            : (i % 8 == 6)
+            ? "Dr. Harish Reddy $i"
+            : "Dr. Kavita Singh $i",
+
+        "qualification": (i % 4 == 0)
+            ? "MBBS, MD (General Medicine)"
+            : (i % 4 == 1)
+            ? "MBBS, MD (General Medicine)"
+            : (i % 4 == 2)
+            ? "MBBS, MD (General Medicine)"
+            : "MBBS, MD (General Medicine)",
+
+        // category wise
+        "speciality": (i % 8 == 0)
+            ? "General Physician / Internal Medicine"
+            : (i % 8 == 1)
+            ? "ENT / Internal Medicine"
+            : (i % 8 == 2)
+            ? "Dermatology / Internal Medicine"
+            : (i % 8 == 3)
+            ? "Cardiology / Internal Medicine"
+            : (i % 8 == 4)
+            ? "Urology / Internal Medicine"
+            : (i % 8 == 5)
+            ? "Orthopedics / Internal Medicine"
+            : (i % 8 == 6)
+            ? "Endocrinology / Internal Medicine"
+            : "Pediatrics / Internal Medicine",
+
+        "category": (i % 8 == 0)
+            ? "General Physician"
+            : (i % 8 == 1)
+            ? "ENT"
+            : (i % 8 == 2)
+            ? "Dermatology"
+            : (i % 8 == 3)
+            ? "Cardiology"
+            : (i % 8 == 4)
+            ? "Urology"
+            : (i % 8 == 5)
+            ? "Orthopedics"
+            : (i % 8 == 6)
+            ? "Endocrinology"
+            : "Pediatrics",
+
+        // area / sub-speciality
+        "area": (i % 6 == 0)
+            ? "Adult Allergist"
+            : (i % 6 == 1)
+            ? "Allergy and Immunology"
+            : (i % 6 == 2)
+            ? "Asthma"
+            : (i % 6 == 3)
+            ? "Bariatrics"
+            : (i % 6 == 4)
+            ? "Medicine"
+            : "General Consultation",
+
+        // experience group
+        "experienceYears": (i % 4 == 0)
+
+            ? "0-5 years"
+            : (i % 4 == 1)
+            ? "6-10 years"
+            : (i % 4 == 2)
+            ? "11-16 years"
+            : "17-21 years",
+
+        "experience": (i % 4 == 0)
+            ? '3 YEARS Experience'
+            : (i % 4 == 1)
+            ? '8 YEARS Experience'
+            : (i % 4 == 2)
+            ? '14 YEARS Experience'
+            : '19 YEARS Experience',
+
+        // fee group
+        "fee": (i % 3 == 0)
+            ? '400'
+            : (i % 3 == 1)
+            ? '900'
+            : '3000',
+
+        "feeRange": (i % 3 == 0)
+            ? "QR 100-500"
+            : (i % 3 == 1)
+            ? "QR 500-1000"
+            : "QR 1000-5000",
+
+        "regularFee": (i % 3 == 0)
+            ? "QR 400"
+            : (i % 3 == 1)
+            ? "QR 900"
+            : "QR 3000",
+
+        "discountFee": (i % 3 == 0)
+            ? "QR 300"
+            : (i % 3 == 1)
+            ? "QR 800"
+            : "QR 2500",
+
+        // availability
+        "availability": (i % 4 == 0)
+            ? "Now"
+            : (i % 4 == 1)
+            ? "Today"
+            : (i % 4 == 2)
+            ? "Tomorrow"
+            : "Next 3 Days",
+
+        // gender
+        "gender": (i % 2 == 0) ? "Male" : "Female",
+
+        // language
+        "language": (i % 3 == 0)
+            ? "English"
+            : (i % 3 == 1)
+            ? "Tamil"
+            : "Kannada",
+
+        // city
+        "city": (i % 5 == 0)
+            ? "Bangalore"
+            : (i % 5 == 1)
+            ? "Hosur"
+            : (i % 5 == 2)
+            ? "Chennai"
+            : (i % 5 == 3)
+            ? "Mumbai"
+            : "Agra",
+
+        "rating": (i % 5 == 0)
+            ? "4.5"
+            : (i % 5 == 1)
+            ? "4.6"
+            : (i % 5 == 2)
+            ? "4.7"
+            : (i % 5 == 3)
+            ? "4.8"
+            : "4.9",
+
+        "workLocation":
+        "Hospital ${(i % 10) + 1}, ${(i % 5 == 0) ? "Bangalore" : (i % 5 == 1) ? "Hosur" : (i % 5 == 2) ? "Chennai" : (i % 5 == 3) ? "Mumbai" : "Agra"}",
+
+        "photo": null,
+      }
+  ];
+  static List<Map<String, dynamic>> getAppointmentsDoctorsByCategory({
+    String category = "all",
+  }) {
+    List<Map<String, dynamic>> temp = List.from(appointmentsDoctorList);
+
+    if (category.toLowerCase() != "all") {
+      temp = temp.where((doctor) {
+        return (doctor["category"] ?? "")
+            .toString()
+            .toLowerCase() ==
+            category.toLowerCase();
+      }).toList();
+    }
+
+    return temp;
+  }
+
+  static Map<String, Map<String, Map<String, List<String>>>> categoryDoctorBookedSlots = {};
+  // Naya Appointment save karne ka function
+  static void addAppointmentBooking(String category, String doctorId, String dateStr, String timeSlot) {
+    String cat = category.toLowerCase();
+
+    // 1. Agar category pehli baar aa rahi hai
+    if (!categoryDoctorBookedSlots.containsKey(cat)) {
+      categoryDoctorBookedSlots[cat] = {};
+    }
+
+    // 2. Agar doctor us category me pehli baar aa raha hai
+    if (!categoryDoctorBookedSlots[cat]!.containsKey(doctorId)) {
+      categoryDoctorBookedSlots[cat]![doctorId] = {};
+    }
+
+    // 3. Date aur Time save karna
+    if (categoryDoctorBookedSlots[cat]![doctorId]!.containsKey(dateStr)) {
+      if (!categoryDoctorBookedSlots[cat]![doctorId]![dateStr]!.contains(timeSlot)) {
+        categoryDoctorBookedSlots[cat]![doctorId]![dateStr]!.add(timeSlot);
+      }
+    } else {
+      categoryDoctorBookedSlots[cat]![doctorId]![dateStr] = [timeSlot];
+    }
+  }
 }

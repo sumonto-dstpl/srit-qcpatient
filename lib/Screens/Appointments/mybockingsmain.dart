@@ -1,43 +1,27 @@
 import 'dart:convert';
 import 'dart:ui';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Data/Models/appointmentselectime.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
-import 'package:newfolder/Screens/Appointments/appointmentsfindspecialities.dart';
-import 'package:newfolder/Screens/Appointments/appointmentsmainfindDoctors.dart';
 import 'package:newfolder/Screens/Appointments/bottomsheet_for_payment.dart';
+
 import 'package:newfolder/Screens/Appointments/selecttimeslot.dart';
 import 'package:newfolder/Screens/Appointments/doctordetailpage.dart';
-import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
-import 'package:newfolder/Screens/Login/loginhome.dart';
-import 'package:newfolder/Screens/Medications/bottomsheet_for_payment.dart';
-import 'package:newfolder/Screens/Notifications/notifications.dart';
-import 'package:newfolder/Screens/Registeration/registeration.dart';
-import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
-import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
 import 'package:newfolder/Screens/Widgets/ShareToOtherApp.dart';
-import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
-import 'package:newfolder/Screens/Widgets/badge.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
-import 'package:newfolder/Screens/Widgets/readmoreless.dart';
 import 'package:newfolder/utils/physical_virtual_bottomnavigationbar.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
 import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
-import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
-import 'package:newfolder/Screens/Alerts/loginbottomsheet.dart';
 import 'dart:async';
 
 
 class MyBookingsMain extends StatefulWidget {
-  // final String doctoridval;
+  final String doctoridval;
   final String selectedDate;
   final String selectedTime;
   final Map?  doctorDetail;
@@ -45,6 +29,7 @@ class MyBookingsMain extends StatefulWidget {
   const MyBookingsMain({
     super.key,
     required this.selectedDate,
+    required this.doctoridval,
     required this.selectedTime,
     this.doctorDetail,
     this.physical_virtual_mode = "physical",
@@ -63,8 +48,7 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
   bool _isSharing = false;
 
 
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
+
   final myimageslist = [
     ["assets/appointmentimg1.png"],
     ["assets/appointmentimg2.png"],
@@ -1404,7 +1388,16 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
           Color(0xFF126086),
         ],
         onBookAppointment:   () async {
-          showPaymentmethodsBottomSheet();
+
+          Map details = {
+           "doctoridval" : widget.doctoridval,
+           "selectedDate" : widget.selectedDate,
+           "selectedTime" : widget.selectedTime,
+          "doctorDetail" : widget.doctorDetail,
+          "physical_virtual_mode" : widget.physical_virtual_mode,
+          };
+
+          showPaymentmethodsBottomSheet(details);
         },
 
       ),
@@ -1412,230 +1405,11 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
     );
   }
 
-  // Success alert bottomsheet
-  void showsucessalertBottomSheet() => showModalBottomSheet(
-        enableDrag: false,
-        isScrollControlled: true,
-        isDismissible: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24),
-            topRight: Radius.circular(24),
-          ),
-        ),
-        barrierColor: Colors.grey.withOpacity(0.9),
-        context: context,
-        builder: (context) => StatefulBuilder(
-          builder: (BuildContext context,
-                  StateSetter setState /*You can rename this!*/) =>
-              Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.020,
-                      right: MediaQuery.of(context).size.height * 0.020,
-                      top: MediaQuery.of(context).size.height * 0.030,
-                      bottom: MediaQuery.of(context).size.height * 0.00),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                              'assets/paymentsucess.png',
-                              height: MediaQuery.of(context).size.height * 0.30,
-                              fit: BoxFit.fill,
-                            ),
-                            Text(
-                              "Thank you!",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.024),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.00,
-                                bottom:
-                                    MediaQuery.of(context).size.height * 0.02,
-                                left: MediaQuery.of(context).size.height * 0.00,
-                                right:
-                                    MediaQuery.of(context).size.height * 0.00,
-                              ),
-                              child: Text(
-                                "Payment Done Successfully",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.018),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      // SizedBox(width: MediaQuery.of(context).size.height * 0.040),
-                    ],
-                  ),
-                ),
-
-                // Reschedule
-                GestureDetector(
-                  onTap: () async {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder:
-                            (BuildContext context) {
-                          return SelectTimeSlot("responselist![index].id");
-                        },
-                      ),
-                    );
-                  },
-                  child: Container(
-                    alignment: Alignment.centerRight,
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.0,
-                      bottom: MediaQuery.of(context).size.height * 0.00,
-                      left: MediaQuery.of(context).size.height * 0.00,
-                      right: MediaQuery.of(context).size.height * 0.00,
-                    ),
-                    margin: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.height * 0.03,
-                      top: MediaQuery.of(context).size.height * 0.00,
-                      bottom: MediaQuery.of(context).size.height * 0.01,
-                      left: MediaQuery.of(context).size.height * 0.03,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color(0xFF126086), // Border color
-                        width: 1, // Border width
-                      ),
-                      borderRadius: BorderRadius.circular(
-                          MediaQuery.of(context).size.height * 0.012),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.only(left: 0.0),
-                            child: TextButton(
-                              onPressed: () async {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder:
-                                        (BuildContext context) {
-                                      return SelectTimeSlot("responselist![index].id!");
-                                    },
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                "Reschedule",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF126086),
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.02,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // Back to Home
-                GestureDetector(
-                  onTap: () async {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => HomePageMain(),
-                      ),
-                      (Route route) => false,
-                    );
-                  },
-                  child: Container(
-                      alignment: Alignment.centerRight,
-                      padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.01,
-                          bottom: MediaQuery.of(context).size.height * 0.00,
-                          left: MediaQuery.of(context).size.height * 0.00,
-                          right: MediaQuery.of(context).size.height * 0.00),
-                      margin: EdgeInsets.only(
-                          right: MediaQuery.of(context).size.height * 0.03,
-                          top: MediaQuery.of(context).size.height * 0.01,
-                          bottom: MediaQuery.of(context).size.height * 0.01,
-                          left: MediaQuery.of(context).size.height * 0.03),
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(
-                                        MediaQuery.of(context).size.height *
-                                            0.012),
-                                    gradient: LinearGradient(
-                                        begin: Alignment.centerRight,
-                                        end: Alignment.center,
-                                        stops: [
-                                          0.5,
-                                          0.9
-                                        ],
-                                        colors: [
-                                          Color(0xFF126086),
-                                          Color(0xFF126086),
-                                        ])),
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.only(left: 0.0),
-                                child: TextButton(
-                                  onPressed: () async {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            HomePageMain(),
-                                      ),
-                                      (Route route) => false,
-                                    );
-                                  },
-                                  child: Text("Back to Home",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.02)),
-                                ),
-                              ),
-                            ),
-                          ])),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
 
 
-  void showPaymentmethodsBottomSheet() => showModalBottomSheet(
+
+
+  void showPaymentmethodsBottomSheet(Map details) => showModalBottomSheet(
     context: context,
     enableDrag: false,
     isScrollControlled: true,
@@ -1672,7 +1446,7 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                   topRight: Radius.circular(24),
                 ),
               ),
-              child: BottomSheetForPaymentForMedication(),
+              child: BottomSheetForPayment(details: details ?? {},),
             ),
           ),
         ],

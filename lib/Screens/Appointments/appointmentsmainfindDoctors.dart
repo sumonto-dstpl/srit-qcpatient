@@ -586,6 +586,7 @@ class AppointmentsMainstate extends State<AppointmentsMain> {
                                         MaterialPageRoute(
                                           builder: (BuildContext context) {
                                             return FindDoctorsListMain(
+                                                category: i[1],
                                                 "in-person"); // Replace with another widget
                                           },
                                         ),
