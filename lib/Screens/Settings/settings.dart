@@ -18,6 +18,8 @@ import 'dart:async';
 import 'package:newfolder/Core/Header/header.dart';
 import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:newfolder/Core/Image%20Action/profile_setting.dart';
 
 class SettingsMain extends StatefulWidget {
   int selectedIndex = 0;
@@ -159,7 +161,7 @@ class SettingsMainstate extends State<SettingsMain> {
               Column(
                 children: <Widget>[
                   // Top Section
-                  Header(userName: username,showProfile: false,),
+                  Header(userName: 'Settings',showProfile: false,),
 
                   // Main Content Section
                   Expanded(
@@ -211,69 +213,10 @@ class SettingsMainstate extends State<SettingsMain> {
                             child:
                             Column(
                                 children: [
-                                  GestureDetector(
-                                    onTap: () async {
-                                      if (isGuestUser) return; // disable picking for guest users
-
-                                      FilePickerResult? result = await FilePicker.platform.pickFiles(
-                                        type: FileType.image,
-                                      );
-
-                                      if (result != null) {
-                                        setState(() {
-                                          selectedImage = File(result.files.single.path!);
-                                        });
-                                      }
-                                    },
-                                    child: Center(
-                                      child: Stack(
-                                        children: [
-                                          isGuestUser
-                                              ? ProfileAvatar(
-                                            name: "Guest User",
-                                            radius: MediaQuery.of(context).size.height * 0.06,
-                                            backgroundColor: Color(0x66D9D9D9),
-                                            textColor: Colors.white,
-                                          )
-                                              : ClipRRect(
-                                            borderRadius: BorderRadius.circular(130.0),
-                                            child: selectedImage != null
-                                                ? Image.file(
-                                              selectedImage!,
-                                              height: MediaQuery.of(context).size.height * 0.12,
-                                              width: MediaQuery.of(context).size.height * 0.12,
-                                              fit: BoxFit.cover,
-                                            )
-                                                : Image.asset(
-                                              'assets/drsujeet.png',
-                                              height: MediaQuery.of(context).size.height * 0.12,
-                                              width: MediaQuery.of(context).size.height * 0.12,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-
-                                          if (!isGuestUser)
-                                            Positioned(
-                                              bottom: 6,
-                                              right: 4,
-                                              child: Container(
-                                                width: MediaQuery.of(context).size.height * 0.018,
-                                                height: MediaQuery.of(context).size.height * 0.018,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Colors.green,
-                                                  border: Border.all(
-                                                    width: MediaQuery.of(context).size.height * 0.002,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                        ],
-                                      ),
-                                    ),
+                                  ProfileImagePicker(
+                                    isGuestUser: isGuestUser, // Jo bhi aapka variable ho true/false ke liye pass karein
                                   ),
-
+                                  const SizedBox(height : 8),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,

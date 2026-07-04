@@ -1,22 +1,12 @@
 
-
-import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:newfolder/Screens/Notifications/notifications.dart';
-import 'package:newfolder/Screens/Profile/profilemain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:newfolder/Screens/AddToCart/addtocart.dart';
+import 'package:newfolder/Core/Data/dummy_data.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
-import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/Medications/medicationselecttime.dart';
-import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
-import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
 import 'package:newfolder/Screens/Timeline/timelinedetails.dart';
-import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
-import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
-import 'package:newfolder/Screens/Widgets/badge.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Alerts/loginbottomsheet.dart';
 import 'dart:async';
@@ -47,21 +37,24 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
 
   AppointmentCancel appointmentcancelalert = new AppointmentCancel();
 
-  bool _isLoading = true;
+
   double rating = 3;
 
-  List pastAppointments = [];
-
-
+  // 🌟 1. Dono tabs ke liye alag alag lists banayein
+  List<Map<String, dynamic>> pastAppointmentsList = [];
+  List<Map<String, dynamic>> upcomingAppointmentsList = [];
 
   @override
   void initState() {
-
     super.initState();
-    // commented by asgar
     checkGuestUser();
 
+    // 🌟 2. Data sirf yahan load karein, build() method me nahi
+    pastAppointmentsList = DummyData.buildPastAppointments();
+    upcomingAppointmentsList = DummyData.buildUpcomingAppointments();
   }
+
+
 
   void checkGuestUser() async {
     final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
@@ -74,8 +67,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
   @override
   Widget build(BuildContext context) {
 
-    pastAppointments = buildPastAppointments();
-    print("pastAppointments : $pastAppointments");
+
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth =  MediaQuery.of(context).size.width;
 
@@ -274,32 +266,27 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                     .size
                                                     .height *
                                                     0.01),
-                                            // height: MediaQuery.of(context).size.height * 0.190,
                                             child: ListView.builder(
                                               padding: EdgeInsets.zero,
                                               physics:
                                               ScrollPhysics(),
-                                              // Ensures scrolling
-                                              shrinkWrap:
-                                              true,
-                                              // Prevents ListView from taking up extra space
-                                              scrollDirection: Axis
-                                                  .vertical,
-                                              // Makes the ListView horizontal
-                                              itemCount:
-                                              pastAppointments.length,
-                                              // You can adjust the item count
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                  int index) {
-                                                final item = pastAppointments[index];
+                                              shrinkWrap:true,
+                                              scrollDirection: Axis.vertical,
+                                              itemCount:pastAppointmentsList.length,
+                                              itemBuilder: (BuildContext context, int index) {
+
+                                                final item = pastAppointmentsList[index];
                                                 return GestureDetector(
                                                   onTap: () {
                                                     Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                         builder: (BuildContext
                                                         context) {
-                                                          return TimelineDetails(doctorName: item['doctorName'],profession: item['profession'],image: "assets/drsujeet.png",);
+                                                          return TimelineDetails(
+                                                            doctorName: item['name'],
+                                                            profession: item['profession'] ?? item['speciality'],
+                                                            image: "assets/drsujeet.png",
+                                                          );
                                                         },
                                                       ),
                                                     );
@@ -327,10 +314,8 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
 
                                                      child: AppoinmentsCard(
                                                        display3Dots: false,
-                                                       doctorName: item['doctorName'],
-                                                       profession: item['profession'],
-                                                      dayDateLabel: item['dayDateLabel'],
-                                                       time: item['time'],
+                                                       detail: item,
+
                                                      ),
 
 
@@ -408,40 +393,24 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                             // height: MediaQuery.of(context).size.height * 0.190,
                                             child: ListView.builder(
                                               padding: EdgeInsets.zero,
-                                              physics:
-                                              ScrollPhysics(),
-                                              // Ensures scrolling
-                                              shrinkWrap:
-                                              true,
-                                              // Prevents ListView from taking up extra space
-                                              scrollDirection: Axis
-                                                  .vertical,
-
-                                              itemCount:
-                                              pastAppointments.length,
-
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                  int index) {
-                                                final item = pastAppointments[index];
+                                              physics:ScrollPhysics(),
+                                              shrinkWrap:true,
+                                              scrollDirection: Axis.vertical,
+                                              itemCount:upcomingAppointmentsList.length,
+                                              itemBuilder:(BuildContext context,int index) {
+                                                final item = upcomingAppointmentsList[index];
                                                 return GestureDetector(
                                                   onTap: () {},
                                                   child: Container(
                                                     padding: EdgeInsets.zero,
-
                                                     color: Colors.white,
-
-
                                                     child:  AppoinmentsCard(
                                                       display3Dots: true,
                                                       onThreeDotsTap: () async {
                                                         print("click");
-                                                        showBottomSheet(username: item['doctorName'],profession: item['profession']);
+                                                        showBottomSheet(item,username: item['name'],profession: item['profession']);
                                                       },
-                                                      doctorName: item['doctorName'],
-                                                      profession: item['profession'],
-                                                      dayDateLabel: item['dayDateLabel'],
-                                                      time: item['time'],
+                                                      detail:item ,
                                                     )
 
 
@@ -483,7 +452,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
 
 
 
-  void showBottomSheet({String? username,String? profession}) {
+  void showBottomSheet(Map detail,{String? username,String? profession}) {
     double height = MediaQuery.of(context).size.height ;
     double width = MediaQuery.of(context).size.width ;
 
@@ -742,13 +711,26 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                 ),
                                               ),
                                             ),
-                                            //  Test And Services
+                                            //  Reschedule Appointment
                                             GestureDetector(
                                               onTap: () {
                                                 Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                     builder: (BuildContext context) {
-                                                      return MedicatiSelectTimeSlot("",username: username,profession: profession,);
+                                                      return MedicatiSelectTimeSlot(
+                                                        detail['doctorId'], // doctor ID pass karein
+                                                        username: detail['name'] ?? username,
+                                                        profession: detail['speciality'] ?? profession,
+                                                        detail: detail, // Pura map bhej dein
+                                                        isReschedule: true, // Flag true set karein
+
+                                                        // 🌟 String date ko DateTime me convert karke bhejein
+                                                        previousDate: DateFormat('dd-MM-yyyy').parse(detail['date']),
+
+                                                        // 🌟 Time pass karein
+                                                        previousTime: detail['time'],
+                                                        origin: 'appointments',
+                                                      );
                                                     },
                                                   ),
                                                 );
@@ -926,81 +908,23 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
         }
     );
   }
-  List<Map<String, dynamic>> buildPastAppointments() {
-    DateTime now = DateTime.now();
-    List<Map<String, dynamic>> pastAppointments = [];
 
-    DateTime startDate = DateTime.now();
-
-    String getDayDateLabel(int i) {
-      DateTime date = startDate.subtract(Duration(days: i));
-      String formattedDate = DateFormat('MMMM dd').format(date);
-
-      String dayLabel;
-      if (DateUtils.isSameDay(date, DateTime.now())) {
-        dayLabel = "Today";
-      } else if (DateUtils.isSameDay(date, DateTime.now().subtract(Duration(days: 1)))) {
-        dayLabel = "Yesterday";
-      } else {
-        dayLabel = DateFormat('EEEE').format(date); // e.g. "Wednesday"
-      }
-
-
-      return "${dayLabel}, ${formattedDate}";
-    }
-    // Sample appointment time slots
-    List<String> times = [
-      "10:00 AM - 11:00 AM",
-      "11:30 AM - 12:30 PM",
-      "02:00 PM - 03:00 PM",
-      "04:00 PM - 05:00 PM",
-      "06:30 PM - 07:30 PM",
-    ];
-
-    // Sample doctors
-    List<Map<String, String>> doctors = [
-      {"name": "Dr. Arjun Mehta", "profession": "Cardiologist"},
-      {"name": "Dr. Priya Sharma", "profession": "Dermatologist"},
-      {"name": "Dr. Rakesh Gupta", "profession": "Pediatrician"},
-      {"name": "Dr. Sneha Rao", "profession": "Dentist"},
-      {"name": "Dr. Karan Singh", "profession": "Neurologist"},
-    ];
-
-    for (int i = 0; i < doctors.length; i++) {
-
-      pastAppointments.add({
-        "doctorName": doctors[i]["name"],
-        "profession": doctors[i]["profession"],
-        "dayDateLabel": getDayDateLabel(i),
-
-        "time": times[i],
-      });
-    }
-
-    return pastAppointments;
-  }
 
 
 }
 
 
 class AppoinmentsCard extends StatelessWidget {
-
+  Map detail ;
   double rating = 3;
   bool display3Dots ;
-  String doctorName;
-  String profession;
-  String dayDateLabel;
-  String time;
+
     VoidCallback? onThreeDotsTap;
   AppoinmentsCard({
     super.key,
     required this.display3Dots ,
     this.onThreeDotsTap,
-    required this.doctorName ,
-    required this.profession ,
-    required this.dayDateLabel,
-    required this.time ,
+    required this.detail
   });
 
   @override
@@ -1152,7 +1076,7 @@ class AppoinmentsCard extends StatelessWidget {
                                           .height * 0.00),
                                   child:
                                   Text(
-                                    "${doctorName}",
+                                    "${detail['name']}",
                                     style: TextStyle(
                                         color: Colors.black87,
                                         fontWeight: FontWeight
@@ -1212,47 +1136,7 @@ class AppoinmentsCard extends StatelessWidget {
                                     ),
                                   ),
 
-                                  // Container(
-                                  //   padding: EdgeInsets.only(
-                                  //     left: MediaQuery.of(context).size.height * 0.005,
-                                  //     right: MediaQuery.of(context).size.height * 0.005,
-                                  //     top: MediaQuery.of(context).size.height * 0.005,
-                                  //     bottom: MediaQuery.of(context).size.height * 0.005,
-                                  //   ),
-                                  //   margin: EdgeInsets.only(
-                                  //     left: MediaQuery.of(context).size.height * 0.00,
-                                  //     top: MediaQuery.of(context).size.height * 0.0,
-                                  //     bottom: MediaQuery.of(context).size.height * 0.00,
-                                  //     right: MediaQuery.of(context).size.height * 0.01,
-                                  //   ),
-                                  //   decoration: BoxDecoration(
-                                  //     color: Colors.white,
-                                  //     borderRadius: BorderRadius.circular(10),
-                                  //   ),
-                                  //   child:
-                                  //   Row(
-                                  //     mainAxisAlignment: MainAxisAlignment.center,
-                                  //     children: List.generate(
-                                  //       3, // Number of dots
-                                  //           (index) => Padding(
-                                  //         padding: EdgeInsets.only(
-                                  //           left: MediaQuery.of(context).size.height * 0.001,
-                                  //           right: MediaQuery.of(context).size.height * 0.001,
-                                  //           top: MediaQuery.of(context).size.height * 0.0,
-                                  //           bottom: MediaQuery.of(context).size.height * 0.0,
-                                  //         ), // Spacing between dots
-                                  //         child: Container(
-                                  //           width: MediaQuery.of(context).size.height * 0.004, // Diameter of the dot
-                                  //           height: MediaQuery.of(context).size.height * 0.004,
-                                  //           decoration: BoxDecoration(
-                                  //             color: Color(0x85116A94), // Dot color
-                                  //             shape: BoxShape.circle, // Makes it circular
-                                  //           ),
-                                  //         ),
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
+
                                 ),
                               ],
                             ),
@@ -1261,25 +1145,14 @@ class AppoinmentsCard extends StatelessWidget {
                             Container(
 
                               padding: EdgeInsets.only(
-                                  left: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.00,
-                                  right: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.00,
-                                  top: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.00,
+
                                   bottom: MediaQuery
                                       .of(context)
                                       .size
                                       .height * 0.005),
                               child:
                               Text(
-                                "${profession}",
+                                "${detail['speciality']}",
                                 style: TextStyle(
                                     color: Colors.black87,
                                     fontWeight: FontWeight
@@ -1372,8 +1245,7 @@ class AppoinmentsCard extends StatelessWidget {
 
 
                 DateTimeWidget(
-                      time: time,
-                  dayDate: dayDateLabel,
+                    detail: detail,
                 ),
 
 
@@ -1385,14 +1257,13 @@ class AppoinmentsCard extends StatelessWidget {
 }
 
 class DateTimeWidget extends StatelessWidget{
-  final String? time;
-  final String? dayDate;
+  final Map detail ;
 
   DateTimeWidget({
     Key? key,
-    this.dayDate,
+    required this.detail,
 
-    this.time = "10:10 - 11:00",
+
   }) : super(key : key);
 
 
@@ -1401,6 +1272,9 @@ class DateTimeWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+
+    if(detail['type'] == 'past')
+       print("detail : $detail");
 
     return Container(
       padding: EdgeInsets.all(height * 0.005),
@@ -1439,7 +1313,8 @@ class DateTimeWidget extends StatelessWidget{
                         SizedBox(width: height * 0.008),
                         Expanded(
                           child: Text(
-                            dayDate ?? "Today, December 17",
+                            detail['type'] == 'past' ?
+                             "${detail['month']} ${detail['yearShort']}"  :  "${detail['dayDateLabel']}" ,
                             softWrap: true,
                             style: TextStyle(
                               color: Colors.white,
@@ -1469,7 +1344,7 @@ class DateTimeWidget extends StatelessWidget{
                         SizedBox(width: height * 0.008),
                         Expanded(
                           child: Text(
-                            "${time}",
+                            "${detail['timeRange']}",
                             softWrap: true,
                             style: TextStyle(
                               color: Colors.white,

@@ -1,5 +1,8 @@
 // Ye import add karna zaruri hai ValueNotifier ke liye
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'dart:io';
 
 class DummyData {
 
@@ -320,4 +323,126 @@ class DummyData {
       medicationBookedSlots[keyId]![dateStr] = [timeSlot];
     }
   }
+
+  //--------------------------------------------------------------------------
+
+  static List<Map<String, dynamic>> buildUpcomingAppointments() {
+    List<Map<String, dynamic>> upcomingAppointments = [];
+    DateTime startDate = DateTime.now();
+
+    String getDayDateLabel(int daysToAdd) {
+      DateTime date = startDate.add(Duration(days: daysToAdd));
+      String formattedDate = DateFormat('MMMM dd').format(date);
+
+      String dayLabel;
+      if (DateUtils.isSameDay(date, startDate)) {
+        dayLabel = "Today";
+      } else if (DateUtils.isSameDay(date, startDate.add(Duration(days: 1)))) {
+        dayLabel = "Tomorrow";
+      } else {
+        dayLabel = DateFormat('EEEE').format(date);
+      }
+      return "$dayLabel, $formattedDate";
+    }
+
+    List<String> startTimes = ["10:00 AM", "11:30 AM", "02:00 PM",  "07:30 PM"];
+    List<String> timeRanges = ["10:00 AM - 11:00 AM", "11:30 AM - 12:30 PM", "02:00 PM - 03:00 PM",  "07:30 PM - 08:30 PM"];
+
+    for (int i = 1; i <= 20; i++) {
+      int daysAhead = i % 10;
+      int timeIndex = i % 4;
+
+      // 🌟 Current loop ki date ko ek variable me store kar liya
+      DateTime appointmentDate = startDate.add(Duration(days: daysAhead));
+
+      upcomingAppointments.add({
+        "type" : "upcoming",
+        "doctorId": "doc_$i",
+        "name": (i % 8 == 0) ? "Dr. Arjun Mehta $i" : (i % 8 == 1) ? "Dr. Priya Nair $i" : (i % 8 == 2) ? "Dr. Sameer Khan $i" : (i % 8 == 3) ? "Dr. Neha Sharma $i" : (i % 8 == 4) ? "Dr. Rajesh Patel $i" : (i % 8 == 5) ? "Dr. Anjali Verma $i" : (i % 8 == 6) ? "Dr. Harish Reddy $i" : "Dr. Kavita Singh $i",
+        "speciality": (i % 8 == 0) ? "Therapist" : (i % 8 == 1) ? "Cardiologist" : (i % 8 == 2) ? "Dermatologist" : (i % 8 == 3) ? "Orthopedic" : (i % 8 == 4) ? "Pediatrician" : (i % 8 == 5) ? "Neurologist" : (i % 8 == 6) ? "Gynecologist" : "Psychiatrist",
+        "dayDateLabel": getDayDateLabel(daysAhead),
+
+        // 🌟 Yahan keys add kiye hain (Alag-alag data ke liye)
+        "date": DateFormat('dd-MM-yyyy').format(appointmentDate),
+        "dayNumber": DateFormat('dd').format(appointmentDate), // e.g., "15"
+        "month": DateFormat('MMMM').format(appointmentDate), // e.g., "August"
+        "monthShort": DateFormat('MMM').format(appointmentDate), // e.g., "Aug"
+        "monthNumber": DateFormat('MM').format(appointmentDate), // e.g., "08"
+        "yearNumber": DateFormat('yyyy').format(appointmentDate), // e.g., "2026"
+        "yearShort": DateFormat('yy').format(appointmentDate), // e.g., "2026"
+
+        "time": startTimes[timeIndex],
+        "timeRange": timeRanges[timeIndex],
+
+        "rating": (i % 8 == 0) ? 4.5 : (i % 8 == 1) ? 4.6 : (i % 8 == 2) ? 4.2 : (i % 8 == 3) ? 3.2 : (i % 8 == 4) ? 3.7 : (i % 8 == 5) ? 4.1 : (i % 8 == 6) ? 3.4 : 3.5 ,
+      });
+    }
+
+    return upcomingAppointments;
+  }
+
+  static List<Map<String, dynamic>> buildPastAppointments() {
+    List<Map<String, dynamic>> pastAppointments = [];
+    DateTime startDate = DateTime.now();
+
+    String getDayDateLabel(int daysBack) {
+      // 🌟 FIX: Past appointments ke liye subtract use kiya
+      DateTime date = startDate.subtract(Duration(days: daysBack));
+      String formattedDate = DateFormat('MMMM dd').format(date);
+
+      String dayLabel;
+      if (DateUtils.isSameDay(date, startDate)) {
+        dayLabel = "Today";
+      } else if (DateUtils.isSameDay(date, startDate.subtract(Duration(days: 1)))) {
+        // 🌟 FIX: Past appointments me "Yesterday" aayega, "Tomorrow" nahi
+        dayLabel = "Yesterday";
+      } else {
+        dayLabel = DateFormat('EEEE').format(date);
+      }
+      return "$dayLabel, $formattedDate";
+    }
+
+    List<String> startTimes = ["10:00 AM", "11:30 AM", "02:00 PM",  "07:30 PM"];
+    List<String> timeRanges = ["10:00 AM - 11:00 AM", "11:30 AM - 12:30 PM", "02:00 PM - 03:00 PM",  "07:30 PM - 08:30 PM"];
+
+    for (int i = 1; i <= 20; i++) {
+      int daysBack = i % 10;
+      int timeIndex = i % 4;
+
+      // 🌟 FIX: Current loop ki date ko peeche (subtract) kiya
+      DateTime appointmentDate = startDate.subtract(Duration(days: daysBack));
+
+      pastAppointments.add({
+        "type" : "past",
+        "doctorId": "doc_$i",
+        "name": (i % 8 == 0) ? "Dr. Arjun Mehta $i" : (i % 8 == 1) ? "Dr. Priya Nair $i" : (i % 8 == 2) ? "Dr. Sameer Khan $i" : (i % 8 == 3) ? "Dr. Neha Sharma $i" : (i % 8 == 4) ? "Dr. Rajesh Patel $i" : (i % 8 == 5) ? "Dr. Anjali Verma $i" : (i % 8 == 6) ? "Dr. Harish Reddy $i" : "Dr. Kavita Singh $i",
+        "speciality": (i % 8 == 0) ? "Therapist" : (i % 8 == 1) ? "Cardiologist" : (i % 8 == 2) ? "Dermatologist" : (i % 8 == 3) ? "Orthopedic" : (i % 8 == 4) ? "Pediatrician" : (i % 8 == 5) ? "Neurologist" : (i % 8 == 6) ? "Gynecologist" : "Psychiatrist",
+        "dayDateLabel": getDayDateLabel(daysBack),
+
+        // 🌟 Yahan keys add kiye hain (Alag-alag data ke liye)
+        "date": DateFormat('dd-MM-yyyy').format(appointmentDate),
+        "dayNumber": DateFormat('dd').format(appointmentDate), // e.g., "12"
+        "month": DateFormat('MMMM').format(appointmentDate), // e.g., "August"
+        "monthShort": DateFormat('MMM').format(appointmentDate), // e.g., "Aug"
+        "monthNumber": DateFormat('MM').format(appointmentDate), // e.g., "08"
+        "yearNumber": DateFormat('yyyy').format(appointmentDate), // 4 digit year, e.g., "2026"
+        "yearShort": DateFormat('yy').format(appointmentDate),
+
+        "time": startTimes[timeIndex],
+        "timeRange": timeRanges[timeIndex],
+      });
+    }
+
+    return pastAppointments;
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+  //              Profile & Setting Image
+  //
+  //////////////////////////////////////////////////////////////////////////////
+
+  static ValueNotifier<File?> profileImageNotifier = ValueNotifier<File?>(null);
+
+
+
 }

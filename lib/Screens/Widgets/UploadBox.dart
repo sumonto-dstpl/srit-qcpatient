@@ -7,6 +7,11 @@ import 'package:newfolder/Core/Image%20Action/delete.dart';
 import 'package:newfolder/Screens/Utils/customNotification.dart';
 
 class UploadBox extends StatefulWidget {
+  // 1. Callback function add karein
+  final Function(List<PlatformFile>)? onFilesChanged;
+
+  UploadBox({Key? key, this.onFilesChanged}) : super(key: key);
+
   @override
   _UploadBoxState createState() => _UploadBoxState();
 }
@@ -14,6 +19,14 @@ class UploadBox extends StatefulWidget {
 class _UploadBoxState extends State<UploadBox> {
   List<Map<String, dynamic>> uploadedFiles = [];
   // Each map: {'file': PlatformFile, 'time': DateTime}
+
+  // 2. Parent ko update karne ke liye ek helper method
+  void _notifyParent() {
+    if (widget.onFilesChanged != null) {
+      List<PlatformFile> files = uploadedFiles.map((e) => e['file'] as PlatformFile).toList();
+      widget.onFilesChanged!(files);
+    }
+  }
 
   Future<void> pickFile() async {
     final result = await FilePicker.platform.pickFiles(
@@ -37,6 +50,9 @@ class _UploadBoxState extends State<UploadBox> {
           'time': DateTime.now(),
         });
       });
+
+      // 3. File add hone ke baad parent ko notify karein
+      _notifyParent();
     }
   }
 
@@ -142,26 +158,25 @@ class _UploadBoxState extends State<UploadBox> {
                     direction: DismissDirection.endToStart,
                     background: AppDeleteIcon(),
                     confirmDismiss: (direction) async {
-
                       return await DeleteDialog.show(
                         context: context,
                         barrierLabel: "Delete1",
                         message: "Are you sure to Remove the Upload Image ?",
-
                       );
-
-
-
                     },
                     onDismissed: (direction) {
                       showTopNotification(
                           context,
                           title: 'Image',
-                          message: 'Upload Image is delete sucessfully',
+                          message: 'Upload Image is deleted successfully',
                           type: NotificationType.error);
+
                       setState(() {
                         uploadedFiles.removeAt(index);
                       });
+
+                      // 4. File delete hone ke baad bhi parent ko notify karein
+                      _notifyParent();
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -172,7 +187,6 @@ class _UploadBoxState extends State<UploadBox> {
                         ),
                         borderRadius: BorderRadius.circular(8),
                       ),
-
                       padding: EdgeInsets.all(screenHeight * 0.012),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -238,10 +252,3 @@ class _UploadBoxState extends State<UploadBox> {
     );
   }
 }
-
-
-
-
-
-
-

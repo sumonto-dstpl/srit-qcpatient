@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:newfolder/Core/Button/save.dart';
@@ -74,6 +75,8 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
   bool timeSelectFlag = false;
 
   String slectedDateSlot = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+  List<PlatformFile> userUploadedFiles = [];
   @override
   Widget build(BuildContext context) {
     print("Homecare slots : ${DummyData.homecareCategoryBookedSlots}");
@@ -114,7 +117,13 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                     children: [
 
 
-                      UploadBox(),
+                      UploadBox(
+                        onFilesChanged: (List<PlatformFile> files) {
+                          setState(() {
+                            userUploadedFiles = files; // Jab bhi upload/delete ho, ye variable update hoga
+                          });
+                        },
+                      ),
                       SizedBox(height: height * 0.02,),
 
                       Padding(
@@ -510,6 +519,17 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                         isEnabled: timeSelectFlag && slectedDateSlot.isNotEmpty,
                         title: "Book Service",
                         onTap: () async {
+
+                          if (userUploadedFiles.isEmpty) {
+                            showTopNotification(
+                              context,
+                              title: 'Upload Image',
+                              message: 'Please upload at least one image/document',
+                              type: NotificationType.error,
+                            );
+                            return;
+                          }
+
                           // 1. Agar disabled hai, toh error dikhayein
                           if (!(timeSelectFlag && slectedDateSlot.isNotEmpty)) {
                             showTopNotification(

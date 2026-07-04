@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:newfolder/Core/Dialog/camera_image.dart';
 import 'dart:io';
 
 import 'package:newfolder/Core/Dropdown/inner_dropdown.dart';
@@ -113,7 +114,7 @@ class AddMemberBottomSheet {
               Padding(
                 padding: EdgeInsets.only(
                   // ✅ FIX 1: Sheet hamesha top se kam se kam 12% door rahegi (Sabse upar nahi jayegi)
-                  top: screenHeight * 0.03,
+                  top: screenHeight * 0.05,
                   // ✅ FIX 2: Keyboard aane par bottom se shift hogi
                   bottom: keyboardHeight,
                 ),
@@ -335,37 +336,48 @@ class AddMemberBottomSheet {
                             child: GestureDetector(
                               onTap: () {
                                 // Ek simple native-looking dialog box
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: const Text("Select Image"),
-                                      content: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          ListTile(
-                                            leading: const Icon(Icons.camera_alt),
-                                            title: const Text("Camera"),
-                                            onTap: () async {
-                                              Navigator.pop(context);
-                                              final XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
-                                              if (image != null) setState(() { myProfileImage = File(image.path); myProfileImagePath = image.path; });
-                                            },
-                                          ),
-                                          ListTile(
-                                            leading: const Icon(Icons.photo_library),
-                                            title: const Text("Gallery"),
-                                            onTap: () async {
-                                              Navigator.pop(context);
-                                              final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
-                                              if (image != null) setState(() { myProfileImage = File(image.path); myProfileImagePath = image.path; });
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
+                                // showDialog(
+                                //   barrierColor: Colors.transparent,
+                                //   context: context,
+                                //   barrierDismissible: false,
+                                //   builder: (BuildContext context) {
+                                //     return AlertDialog(
+                                //       title: const Text("Select Image"),
+                                //       content: Column(
+                                //         mainAxisSize: MainAxisSize.min,
+                                //         children: [
+                                //           ListTile(
+                                //             leading: const Icon(Icons.camera_alt),
+                                //             title: const Text("Camera"),
+                                //             onTap: () async {
+                                //               Navigator.pop(context);
+                                //               final XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
+                                //               if (image != null) setState(() { myProfileImage = File(image.path); myProfileImagePath = image.path; });
+                                //             },
+                                //           ),
+                                //           ListTile(
+                                //             leading: const Icon(Icons.photo_library),
+                                //             title: const Text("Gallery"),
+                                //             onTap: () async {
+                                //               Navigator.pop(context);
+                                //               final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+                                //               if (image != null) setState(() { myProfileImage = File(image.path); myProfileImagePath = image.path; });
+                                //             },
+                                //           ),
+                                //         ],
+                                //       ),
+                                //     );
+                                //   },
+                                // );
+
+
+                                CustomImagePicker.show(context, onImagePicked: (File pickedFile) {
+                                  setState(() {
+                                    myProfileImage = pickedFile;
+                                    myProfileImagePath = pickedFile.path;
+                                  });
+                                });
+
                               },
                               child: Container(
                                 height: 100, width: 100,

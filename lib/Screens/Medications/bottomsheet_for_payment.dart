@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:newfolder/Core/Data/dummy_data.dart';
 import 'package:newfolder/Screens/Appointments/selecttimeslot.dart';
+import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/Medications/medicationselecttime.dart';
 import 'package:newfolder/Screens/Utils/customNotification.dart';
@@ -11,10 +12,12 @@ import 'package:newfolder/Screens/Utils/customNotification.dart';
 class BottomSheetForPaymentForMedication extends StatefulWidget {
 
   final Map? detail ;
+  final String origin ;
 
   const BottomSheetForPaymentForMedication({
     super.key,
     this.detail,
+    this.origin = 'home' ,
   });
 
 
@@ -407,7 +410,7 @@ class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymen
                     ? () async {
                   Navigator.pop(context);
                   Future.delayed(Duration(milliseconds: 200), () {
-                    showsucessalertBottomSheet(widget.detail ?? {});
+                    showsucessalertBottomSheet(widget.detail ?? {},widget.origin);
                   });
                 }
                     : () {
@@ -446,7 +449,7 @@ class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymen
                                 ? () async {
                               Navigator.pop(context);
                               Future.delayed(Duration(milliseconds: 200), () {
-                                showsucessalertBottomSheet(widget.detail ?? {});
+                                showsucessalertBottomSheet(widget.detail ?? {},widget.origin);
                               });
                             }
                                 : () {
@@ -480,7 +483,7 @@ class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymen
   }
 
 
-  void showsucessalertBottomSheet(Map detail) => showModalBottomSheet(
+  void showsucessalertBottomSheet(Map detail,String origin) => showModalBottomSheet(
     enableDrag: false,
     isScrollControlled: true,
     isDismissible: true,
@@ -672,12 +675,24 @@ class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymen
                     );
                     print("After : ${DummyData.medicationBookedSlots}");
 
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => HomePageMain(),
-                      ),
-                          (Route route) => false,
-                    );
+
+                     if(origin == 'appointments') {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => AppointmentsFootMain(initialIndex: 1,)
+                        ),
+                            (Route route) => false,
+                      );
+                    }
+                     else {
+                       Navigator.of(context).pushAndRemoveUntil(
+                         MaterialPageRoute(
+                           builder: (BuildContext context) => HomePageMain(),
+                         ),
+                             (Route route) => false,
+                       );
+                     }
+
                   },
                   child: Container(
                       alignment: Alignment.centerRight,
@@ -729,12 +744,23 @@ class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymen
                                     );
                                     print("After : ${DummyData.medicationBookedSlots}");
 
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) => HomePageMain(),
-                                      ),
-                                          (Route route) => false,
-                                    );
+                                    if(origin == 'appointments') {
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) => AppointmentsFootMain(initialIndex: 1,)
+                                        ),
+                                            (Route route) => false,
+                                      );
+                                    }
+                                    else {
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context) => HomePageMain(),
+                                        ),
+                                            (Route route) => false,
+                                      );
+                                    }
+
                                   },
                                   child: Text("Back to Home",
                                       textAlign: TextAlign.center,

@@ -35,6 +35,8 @@ class MedicatiSelectTimeSlot extends StatefulWidget {
   final DateTime? previousDate;
   final String? previousTime;
 
+  final String origin ;
+
   MedicatiSelectTimeSlot(
       this.doctoridval,
       {
@@ -46,6 +48,8 @@ class MedicatiSelectTimeSlot extends StatefulWidget {
         this.isReschedule = false,
         this.previousDate,
         this.previousTime,
+
+         this.origin = 'home',
 
       }) : super(key: key);
 
@@ -533,6 +537,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                                   doctorId: (widget.detail?['doctorId'] ?? "unknown").toString(),
                                   selectedDate: slectedDateSlot,
                                   selectedTime: selectedSlot,
+                                  origin: widget.origin,
                                 ),
                               ),
                             );

@@ -39,11 +39,15 @@ class MedicationMyBookingsMain extends StatefulWidget {
   final String selectedDate;
   final String selectedTime;
   final String? doctorId;
+
+  final String origin ;
   const MedicationMyBookingsMain({
     required this.selectedDate,
     required this.selectedTime,
     this.doctorId,
     super.key,
+
+    this.origin = 'home' ,
   });
   @override
   State<MedicationMyBookingsMain> createState() => MedicationMyBookingsMainstate();
@@ -1137,7 +1141,7 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
             "selectedTime" : widget.selectedTime,
           };
 
-          showPaymentmethodsBottomSheet(detail);
+          showPaymentmethodsBottomSheet(detail,widget.origin);
         },
 
       ),
@@ -1369,7 +1373,7 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
   );
 
   // Payment methods
-  void showPaymentmethodsBottomSheet(Map? detail) => showModalBottomSheet(
+  void showPaymentmethodsBottomSheet(Map? detail,String origin) => showModalBottomSheet(
       context: context,
       enableDrag: false,
       isScrollControlled: true,
@@ -1406,7 +1410,7 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                       topRight: Radius.circular(24),
                     ),
                   ),
-                  child: BottomSheetForPaymentForMedication(detail: detail ?? {},),
+                  child: BottomSheetForPaymentForMedication(detail: detail ?? {},origin: widget.origin,),
                 ),
               ),
             ],
