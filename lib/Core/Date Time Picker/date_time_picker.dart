@@ -108,8 +108,13 @@ class _CustomDateTimePickerState extends State<CustomDateTimePicker> {
   Widget build(BuildContext context) {
     List<DateTime> dates = _generateDates();
     String formattedSelectedDate = DateFormat('dd-MM-yyyy').format(_selectedDate);
-    List<String> bookedSlotsForSelectedDate = widget.globallyBookedSlots[formattedSelectedDate] ?? [];
+    List<String> bookedSlotsForSelectedDate ;
 
+    bookedSlotsForSelectedDate = widget.globallyBookedSlots[formattedSelectedDate] ?? [];
+
+    if(widget.mode == 'homecare') {
+      bookedSlotsForSelectedDate = widget.homecareBookedSlots[formattedSelectedDate] ?? [];
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

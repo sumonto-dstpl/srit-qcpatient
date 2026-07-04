@@ -126,6 +126,7 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
 
 
                       CustomDateTimePicker(
+                        // key : widget.category.toLowerCase()
                         homecareBookedSlots: DummyData.homecareCategoryBookedSlots[widget.category.toLowerCase()] ?? {},
                         onDateTimeSelected: (date, time) {
                           print("User selected Date: $date and Time: $time");
@@ -136,6 +137,7 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                             timeSelectFlag = true;
                           });
                         },
+                        mode:  'homecare',
                       ),
                       Container(
                         padding: EdgeInsets.only(
