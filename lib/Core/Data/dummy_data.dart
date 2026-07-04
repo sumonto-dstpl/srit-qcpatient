@@ -294,4 +294,30 @@ class DummyData {
       categoryDoctorBookedSlots[cat]![doctorId]![dateStr] = [timeSlot];
     }
   }
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  //    Medication
+  //
+  /////////////////////////////////////////////////////////////////////////////
+
+  static Map<String, Map<String, List<String>>> medicationBookedSlots = {};
+  static void addMedicationBooking(String id, String dateStr, String timeSlot) {
+    // Agar id null ya khali hai, toh "unknown" set kar do
+    String keyId = (id.isEmpty) ? "unknown" : id;
+
+    // 1. Agar ID pehli baar aa rahi hai
+    if (!medicationBookedSlots.containsKey(keyId)) {
+      medicationBookedSlots[keyId] = {};
+    }
+
+    // 2. Date aur Time save karna
+    if (medicationBookedSlots[keyId]!.containsKey(dateStr)) {
+      if (!medicationBookedSlots[keyId]![dateStr]!.contains(timeSlot)) {
+        medicationBookedSlots[keyId]![dateStr]!.add(timeSlot);
+      }
+    } else {
+      medicationBookedSlots[keyId]![dateStr] = [timeSlot];
+    }
+  }
 }

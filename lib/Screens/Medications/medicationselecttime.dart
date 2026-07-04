@@ -30,7 +30,24 @@ class MedicatiSelectTimeSlot extends StatefulWidget {
   String? profession;
   final String? doctoridval;
 
-  MedicatiSelectTimeSlot(this.doctoridval, {Key? key,this.username,this.profession}) : super(key: key);
+  final Map? detail; // 🌟 Aapka select kiya hua doctor/medication ka detail map
+  final bool isReschedule;
+  final DateTime? previousDate;
+  final String? previousTime;
+
+  MedicatiSelectTimeSlot(
+      this.doctoridval,
+      {
+        Key? key,
+        this.username,
+        this.profession,
+
+        this.detail,
+        this.isReschedule = false,
+        this.previousDate,
+        this.previousTime,
+
+      }) : super(key: key);
 
   @override
   State<MedicatiSelectTimeSlot> createState() => MedicatiSelectTimeSlotstate();
@@ -48,13 +65,14 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
   String selectedSlot = "";
   DateTime? _selectedDay;
   int? selectedIndex;
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
+
 
   ConnectivityService connectivityservice = ConnectivityService();
   APIService apiService = new APIService();
   late ProgressDialog progressDialog;
+
   AppointmentSelectTimeResponse? responsedetails;
+
   List<String>? respontimeslotlist = [];
   String? formattedDate;
 
@@ -63,14 +81,27 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
   String qualificationval = "";
   bool _isSharing = false;
 
-  bool _isExpandedtime = true;
+
   @override
   void initState() {
     // getSharedPrefs();
     super.initState();
     _focusedDay = DateTime.now();
     _selectedDay = null;
+
+    if (widget.isReschedule) {
+      if (widget.previousDate != null) {
+        slectedDateSlot = DateFormat('dd-MM-yyyy').format(widget.previousDate!);
+      }
+      if (widget.previousTime != null) {
+        selectedSlot = widget.previousTime!;
+      }
+      // Flag ko true kar dein taaki button click ho sake
+      timeSelectFlag = true;
+    }
   }
+
+
 
   Future getSharedPrefs() async {
     formattedDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
@@ -355,10 +386,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                     topRight: Radius.circular(screenHeight * 0.03),
                   ),
                 ),
-                // child: ListView(
-                //   padding: EdgeInsets.zero,
-                //   shrinkWrap: true,
-                //   physics: AlwaysScrollableScrollPhysics(),
+
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -374,7 +402,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                 widget.username ?? "Dr. Nutan Bhatt",
+                                 widget.detail?['name'] ?? "Dr. Nutan Bhatt",
                                 style: TextStyle(
                                   color: Color(0xFF126086),
                                   fontWeight: FontWeight.w600,
@@ -386,7 +414,7 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                             ]),
                         SizedBox(height: 4),
                         Text(
-                          widget.profession ?? "General physician / Internal Medicine",
+                          widget.detail?['speciality'] ?? "General physician / Internal Medicine",
                           // completedSpecialityString,
                           style: TextStyle(
                             color: Colors.black54,
@@ -427,19 +455,20 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                               child: LabelWithAsterisk(label: 'Select Date & Time',),
                             ),
 
-                            CustomDateTimePicker(
-                              globallyBookedSlots: DummyData.globallyBookedSlots,
+                            CustomDateTimePickerMedication(
+                              mode: 'medication',
+
+
+                              appointmentBookedSlots: DummyData.medicationBookedSlots[
+                              (widget.detail?['doctorId'] ?? "unknown").toString()
+                              ] ?? {},
+
+                              initialDate: widget.isReschedule ? widget.previousDate : null,
+                              initialTime: widget.isReschedule ? widget.previousTime : null,
                               onDateTimeSelected: (date, time) {
-                                print("User selected Date: $date and Time: $time");
-                                // Yahan state update karein aur Book Service button enable karein
                                 setState(() {
-                                  // 1. Date update karein (taaki button logic pass ho)
                                   slectedDateSlot = DateFormat('dd-MM-yyyy').format(date);
-
-                                  // 2. Time update karein
                                   selectedSlot = time;
-
-                                  // 3. Flag ko true karein (YEH SABSE ZAROORI HAI ERROR ROKNE KE LIYE)
                                   timeSelectFlag = true;
                                 });
                               },
@@ -496,10 +525,12 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
               });
             } else {
 
+
                           if (selectedSlot.isNotEmpty && slectedDateSlot.isNotEmpty) {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => MedicationMyBookingsMain(
+                                  doctorId: (widget.detail?['doctorId'] ?? "unknown").toString(),
                                   selectedDate: slectedDateSlot,
                                   selectedTime: selectedSlot,
                                 ),

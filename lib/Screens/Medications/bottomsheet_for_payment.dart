@@ -1,19 +1,29 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+import 'package:newfolder/Core/Data/dummy_data.dart';
+import 'package:newfolder/Screens/Appointments/selecttimeslot.dart';
 import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/Medications/medicationselecttime.dart';
-import 'package:newfolder/Screens/Testing/testfeed.dart';
-
+import 'package:newfolder/Screens/Utils/customNotification.dart';
 
 
 class BottomSheetForPaymentForMedication extends StatefulWidget {
+
+  final Map? detail ;
+
+  const BottomSheetForPaymentForMedication({
+    super.key,
+    this.detail,
+  });
+
+
   @override
-  BottomSheetForPaymentState createState() => BottomSheetForPaymentState();
+  State<BottomSheetForPaymentForMedication> createState() => BottomSheetForPaymentForMedicationState();
+
 }
 
-class BottomSheetForPaymentState extends State<BottomSheetForPaymentForMedication> {
+class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymentForMedication> {
   final FocusNode _focusNode = FocusNode();
 
   DraggableScrollableController  _scrollController = DraggableScrollableController();
@@ -32,934 +42,470 @@ class BottomSheetForPaymentState extends State<BottomSheetForPaymentForMedicatio
   int? _selectedValue;
   int selectedCategoryIndex = 0;
 
-
-  double _currentChildSize = 0.52;
-  bool _isDismissed = false;
-  double _lastExtent = 0.55;
-  final DraggableScrollableController _sheetController = DraggableScrollableController();
-
   @override
   Widget build(BuildContext context) {
 
+    bool isPaymentSelected = _selectedValue != null;
 
-    return DraggableScrollableSheet(
-      controller: _sheetController,
-      initialChildSize: _currentChildSize, // Start at 50% of screen height
-      minChildSize: 0.3, // Minimum height (30% of screen)
-      // maxChildSize: 0.9, // Max height (90% of screen)
-      maxChildSize: _currentChildSize,
-      expand: false,
-      builder: (context, scrollController) {
-        return NotificationListener<DraggableScrollableNotification>(
-          onNotification: (notification){
-            final currentExtent = notification.extent;
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(MediaQuery.of(context).size.height * 0.02),
+          topRight: Radius.circular(MediaQuery.of(context).size.height * 0.02),
+        ),
+      ),
+      child: SingleChildScrollView(
+        child: Padding(
+          padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Column(
+            mainAxisSize: MainAxisSize.min, // Takes only required height
+            children: <Widget>[
+              // Top Handle (Visual only, no drag functionality now)
+              Center(
+                child: Container(
+                  margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.02,
+                    bottom: MediaQuery.of(context).size.height * 0.0,
+                  ),
+                  width: MediaQuery.of(context).size.width * 0.23,
+                  height: MediaQuery.of(context).size.height * 0.006,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFD9D9D9),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.0),
 
-            // ✅ Hide keyboard when dragging down
-            if (currentExtent < _lastExtent - 0.01) {
-              print("Dragging down - Hiding keyboard");
-              FocusScope.of(context).unfocus();
-            }
-
-            // ✅ Dismiss the sheet if dragged below threshold
-            if (!_isDismissed &&
-                currentExtent < _currentChildSize - 0.05) {
-              _isDismissed = true;
-              Navigator.of(context).pop(); // Dismiss sheet
-            }
-
-            _lastExtent = currentExtent;
-            return true;
-
-          },
-          child: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onVerticalDragUpdate: (details) {
-              final newSize = (_sheetController.size ?? _currentChildSize) -
-                  details.primaryDelta! / MediaQuery.of(context).size.height;
-
-              _sheetController.jumpTo(
-                newSize.clamp(0.3, 0.95),
-              );
-            },
-            child: SingleChildScrollView(
-              controller: scrollController,
-              child: Padding(
+              // Title
+              Container(
                 padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                    left: MediaQuery.of(context).size.height * 0.020,
+                    right: MediaQuery.of(context).size.height * 0.020,
+                    top: MediaQuery.of(context).size.height * 0.030,
+                    bottom: MediaQuery.of(context).size.height * 0.00),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Center(
-                      child: Container(
-
-                        padding: EdgeInsets.only(
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.01 ,
-                          bottom: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.0,
-                          left: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.18,
-                          right: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.18,
-                        ),
-
-
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.23,
-                        // Same thickness as Divider
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.006,
-                        // Same thickness as Divider
-                        decoration: BoxDecoration(
-                          color: Color(0xFFD9D9D9), // Divider color
-                          // color : Colors.red,
-                          borderRadius: BorderRadius.circular(
-                              10), // Rounded edges
-                        ),
-                      ),
-                    ),
-                    SizedBox(height : MediaQuery.of(context).size.height * 0.0),
-
-                    Container(
-                      padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.height * 0.020,
-                          right: MediaQuery.of(context).size.height * 0.020,
-                          top: MediaQuery.of(context).size.height * 0.030,
-                          bottom: MediaQuery.of(context).size.height * 0.00),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  "Payment Methods",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: MediaQuery.of(context).size.height *
-                                          0.018
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(
-                                    top: MediaQuery.of(context).size.height * 0.00,
-                                    bottom:
-                                    MediaQuery.of(context).size.height * 0.02,
-                                    left: MediaQuery.of(context).size.height * 0.00,
-                                    right:
-                                    MediaQuery.of(context).size.height * 0.00,
-                                  ),
-                                  child: Text(
-                                    "Please Select a payment method",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize:
-                                      MediaQuery.of(context).size.height *
-                                          0.014,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                          Text(
+                            "Payment Methods",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                                fontSize:
+                                MediaQuery.of(context).size.height * 0.018),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height * 0.00,
+                              bottom: MediaQuery.of(context).size.height * 0.02,
+                              left: MediaQuery.of(context).size.height * 0.00,
+                              right: MediaQuery.of(context).size.height * 0.00,
+                            ),
+                            child: Text(
+                              "Please Select a payment method",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black54,
+                                fontSize:
+                                MediaQuery.of(context).size.height * 0.014,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
-
-                          // SizedBox(width: MediaQuery.of(context).size.height * 0.040),
                         ],
                       ),
                     ),
-
-                    // Payment mode
-                    // 1
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedValue = 1;
-                        });
-                        print('Selected Value: 1');
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.00,
-                          bottom: MediaQuery.of(context).size.height * 0.01,
-                          left: MediaQuery.of(context).size.height * 0.015,
-                          right: MediaQuery.of(context).size.height * 0.015,
-                        ),
-                        padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.height * 0.01,
-                          right: MediaQuery.of(context).size.height * 0.00,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Color(0x24D9D9D9),
-                          border: Border.all(color: Color(0x0F000000), width: 1.0),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.height * 0.05,
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4.0),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/visapay.png'),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '**** **** 3434',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: MediaQuery.of(context).size.height * 0.016,
-                                      color: Color(0xB2000000),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Visa',
-                                    style: TextStyle(
-                                      fontSize: MediaQuery.of(context).size.height * 0.014,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Radio<int>(
-                              value: 1,
-                              groupValue: _selectedValue,
-                              onChanged: (int? value) {
-                                setState(() {
-                                  _selectedValue = value;
-                                });
-                                print('Selected Value: $value');
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-// 2
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedValue = 2;
-                        });
-                        print('Selected Value: 2');
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.00,
-                          bottom: MediaQuery.of(context).size.height * 0.01,
-                          left: MediaQuery.of(context).size.height * 0.015,
-                          right: MediaQuery.of(context).size.height * 0.015,
-                        ),
-                        padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.height * 0.01,
-                          right: MediaQuery.of(context).size.height * 0.00,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Color(0x24D9D9D9),
-                          border: Border.all(color: Color(0x0F000000), width: 1.0),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.height * 0.05,
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4.0),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/paypalpay.png'),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '**** **** 3434',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: MediaQuery.of(context).size.height * 0.016,
-                                      color: Color(0xB2000000),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Paypal',
-                                    style: TextStyle(
-                                      fontSize: MediaQuery.of(context).size.height * 0.014,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Radio<int>(
-                              value: 2,
-                              groupValue: _selectedValue,
-                              onChanged: (int? value) {
-                                setState(() {
-                                  _selectedValue = value;
-                                });
-                                print('Selected Value: $value');
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-// 3
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedValue = 3;
-                        });
-                        print('Selected Value: 3');
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.00,
-                          bottom: MediaQuery.of(context).size.height * 0.01,
-                          left: MediaQuery.of(context).size.height * 0.015,
-                          right: MediaQuery.of(context).size.height * 0.015,
-                        ),
-                        padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.height * 0.01,
-                          right: MediaQuery.of(context).size.height * 0.00,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Color(0x24D9D9D9),
-                          border: Border.all(color: Color(0x0F000000), width: 1.0),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.height * 0.05,
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4.0),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/applepay.png'),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Priya Krishamurty',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: MediaQuery.of(context).size.height * 0.016,
-                                      color: Color(0xB2000000),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Apple Pay',
-                                    style: TextStyle(
-                                      fontSize: MediaQuery.of(context).size.height * 0.014,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Radio<int>(
-                              value: 3,
-                              groupValue: _selectedValue,
-                              onChanged: (int? value) {
-                                setState(() {
-                                  _selectedValue = value;
-                                });
-                                print('Selected Value: $value');
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-// 4
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedValue = 4;
-                        });
-                        print('Selected Value: 4');
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.00,
-                          bottom: MediaQuery.of(context).size.height * 0.00,
-                          left: MediaQuery.of(context).size.height * 0.015,
-                          right: MediaQuery.of(context).size.height * 0.015,
-                        ),
-                        padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.height * 0.01,
-                          right: MediaQuery.of(context).size.height * 0.00,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Color(0x24D9D9D9),
-                          border: Border.all(color: Color(0x0F000000), width: 1.0),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.height * 0.05,
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4.0),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/googlepay.png'),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Priya Krishamurty',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: MediaQuery.of(context).size.height * 0.016,
-                                      color: Color(0xB2000000),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Google Pay',
-                                    style: TextStyle(
-                                      fontSize: MediaQuery.of(context).size.height * 0.014,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Radio<int>(
-                              value: 4,
-                              groupValue: _selectedValue,
-                              onChanged: (int? value) {
-                                setState(() {
-                                  _selectedValue = value;
-                                });
-                                print('Selected Value: $value');
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    // 1
-                    // Container(
-                    //   margin: EdgeInsets.only(
-                    //     top: MediaQuery.of(context).size.height * 0.00,
-                    //     bottom: MediaQuery.of(context).size.height * 0.01,
-                    //     left: MediaQuery.of(context).size.height * 0.015,
-                    //     right: MediaQuery.of(context).size.height * 0.015,
-                    //   ),
-                    //   padding: EdgeInsets.only(
-                    //     top: MediaQuery.of(context).size.height * 0.00,
-                    //     bottom: MediaQuery.of(context).size.height * 0.00,
-                    //     left: MediaQuery.of(context).size.height * 0.01,
-                    //     right: MediaQuery.of(context).size.height * 0.00,
-                    //   ),
-                    //   decoration: BoxDecoration(
-                    //     color : Color(0x24D9D9D9),
-                    //     border: Border.all(
-                    //       color: Color(0x0F000000),
-                    //       width: 1.0,
-                    //     ),
-                    //     borderRadius: BorderRadius.circular(8.0),
-                    //   ),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.start,
-                    //     crossAxisAlignment: CrossAxisAlignment.center,
-                    //     children: [
-                    //       // Image from assets
-                    //       Container(
-                    //         width: MediaQuery.of(context).size.height * 0.05,
-                    //         height: MediaQuery.of(context).size.height * 0.05,
-                    //         margin: EdgeInsets.only(
-                    //           top: MediaQuery.of(context).size.height * 0.01,
-                    //           bottom: MediaQuery.of(context).size.height * 0.01,
-                    //           left: MediaQuery.of(context).size.height * 0.01,
-                    //           right: MediaQuery.of(context).size.height * 0.01,
-                    //         ),
-                    //         decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(4.0),
-                    //           image: DecorationImage(
-                    //             image: AssetImage(
-                    //                 'assets/visapay.png'), // Replace with your asset path
-                    //             fit: BoxFit.cover,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //       // Column with two Text widgets
-                    //       Expanded(
-                    //         child: Column(
-                    //           crossAxisAlignment: CrossAxisAlignment.start,
-                    //           children: [
-                    //             Text(
-                    //               '**** **** 3434',
-                    //               style: TextStyle(
-                    //                 fontWeight: FontWeight.w500,
-                    //                 fontSize:
-                    //                 MediaQuery.of(context).size.height * 0.016,
-                    //                 color: Color(0xB2000000),
-                    //               ),
-                    //             ),
-                    //             Text(
-                    //               'Visa',
-                    //               style: TextStyle(
-                    //                 fontSize:
-                    //                 MediaQuery.of(context).size.height * 0.014,
-                    //                 color: Colors.black,
-                    //               ),
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //       // Circular Radio Button
-                    //       Radio<int>(
-                    //         value: 1, // The value for this radio button
-                    //         groupValue: _selectedValue, // The currently selected value
-                    //         onChanged: (int? value) {
-                    //           setState(() {
-                    //             _selectedValue = value;
-                    //           });
-                    //           print('Selected Value: $value');
-                    //         },
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    //
-                    // // 2
-                    // Container(
-                    //   margin: EdgeInsets.only(
-                    //     top: MediaQuery.of(context).size.height * 0.00,
-                    //     bottom: MediaQuery.of(context).size.height * 0.01,
-                    //     left: MediaQuery.of(context).size.height * 0.015,
-                    //     right: MediaQuery.of(context).size.height * 0.015,
-                    //   ),
-                    //   padding: EdgeInsets.only(
-                    //     top: MediaQuery.of(context).size.height * 0.00,
-                    //     bottom: MediaQuery.of(context).size.height * 0.00,
-                    //     left: MediaQuery.of(context).size.height * 0.01,
-                    //     right: MediaQuery.of(context).size.height * 0.00,
-                    //   ),
-                    //   decoration: BoxDecoration(
-                    //     color : Color(0x24D9D9D9),
-                    //     border: Border.all(
-                    //       color: Color(0x0F000000),
-                    //       width: 1.0,
-                    //     ),
-                    //     borderRadius: BorderRadius.circular(8.0),
-                    //   ),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.start,
-                    //     crossAxisAlignment: CrossAxisAlignment.center,
-                    //     children: [
-                    //       // Image from assets
-                    //       Container(
-                    //         width: MediaQuery.of(context).size.height * 0.05,
-                    //         height: MediaQuery.of(context).size.height * 0.05,
-                    //         margin: EdgeInsets.only(
-                    //           top: MediaQuery.of(context).size.height * 0.01,
-                    //           bottom: MediaQuery.of(context).size.height * 0.01,
-                    //           left: MediaQuery.of(context).size.height * 0.01,
-                    //           right: MediaQuery.of(context).size.height * 0.01,
-                    //         ),
-                    //         decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(4.0),
-                    //           image: DecorationImage(
-                    //             image: AssetImage(
-                    //                 'assets/paypalpay.png'), // Replace with your asset path
-                    //             fit: BoxFit.cover,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //       // Column with two Text widgets
-                    //       Expanded(
-                    //         child: Column(
-                    //           crossAxisAlignment: CrossAxisAlignment.start,
-                    //           children: [
-                    //             Text(
-                    //               '**** **** 3434',
-                    //               style: TextStyle(
-                    //                 fontWeight: FontWeight.w500,
-                    //                 fontSize:
-                    //                 MediaQuery.of(context).size.height * 0.016,
-                    //                 color: Color(0xB2000000),
-                    //               ),
-                    //             ),
-                    //             Text(
-                    //               'Paypal',
-                    //               style: TextStyle(
-                    //                 fontSize:
-                    //                 MediaQuery.of(context).size.height * 0.014,
-                    //                 color: Colors.black,
-                    //               ),
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //       // Circular Radio Button
-                    //       Radio<int>(
-                    //         value: 2, // The value for this radio button
-                    //         groupValue: _selectedValue, // The currently selected value
-                    //         onChanged: (int? value) {
-                    //           setState(() {
-                    //             _selectedValue = value;
-                    //           });
-                    //           print('Selected Value: $value');
-                    //         },
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    //
-                    // // 3
-                    // Container(
-                    //   margin: EdgeInsets.only(
-                    //     top: MediaQuery.of(context).size.height * 0.00,
-                    //     bottom: MediaQuery.of(context).size.height * 0.01,
-                    //     left: MediaQuery.of(context).size.height * 0.015,
-                    //     right: MediaQuery.of(context).size.height * 0.015,
-                    //   ),
-                    //   padding: EdgeInsets.only(
-                    //     top: MediaQuery.of(context).size.height * 0.00,
-                    //     bottom: MediaQuery.of(context).size.height * 0.00,
-                    //     left: MediaQuery.of(context).size.height * 0.01,
-                    //     right: MediaQuery.of(context).size.height * 0.00,
-                    //   ),
-                    //   decoration: BoxDecoration(
-                    //     color : Color(0x24D9D9D9),
-                    //     border: Border.all(
-                    //       color: Color(0x0F000000),
-                    //       width: 1.0,
-                    //     ),
-                    //     borderRadius: BorderRadius.circular(8.0),
-                    //   ),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.start,
-                    //     crossAxisAlignment: CrossAxisAlignment.center,
-                    //     children: [
-                    //       // Image from assets
-                    //       Container(
-                    //         width: MediaQuery.of(context).size.height * 0.05,
-                    //         height: MediaQuery.of(context).size.height * 0.05,
-                    //         margin: EdgeInsets.only(
-                    //           top: MediaQuery.of(context).size.height * 0.01,
-                    //           bottom: MediaQuery.of(context).size.height * 0.01,
-                    //           left: MediaQuery.of(context).size.height * 0.01,
-                    //           right: MediaQuery.of(context).size.height * 0.01,
-                    //         ),
-                    //         decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(4.0),
-                    //           image: DecorationImage(
-                    //             image: AssetImage(
-                    //                 'assets/applepay.png'), // Replace with your asset path
-                    //             fit: BoxFit.cover,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //       // Column with two Text widgets
-                    //       Expanded(
-                    //         child: Column(
-                    //           crossAxisAlignment: CrossAxisAlignment.start,
-                    //           children: [
-                    //             Text(
-                    //               'Priya Krishamurty',
-                    //               style: TextStyle(
-                    //                 fontWeight: FontWeight.w500,
-                    //                 fontSize:
-                    //                 MediaQuery.of(context).size.height * 0.016,
-                    //                 color: Color(0xB2000000),
-                    //               ),
-                    //             ),
-                    //             Text(
-                    //               'Apple Pay',
-                    //               style: TextStyle(
-                    //                 fontSize:
-                    //                 MediaQuery.of(context).size.height * 0.014,
-                    //                 color: Colors.black,
-                    //               ),
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //       // Circular Radio Button
-                    //       Radio<int>(
-                    //         value: 3, // The value for this radio button
-                    //         groupValue: _selectedValue, // The currently selected value
-                    //         onChanged: (int? value) {
-                    //           setState(() {
-                    //             _selectedValue = value;
-                    //           });
-                    //           print('Selected Value: $value');
-                    //         },
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    //
-                    // // 4
-                    // Container(
-                    //   margin: EdgeInsets.only(
-                    //     top: MediaQuery.of(context).size.height * 0.00,
-                    //     bottom: MediaQuery.of(context).size.height * 0.00,
-                    //     left: MediaQuery.of(context).size.height * 0.015,
-                    //     right: MediaQuery.of(context).size.height * 0.015,
-                    //   ),
-                    //   padding: EdgeInsets.only(
-                    //     top: MediaQuery.of(context).size.height * 0.00,
-                    //     bottom: MediaQuery.of(context).size.height * 0.00,
-                    //     left: MediaQuery.of(context).size.height * 0.01,
-                    //     right: MediaQuery.of(context).size.height * 0.00,
-                    //   ),
-                    //   decoration: BoxDecoration(
-                    //     color : Color(0x24D9D9D9),
-                    //     border: Border.all(
-                    //       color: Color(0x0F000000),
-                    //       width: 1.0,
-                    //     ),
-                    //     borderRadius: BorderRadius.circular(8.0),
-                    //   ),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.start,
-                    //     crossAxisAlignment: CrossAxisAlignment.center,
-                    //     children: [
-                    //       // Image from assets
-                    //       Container(
-                    //         width: MediaQuery.of(context).size.height * 0.05,
-                    //         height: MediaQuery.of(context).size.height * 0.05,
-                    //         margin: EdgeInsets.only(
-                    //           top: MediaQuery.of(context).size.height * 0.01,
-                    //           bottom: MediaQuery.of(context).size.height * 0.01,
-                    //           left: MediaQuery.of(context).size.height * 0.01,
-                    //           right: MediaQuery.of(context).size.height * 0.01,
-                    //         ),
-                    //         decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(4.0),
-                    //           image: DecorationImage(
-                    //             image: AssetImage(
-                    //                 'assets/googlepay.png'), // Replace with your asset path
-                    //             fit: BoxFit.cover,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //       // Column with two Text widgets
-                    //       Expanded(
-                    //         child: Column(
-                    //           crossAxisAlignment: CrossAxisAlignment.start,
-                    //           children: [
-                    //             Text(
-                    //               'Priya Krishamurty',
-                    //               style: TextStyle(
-                    //                 fontWeight: FontWeight.w500,
-                    //                 fontSize:
-                    //                 MediaQuery.of(context).size.height * 0.016,
-                    //                 color: Color(0xB2000000),
-                    //               ),
-                    //             ),
-                    //             Text(
-                    //               'Google Pay',
-                    //               style: TextStyle(
-                    //                 fontSize:
-                    //                 MediaQuery.of(context).size.height * 0.014,
-                    //                 color: Colors.black,
-                    //               ),
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //       // Circular Radio Button
-                    //       Radio<int>(
-                    //         value: 4, // The value for this radio button
-                    //         groupValue: _selectedValue, // The currently selected value
-                    //         onChanged: (int? value) {
-                    //           setState(() {
-                    //             _selectedValue = value;
-                    //           });
-                    //           print('Selected Value: $value');
-                    //         },
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-
-                    // Continue
-                    GestureDetector(
-                      onTap: () async {
-                        showsucessalertBottomSheet();
-                      },
-                      child: Container(
-                          alignment: Alignment.centerRight,
-                          padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * 0.01,
-                              bottom: MediaQuery.of(context).size.height * 0.00,
-                              left: MediaQuery.of(context).size.height * 0.00,
-                              right: MediaQuery.of(context).size.height * 0.00),
-                          margin: EdgeInsets.only(
-                              right: MediaQuery.of(context).size.height * 0.03,
-                              top: MediaQuery.of(context).size.height * 0.01,
-                              bottom: MediaQuery.of(context).size.height * 0.01,
-                              left: MediaQuery.of(context).size.height * 0.03),
-                          child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Expanded(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            MediaQuery.of(context).size.height *
-                                                0.012),
-                                        gradient: LinearGradient(
-                                            begin: Alignment.centerRight,
-                                            end: Alignment.center,
-                                            stops: [
-                                              0.5,
-                                              0.9
-                                            ],
-                                            colors: [
-                                              Color(0xFF126086),
-                                              Color(0xFF126086),
-                                            ])),
-                                    alignment: Alignment.center,
-                                    padding: EdgeInsets.only(left: 0.0),
-                                    child: TextButton(
-                                      onPressed: () async {
-                                        showsucessalertBottomSheet();
-                                      },
-                                      child: Text("Continue",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                                  0.02)),
-                                      style: TextButton.styleFrom(
-                                        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0), // ← Adjust this
-                                        minimumSize: Size(0, 0), // Removes minimum button constraints
-                                        tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Removes extra tap padding
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ])),
-                    ),
-
-
-
-
-
-
-
-
                   ],
                 ),
               ),
-            ),
+
+              // Payment mode 1
+              Container(
+                margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.height * 0.01,
+                  left: MediaQuery.of(context).size.height * 0.015,
+                  right: MediaQuery.of(context).size.height * 0.015,
+                ),
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.height * 0.01,
+                ),
+                decoration: BoxDecoration(
+                  color: Color(0x24D9D9D9),
+                  border: Border.all(
+                    color: Color(0x0F000000),
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.height * 0.05,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4.0),
+                        image: DecorationImage(
+                          image: AssetImage('assets/visapay.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '**** **** 3434',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: MediaQuery.of(context).size.height * 0.016,
+                              color: Color(0xB2000000),
+                            ),
+                          ),
+                          Text(
+                            'Visa',
+                            style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.height * 0.014,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Radio<int>(
+                      value: 1,
+                      groupValue: _selectedValue,
+                      onChanged: (int? value) {
+                        setState(() {
+                          _selectedValue = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              // Payment mode 2
+              Container(
+                margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.height * 0.01,
+                  left: MediaQuery.of(context).size.height * 0.015,
+                  right: MediaQuery.of(context).size.height * 0.015,
+                ),
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.height * 0.01,
+                ),
+                decoration: BoxDecoration(
+                  color: Color(0x24D9D9D9),
+                  border: Border.all(
+                    color: Color(0x0F000000),
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.height * 0.05,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4.0),
+                        image: DecorationImage(
+                          image: AssetImage('assets/paypalpay.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '**** **** 3434',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: MediaQuery.of(context).size.height * 0.016,
+                              color: Color(0xB2000000),
+                            ),
+                          ),
+                          Text(
+                            'Paypal',
+                            style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.height * 0.014,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Radio<int>(
+                      value: 2,
+                      groupValue: _selectedValue,
+                      onChanged: (int? value) {
+                        setState(() {
+                          _selectedValue = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              // Payment mode 3
+              Container(
+                margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.height * 0.01,
+                  left: MediaQuery.of(context).size.height * 0.015,
+                  right: MediaQuery.of(context).size.height * 0.015,
+                ),
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.height * 0.01,
+                ),
+                decoration: BoxDecoration(
+                  color: Color(0x24D9D9D9),
+                  border: Border.all(
+                    color: Color(0x0F000000),
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.height * 0.05,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4.0),
+                        image: DecorationImage(
+                          image: AssetImage('assets/applepay.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Priya Krishamurty',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: MediaQuery.of(context).size.height * 0.016,
+                              color: Color(0xB2000000),
+                            ),
+                          ),
+                          Text(
+                            'Apple Pay',
+                            style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.height * 0.014,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Radio<int>(
+                      value: 3,
+                      groupValue: _selectedValue,
+                      onChanged: (int? value) {
+                        setState(() {
+                          _selectedValue = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              // Payment mode 4
+              Container(
+                margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.height * 0.02,
+                  left: MediaQuery.of(context).size.height * 0.015,
+                  right: MediaQuery.of(context).size.height * 0.015,
+                ),
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.height * 0.01,
+                ),
+                decoration: BoxDecoration(
+                  color: Color(0x24D9D9D9),
+                  border: Border.all(
+                    color: Color(0x0F000000),
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.height * 0.05,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4.0),
+                        image: DecorationImage(
+                          image: AssetImage('assets/googlepay.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Priya Krishamurty',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: MediaQuery.of(context).size.height * 0.016,
+                              color: Color(0xB2000000),
+                            ),
+                          ),
+                          Text(
+                            'Google Pay',
+                            style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.height * 0.014,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Radio<int>(
+                      value: 4,
+                      groupValue: _selectedValue,
+                      onChanged: (int? value) {
+                        setState(() {
+                          _selectedValue = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              // Continue Button
+              GestureDetector(
+                // Sirf tabhi tap hoga jab koi payment method selected ho
+                onTap: isPaymentSelected
+                    ? () async {
+                  Navigator.pop(context);
+                  Future.delayed(Duration(milliseconds: 200), () {
+                    showsucessalertBottomSheet(widget.detail ?? {});
+                  });
+                }
+                    : () {
+                  showTopNotification(
+                      context,
+                      title: 'Payment Methods',
+                      message: 'Please select a payment method',
+                      type: NotificationType.error);
+                }, // Warna click disable ho jayega
+                child: Container(
+                  margin: EdgeInsets.only(
+                    right: MediaQuery.of(context).size.height * 0.03,
+                    left: MediaQuery.of(context).size.height * 0.03,
+                    bottom: MediaQuery.of(context).size.height * 0.03,
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                                MediaQuery.of(context).size.height * 0.012),
+                            // Payment select hone ke hisab se color change karein
+                            gradient: LinearGradient(
+                              begin: Alignment.centerRight,
+                              end: Alignment.center,
+                              colors: isPaymentSelected
+                                  ? [Color(0xFF126086), Color(0xFF126086)] // Active state
+                                  : [Colors.grey.shade400, Colors.grey.shade400], // Disabled state
+                            ),
+                          ),
+                          alignment: Alignment.center,
+                          child: TextButton(
+                            // Yaha bhi click logic add kiya hai
+                            onPressed: isPaymentSelected
+                                ? () async {
+                              Navigator.pop(context);
+                              Future.delayed(Duration(milliseconds: 200), () {
+                                showsucessalertBottomSheet(widget.detail ?? {});
+                              });
+                            }
+                                : () {
+                              showTopNotification(
+                                  context,
+                                  title: 'Payment Methods',
+                                  message: 'Please select a payment method',
+                                  type: NotificationType.error);
+                            },
+                            child: Text(
+                              "Continue",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize:
+                                MediaQuery.of(context).size.height * 0.02,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ) ; },
+        ),
+      ),
     );
   }
 
 
-  void showsucessalertBottomSheet() => showModalBottomSheet(
-  enableDrag: false,
-  isScrollControlled: true,
-  isDismissible: true,
-  backgroundColor: Colors.transparent, // Necessary for blur to show
-  barrierColor: Colors.transparent,
-  context: context,
-  builder: (context) {
-  return Stack(
-  children: [
-  GestureDetector(
-  onTap: () => Navigator.of(context).pop(),
-  child: BackdropFilter(
-  filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-  child: Container(
-  width: double.infinity,
-  height: double.infinity,
-  color: Colors.transparent,
-  ),
-  ),
-  ),
-  Align(
-  alignment: Alignment.bottomCenter,
-  child: Container(
-  decoration: const BoxDecoration(
-  color: Colors.white,
-  borderRadius: BorderRadius.only(
-  topLeft: Radius.circular(24),
-  topRight: Radius.circular(24),
-  ),
-  boxShadow: [
-  BoxShadow(
-  color: Colors.black26,
-  blurRadius: 10,
-  spreadRadius: 2,
-  offset: Offset(0, -2),
-  ),
-  ],
-  ),
-  child: StatefulBuilder(
-  builder: (BuildContext context, StateSetter setState) =>
-  Padding(
-  padding: EdgeInsets.only(
-  bottom: MediaQuery.of(context).viewInsets.bottom,
-  ),
+  void showsucessalertBottomSheet(Map detail) => showModalBottomSheet(
+    enableDrag: false,
+    isScrollControlled: true,
+    isDismissible: true,
+
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(24),
+        topRight: Radius.circular(24),
+      ),
+    ),
+    barrierColor: Colors.grey.withOpacity(0.8),
+    context: context,
+    backgroundColor: Colors.white
+    ,
+    builder: (context) => StatefulBuilder(
+      builder: (BuildContext context,
+          StateSetter setState /*You can rename this!*/) =>
+          Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
+
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.height * 0.020,
                       right: MediaQuery.of(context).size.height * 0.020,
@@ -986,7 +532,6 @@ class BottomSheetForPaymentState extends State<BottomSheetForPaymentForMedicatio
                                   fontWeight: FontWeight.w600,
                                   fontSize: MediaQuery.of(context).size.height *
                                       0.018
-
                               ),
                             ),
                             Container(
@@ -1022,13 +567,20 @@ class BottomSheetForPaymentState extends State<BottomSheetForPaymentForMedicatio
                 // Reschedule
                 GestureDetector(
                   onTap: () async {
-                    Navigator.of(context).push(
+                    Navigator.pop(context); // Pehle bottom sheet close karein
+
+
+                    Navigator.pushReplacement(
+                      context,
                       MaterialPageRoute(
-                        builder:
-                            (BuildContext context) {
-                          return MedicatiSelectTimeSlot(
-                              "widget.doctoridval");
-                        },
+                        builder: (BuildContext context) => MedicatiSelectTimeSlot(
+                          "",
+                          isReschedule: true,
+                          detail: detail ?? {},
+                          previousDate: DateFormat('dd-MM-yyyy').parse(detail['selectedDate']),
+                          previousTime: detail['selectedTime'],
+
+                        ),
                       ),
                     );
                   },
@@ -1064,13 +616,20 @@ class BottomSheetForPaymentState extends State<BottomSheetForPaymentForMedicatio
                             padding: EdgeInsets.only(left: 0.0),
                             child: TextButton(
                               onPressed: () async {
-                                Navigator.of(context).push(
+                                Navigator.pop(context); // Pehle bottom sheet close karein
+
+                                // 🌟 Wapas ishi page pe aayein par is baar isReschedule = true ke sath
+                                Navigator.pushReplacement(
+                                  context,
                                   MaterialPageRoute(
-                                    builder:
-                                        (BuildContext context) {
-                                      return MedicatiSelectTimeSlot(
-                                          "widget.doctoridval");
-                                    },
+                                    builder: (BuildContext context) => MedicatiSelectTimeSlot(
+                                      "",
+                                      isReschedule: true,
+                                      detail: detail ?? {},
+                                      previousDate: DateFormat('dd-MM-yyyy').parse(detail['selectedDate']),
+                                      previousTime: detail['selectedTime'],
+
+                                    ),
                                   ),
                                 );
                               },
@@ -1100,6 +659,19 @@ class BottomSheetForPaymentState extends State<BottomSheetForPaymentForMedicatio
                 // Back to Home
                 GestureDetector(
                   onTap: () async {
+                    showTopNotification(
+                        context,
+                        title: 'Medication Appointment',
+                        message: 'Medication Appointment is book sucessfully', type: NotificationType.success);
+
+
+                    DummyData.addMedicationBooking(
+                        (widget.detail?['doctorId'] ?? "unknown").toString(), // ID extract ho jayegi
+                        widget.detail?['selectedDate'], // Jo date user ne select ki hai (dd-MM-yyyy)
+                        widget.detail?['selectedTime']
+                    );
+                    print("After : ${DummyData.medicationBookedSlots}");
+
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                         builder: (BuildContext context) => HomePageMain(),
@@ -1144,10 +716,22 @@ class BottomSheetForPaymentState extends State<BottomSheetForPaymentForMedicatio
                                 padding: EdgeInsets.only(left: 0.0),
                                 child: TextButton(
                                   onPressed: () async {
+                                    showTopNotification(
+                                        context,
+                                        title: 'Medication Appointment',
+                                        message: 'Medication Appointment is book sucessfully', type: NotificationType.success);
+
+
+                                    DummyData.addMedicationBooking(
+                                        (widget.detail?['doctorId'] ?? "unknown").toString(), // ID extract ho jayegi
+                                        widget.detail?['selectedDate'], // Jo date user ne select ki hai (dd-MM-yyyy)
+                                        widget.detail?['selectedTime']
+                                    );
+                                    print("After : ${DummyData.medicationBookedSlots}");
+
                                     Navigator.of(context).pushAndRemoveUntil(
                                       MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            HomePageMain(),
+                                        builder: (BuildContext context) => HomePageMain(),
                                       ),
                                           (Route route) => false,
                                     );
@@ -1174,17 +758,11 @@ class BottomSheetForPaymentState extends State<BottomSheetForPaymentForMedicatio
                           ])),
                 ),
 
-                SizedBox(height: MediaQuery.of(context).size.height *0.015,),
-
+                const SizedBox(height: 16,),
               ],
             ),
-  ),
-  ),
-  ),
-  ),
-  ],
-  );
-  },
+          ),
+    ),
   );
 
 

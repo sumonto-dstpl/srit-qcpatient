@@ -68,13 +68,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
 
-  final mytopspecialities = [
-    ["assets/Diagnostic.png", "Diagnostic"],
-    ["assets/Doctor.png", "Doctor"],
-    ["assets/Nurse.png", "Nurse"],
-    ["assets/Physio.png", "Physio"],
-    ["assets/MedicalEquipment.png", "Medical Equipment's"],
-  ];
+
   final List<String> uploadfilestime = [
     "Now",
     "15 min ago",
@@ -92,17 +86,11 @@ class MedicationsMainstate extends State<MedicationsMain> {
     "Previous Prescription 3"
   ];
 
-  final myspecialities = [
-    ["assets/Hematology.png", "Hematology"],
-    ["assets/Oncology.png", "Oncology"],
-    ["assets/OrganTransplant.png", "Organ Transplant"],
-    ["assets/SupportSpecialties.png", "Support Specialties"],
+  List<Map<String, dynamic>> medicationList = [
+    {'doctorId' : 'Doc_1','name' : 'Dr. Nutan Bhatt', 'speciality' : 'General Physician / Internal Medicine',},
+    {'doctorId' : 'Doc_2','name' : 'Dr. Arun Goyal', 'speciality' : 'General Physician  / Internal Medicine',}
   ];
 
-  bool _isExpandeduploadedfiles = true;
-
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
 
   List previousPrescriptionStatus = [
     {"status" : "Pending" , "circleColor" : Color(0xFFFF9500),"textColor" :  Color(0xFFFF9500), "backgroundColor" : Color(0x33FF9500)},
@@ -693,11 +681,12 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                                   int index) {
                                                 return GestureDetector(
                                                   onTap: () {},
-                                                  child: prescriptionList("active"),
+                                                  child: prescriptionList("active",index: index),
                                                 );
                                               },
                                             ),
                                           ),
+                                          const SizedBox(height : 50),
                                           // Additional widgets can be added here
                                         ],
                                       ),
@@ -796,7 +785,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                               scrollDirection: Axis.vertical,
 
                                               // Makes the ListView horizontal
-                                              itemCount: 2,
+                                              itemCount: medicationList.length,
 
                                               // You can adjust the item count
                                               itemBuilder:
@@ -838,7 +827,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
 
 
 
-  Widget prescriptionList(String prescriptionType,{Map? item}){
+  Widget prescriptionList(String prescriptionType,{Map? item,int? index}){
     return Stack(
       children: [
         Card(
@@ -1015,39 +1004,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
                           .start,
                       children: <
                           Widget>[
-                        // Expanded(
-                        //   flex: 2,
-                        //   child:
-                        //   Container(
-                        //     padding:
-                        //     EdgeInsets
-                        //         .only(
-                        //       left: MediaQuery
-                        //           .of(
-                        //           context)
-                        //           .size
-                        //           .height *
-                        //           0.00,
-                        //     ),
-                        //     child:
-                        //     ClipRRect(
-                        //       borderRadius:
-                        //       BorderRadius
-                        //           .circular(
-                        //           130.0),
-                        //       child:
-                        //       Image
-                        //           .asset(
-                        //         'assets/NutanBhatt.png',
-                        //         fit:
-                        //         BoxFit
-                        //             .fill,
-                        //       ),
-                        //     ),
-                        //   ),
-                        //
-                        //
-                        // ),
+
                         Container(
                           height : MediaQuery.of(
                               context)
@@ -1121,7 +1078,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                         0.00),
                                 child:
                                 Text(
-                                  "Dr. Nutan Bhatt",
+                                  medicationList[index!]['name'],
                                   style: TextStyle(
                                       color: Colors
                                           .black87,
@@ -1166,7 +1123,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                         0.00),
                                 child:
                                 Text(
-                                  "General physician / Internal Medicine",
+                                  medicationList[index!]['speciality'],
                                   style: TextStyle(
                                       color: Colors
                                           .black54,
@@ -1417,7 +1374,9 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                   builder:
                                       (BuildContext context) {
                                     return MedicatiSelectTimeSlot(
-                                        "widget.doctoridval");
+                                        "widget.doctoridval",
+                                        detail: medicationList[index],
+                                    );
                                   },
                                 ),
                               );
