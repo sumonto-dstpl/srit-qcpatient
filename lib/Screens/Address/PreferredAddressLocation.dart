@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newfolder/Core/Data/dummy_data.dart';
+import 'package:newfolder/Core/Data/notifier.dart';
 import 'package:newfolder/Core/Header/header.dart';
 
 class PreferredHospitalLocationScreen extends StatefulWidget {
@@ -377,7 +378,7 @@ class _PreferredHospitalLocationScreenState
                                   onPressed: selectedIndex == -1 ? null : () {
                                     setState(() {
                                       print("changeLocation : $changeLocation");
-                                      DummyData.hospitalLocationNotifier.value = changeLocation;
+                                      NotifierData.hospitalLocationNotifier.value = changeLocation;
                                       selectedIndex = -1;
                                     });
 

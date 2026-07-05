@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newfolder/Core/Data/dummy_data.dart';
+import 'package:newfolder/Core/Data/notifier.dart';
 import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
@@ -118,7 +119,7 @@ class Header extends StatelessWidget {
                         child: Container(
                           color: Colors.transparent,
                           child: ValueListenableBuilder<String>(
-                            valueListenable: DummyData.hospitalLocationNotifier,
+                            valueListenable: NotifierData.hospitalLocationNotifier,
                             builder: (context, currentAddress, child) {
                               return Text(
                                 currentAddress, // Ye variable hamesha latest location hold karega

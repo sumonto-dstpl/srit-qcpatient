@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:newfolder/Core/size.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
 import 'package:newfolder/Screens/Address/address_screen.dart';
@@ -54,42 +55,11 @@ class LabSmartReports extends StatefulWidget {
 
 class LabSmartReportsstate extends State<LabSmartReports> {
   String usernameValue = "Full Body Checkup";
-  String useraddressValue = "QuadraCyte, Qatar 500006";
+
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
   int _selectedIndex = 0;
-  final mybrowsebyhealthcond = [
-    ["assets/Diagnostic.png", "Harmone"],
-    ["assets/Doctor.png", "Diabetes"],
-    ["assets/Nurse.png", "Joint Pain"],
-    ["assets/Physio.png", "Thyroid"],
-    ["assets/MedicalEquipment.png", "Heart"],
-    ["assets/Diagnostic.png", "Bone"],
-    ["assets/Doctor.png", "Blood Sugar"],
-    ["assets/Nurse.png", "Vitamin"],
-    ["assets/Physio.png", "Hair Fall"],
-    ["assets/MedicalEquipment.png", "Liver"],
-    ["assets/Physio.png", "Kidney"],
-    ["assets/MedicalEquipment.png", "Fever"],
-  ];
 
-  final myhealthpackages = [
-    ["assets/Diagnostic.png", "Full Body Checkup"],
-    ["assets/Doctor.png", "Men’s Wellness"],
-    ["assets/Nurse.png", "Women’s Health"],
-    ["assets/Physio.png", "Thyroid Package"],
-    ["assets/MedicalEquipment.png", "Heart Package"],
-    ["assets/Diagnostic.png", "Diabetes package"],
-    ["assets/Doctor.png", "Blood Studies Package"],
-    ["assets/Nurse.png", "Vitamin package"],
-    ["assets/Physio.png", "Hairfall package"],
-    ["assets/MedicalEquipment.png", "Liver Package"],
-    ["assets/Physio.png", "Kidney Package"],
-    ["assets/MedicalEquipment.png", "Fever Package"],
-  ];
-
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
 
   @override
   Widget build(BuildContext context) {
@@ -115,11 +85,7 @@ class LabSmartReportsstate extends State<LabSmartReports> {
               // Main Content Section
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.00,
-                      right: MediaQuery.of(context).size.height * 0.00,
-                      top: MediaQuery.of(context).size.height * 0.00,
-                      bottom: MediaQuery.of(context).size.height * 0.00),
+
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -129,51 +95,36 @@ class LabSmartReportsstate extends State<LabSmartReports> {
                     ),
                   ),
                   child: ListView(
+                    padding: EdgeInsets.zero,
                     children: [
+                       SizedBox(height: AppSize.headerHeight,),
 
-                      Padding(
-                        padding: new EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height *
-                                0.00,
-                            right: MediaQuery.of(context).size.height *
-                                0.0,
-                            top: MediaQuery.of(context).size.height *
-                                0.00,
-                            bottom: MediaQuery.of(context).size.height *
-                                0.01),
-                        child: Text(
-                          "Reports Details",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize:
-                            MediaQuery.of(context).size.height *
-                                0.018,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
+                      Text(
+                        "Reports Details",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize:
+                          MediaQuery.of(context).size.height *
+                              0.018,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
                       ),
-
+                      SizedBox(height: AppSize.headerHeight,),
 
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           // Provide a width constraint using SizedBox or Expanded
                           Container(
-                            margin: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.height * 0.00,
-                                right:
-                                MediaQuery.of(context).size.height * 0.00,
-                                bottom:
-                                MediaQuery.of(context).size.height * 0.010,
-                                top: MediaQuery.of(context).size.height * 0.00),
+                            margin: EdgeInsets.only(bottom:screenHeight * 0.010,),
+                            padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.020),
                             // height: MediaQuery.of(context).size.height * 0.190,
                             child: ListView.builder(
+                              padding: EdgeInsets.zero,
                               physics: ScrollPhysics(), // Ensures scrolling
-                              shrinkWrap:
-                              true, // Prevents ListView from taking up extra space
-                              scrollDirection: Axis
-                                  .vertical, // Makes the ListView horizontal
+                              shrinkWrap:true,
+                              scrollDirection: Axis.vertical,
                               itemCount: 2, // You can adjust the item count
                               itemBuilder: (BuildContext context, int index) {
                                 return GestureDetector(
@@ -183,121 +134,33 @@ class LabSmartReportsstate extends State<LabSmartReports> {
                                     color: Colors.white,
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: Colors
-                                            .white, // Background color of the container
+                                        color: Colors.white,
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.black
-                                                .withOpacity(
-                                                0.1), // Shadow color
-                                            blurRadius:
-                                            5, // Spread of the shadow
-                                            offset: Offset(0,
-                                                0), // Offset in x and y direction
+                                            color: Colors.black.withOpacity(0.1),
+                                            blurRadius:5, offset: Offset(0,0),
                                           ),
                                         ],
-                                        borderRadius: BorderRadius.circular(
-                                            8), // Optional: Rounded corners
+                                        borderRadius: BorderRadius.circular(8),
                                       ),
-
-                                      padding: EdgeInsets.only(
-                                          left: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.00,
-                                          right: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.00,
-                                          bottom: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.0,
-                                          top: MediaQuery.of(context)
-                                              .size
-                                              .height *
-                                              0.00),
-                                      // color: Colors.white,
                                       child: Container(
-                                        // color: Colors.white,
-
                                         decoration: BoxDecoration(
                                             borderRadius:
                                             BorderRadius.circular(10),
                                             gradient: LinearGradient(
-                                                begin:
-                                                Alignment.centerLeft,
-                                                end:
-                                                Alignment.centerRight,
-                                                stops: [
-                                                  0.5,
-                                                  0.9
-                                                ],
-                                                colors: [
-                                                  Color(0xFFffffff),
-                                                  Color(0xFFffffff)
-                                                ])),
-                                        margin: EdgeInsets.only(
-                                            left: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.00,
-                                            right: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.00,
-                                            bottom: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.00,
-                                            top: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.00),
-                                        padding: EdgeInsets.only(
-                                            left: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.005,
-                                            right: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.005,
-                                            bottom: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.005,
-                                            top: MediaQuery.of(context)
-                                                .size
-                                                .height *
-                                                0.005),
+                                                begin:Alignment.centerLeft,
+                                                end:Alignment.centerRight,
+                                                stops: [0.5,0.9],
+                                                colors: [Color(0xFFffffff),Color(0xFFffffff)])),
+                                        padding: EdgeInsets.all(screenHeight * 0.01),
+
+
                                         child: Column(
                                           crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Container(
-                                              padding: EdgeInsets.only(
-                                                left:
-                                                MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.005,
-                                                right:
-                                                MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.005,
-                                                top:
-                                                MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.00,
-                                                bottom:
-                                                MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                    0.00,
-                                              ),
+                                              padding: EdgeInsets.symmetric(horizontal:screenHeight *0.005,),
                                               child: Row(
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment

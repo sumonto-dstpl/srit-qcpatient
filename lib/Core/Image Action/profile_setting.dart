@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:newfolder/Core/Data/dummy_data.dart';
+import 'package:newfolder/Core/Data/notifier.dart';
 import 'package:newfolder/Core/Dialog/camera_image.dart';
 import 'package:newfolder/Screens/Utils/profile_avatar.dart';
 
@@ -20,7 +21,7 @@ class ProfileImagePicker extends StatelessWidget {
       onTap: () async {
         if (isGuestUser) return; // disable picking for guest users
         CustomImagePicker.show(context, onImagePicked: (File pickedFile) {
-          DummyData.profileImageNotifier.value = pickedFile;
+          NotifierData.profileImageNotifier.value = pickedFile;
         });
       },
       child: Center(
@@ -34,7 +35,7 @@ class ProfileImagePicker extends StatelessWidget {
               textColor: Colors.white,
             )
                 : ValueListenableBuilder<File?>(
-              valueListenable: DummyData.profileImageNotifier,
+              valueListenable: NotifierData.profileImageNotifier,
               builder: (context, globalImage, child) {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(130.0),

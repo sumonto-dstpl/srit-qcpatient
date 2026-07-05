@@ -44,9 +44,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
   String saveForLaterKey = "saveForLater";
 
   List<Map<String, dynamic>> carttoplist = [
-      // {"id" : 1,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-      // {"id" : 2,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-      // {"id" : 3,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+
 
 
     ];
@@ -54,9 +52,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
   List<Map<String, dynamic>> savedbottomlist = [
 
 
-    // {"id" : 11,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-    // {"id" : 12,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-    // {"id" : 13,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+
 
 
   ];

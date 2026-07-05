@@ -51,39 +51,11 @@ class PreviousOrderViewAll extends StatefulWidget {
 
 class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
   String usernameValue = "Full Body Checkup";
-  String useraddressValue = "QuadraCyte, Qatar 500006";
+
   String usernameValuewithoutp = "P";
   String userprofilepValue = "NA";
   int _selectedIndex = 0;
-  final mybrowsebyhealthcond = [
-    ["assets/Diagnostic.png", "Harmone"],
-    ["assets/Doctor.png", "Diabetes"],
-    ["assets/Nurse.png", "Joint Pain"],
-    ["assets/Physio.png", "Thyroid"],
-    ["assets/MedicalEquipment.png", "Heart"],
-    ["assets/Diagnostic.png", "Bone"],
-    ["assets/Doctor.png", "Blood Sugar"],
-    ["assets/Nurse.png", "Vitamin"],
-    ["assets/Physio.png", "Hair Fall"],
-    ["assets/MedicalEquipment.png", "Liver"],
-    ["assets/Physio.png", "Kidney"],
-    ["assets/MedicalEquipment.png", "Fever"],
-  ];
 
-  final myhealthpackages = [
-    ["assets/Diagnostic.png", "Full Body Checkup"],
-    ["assets/Doctor.png", "Men’s Wellness"],
-    ["assets/Nurse.png", "Women’s Health"],
-    ["assets/Physio.png", "Thyroid Package"],
-    ["assets/MedicalEquipment.png", "Heart Package"],
-    ["assets/Diagnostic.png", "Diabetes package"],
-    ["assets/Doctor.png", "Blood Studies Package"],
-    ["assets/Nurse.png", "Vitamin package"],
-    ["assets/Physio.png", "Hairfall package"],
-    ["assets/MedicalEquipment.png", "Liver Package"],
-    ["assets/Physio.png", "Kidney Package"],
-    ["assets/MedicalEquipment.png", "Fever Package"],
-  ];
 
   // List of filter categories
   final List<String> categories = [
@@ -95,29 +67,6 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
   int selectedCategoryIndex = 0;
 
 
-  final List<String> musthavetests = [
-    "Complete Blood Count (CBC)",
-    "Glucose, Post Prandial (PP), 2 Hours",
-    "Complete Urine Examination",
-    "Thyroid Profile (Total T3, Total T4)",
-    "Lipid Profile",
-    "Liver Function Test (I-FT)",
-    "C - Reactive Protein (Quantitative)",
-  ];
-
-  final List<String> categorieslast = [
-    "Pregnancy",
-    "X - ray MRI CT Ultrasound",
-    "Blood Studies",
-    "Allergy",
-    "Tax Saver",
-    "Bone",
-    "Men’s Health",
-  ];
-
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
-  TextEditingController SearchfilterEditTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

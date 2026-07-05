@@ -1,4 +1,4 @@
-// Ye import add karna zaruri hai ValueNotifier ke liye
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -40,12 +40,6 @@ class DummyData {
           :"6.0 km",
     }
   ];
-
-  // Purana code:
-  // static String hospitalLocation = "QCT Clinic A,QATAR 500006";
-
-  // Naya code (Isko Replace karein):
-  static ValueNotifier<String> hospitalLocationNotifier = ValueNotifier<String>("QCT Clinic A,QATAR 500006");
 
   static Map<String, List<String>> globallyBookedSlots = {};
 
@@ -436,12 +430,25 @@ class DummyData {
     return pastAppointments;
   }
 
-  //////////////////////////////////////////////////////////////////////////
-  //              Profile & Setting Image
-  //
-  //////////////////////////////////////////////////////////////////////////////
 
-  static ValueNotifier<File?> profileImageNotifier = ValueNotifier<File?>(null);
+  //  Cart Data
+  static List<Map<String,dynamic>> cartList = [
+    {"id" : 101,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+    {"id" : 102,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+    {"id" : 103,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+
+    {"id" : 104,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+    {"id" : 105,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+    {"id" : 106,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+
+    {"id" : 107,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+    {"id" : 108,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+    {"id" : 109,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+
+    {"id" : 110,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+    {"id" : 111,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+    {"id" : 112,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+  ];
 
 
 

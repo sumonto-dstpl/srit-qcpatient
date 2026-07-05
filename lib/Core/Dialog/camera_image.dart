@@ -5,97 +5,144 @@ import 'package:image_picker/image_picker.dart';
 class CustomImagePicker {
   // 🌟 NAYA: Sirf ek callback jo picked image wapas dega
   static void show(BuildContext context, {required Function(File) onImagePicked}) {
-    showDialog(
-      barrierColor: Colors.transparent,
+    showModalBottomSheet(
       context: context,
-      barrierDismissible: false,
+      backgroundColor: Colors.transparent, // Background transparent rakha taki margin kaam kare
+      isScrollControlled: true, // Bottom sheet ko uske content ke hisaab se size lene deta hai
       builder: (BuildContext context) {
-        return Dialog(
-          backgroundColor: Colors.black,
-          elevation: 0,
-          alignment: Alignment.bottomCenter,
-          insetPadding: const EdgeInsets.only(bottom: 50, left: 20, right: 20),
-          shape: RoundedRectangleBorder(
+
+        final height = MediaQuery.of(context).size.height ;
+        return Container(
+
+
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          decoration: BoxDecoration(
+            color: Colors.black,
             borderRadius: BorderRadius.circular(16),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  "Open with",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-                  textAlign: TextAlign.center,
+          child: Column(
+            mainAxisSize: MainAxisSize.min, // Jinta content h utni hi height lega
+            children: [
+              Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.23,
+                  height: height * 0.006,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFD9D9D9), // Divider color
+                    borderRadius: BorderRadius.circular(10),
+                    // Rounded edges
+                  ),
                 ),
-                const SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
+              ),
+              const SizedBox( height: 20,),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16,),
 
-                    // 📷 Camera Option
-                    GestureDetector(
-                      onTap: () async {
-                        Navigator.pop(context); // Dialog close
-                        final XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
-                        if (image != null) {
-                          onImagePicked(File(image.path)); // 🌟 Sirf ye line data bahar bhejegi
-                        }
-                      },
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
-                            child: const Icon(Icons.camera_alt, color: Colors.blueAccent, size: 50),
-                          ),
-                          const SizedBox(height: 8),
-                          const Text("Camera", style: TextStyle(fontWeight: FontWeight.w500, color: Color(0xFFFAFAFA))),
-                        ],
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    // ❌ Left aligned Close Icon
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context); // Close action
+                        },
+                        child: const Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 26, // Image me icon thoda prominent hai
+                        ),
                       ),
                     ),
 
-                    // 🖼️ Gallery Option
-                    GestureDetector(
-                      onTap: () async {
-                        Navigator.pop(context); // Dialog close
-                        final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
-                        if (image != null) {
-                          onImagePicked(File(image.path)); // 🌟 Sirf ye line data bahar bhejegi
-                        }
-                      },
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
-                            child: const Icon(Icons.photo_library, color: Colors.blueAccent, size: 50),
-                          ),
-                          const SizedBox(height: 8),
-                          const Text("Gallery", style: TextStyle(fontWeight: FontWeight.w500, color: Color(0xFFFAFAFA))),
-                        ],
+                    // 📝 Centered Text
+                    const Text(
+                      "Open With",
+                      style: TextStyle(
+                        fontSize: 18, // Exact text size
+                        fontWeight: FontWeight.w400, // Normal font weight (bold nahi hai image me)
+                        color: Colors.white,
+                        letterSpacing: 0.2, // Thoda clean look ke liye
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 30),
-
-                // ❌ Cancel Button
-                GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 8),
-                    child: Text(
-                      "Cancel",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.blueAccent),
-                      textAlign: TextAlign.center,
+              ),
+              const SizedBox( height: 16,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start, // Left align karne ke liye
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // 📷 Camera Option
+                  InkWell(
+                    onTap: () async {
+                      Navigator.pop(context); // Bottom sheet close
+                      final XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
+                      if (image != null) {
+                        onImagePicked(File(image.path)); // 🌟 Data bahar bhejna
+                      }
+                    },
+                    child: Padding(
+                      // Padding for touch area and spacing
+                      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 12),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.photo_camera_outlined, // Outlined camera icon as per image
+                            color: Colors.white70, // Slight greyish white
+                            size: 28,
+                          ),
+                          const SizedBox(width: 20), // Icon aur text ke beech ka space
+                          const Text(
+                            "Camera",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
+
+                  // 🖼️ Gallery Option
+                  InkWell(
+                    onTap: () async {
+                      Navigator.pop(context); // Bottom sheet close
+                      final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+                      if (image != null) {
+                        onImagePicked(File(image.path)); // 🌟 Data bahar bhejna
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 12),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.image_outlined, // Outlined gallery icon as per image
+                            color: Colors.white70,
+                            size: 28,
+                          ),
+                          const SizedBox(width: 20), // Icon aur text ke beech ka space
+                          const Text(
+                            "Gallery",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox( height: 16,),
+
+            ],
           ),
         );
       },

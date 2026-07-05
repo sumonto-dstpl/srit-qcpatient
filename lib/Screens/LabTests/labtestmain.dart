@@ -1,55 +1,28 @@
 import 'dart:convert';
 import 'dart:ui';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:newfolder/Screens/AddToCart/addtocart.dart';
-import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
-import 'package:newfolder/Screens/Address/address_screen.dart';
+import 'package:newfolder/Core/Data/dummy_data.dart';
+import 'package:newfolder/Core/Dialog/delete_dialog.dart';
+import 'package:newfolder/Core/Image%20Action/delete.dart';
 import 'package:newfolder/Screens/LabTests/healthcondiviewall.dart';
 import 'package:newfolder/Screens/LabTests/healthpackages.dart';
 import 'package:newfolder/Screens/LabTests/labsmartreportslist.dart';
-import 'package:newfolder/Screens/LabTests/labviewreportslist.dart';
 import 'package:newfolder/Screens/LabTests/previousorderviewall.dart';
 import 'package:newfolder/Screens/LabTests/recomendtestviewall.dart';
-import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
 import 'package:newfolder/Screens/Notifications/notifications.dart';
-import 'package:newfolder/Screens/Profile/profilemain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
-import 'package:newfolder/Screens/Appointments/appointmentsfindspecialities.dart';
-import 'package:newfolder/Screens/Appointments/finddoctorslist.dart';
-import 'package:newfolder/Screens/Appointments/quicksearchwithdata.dart';
 import 'package:newfolder/Screens/Appointments/quicksearchwithoutdata.dart';
-import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
-import 'package:newfolder/Screens/Home/homemainscreen.dart';
-import 'package:newfolder/Screens/HomeCare/diagnosticmain.dart';
-import 'package:newfolder/Screens/HomeCare/doctorhcmain.dart';
-import 'package:newfolder/Screens/HomeCare/medicalequipmentshcmain.dart';
-import 'package:newfolder/Screens/HomeCare/nursehcmain.dart';
-import 'package:newfolder/Screens/HomeCare/physiohcmain.dart';
-import 'package:newfolder/Screens/Login/loginhome.dart';
-import 'package:newfolder/Screens/Notifications/notifications.dart';
-import 'package:newfolder/Screens/Registeration/registeration.dart';
-import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
 import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
-import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
-import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
-import 'package:newfolder/Screens/Widgets/badge.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
-
-import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
-import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
-import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
-import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
-import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
 import 'package:newfolder/Core/Header/header.dart';
 import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
+import 'package:provider/provider.dart';
+
+import '../../utils/cart_provider.dart';
 class LabTestsMain extends StatefulWidget {
   int selectedIndex = 0;
   LabTestsMain({
@@ -61,8 +34,8 @@ class LabTestsMain extends StatefulWidget {
 
 class LabTestsMainstate extends State<LabTestsMain> {
   String usernameValue = "Lab test";
-  String useraddressValue = "QuadraCyte, Qatar 500006";
-  String usernameValuewithoutp = "P";
+
+
   String userprofilepValue = "NA";
   int _selectedIndex = 0;
   final mybrowsebyhealthcond = [
@@ -95,24 +68,53 @@ class LabTestsMainstate extends State<LabTestsMain> {
     ["assets/Fever.png", "Fever Package"],
   ];
 
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
+
   bool new30 = true;
   bool new20 = false;
   bool new10 = false;
+
+
+  List<Map<String,dynamic>> cartList = DummyData.cartList;
+  List<dynamic> addedList=[];
+
   @override
+  void initState(){
+    // getSharedPrefs();
+    super.initState();
+    _loadData();
+    Provider.of<CartProvider>(context, listen: false).loadCart();
+  }
 
-  List<Map<String,dynamic>> recommendedCartList = [
-  {"id" : 1001,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-  {"id" : 1002,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-  {"id" : 1003,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
- ];
+  void _loadData() async {
+    print("loadData......................................");
+    var guestUser = await UserSecureStorage.getIfGuestLogged();
+    print("guestUser: $guestUser");
+    final isGuestUser=guestUser == "YES";
+    setState(() {});
+    if(!isGuestUser) {
+      String? username = await UserSecureStorage.getUsernameid();
+      print("username: $username");
+      // Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
+      // print("user : $user");
+      List<dynamic> _loadedCart2  = await UserSecureStorage.getAddToCart("addToCart2",username ?? '');
 
-Widget build(BuildContext context) {
+      if(_loadedCart2.isNotEmpty){
+        print("_loadedCart2.length:${_loadedCart2.length}");
+        setState(() {
+
+          addedList = _loadedCart2 ?? [];
+        });
+      }
+
+    }
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
     final bool isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
     final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
-    TextEditingController SearchEditTextController = TextEditingController();
+
 
     return Scaffold(
       body: Container(
@@ -1068,16 +1070,7 @@ Widget build(BuildContext context) {
                       // Recommended Test
                       Padding(
                         padding: EdgeInsets.only(
-                            left: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0,
-                            top: MediaQuery.of(context).size.height *
-                                0.015,
-                            right: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0,
+
                             bottom: MediaQuery
                                 .of(context)
                                 .size
@@ -1087,15 +1080,7 @@ Widget build(BuildContext context) {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
+
                                 child: Text(
                                   "Recommended Test",
                                   style: TextStyle(
@@ -1119,17 +1104,7 @@ Widget build(BuildContext context) {
                                   );
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.00,
-                                      right:
-                                      MediaQuery.of(context).size.height *
-                                          0.00,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.00,
-                                      bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.00),
+
                                   child: Text(
                                     "View All",
                                     style: TextStyle(
@@ -1153,20 +1128,16 @@ Widget build(BuildContext context) {
                           // Provide a width constraint using SizedBox or Expanded
                           Container(
 
-                            margin:EdgeInsets.only(
-                                left: MediaQuery.of(context).size.height * 0.00,
-                                right: MediaQuery.of(context).size.height * 0.0,
-                                bottom: MediaQuery.of(context).size.height * 0.0,
-                                top: MediaQuery.of(context).size.height * 0.00),
+
                             height: MediaQuery.of(context).size.height * 0.135,
                             child: ListView.builder(
                               physics: ScrollPhysics(),  // Ensures scrolling
                               shrinkWrap: true,  // Prevents ListView from taking up extra space
                               scrollDirection: Axis.horizontal,  // Makes the ListView horizontal
-                              itemCount: recommendedCartList.length
+                              itemCount: cartList.length
                               ,  // You can adjust the item count
                               itemBuilder: (BuildContext context, int index) {
-                                final item = recommendedCartList[index];
+                                final item = cartList[index];
                                 return GestureDetector(
                                   onTap: () {
 
@@ -1176,11 +1147,7 @@ Widget build(BuildContext context) {
                                     color: Colors.white,
                                     child:  Container(
                                       width:MediaQuery.of(context).size.height * 0.38,
-                                      padding:EdgeInsets.only(
-                                          left: MediaQuery.of(context).size.height * 0.00,
-                                          right: MediaQuery.of(context).size.height * 0.00,
-                                          bottom: MediaQuery.of(context).size.height * 0.00,
-                                          top: MediaQuery.of(context).size.height * 0.00),
+
                                       color: Colors.white,
                                       child:
                                       Container(
@@ -1207,11 +1174,7 @@ Widget build(BuildContext context) {
                                           borderRadius: BorderRadius.circular(
                                               8), // Optional: Rounded corners
                                         ),
-                                        margin:EdgeInsets.only(
-                                            left: MediaQuery.of(context).size.height * 0.00,
-                                            right: MediaQuery.of(context).size.height * 0.00,
-                                            bottom: MediaQuery.of(context).size.height * 0.00,
-                                            top: MediaQuery.of(context).size.height * 0.00),
+                                        margin:EdgeInsets.zero,
                                         padding: EdgeInsets.only(
                                             left: MediaQuery.of(context).size.height * 0.005,
                                             right: MediaQuery.of(context).size.height * 0.005,
@@ -1486,66 +1449,112 @@ Widget build(BuildContext context) {
                                                                       ),
 
                                                                       // Buttons
-                                                                      Container(
-                                                                        decoration: BoxDecoration(
-                                                                          // color:Colors.white,
-                                                                          borderRadius: BorderRadius.circular(15),
-                                                                        ),
-                                                                        // color:Colors.green[100],
-                                                                        padding: EdgeInsets.only(
-                                                                            left: MediaQuery.of(context).size.height * 0.0,
-                                                                            right: MediaQuery.of(context).size.height * 0.0,
-                                                                            top: MediaQuery.of(context).size.height * 0.00,
-                                                                            bottom: MediaQuery.of(context).size.height * 0.00),
-                                                                        child:
 
-                                                                        Row(
-                                                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                          children: <Widget>[
-                                                                            GestureDetector(
-                                                                              onTap: () async {
-                                                                                addToCart(item['id'],item['plan'],item['test'],item['qr']);
-                                                                                showTopNotification(
-                                                                                  context,
-                                                                                  title: "Add Cart",
-                                                                                  message: "Cart is added successfully",
-                                                                                  type: NotificationType.success,
-                                                                                );
-                                                                              },
-                                                                              child: Container(
-                                                                                padding: new EdgeInsets.only(
-                                                                                    left: MediaQuery.of(context).size.height * 0.025,
-                                                                                    right: MediaQuery.of(context).size.height * 0.025,
-                                                                                    top: MediaQuery.of(context).size.height * 0.007,
-                                                                                    bottom: MediaQuery.of(context).size.height * 0.007),
-                                                                                decoration: BoxDecoration(
-                                                                                  color: Color(0xFF126086),
-                                                                                  borderRadius: BorderRadius.circular(5),
-                                                                                ),
+                                                                      Consumer<CartProvider>(
+                                                                          builder: (context, cart, child) {
+                                                                            bool isInCart = cart.isAdded(item['id']);
+                                                                             return Container(
+                                                                               decoration: BoxDecoration(
+                                                                                 // color:Colors.white,
+                                                                                 borderRadius: BorderRadius.circular(15),
+                                                                               ),
+                                                                               // color:Colors.green[100],
+                                                                               padding: EdgeInsets.only(
+                                                                                   left: MediaQuery.of(context).size.height * 0.0,
+                                                                                   right: MediaQuery.of(context).size.height * 0.0,
+                                                                                   top: MediaQuery.of(context).size.height * 0.00,
+                                                                                   bottom: MediaQuery.of(context).size.height * 0.00),
+                                                                               child:
 
+                                                                               Row(
+                                                                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                 children: <Widget>[
+                                                                                   !isInCart
+                                                                                   ? GestureDetector(
+                                                                                     onTap: () async {
+                                                                                       await cart.addItem({
+                                                                                         "id": item['id'],
+                                                                                         "plan": item['plan'],
+                                                                                         "test": item['test'],
+                                                                                         "qr": item['qr'],
+                                                                                       });
 
-                                                                                margin: EdgeInsets.only(
-                                                                                  left: MediaQuery.of(context).size.height * 0.0,
-                                                                                  top: MediaQuery.of(context).size.height * 0.00,
-                                                                                  bottom: MediaQuery.of(context).size.height * 0.00,
-                                                                                  right: MediaQuery.of(context).size.height * 0.005,
-                                                                                ),
-                                                                                // color: Colors.grey[300],
-                                                                                alignment: Alignment.center,
-                                                                                // height:
-                                                                                // MediaQuery.of(context).size.height * 0.070,
-                                                                                child: Text("Add",
-                                                                                    textAlign: TextAlign.center,
-                                                                                    style: TextStyle(
-                                                                                        color: Colors.white,
-                                                                                        fontWeight: FontWeight.w600,
-                                                                                        fontSize:  MediaQuery.of(context).size.height * 0.01)),
-                                                                              ),
-                                                                            ),
+                                                                                       showTopNotification(
+                                                                                         context,
+                                                                                         title: "Add Cart",
+                                                                                         message: "Cart is added successfully",
+                                                                                         type: NotificationType.success,
+                                                                                       );
+                                                                                     },
+                                                                                     child: Container(
+                                                                                       padding: new EdgeInsets.only(
+                                                                                           left: MediaQuery.of(context).size.height * 0.025,
+                                                                                           right: MediaQuery.of(context).size.height * 0.025,
+                                                                                           top: MediaQuery.of(context).size.height * 0.007,
+                                                                                           bottom: MediaQuery.of(context).size.height * 0.007),
+                                                                                       decoration: BoxDecoration(
+                                                                                         color: Color(0xFF126086),
+                                                                                         borderRadius: BorderRadius.circular(5),
+                                                                                       ),
 
 
-                                                                          ],
-                                                                        ),
+                                                                                       margin: EdgeInsets.only(
+
+                                                                                         right: MediaQuery.of(context).size.height * 0.005,
+                                                                                       ),
+
+                                                                                       alignment: Alignment.center,
+                                                                                       // height:
+                                                                                       // MediaQuery.of(context).size.height * 0.070,
+                                                                                       child: Text("Add",
+                                                                                           textAlign: TextAlign.center,
+                                                                                           style: TextStyle(
+                                                                                               color: Colors.white,
+                                                                                               fontWeight: FontWeight.w600,
+                                                                                               fontSize:  MediaQuery.of(context).size.height * 0.01)),
+                                                                                     ),
+                                                                                   )
+                                                                                   : GestureDetector(
+                                                                                     onTap: () async {
+
+                                                                                       final result = await DeleteDialog.show(
+                                                                                         context: context,
+                                                                                         barrierLabel: "CartDelete",
+                                                                                         message: "Are you sure to Remove the Selected Cart ?",
+
+                                                                                       );
+                                                                                       if(result!) {
+                                                                                         showTopNotification(
+                                                                                           context,
+                                                                                           title: "Cart Delete",
+                                                                                           message: "Cart is deleted Successfully",
+                                                                                           type: NotificationType.error,
+                                                                                         );
+                                                                                         cart.removeItem(item['id']);
+                                                                                       }
+
+
+
+                                                                                     },
+                                                                                     child: Container(
+                                                                                       padding: EdgeInsets.symmetric(
+                                                                                         horizontal: MediaQuery.of(context).size.height * 0.02,
+                                                                                         vertical: MediaQuery.of(context).size.height * 0.006,
+                                                                                       ),
+                                                                                       decoration: BoxDecoration(
+                                                                                         color: Colors.white,
+                                                                                         borderRadius: BorderRadius.circular(5),
+                                                                                       ),
+                                                                                       child: AppDeleteIcon(isCenter: true,iconSize: 15,),
+                                                                                     ),
+                                                                                   ),
+
+
+                                                                                 ],
+                                                                               ),
+
+                                                                             ) ;
+                                                                          }
 
                                                                       ),
 
@@ -2745,5 +2754,11 @@ Widget build(BuildContext context) {
       String userId = username ?? '';
       UserSecureStorage.saveAddToCard(key: "addToCart2",userId: userId, newData: addToCart);
     }
+
+
+    setState(() {
+      addedList.insert(0, addToCart);
+    });
+
   }
 }

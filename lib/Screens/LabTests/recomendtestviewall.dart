@@ -1,49 +1,19 @@
-import 'dart:convert';
 import 'dart:ui';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:newfolder/Core/Data/dummy_data.dart';
 import 'package:newfolder/Core/Dialog/delete_dialog.dart';
 import 'package:newfolder/Core/Header/header.dart';
 import 'package:newfolder/Core/Image%20Action/delete.dart';
 import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
 import 'package:newfolder/Screens/AddToCart/addtocarPackageDetails.dart';
-import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/LabTests/bottomsheet.dart';
-import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
-import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
-import 'package:newfolder/Screens/Appointments/appointmentsfindspecialities.dart';
-import 'package:newfolder/Screens/Appointments/finddoctorslist.dart';
-import 'package:newfolder/Screens/Appointments/quicksearchwithdata.dart';
-import 'package:newfolder/Screens/Appointments/quicksearchwithoutdata.dart';
-import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
-import 'package:newfolder/Screens/Home/homemainscreen.dart';
-import 'package:newfolder/Screens/HomeCare/diagnosticmain.dart';
-import 'package:newfolder/Screens/HomeCare/doctorhcmain.dart';
-import 'package:newfolder/Screens/HomeCare/medicalequipmentshcmain.dart';
-import 'package:newfolder/Screens/HomeCare/nursehcmain.dart';
-import 'package:newfolder/Screens/HomeCare/physiohcmain.dart';
-import 'package:newfolder/Screens/Login/loginhome.dart';
-import 'package:newfolder/Screens/Notifications/notifications.dart';
-import 'package:newfolder/Screens/Registeration/registeration.dart';
-import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
 import 'package:newfolder/Screens/Utils/customNotification.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
-import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
-import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
-import 'package:newfolder/Screens/Widgets/badge.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:newfolder/Screens/Notifications/notifications.dart';
-import 'package:newfolder/Screens/Profile/profilemain.dart';
-import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
 import 'package:provider/provider.dart';
-import 'package:universal_html/js_util.dart';
-
 import '../../utils/cart_provider.dart';
-import 'package:newfolder/Core/Header/header.dart';
+
 
 class RecommendedViewAll extends StatefulWidget {
   String usernameValue ;
@@ -63,10 +33,6 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
   String userprofilepValue = "NA";
   int _selectedIndex = 0;
 
-
-
-
-
   TextEditingController SearchfilterEditTextController = TextEditingController();
 
 
@@ -80,51 +46,15 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
   int selectedCategoryIndex = 0;
 
 
-  final List<String> musthavetests = [
-    "Complete Blood Count (CBC)",
-    "Glucose, Post Prandial (PP), 2 Hours",
-    "Complete Urine Examination",
-    "Thyroid Profile (Total T3, Total T4)",
-    "Lipid Profile",
-    "Liver Function Test (I-FT)",
-    "C - Reactive Protein (Quantitative)",
-  ];
 
-  final List<String> categorieslast = [
-    "Pregnancy",
-    "X - ray MRI CT Ultrasound",
-    "Blood Studies",
-    "Allergy",
-    "Tax Saver",
-    "Bone",
-    "Men’s Health",
-  ];
 
-  List<Map<String,dynamic>> cartList = [
-    {"id" : 101,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-    {"id" : 102,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-    {"id" : 103,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
-
-    {"id" : 104,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-    {"id" : 105,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-    {"id" : 106,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
-
-    {"id" : 107,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-    {"id" : 108,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-    {"id" : 109,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
-
-    {"id" : 110,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-    {"id" : 111,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-    {"id" : 112,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
-  ];
+  List<Map<String,dynamic>> cartList = DummyData.cartList;
 
   List<dynamic> addedList=[];
 
   @override
   void initState(){
     // getSharedPrefs();
-
-
     super.initState();
     _loadData();
     Provider.of<CartProvider>(context, listen: false).loadCart();
@@ -386,7 +316,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                               itemCount: cartList.length, // You can adjust the item count
                               itemBuilder: (BuildContext context, int index) {
                                 final item = cartList[index];
-                                bool isInCart = addedList.any((addedItem) => addedItem['id'] == item['id']);
+
                                 return GestureDetector(
                                   onTap: () {
 
@@ -405,12 +335,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                     elevation: 0.0,
                                     color: Colors.white,
                                     child:  Container(
-                                      // width:MediaQuery.of(context).size.height * 0.410,
-                                      padding:EdgeInsets.only(
-                                          left: MediaQuery.of(context).size.height * 0.00,
-                                          right: MediaQuery.of(context).size.height * 0.00,
-                                          bottom: MediaQuery.of(context).size.height * 0.00,
-                                          top: MediaQuery.of(context).size.height * 0.00),
+
                                       color: Colors.white,
                                       child:
                                       Container(
@@ -437,16 +362,8 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                           borderRadius: BorderRadius.circular(
                                               8), // Optional: Rounded corners
                                         ),
-                                        margin:EdgeInsets.only(
-                                            left: MediaQuery.of(context).size.height * 0.00,
-                                            right: MediaQuery.of(context).size.height * 0.00,
-                                            bottom: MediaQuery.of(context).size.height * 0.00,
-                                            top: MediaQuery.of(context).size.height * 0.00),
-                                        padding: EdgeInsets.only(
-                                            left: MediaQuery.of(context).size.height * 0.005,
-                                            right: MediaQuery.of(context).size.height * 0.005,
-                                            bottom: MediaQuery.of(context).size.height * 0.005,
-                                            top: MediaQuery.of(context).size.height * 0.005),
+
+                                        padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.005),
                                         child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: <Widget>[
@@ -498,11 +415,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
 
 
                                                           Container(
-                                                            padding: EdgeInsets.only(
-                                                                left: MediaQuery.of(context).size.height * 0.00,
-                                                                right: MediaQuery.of(context).size.height * 0.00,
-                                                                top: MediaQuery.of(context).size.height * 0.0,
-                                                                bottom: MediaQuery.of(context).size.height * 0.00),
+
                                                             child:
                                                             Text(
                                                                "${item['plan']}",
@@ -519,11 +432,6 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                           SizedBox(height : screenHeight * 0.005)  ,
                                                           Container(
 
-                                                            padding: EdgeInsets.only(
-                                                                left: MediaQuery.of(context).size.height * 0.00,
-                                                                right: MediaQuery.of(context).size.height * 0.00,
-                                                                top: MediaQuery.of(context).size.height * 0.00,
-                                                                bottom: MediaQuery.of(context).size.height * 0.00),
                                                             child:
                                                             Text(
                                                               // "100 Tests Included : Complete Blood Count",
@@ -541,11 +449,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                           SizedBox(height : screenHeight * 0.005)  ,
                                                           Container(
 
-                                                            padding: EdgeInsets.only(
-                                                                left: MediaQuery.of(context).size.height * 0.00,
-                                                                right: MediaQuery.of(context).size.height * 0.00,
-                                                                top: MediaQuery.of(context).size.height * 0.00,
-                                                                bottom: MediaQuery.of(context).size.height * 0.00),
+                                                            padding: EdgeInsets.zero,
                                                             child:
                                                             Text(
                                                               "Reports With in 24 Hours",
@@ -574,11 +478,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
 
                                               // Bottom Row
                                               Container(
-                                                padding: EdgeInsets.only(
-                                                    left: MediaQuery.of(context).size.height * 0.005,
-                                                    right: MediaQuery.of(context).size.height * 0.005,
-                                                    top: MediaQuery.of(context).size.height * 0.00,
-                                                    bottom: MediaQuery.of(context).size.height * 0.00),
+                                                padding: EdgeInsets.zero,
                                                 width: double.infinity,
                                                 child: Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -588,11 +488,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                         decoration: BoxDecoration(
                                                           borderRadius: BorderRadius.circular(06),
                                                         ),
-                                                        padding: EdgeInsets.only(
-                                                          left: MediaQuery.of(context).size.height * 0.01,
-                                                          right: MediaQuery.of(context).size.height * 0.01,
-                                                          top: MediaQuery.of(context).size.height * 0.01,
-                                                          bottom: MediaQuery.of(context).size.height * 0.01,),
+                                                        padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01,),
                                                         child: Row(
                                                           // mainAxisSize: MainAxisSize.max,
                                                             mainAxisAlignment: MainAxisAlignment.start,
@@ -612,11 +508,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                           borderRadius: BorderRadius.circular(15),
                                                                         ),
                                                                         // color:Colors.green[100],
-                                                                        padding: EdgeInsets.only(
-                                                                            left: MediaQuery.of(context).size.height * 0.0,
-                                                                            right: MediaQuery.of(context).size.height * 0.0,
-                                                                            top: MediaQuery.of(context).size.height * 0.00,
-                                                                            bottom: MediaQuery.of(context).size.height * 0.00),
+                                                                        padding: EdgeInsets.zero,
                                                                         child:
 
                                                                         Row(
@@ -641,9 +533,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                                   Container(
                                                                                       padding: EdgeInsets.only(
                                                                                           left: MediaQuery.of(context).size.height * 0.005,
-                                                                                          right: MediaQuery.of(context).size.height * 0.00,
-                                                                                          top: MediaQuery.of(context).size.height * 0.00,
-                                                                                          bottom: MediaQuery.of(context).size.height * 0.00),
+                                                                                          ),
                                                                                       child:
                                                                                       Text(
                                                                                         'QR 2999',
@@ -665,9 +555,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                                   Container(
                                                                                     padding: EdgeInsets.only(
                                                                                         left: MediaQuery.of(context).size.height * 0.005,
-                                                                                        right: MediaQuery.of(context).size.height * 0.00,
-                                                                                        top: MediaQuery.of(context).size.height * 0.00,
-                                                                                        bottom: MediaQuery.of(context).size.height * 0.00),
+                                                                                        ),
                                                                                     child:
                                                                                     Text(
                                                                                       // "QR 1999",
@@ -688,9 +576,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                                                                   Container(
                                                                                     margin: EdgeInsets.only(
                                                                                         left: MediaQuery.of(context).size.height * 0.005,
-                                                                                        right: MediaQuery.of(context).size.height * 0.00,
-                                                                                        top: MediaQuery.of(context).size.height * 0.00,
-                                                                                        bottom: MediaQuery.of(context).size.height * 0.00),
+                                                                                        ),
                                                                                     height: screenHeight * 0.015,
                                                                                     width: screenHeight * 0.015,
                                                                                     decoration: BoxDecoration(
@@ -766,7 +652,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
 
                                                                                   final result = await DeleteDialog.show(
                                                                                     context: context,
-                                                                                    barrierLabel: "InsuranceDelete",
+                                                                                    barrierLabel: "CartDelete",
                                                                                     message: "Are you sure to Remove the Selected Cart ?",
 
                                                                                   );
@@ -858,11 +744,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
   }
 
 
-
-
-
-
-      void showBottomSheet() => showModalBottomSheet(
+  void showBottomSheet() => showModalBottomSheet(
   enableDrag: false,
   isScrollControlled: true,
   isDismissible: true,
@@ -1198,7 +1080,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
 
 
 
-   void addToCart(int id,String plan,String test,String qr) async{
+  void addToCart(int id,String plan,String test,String qr) async{
      Map<String,dynamic> addToCart = {
        "id": id,
        "plan" : plan,

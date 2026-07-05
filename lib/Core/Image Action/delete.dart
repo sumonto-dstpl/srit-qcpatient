@@ -6,7 +6,7 @@ class AppDeleteIcon extends StatelessWidget {
 
   const AppDeleteIcon({
     Key? key,
-    this.iconSize = 15.0,
+    this.iconSize = 20.0,
     this.isCenter = false ,
   }) : super(key: key);
 
@@ -20,8 +20,8 @@ class AppDeleteIcon extends StatelessWidget {
 
         child: Image.asset(
           'assets/deleteicon.png',
-          height: 20,
-          width: 20,
+          height: iconSize,
+          width: iconSize,
 
         )
     );
