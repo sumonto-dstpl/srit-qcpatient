@@ -91,7 +91,7 @@ class DummyData {
       {
         "doctorId": "doc_$i",
 
-        "doctorName": (i % 8 == 0)
+        "name": (i % 8 == 0)
             ? "Dr. Arjun Mehta $i"
             : (i % 8 == 1)
             ? "Dr. Priya Nair $i"

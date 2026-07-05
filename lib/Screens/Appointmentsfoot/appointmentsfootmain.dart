@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Core/Data/dummy_data.dart';
+import 'package:newfolder/Core/Dialog/cancel_reschedule.dart';
 import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
 import 'package:newfolder/Screens/Medications/medicationselecttime.dart';
 import 'package:newfolder/Screens/Timeline/timelinedetails.dart';
@@ -283,7 +284,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                         builder: (BuildContext
                                                         context) {
                                                           return TimelineDetails(
-                                                            doctorName: item['name'],
+                                                            name: item['name'],
                                                             profession: item['profession'] ?? item['speciality'],
                                                             image: "assets/drsujeet.png",
                                                           );
@@ -408,7 +409,14 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                       display3Dots: true,
                                                       onThreeDotsTap: () async {
                                                         print("click");
-                                                        showBottomSheet(item,username: item['name'],profession: item['profession']);
+                                                        // showBottomSheet(item,username: item['name'],profession: item['profession']);
+                                                        CancelRescheduleBottomSheet.showAppointmentActionSheet(
+                                                            context, // Current screen ka context bhej rahe hain
+                                                            item,
+                                                            'appointments',
+                                                            username: item['name'],
+                                                            profession:  item['speciality']
+                                                        );
                                                       },
                                                       detail:item ,
                                                     )
@@ -562,7 +570,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height :  height * 0.02),
+                                            SizedBox(height: height * 0.02),
 
                                             GestureDetector(
                                               onTap: () {
@@ -711,7 +719,7 @@ class AppointmentsFootMainstate extends State<AppointmentsFootMain> {
                                                 ),
                                               ),
                                             ),
-                                            //  Reschedule Appointment
+                                             //  Reschedule Appointment
                                             GestureDetector(
                                               onTap: () {
                                                 Navigator.of(context).push(

@@ -1,11 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:newfolder/Core/Dialog/camera_image.dart';
 import 'dart:io';
-
-import 'package:newfolder/Core/Dropdown/inner_dropdown.dart';
 import 'package:newfolder/Core/Dropdown/smart_dropdown.dart';
 import 'package:newfolder/Screens/Utils/customNotification.dart';
 
@@ -38,13 +35,7 @@ class AddMemberBottomSheet {
       {"key": "O", "label": "Other"},
     ];
 
-    List<String> relationshipOptions = [
-      "Mother",
-      "Father",
-      "Brother",
-      "Sister",
-      "Other"
-    ];
+
 
     if (editDetail != null) {
       firstNameController.text = editDetail['firstName'] ?? "";

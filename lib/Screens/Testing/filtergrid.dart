@@ -1021,7 +1021,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                             bottom: MediaQuery.of(context).size.height * 0.00),
                                                                         child:
                                                                         Text(
-                                                                          responselist![index].doctorName != null ?  responselist![index].doctorName! : "" ,
+                                                                          responselist![index].name != null ?  responselist![index].name! : "" ,
 
                                                                           style: TextStyle(
                                                                               color: Colors.black87,

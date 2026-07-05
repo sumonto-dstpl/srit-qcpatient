@@ -1,37 +1,21 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:newfolder/Core/Image%20Action/profile_setting.dart';
-
-
 import 'package:newfolder/Screens/AboutUs/aboutusmain.dart';
-import 'package:newfolder/Screens/AddToCart/addtocart.dart';
-import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
-import 'package:newfolder/Screens/Address/address_screen.dart';
 import 'package:newfolder/Screens/Alerts/addmemberbottomsheet.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
 import 'package:newfolder/Screens/Feedback/feedback.dart';
-import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:newfolder/Screens/Login/loginpage.dart';
 import 'package:newfolder/Screens/Maps/google_map_screen.dart';
-import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
-import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
 import 'package:newfolder/Screens/MyUploads/profilemyuploads.dart';
-import 'package:newfolder/Screens/Notifications/notifications.dart';
 import 'package:newfolder/Screens/PaymentHistory/paymenthistory.dart';
 import 'package:newfolder/Screens/Settings/settings.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
-import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
-import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
-import 'package:newfolder/Screens/Widgets/badge.dart';
 import 'package:newfolder/Screens/Alerts/loginbottomsheet.dart';
-
-import '../Utils/profile_avatar.dart';
 import 'package:newfolder/Core/Header/header.dart';
 import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
@@ -48,9 +32,9 @@ class ProfileMain extends StatefulWidget {
 
 class ProfileMainstate extends State<ProfileMain> {
   String usernameValue = "";
-  String useraddressValue = "QuadraCyte, Qatar 500006";
-  String usernameValuewithoutp = "P";
-  String userprofilepValue = "NA";
+
+
+
   int _selectedIndex = 0;
   bool isGuestUser =false;
   File? selectedImage;
@@ -70,7 +54,7 @@ class ProfileMainstate extends State<ProfileMain> {
       "gender": "",
     },
     {
-      "image": "assets/profileM1.png",
+      "image": "",
       "firstName": "Nutan",
       "lastName": "Bhatt",
       "uhid": "UHID002",
@@ -90,7 +74,7 @@ class ProfileMainstate extends State<ProfileMain> {
       "gender": "Male",
     },
     {
-      "image": "assets/profileM3.png",
+      "image": "",
       "firstName": "Priya",
       "lastName": "Sharma",
       "uhid": "UHID004",

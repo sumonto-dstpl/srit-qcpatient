@@ -515,7 +515,7 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
 
                       // Add service button
 
-                      GlobalActionButton(
+                      AppSaveButton(
                         isEnabled: timeSelectFlag && slectedDateSlot.isNotEmpty,
                         title: "Book Service",
                         onTap: () async {

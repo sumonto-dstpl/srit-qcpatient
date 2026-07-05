@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class GlobalActionButton extends StatelessWidget {
+class AppSaveButton extends StatelessWidget {
   final bool isEnabled;
   final VoidCallback onTap;
   final String title;
 
-  const GlobalActionButton({
+  const AppSaveButton({
     Key? key,
     required this.isEnabled,
     required this.onTap,

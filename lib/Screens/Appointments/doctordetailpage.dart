@@ -367,7 +367,7 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                                   MediaQuery.of(context).size.height * 0.00),
                           child: Text(
                             // doctornameval,
-                            (widget.doctorDetail?['doctorName'] ?? "Dr. Nutan Bhatt") as String,
+                            (widget.doctorDetail?['name'] ?? "Dr. Nutan Bhatt") as String,
                             style: TextStyle(
                                 color: Color(0xFF126086),
                                 overflow: TextOverflow.ellipsis,
@@ -443,7 +443,7 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
                           top: MediaQuery.of(context).size.height * 0.0,
                           bottom: MediaQuery.of(context).size.height * 0.00),
                       // child: DescriptionTextWidget(text: aboutdoctorval),
-                      child : DescriptionTextWidget(text : widget.doctoridval,doctorName: widget.doctorDetail?['doctorName'],),
+                      child : DescriptionTextWidget(text : widget.doctoridval,name: widget.doctorDetail?['name'],),
 
                     ),
 
@@ -916,7 +916,7 @@ class DoctorDetilPagestate extends State<DoctorDetilPage> {
             responsedetails = user.response;
 
             doctornameval =
-                responsedetails!.doctorName != null ? responsedetails!.doctorName! : "";
+                responsedetails!.name != null ? responsedetails!.name! : "";
             qualificationval = responsedetails!.qualification != null
                 ? responsedetails!.qualification!
                 : "";

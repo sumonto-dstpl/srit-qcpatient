@@ -438,7 +438,7 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                (widget.doctorDetail?['doctorName'] ?? "Dr. Nutan Bhatt") as String,
+                                (widget.doctorDetail?['name'] ?? "Dr. Nutan Bhatt") as String,
                                 style: TextStyle(
                                   color: Color(0xFF126086),
                                   fontWeight: FontWeight.w600,

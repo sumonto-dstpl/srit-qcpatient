@@ -26,7 +26,7 @@ class DoctorDetails {
 
 class DoctorDetailsResponse {
   String? doctorId;
-  String? doctorName;
+  String? name;
   String? qualification;
   String? speciality;
   String? workingTime;
@@ -41,7 +41,7 @@ class DoctorDetailsResponse {
 
   DoctorDetailsResponse(
       {this.doctorId,
-        this.doctorName,
+        this.name,
         this.qualification,
         this.speciality,
         this.workingTime,
@@ -56,7 +56,7 @@ class DoctorDetailsResponse {
 
   DoctorDetailsResponse.fromJson(Map<String, dynamic> json) {
     doctorId = json['doctorId'];
-    doctorName = json['doctorName'];
+    name = json['name'];
     qualification = json['qualification'];
     speciality = json['speciality'];
     workingTime = json['workingTime'];
@@ -73,7 +73,7 @@ class DoctorDetailsResponse {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['doctorId'] = this.doctorId;
-    data['doctorName'] = this.doctorName;
+    data['name'] = this.name;
     data['qualification'] = this.qualification;
     data['speciality'] = this.speciality;
     data['workingTime'] = this.workingTime;

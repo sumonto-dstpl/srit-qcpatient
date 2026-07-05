@@ -56,121 +56,121 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
   List<Map<String, dynamic>> doctorList = [
     {
       "id": 1,
-      "doctorName": "Dr. Arjun Mehta",
+      "name": "Dr. Arjun Mehta",
       "expertise": "Blood disorders and anemia management",
       "speciality": "Hematology"
     },
     {
       "id": 2,
-      "doctorName": "Dr. Priya Nair",
+      "name": "Dr. Priya Nair",
       "expertise": "Cancer diagnosis and chemotherapy",
       "speciality": "Oncology"
     },
     {
       "id": 3,
-      "doctorName": "Dr. Rohan Kapoor",
+      "name": "Dr. Rohan Kapoor",
       "expertise": "Bone marrow transplantation",
       "speciality": "Organ Transplant"
     },
     {
       "id": 4,
-      "doctorName": "Dr. Meera Iyer",
+      "name": "Dr. Meera Iyer",
       "expertise": "Pain and palliative care",
       "speciality": "Support Specialties"
     },
     {
       "id": 5,
-      "doctorName": "Dr. Neelesh Rao",
+      "name": "Dr. Neelesh Rao",
       "expertise": "Leukemia and lymphoma specialist",
       "speciality": "Hematology"
     },
     {
       "id": 6,
-      "doctorName": "Dr. Sneha Chatterjee",
+      "name": "Dr. Sneha Chatterjee",
       "expertise": "Breast and ovarian cancer management",
       "speciality": "Oncology"
     },
     {
       "id": 7,
-      "doctorName": "Dr. Vikram Shah",
+      "name": "Dr. Vikram Shah",
       "expertise": "Liver and kidney transplantation",
       "speciality": "Organ Transplant"
     },
     {
       "id": 8,
-      "doctorName": "Dr. Kavita Pillai",
+      "name": "Dr. Kavita Pillai",
       "expertise": "Nutrition and patient support care",
       "speciality": "Support Specialties"
     },
     {
       "id": 9,
-      "doctorName": "Dr. Aman Verma",
+      "name": "Dr. Aman Verma",
       "expertise": "Platelet and coagulation disorder expert",
       "speciality": "Hematology"
     },
     {
       "id": 10,
-      "doctorName": "Dr. Nisha Reddy",
+      "name": "Dr. Nisha Reddy",
       "expertise": "Radiation and immuno-oncology specialist",
       "speciality": "Oncology"
     },
     {
       "id": 11,
-      "doctorName": "Dr. Harshad Patel",
+      "name": "Dr. Harshad Patel",
       "expertise": "Heart and lung transplantation",
       "speciality": "Organ Transplant"
     },
     {
       "id": 12,
-      "doctorName": "Dr. Ritu Joshi",
+      "name": "Dr. Ritu Joshi",
       "expertise": "Rehabilitation and counseling",
       "speciality": "Support Specialties"
     },
     {
       "id": 13,
-      "doctorName": "Dr. Aditya Khanna",
+      "name": "Dr. Aditya Khanna",
       "expertise": "Sickle cell and hemophilia care",
       "speciality": "Hematology"
     },
     {
       "id": 14,
-      "doctorName": "Dr. Sanjana Bhatia",
+      "name": "Dr. Sanjana Bhatia",
       "expertise": "Pediatric oncology specialist",
       "speciality": "Oncology"
     },
     {
       "id": 15,
-      "doctorName": "Dr. Rajeev Sinha",
+      "name": "Dr. Rajeev Sinha",
       "expertise": "Pancreas and kidney transplant surgeon",
       "speciality": "Organ Transplant"
     },
     {
       "id": 16,
-      "doctorName": "Dr. Alka Deshmukh",
+      "name": "Dr. Alka Deshmukh",
       "expertise": "Psychological and social support care",
       "speciality": "Support Specialties"
     },
     {
       "id": 17,
-      "doctorName": "Dr. Nitin Agarwal",
+      "name": "Dr. Nitin Agarwal",
       "expertise": "Bone marrow disorder specialist",
       "speciality": "Hematology"
     },
     {
       "id": 18,
-      "doctorName": "Dr. Shreya Das",
+      "name": "Dr. Shreya Das",
       "expertise": "Immunotherapy and targeted cancer treatment",
       "speciality": "Oncology"
     },
     {
       "id": 19,
-      "doctorName": "Dr. Mohan Menon",
+      "name": "Dr. Mohan Menon",
       "expertise": "Multi-organ transplant coordinator",
       "speciality": "Organ Transplant"
     },
     {
       "id": 20,
-      "doctorName": "Dr. Anjali Gupta",
+      "name": "Dr. Anjali Gupta",
       "expertise": "Pain management and patient well-being",
       "speciality": "Support Specialties"
     },
@@ -214,7 +214,7 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
         filteredList = doctorList.where((doctor) {
           final query = text.toLowerCase().trim(); // clean input once
 
-          final name = doctor["doctorName"].toString().toLowerCase();
+          final name = doctor["name"].toString().toLowerCase();
           final exp = doctor["expertise"].toString().toLowerCase();
           final spec = doctor["speciality"].toString().toLowerCase();
 
@@ -741,7 +741,7 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
                                                 //     return DoctorDetilPage(
                                                 //       "Practitioner/f002",
                                                 //       doctorDetail : {
-                                                //       "doctorName" : filterresponselist[index].doctorName ,
+                                                //       "name" : filterresponselist[index].name ,
                                                 //       "speciality" : filterresponselist[index].speciality ,
                                                 //       "experience" : (filterresponselist![index].experience ?? "") + " - "+   (filterresponselist![index].qualification ??  ""),
                                                 //         } ,
@@ -750,7 +750,7 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
                                                 return DoctorDetilPage(
                                                   "Practitioner/f002",
                                                   doctorDetail: {
-                                                    "doctorName" : item["doctorName"] ,
+                                                    "name" : item["name"] ,
                                                     "speciality" : item["speciality"] ,
                                                     "experience" : (item["experience"] ?? "") + " - "+   (item["qualification"] ??  ""),
 
@@ -840,7 +840,7 @@ class QuickSearchWithoutDatastate extends State<QuickSearchWithoutData> {
 
                                                                     child:
                                                                     Text(
-                                                                     item['doctorName'] ?? "Dr. Nutan Bhatt",
+                                                                     item['name'] ?? "Dr. Nutan Bhatt",
 
                                                                       style: TextStyle(
                                                                           color: Color(0xFF1F1F1F),

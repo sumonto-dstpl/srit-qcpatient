@@ -497,14 +497,14 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
         butotnName: "Book Appointment",
         colors: (selectedSlot.isNotEmpty &&
             slectedDateSlot.isNotEmpty)
-            ? [
-          Color(0xFF126086),
-          Color(0xFF126086),
-        ]
-            : [
-          Colors.grey.shade300,
-          Colors.grey.shade300
-        ],
+            ? [  Color(0xFF126086), Color(0xFF126086), ]
+
+
+
+            : [ Colors.grey.shade300,Colors.grey.shade300 ],
+
+
+
         onBookAppointment:   () async {
           if (!(timeSelectFlag && slectedDateSlot.isNotEmpty)) {
             showTopNotification(
@@ -534,7 +534,8 @@ class MedicatiSelectTimeSlotstate extends State<MedicatiSelectTimeSlot> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => MedicationMyBookingsMain(
-                                  doctorId: (widget.detail?['doctorId'] ?? "unknown").toString(),
+                                  // doctorId: (widget.detail?['doctorId'] ?? "unknown").toString(),
+                                  detail: widget.detail ?? {},
                                   selectedDate: slectedDateSlot,
                                   selectedTime: selectedSlot,
                                   origin: widget.origin,

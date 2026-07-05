@@ -1376,6 +1376,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                     return MedicatiSelectTimeSlot(
                                         "widget.doctoridval",
                                         detail: medicationList[index],
+                                       origin: "medication",
                                     );
                                   },
                                 ),

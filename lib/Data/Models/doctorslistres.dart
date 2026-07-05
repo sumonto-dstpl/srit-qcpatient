@@ -29,7 +29,7 @@ class DoctorsListB {
 
 class DoctorsListResponse {
   String? doctorId;
-  String? doctorName;
+  String? name;
   String? qualification;
   String? speciality;
   String? category;
@@ -46,7 +46,7 @@ class DoctorsListResponse {
 
   DoctorsListResponse(
       {this.doctorId,
-        this.doctorName,
+        this.name,
         this.qualification,
         this.speciality,
         this.category,
@@ -65,7 +65,7 @@ class DoctorsListResponse {
 
   DoctorsListResponse.fromJson(Map<String, dynamic> json) {
     doctorId = json['doctorId'];
-    doctorName = json['doctorName'];
+    name = json['name'];
     qualification = json['qualification'];
     speciality = json['speciality'];
     category = json['category'];
@@ -84,7 +84,7 @@ class DoctorsListResponse {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['doctorId'] = this.doctorId;
-    data['doctorName'] = this.doctorName;
+    data['name'] = this.name;
     data['qualification'] = this.qualification;
     data['speciality'] = this.speciality;
     data['category'] = this.category;
@@ -105,7 +105,7 @@ class DoctorsListResponse {
 
   @override
   String toString() {
-    return '{doctorName: $doctorName, speciality: $speciality, experience: $experience}, category: $category';
+    return '{name: $name, speciality: $speciality, experience: $experience}, category: $category';
   }
 }
 

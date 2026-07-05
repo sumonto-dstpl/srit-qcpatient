@@ -54,11 +54,11 @@ class TimelineDetails extends StatefulWidget {
   final int selectedIndex ;
 
   String? image;
-  String? doctorName;
+  String? name;
   String? profession;
   TimelineDetails({
     super.key,
-    this.doctorName,
+    this.name,
     this.profession,
     this.image,
     this.selectedIndex = 0
@@ -193,7 +193,7 @@ class TimelineDetailsstate extends State<TimelineDetails> {
                                     bottom: MediaQuery.of(context).size.height *
                                         0.00),
                                 child: Text(
-                                 widget.doctorName ??  "Dr. Nutan Bhatt",
+                                 widget.name ??  "Dr. Nutan Bhatt",
                                   style: TextStyle(
                                       color: Colors.black,
                                       overflow: TextOverflow.ellipsis,

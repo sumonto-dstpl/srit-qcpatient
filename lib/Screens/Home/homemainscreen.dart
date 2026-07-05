@@ -1935,7 +1935,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                                       0.00),
                                                                               child:
                                                                               Text(
-                                                                                item.doctorName ?? "",
+                                                                                item.name ?? "",
                                                                                 style: TextStyle(
                                                                                     color: Colors
                                                                                         .black87,
@@ -2457,7 +2457,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                                                 return DoctorDetilPage(
                                                                                                     "Practitioner/f002",
                                                                                                   doctorDetail: {
-                                                                                                      "doctorName" : responselist[index].doctorName ,
+                                                                                                      "name" : responselist[index].name ,
                                                                                                       "speciality" : responselist[index].speciality ,
                                                                                                       "experience" : (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
                                                                                                   } ,
@@ -2567,7 +2567,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                                                 return SelectTimeSlot(
                                                                                                     "Practitioner/f002",
                                                                                                   doctorDetail: {
-                                                                                                    "doctorName" : responselist[index].doctorName ,
+                                                                                                    "name" : responselist[index].name ,
                                                                                                   "speciality" : responselist[index].speciality ,
                                                                                                   "experience" : (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
 
@@ -2872,7 +2872,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
         final List<Map<String, dynamic>> staticDoctorList = [
           {
             "doctorId": "1",
-            "doctorName": "Dr. Arjun Mehta",
+            "name": "Dr. Arjun Mehta",
             "qualification": "MBBS, MD (General Medicine)",
             "speciality": "General Physician / Internal Medicine",
             "experience": "18 YEARS Experience",
@@ -2884,7 +2884,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
           },
           {
             "doctorId": "2",
-            "doctorName": "Dr. Priya Nair",
+            "name": "Dr. Priya Nair",
             "qualification": "MBBS, DNB (General Medicine)",
             "speciality": "General Physician / Internal Medicine",
             "experience": "15 YEARS Experience",
@@ -2896,7 +2896,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
           },
           {
             "doctorId": "3",
-            "doctorName": "Dr. Sameer Khan",
+            "name": "Dr. Sameer Khan",
             "qualification": "MBBS, MD (Internal Medicine)",
             "speciality": "General Physician / Internal Medicine",
             "experience": "20 YEARS Experience",
@@ -2908,7 +2908,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
           },
           {
             "doctorId": "4",
-            "doctorName": "Dr. Neha Sharma",
+            "name": "Dr. Neha Sharma",
             "qualification": "MBBS, Diploma in Family Medicine",
             "speciality": "General Physician / Internal Medicine",
             "experience": "12 YEARS Experience",
@@ -2920,7 +2920,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
           },
           {
             "doctorId": "5",
-            "doctorName": "Dr. Rajesh Patel",
+            "name": "Dr. Rajesh Patel",
             "qualification": "MBBS, MD (General Medicine)",
             "speciality": "General Physician / Internal Medicine",
             "experience": "25 YEARS Experience",
@@ -2932,7 +2932,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
           },
           {
             "doctorId": "6",
-            "doctorName": "Dr. Anjali Verma",
+            "name": "Dr. Anjali Verma",
             "qualification": "MBBS, DNB (General Medicine)",
             "speciality": "General Physician / Internal Medicine",
             "experience": "17 YEARS Experience",
@@ -2944,7 +2944,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
           },
           {
             "doctorId": "7",
-            "doctorName": "Dr. Harish Reddy",
+            "name": "Dr. Harish Reddy",
             "qualification": "MBBS, Diploma in Family Medicine",
             "speciality": "General Physician / Internal Medicine",
             "experience": "22 YEARS Experience",
@@ -2956,7 +2956,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
           },
           {
             "doctorId": "8",
-            "doctorName": "Dr. Meenakshi Rao",
+            "name": "Dr. Meenakshi Rao",
             "qualification": "MBBS, MD (Internal Medicine)",
             "speciality": "General Physician / Internal Medicine",
             "experience": "19 YEARS Experience",
@@ -2968,7 +2968,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
           },
           {
             "doctorId": "9",
-            "doctorName": "Dr. Aditya Deshmukh",
+            "name": "Dr. Aditya Deshmukh",
             "qualification": "MBBS, Diploma in Family Medicine",
             "speciality": "General Physician / Internal Medicine",
             "experience": "14 YEARS Experience",
@@ -2980,7 +2980,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
           },
           {
             "doctorId": "10",
-            "doctorName": "Dr. Kavita Singh",
+            "name": "Dr. Kavita Singh",
             "qualification": "MBBS, MD (General Medicine)",
             "speciality": "General Physician / Internal Medicine",
             "experience": "21 YEARS Experience",
@@ -3014,7 +3014,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
             });
 
 
-            print(responselist.toString());
+            // print(responselist.toString());
           } else {
 
             final snackBar = SnackBar(content: Text("Details Not Found"));
@@ -3105,9 +3105,10 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                  onTap: () async {
                                    CancelRescheduleBottomSheet.showAppointmentActionSheet(
                                        context, // Current screen ka context bhej rahe hain
-                                       doctor,    // Aapka appointment map detail
-                                       username: doctor['doctorName'],
-                                       profession: doctor['profession'] ?? doctor['speciality']
+                                       doctor,
+                                       'home',
+                                       username: doctor['name'],
+                                       profession:  doctor['speciality']
                                    );
                                  },
                                  child: Container(

@@ -664,15 +664,17 @@ class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymen
                   onTap: () async {
                     showTopNotification(
                         context,
-                        title: 'Medication Appointment',
-                        message: 'Medication Appointment is book sucessfully', type: NotificationType.success);
+                        title: 'Appointment',
+                        message: 'Appointment is book sucessfully', type: NotificationType.success);
 
+                    if(origin == 'medication'){
+                      DummyData.addMedicationBooking(
+                          (widget.detail?['doctorId'] ?? "unknown").toString(), // ID extract ho jayegi
+                          widget.detail?['selectedDate'], // Jo date user ne select ki hai (dd-MM-yyyy)
+                          widget.detail?['selectedTime']
+                      );
+                    }
 
-                    DummyData.addMedicationBooking(
-                        (widget.detail?['doctorId'] ?? "unknown").toString(), // ID extract ho jayegi
-                        widget.detail?['selectedDate'], // Jo date user ne select ki hai (dd-MM-yyyy)
-                        widget.detail?['selectedTime']
-                    );
                     print("After : ${DummyData.medicationBookedSlots}");
 
 
@@ -733,16 +735,19 @@ class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymen
                                   onPressed: () async {
                                     showTopNotification(
                                         context,
-                                        title: 'Medication Appointment',
-                                        message: 'Medication Appointment is book sucessfully', type: NotificationType.success);
+                                        title: 'Appointment',
+                                        message: 'Appointment is book sucessfully', type: NotificationType.success);
 
+                                    if(origin == 'medication'){
+                                      DummyData.addMedicationBooking(
+                                          (widget.detail?['doctorId'] ?? "unknown").toString(), // ID extract ho jayegi
+                                          widget.detail?['selectedDate'], // Jo date user ne select ki hai (dd-MM-yyyy)
+                                          widget.detail?['selectedTime']
+                                      );
+                                    }
 
-                                    DummyData.addMedicationBooking(
-                                        (widget.detail?['doctorId'] ?? "unknown").toString(), // ID extract ho jayegi
-                                        widget.detail?['selectedDate'], // Jo date user ne select ki hai (dd-MM-yyyy)
-                                        widget.detail?['selectedTime']
-                                    );
                                     print("After : ${DummyData.medicationBookedSlots}");
+
 
                                     if(origin == 'appointments') {
                                       Navigator.of(context).pushAndRemoveUntil(
@@ -783,6 +788,7 @@ class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymen
                             ),
                           ])),
                 ),
+
 
                 const SizedBox(height: 16,),
               ],

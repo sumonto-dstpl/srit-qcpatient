@@ -498,7 +498,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                             bottom: MediaQuery.of(context).size.height * 0.00),
                                                                         child:
                                                                         Text(
-                                                                          item.doctorName != null ?  item.doctorName! : "" ,
+                                                                          item.name != null ?  item.name! : "" ,
 
                                                                           style: TextStyle(
                                                                               color: Colors
@@ -1017,7 +1017,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                                              "Practitioner/f002",
                                                                                              doctorDetail: {
                                                                                                'doctorId' : item.doctorId,
-                                                                                               "doctorName" : item.doctorName ,
+                                                                                               "name" : item.name ,
                                                                                                      "speciality" : item.speciality ,
                                                                                                      "experience" : (item.experience ?? "") + " - "+   (item.qualification ??  ""),
                                                                                                'category' : item.category,
@@ -1361,148 +1361,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
 
 
-        // final List<Map<String, dynamic>> staticDoctorList = [
-        //   {
-        //     "doctorId": "1",
-        //     "doctorName": "Dr. Arjun Mehta",
-        //     "qualification": "MBBS, MD (General Medicine)",
-        //     "speciality": "General Physician / Internal Medicine",
-        //     "experience": "18 YEARS Experience",
-        //     "regularFee": "₹800",
-        //     "discountFee": "₹600",
-        //     "rating": "4.8",
-        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-        //     "photo": null,
-        //     "availiability" : "today",
-        //     "gender" : "Male",
-        //     "language" : "English",
-        //     "city" : "Bangalore"
-        //   },
-        //   {
-        //     "doctorId": "2",
-        //     "doctorName": "Dr. Priya Nair",
-        //     "qualification": "MBBS, DNB (General Medicine)",
-        //     "speciality": "General Physician / Internal Medicine",
-        //     "experience": "15 YEARS Experience",
-        //     "regularFee": "₹750",
-        //     "discountFee": "₹550",
-        //     "rating": "4.7",
-        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-        //     "photo": null,
-        //     "availiability" : "today",
-        //     "gender" : "FeMale",
-        //     "language" : "Hindi",
-        //     "city" : "Hosur"
-        //   },
-        //   {
-        //     "doctorId": "3",
-        //     "doctorName": "Dr. Sameer Khan",
-        //     "qualification": "MBBS, MD (Internal Medicine)",
-        //     "speciality": "General Physician / Internal Medicine",
-        //     "experience": "20 YEARS Experience",
-        //     "regularFee": "₹900",
-        //     "discountFee": "₹700",
-        //     "rating": "4.9",
-        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-        //     "photo": null,
-        //     "availiability" : "now",
-        //     "gender" : "FeMale",
-        //     "language" : "Hindi",
-        //     "city" : "Delhi"
-        //   },
-        //   {
-        //     "doctorId": "4",
-        //     "doctorName": "Dr. Neha Sharma",
-        //     "qualification": "MBBS, Diploma in Family Medicine",
-        //     "speciality": "General Physician / Internal Medicine",
-        //     "experience": "12 YEARS Experience",
-        //     "regularFee": "₹700",
-        //     "discountFee": "₹500",
-        //     "rating": "4.6",
-        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-        //     "photo": null,
-        //     "availiability" : "tomorrow",
-        //     "gender" : "FeMale",
-        //     "language" : "Hindi",
-        //     "city" : "Delhi"
-        //   },
-        //   {
-        //     "doctorId": "5",
-        //     "doctorName": "Dr. Rajesh Patel",
-        //     "qualification": "MBBS, MD (General Medicine)",
-        //     "speciality": "General Physician / Internal Medicine",
-        //     "experience": "20 YEARS Experience",
-        //     "regularFee": "₹850",
-        //     "discountFee": "₹650",
-        //     "rating": "4.5",
-        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-        //     "photo": null,
-        //     "availiability" : "next",
-        //     "gender" : "FeMale",
-        //     "language" : "Hindi",
-        //     "city" : "Delhi"
-        //   },
-        //   {
-        //     "doctorId": "6",
-        //     "doctorName": "Dr. Anjali Verma",
-        //     "qualification": "MBBS, DNB (General Medicine)",
-        //     "speciality": "General Physician / Internal Medicine",
-        //     "experience": "17 YEARS Experience",
-        //     "regularFee": "₹800",
-        //     "discountFee": "₹600",
-        //     "rating": "4.9",
-        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-        //     "photo": null,
-        //   },
-        //   {
-        //     "doctorId": "7",
-        //     "doctorName": "Dr. Harish Reddy",
-        //     "qualification": "MBBS, Diploma in Family Medicine",
-        //     "speciality": "General Physician / Internal Medicine",
-        //     "experience": "20 YEARS Experience",
-        //     "regularFee": "₹950",
-        //     "discountFee": "₹750",
-        //     "rating": "4.8",
-        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-        //     "photo": null,
-        //   },
-        //   {
-        //     "doctorId": "8",
-        //     "doctorName": "Dr. Meenakshi Rao",
-        //     "qualification": "MBBS, MD (Internal Medicine)",
-        //     "speciality": "General Physician / Internal Medicine",
-        //     "experience": "19 YEARS Experience",
-        //     "regularFee": "₹880",
-        //     "discountFee": "₹700",
-        //     "rating": "4.7",
-        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-        //     "photo": null,
-        //   },
-        //   {
-        //     "doctorId": "9",
-        //     "doctorName": "Dr. Aditya Deshmukh",
-        //     "qualification": "MBBS, Diploma in Family Medicine",
-        //     "speciality": "General Physician / Internal Medicine",
-        //     "experience": "14 YEARS Experience",
-        //     "regularFee": "₹720",
-        //     "discountFee": "₹520",
-        //     "rating": "4.6",
-        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-        //     "photo": null,
-        //   },
-        //   {
-        //     "doctorId": "10",
-        //     "doctorName": "Dr. Kavita Singh",
-        //     "qualification": "MBBS, MD (General Medicine)",
-        //     "speciality": "General Physician / Internal Medicine",
-        //     "experience": "21 YEARS Experience",
-        //     "regularFee": "₹950",
-        //     "discountFee": "₹750",
-        //     "rating": "5.0",
-        //     "workLocation": "2 QuadraCyte, Qatar 560002 2 Km . From Your Location",
-        //     "photo": null,
-        //   },
-        // ];
+
       print('widget.category : ${widget.category}');
       final List<Map<String, dynamic>> staticDoctorList = DummyData.getAppointmentsDoctorsByCategory(category: widget.category);
       print("staticDoctor List : ${staticDoctorList.length}");
@@ -1579,7 +1438,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
       filterresponselist = responselist.where((item) {
         // Collect the fields you want to search across
         final fields = <String?>[
-          item.doctorName,
+          item.name,
           item.qualification,
           item.speciality,
           item.experience,

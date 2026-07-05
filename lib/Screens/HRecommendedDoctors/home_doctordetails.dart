@@ -1052,8 +1052,8 @@ class DoctorDetilPagestate extends State<HomeDoctorDetilPage> {
           setState(() {
             responsedetails = user.response;
 
-            doctornameval = responsedetails!.doctorName != null
-                ? responsedetails!.doctorName!
+            doctornameval = responsedetails!.name != null
+                ? responsedetails!.name!
                 : "";
             qualificationval = responsedetails!.qualification != null
                 ? responsedetails!.qualification!

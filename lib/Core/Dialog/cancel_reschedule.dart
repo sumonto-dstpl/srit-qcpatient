@@ -12,6 +12,7 @@ class CancelRescheduleBottomSheet {
   static void showAppointmentActionSheet(
       BuildContext context,
       Map detail,
+      String origin,
       {String? username, String? profession}
       ) {
     double height = MediaQuery.of(context).size.height;
@@ -25,7 +26,7 @@ class CancelRescheduleBottomSheet {
         isScrollControlled: true,
         isDismissible: true,
         enableDrag: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.transparent, // Make modal background transparent
         barrierColor: Colors.transparent,
         transitionAnimationController: AnimationController(
           duration: const Duration(milliseconds: 200),
@@ -76,7 +77,7 @@ class CancelRescheduleBottomSheet {
                                 Padding(
                                   padding: EdgeInsets.only(
                                       left: height * 0.025,
-                                      right: height * 0.0,
+
                                       bottom: height * 0.015),
                                   child: Align(
                                     alignment: Alignment.centerLeft,
@@ -90,17 +91,29 @@ class CancelRescheduleBottomSheet {
                                         children: <Widget>[
 
                                           // Top Handle Bar
-                                          Center(
-                                            child: Container(
-                                              margin: EdgeInsets.only(
-                                                top: height * 0.01,
-                                                bottom: height * 0.03,
-                                              ),
-                                              width: width * 0.23,
-                                              height: height * 0.006,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFFD9D9D9),
-                                                borderRadius: BorderRadius.circular(10),
+                                          GestureDetector(
+
+
+                                            child: Center(
+                                              child: Container(
+
+                                                padding: EdgeInsets.only(
+                                                  top: height * 0.01,
+                                                  bottom:  height * 0.03,
+                                                  left:  height * 0.18,
+                                                  right:  height * 0.18,
+                                                ),
+
+
+                                                width: width * 0.23,
+                                                // Same thickness as Divider
+                                                height:  height * 0.006,
+                                                // Same thickness as Divider
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFFD9D9D9), // Divider color
+                                                  borderRadius: BorderRadius.circular(
+                                                      10), // Rounded edges
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -169,7 +182,7 @@ class CancelRescheduleBottomSheet {
                                                       isReschedule: true,
                                                       previousDate: DateFormat('dd-MM-yyyy').parse(detail['date']),
                                                       previousTime: detail['time'],
-                                                      origin: 'appointments',
+                                                      origin: origin,
                                                     );
                                                   },
                                                 ),
