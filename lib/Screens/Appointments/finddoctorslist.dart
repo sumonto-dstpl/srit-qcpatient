@@ -1,33 +1,23 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:ui';
-
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Core/Data/dummy_data.dart';
+import 'package:newfolder/Core/TextField/textfiled_search_filter.dart';
+import 'package:newfolder/Core/no-data_found.dart';
+
 import 'package:newfolder/Data/APIServices/api_service.dart';
 import 'package:newfolder/Data/APIServices/connectivity_service.dart';
 import 'package:newfolder/Data/Models/doctorslistres.dart';
-import 'package:newfolder/Screens/AddToCart/addtocart.dart';
-import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
-import 'package:newfolder/Screens/Address/address_screen.dart';
-import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
-import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
-import 'package:newfolder/Screens/Appointments/addFilterForFindDoctorList.dart';
-import 'package:newfolder/Screens/Appointments/doctordetailpage.dart';
 import 'package:newfolder/Screens/Appointments/selecttimeslot.dart';
-import 'package:newfolder/Screens/Notifications/notifications.dart';
-import 'package:newfolder/Screens/Profile/profilemain.dart';
-import 'package:newfolder/Screens/Testing/filtersearch.dart';
+
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
-import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
-import 'package:newfolder/Screens/Widgets/badge.dart';
 import 'package:progress_dialog2/progress_dialog2.dart';
 import 'package:newfolder/Core/Header/header.dart';
-import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
-import 'package:newfolder/Core/bottom_navigation_bar.dart';
 
+import 'package:newfolder/Core/Filter/filter_model.dart';
+import 'package:newfolder/Core/Filter/filter_screen.dart';
 class FindDoctorsListMain extends StatefulWidget {
   final String? physical_virtual_mode;
   final String? consulttype;
@@ -77,16 +67,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
   // Tracks the selected category
   int selectedCategoryIndex = 0;
 
-  // Right-side filter data
-  final Map<String, Widget> filterOptions = {
-    'Experience': ExperienceFilterWidget(),
-    'Fees': FeesFilterWidget(),
-    'Availability': AvailabilityFilterWidget(),
-    'Areas of Expertise': AvailabilityFilterWidget(),
-    'Gender': GenderFilterWidget(),
-    'Language': LanguageFilterWidget(),
-    'City': CityFilterWidget(),
-  };
+  bool showNoDataFound = false;
 
 
   @override
@@ -230,17 +211,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                               borderRadius: BorderRadius.all(Radius.circular(12.0)),
                               borderSide: BorderSide(color: Colors.white),
                             ),
-                            // suffixIcon: IconButton(
-                            //   icon: Icon(
-                            //     Icons.search,
-                            //     color: Colors.black45,
-                            //     size: screenHeight * 0.024,
-                            //   ),
-                            //   onPressed: () {
-                            //
-                            //     // showDetails(SearchEditTextController.text);
-                            //   },
-                            // ),
+
                             suffixIcon: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -268,7 +239,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                 GestureDetector(
                                   behavior: HitTestBehavior.translucent, // ensures full area is tappable
                                   onTap: () async {
-                                    print("filter");
+
                                     FocusScope.of(context).unfocus();
                                     await Future.delayed(const Duration(milliseconds: 200));
                                     showBottomSheet();
@@ -335,6 +306,8 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
 
                       ),
+
+
                   // main content
                   Expanded(
                     child: Container(
@@ -357,6 +330,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                             children: <Widget>[
                               // Provide a width constraint using SizedBox or Expanded
                               Container(
+
                                 margin: EdgeInsets.only(
                                     left: MediaQuery.of(context).size.height * 0.01,
                                     right:
@@ -365,7 +339,11 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                     MediaQuery.of(context).size.height * 0.010,
                                     top: MediaQuery.of(context).size.height * 0.00),
                                 // height: MediaQuery.of(context).size.height * 0.190,
-                                child: ListView.builder(
+                                child:
+                                showNoDataFound
+                                    ?   NoDataFound() // Aapka custom widget
+                                    :
+                                ListView.builder(
                                   padding: EdgeInsets.zero,
                                   physics: ScrollPhysics(), // Ensures scrolling
                                   shrinkWrap:
@@ -824,14 +802,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                             // color: Colors.blue[100]!.withOpacity(0.9),
                                                             shape: BoxShape.circle,
                                                           ),
-                                                          // child: Center( // Ensures the image is centered
-                                                          //   child: Image.asset(
-                                                          //     'assets/Directionicon.png', // Replace with your actual asset path
-                                                          //     // color: Color(0xFF126086), // Optional: Apply color tint
-                                                          //     height: screenHeight * 0.027,
-                                                          //     width: screenHeight * 0.027,
-                                                          //   ),
-                                                          // ),
+
                                                         ),
                                                       ),
 
@@ -1087,7 +1058,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                       ),
                                     );
                                   },
-                                ),
+                                ) ,
                               ),
                               // Additional widgets can be added here
                             ],
@@ -1112,132 +1083,169 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
     
   }
 
+  Map<String, List<String>> activeFilters = {
+    "experienceYears":  [],
+    "feeRange":  [],
+    "availability":  [],
+    "area":  [],
+    "gender":  [],
+    "language":  [],
+    "city":  [],
+  };
+
+  final List<String> experienceYearsOptions = ['0-5 years', '6-10 years', '11-16 years', '17-21 years'];
+  final List<String> feeRangeOptions = ['QR 100-500', 'QR 500-1000', 'QR 1000-5000'];
+  final List<String> availabilityOptions = ['Now', 'Today', 'Tomorrow', 'Next 3 Days'];
+  final List<String> areaOptions = ['Adult Allergist', 'Allergy and Immunology', 'Asthma Specialist', 'Bariatrics Dietitan', 'Bariatrics Medicine'];
+  final List<String> genderOptions = ['Male', 'Female', ];
+  final List<String> languageOptions = ['English', 'Tamil', 'Kannada', 'Hindi', 'Telugu', 'Urdu', ];
+  final List<String> cityOptions = ['Bangalore', 'Hosur', 'Chennai', 'Mumbai', 'Agra'];
 
   void showBottomSheet() async {
-     final selectedFilters = await
-     showModalBottomSheet(
-       enableDrag: false,
-       isScrollControlled: true,
-       isDismissible: true,
-       backgroundColor: Colors.transparent, // Make modal background transparent
-       barrierColor: Colors.transparent,    // Disable default barrier color
-       context: context,
-       builder: (context) {
-         return Stack(
-           children: [
-             GestureDetector(
-               onTap: () => Navigator.of(context).pop(),
-               child: BackdropFilter(
-                 filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                 child: Container(
-                   color: Colors.transparent,
-                   width: double.infinity,
-                   height: double.infinity,
-                 ),
-               ),
-             ),
-             Align(
-               alignment: Alignment.bottomCenter,
-               child: Container(
-                 decoration: const BoxDecoration(
-                   boxShadow: [
-                     BoxShadow(
-                       color: Colors.black26,
-                       blurRadius: 10,
-                       spreadRadius: 2,
-                       offset: Offset(0, -2), // Shadow appears above the sheet
-                     ),
-                   ],
-                   color: Colors.white, // White background for the bottom sheet
-                   borderRadius: BorderRadius.only(
-                     topLeft: Radius.circular(24),
-                     topRight: Radius.circular(24),
-                   ),
-                 ),
-                 child: AddFilterForFindDoctorList(responselist: responselist),
-               ),
-             ),
-           ],
-         );
-       },
-     );
 
 
-     print("selectedFilters : $selectedFilters");
+    List<FilterCategory> categoriesToPass = [
+      FilterCategory(
+        key: 'experienceYears', // यह key आपकी activeFilters map से मेल खानी चाहिए
+        title: 'Experience', // यह BottomSheet के Category Panel पर दिखेगा
+        options: experienceYearsOptions,
+        initialSelectedOptions: activeFilters['experienceYears'],
+        hasSearchBar: false,
+      ),
+      FilterCategory(
+        key: 'feeRange', // यह key आपकी activeFilters map से मेल खानी चाहिए
+        title: 'Fees', // यह BottomSheet के Category Panel पर दिखेगा
+        options: feeRangeOptions,
+        initialSelectedOptions: activeFilters['feeRange'],
+        hasSearchBar: false,
+      ),
+      FilterCategory(
+        key: 'availability', // यह key आपकी activeFilters map से मेल खानी चाहिए
+        title: 'Availability', // यह BottomSheet के Category Panel पर दिखेगा
+        options: availabilityOptions,
+        initialSelectedOptions: activeFilters['availability'],
+        hasSearchBar: false,
+      ),
+      FilterCategory(
+        key: 'area', // यह key आपकी activeFilters map से मेल खानी चाहिए
+        title: 'Area of Expertise', // यह BottomSheet के Category Panel पर दिखेगा
+        options: areaOptions,
+        initialSelectedOptions: activeFilters['area'],
+        hasSearchBar: true,
+      ),
+      FilterCategory(
+        key: 'gender', // यह key आपकी activeFilters map से मेल खानी चाहिए
+        title: 'Gender', // यह BottomSheet के Category Panel पर दिखेगा
+        options: genderOptions,
+        initialSelectedOptions: activeFilters['gender'],
+        hasSearchBar: false,
+      ),
+      FilterCategory(
+        key: 'language', // यह key आपकी activeFilters map से मेल खानी चाहिए
+        title: 'Language', // यह BottomSheet के Category Panel पर दिखेगा
+        options: languageOptions,
+        initialSelectedOptions: activeFilters['language'],
+        hasSearchBar: false,
+      ),
+      FilterCategory(
+        key: 'city', // यह key आपकी activeFilters map से मेल खानी चाहिए
+        title: 'City', // यह BottomSheet के Category Panel पर दिखेगा
+        options: cityOptions,
+        initialSelectedOptions: activeFilters['city'],
+        hasSearchBar: false,
+      ),
 
-     Map<String, List<String>> activeFilters = {};
+    ];
 
-     selectedFilters.forEach((category, options) {
-       final selectedKeys = (options as Map<String, dynamic>)
-           .entries
-           .where((entry) => entry.value == true)
-           .map((entry) => entry.key.toLowerCase()) // lowercase for safe compare
-           .toList();
+    final result = await FilterScreen.show(
+        context,
+        categories: categoriesToPass,
+        initialChildSize: 0.45,
+        left_right_size: MediaQuery.of(context).size.height * 0.29
+    );
 
-       if (selectedKeys.isNotEmpty) {
-         activeFilters[category] = selectedKeys;
-       }
-     });
+     print("selected Filter Result : $result");
 
-     print("Active Filters: $activeFilters");
+     if(result != null) {
+       activeFilters = result as Map<String, List<String>>;
+       _applyActiveFilters();
+     }
+     else {
+       setState(() {
+         filterresponselist = responselist ;
+       });
 
-     List<DoctorsListResponse> filteredDoctors = responselist.where((doctor) {
-       bool matches = true;
+     }
 
-       // 🔹 Availability Filter
-       if (activeFilters.containsKey("availiability")) {
-         matches = matches &&
-             activeFilters["availiability"]!.contains(
-               doctor.availiability?.toLowerCase() ?? "",
-             );
-       }
+  }
 
-       // 🔹 Gender Filter
-       if (activeFilters.containsKey("genders")) {
-         matches = matches &&
-             activeFilters["genders"]!.contains(
-               doctor.gender?.toLowerCase() ?? "",
-             );
-       }
+  void _applyActiveFilters({String searchQuery = ""}) {
+     List<DoctorsListResponse> tmp = responselist.where((DoctorsListResponse item) {
 
-       // 🔹 City Filter
-       if (activeFilters.containsKey("city")) {
-         matches = matches &&
-             activeFilters["city"]!.contains(
-               doctor.city?.toLowerCase() ?? "",
-             );
-       }
+        // 1. Gender Filter
+        final selGenderList = List<String>.from(activeFilters['gender'] ?? []);
+        if (selGenderList.isNotEmpty) {
+          // Model properties ko dot (.) laga kar access karte hain
+          final itemGender = item.gender ?? '';
+          if (!selGenderList.contains(itemGender)) return false;
+        }
 
-       // 🔹 Language Filter
-       if (activeFilters.containsKey("language")) {
-         matches = matches &&
-             activeFilters["language"]!.contains(
-               doctor.language?.toLowerCase() ?? "",
-             );
-       }
+        // 2. Category / Speciality Filter
+        final selCategoryList = List<String>.from(activeFilters['category'] ?? []);
+        if (selCategoryList.isNotEmpty) {
+          final itemCategory = item.category ?? '';
+          if (!selCategoryList.contains(itemCategory)) return false;
+        }
 
-       // 🔹 Experience Filter (simple example, adjust as needed)
-       if (activeFilters.containsKey("experience")) {
-         String exp = doctor.experience?.toLowerCase() ?? "";
-         matches = matches &&
-             activeFilters["experience"]!.any((e) => exp.contains(e));
-       }
+        // 3. Language Filter
+        final selLanguageList = List<String>.from(activeFilters['language'] ?? []);
+        if (selLanguageList.isNotEmpty) {
+          final itemLanguage = item.language ?? '';
+          if (!selLanguageList.contains(itemLanguage)) return false;
+        }
 
-       // 🔹 Fees Filter (example based on keyword)
-       if (activeFilters.containsKey("fees")) {
-         String fee = doctor.discountFee?.toLowerCase() ?? "";
-         matches = matches &&
-             activeFilters["fees"]!.any((f) => fee.contains(f.replaceAll("qr", "₹")));
-       }
+        // 4. City / Location Filter
+        final selCityList = List<String>.from(activeFilters['city'] ?? []);
+        if (selCityList.isNotEmpty) {
+          final itemCity = item.city ?? '';
+          if (!selCityList.contains(itemCity)) return false;
+        }
 
-       return matches;
-     }).toList();
+        // 5. Experience Range Filter
+        final selExperienceList = List<String>.from(activeFilters['experienceYears'] ?? []);
+        if (selExperienceList.isNotEmpty) {
+          final itemExperience = item.experienceYears ?? '';
+          if (!selExperienceList.contains(itemExperience)) return false;
+        }
 
-     print("filteredDoctors : $filteredDoctors");
+        // 6. Fee Range Filter
+        final selFeeRangeList = List<String>.from(activeFilters['feeRange'] ?? []);
+        if (selFeeRangeList.isNotEmpty) {
+          final itemFeeRange = item.feeRange ?? '';
+          if (!selFeeRangeList.contains(itemFeeRange)) return false;
+        }
 
-     setState(() {
-       filterresponselist = filteredDoctors;
-     });
+        // 7. Availability Filter
+        final selAvailabilityList = List<String>.from(activeFilters['availability'] ?? []);
+        if (selAvailabilityList.isNotEmpty) {
+          final itemAvailability = item.availability ?? '';
+          if (!selAvailabilityList.contains(itemAvailability)) return false;
+        }
+
+        // 8. Search Query Filter (Search by Name)
+        if (searchQuery.isNotEmpty) {
+          final itemName = (item.name ?? '').toLowerCase();
+          if (!itemName.contains(searchQuery.toLowerCase())) return false;
+        }
+
+        return true;
+      }).toList();
+      setState(() {
+        filterresponselist = tmp;
+        showNoDataFound = tmp.isEmpty;
+      });
+
+
   }
 
 
@@ -1386,6 +1394,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
             setState(() {
               responselist = newres.response!;
               filterresponselist = responselist;
+              showNoDataFound = false;
             });
 
             progressDialog.hide(); // <-- ab hide reliably ho jayega
@@ -1462,6 +1471,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
 
         return false;
       }).toList();
+      showNoDataFound = filterresponselist.isEmpty;
     });
   }
 

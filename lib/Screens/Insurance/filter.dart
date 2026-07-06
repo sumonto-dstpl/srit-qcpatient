@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 
 class FilterForImsurance extends StatefulWidget {
   @override
-  AddFilterForFindDoctorListState createState() => AddFilterForFindDoctorListState();
+  FilterForImsuranceState createState() => FilterForImsuranceState();
 }
 
-class AddFilterForFindDoctorListState extends State<FilterForImsurance> {
+class FilterForImsuranceState extends State<FilterForImsurance> {
   final FocusNode _focusNode = FocusNode();
 
   DraggableScrollableController  _scrollController = DraggableScrollableController();
@@ -121,36 +121,14 @@ class AddFilterForFindDoctorListState extends State<FilterForImsurance> {
                         child: Container(
                           margin: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.01,
-                            bottom: MediaQuery.of(context).size.height * 0.0,
-                            left: MediaQuery.of(context).size.height * 0.00,
-                            right: MediaQuery.of(context).size.height * 0.00,
+
                           ),
-                          padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.0,
-                            bottom: MediaQuery.of(context).size.height * 0.0,
-                            left: MediaQuery.of(context).size.height * 0.00,
-                            right: MediaQuery.of(context).size.height * 0.00,
-                          ),
+
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              // Container(
-                              //   padding: EdgeInsets.only(
-                              //     top: MediaQuery.of(context).size.height * 0.0,
-                              //     bottom: MediaQuery.of(context).size.height * 0.04,
-                              //     left: MediaQuery.of(context).size.height * 0.18,
-                              //     right: MediaQuery.of(context).size.height * 0.18,
-                              //   ),
-                              //   child: Divider(
-                              //     height: 0,
-                              //     indent: 0,
-                              //     thickness: MediaQuery.of(context).size.height * 0.008,
-                              //     color:Color(0xFF95C8D6).withOpacity(0.3),
-                              //   ),
-                              // ),
 
-                              // Add Filters (1)
 
                               // Divider
                               GestureDetector(
@@ -200,9 +178,9 @@ class AddFilterForFindDoctorListState extends State<FilterForImsurance> {
                               SizedBox(height : MediaQuery.of(context).size.height * 0.02),
                               Padding(
                                 padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height * 0.0,
+
                                     right: MediaQuery.of(context).size.height * 0.02,
-                                    bottom: MediaQuery.of(context).size.height * 0.00),
+                                    ),
                                 child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -513,101 +491,9 @@ class AddFilterForFindDoctorListState extends State<FilterForImsurance> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Search Input Field
-        // GestureDetector(
-        //   onTap: () {
-        //     _focusNode.requestFocus(); // Show keyboard
-        //   },
-        //   child: Container(
-        //
-        //     height: MediaQuery.of(context).size.height * 0.038,
-        //     alignment: Alignment.centerRight,
-        //     padding: EdgeInsets.only(
-        //       top: MediaQuery.of(context).size.height * 0.0,
-        //       bottom: MediaQuery.of(context).size.height * 0.00,
-        //       left: MediaQuery.of(context).size.height * 0.00,
-        //       right: MediaQuery.of(context).size.height * 0.00,
-        //     ),
-        //     margin: EdgeInsets.only(
-        //       right: MediaQuery.of(context).size.height * 0.01,
-        //       top: MediaQuery.of(context).size.height * 0.0,
-        //       bottom: MediaQuery.of(context).size.height * 0.01,
-        //       left: MediaQuery.of(context).size.height * 0.01,
-        //     ),
-        //     child: TextFormField(
-        //       focusNode: _focusNode, // Attach the focus node
-        //       readOnly: false, // Important: set to false so it can accept input
-        //
-        //       controller: SearchfilterEditTextController,
-        //       inputFormatters: [
-        //         LengthLimitingTextInputFormatter(15),
-        //         FilteringTextInputFormatter.allow(
-        //             RegExp('[a-zA-Z0-9]')),
-        //       ],
-        //       // textCapitalization: TextCapitalization.characters,
-        //       style: TextStyle(color: Colors.black45),
-        //       keyboardType: TextInputType.emailAddress,
-        //       validator: (input) => input!.length < 3
-        //           ? "Search should be more than 3 characters"
-        //           : null,
-        //       decoration: InputDecoration(
-        //         isDense: true,
-        //         contentPadding:
-        //         EdgeInsets.only(
-        //           left : MediaQuery.of(context).size.height * 0.012,
-        //
-        //         ),
-        //         filled: true,
-        //         // fillColor: Colors.grey[200],
-        //         fillColor: Color(0xFFF7F5F6).withOpacity(0.9),
-        //         hintText:
-        //         "Search",
-        //         hintStyle: TextStyle(
-        //             color: Color(0xFFA8A8A8),
-        //             fontSize: MediaQuery.of(context).size.height * 0.012,
-        //             fontWeight: FontWeight.w500
-        //         ),
-        //         focusedBorder: OutlineInputBorder(
-        //           borderRadius: BorderRadius.circular(5.0),
-        //           borderSide: BorderSide(color: Colors.grey),
-        //         ),
-        //         enabledBorder: OutlineInputBorder(
-        //           borderRadius:
-        //           BorderRadius. all(Radius.circular(8.0)),
-        //           borderSide: BorderSide(color: Colors.white),
-        //         ),
-        //         suffixIcon: IconButton(
-        //           icon: Icon(
-        //             Icons.search,
-        //             color: Colors.black45,
-        //             size: MediaQuery
-        //                 .of(context)
-        //                 .size
-        //                 .height * 0.02,
-        //           ),
-        //           onPressed: () {
-        //
-        //           },
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
 
-        // [ Stable & Unstable]
         Container(
-          padding: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.00,
-            bottom: MediaQuery.of(context).size.height * 0.00,
-            left: MediaQuery.of(context).size.height * 0.00,
-            right: MediaQuery.of(context).size.height * 0.00,
-          ),
-          margin: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.00,
-            bottom: MediaQuery.of(context).size.height * 0.00,
-            left: MediaQuery.of(context).size.height * 0.0,
-            right: MediaQuery.of(context).size.height * 0.0,
-          ),
+
           child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,

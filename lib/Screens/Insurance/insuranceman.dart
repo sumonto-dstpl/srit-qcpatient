@@ -90,6 +90,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
       "primaryInsuredName": "Miss Anif Dauf",
       "insuranceType": "Health",
       "coverageLimit": "₹10,00,000",
+      "status" : "approved",
 
     },
     {
@@ -102,6 +103,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
       "primaryInsuredName": "Aamir Khan",
       "insuranceType": "Vehicle",
       "coverageLimit": "₹5,00,000",
+      "status" : "pending",
     },
     {
       "id": "3",
@@ -113,8 +115,10 @@ class InsuranceMainstate extends State<InsuranceMain> {
       "primaryInsuredName": "Sameer Patel",
       "insuranceType": "Life",
       "coverageLimit": "₹8,00,000",
+      "status" : "rejected",
     },
   ];
+  late List<Map<String, dynamic>> insurancePoliciesCopy;
 
   final List<List<dynamic>>  uploadfilestime = [
     ["Balsam Gold", Color(0xFFD3AB0B).withOpacity(0.8) ],
@@ -249,6 +253,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
 
     super.initState();
     insuranceApprovalListCopy = insuranceApprovalList;
+    insurancePoliciesCopy = insurancePolicies;
     checkGuestUser();
 
 
@@ -316,16 +321,8 @@ class InsuranceMainstate extends State<InsuranceMain> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * 0.03),
-                          topRight: Radius.circular(
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * 0.03),
+                          topLeft: Radius.circular(screenHeight * 0.03),
+                          topRight: Radius.circular(screenHeight * 0.03),
                         ),
                       ),
                       child: Column(
@@ -342,28 +339,11 @@ class InsuranceMainstate extends State<InsuranceMain> {
                               child:
                           Container(
                             margin: EdgeInsets.only(
-                                left: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.02,
-                                right:
-                                MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.01,
-                                bottom:
-                                MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.02,
-                                top: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.03),
-                            height: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.045,
+                                left: screenHeight * 0.02,
+                                right:screenHeight * 0.01,
+                                bottom:screenHeight * 0.02,
+                                top: screenHeight * 0.03),
+                            height: screenHeight * 0.045,
                             decoration: BoxDecoration(
                               borderRadius:
                               const BorderRadius.all(Radius.circular(10)),
@@ -385,19 +365,13 @@ class InsuranceMainstate extends State<InsuranceMain> {
                               labelColor: Color(0xFF126086),
                               labelStyle: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height *
+                                  fontSize: screenHeight *
                                       0.016),
                               unselectedLabelColor: Colors.black,
                               unselectedLabelStyle:
                               TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height *
+                                  fontSize: screenHeight *
                                       0.015
                               ),
                               tabs: [
@@ -443,10 +417,10 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                 child:
                           Container(
                             margin: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.height * 0.0015,
-                                right: MediaQuery.of(context).size.height * 0.025,
-                                bottom: MediaQuery.of(context).size.height * 0.00,
-                                top: MediaQuery.of(context).size.height * 0.01
+                                left: screenHeight * 0.0015,
+                                right: screenHeight * 0.025,
+                                bottom: screenHeight * 0.00,
+                                top: screenHeight * 0.01
                             ),
                             width: screenHeight * 0.022, // Adjust image width
                             height: screenHeight * 0.022, // Adjust image height
@@ -473,29 +447,11 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                 // Active Prescription List
 
                                 Container(
-                                  padding: EdgeInsets.only(
-                                      left: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height *
-                                          0.005,
-                                      right:
-                                      MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height *
-                                          0.005,
-                                      top: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height *
-                                          0.00,
-                                      bottom:
-                                      MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height *
-                                          0.00),
+                                  padding: EdgeInsets.symmetric(horizontal: screenHeight *0.005,),
+
+
+
+
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -510,63 +466,31 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                     padding: EdgeInsets.zero,
                                     children: [
 
-                                      updatedPolicies.isEmpty
+                                      insurancePoliciesCopy.isEmpty
                                          ? Column(
                                            children: [
                                              Container(
                                                                                      padding:EdgeInsets.only(
-                                                left: MediaQuery.of(context).size.height * 0.00,
-                                                right: MediaQuery.of(context).size.height * 0.00,
-                                                bottom: MediaQuery.of(context).size.height * 0.0,
-                                                top: MediaQuery.of(context).size.height * 0.04),
+
+                                                top: screenHeight * 0.04),
                                                                                      color: Colors.white,
                                                                                      child: Image.asset(
                                               'assets/NoPreviousPrescriptionstoview.png',
                                               // Replace with your image asset
-                                              height: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height *
+                                              height: screenHeight *
                                                   0.340,
                                               // Adjust the height of the image
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height *
+                                              width: screenHeight *
                                                   0.340, // Adjust the width of the image
                                                                                      ),
 
                                                                                    ),
                                              Container(
-                                               padding: EdgeInsets.only(
-                                                 top: MediaQuery
-                                                     .of(context)
-                                                     .size
-                                                     .height *
-                                                     0.00,
-                                                 bottom: MediaQuery
-                                                     .of(context)
-                                                     .size
-                                                     .height *
-                                                     0.00,
-                                                 left: MediaQuery
-                                                     .of(context)
-                                                     .size
-                                                     .height *
-                                                     0.00,
-                                                 right: MediaQuery
-                                                     .of(context)
-                                                     .size
-                                                     .height *
-                                                     0.00,
-                                               ),
+                                               padding: EdgeInsets.zero,
                                                child: Text(
                                                  "No My Insurance to view",
                                                  style: TextStyle(
-                                                   fontSize: MediaQuery
-                                                       .of(context)
-                                                       .size
-                                                       .height *
+                                                   fontSize: screenHeight *
                                                        0.016,
                                                    color: Color(0xFF126086),
                                                    fontWeight: FontWeight.bold,
@@ -579,23 +503,18 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                          )
                                          : Container(
                                         padding: EdgeInsets.only(
-                                          top: MediaQuery.of(context).size.height *
-                                              0.005, // Dynamic top padding
-                                          bottom: MediaQuery.of(context).size.height *
-                                              0.0, // Dynamic bottom padding
-                                          left: MediaQuery.of(context).size.height *
-                                              0.0, // Dynamic left padding
-                                          right: MediaQuery.of(context).size.height *
-                                              0.0, // Dynamic right padding
-                                        ),
+                                          top: screenHeight *0.005,),
+                                                // Dynamic top padding
+                                           // Dynamic right padding
+
                                         child: ListView.builder(
                                           padding: EdgeInsets.zero,
                                           shrinkWrap:
                                           true, // Prevents infinite height
                                           physics: NeverScrollableScrollPhysics(),
-                                          itemCount: insurancePolicies.length,
+                                          itemCount: insurancePoliciesCopy.length,
                                           itemBuilder: (context, index) {
-                                          final item = insurancePolicies[index];
+                                          final item = insurancePoliciesCopy[index];
 
 
                                             return
@@ -767,7 +686,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
 
                             // Re-attach colors based on policyName
                             updatedPolicies = attachColorsToPolicies(
-                              insurancePolicies,
+                              insurancePoliciesCopy,
                               uploadfilestime,
                               gradientColorOptions,
                             );
@@ -850,6 +769,19 @@ class InsuranceMainstate extends State<InsuranceMain> {
              .where((item) =>
              selectedFilters.contains(item['status'].toString().toLowerCase()))
              .toList();
+
+         insurancePoliciesCopy = insurancePolicies
+             .where((item) =>
+             selectedFilters.contains(item['status']?.toString().toLowerCase()))
+             .toList();
+
+       });
+     }
+     else {
+       setState(() {
+         insuranceApprovalListCopy = insuranceApprovalList ;
+         insurancePoliciesCopy = insurancePolicies;
+
        });
      }
   }
@@ -1029,7 +961,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
 
                                         // Re-attach colors based on policyName
                                         updatedPolicies = attachColorsToPolicies(
-                                          insurancePolicies,
+                                          insurancePoliciesCopy,
                                           uploadfilestime,
                                           gradientColorOptions,
                                         );

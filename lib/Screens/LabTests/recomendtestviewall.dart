@@ -18,9 +18,11 @@ import '../../utils/cart_provider.dart';
 class RecommendedViewAll extends StatefulWidget {
   String usernameValue ;
   int selectedIndex = 0;
+  final String mode ;
   RecommendedViewAll({
     super.key,
     required this.usernameValue,
+    required this.mode , // health_condition , test, health_package
   });
   @override
   State<RecommendedViewAll> createState() => RecommendedViewAllstate();

@@ -43,6 +43,9 @@ class DoctorsListResponse {
   String? gender;
   String? language;
   String? city;
+  String? experienceYears;
+  String? feeRange;
+  String? availability;
 
   DoctorsListResponse(
       {this.doctorId,
@@ -60,6 +63,9 @@ class DoctorsListResponse {
         this.gender,
         this.language,
         this.city,
+        this.experienceYears,
+        this.feeRange,
+        this.availability
 
       });
 
@@ -78,6 +84,9 @@ class DoctorsListResponse {
     gender = json['gender'];
     language = json['language'];
     city = json['city'];
+    experienceYears = json['experienceYears'];
+    feeRange = json['feeRange'];
+    availability = json['availability'];
     photo = json['photo'] != null ? new Photo.fromJson(json['photo']) : null;
   }
 
@@ -97,6 +106,9 @@ class DoctorsListResponse {
     data['gender'] = this.gender;
     data['language'] = this.language;
     data['city'] = this.city;
+    data['experienceYears'] = this.experienceYears;
+    data['feeRange'] = this.feeRange;
+    data['availability'] = this.availability;
     if (this.photo != null) {
       data['photo'] = this.photo!.toJson();
     }

@@ -277,97 +277,7 @@ class HealthCondiViewallstate
                                       ),
 
 
-                                      // Container(
-                                      //   padding: EdgeInsets.only(
-                                      //       left: MediaQuery
-                                      //           .of(context)
-                                      //           .size
-                                      //           .height *
-                                      //           0.008,
-                                      //       right: MediaQuery
-                                      //           .of(context)
-                                      //           .size
-                                      //           .height *
-                                      //           0.00,
-                                      //       top: MediaQuery
-                                      //           .of(context)
-                                      //           .size
-                                      //           .height *
-                                      //           0.00,
-                                      //       bottom: MediaQuery
-                                      //           .of(context)
-                                      //           .size
-                                      //           .height *
-                                      //           0.0),
-                                      //   child:
-                                      //   DefaultTextStyle(
-                                      //     style: TextStyle(
-                                      //         color: Color(0xFF126086),
-                                      //         overflow: TextOverflow.ellipsis,
-                                      //         fontWeight: FontWeight.bold,
-                                      //         fontSize:
-                                      //         MediaQuery
-                                      //             .of(context)
-                                      //             .size
-                                      //             .height * 0.016),
-                                      //     child: AnimatedTextKit(
-                                      //       animatedTexts: [
-                                      //         RotateAnimatedText(
-                                      //           'Doctor',
-                                      //           textStyle: TextStyle(
-                                      //               color: Color(0xFF126086),
-                                      //               overflow: TextOverflow.ellipsis,
-                                      //               fontWeight: FontWeight.bold,
-                                      //               fontSize:
-                                      //               MediaQuery
-                                      //                   .of(context)
-                                      //                   .size
-                                      //                   .height *
-                                      //                   0.014), // Red text
-                                      //         ),
-                                      //         RotateAnimatedText(
-                                      //           'Speciality',
-                                      //           textStyle: TextStyle(
-                                      //               color: Color(0xFF126086),
-                                      //               overflow: TextOverflow.ellipsis,
-                                      //               fontWeight: FontWeight.bold,
-                                      //               fontSize:
-                                      //               MediaQuery
-                                      //                   .of(context)
-                                      //                   .size
-                                      //                   .height *
-                                      //                   0.014),
-                                      //         ),
-                                      //
-                                      //         RotateAnimatedText(
-                                      //           'Symptoms',
-                                      //           textStyle: TextStyle(
-                                      //               color: Color(0xFF126086),
-                                      //               overflow: TextOverflow.ellipsis,
-                                      //               fontWeight: FontWeight.bold,
-                                      //               fontSize:
-                                      //               MediaQuery
-                                      //                   .of(context)
-                                      //                   .size
-                                      //                   .height *
-                                      //                   0.014),
-                                      //         ),
-                                      //       ],
-                                      //       repeatForever: true,
-                                      //       pause: Duration(milliseconds: 500),
-                                      //       onTap: () {
-                                      //         Navigator.of(context).push(
-                                      //           MaterialPageRoute(
-                                      //             builder: (BuildContext context) {
-                                      //               return QuickSearchWithoutData();
-                                      //             },
-                                      //           ),
-                                      //         );
-                                      //         print("Tap Event");
-                                      //       },
-                                      //     ),
-                                      //   ),
-                                      // ),
+
 
                                       Spacer(),
                                       // Pushes the search icon to the end of the Row
@@ -516,7 +426,7 @@ class HealthCondiViewallstate
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (BuildContext context) {
-                                          return RecommendedViewAll(usernameValue: "Health Package",);
+                                          return RecommendedViewAll(usernameValue: "Health Package",mode: 'health_condition',);
                                         },
                                       ),
                                     );

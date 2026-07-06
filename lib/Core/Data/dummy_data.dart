@@ -149,17 +149,16 @@ class DummyData {
             : "Pediatrics",
 
         // area / sub-speciality
-        "area": (i % 6 == 0)
+        "area": (i % 5 == 0)
             ? "Adult Allergist"
-            : (i % 6 == 1)
+            : (i % 5 == 1)
             ? "Allergy and Immunology"
-            : (i % 6 == 2)
-            ? "Asthma"
-            : (i % 6 == 3)
-            ? "Bariatrics"
-            : (i % 6 == 4)
-            ? "Medicine"
-            : "General Consultation",
+            : (i % 5 == 2)
+            ? "Asthma Specialist"
+            : (i % 5 == 3)
+            ? "Bariatrics Dietitan"
+
+            : "Bariatrics Medicine",
 
         // experience group
         "experienceYears": (i % 4 == 0)
@@ -217,11 +216,21 @@ class DummyData {
         "gender": (i % 2 == 0) ? "Male" : "Female",
 
         // language
-        "language": (i % 3 == 0)
+        "language": (i % 6 == 0)
             ? "English"
-            : (i % 3 == 1)
+            : (i % 6 == 1)
             ? "Tamil"
-            : "Kannada",
+            :   (i % 6 == 2)
+            ? "Kannada"
+            : (i % 6 == 3)
+            ?  "Hindi"
+            : (i % 6 == 2)
+            ? "Telugu"
+            : "Urdu" ,
+
+
+
+
 
         // city
         "city": (i % 5 == 0)

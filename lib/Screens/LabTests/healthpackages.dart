@@ -268,7 +268,7 @@ class HealthCondiViewallstate
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (BuildContext context) {
-                                          return RecommendedViewAll(usernameValue: "Health Package",);
+                                          return RecommendedViewAll(usernameValue: "Health Package",mode: 'health_package',);
                                         },
                                       ),
                                     );

@@ -888,42 +888,17 @@ class LabTestsMainstate extends State<LabTestsMain> {
 
                       // Browse by health condition
                       Padding(
-                        padding: EdgeInsets.only(
-                            left: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0,
-                            top: MediaQuery.of(context).size.height *
-                                0.015,
-                            right: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0,
-                            bottom: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.015),
+                        padding: EdgeInsets.symmetric( vertical: screenHeight * 0.015, ),
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
+                                padding: EdgeInsets.zero,
                                 child: Text(
                                   "Browse by health condition",
                                   style: TextStyle(
-                                    fontSize: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * 0.014,
+                                    fontSize: screenHeight * 0.014,
                                     color: Color(0xFF000000),
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -940,26 +915,14 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                   );
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.00,
-                                      right:
-                                      MediaQuery.of(context).size.height *
-                                          0.00,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.00,
-                                      bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.00),
+                                  padding: EdgeInsets.zero,
                                   child: Text(
                                     "View All",
                                     style: TextStyle(
                                       color: Color(0xFF126086),
                                       fontWeight: FontWeight.w600,
                                       overflow: TextOverflow.ellipsis,
-                                      fontSize:
-                                      MediaQuery.of(context).size.height *
-                                          0.012,
+                                      fontSize:screenHeight *0.012,
                                     ),
                                   ),
                                 ),
@@ -1013,7 +976,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (BuildContext context) {
-                                          return RecommendedViewAll(usernameValue: "Health Package",);
+                                          return RecommendedViewAll(usernameValue: "Health Package",mode: 'health_condition',);
                                         },
                                       ),
                                     );
@@ -1071,10 +1034,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                       Padding(
                         padding: EdgeInsets.only(
 
-                            bottom: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.015),
+                            bottom: screenHeight * 0.015),
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1098,7 +1058,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (BuildContext context) {
-                                        return RecommendedViewAll(usernameValue: "Full Body Checkup",);
+                                        return RecommendedViewAll(usernameValue: "Full Body Checkup",mode: 'test',);
                                       },
                                     ),
                                   );
@@ -1591,42 +1551,17 @@ class LabTestsMainstate extends State<LabTestsMain> {
 
                       // Health Package
                       Padding(
-                        padding: EdgeInsets.only(
-                            left: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0,
-                            top: MediaQuery.of(context).size.height *
-                                0.015,
-                            right: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0,
-                            bottom: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.015),
+                        padding: EdgeInsets.symmetric( vertical: screenHeight * 0.015, ),
                         child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    right: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    top: MediaQuery.of(context).size.height *
-                                        0.00,
-                                    bottom: MediaQuery.of(context).size.height *
-                                        0.00),
+                                padding: EdgeInsets.zero,
                                 child: Text(
                                   "Health Package",
                                   style: TextStyle(
-                                    fontSize: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * 0.014,
+                                    fontSize: screenHeight * 0.014,
                                     color: Color(0xFF000000),
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -1643,17 +1578,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                   );
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.00,
-                                      right:
-                                      MediaQuery.of(context).size.height *
-                                          0.00,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.00,
-                                      bottom:
-                                      MediaQuery.of(context).size.height *
-                                          0.00),
+                                  padding: EdgeInsets.zero,
                                   child: Text(
                                     "View All",
                                     style: TextStyle(
@@ -1710,48 +1635,11 @@ class LabTestsMainstate extends State<LabTestsMain> {
                               children: [
                                 TextButton(
                                   onPressed: () {
-                                    // Add specific actions for each index
-                                    if (index == 0) {
-
-                                    } else if (index == 1) {
-                                      /* Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (BuildContext context) {
-                                            return DoctorHCMain();
-                                          },
-                                        ),
-                                      );*/
-                                    }else if (index == 2) {
-                                      /* Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (BuildContext context) {
-                                            return NurseHCMain();
-                                          },
-                                        ),
-                                      );*/
-                                    }else if (index == 3) {
-                                      /* Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (BuildContext context) {
-                                            return PhysioHCMain();
-                                          },
-                                        ),
-                                      );*/
-                                    } else if (index == 4) {
-                                      /*  Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (BuildContext context) {
-                                            return MedicalEquipHCMain();
-                                          },
-                                        ),
-                                      );*/
-                                    }
-                                    // Add more cases as needed
 
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (BuildContext context) {
-                                          return RecommendedViewAll(usernameValue: "Health Package",);
+                                          return RecommendedViewAll(usernameValue: "Health Package",mode: 'health_package',);
                                         },
                                       ),
                                     );
