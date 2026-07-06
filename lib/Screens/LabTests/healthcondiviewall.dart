@@ -71,8 +71,7 @@ class HealthCondiViewallstate
   ];
 
 
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
+
   TextEditingController SearchEditTextController = TextEditingController();
 
   @override
@@ -305,64 +304,7 @@ class HealthCondiViewallstate
                             ]
                         ),
                       ),
-                      // Container(
-                      //   alignment: Alignment.centerRight,
-                      //   padding: EdgeInsets.only(
-                      //       top: MediaQuery.of(context).size.height * 0.0,
-                      //       bottom: MediaQuery.of(context).size.height * 0.00,
-                      //       left: MediaQuery.of(context).size.height * 0.00,
-                      //       right: MediaQuery.of(context).size.height * 0.00),
-                      //   margin: EdgeInsets.only(
-                      //       right: MediaQuery.of(context).size.height * 0.02,
-                      //       top: MediaQuery.of(context).size.height * 0.0,
-                      //       bottom: MediaQuery.of(context).size.height * 0.01,
-                      //       left: MediaQuery.of(context).size.height * 0.02),
-                      //   child: TextFormField(
-                      //     controller: SearchEditTextController,
-                      //     inputFormatters: [
-                      //       LengthLimitingTextInputFormatter(15),
-                      //       FilteringTextInputFormatter.allow(
-                      //           RegExp('[a-zA-Z0-9]'))
-                      //     ],
-                      //     textCapitalization: TextCapitalization.characters,
-                      //     style: TextStyle(color: Colors.black45),
-                      //     keyboardType: TextInputType.emailAddress,
-                      //     validator: (input) => input!.length < 3
-                      //         ? "Search should be more than 3 characters"
-                      //         : null,
-                      //     decoration: InputDecoration(
-                      //       isDense: true,
-                      //       contentPadding:
-                      //       EdgeInsets.all(screenHeight * 0.012),
-                      //       filled: true,
-                      //       fillColor: Colors.grey[200],
-                      //       hintText: "Search By health condition",
-                      //       hintStyle: TextStyle(
-                      //         color: Colors.black26,
-                      //         fontSize: screenHeight * 0.016,
-                      //       ),
-                      //       focusedBorder: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(5.0),
-                      //         borderSide: BorderSide(color: Colors.grey),
-                      //       ),
-                      //       enabledBorder: OutlineInputBorder(
-                      //         borderRadius:
-                      //         BorderRadius.all(Radius.circular(5.0)),
-                      //         borderSide: BorderSide(color: Colors.white),
-                      //       ),
-                      //       suffixIcon: Icon(
-                      //         Icons.search,
-                      //         color: Colors.black45,
-                      //         size: MediaQuery
-                      //             .of(context)
-                      //             .size
-                      //             .height * 0.02,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
 
-                      // Browse by health condition
                       Padding(
                         padding: EdgeInsets.only(
                             left: MediaQuery.of(context).size.height * 0.02,
@@ -426,7 +368,12 @@ class HealthCondiViewallstate
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (BuildContext context) {
-                                          return RecommendedViewAll(usernameValue: "Health Package",mode: 'health_condition',);
+                                          return RecommendedViewAll(
+                                            usernameValue: "Health Package",
+                                            mode: 'health_condition',
+                                            categoryName: mybrowsebyhealthcond[index][1],
+
+                                          );
                                         },
                                       ),
                                     );

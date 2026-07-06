@@ -19,10 +19,12 @@ class RecommendedViewAll extends StatefulWidget {
   String usernameValue ;
   int selectedIndex = 0;
   final String mode ;
+  final String categoryName ;
   RecommendedViewAll({
     super.key,
     required this.usernameValue,
     required this.mode , // health_condition , test, health_package
+    required this.categoryName,
   });
   @override
   State<RecommendedViewAll> createState() => RecommendedViewAllstate();
@@ -50,19 +52,33 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
 
 
 
-  List<Map<String,dynamic>> cartList = DummyData.cartList;
+
 
   List<dynamic> addedList=[];
+
+  List<Map<String, dynamic>> pageDataList = [];
+  List<Map<String, dynamic>> filterPageDataList = [];
 
   @override
   void initState(){
     // getSharedPrefs();
     super.initState();
+    _fetchDataForThisCategory();
     _loadData();
     Provider.of<CartProvider>(context, listen: false).loadCart();
     // setState(() {});
   }
 
+  void _fetchDataForThisCategory() {
+    // Yahan hum pure 250 items me se sirf wo 10 nikal rahe hain jo user dekhna chahta hai
+    setState(() {
+      pageDataList = DummyData.cartList.where((item) {
+        return item['type'] == widget.mode && item['categoryName'] == widget.categoryName;
+      }).toList();
+
+      filterPageDataList = pageDataList ;
+    });
+  }
   void _loadData() async {
     print("loadData......................................");
     var guestUser = await UserSecureStorage.getIfGuestLogged();
@@ -315,9 +331,9 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                               true, // Prevents ListView from taking up extra space
                               scrollDirection: Axis
                                   .vertical, // Makes the ListView horizontal
-                              itemCount: cartList.length, // You can adjust the item count
+                              itemCount: filterPageDataList.length, // You can adjust the item count
                               itemBuilder: (BuildContext context, int index) {
-                                final item = cartList[index];
+                                final item = filterPageDataList[index];
 
                                 return GestureDetector(
                                   onTap: () {
@@ -746,341 +762,121 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
   }
 
 
-  void showBottomSheet() => showModalBottomSheet(
-  enableDrag: false,
-  isScrollControlled: true,
-  isDismissible: true,
-  backgroundColor: Colors.transparent, // Make modal background transparent
-  barrierColor: Colors.transparent,    // Disable default barrier color
-  context: context,
-  builder: (context) {
-  return Stack(
-  children: [
-  GestureDetector(
-  onTap: () => Navigator.of(context).pop(),
-  child: BackdropFilter(
-  filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-  child: Container(
-  color: Colors.transparent,
-  width: double.infinity,
-  height: double.infinity,
-  ),
-  ),
-  ),
-  Align(
-  alignment: Alignment.bottomCenter,
-  child: Container(
-  decoration: const BoxDecoration(
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black26,
-        blurRadius: 10,
-        spreadRadius: 2,
-        offset: Offset(0, -2), // Shadow appears above the sheet
-      ),
-    ],
-  color: Colors.white, // White background for the bottom sheet
-  borderRadius: BorderRadius.only(
-  topLeft: Radius.circular(24),
-  topRight: Radius.circular(24),
-  ),
-  ),
-  child: AddFilterForFullBodyCheckup(),
-  ),
-  ),
-  ],
-  );
-  },
+  Map<String, List<String>> activeFilters = {
+    "mustHavetests":  [],
+    "category":  [],
 
-    //     StatefulBuilder(
-    //   builder: (BuildContext context,
-    //       StateSetter setState /*You can rename this!*/) =>
-    //       Padding(
-    //         padding: EdgeInsets.only(
-    //             bottom: MediaQuery.of(context).viewInsets.bottom),
-    //         child: Column(
-    //           mainAxisSize: MainAxisSize.min,
-    //           children: <Widget>[
-    //             Padding(
-    //               padding: EdgeInsets.only(
-    //                   left: MediaQuery.of(context).size.height * 0.025,
-    //                   right: MediaQuery.of(context).size.height * 0.0,
-    //                   bottom: MediaQuery.of(context).size.height * 0.015),
-    //               child: Align(
-    //                 alignment: Alignment.centerLeft,
-    //                 child: Container(
-    //                   margin: EdgeInsets.only(
-    //                     top: MediaQuery.of(context).size.height * 0.01,
-    //                     bottom: MediaQuery.of(context).size.height * 0.0,
-    //                     left: MediaQuery.of(context).size.height * 0.00,
-    //                     right: MediaQuery.of(context).size.height * 0.00,
-    //                   ),
-    //                   padding: EdgeInsets.only(
-    //                     top: MediaQuery.of(context).size.height * 0.0,
-    //                     bottom: MediaQuery.of(context).size.height * 0.0,
-    //                     left: MediaQuery.of(context).size.height * 0.00,
-    //                     right: MediaQuery.of(context).size.height * 0.00,
-    //                   ),
-    //                   child: Column(
-    //                     mainAxisAlignment: MainAxisAlignment.start,
-    //                     crossAxisAlignment: CrossAxisAlignment.start,
-    //                     children: <Widget>[
-    //                       Container(
-    //                         padding: EdgeInsets.only(
-    //                           top: MediaQuery.of(context).size.height * 0.0,
-    //                           bottom: MediaQuery.of(context).size.height * 0.04,
-    //                           left: MediaQuery.of(context).size.height * 0.18,
-    //                           right: MediaQuery.of(context).size.height * 0.18,
-    //                         ),
-    //                         child: Divider(
-    //                           height: 0,
-    //                           indent: 0,
-    //                           thickness: MediaQuery.of(context).size.height * 0.008,
-    //                           color:Color(0xFF95C8D6).withOpacity(0.3),
-    //                         ),
-    //                       ),
-    //
-    //                       // Add Filters (1)
-    //                       Padding(
-    //                         padding: EdgeInsets.only(
-    //                             left: MediaQuery.of(context).size.height * 0.0,
-    //                             right: MediaQuery.of(context).size.height * 0.02,
-    //                             bottom: MediaQuery.of(context).size.height * 0.00),
-    //                         child: Row(
-    //                             crossAxisAlignment: CrossAxisAlignment.center,
-    //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                             children: <Widget>[
-    //                               Container(
-    //                                 padding: EdgeInsets.only(
-    //                                     left: MediaQuery.of(context).size.height *
-    //                                         0.00,
-    //                                     right: MediaQuery.of(context).size.height *
-    //                                         0.00,
-    //                                     top: MediaQuery.of(context).size.height *
-    //                                         0.00,
-    //                                     bottom: MediaQuery.of(context).size.height *
-    //                                         0.00),
-    //                                 child: Text(
-    //                                   "Add Filters (1)",
-    //                                   style: TextStyle(
-    //                                     color: Colors.black,
-    //                                     fontWeight: FontWeight.bold,
-    //                                     overflow: TextOverflow.ellipsis,
-    //                                     fontSize:
-    //                                     MediaQuery.of(context).size.height *
-    //                                         0.02,
-    //                                   ),
-    //                                 ),
-    //                               ),
-    //                               GestureDetector(
-    //                                 onTap: () async {
-    //
-    //                                 },
-    //                                 child: Container(
-    //                                   padding: EdgeInsets.only(
-    //                                       left: MediaQuery.of(context).size.height *
-    //                                           0.00,
-    //                                       right:
-    //                                       MediaQuery.of(context).size.height *
-    //                                           0.00,
-    //                                       top: MediaQuery.of(context).size.height *
-    //                                           0.00,
-    //                                       bottom:
-    //                                       MediaQuery.of(context).size.height *
-    //                                           0.00),
-    //                                   child: Text(
-    //                                     "Clear all",
-    //                                     style: TextStyle(
-    //                                       color: Color(0xFF126086),
-    //                                       fontWeight: FontWeight.bold,
-    //                                       overflow: TextOverflow.ellipsis,
-    //                                       fontSize:
-    //                                       MediaQuery.of(context).size.height *
-    //                                           0.018,
-    //                                     ),
-    //                                   ),
-    //                                 ),
-    //                               ),
-    //                             ]),
-    //                       ),
-    //
-    //
-    //
-    //                     ],
-    //                   ),
-    //                 ),
-    //               ),
-    //             ),
-    //
-    //
-    //
-    //             Row(
-    //               children: [
-    //
-    //                 // Left Side: Categories List
-    //                 Expanded(
-    //                   flex : 2,
-    //                   child:
-    //                   Container(
-    //                     decoration: BoxDecoration(
-    //                       color: Color(0xFF95C8D6).withOpacity(0.2),
-    //                       borderRadius: BorderRadius.circular(8),
-    //                     ),
-    //                     margin: EdgeInsets.only(
-    //                         left: MediaQuery.of(context).size.height * 0.020,
-    //                         right: MediaQuery.of(context).size.height * 0.0,
-    //                         top: MediaQuery.of(context).size.height * 0.0,
-    //                         bottom: MediaQuery.of(context).size.height * 0.02),
-    //                     // width: MediaQuery.of(context).size.height * 0.2,
-    //                     height: MediaQuery.of(context).size.height * 0.35,
-    //                     child: ListView.builder(
-    //                       itemCount: categories.length,
-    //                       itemBuilder: (context, index) {
-    //                         return GestureDetector(
-    //                           onTap: () {
-    //                             setState(() {
-    //                               selectedCategoryIndex = index;
-    //                             });
-    //                           },
-    //                           child: Container(
-    //                             decoration: BoxDecoration(
-    //                               color: selectedCategoryIndex == index
-    //                                   ? Colors.white
-    //                                   : Colors.transparent,
-    //                               borderRadius: BorderRadius.only(
-    //                                 topLeft: Radius.circular(8),
-    //                                 bottomLeft: Radius.circular(8),
-    //                               ),
-    //                             ),
-    //                             child: Stack(
-    //                               children: [
-    //                                 if (selectedCategoryIndex ==
-    //                                     index) // Show the side line only for the selected cell
-    //                                   Positioned(
-    //                                     top: 6, // Gap from the top
-    //                                     left: 0,
-    //                                     bottom: 6, // Gap from the bottom
-    //                                     child: Container(
-    //                                       width: 2.0, // Same as border width
-    //                                       color:  Color(0xFF126086), // Border color
-    //                                     ),
-    //                                   ),
-    //                                 Container(
-    //                                   padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.012),
-    //                                   child: Text(
-    //                                     categories[index],
-    //                                     style: TextStyle(
-    //                                       color: selectedCategoryIndex == index
-    //                                           ? Color(0xFF126086) : Colors.black87,
-    //                                       fontSize: MediaQuery.of(context).size.height * 0.018,
-    //                                       fontWeight: selectedCategoryIndex == index
-    //                                           ? FontWeight.bold
-    //                                           : FontWeight.normal,
-    //                                     ),
-    //                                   ),
-    //                                 ),
-    //                               ],
-    //                             ),
-    //                           ),
-    //                         );
-    //                       },
-    //                     ),
-    //                   ),
-    //                 ),
-    //
-    //                 // Right Side: Filter Options
-    //                 Expanded(
-    //                   flex : 3,
-    //                   child:
-    //                   Container(
-    //                     // width: MediaQuery.of(context).size.height * 0.28,
-    //                     height: MediaQuery.of(context).size.height * 0.35,
-    //                     padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.0),
-    //                     child: _getFilterWidget(categories[selectedCategoryIndex], context),
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //
-    //
-    //
-    //             GestureDetector(
-    //               onTap: () async {
-    //
-    //               },
-    //               child: Container(
-    //                   alignment: Alignment.centerRight,
-    //                   padding: EdgeInsets.only(
-    //                       top:
-    //                       MediaQuery.of(context).size.height * 0.01,
-    //                       bottom:
-    //                       MediaQuery.of(context).size.height * 0.00,
-    //                       left:
-    //                       MediaQuery.of(context).size.height * 0.00,
-    //                       right: MediaQuery.of(context).size.height *
-    //                           0.00),
-    //                   margin: EdgeInsets.only(
-    //                       right:
-    //                       MediaQuery.of(context).size.height * 0.02,
-    //                       top:
-    //                       MediaQuery.of(context).size.height * 0.01,
-    //                       bottom:
-    //                       MediaQuery.of(context).size.height * 0.01,
-    //                       left: MediaQuery.of(context).size.height *
-    //                           0.02),
-    //                   child: Row(
-    //                       crossAxisAlignment: CrossAxisAlignment.start,
-    //                       mainAxisAlignment: MainAxisAlignment.center,
-    //                       children: <Widget>[
-    //                         Expanded(
-    //                           child: Container(
-    //                             decoration: BoxDecoration(
-    //                                 borderRadius: BorderRadius.circular(
-    //                                     MediaQuery.of(context)
-    //                                         .size
-    //                                         .height *
-    //                                         0.012),
-    //                                 gradient: LinearGradient(
-    //                                     begin: Alignment.centerRight,
-    //                                     end: Alignment.center,
-    //                                     stops: [
-    //                                       0.5,
-    //                                       0.9
-    //                                     ],
-    //                                     colors: [
-    //                                       Color(0xFFA8B1CE),
-    //                                       Color(0xFFA8B1CE),
-    //                                     ])),
-    //                             alignment: Alignment.center,
-    //                             padding: EdgeInsets.only(left: 0.0),
-    //                             child: TextButton(
-    //                               onPressed: () async {
-    //
-    //                               },
-    //                               child: Text("Apply Filters",
-    //                                   textAlign: TextAlign.center,
-    //                                   style: TextStyle(
-    //                                       color: Colors.white,
-    //                                       fontSize:
-    //                                       MediaQuery.of(context)
-    //                                           .size
-    //                                           .height *
-    //                                           0.026)),
-    //                             ),
-    //                           ),
-    //                         ),
-    //                       ])),
-    //             )
-    //
-    //
-    //
-    //           ],
-    //         ),
-    //       ),
-    // ),
-  );
+  };
+  //
+  // final List<String> mustHavetestsOptions = [
+  //   'Complete Blood Count',
+  //   'Glucose,Post Prandial(PP)',
+  //   'Complete Urine Examination',
+  //   'Thyroid Profile(Total T3)',
+  //   'Lipid Profile',
+  //   'Liver Function Test(I-FT)',
+  //   'C-Reactive Protein Quantitative'
+  //
+  // ];
+  // final List<String> categoryOptions = [
+  //
+  // ];
+  void showBottomSheet() async {
+
+    final result = await showModalBottomSheet(
+      enableDrag: false,
+      isScrollControlled: true,
+      isDismissible: true,
+      backgroundColor: Colors.transparent, // Make modal background transparent
+      barrierColor: Colors.transparent,    // Disable default barrier color
+      context: context,
+      builder: (context) {
+        return Stack(
+          children: [
+            GestureDetector(
+              onTap: () => Navigator.of(context).pop(),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                child: Container(
+                  color: Colors.transparent,
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                decoration: const BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10,
+                      spreadRadius: 2,
+                      offset: Offset(0, -2), // Shadow appears above the sheet
+                    ),
+                  ],
+                  color: Colors.white, // White background for the bottom sheet
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24),
+                  ),
+                ),
+                child: AddFilterForFullBodyCheckup(),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    print("result : $result");
+
+    if(result != null) {
+      activeFilters = result as Map<String, List<String>>;
+      _applyActiveFilters();
+    }
+    else {
+      setState(() {
+        filterPageDataList = pageDataList ;
+      });
+
+    }
+  }
 
 
+  void _applyActiveFilters({String searchQuery = ""}) {
+    List<Map<String, dynamic>> tmp = pageDataList.where((item) {
+
+
+
+      // 2. Category / Speciality Filter
+      final selCategoryList = List<String>.from(activeFilters['category'] ?? []);
+      if (selCategoryList.isNotEmpty) {
+        final itemCategory = item['category'] ?? '';
+        if (!selCategoryList.contains(itemCategory)) return false;
+      }
+
+      // 3. Language Filter
+      final selLanguageList = List<String>.from(activeFilters['mustHavetests'] ?? []);
+      if (selLanguageList.isNotEmpty) {
+        final itemLanguage = item['mustHavetests'] ?? '';
+        if (!selLanguageList.contains(itemLanguage)) return false;
+      }
+
+
+
+
+
+      return true;
+    }).toList();
+    setState(() {
+      filterPageDataList = tmp;
+
+    });
+
+
+  }
 
   void addToCart(int id,String plan,String test,String qr) async{
      Map<String,dynamic> addToCart = {

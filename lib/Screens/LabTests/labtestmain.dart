@@ -77,10 +77,36 @@ class LabTestsMainstate extends State<LabTestsMain> {
   List<Map<String,dynamic>> cartList = DummyData.cartList;
   List<dynamic> addedList=[];
 
+  List<Map<String, dynamic>> recommendedTests = [];
+  List<Map<String, dynamic>> healthCondition = [];
+  List<Map<String, dynamic>> healthPackage = [];
+
   @override
   void initState(){
     // getSharedPrefs();
     super.initState();
+
+    setState(() {
+      recommendedTests = DummyData.cartList
+          .where((item) => item['type'] == 'test')
+          .toList();
+
+      print("recommendedTests : $recommendedTests");
+
+      healthCondition = DummyData.cartList
+          .where((item) => item['type'] == 'health_condition')
+          .toList();
+      // print("healthCondition : $healthCondition");
+
+      healthPackage = DummyData.cartList
+          .where((item) => item['type'] == 'health_package')
+          .toList();
+      // print("healthPackage : $healthPackage");
+
+
+
+    });
+
     _loadData();
     Provider.of<CartProvider>(context, listen: false).loadCart();
   }
@@ -976,7 +1002,12 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (BuildContext context) {
-                                          return RecommendedViewAll(usernameValue: "Health Package",mode: 'health_condition',);
+                                          return RecommendedViewAll(
+                                            usernameValue: "Health Package",
+                                            mode: 'health_condition',
+                                            categoryName: mybrowsebyhealthcond[index][1],
+
+                                          );
                                         },
                                       ),
                                     );
@@ -1058,7 +1089,11 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (BuildContext context) {
-                                        return RecommendedViewAll(usernameValue: "Full Body Checkup",mode: 'test',);
+                                        return RecommendedViewAll(
+                                          usernameValue: "Full Body Checkup",
+                                          mode: 'test',
+                                          categoryName: 'Recommended Tests',
+                                        );
                                       },
                                     ),
                                   );
@@ -1094,10 +1129,10 @@ class LabTestsMainstate extends State<LabTestsMain> {
                               physics: ScrollPhysics(),  // Ensures scrolling
                               shrinkWrap: true,  // Prevents ListView from taking up extra space
                               scrollDirection: Axis.horizontal,  // Makes the ListView horizontal
-                              itemCount: cartList.length
+                              itemCount: recommendedTests.length
                               ,  // You can adjust the item count
                               itemBuilder: (BuildContext context, int index) {
-                                final item = cartList[index];
+                                final item = recommendedTests[index];
                                 return GestureDetector(
                                   onTap: () {
 
@@ -1639,7 +1674,12 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (BuildContext context) {
-                                          return RecommendedViewAll(usernameValue: "Health Package",mode: 'health_package',);
+                                          return RecommendedViewAll(
+                                            usernameValue: "Health Package",
+                                            mode: 'health_package',
+                                              categoryName:myhealthpackages[index][1],
+
+                                          );
                                         },
                                       ),
                                     );

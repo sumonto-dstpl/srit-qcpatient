@@ -441,24 +441,128 @@ class DummyData {
 
 
   //  Cart Data
-  static List<Map<String,dynamic>> cartList = [
-    {"id" : 101,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-    {"id" : 102,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-    {"id" : 103,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+  // static List<Map<String,dynamic>> cartList = [
+  //   {"id" : 101,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+  //   {"id" : 102,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+  //   {"id" : 103,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+  //
+  //   {"id" : 104,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+  //   {"id" : 105,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+  //   {"id" : 106,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+  //
+  //   {"id" : 107,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+  //   {"id" : 108,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+  //   {"id" : 109,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+  //
+  //   {"id" : 110,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
+  //   {"id" : 111,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
+  //   {"id" : 112,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+  // ];
 
-    {"id" : 104,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-    {"id" : 105,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-    {"id" : 106,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+  static List<Map<String, dynamic>> cartList = _generateData();
 
-    {"id" : 107,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-    {"id" : 108,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-    {"id" : 109,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
+  static List<Map<String, dynamic>> _generateData() {
+    List<Map<String, dynamic>> list = [];
 
-    {"id" : 110,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-    {"id" : 111,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-    {"id" : 112,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
-  ];
+    // Id counter jo har naye item ke sath badhega, ensures 100% unique IDs
+    int idCounter = 1000;
 
+    // 1. Health Conditions ki list
+    List<String> conditions = [
+      "Harmone", "Diabetes", "Joint Pain", "Thyroid", "Heart",
+      "Bone", "Blood Sugar", "Vitamin", "Hair Fall", "Liver",
+      "Kidney", "Fever"
+    ];
+
+    // 2. Health Packages ki list
+    List<String> packages = [
+      "Full Body Checkup", "Men’s Wellness", "Women’s Health",
+      "Thyroid Package", "Heart Package", "Diabetes package",
+      "Blood Studies Package", "Vitamin package", "Hairfall package",
+      "Liver Package", "Kidney Package", "Fever Package"
+    ];
+
+    List<String> filterMustHaveTests = [
+      "Complete Blood Count",
+      "Glucose,Post Prandial(PP),2 Hours",
+      "Complete Urine Examination",
+      "Thyroid Profile(Total T3,Total T4)",
+      "Lipid Profile",
+      "Liver Function Text(I-FT)",
+      "C-Reactive Protein(Quantitative)"
+    ];
+
+    List<String> filterCategories = [
+      "Pregnancy",
+      "X - ray MRI CT Ultrasound",
+      "Blood Studies",
+      "Allergy",
+      "Tax Saver",
+      "Bone",
+      "Men's Health"
+    ];
+
+    // ==========================================
+    // Loop 1: Health Conditions ke 10-10 items
+    // ==========================================
+    for (String condition in conditions) {
+      for (int i = 1; i <= 10; i++) {
+        String singleTest = filterMustHaveTests[i % filterMustHaveTests.length];
+        String singleCat = filterCategories[(i + 1) % filterCategories.length];
+        list.add({
+          "id": idCounter++, // Ye automatically 1000, 1001, 1002... hota jayega
+          "type": "health_condition",
+          "categoryName": condition,
+          "plan": "$condition Plan - Level $i",
+          "test": "${i * 2}", // Example test count
+          "qr": "QR ${499 + (i * 100)}" ,// Example price logic
+          "mustHavetests": singleTest,
+          "filterCategory": singleCat,
+        });
+      }
+    }
+
+    // ==========================================
+    // Loop 2: Health Packages ke 10-10 items
+    // ==========================================
+    for (String pkg in packages) {
+      for (int i = 1; i <= 10; i++) {
+        String singleTest = filterMustHaveTests[i % filterMustHaveTests.length];
+        String singleCat = filterCategories[(i + 1) % filterCategories.length];
+        list.add({
+          "id": idCounter++, // Counter continue rahega, so unique IDs!
+          "type": "health_package",
+          "categoryName": pkg,
+          "plan": "$pkg - Type $i",
+          "test": "${i * 5}",
+          "qr": "QR ${999 + (i * 200)}",
+          "mustHavetests": singleTest,
+          "filterCategory": singleCat,
+        });
+      }
+    }
+
+    // ==========================================
+    // Loop 3: Recommended Tests ke 10 items
+    // ==========================================
+    for (int i = 1; i <= 10; i++) {
+      String singleTest = filterMustHaveTests[i % filterMustHaveTests.length];
+      String singleCat = filterCategories[(i + 1) % filterCategories.length];
+      list.add({
+        "id": idCounter++,
+        "type": "test",
+        "categoryName": "Recommended Tests",
+        "plan": "Standard Lab Test $i",
+        "test": "1",
+        "qr": "QR ${199 + (i * 50)}",
+        "mustHavetests": singleTest,
+        "filterCategory": singleCat,
+
+      });
+    }
+
+    return list;
+  }
 
 
 }

@@ -259,24 +259,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              // Container(
-                              //   padding: EdgeInsets.only(
-                              //     top: MediaQuery.of(context).size.height * 0.0,
-                              //     bottom: MediaQuery.of(context).size.height * 0.04,
-                              //     left: MediaQuery.of(context).size.height * 0.18,
-                              //     right: MediaQuery.of(context).size.height * 0.18,
-                              //   ),
-                              //   child: Divider(
-                              //     height: 0,
-                              //     indent: 0,
-                              //     thickness: MediaQuery.of(context).size.height * 0.008,
-                              //     color:Color(0xFF95C8D6).withOpacity(0.3),
-                              //   ),
-                              // ),
 
-                              // Add Filters (1)
-
-                              // Divider
                               GestureDetector(
 
 
@@ -517,15 +500,12 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
                     // Apply Filters
                     GestureDetector(
                       onTap: () async {
-                        Navigator.pop(context);
+                        _applyAndReturnFilters();
                       },
                       child: Container(
                           alignment: Alignment.centerRight,
                           padding: EdgeInsets.only(
-                            // top:
-                            // MediaQuery.of(context).size.height * 0.0,
-                            // bottom:
-                            // MediaQuery.of(context).size.height * 0.00,
+
                               left:
                               MediaQuery.of(context).size.height * 0.02,
                               right: MediaQuery.of(context).size.height *
@@ -534,10 +514,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
                           margin: EdgeInsets.only(
                               right:
                               MediaQuery.of(context).size.height * 0.02,
-                              // top:
-                              // MediaQuery.of(context).size.height * 0.01,
-                              // bottom:
-                              // MediaQuery.of(context).size.height * 0.01,
+
                               left: MediaQuery.of(context).size.height *
                                   0.02),
                           child: Row(
@@ -553,17 +530,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
                                               .size
                                               .height *
                                               0.012),
-                                      // gradient: LinearGradient(
-                                      //     begin: Alignment.centerRight,
-                                      //     end: Alignment.center,
-                                      //     stops: [
-                                      //       0.5,
-                                      //       0.9
-                                      //     ],
-                                      //     colors: [
-                                      //       Color(0xFFA8B1CE),
-                                      //       Color(0xFFA8B1CE),
-                                      //     ])
+
                                       color: selectedCount == 0 ?  Color(0x99909090) : Color(0xFF126086),
 
                                     ),
@@ -571,7 +538,7 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
                                     padding: EdgeInsets.zero,
                                     child: TextButton(
                                       onPressed: () async {
-                                        Navigator.pop(context);
+                                        _applyAndReturnFilters();
                                       },
                                       child: Text("Apply Filters",
                                         textAlign: TextAlign.center,
@@ -2433,6 +2400,44 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
 
       ],
     );
+  }
+
+  void _applyAndReturnFilters() {
+    // Ye hamara main Map hai jo return hoga
+    Map<String, List<String>> selectedFiltersMap = {};
+
+    // 1. Must have tests ki list
+    List<String> selectedMustHaveTests = [];
+    if (_is_CBC_Selected) selectedMustHaveTests.add("Complete Blood Count");
+    if (_is_GPP_Selected) selectedMustHaveTests.add("Glucose,Post Prandial(PP),2 Hours");
+    if (_is_CUX_Selected) selectedMustHaveTests.add("Complete Urine Examination");
+    if (_is_TP_Selected) selectedMustHaveTests.add("Thyroid Profile(Total T3,Total T4)");
+    if (_is_LP_Selected) selectedMustHaveTests.add("Lipid Profile");
+    if (_is_LFT_Selected) selectedMustHaveTests.add("Liver Function Text(I-FT)");
+    if (_is_CRP_Selected) selectedMustHaveTests.add("C-Reactive Protein(Quantitative)");
+
+    // Agar is category me kuch select hua hai, tabhi map me add karenge
+    if (selectedMustHaveTests.isNotEmpty) {
+      selectedFiltersMap['mustHavetests'] = selectedMustHaveTests;
+    }
+
+    // 2. Category ki list
+    List<String> selectedCategories = [];
+    if (_is_Pregnancy_Selected) selectedCategories.add("Pregnancy");
+    if (_is_XRAY_Selected) selectedCategories.add("X - ray MRI CT Ultrasound");
+    if (_is_BS_Selected) selectedCategories.add("Blood Studies");
+    if (_is_Allergy_Selected) selectedCategories.add("Allergy");
+    if (_is_TS_Selected) selectedCategories.add("Tax Saver");
+    if (_is_Bone_Selected) selectedCategories.add("Bone");
+    if (_is_MH_Selected) selectedCategories.add("Men's Health");
+
+    // Agar is category me kuch select hua hai, tabhi map me add karenge
+    if (selectedCategories.isNotEmpty) {
+      selectedFiltersMap['category'] = selectedCategories;
+    }
+
+    // Ab is Map ko wapas bhej dijiye
+    Navigator.pop(context, selectedFiltersMap);
   }
 
 
