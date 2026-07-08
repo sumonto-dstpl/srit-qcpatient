@@ -259,7 +259,7 @@ class _ReusableFilterSheetState extends State<ReusableFilterSheet> {
     return DraggableScrollableSheet(
       controller: _sheetController,
       initialChildSize: _currentChildSize,
-      minChildSize: 0.3,
+      minChildSize: _currentChildSize,
       maxChildSize: 0.9,
       expand: false,
       builder: (context, scrollController) {

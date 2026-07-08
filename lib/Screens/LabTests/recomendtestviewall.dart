@@ -5,6 +5,7 @@ import 'package:newfolder/Core/Header/header.dart';
 import 'package:newfolder/Core/Image%20Action/delete.dart';
 import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
+import 'package:newfolder/Core/no-data_found.dart';
 import 'package:newfolder/Screens/AddToCart/addtocarPackageDetails.dart';
 import 'package:newfolder/Screens/LabTests/bottomsheet.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +59,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
 
   List<Map<String, dynamic>> pageDataList = [];
   List<Map<String, dynamic>> filterPageDataList = [];
+  bool showNoDataFound = false;
 
   @override
   void initState(){
@@ -77,6 +79,14 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
       }).toList();
 
       filterPageDataList = pageDataList ;
+      if(pageDataList.isNotEmpty){
+        filterPageDataList = pageDataList ;
+        showNoDataFound = false;
+      }
+      else {
+        filterPageDataList = [] ;
+        showNoDataFound = true;
+      }
     });
   }
   void _loadData() async {
@@ -324,7 +334,11 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                 MediaQuery.of(context).size.height * 0.010,
                                 top: MediaQuery.of(context).size.height * 0.0),
                             // height: MediaQuery.of(context).size.height * 0.190,
-                            child: ListView.builder(
+                            child:
+                            showNoDataFound
+                                ?   NoDataFound() // Aapka custom widget
+                                :
+                            ListView.builder(
                               padding: EdgeInsets.zero,
                               physics: ScrollPhysics(), // Ensures scrolling
                               shrinkWrap:
@@ -767,20 +781,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
     "category":  [],
 
   };
-  //
-  // final List<String> mustHavetestsOptions = [
-  //   'Complete Blood Count',
-  //   'Glucose,Post Prandial(PP)',
-  //   'Complete Urine Examination',
-  //   'Thyroid Profile(Total T3)',
-  //   'Lipid Profile',
-  //   'Liver Function Test(I-FT)',
-  //   'C-Reactive Protein Quantitative'
-  //
-  // ];
-  // final List<String> categoryOptions = [
-  //
-  // ];
+
   void showBottomSheet() async {
 
     final result = await showModalBottomSheet(
@@ -822,7 +823,9 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                     topRight: Radius.circular(24),
                   ),
                 ),
-                child: AddFilterForFullBodyCheckup(),
+                child: AddFilterForFullBodyCheckup(
+                  initialFilters: activeFilters,
+                ),
               ),
             ),
           ],
@@ -839,6 +842,11 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
     else {
       setState(() {
         filterPageDataList = pageDataList ;
+        activeFilters = {
+          "mustHavetests": [],
+          "category": [],
+        };
+        showNoDataFound = false;
       });
 
     }
@@ -872,6 +880,7 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
     }).toList();
     setState(() {
       filterPageDataList = tmp;
+      showNoDataFound = tmp.isEmpty;
 
     });
 

@@ -1173,6 +1173,16 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
      else {
        setState(() {
          filterresponselist = responselist ;
+           activeFilters = {
+           "experienceYears":  [],
+           "feeRange":  [],
+           "availability":  [],
+           "area":  [],
+           "gender":  [],
+           "language":  [],
+           "city":  [],
+         };
+         showNoDataFound = false;
        });
 
      }

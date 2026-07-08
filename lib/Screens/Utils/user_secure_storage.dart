@@ -408,6 +408,30 @@ class UserSecureStorage {
     }
   }
 
+  static Future<void> clearAddToCartList({
+    required String key,
+    required String userId,
+  }) async {
+    try {
+      String? jsonString = await _storage.read(key: key);
+      if (jsonString == null || jsonString.isEmpty) return;
+
+      Map<String, dynamic> allUsers = jsonDecode(jsonString);
+
+      // Agar user exist karta hai toh uski data list empty [] kar do
+      if (allUsers[userId] != null) {
+        Map<String, dynamic> userEntry = Map<String, dynamic>.from(allUsers[userId]);
+        userEntry["data"] = []; // Empty the list
+        allUsers[userId] = userEntry;
+
+        await _storage.write(key: key, value: jsonEncode(allUsers));
+        print("✅ Cleared cart successfully for user $userId");
+      }
+    } catch (e) {
+      print("❌ Error clearing AddToCart list: $e");
+    }
+  }
+
   /// Get boolean delete flag for a specific user
   static Future<bool> getDeleteFlag(String userId) async {
     try {

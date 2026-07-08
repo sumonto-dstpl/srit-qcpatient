@@ -156,10 +156,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
     }).toList();
   }
 
-  // List of filter categories
-  final List<String> categories = [
-    'Category',
-  ];
+
 
 
   // Tracks the selected category
@@ -546,7 +543,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                                         message: 'Insurance is deleted sucessfully',
                                                         type: NotificationType.error);
                                                     setState(() {
-                                                      insurancePolicies.removeWhere((items) {
+                                                      insurancePoliciesCopy.removeWhere((items) {
                                                               return items['id'] == item['id'];
                                                       });
                                                     });
@@ -711,7 +708,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
     );
   }
 
-
+  List<String> activeInsuranceFilters = [];
   void showBottomSheet() async {
      final selectedFilters = await  showModalBottomSheet(
        enableDrag: false,
@@ -752,7 +749,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                      topRight: Radius.circular(24),
                    ),
                  ),
-                 child: FilterForImsurance(),
+                 child: FilterForImsurance(initialFilters: activeInsuranceFilters,),
                ),
              ),
            ],
@@ -764,6 +761,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
 
      if (selectedFilters != null) {
        // Apply the filter on your list
+       activeInsuranceFilters = selectedFilters as List<String>;
        setState(() {
          insuranceApprovalListCopy = insuranceApprovalList
              .where((item) =>
@@ -779,6 +777,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
      }
      else {
        setState(() {
+         activeInsuranceFilters = [];
          insuranceApprovalListCopy = insuranceApprovalList ;
          insurancePoliciesCopy = insurancePolicies;
 

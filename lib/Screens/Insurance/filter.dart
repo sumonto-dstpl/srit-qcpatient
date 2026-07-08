@@ -3,6 +3,10 @@ import 'package:flutter/services.dart';
 
 
 class FilterForImsurance extends StatefulWidget {
+  final List<String>? initialFilters; // ✅ NAYA VARIABLE
+
+  FilterForImsurance({Key? key, this.initialFilters}) : super(key: key);
+
   @override
   FilterForImsuranceState createState() => FilterForImsuranceState();
 }
@@ -12,7 +16,40 @@ class FilterForImsuranceState extends State<FilterForImsurance> {
 
   DraggableScrollableController  _scrollController = DraggableScrollableController();
 
+  @override
+  void initState() {
+    super.initState();
+    // Sheet open hote hi purane filters set karo
+    _setInitialSelectedFilters();
+  }
 
+  void _setInitialSelectedFilters() {
+    if (widget.initialFilters == null || widget.initialFilters!.isEmpty) return;
+
+    List<String> filters = widget.initialFilters!;
+
+    setState(() {
+      // Agar teeno selected hain, matlab "All" button tha
+      if (filters.contains('approved') && filters.contains('pending') && filters.contains('rejected')) {
+        _is_All_Selected = true;
+        selectedCount = 1; // "All" ka count 1 rakh rahe hain
+      } else {
+        // Warnaa individual buttons check karein
+        if (filters.contains('approved')) {
+          _is_Approved_Selected = true;
+          selectedCount++;
+        }
+        if (filters.contains('pending')) {
+          _is_Approval_Selected = true;
+          selectedCount++;
+        }
+        if (filters.contains('rejected')) {
+          _is_Rejected_Selected = true;
+          selectedCount++;
+        }
+      }
+    });
+  }
 
   @override
   void dispose() {

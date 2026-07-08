@@ -582,6 +582,7 @@ class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymen
                           detail: detail ?? {},
                           previousDate: DateFormat('dd-MM-yyyy').parse(detail['selectedDate']),
                           previousTime: detail['selectedTime'],
+                          origin: origin, 
 
                         ),
                       ),
@@ -631,6 +632,7 @@ class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymen
                                       detail: detail ?? {},
                                       previousDate: DateFormat('dd-MM-yyyy').parse(detail['selectedDate']),
                                       previousTime: detail['selectedTime'],
+                                      origin: origin,
 
                                     ),
                                   ),

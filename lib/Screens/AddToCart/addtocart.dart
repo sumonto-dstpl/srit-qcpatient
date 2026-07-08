@@ -93,9 +93,10 @@ class AddToCartMainstate extends State<AddToCartMain> {
 
 
     final cart = Provider.of<CartProvider>(context);
+    print("cart : $cart");
     int cartPrice = cart.totalPrice;
     final items = cart.items;
-      cartPrice = 0;
+
       // for(int counter=0; counter<_currentList.length; counter++){
       //   int cartValue = int.parse(_currentList[counter]['qr'].split(' ')[1]);
       //
@@ -557,6 +558,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                           itemBuilder: (context, index) {
                             final file = _currentList[index]['plan'];
                             final item = _currentList[index];
+                            print("_currentList : $_currentList");
 
                             return Slidable(
                                 // key: ValueKey(plan["title"]),
@@ -1051,7 +1053,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                       Padding(
                         padding: EdgeInsets.only(
                             left: MediaQuery.of(context).size.height * 0.02,
-                            right: MediaQuery.of(context).size.height * 0.0,
+
                             top: MediaQuery.of(context).size.height * 0.015,
                             bottom: MediaQuery.of(context).size.height * 0.01),
                         child: Align(
@@ -1073,18 +1075,8 @@ class AddToCartMainstate extends State<AddToCartMain> {
                       _currentList.isEmpty ?
                       Container() :
                       Container(
-                        margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.0,
-                          bottom: MediaQuery.of(context).size.height * 0.0,
-                          left: MediaQuery.of(context).size.height * 0.01,
-                          right: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.01,
-                          bottom: MediaQuery.of(context).size.height * 0.01,
-                          left: MediaQuery.of(context).size.height * 0.01,
-                          right: MediaQuery.of(context).size.height * 0.01,
-                        ),
+                        margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.01,),
+                        padding: EdgeInsets.all( MediaQuery.of(context).size.height * 0.01,),
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             // color: Color(0xFF126086).withOpacity(0.1),
@@ -1636,16 +1628,7 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                 right: screenHeight * 0.015,
                                 left: screenHeight * 0.015,
                               ),
-                              padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height *
-                                    0.0, // Dynamic top padding
-                                bottom: MediaQuery.of(context).size.height *
-                                    0.0, // Dynamic bottom padding
-                                left: MediaQuery.of(context).size.height *
-                                    0.0, // Dynamic left padding
-                                right: MediaQuery.of(context).size.height *
-                                    0.0, // Dynamic right padding
-                              ),
+                              padding: EdgeInsets.zero,
                               child: ListView.builder(
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true, // Prevents infinite height
@@ -2262,14 +2245,6 @@ class AddToCartMainstate extends State<AddToCartMain> {
       )   ,
     );
   }
-
-
-
-
-
-
-
-
 
 
   void _loadCart() async {

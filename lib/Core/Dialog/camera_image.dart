@@ -7,9 +7,13 @@ class CustomImagePicker {
   static void show(BuildContext context, {required Function(File) onImagePicked}) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent, // Background transparent rakha taki margin kaam kare
+
+      backgroundColor: Colors.transparent,
+      barrierColor: Colors.black45, // Background transparent rakha taki margin kaam kare
       isScrollControlled: true, // Bottom sheet ko uske content ke hisaab se size lene deta hai
       builder: (BuildContext context) {
+
+
 
         final height = MediaQuery.of(context).size.height ;
         return Container(
@@ -17,8 +21,9 @@ class CustomImagePicker {
 
           padding: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
-            color: Colors.black,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(16),
+
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min, // Jinta content h utni hi height lega
@@ -50,7 +55,7 @@ class CustomImagePicker {
                         },
                         child: const Icon(
                           Icons.close,
-                          color: Colors.white,
+                          color: Colors.black,
                           size: 26, // Image me icon thoda prominent hai
                         ),
                       ),
@@ -62,7 +67,7 @@ class CustomImagePicker {
                       style: TextStyle(
                         fontSize: 18, // Exact text size
                         fontWeight: FontWeight.w400, // Normal font weight (bold nahi hai image me)
-                        color: Colors.white,
+                        color: Colors.black,
                         letterSpacing: 0.2, // Thoda clean look ke liye
                       ),
                     ),
@@ -90,7 +95,7 @@ class CustomImagePicker {
                         children: [
                           const Icon(
                             Icons.photo_camera_outlined, // Outlined camera icon as per image
-                            color: Colors.white70, // Slight greyish white
+                            color: Colors.black, // Slight greyish white
                             size: 28,
                           ),
                           const SizedBox(width: 20), // Icon aur text ke beech ka space
@@ -99,7 +104,7 @@ class CustomImagePicker {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w400,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                           ),
                         ],
@@ -122,7 +127,7 @@ class CustomImagePicker {
                         children: [
                           const Icon(
                             Icons.image_outlined, // Outlined gallery icon as per image
-                            color: Colors.white70,
+                            color: Colors.black,
                             size: 28,
                           ),
                           const SizedBox(width: 20), // Icon aur text ke beech ka space
@@ -131,7 +136,7 @@ class CustomImagePicker {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w400,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                           ),
                         ],

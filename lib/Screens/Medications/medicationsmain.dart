@@ -679,9 +679,10 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                               itemBuilder:
                                                   (BuildContext context,
                                                   int index) {
+                                                    final item = medicationList[index % medicationList.length];
                                                 return GestureDetector(
                                                   onTap: () {},
-                                                  child: prescriptionList("active",index: index),
+                                                  child: prescriptionList("active",index: index,item: item),
                                                 );
                                               },
                                             ),
@@ -789,13 +790,18 @@ class MedicationsMainstate extends State<MedicationsMain> {
 
                                               // You can adjust the item count
                                               itemBuilder:
-                                                  (BuildContext context,
-                                                  int index) {
-                                                final item = previousPrescriptionStatus[index];
-                                                return GestureDetector(
-                                                  onTap: () {},
-                                                  child: prescriptionList("previous",item: item),
-                                                );
+                                                  (BuildContext context, int index ) {
+                                                  final item = medicationList[index];
+                                                  // Status wale array se data nikalo
+                                                  final statusData = previousPrescriptionStatus[index % previousPrescriptionStatus.length];
+
+                                                  // Doctor ke data aur Status ke data ko combine kar do
+                                                  final combinedItem = {...item, ...statusData};
+
+                                                      return GestureDetector(
+                                                      onTap: () {},
+                                              child: prescriptionList("previous", index: index, item: combinedItem),
+                                            );
                                               },
                                             ),
                                           ),
@@ -1078,7 +1084,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                         0.00),
                                 child:
                                 Text(
-                                  medicationList[index!]['name'],
+                                  item?['name'] ?? "Dr. Nutan Bhatt",
                                   style: TextStyle(
                                       color: Colors
                                           .black87,
@@ -1123,7 +1129,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                         0.00),
                                 child:
                                 Text(
-                                  medicationList[index!]['speciality'],
+                                  item?['speciality'] ?? "General Medicine / Internal Medicine",
                                   style: TextStyle(
                                       color: Colors
                                           .black54,
@@ -1375,7 +1381,7 @@ class MedicationsMainstate extends State<MedicationsMain> {
                                       (BuildContext context) {
                                     return MedicatiSelectTimeSlot(
                                         "widget.doctoridval",
-                                        detail: medicationList[index],
+                                        detail: medicationList[index!],
                                        origin: "medication",
                                     );
                                   },

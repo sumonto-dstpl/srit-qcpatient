@@ -79,4 +79,22 @@ class CartProvider extends ChangeNotifier {
     return price;
   }
 
+  /// CLEAR all items from cart (After Payment)
+  Future<void> clearCart() async {
+    String? username = await UserSecureStorage.getUsernameid();
+    bool isGuest = await UserSecureStorage.getIfGuestLogged() == "YES";
+
+    if (isGuest) username = "GUEST";
+
+    // Storage se delete karo
+    await UserSecureStorage.clearAddToCartList(
+      key: "addToCart2",
+      userId: username ?? '',
+    );
+
+    // Provider ki list empty karo aur UI update karo
+    _items.clear();
+    notifyListeners();
+  }
+
 }

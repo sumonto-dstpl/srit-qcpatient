@@ -3,6 +3,12 @@ import 'package:flutter/services.dart';
 
 
 class AddFilterForFullBodyCheckup extends StatefulWidget {
+  // Naya variable add kiya data receive karne ke liye
+  final Map<String, List<String>>? initialFilters;
+
+  // Constructor update kiya
+  AddFilterForFullBodyCheckup({Key? key, this.initialFilters}) : super(key: key);
+
   @override
   AddFilterForFullBodyCheckupState createState() => AddFilterForFullBodyCheckupState();
 }
@@ -55,6 +61,39 @@ class AddFilterForFullBodyCheckupState extends State<AddFilterForFullBodyCheckup
 
     _filteredCategories = List.from(_allCategories);
     SearchfilterEditTextController2.addListener(_filterCategories);
+
+    _setInitialSelectedFilters();
+  }
+
+  void _setInitialSelectedFilters() {
+    // Agar initialFilters null hai (first time open hua hai), toh kuch mat karo
+    if (widget.initialFilters == null) return;
+
+    List<String> mustHave = widget.initialFilters!['mustHavetests'] ?? [];
+    List<String> category = widget.initialFilters!['category'] ?? [];
+
+    setState(() {
+      // Must have tests ko enable karna
+      if (mustHave.contains("Complete Blood Count")) _is_CBC_Selected = true;
+      if (mustHave.contains("Glucose,Post Prandial(PP),2 Hours")) _is_GPP_Selected = true;
+      if (mustHave.contains("Complete Urine Examination")) _is_CUX_Selected = true;
+      if (mustHave.contains("Thyroid Profile(Total T3,Total T4)")) _is_TP_Selected = true;
+      if (mustHave.contains("Lipid Profile")) _is_LP_Selected = true;
+      if (mustHave.contains("Liver Function Text(I-FT)")) _is_LFT_Selected = true;
+      if (mustHave.contains("C-Reactive Protein(Quantitative)")) _is_CRP_Selected = true;
+
+      // Categories ko enable karna
+      if (category.contains("Pregnancy")) _is_Pregnancy_Selected = true;
+      if (category.contains("X - ray MRI CT Ultrasound")) _is_XRAY_Selected = true;
+      if (category.contains("Blood Studies")) _is_BS_Selected = true;
+      if (category.contains("Allergy")) _is_Allergy_Selected = true;
+      if (category.contains("Tax Saver")) _is_TS_Selected = true;
+      if (category.contains("Bone")) _is_Bone_Selected = true;
+      if (category.contains("Men's Health")) _is_MH_Selected = true;
+
+      // Filter counter ko update karna (UI me dikhane ke liye)
+      selectedCount = mustHave.length + category.length;
+    });
   }
 
   void _applyFilter() {
