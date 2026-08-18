@@ -38,7 +38,8 @@ class _GlobalDraggableEmergencyButtonState extends State<GlobalDraggableEmergenc
     final safePadding = 15.0;
     return Positioned(
       left: position.dx,
-      top: position.dy,
+      // top: position.dy,
+      bottom: 20,
       child: GestureDetector(
         // 👉 Ye logic button ko drag (move) karne ke liye hai
         onPanUpdate: (details) {

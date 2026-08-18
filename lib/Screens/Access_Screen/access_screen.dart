@@ -50,7 +50,12 @@ class AccessScreenState extends State<AccessScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: Container(
+      body: SafeArea(
+  top: false,
+  left: false,
+  right: false,
+  maintainBottomViewPadding: true,
+  child: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -528,6 +533,7 @@ class AccessScreenState extends State<AccessScreen> {
 
           ],
         ),
+      ),
       ),
     );
 

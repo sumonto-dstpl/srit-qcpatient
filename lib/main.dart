@@ -99,7 +99,11 @@ class MyApp extends StatelessWidget {
           ),
           child: MediaQuery(
             data: MediaQuery.of(context).copyWith(textScaleFactor: MediaQuery.of(context).textScaleFactor.clamp(1.0, 1.4),),
-            child: child!,
+            child: SafeArea(
+        top: false,
+        bottom: true,
+        child: child!,
+      ),
           ),
         );
       },
