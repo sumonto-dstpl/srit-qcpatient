@@ -2078,12 +2078,15 @@ class UploadPrescriptionMainstate extends State<UploadPrescriptionMain> {
 
                             GestureDetector(
                               onTap: (){
-                                Navigator.of(context).push(
+                                Navigator.push(
+                                  context,
                                   MaterialPageRoute(
-                                    builder: (
-                                        BuildContext context) {
-                                      return AppointmentsFootMain();
-                                    },
+                                    settings: const RouteSettings(
+                                      name: 'appointments',
+                                    ),
+                                    builder: (_) => AppointmentsFootMain(
+
+                                    ),
                                   ),
                                 );
                               },

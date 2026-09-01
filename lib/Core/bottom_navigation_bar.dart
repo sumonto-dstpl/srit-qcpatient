@@ -278,12 +278,15 @@ class CustomBottomNavigationBar extends StatelessWidget {
                                             //  Appointments
                                             GestureDetector(
                                               onTap: () {
-                                                Navigator.of(context).push(
+                                                Navigator.push(
+                                                  context,
                                                   MaterialPageRoute(
-                                                    builder: (
-                                                        BuildContext context) {
-                                                      return AppointmentsFootMain(initialIndex: 1,);
-                                                    },
+                                                    settings: const RouteSettings(
+                                                      name: 'appointments',
+                                                    ),
+                                                    builder: (_) => AppointmentsFootMain(
+                                                      initialIndex: 1,
+                                                    ),
                                                   ),
                                                 );
                                               },

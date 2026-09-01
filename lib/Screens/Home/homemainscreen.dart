@@ -833,11 +833,16 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
 
                                       GestureDetector(
                                         onTap : () async {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(builder: (context) {
-                                                   return AppointmentsFootMain(initialIndex: 1,);
-
-                                              })
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              settings: const RouteSettings(
+                                                name: 'appointments',
+                                              ),
+                                              builder: (_) => AppointmentsFootMain(
+                                                initialIndex: 1,
+                                              ),
+                                            ),
                                           );
                                         },
 

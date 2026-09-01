@@ -681,12 +681,10 @@ class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymen
 
 
                      if(origin == 'appointments') {
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => AppointmentsFootMain(initialIndex: 1,)
-                        ),
-                            (Route route) => false,
-                      );
+                       Navigator.popUntil(
+                         context,
+                             (route) => route.settings.name == 'appointments',
+                       );
                     }
                      else {
                        Navigator.of(context).pushAndRemoveUntil(
@@ -752,11 +750,9 @@ class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymen
 
 
                                     if(origin == 'appointments') {
-                                      Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                            builder: (BuildContext context) => AppointmentsFootMain(initialIndex: 1,)
-                                        ),
-                                            (Route route) => false,
+                                      Navigator.popUntil(
+                                        context,
+                                            (route) => route.settings.name == 'appointments',
                                       );
                                     }
                                     else {
@@ -769,7 +765,8 @@ class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymen
                                     }
 
                                   },
-                                  child: Text("Back to Home",
+                                  child: Text(
+                                      origin == 'appointments' ? 'Back to Appointment': "Back to Home",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.white,

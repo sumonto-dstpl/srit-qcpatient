@@ -1834,12 +1834,15 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
           });
           if(n.title == "Appointments"){
 
-            Navigator.of(context).push(
+            Navigator.push(
+              context,
               MaterialPageRoute(
-                builder: (
-                    BuildContext context) {
-                  return AppointmentsFootMain();
-                },
+                settings: const RouteSettings(
+                  name: 'appointments',
+                ),
+                builder: (_) => AppointmentsFootMain(
+
+                ),
               ),
             );
           }
