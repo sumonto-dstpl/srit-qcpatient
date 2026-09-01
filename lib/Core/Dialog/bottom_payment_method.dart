@@ -607,8 +607,8 @@ class BottomSheetForPaymentForLabTestState extends State<BottomSheetForPaymentFo
                   onTap: () async {
                     showTopNotification(
                         context,
-                        title: 'Appointment',
-                        message: 'Appointment is book sucessfully', type: NotificationType.success);
+                        title: 'Package',
+                        message: 'Package added successfully.', type: NotificationType.success);
 
                     await Provider.of<CartProvider>(context, listen: false).clearCart();
                       Navigator.of(context).pushAndRemoveUntil(
@@ -659,8 +659,8 @@ class BottomSheetForPaymentForLabTestState extends State<BottomSheetForPaymentFo
                                   onPressed: () async {
                                     showTopNotification(
                                         context,
-                                        title: 'Appointment',
-                                        message: 'Appointment is book sucessfully', type: NotificationType.success);
+                                        title: 'Package',
+                                        message: 'Package added successfully.', type: NotificationType.success);
 
                                     await Provider.of<CartProvider>(context, listen: false).clearCart();
                                     Navigator.of(context).pushAndRemoveUntil(

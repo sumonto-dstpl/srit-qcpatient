@@ -621,105 +621,242 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                   ),
 
                                                   // parallel square images
-                                                  Container(
+                                                  // Container(
+                                                  //
+                                                  //   child: Row(
+                                                  //     crossAxisAlignment: CrossAxisAlignment.center,
+                                                  //     mainAxisAlignment: MainAxisAlignment.start,
+                                                  //     children: <Widget>[
+                                                  //
+                                                  //       // Image
+                                                  //       Container(
+                                                  //         margin: EdgeInsets.only(right: MediaQuery.of(context).size.height * 0.0),
+                                                  //         padding: EdgeInsets.all(0),
+                                                  //         width: MediaQuery.of(context).size.height * 0.2,
+                                                  //         height: MediaQuery.of(context).size.height * 0.06,
+                                                  //         decoration: BoxDecoration(
+                                                  //           borderRadius: BorderRadius.circular(16),
+                                                  //           color: Colors.white,
+                                                  //         ),
+                                                  //         child: Stack(
+                                                  //           children: [
+                                                  //             // Row for displaying images from myimageslist
+                                                  //             Positioned.fill(
+                                                  //               child:
+                                                  //
+                                                  //                  Container(
+                                                  //         padding: EdgeInsets.only(
+                                                  //         left: MediaQuery
+                                                  //             .of(context)
+                                                  //             .size
+                                                  //             .height *
+                                                  //             0.015,
+                                                  //           top: MediaQuery
+                                                  //               .of(context)
+                                                  //               .size
+                                                  //               .height *
+                                                  //               0.01, ),
+                                                  //       child:
+                                                  //
+                                                  //       SizedBox(
+                                                  //         height: MediaQuery.of(context).size.height * 0.05,
+                                                  //         child: Stack(
+                                                  //           children: myimageslist.asMap().entries.map((entry) {
+                                                  //             int index = entry.key;
+                                                  //             String imagePath = entry.value[0];
+                                                  //
+                                                  //             double imageSize = MediaQuery.of(context).size.height * 0.045;
+                                                  //
+                                                  //             return Positioned(
+                                                  //               left: index * (imageSize * 0.9), // Slight overlap but visible borders
+                                                  //               child: Container(
+                                                  //                 decoration: BoxDecoration(
+                                                  //                   borderRadius: BorderRadius.circular(8),
+                                                  //                   boxShadow: [
+                                                  //                     BoxShadow(
+                                                  //                       color: Colors.black.withOpacity(0.25), // subtle shadow
+                                                  //                       blurRadius: 6, // soft spread
+                                                  //                       spreadRadius: -1, // keeps shadow inside outer area
+                                                  //                       offset: Offset(2, 2), // direction of shadow
+                                                  //                     ),
+                                                  //                   ],
+                                                  //                 ),
+                                                  //                 child: ClipRRect(
+                                                  //                   borderRadius: BorderRadius.circular(8),
+                                                  //                   child: Image.asset(
+                                                  //                     imagePath,
+                                                  //                     width: imageSize,
+                                                  //                     height: imageSize,
+                                                  //                     fit: BoxFit.cover,
+                                                  //                   ),
+                                                  //                 ),
+                                                  //               ),
+                                                  //             );
+                                                  //           }).toList(),
+                                                  //         ),
+                                                  //       ),
+                                                  //
+                                                  //
+                                                  //         ),
+                                                  //
+                                                  //
+                                                  //
+                                                  //
+                                                  //
+                                                  //
+                                                  //             ),
+                                                  //             // "+3" text at the right edge
+                                                  //             Positioned(
+                                                  //               right: 0, // Adjusted to ensure +3 is fully visible
+                                                  //               top: 0,
+                                                  //               bottom: 0,
+                                                  //               child: Align(
+                                                  //                 alignment: Alignment.centerRight,
+                                                  //                 child: Container(
+                                                  //                   decoration: BoxDecoration(
+                                                  //                     color: Colors.white,
+                                                  //                     borderRadius: BorderRadius.circular(12),
+                                                  //                   ),
+                                                  //                   padding: EdgeInsets.symmetric(
+                                                  //                     horizontal: MediaQuery.of(context).size.height * 0.008,
+                                                  //                     vertical: MediaQuery.of(context).size.height * 0.005,
+                                                  //                   ),
+                                                  //                   child: Text(
+                                                  //                     "+3",
+                                                  //                     style: TextStyle(
+                                                  //                       color: Color(0xFF126086),
+                                                  //                       fontWeight: FontWeight.w600,
+                                                  //                       fontSize: MediaQuery.of(context).size.height * 0.012, // Slightly increased for better visibility
+                                                  //                     ),
+                                                  //                   ),
+                                                  //                 ),
+                                                  //               ),
+                                                  //             ),
+                                                  //           ],
+                                                  //         ),
+                                                  //       ),
+                                                  //
+                                                  //       // Address
+                                                  //       Expanded(
+                                                  //         flex: 7,
+                                                  //         child: Column(
+                                                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                                                  //           mainAxisAlignment: MainAxisAlignment.center,
+                                                  //           children: <Widget>[
+                                                  //             Container(
+                                                  //
+                                                  //               child: Text(
+                                                  //                 maxLines: 1,
+                                                  //
+                                                  //                 "2 QuadraCyte, Qatar 560002",
+                                                  //                 style: TextStyle(
+                                                  //                   color: Colors.black54,
+                                                  //                   overflow: TextOverflow.ellipsis,
+                                                  //                   fontWeight: FontWeight.bold,
+                                                  //                   fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                  //                 ),
+                                                  //               ),
+                                                  //             ),
+                                                  //
+                                                  //             Container(
+                                                  //
+                                                  //               child: Text(
+                                                  //                 maxLines: 1,
+                                                  //
+                                                  //                 "2 Km . From Your Location",
+                                                  //                 style: TextStyle(
+                                                  //                   color: Color(0xFF7F7F7F),
+                                                  //                   overflow: TextOverflow.ellipsis,
+                                                  //                   fontWeight: FontWeight.w500,
+                                                  //                   fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                  //                 ),
+                                                  //               ),
+                                                  //             ),
+                                                  //           ],
+                                                  //         ),
+                                                  //       ),
+                                                  //
+                                                  //       // Share icon
+                                                  //       CircleAvatar(
+                                                  //         backgroundColor: Colors.blue.shade50,
+                                                  //           radius: 10,
+                                                  //         child: Image.asset(
+                                                  //           height: 10,
+                                                  //           width: 10,
+                                                  //           "assets/send.png",
+                                                  //           fit: BoxFit.fill,
+                                                  //         ),
+                                                  //       ),
+                                                  //
+                                                  //        SizedBox(width : screenWidth * 0.015)
+                                                  //
+                                                  //
+                                                  //     ],
+                                                  //   ),
+                                                  // ),
 
+                                                  // Bottom Row
+
+                                                  Padding(
+                                                    // Equal left aur right padding set ki gayi hai
+                                                    padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.04),
                                                     child: Row(
                                                       crossAxisAlignment: CrossAxisAlignment.center,
-                                                      mainAxisAlignment: MainAxisAlignment.start,
-                                                      children: <Widget>[
+                                                      children: [
 
-                                                        // Image
+                                                        // Image Stack Group
                                                         Container(
-                                                          margin: EdgeInsets.only(right: MediaQuery.of(context).size.height * 0.0),
-                                                          padding: EdgeInsets.all(0),
-                                                          width: MediaQuery.of(context).size.height * 0.2,
-                                                          height: MediaQuery.of(context).size.height * 0.06,
+                                                          width: MediaQuery.of(context).size.height * 0.15, // Size reduced (pehle 0.17 tha)
+                                                          height: MediaQuery.of(context).size.height * 0.055, // Size reduced (pehle 0.06 tha)
                                                           decoration: BoxDecoration(
                                                             borderRadius: BorderRadius.circular(16),
                                                             color: Colors.white,
                                                           ),
                                                           child: Stack(
+                                                            clipBehavior: Clip.none,
+                                                            alignment: Alignment.centerLeft,
                                                             children: [
-                                                              // Row for displaying images from myimageslist
-                                                              Positioned.fill(
-                                                                child:
+                                                              Padding(
+                                                                padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.012),
+                                                                child: SizedBox(
+                                                                  height: MediaQuery.of(context).size.height * 0.04,
+                                                                  child: Stack(
+                                                                    children: myimageslist.asMap().entries.map((entry) {
+                                                                      int index = entry.key;
+                                                                      String imagePath = entry.value[0];
+                                                                      // Image size slightly reduced
+                                                                      double imageSize = MediaQuery.of(context).size.height * 0.038;
 
-                                                                   Container(
-                                                          padding: EdgeInsets.only(
-                                                          left: MediaQuery
-                                                              .of(context)
-                                                              .size
-                                                              .height *
-                                                              0.015,
-                                                            right: MediaQuery
-                                                                .of(context)
-                                                                .size
-                                                                .height *
-                                                                0.00,
-                                                            top: MediaQuery
-                                                                .of(context)
-                                                                .size
-                                                                .height *
-                                                                0.01,
-                                                            bottom: MediaQuery
-                                                                .of(context)
-                                                                .size
-                                                                .height *
-                                                                0.0),
-                                                        child:
-
-                                                        SizedBox(
-                                                          height: MediaQuery.of(context).size.height * 0.05,
-                                                          child: Stack(
-                                                            children: myimageslist.asMap().entries.map((entry) {
-                                                              int index = entry.key;
-                                                              String imagePath = entry.value[0];
-
-                                                              double imageSize = MediaQuery.of(context).size.height * 0.045;
-
-                                                              return Positioned(
-                                                                left: index * (imageSize * 0.9), // Slight overlap but visible borders
-                                                                child: Container(
-                                                                  decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular(8),
-                                                                    boxShadow: [
-                                                                      BoxShadow(
-                                                                        color: Colors.black.withOpacity(0.25), // subtle shadow
-                                                                        blurRadius: 6, // soft spread
-                                                                        spreadRadius: -1, // keeps shadow inside outer area
-                                                                        offset: Offset(2, 2), // direction of shadow
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  child: ClipRRect(
-                                                                    borderRadius: BorderRadius.circular(8),
-                                                                    child: Image.asset(
-                                                                      imagePath,
-                                                                      width: imageSize,
-                                                                      height: imageSize,
-                                                                      fit: BoxFit.cover,
-                                                                    ),
+                                                                      return Positioned(
+                                                                        left: index * (imageSize * 0.85),
+                                                                        child: Container(
+                                                                          height: imageSize,
+                                                                          width: imageSize,
+                                                                          decoration: BoxDecoration(
+                                                                            borderRadius: BorderRadius.circular(8),
+                                                                            boxShadow: [
+                                                                              BoxShadow(
+                                                                                color: Colors.black.withOpacity(0.2), // Shadow optimized
+                                                                                blurRadius: 4,
+                                                                                offset: const Offset(2, 2),
+                                                                              ),
+                                                                            ],
+                                                                            // ClipRRect ki jagah DecorationImage use kiya jo jyada optimized hai
+                                                                            image: DecorationImage(
+                                                                              image: AssetImage(imagePath),
+                                                                              fit: BoxFit.cover,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    }).toList(),
                                                                   ),
                                                                 ),
-                                                              );
-                                                            }).toList(),
-                                                          ),
-                                                        ),
-
-
-                                                          ),
-
-
-
-
-
-
                                                               ),
-                                                              // "+3" text at the right edge
+                                                              // "+3" Badge
                                                               Positioned(
-                                                                right: 0, // Adjusted to ensure +3 is fully visible
-                                                                top: 0,
-                                                                bottom: 0,
+                                                                right: -10,
+
                                                                 child: Align(
                                                                   alignment: Alignment.centerRight,
                                                                   child: Container(
@@ -727,16 +864,16 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                       color: Colors.white,
                                                                       borderRadius: BorderRadius.circular(12),
                                                                     ),
-                                                                    padding: EdgeInsets.symmetric(
-                                                                      horizontal: MediaQuery.of(context).size.height * 0.008,
-                                                                      vertical: MediaQuery.of(context).size.height * 0.005,
-                                                                    ),
+                                                                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+
+
+
                                                                     child: Text(
                                                                       "+3",
                                                                       style: TextStyle(
-                                                                        color: Color(0xFF126086),
+                                                                        color: const Color(0xFF126086),
                                                                         fontWeight: FontWeight.w600,
-                                                                        fontSize: MediaQuery.of(context).size.height * 0.012, // Slightly increased for better visibility
+                                                                        fontSize: MediaQuery.of(context).size.height * 0.011, // Font reduced
                                                                       ),
                                                                     ),
                                                                   ),
@@ -746,74 +883,56 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                           ),
                                                         ),
 
-                                                        // Address
+                                                        const SizedBox(width: 15),
+
+                                                        // Address Area
                                                         Expanded(
-                                                          flex: 7,
                                                           child: Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             mainAxisAlignment: MainAxisAlignment.center,
-                                                            children: <Widget>[
-                                                              Container(
-
-                                                                child: Text(
-                                                                  maxLines: 1,
-
-                                                                  "2 QuadraCyte, Qatar 560002",
-                                                                  style: TextStyle(
-                                                                    color: Colors.black54,
-                                                                    overflow: TextOverflow.ellipsis,
-                                                                    fontWeight: FontWeight.bold,
-                                                                    fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                                  ),
+                                                            children: [
+                                                              Text(
+                                                                "2 QuadraCyte, Qatar 560002",
+                                                                maxLines: 1,
+                                                                style: TextStyle(
+                                                                  color: Colors.black54,
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: MediaQuery.of(context).size.height * 0.011, // Font reduced
                                                                 ),
                                                               ),
-
-                                                              Container(
-
-                                                                child: Text(
-                                                                  maxLines: 1,
-
-                                                                  "2 Km . From Your Location",
-                                                                  style: TextStyle(
-                                                                    color: Color(0xFF7F7F7F),
-                                                                    overflow: TextOverflow.ellipsis,
-                                                                    fontWeight: FontWeight.w500,
-                                                                    fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                                  ),
+                                                              const SizedBox(height: 2),
+                                                              Text(
+                                                                "2 Km. From Your Location",
+                                                                maxLines: 1,
+                                                                style: TextStyle(
+                                                                  color: const Color(0xFF7F7F7F),
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                  fontWeight: FontWeight.w500,
+                                                                  fontSize: MediaQuery.of(context).size.height * 0.011, // Font reduced
                                                                 ),
                                                               ),
                                                             ],
                                                           ),
                                                         ),
 
-                                                        // Share icon
-                                                        Expanded(
-                                                      flex: 1,
-                                                      child:
-                                                      InkWell(
-                                                        onTap: () {
-                                                          // Navigator.pop(context);
-                                                          },
+                                                        const SizedBox(width: 8),
 
-                                                        child: Container(
-                                                          height: screenHeight * 0.03,
-                                                          width: screenHeight * 0.03,
-                                                          decoration: BoxDecoration(
-                                                            // color: Colors.blue[100]!.withOpacity(0.9),
-                                                            shape: BoxShape.circle,
+                                                        // Share Icon
+                                                        if(item.isCallAvailable == true)
+                                                        CircleAvatar(
+                                                          backgroundColor: Colors.blue.shade50,
+                                                          radius: 12, // Radius reduced (pehle 10 tha)
+                                                          child: Image.asset(
+                                                            "assets/send.png",
+                                                            height: 12,
+                                                            width: 12,
+                                                            fit: BoxFit.cover,
                                                           ),
-
                                                         ),
-                                                      ),
-
-                                                    ),
-
-
                                                       ],
                                                     ),
                                                   ),
-
-                                                  // Bottom Row
                                                   Container(
                                                     padding: EdgeInsets.only(
                                                         left: MediaQuery.of(context).size.height * 0.005,
@@ -964,16 +1083,46 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                               borderRadius: BorderRadius.circular(15),
                                                                             ),
                                                                             // color:Colors.green[100],
-                                                                            padding: EdgeInsets.only(
-                                                                                left: MediaQuery.of(context).size.height * 0.0,
-                                                                                right: MediaQuery.of(context).size.height * 0.0,
-                                                                                top: MediaQuery.of(context).size.height * 0.00,
-                                                                                bottom: MediaQuery.of(context).size.height * 0.00),
+                                                                            padding: EdgeInsets.zero,
                                                                             child:
 
                                                                             Row(
                                                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                               children: <Widget>[
+                                                                                if(item.isCallAvailable == true) ...[
+                                                                                  GestureDetector(
+                                                                                  onTap: () {},
+                                                                                  child: Container(
+                                                                                    padding: new EdgeInsets.only(
+                                                                                        left: MediaQuery.of(context).size.height * 0.015,
+                                                                                        right: MediaQuery.of(context).size.height * 0.015,
+                                                                                        top: MediaQuery.of(context).size.height * 0.005,
+                                                                                        bottom: MediaQuery.of(context).size.height * 0.005),
+                                                                                    decoration: BoxDecoration(
+                                                                                      color: Color(0xFF126086),
+                                                                                      borderRadius: BorderRadius.circular(5),
+                                                                                    ),
+
+
+                                                                                    margin: EdgeInsets.only(
+                                                                                      left: MediaQuery.of(context).size.height * 0.00,
+                                                                                      top: MediaQuery.of(context).size.height * 0.00,
+                                                                                      bottom: MediaQuery.of(context).size.height * 0.00,
+                                                                                      right: MediaQuery.of(context).size.height * 0.005,
+                                                                                    ),
+                                                                                    // color: Colors.grey[300],
+                                                                                    alignment: Alignment.center,
+                                                                                    // height:
+                                                                                    // MediaQuery.of(context).size.height * 0.070,
+                                                                                    child: Text("Call",
+                                                                                        textAlign: TextAlign.center,
+                                                                                        style: TextStyle(
+                                                                                            color: Colors.white,
+                                                                                            fontWeight: FontWeight.w600,
+                                                                                            fontSize:  MediaQuery.of(context).size.height * 0.01)),
+                                                                                  ),
+                                                                                ),
+                                                                                  const SizedBox(width : 10),],
 
                                                                                 GestureDetector(
                                                                                   onTap: () async {
@@ -1023,7 +1172,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                                     alignment: Alignment.center,
                                                                                     // height:
                                                                                     // MediaQuery.of(context).size.height * 0.070,
-                                                                                    child: Text("Consult",
+                                                                                    child: Text(  item.isCallAvailable == true ? "Book" :  "Consult",
                                                                                         textAlign: TextAlign.center,
                                                                                         style: TextStyle(
                                                                                             color: Colors.white,
@@ -1031,6 +1180,7 @@ class FindDoctorsListMainstate extends State<FindDoctorsListMain> {
                                                                                             fontSize:  MediaQuery.of(context).size.height * 0.01)),
                                                                                   ),
                                                                                 ),
+
 
                                                                               ],
                                                                             ),

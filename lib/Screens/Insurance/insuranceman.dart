@@ -272,11 +272,8 @@ class InsuranceMainstate extends State<InsuranceMain> {
         .of(context)
         .size
         .height;
-    final screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
-    TextEditingController SearchEditTextController = TextEditingController();
+
+
 
     updatedPolicies =
         attachColorsToPolicies(insurancePolicies, uploadfilestime, gradientColorOptions);
@@ -557,7 +554,8 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                           },
                                         ),
                                       ),
-
+                                     if(insurancePoliciesCopy.isNotEmpty)
+                                        SizedBox(height: screenHeight * 0.1,)
                                     ],
                                   ),
                                 ),
@@ -616,7 +614,8 @@ class InsuranceMainstate extends State<InsuranceMain> {
                                              return getApprovalCard(item);
                                           }
                                         )
-                                      )
+                                      ),
+                                     SizedBox(height: screenHeight * 0.1,)
                                    ]
 
                                  ),
@@ -624,6 +623,7 @@ class InsuranceMainstate extends State<InsuranceMain> {
                               ],
                             ),
                           ),
+
                         ],
                       ),
                     ),

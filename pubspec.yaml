@@ -93,6 +93,9 @@ dependencies:
   flutter_typeahead: ^5.2.0
   flutter_slidable: ^3.1.0
   flutter_image_compress: ^2.4.0 # ^1.1.0
+  draggable_scrollbar: ^0.1.0
+
+
 
 
 

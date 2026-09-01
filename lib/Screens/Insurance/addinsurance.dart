@@ -13,6 +13,8 @@ import 'package:newfolder/Screens/Widgets/custom_type_calender.dart';
 import 'package:newfolder/Core/Header/header.dart';
 import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
+
+import 'package:file_picker/file_picker.dart';
 class AddInsuranceMain extends StatefulWidget {
   int selectedIndex = 0;
 
@@ -53,6 +55,8 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
   TextEditingController InsuranceTypeTextController = TextEditingController();
   TextEditingController CoverageLimitController = TextEditingController();
 
+  List<PlatformFile> selectedFiles = [];
+
   @override
   void initState() {
     super.initState();
@@ -69,6 +73,9 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
       InsuranceTypeTextController.text = widget.item!['insuranceType'] ?? '';
       CoverageLimitController.text = widget.item!['coverageLimit'] ?? '';
 
+      if (widget.item!['uploadedImages'] != null) {
+        selectedFiles = List<PlatformFile>.from(widget.item!['uploadedImages']);
+      }
       checkSubmitButtonEnabled();
     }
   }
@@ -1052,7 +1059,15 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
                           SizedBox(height: screenHeight * 0.02,),
                           // Upload File
 
-                          UploadBox(),
+                          // Upload File
+                          UploadBox(
+                            initialFiles: selectedFiles,
+                            onFilesChanged: (List<PlatformFile> files) {
+                              setState(() {
+                                selectedFiles = files;
+                              });
+                            },
+                          ),
                           SizedBox(height: screenHeight * 0.02,),
 
 
@@ -1260,6 +1275,8 @@ class AddInsuranceMainstate extends State<AddInsuranceMain> {
             "primaryInsuredName": PrimaryinsuredNameTextController.text,
             "insuranceType": InsuranceTypeTextController.text,
             "coverageLimit": CoverageLimitController.text,
+
+            "uploadedImages": selectedFiles,
           };
           if(usernameValue == 'Edit Insurance'){
             showTopNotification(

@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newfolder/Core/Dialog/camera_image.dart';
+import 'package:newfolder/Core/Dropdown/FunctionalDropdown.dart';
 import 'dart:io';
 import 'package:newfolder/Core/Dropdown/smart_dropdown.dart';
 import 'package:newfolder/Screens/Utils/customNotification.dart';
@@ -197,14 +198,17 @@ class AddMemberBottomSheet {
                                                   Padding(padding: EdgeInsets.only(left: 8, bottom: screenHeight * 0.005), child: Text("Please enter Email Address", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013))),
 
                                                 _buildLabelWithAsterisk(context, 'Relationship', required: true),
+
                                                 Padding(
                                                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                                                  child: SmartAdaptiveDropdown(
-                                                    initialValue: relationshipSelected,
-                                                    hint: "Select Relationship",
+                                                  child: FunctionalDropdown(
+                                                    value: relationshipSelected,
+                                                    hint: 'Select Relationship',
                                                     items: const ["Mother", "Father", 'Brother', 'Sister', 'Other'],
-                                                    onChanged: (String value) {
-                                                      setState(() { relationshipSelected = value; relationshipValid = true; });
+                                                    onChanged: (val) {
+                                                      setState(() {
+                                                        relationshipSelected = val; relationshipValid = true;
+                                                      });
                                                     },
                                                   ),
                                                 ),
@@ -235,7 +239,7 @@ class AddMemberBottomSheet {
                                                 ),
                                                 if (!isGenderValid)
                                                   Padding(padding: const EdgeInsets.only(left: 8, top: 4), child: Text("Please select a gender", style: TextStyle(color: Colors.red, fontSize: screenHeight * 0.013))),
-                                                const SizedBox(height: 80),
+                                                 SizedBox(height: screenHeight * 0.1),
                                               ],
                                             ),
                                           ),
@@ -250,7 +254,7 @@ class AddMemberBottomSheet {
                                   bottom: 0, left: 0, right: 0,
                                   child: Container(
                                     width: MediaQuery.of(context).size.width * 0.65,
-                                    padding: EdgeInsets.only(bottom: screenHeight * 0.025, top: screenHeight * 0.01, right: screenHeight * 0.02, left: screenHeight * 0.02),
+                                    padding: EdgeInsets.only(bottom: screenHeight * 0.025 , top: screenHeight * 0.01, right: screenHeight * 0.02, left: screenHeight * 0.02),
                                     decoration: const BoxDecoration(color: Colors.white),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -260,7 +264,7 @@ class AddMemberBottomSheet {
                                           decoration: BoxDecoration(border: Border.all(color: const Color(0xFFA8B1CE), width: 1), borderRadius: BorderRadius.circular(screenHeight * 0.012)),
                                           child: TextButton(
                                             onPressed: () => Navigator.of(context).pop(),
-                                            style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.symmetric(vertical: screenHeight * 0.007, horizontal: screenHeight * 0.03), tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                                            style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.symmetric(vertical: screenHeight * 0.007, horizontal: screenHeight * 0.00), tapTargetSize: MaterialTapTargetSize.shrinkWrap),
                                             child: Text("Close", style: TextStyle(color: const Color(0xFF126086), fontSize: screenHeight * 0.017, fontWeight: FontWeight.w600, fontFamily: "Inter")),
                                           ),
                                         ),
@@ -303,7 +307,7 @@ class AddMemberBottomSheet {
                                                 });
                                               }
                                             },
-                                            style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.symmetric(vertical: screenHeight * 0.008, horizontal: screenHeight * 0.03), tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                                            style: TextButton.styleFrom(minimumSize: Size.zero, padding: EdgeInsets.symmetric(vertical: screenHeight * 0.008, horizontal: screenHeight * 0.0), tapTargetSize: MaterialTapTargetSize.shrinkWrap),
                                             child: Text("Save", style: TextStyle(color: Colors.white, fontSize: screenHeight * 0.017, fontWeight: FontWeight.w700, fontFamily: "Inter")),
                                           ),
                                         ),

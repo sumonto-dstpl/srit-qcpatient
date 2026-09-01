@@ -1,23 +1,16 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:newfolder/Core/Dialog/bottom_payment_method.dart';
 import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
-
-import 'package:newfolder/Screens/Medications/bottomsheet_for_payment.dart' hide BottomSheetForPaymentForMedication;
-import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
-import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
 import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
-import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
 import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
-import 'package:newfolder/Screens/Home/homemainscreen.dart';
 import 'package:provider/provider.dart';
-
 import '../../utils/cart_provider.dart';
+import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 
 
 class AddtocardPackageDetails extends StatefulWidget {
@@ -88,11 +81,17 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
   List<dynamic> addedList=[];
   bool isInCart =false;
 
+  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
     // _loadData();
 
+  }
+  @override
+  void dispose() {
+    _scrollController.dispose(); // Yeh add karein
+    super.dispose();
   }
 
   void _loadData() async {
@@ -482,10 +481,9 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
                                      ),
                                      Container(
                                        padding: EdgeInsets.only(
-                                         top: screenHeight * 0.0,
-                                         bottom: screenHeight * 0.00,
+
                                          left: screenHeight * 0.02,
-                                         right: screenHeight * 0.00,
+
                                        ),
                                        child: Row(
                                          mainAxisAlignment: MainAxisAlignment.start,
@@ -544,55 +542,85 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
                      Expanded(
                        child: Padding(
                          padding: EdgeInsets.only(
-                           left : screenWidth * 0.05,
-                           bottom: screenWidth * 0.05,
+                           left: screenWidth * 0.05,
+                           right: screenWidth * 0.01,
                          ),
                          child: Container(
                            padding: EdgeInsets.only(
-                               left : screenWidth * 0.01,
-                             ),
-                           child: ListView.builder(
-                             padding: EdgeInsets.zero,
-                            itemCount: testList.length,
-                            itemBuilder: (context,index) {
-                              String test = testList[index];
-                                     return Column(
-                                       children: [
-                                         Row(
-                                           children: [
-                                             Container(
-                                               decoration: BoxDecoration(
-                                                 color: Color(0x80000000),
-                                                 shape: BoxShape.circle,
-                                               ),
-                                               height: screenHeight * 0.006,
-                                               width: screenHeight * 0.006,
-                                             ),
-                                             SizedBox(width: screenWidth * 0.015,),
-                                             Expanded(
-                                               child: Container(
-                                                 child: Text(
-                                                   "$test",
-                                                   style: TextStyle(
-                                                     color: Color(0x80000000),
-                                                     fontSize: screenHeight * 0.014,
-                                                     fontWeight: FontWeight.w500,
-                                                     fontFamily: "Inter",
+                             left: screenWidth * 0.01,
+                           ),
 
-                                                   ),
-                                                   maxLines: 2,
-                                                   overflow: TextOverflow.ellipsis,
-                                                 ),
-                                               ),
-                                             ),
-                                           ],
+                           // ✅ YAHAN CUSTOM DRAGGABLE SCROLLBAR LAGAYA HAI
+                           child: DraggableScrollbar(
+                             controller: _scrollController,
+                             alwaysVisibleScrollThumb: true, // Hamesha dikhega
+                             backgroundColor: Color(0xFF126086),
+                             heightScrollThumb: 40.0, // Slider ki Lambaai
+
+                             // ✅ APNA CUSTOM DESIGN: Bina shadow ke aur patla
+                             scrollThumbBuilder: (
+                                 Color backgroundColor,
+                                 Animation<double> thumbAnimation,
+                                 Animation<double> labelAnimation,
+                                 double height, {
+                                   Text? labelText,
+                                   BoxConstraints? labelConstraints,
+                                 }) {
+                               return Container(
+                                 height: height,
+                                 width: 6.0, // ✅ YAHAN SE PATLA HOGA (Aap isko 4.0 ya 5.0 bhi kar sakte hain)
+                                 margin: EdgeInsets.only(right: 2.0),
+                                 decoration: BoxDecoration(
+                                   color: backgroundColor, // Blue color
+                                   borderRadius: BorderRadius.circular(10.0), // Kinare gol
+                                   // ❌ Yahan humne koi BoxShadow nahi dala hai, toh shadow nahi aayegi
+                                 ),
+                               );
+                             },
+
+                             child: ListView.builder(
+                               controller: _scrollController,
+                               padding: EdgeInsets.zero,
+                               itemCount: testList.length,
+                               itemBuilder: (context, index) {
+                                 String test = testList[index];
+                                 return Column(
+                                   children: [
+                                     Row(
+                                       children: [
+                                         Container(
+                                           decoration: BoxDecoration(
+                                             color: Color(0x80000000),
+                                             shape: BoxShape.circle,
+                                           ),
+                                           height: screenHeight * 0.006,
+                                           width: screenHeight * 0.006,
                                          ),
-                                         if (index == testList.length - 1)
-                                           SizedBox(height: screenHeight * 0.06),
+                                         SizedBox(width: screenWidth * 0.015,),
+                                         Expanded(
+                                           child: Container(
+                                             child: Text(
+                                               "$test",
+                                               style: TextStyle(
+                                                 color: Color(0x80000000),
+                                                 fontSize: screenHeight * 0.014,
+                                                 fontWeight: FontWeight.w500,
+                                                 fontFamily: "Inter",
+                                               ),
+                                               maxLines: 2,
+                                               overflow: TextOverflow.ellipsis,
+                                             ),
+                                           ),
+                                         ),
                                        ],
-                                     );
-                                     },
-                                                      ),
+                                     ),
+                                     if (index == testList.length - 1)
+                                       SizedBox(height: screenHeight * 0.06),
+                                   ],
+                                 );
+                               },
+                             ),
+                           ),
                          ),
                        ),
                      ),
@@ -768,51 +796,7 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
     });
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      int selected = index;
 
-      if (selected == 0) {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => HomePageMain()),
-                (Route<dynamic> route) => false);
-      } else if (selected == 1) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) {
-              return MyReportsMain();
-            },
-          ),
-        );
-      } else if (selected == 2) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) {
-              return UploadPrescriptionMain();
-            },
-          ),
-        );
-      } else if (selected == 3) {
-        showBottomSheet();
-      }
-      else if (selected == 4) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) {
-              return MyHealthMain();
-            },
-          ),
-        );
-      }
-
-      /* widget.selectedIndex = index;
-      _selectedIndex = widget.selectedIndex;*/
-
-      // Fluttertoast.showToast(msg: "test", toastLength: Toast.LENGTH_LONG);
-      print(selected);
-    });
-
-  }
 
   void showBottomSheet() =>
       showModalBottomSheet(
@@ -962,7 +946,6 @@ class _AddtocardPackageDetailsState extends State<AddtocardPackageDetails> {
                                               //   ),
                                               // ),
 
-                                              // Select the Type of Appointment
 
                                               GestureDetector(
 

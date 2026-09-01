@@ -17,6 +17,7 @@ import 'package:newfolder/Screens/Appointments/appointmentsmainfindDoctors.dart'
 import 'package:newfolder/Screens/Appointments/finddoctorslist.dart';
 import 'package:newfolder/Screens/Appointments/quicksearchwithoutdata.dart';
 import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
+import 'package:newfolder/Screens/Call/emergency_call.dart';
 import 'package:newfolder/Screens/Medications/medicationselecttime.dart';
 import 'package:newfolder/Screens/Widgets/homecare_otherservice_detail.dart';
 import 'package:newfolder/Screens/Appointments/selecttimeslot.dart';
@@ -80,11 +81,11 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   ];
 
   final myOtherServices = [
-    ["assets/Diagnostic.png", "Diagnostic",'diagnostic'],
-    ["assets/Doctor.png", "Doctor", 'doctor'],
-    ["assets/Nurse.png", "Nurse" , 'nurse'],
-    ["assets/Physio.png", "Physio", 'physio'],
-    ["assets/MedicalEquipment.png", "Medical Equipment's", 'medical_equipments'],
+    ["assets/Diagnostic.png", "Diagnostic",'Diagnostic'],
+    ["assets/Doctor.png", "Doctor", 'Doctor'],
+    ["assets/Nurse.png", "Nurse" , 'Nurse'],
+    ["assets/Physio.png", "Physio", 'Physio'],
+    ["assets/MedicalEquipment.png", "Medical Equipment's", 'Medical Equipments']
   ];
 
   final myhealyhblogbanner = [
@@ -123,7 +124,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
   void _loadData() async {
     // await Future.delayed(const Duration(seconds: 2));// Simulating API call
     var guestUser = await UserSecureStorage.getIfGuestLogged();
-    print("guestUser: $guestUser");
+
     isGuestUser=guestUser == "YES";
     setState(() {});
     if(!isGuestUser){
@@ -183,346 +184,129 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
         body: AppBackground(
           isLoading: _isLoading,
           child:
-                NotificationListener<ScrollNotification>(
-                  onNotification: (notification) {
-                    if (notification is OverscrollNotification && !_isRefreshing) {
-                      setState(() {
-                        _pullDistance += notification.overscroll / 2;
-                        print("_pullDistance : $_pullDistance");
-                        print("_pullDistance : ${!_isRefreshing}");
-                        if (_pullDistance < 1 && !_isRefreshing) {
-                          print(">>>>>>>>>>>>>.");
-                          // _refreshData();
-                        }
-                      });
-                    }
-                    return false;
-                  },
-                  child: Stack(
-                    children: [
-                      Column(
+                Stack(
+                  children: [
+                    Column(
 
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
 
 
 
 
-                        Header(userName: usernameValue,showBackButton: false,),
-                        Expanded(
+                      Header(userName: usernameValue,showBackButton: false,),
+                      Expanded(
 
-                    child: Container(
+                  child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(screenHeight * 0.03),
+                          topRight: Radius.circular(screenHeight * 0.03),
+                          bottomLeft: Radius.circular(screenHeight * 0.0),
+                          bottomRight: Radius.circular(screenHeight * 0.00),
+                          // bottomCenter: 0,
+                        ),
+                      ),
+                      child : Column(
+                        children: [
+
+                      Container(
+
+                        width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Colors.transparent,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(screenHeight * 0.03),
                             topRight: Radius.circular(screenHeight * 0.03),
-                            bottomLeft: Radius.circular(screenHeight * 0.0),
-                            bottomRight: Radius.circular(screenHeight * 0.00),
-                            // bottomCenter: 0,
                           ),
                         ),
-                        child : Column(
-                          children: [
-
-                        Container(
-
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(screenHeight * 0.03),
-                              topRight: Radius.circular(screenHeight * 0.03),
-                            ),
-                          ),
-                          child:
-                          Column(
-                              children: [
-                                SizedBox(height: AppSize.headerHeight,),
-                                // Logo Image
-                                Container(
-                                  margin: EdgeInsets.only(
-                                      left: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.00,
-                                      right: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.00,
-
-                                      bottom: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.03),
-
-                                  child: !_isLoading ? Image.asset(
-                                    'assets/splashqc.png',
-                                    height: screenHeight * 0.03,
-                                    fit: BoxFit.contain,
-                                  ) :
-                                  Container(
-                                    height : screenHeight * 0.04,
-                                    width :   screenWidth * 0.4,
-                                    child : SkeltonLoader(),
-                                  ),
-                                ),
-
-
-                                // Search Animation
-                                GestureDetector(
-                                  onTap: () {
-                                    if(!_isLoading)
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) {
-                                          return QuickSearchWithoutData();
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  child:
-                                  Container(
-                                    height: MediaQuery
+                        child:
+                        Column(
+                            children: [
+                              SizedBox(height: AppSize.headerHeight,),
+                              // Logo Image
+                              Container(
+                                margin: EdgeInsets.only(
+                                    left: MediaQuery
                                         .of(context)
                                         .size
-                                        .height * 0.05,
-                                    decoration: BoxDecoration(
-                                      color:  !_isLoading ? Color(0xFFF7F5F6) : Colors.white,
-                                      // color:  !_isLoading ? Color(0xFFF7F5F6).withOpacity(0.2) : Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
+                                        .height * 0.00,
+                                    right: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.00,
 
-                                    alignment: Alignment.centerRight,
-                                    padding: EdgeInsets.only(
-                                      top: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.0,
-                                      bottom: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.0,
-                                      left: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.00,
-                                      right: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.00,
-                                    ),
-                                    margin: EdgeInsets.only(
-                                      right: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.02,
-                                      top: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.0,
-                                      bottom: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.02,
-                                      left: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.02,
-                                    ),
-                                    child: !_isLoading ?  Row(
-                                      // mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                              left: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height *
-                                                  0.02,
-                                              right: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              top: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              bottom: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height *
-                                                  0.0),
-                                          child: Text(
-                                            "Search by",
-                                            style: TextStyle(
-                                                color: Color(0xFF999999),
-                                                // overflow: TextOverflow.ellipsis,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize:
-                                                MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height *
-                                                    0.014
-                                            ),
-                                          ),
-                                        ),
+                                    bottom: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.03),
 
-
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                              left: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height *
-                                                  0.008,
-                                              right: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              top: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height *
-                                                  0.00,
-                                              bottom: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height *
-                                                  0.0),
-                                          child:
-                                          DefaultTextStyle(
-                                            style: TextStyle(
-                                                color: Color(0xFF126086),
-                                                overflow: TextOverflow.ellipsis,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize:
-                                                MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.014),
-                                            child: AnimatedTextKit(
-                                              animatedTexts: [
-                                                RotateAnimatedText(
-                                                  'Doctor',
-                                                  textStyle: TextStyle(
-                                                      color: Color(0xFF126086),
-                                                      overflow: TextOverflow.ellipsis,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize:
-                                                      MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height *
-                                                          0.014), // Red text
-                                                ),
-                                                RotateAnimatedText(
-                                                  'Speciality',
-                                                  textStyle: TextStyle(
-                                                      color: Color(0xFF126086),
-                                                      overflow: TextOverflow.ellipsis,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize:
-                                                      MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.014),
-                                                ),
-
-                                                RotateAnimatedText(
-                                                  'Symptoms',
-                                                  textStyle: TextStyle(
-                                                      color: Color(0xFF126086),
-                                                      overflow: TextOverflow.ellipsis,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize:
-                                                      MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height *
-                                                          0.014), // Red text
-                                                ),
-                                              ],
-                                              repeatForever: true,
-                                              pause: Duration(milliseconds: 500),
-                                              onTap: () {
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder: (BuildContext context) {
-                                                      return QuickSearchWithoutData();
-                                                    },
-                                                  ),
-                                                );
-                                                print("Tap Event");
-                                              },
-                                            ),
-                                          ),
-                                        ),
-
-                                        Spacer(),
-                                        // Pushes the search icon to the end of the Row
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                            right: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height * 0.02,
-                                          ),
-                                          child: Icon(
-                                            Icons.search,
-                                            color: Colors.black45,
-                                            size: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height * 0.02,
-                                          ),
-                                        ),
-
-                                      ],
-                                    ) :
-                                    Container(
-                                      // height : screenHeight * 0.04,
-                                      // width :   screenWidth * 0.4,
-                                      child : SkeltonLoader(),
-                                    ),
-                                  ),
+                                child: !_isLoading ? Image.asset(
+                                  'assets/splashqc.png',
+                                  height: screenHeight * 0.03,
+                                  fit: BoxFit.contain,
+                                ) :
+                                Container(
+                                  height : screenHeight * 0.04,
+                                  width :   screenWidth * 0.4,
+                                  child : SkeltonLoader(),
                                 ),
-                              ]
-                          ),
-                        ),
-
-                        // Main Content Section
-                        Expanded(
-                          child: Container(
-
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
+                              ),
 
 
-                            ),
-                            child: ListView(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              children: [
+                              // Search Animation
+                              GestureDetector(
+                                onTap: () {
+                                  if(!_isLoading)
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return QuickSearchWithoutData();
+                                      },
+                                    ),
+                                  );
+                                },
+                                child:
+                                Container(
+                                  height: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.05,
+                                  decoration: BoxDecoration(
+                                    color:  !_isLoading ? Color(0xFFF7F5F6) : Colors.white,
+                                    // color:  !_isLoading ? Color(0xFFF7F5F6).withOpacity(0.2) : Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
 
-
-
-
-                                !_isLoading ?
-                                HomeSliderWidget()
-
-                                  :  Container(
+                                  alignment: Alignment.centerRight,
+                                  padding: EdgeInsets.only(
+                                    top: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.0,
+                                    bottom: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.0,
+                                    left: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.00,
+                                    right: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.00,
+                                  ),
                                   margin: EdgeInsets.only(
                                     right: MediaQuery
                                         .of(context)
                                         .size
                                         .height * 0.02,
-
+                                    top: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.0,
                                     bottom: MediaQuery
                                         .of(context)
                                         .size
@@ -532,290 +316,782 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                         .size
                                         .height * 0.02,
                                   ),
-                                  height : screenHeight * 0.14,
-
-                                    child : SkeltonLoader(),
-                                                          ),
-
-                                // Categories Section
-                                !_isLoading ?
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.03,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.015,
-                                      right: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.03,
-                                      bottom: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.005),
-                                  child:  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Categories",
-                                      style: TextStyle(
-                                        fontSize: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .height * 0.014,
-                                        color: Color(0xFF000000),
-                                        fontWeight: FontWeight.w600,
+                                  child: !_isLoading ?  Row(
+                                    // mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                            left: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.02,
+                                            right: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.00,
+                                            top: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.00,
+                                            bottom: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.0),
+                                        child: Text(
+                                          "Search by",
+                                          style: TextStyle(
+                                              color: Color(0xFF999999),
+                                              // overflow: TextOverflow.ellipsis,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize:
+                                              MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height *
+                                                  0.014
+                                          ),
+                                        ),
                                       ),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-                                )
-                                : Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Container(
-                                    margin: EdgeInsets.only(
-                                      top : MediaQuery.of(context).size.height * 0.005,
-                                      right: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.02,
 
-                                      left: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.02,
-                                    ),
-                                    height : screenHeight * 0.008,
-                                    width : screenWidth * 0.3,
+
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                            left: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.008,
+                                            right: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.00,
+                                            top: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.00,
+                                            bottom: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.0),
+                                        child:
+                                        DefaultTextStyle(
+                                          style: TextStyle(
+                                              color: Color(0xFF126086),
+                                              overflow: TextOverflow.ellipsis,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize:
+                                              MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height * 0.014),
+                                          child: AnimatedTextKit(
+                                            animatedTexts: [
+                                              RotateAnimatedText(
+                                                'Doctor',
+                                                textStyle: TextStyle(
+                                                    color: Color(0xFF126086),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                    MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .height *
+                                                        0.014), // Red text
+                                              ),
+                                              RotateAnimatedText(
+                                                'Speciality',
+                                                textStyle: TextStyle(
+                                                    color: Color(0xFF126086),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                    MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .height * 0.014),
+                                              ),
+
+                                              RotateAnimatedText(
+                                                'Symptoms',
+                                                textStyle: TextStyle(
+                                                    color: Color(0xFF126086),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                    MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .height *
+                                                        0.014), // Red text
+                                              ),
+                                            ],
+                                            repeatForever: true,
+                                            pause: Duration(milliseconds: 500),
+                                            onTap: () {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (BuildContext context) {
+                                                    return QuickSearchWithoutData();
+                                                  },
+                                                ),
+                                              );
+                                              print("Tap Event");
+                                            },
+                                          ),
+                                        ),
+                                      ),
+
+                                      Spacer(),
+                                      // Pushes the search icon to the end of the Row
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          right: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.02,
+                                        ),
+                                        child: Icon(
+                                          Icons.search,
+                                          color: Colors.black45,
+                                          size: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.02,
+                                        ),
+                                      ),
+
+                                    ],
+                                  ) :
+                                  Container(
+                                    // height : screenHeight * 0.04,
+                                    // width :   screenWidth * 0.4,
                                     child : SkeltonLoader(),
                                   ),
                                 ),
+                              ),
+                            ]
+                        ),
+                      ),
 
-                                // Categories Grid
-                                Container(
-                                  color: Colors.white,
-                                  padding: EdgeInsets.only(
-                                      left: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.02,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.01,
-                                      right: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.02,
-                                      bottom: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.005
-                                  ),
-                                  child: GridView.count(
-                                    shrinkWrap: true,
+                      // Main Content Section
+                      Expanded(
+                        child: Container(
 
-                                    physics: NeverScrollableScrollPhysics(),
-
-                                    padding: EdgeInsets.only(
-                                      left: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.00,
-                                      right: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.00,
-                                      top: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.005,
-                                      bottom: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.00,
-                                    ),
-                                    crossAxisCount: 4,
-                                    crossAxisSpacing: screenHeight * 0.02,
-                                    mainAxisSpacing: screenHeight * 0.01,
-                                    children: myCatagories
-                                        .asMap()
-                                        .entries
-                                        .map((entry) {
-                                      final int index = entry.key; // Get the index
-                                      final List<String> i = entry
-                                          .value; // Get the value (image path and text)
-
-                                      return Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          !_isLoading ?
-                                          TextButton(
-                                            onPressed: () async {
-                                              // Example logic for handling button click
-                                              if (index == 0) {
-                                                print("Custom FAB pressed!");
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return AppointmentsMain();
-                                                    },
-                                                  ),
-                                                );
-                                              } else if (index == 1) {
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return HomeCareMain();
-                                                    },
-                                                  ),
-                                                );
-                                              } else if (index == 2) {
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return MedicationsMain();
-                                                    },
-                                                  ),
-                                                );
-                                              } else if (index == 3) {
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return LabTestsMain();
-                                                    },
-                                                  ),
-                                                );
-                                              } else if (index == 4) {
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return RadiologyMain();
-                                                    },
-                                                  ),
-                                                );
-                                              } else if (index == 5) {
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return TimelineMain();
-                                                    },
-                                                  ),
-                                                );
-                                              } else if (index == 6) {
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return InsuranceMain();
-                                                    },
-                                                  ),
-                                                );
-                                              } else {
-                                                // Handle other indices
-                                                print("Button $index clicked!");
-                                              }
-                                            },
-                                            style: TextButton.styleFrom(
-                                              backgroundColor: Color(0xFFE8F0F3),
-                                              padding: EdgeInsets.all(
-                                                  screenHeight * 0.01),
-                                              minimumSize: Size(
-                                                screenHeight * 0.04,
-                                                screenHeight * 0.04,
-                                              ),
-                                            ),
-                                            child:
-
-                                            Container(
-                                              width: screenHeight * 0.03,
-                                              height: screenHeight * 0.03,
-
-                                              decoration:
-
-                                              BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: AssetImage(i[0]),
-                                                  fit: BoxFit.contain,
-                                                ),
-                                              )
-
-                                            )
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
 
 
-                                          )
-                                          : Container(
-                                            margin : EdgeInsets.only(
-                                              top : screenHeight * 0.015,
-                                            ),
-                                            height : screenHeight * 0.05,
-                                            width : screenHeight * 0.05,
-                                            child : SkeltonLoader(borderRadius: 30,),
+                          ),
+                          child: ListView(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            children: [
 
-                                          ),
-                                          SizedBox(height :screenHeight * 0.01 ),
 
-                                          !_isLoading ?
-                                          Expanded(child:
 
-                                          Padding(
-                                            padding: EdgeInsets.all(
-                                                screenHeight * 0.00),
-                                            child: Text(
-                                              i[1],
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: Color(0xFF000000),
-                                                fontSize: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.012,
-                                                fontWeight: FontWeight.w400,
-                                                // overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                          ),
-                                          )
-                                            : Container(
-                                            margin : EdgeInsets.only(
-                                              top : screenHeight * 0.01,
-                                            ),
-                                            height : screenHeight * 0.005,
-                                            width : screenWidth * 0.1,
-                                            child : SkeltonLoader(borderRadius: 16,),
 
-                                          ),
-                                        ],
-                                      );
-                                    }).toList(),
-                                  ),
+                              !_isLoading ?
+                              HomeSliderWidget()
+
+                                :  Container(
+                                margin: EdgeInsets.only(
+                                  right: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.02,
+
+                                  bottom: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.02,
+                                  left: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.02,
                                 ),
+                                height : screenHeight * 0.14,
 
+                                  child : SkeltonLoader(),
+                                                        ),
 
-                                // Upcoming Appointments
-                                if(!isGuestUser)
-                                !_isLoading ?
-                                Padding(
-                                  padding: EdgeInsets.only(
+                              // Categories Section
+                              !_isLoading ?
+                              Padding(
+                                padding: EdgeInsets.only(
                                     left: MediaQuery
                                         .of(context)
                                         .size
                                         .height * 0.03,
-
+                                    top: MediaQuery.of(context).size.height *
+                                        0.015,
+                                    right: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.03,
+                                    bottom: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.005),
+                                child:  Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "Categories",
+                                    style: TextStyle(
+                                      fontSize: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height * 0.014,
+                                      color: Color(0xFF000000),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    textAlign: TextAlign.start,
                                   ),
-                                  child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceBetween,
-                                      children: <Widget>[
+                                ),
+                              )
+                              : Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  margin: EdgeInsets.only(
+                                    top : MediaQuery.of(context).size.height * 0.005,
+                                    right: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.02,
 
-                                        Container(
-                                          padding: EdgeInsets.only(
+                                    left: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.02,
+                                  ),
+                                  height : screenHeight * 0.008,
+                                  width : screenWidth * 0.3,
+                                  child : SkeltonLoader(),
+                                ),
+                              ),
+
+                              // Categories Grid
+                              Container(
+                                color: Colors.white,
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.02,
+                                    top: MediaQuery.of(context).size.height *
+                                        0.01,
+                                    right: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.02,
+                                    bottom: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.005
+                                ),
+                                child: GridView.count(
+                                  shrinkWrap: true,
+
+                                  physics: NeverScrollableScrollPhysics(),
+
+                                  padding: EdgeInsets.only(
+                                    left: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.00,
+                                    right: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.00,
+                                    top: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.005,
+                                    bottom: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.00,
+                                  ),
+                                  crossAxisCount: 4,
+                                  crossAxisSpacing: screenHeight * 0.02,
+                                  mainAxisSpacing: screenHeight * 0.01,
+                                  children: myCatagories
+                                      .asMap()
+                                      .entries
+                                      .map((entry) {
+                                    final int index = entry.key; // Get the index
+                                    final List<String> i = entry
+                                        .value; // Get the value (image path and text)
+
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        !_isLoading ?
+                                        TextButton(
+                                          onPressed: () async {
+                                            // Example logic for handling button click
+                                            if (index == 0) {
+                                              print("Custom FAB pressed!");
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AppointmentsMain();
+                                                  },
+                                                ),
+                                              );
+                                            } else if (index == 1) {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return HomeCareMain();
+                                                  },
+                                                ),
+                                              );
+                                            } else if (index == 2) {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return MedicationsMain();
+                                                  },
+                                                ),
+                                              );
+                                            } else if (index == 3) {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return LabTestsMain();
+                                                  },
+                                                ),
+                                              );
+                                            } else if (index == 4) {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return RadiologyMain();
+                                                  },
+                                                ),
+                                              );
+                                            } else if (index == 5) {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return TimelineMain();
+                                                  },
+                                                ),
+                                              );
+                                            } else if (index == 6) {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return InsuranceMain();
+                                                  },
+                                                ),
+                                              );
+                                            } else {
+                                              // Handle other indices
+                                              print("Button $index clicked!");
+                                            }
+                                          },
+                                          style: TextButton.styleFrom(
+                                            backgroundColor: Color(0xFFE8F0F3),
+                                            padding: EdgeInsets.all(
+                                                screenHeight * 0.01),
+                                            minimumSize: Size(
+                                              screenHeight * 0.04,
+                                              screenHeight * 0.04,
+                                            ),
+                                          ),
+                                          child:
+
+                                          Container(
+                                            width: screenHeight * 0.03,
+                                            height: screenHeight * 0.03,
+
+                                            decoration:
+
+                                            BoxDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage(i[0]),
+                                                fit: BoxFit.contain,
+                                              ),
+                                            )
+
+                                          )
+
+
+                                        )
+                                        : Container(
+                                          margin : EdgeInsets.only(
+                                            top : screenHeight * 0.015,
+                                          ),
+                                          height : screenHeight * 0.05,
+                                          width : screenHeight * 0.05,
+                                          child : SkeltonLoader(borderRadius: 30,),
+
+                                        ),
+                                        SizedBox(height :screenHeight * 0.01 ),
+
+                                        !_isLoading ?
+                                        Expanded(child:
+
+                                        Padding(
+                                          padding: EdgeInsets.all(
+                                              screenHeight * 0.00),
+                                          child: Text(
+                                            i[1],
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Color(0xFF000000),
+                                              fontSize: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height * 0.012,
+                                              fontWeight: FontWeight.w400,
+                                              // overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ),
+                                        )
+                                          : Container(
+                                          margin : EdgeInsets.only(
+                                            top : screenHeight * 0.01,
+                                          ),
+                                          height : screenHeight * 0.005,
+                                          width : screenWidth * 0.1,
+                                          child : SkeltonLoader(borderRadius: 16,),
+
+                                        ),
+                                      ],
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+
+
+                              // Upcoming Appointments
+                              if(!isGuestUser)
+                              !_isLoading ?
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.03,
+
+                                ),
+                                child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceBetween,
+                                    children: <Widget>[
+
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                          left: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.00,
+                                          right: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.00,
+                                          top: MediaQuery.of(context).size.height *
+                                              0.015,
+                                          bottom: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.005,
+                                        ),
+                                        child:
+                                        Text(
+                                          "Upcoming Appointments",
+                                          style: TextStyle(
+                                            fontSize: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.014,
+                                            color: Color(0xFF000000),
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+
+                                      GestureDetector(
+                                        onTap : () async {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(builder: (context) {
+                                                   return AppointmentsFootMain(initialIndex: 1,);
+
+                                              })
+                                          );
+                                        },
+
+                                        child: Container(
+
+                                          padding : EdgeInsets.only(
+                                            top: MediaQuery.of(context).size.height *
+                                                0.015,
+                                            bottom: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.005,
+                                            right: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.03,
+
+                                          ),
+                                          child: Container(
+
+                                            padding: EdgeInsets.only(
+                                                left: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height * 0.00,
+                                                right: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height * 0.00,
+                                                top: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height * 0.00,
+                                                bottom: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height * 0.00),
+                                            child:
+                                            Text(
+                                              "View All",
+                                              style: TextStyle(
+                                                color: Color(0xFF126086),
+                                                fontWeight: FontWeight.w600,
+                                                overflow: TextOverflow.ellipsis,
+                                                fontSize: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height * 0.012,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+
+
+                                    ]
+
+                                ),
+                              )
+                                  : Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  margin: EdgeInsets.only(
+                                    top : MediaQuery.of(context).size.height * 0.025,
+                                    right: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.02,
+
+                                    left: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.02,
+                                  ),
+                                  height : screenHeight * 0.008,
+                                  width : screenWidth * 0.3,
+                                  child : SkeltonLoader(),
+                                ),
+                              ),
+
+                              if(!isGuestUser)
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: List.generate(appointmentsData.length, (index) {
+                                      return  _buildCard(context, index);
+                                    }),
+                                  ),
+                                ),
+
+
+
+                              // Other Services Section
+                              if(!_isLoading)
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.03,
+                                    top: MediaQuery.of(context).size.height *
+                                        0.015,
+                                    right: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.0,
+                                    bottom: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.005),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "Other Services",
+                                    style: TextStyle(
+                                      fontSize: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height * 0.014,
+                                      color: Color(0xFF000000),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ),
+                              ),
+
+                              if(!_isLoading)
+
+
+
+                                Container(
+
+                                  padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.height * 0.02,
+                                    right: MediaQuery.of(context).size.height * 0.02,
+                                    bottom: MediaQuery.of(context).size.height * 0.02,
+                                  ),
+                                  child: GridView.builder(
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 4,
+                                      crossAxisSpacing: MediaQuery.of(context).size.height * 0.02,
+                                      // ⬇️ पहली row–container gap कम करने के लिए 0 कर सकते हैं
+                                      mainAxisSpacing: 0,
+                                      childAspectRatio: 0.9,
+                                    ),
+                                    padding: EdgeInsets.only(
+                                      top : screenHeight * 0.02,
+                                    ),
+                                    itemCount: myOtherServices.length,
+                                    itemBuilder: (context, index) {
+                                      return Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Column(
+                                          children: [
+                                            // ---------- Icon Button ----------
+                                            TextButton(
+
+                                                onPressed: () async {
+                                                  final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
+
+                                                  if (isLoggedIn == "YES") {
+                                                    // Show login bottom sheet for guest users
+                                                    Timer(const Duration(milliseconds: 0), () {
+                                                      LoginBottomSheet.show(context, false);
+                                                    });
+                                                  } else {
+                                                    // Navigate to details page for logged-in users
+                                                    Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                        builder: (BuildContext context) {
+                                                          return HomecareOtherserviceDetail(
+                                                            usernameValue: myOtherServices[index][1],
+                                                            category: myOtherServices[index][2],
+                                                          );
+                                                        },
+                                                      ),
+                                                    );
+                                                  }
+                                                },
+                                                style: TextButton.styleFrom(
+                                                  backgroundColor: const Color(0xFFE8F0F3),
+                                                  padding: EdgeInsets.all(screenHeight * 0.01),
+                                                  minimumSize: Size(
+                                                    screenHeight * 0.04,
+                                                    screenHeight * 0.04,
+                                                  ),
+                                                ),
+                                                child: Container(
+                                                  width: screenHeight * 0.03,
+                                                  height: screenHeight * 0.03,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      image: AssetImage(myOtherServices[index][0]),
+                                                      fit: BoxFit.contain,
+                                                    ),
+                                                  ),
+                                                ),
+                                            ),
+
+                                          SizedBox(height :screenHeight * 0.008),
+
+                                            // ---------- Label ----------
+                                            Expanded(
+                                              child: Text(
+                                                myOtherServices[index][1],
+                                                maxLines: 2,
+
+                                                overflow: TextOverflow.visible,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  height: 0.95,
+                                                  fontSize: MediaQuery.of(context).size.height * 0.012,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+
+
+
+                              // Health Blogs
+                              if(!_isLoading)
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.03,
+                                    top: MediaQuery.of(context).size.height *
+                                        0.0,
+                                    right: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.03,
+                                    bottom: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.005),
+                                child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceBetween,
+                                    children: <Widget>[
+
+                                      Container(
+                                        padding: EdgeInsets.only(
                                             left: MediaQuery
                                                 .of(context)
                                                 .size
@@ -824,874 +1100,622 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                 .of(context)
                                                 .size
                                                 .height * 0.00,
-                                            top: MediaQuery.of(context).size.height *
-                                                0.015,
-                                            bottom: MediaQuery
+                                            top: MediaQuery
                                                 .of(context)
                                                 .size
                                                 .height * 0.005,
-                                          ),
-                                          child:
-                                          Text(
-                                            "Upcoming Appointments",
-                                            style: TextStyle(
-                                              fontSize: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.014,
-                                              color: Color(0xFF000000),
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ),
-
-                                        GestureDetector(
-                                          onTap : () async {
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(builder: (context) {
-                                                     return AppointmentsFootMain(initialIndex: 1,);
-
-                                                })
-                                            );
-                                          },
-
-                                          child: Container(
-
-                                            padding : EdgeInsets.only(
-                                              top: MediaQuery.of(context).size.height *
-                                                  0.015,
-                                              bottom: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.005,
-                                              right: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.03,
-
-                                            ),
-                                            child: Container(
-
-                                              padding: EdgeInsets.only(
-                                                  left: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height * 0.00,
-                                                  right: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height * 0.00,
-                                                  top: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height * 0.00,
-                                                  bottom: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height * 0.00),
-                                              child:
-                                              Text(
-                                                "View All",
-                                                style: TextStyle(
-                                                  color: Color(0xFF126086),
-                                                  fontWeight: FontWeight.w600,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  fontSize: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height * 0.012,
-                                                ),
-                                              ),
-                                            ),
+                                            bottom: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.005),
+                                        child:
+                                        Text(
+                                          "Health Blogs",
+                                          style: TextStyle(
+                                            fontSize: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.014,
+                                            color: Color(0xFF000000),
+                                            fontWeight: FontWeight.w600,
                                           ),
                                         ),
-
-
-                                      ]
-
-                                  ),
-                                )
-                                    : Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Container(
-                                    margin: EdgeInsets.only(
-                                      top : MediaQuery.of(context).size.height * 0.025,
-                                      right: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.02,
-
-                                      left: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.02,
-                                    ),
-                                    height : screenHeight * 0.008,
-                                    width : screenWidth * 0.3,
-                                    child : SkeltonLoader(),
-                                  ),
-                                ),
-
-                                if(!isGuestUser)
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: List.generate(appointmentsData.length, (index) {
-                                        return  _buildCard(context, index);
-                                      }),
-                                    ),
-                                  ),
-
-
-
-                                // Other Services Section
-                                if(!_isLoading)
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.03,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.015,
-                                      right: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.0,
-                                      bottom: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.005),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Other Services",
-                                      style: TextStyle(
-                                        fontSize: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .height * 0.014,
-                                        color: Color(0xFF000000),
-                                        fontWeight: FontWeight.w600,
                                       ),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
+
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                            left: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.00,
+                                            right: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.00,
+                                            top: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.00,
+                                            bottom: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.00),
+                                        child:
+                                        Text(
+                                          "View All",
+                                          style: TextStyle(
+                                            color: Color(0xFF126086),
+                                            fontWeight: FontWeight.w600,
+                                            overflow: TextOverflow.ellipsis,
+                                            fontSize: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.012,
+                                          ),
+                                        ),
+                                      ),
+
+
+                                    ]
+
                                 ),
+                              ),
 
-                                if(!_isLoading)
-
-
-
+                              if(!_isLoading)
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  // Provide a width constraint using SizedBox or Expanded
+                                  AspectRatio(
+                                    aspectRatio: 256 / 125,
+                                  child:
                                   Container(
+                                    margin : EdgeInsets.only(
+                                      top : MediaQuery.of(context).size.height * 0.01,
+                                      left : MediaQuery.of(context).size.height * 0.01,
+                                      right : MediaQuery.of(context).size.height * 0.01,
 
-                                    padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height * 0.02,
-                                      right: MediaQuery.of(context).size.height * 0.02,
-                                      bottom: MediaQuery.of(context).size.height * 0.02,
                                     ),
-                                    child: GridView.builder(
-                                      shrinkWrap: true,
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 4,
-                                        crossAxisSpacing: MediaQuery.of(context).size.height * 0.02,
-                                        // ⬇️ पहली row–container gap कम करने के लिए 0 कर सकते हैं
-                                        mainAxisSpacing: 0,
-                                        childAspectRatio: 0.9,
-                                      ),
-                                      padding: EdgeInsets.only(
-                                        top : screenHeight * 0.02,
-                                      ),
-                                      itemCount: myOtherServices.length,
-                                      itemBuilder: (context, index) {
-                                        return Align(
-                                          alignment: Alignment.topCenter,
-                                          child: Column(
-                                            children: [
-                                              // ---------- Icon Button ----------
-                                              TextButton(
-
-                                                  onPressed: () async {
-                                                    final isLoggedIn = await UserSecureStorage.getIfGuestLogged() ?? "NO";
-
-                                                    if (isLoggedIn == "YES") {
-                                                      // Show login bottom sheet for guest users
-                                                      Timer(const Duration(milliseconds: 0), () {
-                                                        LoginBottomSheet.show(context, false);
-                                                      });
-                                                    } else {
-                                                      // Navigate to details page for logged-in users
-                                                      Navigator.of(context).push(
-                                                        MaterialPageRoute(
-                                                          builder: (BuildContext context) {
-                                                            return HomecareOtherserviceDetail(
-                                                              usernameValue: myOtherServices[index][1],
-                                                              category: myOtherServices[index][2],
-                                                            );
-                                                          },
-                                                        ),
-                                                      );
-                                                    }
-                                                  },
-                                                  style: TextButton.styleFrom(
-                                                    backgroundColor: const Color(0xFFE8F0F3),
-                                                    padding: EdgeInsets.all(screenHeight * 0.01),
-                                                    minimumSize: Size(
-                                                      screenHeight * 0.04,
-                                                      screenHeight * 0.04,
-                                                    ),
-                                                  ),
-                                                  child: Container(
-                                                    width: screenHeight * 0.03,
-                                                    height: screenHeight * 0.03,
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        image: AssetImage(myOtherServices[index][0]),
-                                                        fit: BoxFit.contain,
-                                                      ),
-                                                    ),
-                                                  ),
-                                              ),
-
-                                            SizedBox(height :screenHeight * 0.008),
-
-                                              // ---------- Label ----------
-                                              Expanded(
-                                                child: Text(
-                                                  myOtherServices[index][1],
-                                                  maxLines: 2,
-
-                                                  overflow: TextOverflow.visible,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    height: 0.95,
-                                                    fontSize: MediaQuery.of(context).size.height * 0.012,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-
-
-
-                                // Health Blogs
-                                if(!_isLoading)
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.03,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.0,
-                                      right: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.03,
-                                      bottom: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.005),
-                                  child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceBetween,
-                                      children: <Widget>[
-
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                              left: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.00,
-                                              right: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.00,
-                                              top: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.005,
-                                              bottom: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.005),
-                                          child:
-                                          Text(
-                                            "Health Blogs",
-                                            style: TextStyle(
-                                              fontSize: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.014,
-                                              color: Color(0xFF000000),
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ),
-
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                              left: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.00,
-                                              right: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.00,
-                                              top: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.00,
-                                              bottom: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.00),
-                                          child:
-                                          Text(
-                                            "View All",
-                                            style: TextStyle(
-                                              color: Color(0xFF126086),
-                                              fontWeight: FontWeight.w600,
-                                              overflow: TextOverflow.ellipsis,
-                                              fontSize: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.012,
-                                            ),
-                                          ),
-                                        ),
-
-
-                                      ]
-
-                                  ),
-                                ),
-
-                                if(!_isLoading)
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    // Provide a width constraint using SizedBox or Expanded
-                                    AspectRatio(
-                                      aspectRatio: 256 / 125, 
-                                    child: 
-                                    Container(
-                                      margin : EdgeInsets.only(
-                                        top : MediaQuery.of(context).size.height * 0.01,
-                                        left : MediaQuery.of(context).size.height * 0.01,
-                                        right : MediaQuery.of(context).size.height * 0.01,
-
-                                      ),
-                                      // height: MediaQuery
-                                      //     .of(context)
-                                      //     .size
-                                      //     .height * 0.2,
-                                      // height: 10,
-                                      // child: myWidget(
-                                      child: MediaQuery(
-                                        data: MediaQuery.of(context).copyWith(textScaleFactor:  MediaQuery.of(context).textScaleFactor.clamp(1.0, 1.0),),
-                                        child: ListView.builder(
-                                          physics: ScrollPhysics(),
-                                          shrinkWrap: true,
-                                          // Prevents ListView from taking up extra space
-                                          scrollDirection: Axis.horizontal,
-                                          // Makes the ListView horizontal
-                                          itemCount: 4,
-                                          // You can adjust the item count
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return GestureDetector(
-                                              onTap: () {
-                                                // Add your onTap logic here
-                                              },
-                                              child: Card(
-                                                elevation: 0,
-                                                child: Container(
-                                                  width: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height * 0.435,
-                                                  padding: EdgeInsets.only(
-                                                      left: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.01,
-                                                      right: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.01,
-                                                      bottom: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.00,
-                                                      top: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.0
-                                                  ),
-                                                  color: Colors.white,
-                                                  child: Container(
-                                                    margin: EdgeInsets.only(
-                                                      left:  MediaQuery
-                                                                    .of(context)
-                                                                    .size
-                                                                    .height * 0.0,
-                                                      right:  MediaQuery
-                                                                    .of(context)
-                                                                    .size
-                                                                    .height * 0.0,
-                                                      top:  MediaQuery
-                                                                    .of(context)
-                                                                    .size
-                                                                    .height * 0.0,
-                                                      bottom:  MediaQuery
-                                                                    .of(context)
-                                                                    .size
-                                                                    .height * 0.0,
-                                                    ),
-                                                    height: MediaQuery
-                                                        .of(context)
-                                                        .size
-                                                        .height * 0.12,
-                                                    decoration: BoxDecoration(
-                                                      // color: Color(0xFFC80000), // Fallback color if image fails to load
-                                                      borderRadius: BorderRadius
-                                                          .circular(6),
-                                                      image: DecorationImage(
-                                                        image: AssetImage(
-                                                            myhealyhblogbanner[index][0]),
-                                                        // Path to your banner image
-                                                        fit: BoxFit
-                                                            .cover, // Ensure image fills the container
-                                                      ),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Theme
-                                                              .of(context)
-                                                              .hintColor
-                                                              .withOpacity(0.0),
-                                                          offset: Offset(0, 4),
-                                                          blurRadius: 9,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    child: Row(
-                                                      children: <Widget>[
-                                                        Flexible(
-                                                          flex: 6,
-                                                          // 6 out of 10 for the text section
-                                                          child: Padding(
-                                                            padding: EdgeInsets.only(
-                                                                left: MediaQuery
-                                                                    .of(context)
-                                                                    .size
-                                                                    .height * 0.01,
-                                                                right: MediaQuery
-                                                                    .of(context)
-                                                                    .size
-                                                                    .height * 0.01,
-                                                                top: MediaQuery
-                                                                    .of(context)
-                                                                    .size
-                                                                    .height * 0.0,
-                                                                bottom: MediaQuery
-                                                                    .of(context)
-                                                                    .size
-                                                                    .height * 0.01,
-                                                            ),
-                                                            child: Column(
-                                                              mainAxisAlignment: MainAxisAlignment
-                                                                  .center,
-                                                              crossAxisAlignment: CrossAxisAlignment
-                                                                  .start,
-                                                              children: <Widget>[
-                                                                Row(
-                                                                  crossAxisAlignment: CrossAxisAlignment
-                                                                      .center,
-                                                                  mainAxisAlignment: MainAxisAlignment
-                                                                      .spaceBetween,
-                                                                  children: <Widget>[
-                                                                    Text(
-                                                                      "Neurosurgery",
-                                                                      style: TextStyle(
-                                                                        overflow: TextOverflow
-                                                                            .ellipsis,
-                                                                        fontSize: MediaQuery
-                                                                            .of(context)
-                                                                            .size
-                                                                            .height *
-                                                                            0.012,
-                                                                        color: Colors
-                                                                            .white,
-                                                                      ),
-                                                                      textAlign: TextAlign
-                                                                          .left,
-                                                                    ),
-                                                                    Row(
-                                                                      crossAxisAlignment: CrossAxisAlignment
-                                                                          .center,
-                                                                      mainAxisAlignment: MainAxisAlignment
-                                                                          .start,
-                                                                      children: <
-                                                                          Widget>[
-                                                                        Container(
-                                                                          height: screenHeight *
-                                                                              0.025,
-                                                                          width: screenHeight *
-                                                                              0.025,
-                                                                          decoration: BoxDecoration(
-                                                                            color: Colors
-                                                                                .blue[100]!
-                                                                                .withOpacity(
-                                                                                0.2),
-                                                                            shape: BoxShape
-                                                                                .circle,
-                                                                          ),
-                                                                          child: Icon(
-                                                                            Icons
-                                                                                .bookmark,
-                                                                            color: Colors
-                                                                                .white,
-                                                                            size: screenHeight *
-                                                                                0.015,
-                                                                          ),
-                                                                        ),
-                                                                        Container(
-                                                                          margin: EdgeInsets
-                                                                              .only(
-                                                                              left: MediaQuery
-                                                                                  .of(
-                                                                                  context)
-                                                                                  .size
-                                                                                  .height *
-                                                                                  0.005,
-                                                                              right: MediaQuery
-                                                                                  .of(
-                                                                                  context)
-                                                                                  .size
-                                                                                  .height *
-                                                                                  0.00,
-                                                                              bottom: MediaQuery
-                                                                                  .of(
-                                                                                  context)
-                                                                                  .size
-                                                                                  .height *
-                                                                                  0.00,
-                                                                              top: MediaQuery
-                                                                                  .of(
-                                                                                  context)
-                                                                                  .size
-                                                                                  .height *
-                                                                                  0.00),
-                                                                          height: screenHeight *
-                                                                              0.025,
-                                                                          width: screenHeight *
-                                                                              0.025,
-                                                                          decoration: BoxDecoration(
-                                                                            color: Colors
-                                                                                .blue[100]!
-                                                                                .withOpacity(
-                                                                                0.2),
-                                                                            shape: BoxShape
-                                                                                .circle,
-                                                                          ),
-                                                                          child : Image.asset(
-                                                                              "assets/ShareIcon_withbg.png",
-                                                                              fit: BoxFit.fill,
-                                                                          )
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                SizedBox(height: 5),
-                                                                Text(
-                                                                  "10 Frequently asked questions about Brain Tumors",
-                                                                  style: TextStyle(
-                                                                    fontSize: MediaQuery
-                                                                        .of(context)
-                                                                        .size
-                                                                        .height * 0.014,
-                                                                    color: Colors.white,
-                                                                    fontWeight: FontWeight
-                                                                        .bold,
-                                                                  ),
-                                                                  textAlign: TextAlign
-                                                                      .left,
-                                                                ),
-                                                                SizedBox(height: 5),
-                                                                Text(
-                                                                  "1. What is a Brain Tumor?",
-                                                                  style: TextStyle(
-                                                                    fontSize: MediaQuery
-                                                                        .of(context)
-                                                                        .size
-                                                                        .height * 0.009,
-                                                                    color: Colors.white,
-                                                                  ),
-                                                                  textAlign: TextAlign
-                                                                      .left,
-                                                                ),
-                                                                SizedBox(height: 2),
-                                                                Text(
-                                                                  "It is a mass of abnormal tissue growing in any part of the brain or outside within the skull.",
-                                                                  style: TextStyle(
-                                                                    fontSize: MediaQuery
-                                                                        .of(context)
-                                                                        .size
-                                                                        .height * 0.009,
-                                                                    color: Colors.white,
-                                                                  ),
-                                                                  textAlign: TextAlign
-                                                                      .left,
-                                                                ),
-                                                                SizedBox(height: 2),
-                                                                Text(
-                                                                  "2. Is a brain tumor treatable?",
-                                                                  style: TextStyle(
-                                                                    fontSize: MediaQuery
-                                                                        .of(context)
-                                                                        .size
-                                                                        .height * 0.009,
-                                                                    color: Colors.white,
-                                                                  ),
-                                                                  textAlign: TextAlign
-                                                                      .left,
-                                                                ),
-                                                                SizedBox(height: 2),
-                                                                Text(
-                                                                  "Modern neurosurgery is to cure or at least control a brain tumor and offer a productive, symptoms-free life to a patient.",
-                                                                  style: TextStyle(
-                                                                    fontSize: MediaQuery
-                                                                        .of(context)
-                                                                        .size
-                                                                        .height * 0.009,
-                                                                    color: Colors.white,
-                                                                  ),
-                                                                  textAlign: TextAlign
-                                                                      .left,
-                                                                ),
-                                                                SizedBox(height: 2),
-                                                                Text(
-                                                                  "3. What is the difference between benign and malignant tumors?",
-                                                                  style: TextStyle(
-                                                                    fontSize: MediaQuery
-                                                                        .of(context)
-                                                                        .size
-                                                                        .height * 0.009,
-                                                                    color: Colors.white,
-                                                                  ),
-                                                                  textAlign: TextAlign
-                                                                      .left,
-                                                                ),
-                                                                SizedBox(height: 2),
-                                                                Text(
-                                                                  "Benign tumors grow slowly and do not spread. Surgical excision can be curative.",
-                                                                  style: TextStyle(
-                                                                    fontSize: MediaQuery
-                                                                        .of(context)
-                                                                        .size
-                                                                        .height * 0.009,
-                                                                    color: Colors.white,
-                                                                  ),
-                                                                  textAlign: TextAlign
-                                                                      .left,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                      // ),
-                                    ),
-                                    ),
-                                  ],
-                                ),
-
-
-                                // Recommend doctors
-                                if(!isGuestUser)
-                                if(!_isLoading)
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.03,
-
-                                  ),
-                                  child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceBetween,
-                                      children: <Widget>[
-
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                              left: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.00,
-                                              right: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.00,
-                                            top: MediaQuery.of(context).size.height *
-                                                0.015,
-                                            bottom: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height * 0.005,
-                                          ),
-                                          child:
-                                          Text(
-                                            "Recommend Doctors",
-                                            style: TextStyle(
-                                              fontSize: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.014,
-                                              color: Color(0xFF000000),
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ),
-
-                                        GestureDetector(
-                                          onTap : () async {
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (BuildContext context) {
-                                                  return FindDoctorsListMain(
-                                                      "in-person"); // Replace with another widget
-                                                },
-                                              ),
-                                            );
-                                          },
-
-                                          child: Container(
-
-                                            padding : EdgeInsets.only(
-                                              top: MediaQuery.of(context).size.height *
-                                                  0.015,
-                                                  bottom: MediaQuery
-                                                      .of(context)
-                                                        .size
-                                                      .height * 0.005,
-                                              right: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height * 0.03,
-
-                                            ),
-                                            child: Container(
-
-                                              padding: EdgeInsets.only(
-                                                  left: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height * 0.00,
-                                                  right: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height * 0.00,
-                                                  top: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height * 0.00,
-                                                  bottom: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height * 0.00),
-                                              child:
-                                              Text(
-                                                "View All",
-                                                style: TextStyle(
-                                                  color: Color(0xFF126086),
-                                                  fontWeight: FontWeight.w600,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  fontSize: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height * 0.012,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-
-
-                                      ]
-
-                                  ),
-                                ),
-                                if(!isGuestUser)
-                                if(!_isLoading)
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    // Provide a width constraint using SizedBox or Expanded
-                                    Container(
-
-                                      margin: EdgeInsets.only(
-                                          left: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height * 0.02,
-                                          right: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height * 0.02,
-                                          bottom: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height * 0.120,
-                                          top: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height * 0.015),
-                                      height: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * 0.15,
+                                    // height: MediaQuery
+                                    //     .of(context)
+                                    //     .size
+                                    //     .height * 0.2,
+                                    // height: 10,
+                                    // child: myWidget(
+                                    child: MediaQuery(
+                                      data: MediaQuery.of(context).copyWith(textScaleFactor:  MediaQuery.of(context).textScaleFactor.clamp(1.0, 1.0),),
                                       child: ListView.builder(
                                         physics: ScrollPhysics(),
                                         shrinkWrap: true,
+                                        // Prevents ListView from taking up extra space
                                         scrollDirection: Axis.horizontal,
-                                        itemCount:  responselist.length,
+                                        // Makes the ListView horizontal
+                                        itemCount: 4,
+                                        // You can adjust the item count
                                         itemBuilder: (BuildContext context,
                                             int index) {
-
-                                          final item =  responselist[index];
                                           return GestureDetector(
                                             onTap: () {
                                               // Add your onTap logic here
                                             },
                                             child: Card(
-                                              elevation: 0.0,
-                                              color: Colors.white,
+                                              elevation: 0,
                                               child: Container(
                                                 width: MediaQuery
                                                     .of(context)
                                                     .size
-                                                    .height * 0.35,
+                                                    .height * 0.435,
                                                 padding: EdgeInsets.only(
+                                                    left: MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .height * 0.01,
+                                                    right: MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .height * 0.01,
+                                                    bottom: MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .height * 0.00,
+                                                    top: MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .height * 0.0
+                                                ),
+                                                color: Colors.white,
+                                                child: Container(
+                                                  margin: EdgeInsets.only(
+                                                    left:  MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.0,
+                                                    right:  MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.0,
+                                                    top:  MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.0,
+                                                    bottom:  MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.0,
+                                                  ),
+                                                  height: MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .height * 0.12,
+                                                  decoration: BoxDecoration(
+                                                    // color: Color(0xFFC80000), // Fallback color if image fails to load
+                                                    borderRadius: BorderRadius
+                                                        .circular(6),
+                                                    image: DecorationImage(
+                                                      image: AssetImage(
+                                                          myhealyhblogbanner[index][0]),
+                                                      // Path to your banner image
+                                                      fit: BoxFit
+                                                          .cover, // Ensure image fills the container
+                                                    ),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Theme
+                                                            .of(context)
+                                                            .hintColor
+                                                            .withOpacity(0.0),
+                                                        offset: Offset(0, 4),
+                                                        blurRadius: 9,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Flexible(
+                                                        flex: 6,
+                                                        // 6 out of 10 for the text section
+                                                        child: Padding(
+                                                          padding: EdgeInsets.only(
+                                                              left: MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.01,
+                                                              right: MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.01,
+                                                              top: MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.0,
+                                                              bottom: MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height * 0.01,
+                                                          ),
+                                                          child: Column(
+                                                            mainAxisAlignment: MainAxisAlignment
+                                                                .center,
+                                                            crossAxisAlignment: CrossAxisAlignment
+                                                                .start,
+                                                            children: <Widget>[
+                                                              Row(
+                                                                crossAxisAlignment: CrossAxisAlignment
+                                                                    .center,
+                                                                mainAxisAlignment: MainAxisAlignment
+                                                                    .spaceBetween,
+                                                                children: <Widget>[
+                                                                  Text(
+                                                                    "Neurosurgery",
+                                                                    style: TextStyle(
+                                                                      overflow: TextOverflow
+                                                                          .ellipsis,
+                                                                      fontSize: MediaQuery
+                                                                          .of(context)
+                                                                          .size
+                                                                          .height *
+                                                                          0.012,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                    textAlign: TextAlign
+                                                                        .left,
+                                                                  ),
+                                                                  Row(
+                                                                    crossAxisAlignment: CrossAxisAlignment
+                                                                        .center,
+                                                                    mainAxisAlignment: MainAxisAlignment
+                                                                        .start,
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Container(
+                                                                        height: screenHeight *
+                                                                            0.025,
+                                                                        width: screenHeight *
+                                                                            0.025,
+                                                                        decoration: BoxDecoration(
+                                                                          color: Colors
+                                                                              .blue[100]!
+                                                                              .withOpacity(
+                                                                              0.2),
+                                                                          shape: BoxShape
+                                                                              .circle,
+                                                                        ),
+                                                                        child: Icon(
+                                                                          Icons
+                                                                              .bookmark,
+                                                                          color: Colors
+                                                                              .white,
+                                                                          size: screenHeight *
+                                                                              0.015,
+                                                                        ),
+                                                                      ),
+                                                                      Container(
+                                                                        margin: EdgeInsets
+                                                                            .only(
+                                                                            left: MediaQuery
+                                                                                .of(
+                                                                                context)
+                                                                                .size
+                                                                                .height *
+                                                                                0.005,
+                                                                            right: MediaQuery
+                                                                                .of(
+                                                                                context)
+                                                                                .size
+                                                                                .height *
+                                                                                0.00,
+                                                                            bottom: MediaQuery
+                                                                                .of(
+                                                                                context)
+                                                                                .size
+                                                                                .height *
+                                                                                0.00,
+                                                                            top: MediaQuery
+                                                                                .of(
+                                                                                context)
+                                                                                .size
+                                                                                .height *
+                                                                                0.00),
+                                                                        height: screenHeight *
+                                                                            0.025,
+                                                                        width: screenHeight *
+                                                                            0.025,
+                                                                        decoration: BoxDecoration(
+                                                                          color: Colors
+                                                                              .blue[100]!
+                                                                              .withOpacity(
+                                                                              0.2),
+                                                                          shape: BoxShape
+                                                                              .circle,
+                                                                        ),
+                                                                        child : Image.asset(
+                                                                            "assets/ShareIcon_withbg.png",
+                                                                            fit: BoxFit.fill,
+                                                                        )
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              SizedBox(height: 5),
+                                                              Text(
+                                                                "10 Frequently asked questions about Brain Tumors",
+                                                                style: TextStyle(
+                                                                  fontSize: MediaQuery
+                                                                      .of(context)
+                                                                      .size
+                                                                      .height * 0.014,
+                                                                  color: Colors.white,
+                                                                  fontWeight: FontWeight
+                                                                      .bold,
+                                                                ),
+                                                                textAlign: TextAlign
+                                                                    .left,
+                                                              ),
+                                                              SizedBox(height: 5),
+                                                              Text(
+                                                                "1. What is a Brain Tumor?",
+                                                                style: TextStyle(
+                                                                  fontSize: MediaQuery
+                                                                      .of(context)
+                                                                      .size
+                                                                      .height * 0.009,
+                                                                  color: Colors.white,
+                                                                ),
+                                                                textAlign: TextAlign
+                                                                    .left,
+                                                              ),
+                                                              SizedBox(height: 2),
+                                                              Text(
+                                                                "It is a mass of abnormal tissue growing in any part of the brain or outside within the skull.",
+                                                                style: TextStyle(
+                                                                  fontSize: MediaQuery
+                                                                      .of(context)
+                                                                      .size
+                                                                      .height * 0.009,
+                                                                  color: Colors.white,
+                                                                ),
+                                                                textAlign: TextAlign
+                                                                    .left,
+                                                              ),
+                                                              SizedBox(height: 2),
+                                                              Text(
+                                                                "2. Is a brain tumor treatable?",
+                                                                style: TextStyle(
+                                                                  fontSize: MediaQuery
+                                                                      .of(context)
+                                                                      .size
+                                                                      .height * 0.009,
+                                                                  color: Colors.white,
+                                                                ),
+                                                                textAlign: TextAlign
+                                                                    .left,
+                                                              ),
+                                                              SizedBox(height: 2),
+                                                              Text(
+                                                                "Modern neurosurgery is to cure or at least control a brain tumor and offer a productive, symptoms-free life to a patient.",
+                                                                style: TextStyle(
+                                                                  fontSize: MediaQuery
+                                                                      .of(context)
+                                                                      .size
+                                                                      .height * 0.009,
+                                                                  color: Colors.white,
+                                                                ),
+                                                                textAlign: TextAlign
+                                                                    .left,
+                                                              ),
+                                                              SizedBox(height: 2),
+                                                              Text(
+                                                                "3. What is the difference between benign and malignant tumors?",
+                                                                style: TextStyle(
+                                                                  fontSize: MediaQuery
+                                                                      .of(context)
+                                                                      .size
+                                                                      .height * 0.009,
+                                                                  color: Colors.white,
+                                                                ),
+                                                                textAlign: TextAlign
+                                                                    .left,
+                                                              ),
+                                                              SizedBox(height: 2),
+                                                              Text(
+                                                                "Benign tumors grow slowly and do not spread. Surgical excision can be curative.",
+                                                                style: TextStyle(
+                                                                  fontSize: MediaQuery
+                                                                      .of(context)
+                                                                      .size
+                                                                      .height * 0.009,
+                                                                  color: Colors.white,
+                                                                ),
+                                                                textAlign: TextAlign
+                                                                    .left,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    // ),
+                                  ),
+                                  ),
+                                ],
+                              ),
+
+
+                              // Recommend doctors
+                              if(!isGuestUser)
+                              if(!_isLoading)
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.03,
+
+                                ),
+                                child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceBetween,
+                                    children: <Widget>[
+
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                            left: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.00,
+                                            right: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.00,
+                                          top: MediaQuery.of(context).size.height *
+                                              0.015,
+                                          bottom: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.005,
+                                        ),
+                                        child:
+                                        Text(
+                                          "Recommend Doctors",
+                                          style: TextStyle(
+                                            fontSize: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.014,
+                                            color: Color(0xFF000000),
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+
+                                      GestureDetector(
+                                        onTap : () async {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (BuildContext context) {
+                                                return FindDoctorsListMain(
+                                                    "in-person"); // Replace with another widget
+                                              },
+                                            ),
+                                          );
+                                        },
+
+                                        child: Container(
+
+                                          padding : EdgeInsets.only(
+                                            top: MediaQuery.of(context).size.height *
+                                                0.015,
+                                                bottom: MediaQuery
+                                                    .of(context)
+                                                      .size
+                                                    .height * 0.005,
+                                            right: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.03,
+
+                                          ),
+                                          child: Container(
+
+                                            padding: EdgeInsets.only(
+                                                left: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height * 0.00,
+                                                right: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height * 0.00,
+                                                top: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height * 0.00,
+                                                bottom: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height * 0.00),
+                                            child:
+                                            Text(
+                                              "View All",
+                                              style: TextStyle(
+                                                color: Color(0xFF126086),
+                                                fontWeight: FontWeight.w600,
+                                                overflow: TextOverflow.ellipsis,
+                                                fontSize: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height * 0.012,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+
+
+                                    ]
+
+                                ),
+                              ),
+                              if(!isGuestUser)
+                              if(!_isLoading)
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  // Provide a width constraint using SizedBox or Expanded
+                                  Container(
+
+                                    margin: EdgeInsets.only(
+                                        left: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height * 0.02,
+                                        right: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height * 0.02,
+
+                                        top: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height * 0.015),
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.15,
+                                    child: ListView.builder(
+                                      physics: ScrollPhysics(),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount:  responselist.length,
+                                      itemBuilder: (BuildContext context,
+                                          int index) {
+
+                                        final item =  responselist[index];
+                                        return GestureDetector(
+                                          onTap: () {
+                                            // Add your onTap logic here
+                                          },
+                                          child: Card(
+                                            elevation: 0.0,
+                                            color: Colors.white,
+                                            child: Container(
+                                              width: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height * 0.35,
+                                              padding: EdgeInsets.only(
+                                                  left: MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .height * 0.00,
+                                                  right: MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .height * 0.00,
+                                                  bottom: MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .height * 0.00,
+                                                  top: MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .height * 0.00),
+                                              color: Colors.white,
+                                              child:
+                                              Container(
+                                                // color: Colors.white,
+
+                                                decoration: BoxDecoration(
+                                                  color: Colors
+                                                      .white,
+                                                  // Background color of the container
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(
+                                                          0.1), // Shadow color
+                                                      blurRadius:
+                                                      5, // Spread of the shadow
+                                                      offset: Offset(0,
+                                                          0), // Offset in x and y direction
+                                                    ),
+                                                  ],
+                                                  borderRadius: BorderRadius
+                                                      .circular(
+                                                      8), // Optional: Rounded corners
+                                                ),
+                                                margin: EdgeInsets.only(
                                                     left: MediaQuery
                                                         .of(context)
                                                         .size
@@ -1708,648 +1732,555 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                         .of(context)
                                                         .size
                                                         .height * 0.00),
-                                                color: Colors.white,
-                                                child:
-                                                Container(
-                                                  // color: Colors.white,
+                                                padding: EdgeInsets.only(
+                                                    left: MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .height * 0.01,
+                                                    right: MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .height * 0.005,
+                                                    bottom: MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .height * 0.01,
+                                                    top: MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .height * 0.01),
+                                                child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment
+                                                        .center,
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: <Widget>[
 
-                                                  decoration: BoxDecoration(
-                                                    color: Colors
-                                                        .white,
-                                                    // Background color of the container
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: Colors.black
-                                                            .withOpacity(
-                                                            0.1), // Shadow color
-                                                        blurRadius:
-                                                        5, // Spread of the shadow
-                                                        offset: Offset(0,
-                                                            0), // Offset in x and y direction
-                                                      ),
-                                                    ],
-                                                    borderRadius: BorderRadius
-                                                        .circular(
-                                                        8), // Optional: Rounded corners
-                                                  ),
-                                                  margin: EdgeInsets.only(
-                                                      left: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.00,
-                                                      right: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.00,
-                                                      bottom: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.00,
-                                                      top: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.00),
-                                                  padding: EdgeInsets.only(
-                                                      left: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.01,
-                                                      right: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.005,
-                                                      bottom: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.01,
-                                                      top: MediaQuery
-                                                          .of(context)
-                                                          .size
-                                                          .height * 0.01),
-                                                  child: Column(
-                                                      crossAxisAlignment: CrossAxisAlignment
-                                                          .center,
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: <Widget>[
-
-                                                        Container(
-                                                          // color: Colors.red,
-                                                          // height: MediaQuery.of(context).size.height * 0.12,
-                                                          padding: EdgeInsets.only(
-                                                              left: MediaQuery
-                                                                  .of(context)
-                                                                  .size
-                                                                  .height * 0.005,
-                                                              right: MediaQuery
-                                                                  .of(context)
-                                                                  .size
-                                                                  .height * 0.005,
-                                                              top: MediaQuery
-                                                                  .of(context)
-                                                                  .size
-                                                                  .height * 0.00,
-                                                              bottom: MediaQuery
-                                                                  .of(context)
-                                                                  .size
-                                                                  .height * 0.00),
-                                                          // width: double.infinity,
-                                                          // height: SizeConfig.blockSizeVertical * 15,
-                                                          /* decoration: BoxDecoration(
-                                                                  borderRadius: BorderRadius.circular(
-                                                                      MediaQuery.of(context).size.height * 0.045),
-                                                                    color: Colors.blueGrey[50],
-                                                                  border: Border.all(
-                                                                    color: Colors.blueGrey[50]!,
-                                                                    width: MediaQuery.of(context).size.height * 0.001,
-                                                                  ),
-                                                                ),*/
-                                                          /*  margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.005),*/
-                                                          child: Row(
-                                                            crossAxisAlignment: CrossAxisAlignment
-                                                                .center,
-                                                            mainAxisAlignment: MainAxisAlignment
-                                                                .start,
-                                                            children: <Widget>[
-                                                              Expanded(
-                                                                flex: 2,
-                                                                child:
-                                                                Container(
-
-                                                                  padding: EdgeInsets
-                                                                      .only(
-                                                                    left:
-                                                                    MediaQuery
-                                                                        .of(context)
-                                                                        .size
-                                                                        .height *
-                                                                        0.00,
-                                                                  ),
-
-                                                                  child: ClipRRect(
-                                                                    borderRadius: BorderRadius
-                                                                        .circular(
-                                                                        130.0),
-                                                                    child: Image
-                                                                        .asset(
-                                                                      'assets/NutanBhatt.png',
-                                                                      fit: BoxFit
-                                                                          .fill,
-                                                                    ),
-                                                                  ),
+                                                      Container(
+                                                        // color: Colors.red,
+                                                        // height: MediaQuery.of(context).size.height * 0.12,
+                                                        padding: EdgeInsets.only(
+                                                            left: MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .height * 0.005,
+                                                            right: MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .height * 0.005,
+                                                            top: MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .height * 0.00,
+                                                            bottom: MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .height * 0.00),
+                                                        // width: double.infinity,
+                                                        // height: SizeConfig.blockSizeVertical * 15,
+                                                        /* decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(
+                                                                    MediaQuery.of(context).size.height * 0.045),
+                                                                  color: Colors.blueGrey[50],
+                                                                border: Border.all(
+                                                                  color: Colors.blueGrey[50]!,
+                                                                  width: MediaQuery.of(context).size.height * 0.001,
                                                                 ),
+                                                              ),*/
+                                                        /*  margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.005),*/
+                                                        child: Row(
+                                                          crossAxisAlignment: CrossAxisAlignment
+                                                              .center,
+                                                          mainAxisAlignment: MainAxisAlignment
+                                                              .start,
+                                                          children: <Widget>[
+                                                            Expanded(
+                                                              flex: 2,
+                                                              child:
+                                                              Container(
 
-
-                                                                // with Custom circle around img
-                                                                /*    CircleAvatar(
-                                                                      minRadius: MediaQuery.of(context).size.height * 0.082,
-                                                                      backgroundColor: Colors.blue,
-                                                                      child:
-                                                                      FinalProfileimageURI == null ?
-                                                                      Image.asset('assets/ic_profile_edit.png',
-                                                                        height: MediaQuery.of(context).size.height * 0.10,
-                                                                        width: MediaQuery.of(context).size.height * 0.10,) :
-                                                                      new CircleAvatar(backgroundImage: new FileImage(FinalProfileimageURI!), radius: MediaQuery.of(context).size.height * 0.05),
-                                                                    ),*/
-
-
-                                                              ),
-
-                                                              SizedBox(
-                                                                  width: MediaQuery
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                  left:
+                                                                  MediaQuery
                                                                       .of(context)
                                                                       .size
                                                                       .height *
-                                                                      0.010),
+                                                                      0.00,
+                                                                ),
 
-                                                              Expanded(
-                                                                flex: 8,
-                                                                child: Column(
-                                                                  crossAxisAlignment: CrossAxisAlignment
-                                                                      .start,
-                                                                  mainAxisAlignment: MainAxisAlignment
-                                                                      .start,
-                                                                  children: <Widget>[
-
-
-                                                                    // Dr Nutan bhat text & Icon
-                                                                    Container(
-                                                                      padding: EdgeInsets
-                                                                          .only(
-                                                                          left: MediaQuery
-                                                                              .of(
-                                                                              context)
-                                                                              .size
-                                                                              .height *
-                                                                              0.00,
-                                                                          right: MediaQuery
-                                                                              .of(
-                                                                              context)
-                                                                              .size
-                                                                              .height *
-                                                                              0.00,
-                                                                          top: MediaQuery
-                                                                              .of(
-                                                                              context)
-                                                                              .size
-                                                                              .height *
-                                                                              0.0,
-                                                                          bottom: MediaQuery
-                                                                              .of(
-                                                                              context)
-                                                                              .size
-                                                                              .height *
-                                                                              0.00),
-                                                                      child:
-                                                                      Row(
-                                                                          mainAxisAlignment: MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                          crossAxisAlignment: CrossAxisAlignment
-                                                                              .center,
-                                                                          children: [
-                                                                            Container(
-                                                                              padding: EdgeInsets
-                                                                                  .only(
-                                                                                  left: MediaQuery
-                                                                                      .of(
-                                                                                      context)
-                                                                                      .size
-                                                                                      .height *
-                                                                                      0.00,
-                                                                                  right: MediaQuery
-                                                                                      .of(
-                                                                                      context)
-                                                                                      .size
-                                                                                      .height *
-                                                                                      0.00,
-                                                                                  top: MediaQuery
-                                                                                      .of(
-                                                                                      context)
-                                                                                      .size
-                                                                                      .height *
-                                                                                      0.0,
-                                                                                  bottom: MediaQuery
-                                                                                      .of(
-                                                                                      context)
-                                                                                      .size
-                                                                                      .height *
-                                                                                      0.00),
-                                                                              child:
-                                                                              Text(
-                                                                                item.name ?? "",
-                                                                                style: TextStyle(
-                                                                                    color: Colors
-                                                                                        .black87,
-                                                                                    overflow: TextOverflow
-                                                                                        .ellipsis,
-                                                                                    fontWeight: FontWeight
-                                                                                        .w600,
-                                                                                    fontSize: MediaQuery
-                                                                                        .of(
-                                                                                        context)
-                                                                                        .size
-                                                                                        .height *
-                                                                                        0.014
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                            Container(
-                                                                              decoration: BoxDecoration(
-                                                                                color: Colors
-                                                                                    .blue[100]!
-                                                                                    .withOpacity(
-                                                                                    0.2),
-                                                                                borderRadius: BorderRadius
-                                                                                    .circular(
-                                                                                    8),
-                                                                              ),
-                                                                              padding: EdgeInsets
-                                                                                  .only(
-                                                                                  left: MediaQuery
-                                                                                      .of(
-                                                                                      context)
-                                                                                      .size
-                                                                                      .height *
-                                                                                      0.005,
-                                                                                  right: MediaQuery
-                                                                                      .of(
-                                                                                      context)
-                                                                                      .size
-                                                                                      .height *
-                                                                                      0.012,
-                                                                                  top: MediaQuery
-                                                                                      .of(
-                                                                                      context)
-                                                                                      .size
-                                                                                      .height *
-                                                                                      0.003,
-                                                                                  bottom: MediaQuery
-                                                                                      .of(
-                                                                                      context)
-                                                                                      .size
-                                                                                      .height *
-                                                                                      0.003
-                                                                              ),
-                                                                              child:
-                                                                              Row(
-                                                                                children: <
-                                                                                    Widget>[
-
-                                                                                  Icon(
-                                                                                    Icons
-                                                                                        .star,
-                                                                                    color: Colors
-                                                                                        .amber,
-                                                                                    size: MediaQuery
-                                                                                        .of(
-                                                                                        context)
-                                                                                        .size
-                                                                                        .height *
-                                                                                        0.015,
-                                                                                  ),
-
-                                                                                  Padding(
-                                                                                    padding:   EdgeInsets.only(
-                                                                                      left : MediaQuery
-                                                                                          .of(
-                                                                                          context)
-                                                                                          .size
-                                                                                          .height *
-                                                                                          0.003,
-                                                                                    ),
-                                                                                    child: Text(
-                                                                                      "4.3",
-                                                                                      style: TextStyle(
-                                                                                          color: Colors
-                                                                                              .black87,
-                                                                                          fontWeight: FontWeight
-                                                                                              .bold,
-                                                                                          overflow: TextOverflow
-                                                                                              .ellipsis,
-                                                                                          fontSize: MediaQuery
-                                                                                              .of(
-                                                                                              context)
-                                                                                              .size
-                                                                                              .height *
-                                                                                              0.01),
-                                                                                    ),
-                                                                                  )
-                                                                                ],
-                                                                                crossAxisAlignment: CrossAxisAlignment
-                                                                                    .center,
-                                                                              ),
-                                                                            ),
-                                                                          ]
-                                                                      ),
-                                                                    ),
-
-
-                                                                    // General physician Text
-                                                                    Container(
-
-                                                                      padding: EdgeInsets
-                                                                          .only(
-                                                                          left: MediaQuery
-                                                                              .of(
-                                                                              context)
-                                                                              .size
-                                                                              .height *
-                                                                              0.00,
-                                                                          right: MediaQuery
-                                                                              .of(
-                                                                              context)
-                                                                              .size
-                                                                              .height *
-                                                                              0.00,
-                                                                          top: MediaQuery
-                                                                              .of(
-                                                                              context)
-                                                                              .size
-                                                                              .height *
-                                                                              0.00,
-                                                                          bottom: MediaQuery
-                                                                              .of(
-                                                                              context)
-                                                                              .size
-                                                                              .height *
-                                                                              0.00),
-                                                                      child:
-                                                                      Text(
-                                                                        // "General physician",
-                                                                        item.speciality ?? "",
-                                                                        style: TextStyle(
-                                                                            color: Colors
-                                                                                .black54,
-                                                                            fontWeight: FontWeight
-                                                                                .w500,
-                                                                            overflow: TextOverflow
-                                                                                .ellipsis,
-                                                                            fontSize: MediaQuery
-                                                                                .of(
-                                                                                context)
-                                                                                .size
-                                                                                .height *
-                                                                                0.011
-                                                                        ),
-                                                                      ),
-                                                                    ),
-
-                                                                    // 41 YEARS - MBBS, DIPLOMA IN FAMILY MEDICINE  Text
-                                                                    Container(
-
-                                                                      padding: EdgeInsets
-                                                                          .only(
-                                                                          left: MediaQuery
-                                                                              .of(
-                                                                              context)
-                                                                              .size
-                                                                              .height *
-                                                                              0.00,
-                                                                          right: MediaQuery
-                                                                              .of(
-                                                                              context)
-                                                                              .size
-                                                                              .height *
-                                                                              0.00,
-                                                                          top: MediaQuery
-                                                                              .of(
-                                                                              context)
-                                                                              .size
-                                                                              .height *
-                                                                              0.002,
-                                                                          bottom: MediaQuery
-                                                                              .of(
-                                                                              context)
-                                                                              .size
-                                                                              .height *
-                                                                              0.00),
-                                                                      child:
-                                                                      Text(
-                                                                        "41 YEARS - MBBS, DIPLOMA IN FAMILY MEDICINE",
-                                                                        //   (item.experience ?? "") ,
-                                                                        style: TextStyle(
-                                                                            color: Color(
-                                                                                0xFF126086),
-                                                                            fontWeight: FontWeight
-                                                                                .bold,
-                                                                            overflow: TextOverflow
-                                                                                .ellipsis,
-                                                                            fontSize: MediaQuery
-                                                                                .of(
-                                                                                context)
-                                                                                .size
-                                                                                .height *
-                                                                                0.008
-                                                                        ),
-                                                                      ),
-                                                                    ),
-
-
-                                                                  ],
+                                                                child: ClipRRect(
+                                                                  borderRadius: BorderRadius
+                                                                      .circular(
+                                                                      130.0),
+                                                                  child: Image
+                                                                      .asset(
+                                                                    'assets/NutanBhatt.png',
+                                                                    fit: BoxFit
+                                                                        .fill,
+                                                                  ),
                                                                 ),
                                                               ),
 
 
-                                                            ],
-                                                          ),
-                                                        ),
+                                                              // with Custom circle around img
+                                                              /*    CircleAvatar(
+                                                                    minRadius: MediaQuery.of(context).size.height * 0.082,
+                                                                    backgroundColor: Colors.blue,
+                                                                    child:
+                                                                    FinalProfileimageURI == null ?
+                                                                    Image.asset('assets/ic_profile_edit.png',
+                                                                      height: MediaQuery.of(context).size.height * 0.10,
+                                                                      width: MediaQuery.of(context).size.height * 0.10,) :
+                                                                    new CircleAvatar(backgroundImage: new FileImage(FinalProfileimageURI!), radius: MediaQuery.of(context).size.height * 0.05),
+                                                                  ),*/
 
 
-                                                        // Bottom Row
-                                                        Container(
-                                                          // color: Colors.green,
-                                                          padding: EdgeInsets.only(
-                                                              left: MediaQuery
-                                                                  .of(context)
-                                                                  .size
-                                                                  .height * 0.005,
-                                                              right: MediaQuery
-                                                                  .of(context)
-                                                                  .size
-                                                                  .height * 0.005,
-                                                              top: MediaQuery
-                                                                  .of(context)
-                                                                  .size
-                                                                  .height * 0.00,
-                                                              bottom: MediaQuery
-                                                                  .of(context)
-                                                                  .size
-                                                                  .height * 0.00),
-                                                          width: double.infinity,
-                                                          child: Column(
-                                                              crossAxisAlignment: CrossAxisAlignment
-                                                                  .start,
-                                                              mainAxisAlignment: MainAxisAlignment
-                                                                  .start,
-                                                              children: <Widget>[
-                                                                Container(
-                                                                  decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius
-                                                                        .circular(06),
-                                                                  ),
-                                                                  padding: EdgeInsets
-                                                                      .only(
-                                                                    left: MediaQuery
-                                                                        .of(context)
-                                                                        .size
-                                                                        .height *
-                                                                        0.01,
-                                                                    right: MediaQuery
-                                                                        .of(context)
-                                                                        .size
-                                                                        .height *
-                                                                        0.01,
-                                                                    top: MediaQuery
-                                                                        .of(context)
-                                                                        .size
-                                                                        .height *
-                                                                        0.015,
-                                                                    bottom: MediaQuery
-                                                                        .of(context)
-                                                                        .size
-                                                                        .height *
-                                                                        0.0,),
-                                                                  child: Row(
-                                                                    // mainAxisSize: MainAxisSize.max,
-                                                                      mainAxisAlignment: MainAxisAlignment
-                                                                          .start,
-                                                                      crossAxisAlignment: CrossAxisAlignment
-                                                                          .end,
-                                                                      children: <
-                                                                          Widget>[
-                                                                        Expanded(
-                                                                          child:
-                                                                          Row(
-                                                                              mainAxisAlignment: MainAxisAlignment
-                                                                                  .spaceBetween,
-                                                                              crossAxisAlignment: CrossAxisAlignment
-                                                                                  .center,
+                                                            ),
+
+                                                            SizedBox(
+                                                                width: MediaQuery
+                                                                    .of(context)
+                                                                    .size
+                                                                    .height *
+                                                                    0.010),
+
+                                                            Expanded(
+                                                              flex: 8,
+                                                              child: Column(
+                                                                crossAxisAlignment: CrossAxisAlignment
+                                                                    .start,
+                                                                mainAxisAlignment: MainAxisAlignment
+                                                                    .start,
+                                                                children: <Widget>[
+
+
+                                                                  // Dr Nutan bhat text & Icon
+                                                                  Container(
+                                                                    padding: EdgeInsets
+                                                                        .only(
+                                                                        left: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.00,
+                                                                        right: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.00,
+                                                                        top: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.0,
+                                                                        bottom: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.00),
+                                                                    child:
+                                                                    Row(
+                                                                        mainAxisAlignment: MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                        crossAxisAlignment: CrossAxisAlignment
+                                                                            .center,
+                                                                        children: [
+                                                                          Container(
+                                                                            padding: EdgeInsets
+                                                                                .only(
+                                                                                left: MediaQuery
+                                                                                    .of(
+                                                                                    context)
+                                                                                    .size
+                                                                                    .height *
+                                                                                    0.00,
+                                                                                right: MediaQuery
+                                                                                    .of(
+                                                                                    context)
+                                                                                    .size
+                                                                                    .height *
+                                                                                    0.00,
+                                                                                top: MediaQuery
+                                                                                    .of(
+                                                                                    context)
+                                                                                    .size
+                                                                                    .height *
+                                                                                    0.0,
+                                                                                bottom: MediaQuery
+                                                                                    .of(
+                                                                                    context)
+                                                                                    .size
+                                                                                    .height *
+                                                                                    0.00),
+                                                                            child:
+                                                                            Text(
+                                                                              item.name ?? "",
+                                                                              style: TextStyle(
+                                                                                  color: Colors
+                                                                                      .black87,
+                                                                                  overflow: TextOverflow
+                                                                                      .ellipsis,
+                                                                                  fontWeight: FontWeight
+                                                                                      .w600,
+                                                                                  fontSize: MediaQuery
+                                                                                      .of(
+                                                                                      context)
+                                                                                      .size
+                                                                                      .height *
+                                                                                      0.014
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Container(
+                                                                            decoration: BoxDecoration(
+                                                                              color: Colors
+                                                                                  .blue[100]!
+                                                                                  .withOpacity(
+                                                                                  0.2),
+                                                                              borderRadius: BorderRadius
+                                                                                  .circular(
+                                                                                  8),
+                                                                            ),
+                                                                            padding: EdgeInsets
+                                                                                .only(
+                                                                                left: MediaQuery
+                                                                                    .of(
+                                                                                    context)
+                                                                                    .size
+                                                                                    .height *
+                                                                                    0.005,
+                                                                                right: MediaQuery
+                                                                                    .of(
+                                                                                    context)
+                                                                                    .size
+                                                                                    .height *
+                                                                                    0.012,
+                                                                                top: MediaQuery
+                                                                                    .of(
+                                                                                    context)
+                                                                                    .size
+                                                                                    .height *
+                                                                                    0.003,
+                                                                                bottom: MediaQuery
+                                                                                    .of(
+                                                                                    context)
+                                                                                    .size
+                                                                                    .height *
+                                                                                    0.003
+                                                                            ),
+                                                                            child:
+                                                                            Row(
                                                                               children: <
                                                                                   Widget>[
 
-                                                                                Container(
-                                                                                  decoration: BoxDecoration(
-                                                                                    // color:Colors.white,
-                                                                                    borderRadius: BorderRadius
-                                                                                        .circular(
-                                                                                        15),
+                                                                                Icon(
+                                                                                  Icons
+                                                                                      .star,
+                                                                                  color: Colors
+                                                                                      .amber,
+                                                                                  size: MediaQuery
+                                                                                      .of(
+                                                                                      context)
+                                                                                      .size
+                                                                                      .height *
+                                                                                      0.015,
+                                                                                ),
+
+                                                                                Padding(
+                                                                                  padding:   EdgeInsets.only(
+                                                                                    left : MediaQuery
+                                                                                        .of(
+                                                                                        context)
+                                                                                        .size
+                                                                                        .height *
+                                                                                        0.003,
                                                                                   ),
-                                                                                  // color:Colors.green[100],
-                                                                                  padding: EdgeInsets
-                                                                                      .only(
-                                                                                      left: MediaQuery
-                                                                                          .of(
-                                                                                          context)
-                                                                                          .size
-                                                                                          .height *
-                                                                                          0.0,
-                                                                                      right: MediaQuery
-                                                                                          .of(
-                                                                                          context)
-                                                                                          .size
-                                                                                          .height *
-                                                                                          0.0,
-                                                                                      top: MediaQuery
-                                                                                          .of(
-                                                                                          context)
-                                                                                          .size
-                                                                                          .height *
-                                                                                          0.00,
-                                                                                      bottom: MediaQuery
-                                                                                          .of(
-                                                                                          context)
-                                                                                          .size
-                                                                                          .height *
-                                                                                          0.00),
-                                                                                  child:
+                                                                                  child: Text(
+                                                                                    "4.3",
+                                                                                    style: TextStyle(
+                                                                                        color: Colors
+                                                                                            .black87,
+                                                                                        fontWeight: FontWeight
+                                                                                            .bold,
+                                                                                        overflow: TextOverflow
+                                                                                            .ellipsis,
+                                                                                        fontSize: MediaQuery
+                                                                                            .of(
+                                                                                            context)
+                                                                                            .size
+                                                                                            .height *
+                                                                                            0.01),
+                                                                                  ),
+                                                                                )
+                                                                              ],
+                                                                              crossAxisAlignment: CrossAxisAlignment
+                                                                                  .center,
+                                                                            ),
+                                                                          ),
+                                                                        ]
+                                                                    ),
+                                                                  ),
 
-                                                                                  Row(
-                                                                                      mainAxisAlignment: MainAxisAlignment
-                                                                                          .spaceBetween,
-                                                                                      crossAxisAlignment: CrossAxisAlignment
-                                                                                          .center,
-                                                                                      children: <
-                                                                                          Widget>[
 
-                                                                                        Container(
-                                                                                          margin: EdgeInsets
-                                                                                              .symmetric(
-                                                                                              horizontal: 2),
-                                                                                          height: MediaQuery
-                                                                                              .of(
-                                                                                              context)
-                                                                                              .size
-                                                                                              .height *
-                                                                                              0.005,
-                                                                                          width: MediaQuery
-                                                                                              .of(
-                                                                                              context)
-                                                                                              .size
-                                                                                              .height *
-                                                                                              0.005,
-                                                                                          decoration: BoxDecoration(
-                                                                                            color: Colors
-                                                                                                .black,
-                                                                                            shape: BoxShape
-                                                                                                .circle,
-                                                                                          ),
+                                                                  // General physician Text
+                                                                  Container(
+
+                                                                    padding: EdgeInsets
+                                                                        .only(
+                                                                        left: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.00,
+                                                                        right: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.00,
+                                                                        top: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.00,
+                                                                        bottom: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.00),
+                                                                    child:
+                                                                    Text(
+                                                                      // "General physician",
+                                                                      item.speciality ?? "",
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .black54,
+                                                                          fontWeight: FontWeight
+                                                                              .w500,
+                                                                          overflow: TextOverflow
+                                                                              .ellipsis,
+                                                                          fontSize: MediaQuery
+                                                                              .of(
+                                                                              context)
+                                                                              .size
+                                                                              .height *
+                                                                              0.011
+                                                                      ),
+                                                                    ),
+                                                                  ),
+
+                                                                  // 41 YEARS - MBBS, DIPLOMA IN FAMILY MEDICINE  Text
+                                                                  Container(
+
+                                                                    padding: EdgeInsets
+                                                                        .only(
+                                                                        left: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.00,
+                                                                        right: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.00,
+                                                                        top: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.002,
+                                                                        bottom: MediaQuery
+                                                                            .of(
+                                                                            context)
+                                                                            .size
+                                                                            .height *
+                                                                            0.00),
+                                                                    child:
+                                                                    Text(
+                                                                      "41 YEARS - MBBS, DIPLOMA IN FAMILY MEDICINE",
+                                                                      //   (item.experience ?? "") ,
+                                                                      style: TextStyle(
+                                                                          color: Color(
+                                                                              0xFF126086),
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          overflow: TextOverflow
+                                                                              .ellipsis,
+                                                                          fontSize: MediaQuery
+                                                                              .of(
+                                                                              context)
+                                                                              .size
+                                                                              .height *
+                                                                              0.008
+                                                                      ),
+                                                                    ),
+                                                                  ),
+
+
+                                                                ],
+                                                              ),
+                                                            ),
+
+
+                                                          ],
+                                                        ),
+                                                      ),
+
+
+                                                      // Bottom Row
+                                                      Container(
+                                                        // color: Colors.green,
+                                                        padding: EdgeInsets.only(
+                                                            left: MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .height * 0.005,
+                                                            right: MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .height * 0.005,
+                                                            top: MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .height * 0.00,
+                                                            bottom: MediaQuery
+                                                                .of(context)
+                                                                .size
+                                                                .height * 0.00),
+                                                        width: double.infinity,
+                                                        child: Column(
+                                                            crossAxisAlignment: CrossAxisAlignment
+                                                                .start,
+                                                            mainAxisAlignment: MainAxisAlignment
+                                                                .start,
+                                                            children: <Widget>[
+                                                              Container(
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius
+                                                                      .circular(06),
+                                                                ),
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                  left: MediaQuery
+                                                                      .of(context)
+                                                                      .size
+                                                                      .height *
+                                                                      0.01,
+                                                                  right: MediaQuery
+                                                                      .of(context)
+                                                                      .size
+                                                                      .height *
+                                                                      0.01,
+                                                                  top: MediaQuery
+                                                                      .of(context)
+                                                                      .size
+                                                                      .height *
+                                                                      0.015,
+                                                                  bottom: MediaQuery
+                                                                      .of(context)
+                                                                      .size
+                                                                      .height *
+                                                                      0.0,),
+                                                                child: Row(
+                                                                  // mainAxisSize: MainAxisSize.max,
+                                                                    mainAxisAlignment: MainAxisAlignment
+                                                                        .start,
+                                                                    crossAxisAlignment: CrossAxisAlignment
+                                                                        .end,
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Expanded(
+                                                                        child:
+                                                                        Row(
+                                                                            mainAxisAlignment: MainAxisAlignment
+                                                                                .spaceBetween,
+                                                                            crossAxisAlignment: CrossAxisAlignment
+                                                                                .center,
+                                                                            children: <
+                                                                                Widget>[
+
+                                                                              Container(
+                                                                                decoration: BoxDecoration(
+                                                                                  // color:Colors.white,
+                                                                                  borderRadius: BorderRadius
+                                                                                      .circular(
+                                                                                      15),
+                                                                                ),
+                                                                                // color:Colors.green[100],
+                                                                                padding: EdgeInsets
+                                                                                    .only(
+                                                                                    left: MediaQuery
+                                                                                        .of(
+                                                                                        context)
+                                                                                        .size
+                                                                                        .height *
+                                                                                        0.0,
+                                                                                    right: MediaQuery
+                                                                                        .of(
+                                                                                        context)
+                                                                                        .size
+                                                                                        .height *
+                                                                                        0.0,
+                                                                                    top: MediaQuery
+                                                                                        .of(
+                                                                                        context)
+                                                                                        .size
+                                                                                        .height *
+                                                                                        0.00,
+                                                                                    bottom: MediaQuery
+                                                                                        .of(
+                                                                                        context)
+                                                                                        .size
+                                                                                        .height *
+                                                                                        0.00),
+                                                                                child:
+
+                                                                                Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment
+                                                                                        .spaceBetween,
+                                                                                    crossAxisAlignment: CrossAxisAlignment
+                                                                                        .center,
+                                                                                    children: <
+                                                                                        Widget>[
+
+                                                                                      Container(
+                                                                                        margin: EdgeInsets
+                                                                                            .symmetric(
+                                                                                            horizontal: 2),
+                                                                                        height: MediaQuery
+                                                                                            .of(
+                                                                                            context)
+                                                                                            .size
+                                                                                            .height *
+                                                                                            0.005,
+                                                                                        width: MediaQuery
+                                                                                            .of(
+                                                                                            context)
+                                                                                            .size
+                                                                                            .height *
+                                                                                            0.005,
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: Colors
+                                                                                              .black,
+                                                                                          shape: BoxShape
+                                                                                              .circle,
                                                                                         ),
+                                                                                      ),
 
-                                                                                        Row(
-                                                                                          children: <
-                                                                                              Widget>[
-                                                                                            Container(
-                                                                                                padding: EdgeInsets
-                                                                                                    .only(
-                                                                                                    left: MediaQuery
-                                                                                                        .of(
-                                                                                                        context)
-                                                                                                        .size
-                                                                                                        .height *
-                                                                                                        0.005,
-                                                                                                    right: MediaQuery
-                                                                                                        .of(
-                                                                                                        context)
-                                                                                                        .size
-                                                                                                        .height *
-                                                                                                        0.00,
-                                                                                                    top: MediaQuery
-                                                                                                        .of(
-                                                                                                        context)
-                                                                                                        .size
-                                                                                                        .height *
-                                                                                                        0.00,
-                                                                                                    bottom: MediaQuery
-                                                                                                        .of(
-                                                                                                        context)
-                                                                                                        .size
-                                                                                                        .height *
-                                                                                                        0.00),
-                                                                                                child:
-                                                                                                Text(
-                                                                                                  'QR 299',
-                                                                                                  style: TextStyle(
-                                                                                                    // color: Colors.blue[600],
-                                                                                                      color: Colors
-                                                                                                          .black,
-                                                                                                      fontWeight: FontWeight
-                                                                                                          .bold,
-                                                                                                      overflow: TextOverflow
-                                                                                                          .ellipsis,
-                                                                                                      decoration: TextDecoration
-                                                                                                          .lineThrough,
-                                                                                                      decorationThickness: 1.5,
-                                                                                                      fontSize: MediaQuery
-                                                                                                          .of(
-                                                                                                          context)
-                                                                                                          .size
-                                                                                                          .height *
-                                                                                                          0.014
-                                                                                                  ),
-                                                                                                )
-
-
-                                                                                            ),
-                                                                                            Container(
+                                                                                      Row(
+                                                                                        children: <
+                                                                                            Widget>[
+                                                                                          Container(
                                                                                               padding: EdgeInsets
                                                                                                   .only(
                                                                                                   left: MediaQuery
@@ -2378,358 +2309,396 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                                                                                                       0.00),
                                                                                               child:
                                                                                               Text(
-                                                                                                "QR 199",
+                                                                                                'QR 299',
                                                                                                 style: TextStyle(
                                                                                                   // color: Colors.blue[600],
-                                                                                                    color: Color(
-                                                                                                        0xFF12B76A),
+                                                                                                    color: Colors
+                                                                                                        .black,
                                                                                                     fontWeight: FontWeight
-                                                                                                        .w500,
+                                                                                                        .bold,
                                                                                                     overflow: TextOverflow
                                                                                                         .ellipsis,
+                                                                                                    decoration: TextDecoration
+                                                                                                        .lineThrough,
+                                                                                                    decorationThickness: 1.5,
                                                                                                     fontSize: MediaQuery
                                                                                                         .of(
                                                                                                         context)
                                                                                                         .size
                                                                                                         .height *
-                                                                                                        0.014),
-                                                                                              ),
+                                                                                                        0.014
+                                                                                                ),
+                                                                                              )
 
+
+                                                                                          ),
+                                                                                          Container(
+                                                                                            padding: EdgeInsets
+                                                                                                .only(
+                                                                                                left: MediaQuery
+                                                                                                    .of(
+                                                                                                    context)
+                                                                                                    .size
+                                                                                                    .height *
+                                                                                                    0.005,
+                                                                                                right: MediaQuery
+                                                                                                    .of(
+                                                                                                    context)
+                                                                                                    .size
+                                                                                                    .height *
+                                                                                                    0.00,
+                                                                                                top: MediaQuery
+                                                                                                    .of(
+                                                                                                    context)
+                                                                                                    .size
+                                                                                                    .height *
+                                                                                                    0.00,
+                                                                                                bottom: MediaQuery
+                                                                                                    .of(
+                                                                                                    context)
+                                                                                                    .size
+                                                                                                    .height *
+                                                                                                    0.00),
+                                                                                            child:
+                                                                                            Text(
+                                                                                              "QR 199",
+                                                                                              style: TextStyle(
+                                                                                                // color: Colors.blue[600],
+                                                                                                  color: Color(
+                                                                                                      0xFF12B76A),
+                                                                                                  fontWeight: FontWeight
+                                                                                                      .w500,
+                                                                                                  overflow: TextOverflow
+                                                                                                      .ellipsis,
+                                                                                                  fontSize: MediaQuery
+                                                                                                      .of(
+                                                                                                      context)
+                                                                                                      .size
+                                                                                                      .height *
+                                                                                                      0.014),
                                                                                             ),
 
-                                                                                          ],
-                                                                                        )
-
-
-                                                                                      ]
-                                                                                  ),
-
-                                                                                ),
-
-                                                                                // Time
-                                                                                Container(
-                                                                                  decoration: BoxDecoration(
-                                                                                    // color:Colors.white,
-                                                                                    borderRadius: BorderRadius
-                                                                                        .circular(
-                                                                                        15),
-                                                                                  ),
-                                                                                  // color:Colors.green[100],
-                                                                                  padding: EdgeInsets
-                                                                                      .only(
-                                                                                      left: MediaQuery
-                                                                                          .of(
-                                                                                          context)
-                                                                                          .size
-                                                                                          .height *
-                                                                                          0.0,
-                                                                                      right: MediaQuery
-                                                                                          .of(
-                                                                                          context)
-                                                                                          .size
-                                                                                          .height *
-                                                                                          0.0,
-                                                                                      top: MediaQuery
-                                                                                          .of(
-                                                                                          context)
-                                                                                          .size
-                                                                                          .height *
-                                                                                          0.00,
-                                                                                      bottom: MediaQuery
-                                                                                          .of(
-                                                                                          context)
-                                                                                          .size
-                                                                                          .height *
-                                                                                          0.00),
-                                                                                  child:
-
-                                                                                  Row(
-                                                                                    mainAxisAlignment: MainAxisAlignment
-                                                                                        .spaceEvenly,
-                                                                                    children: <
-                                                                                        Widget>[
-                                                                                      GestureDetector(
-                                                                                        onTap: () async {
-                                                                                          Navigator.of(context).push(
-                                                                                            MaterialPageRoute(
-                                                                                            builder:
-                                                                                                  (BuildContext context) {
-                                                                                                return DoctorDetilPage(
-                                                                                                    "Practitioner/f002",
-                                                                                                  doctorDetail: {
-                                                                                                      "name" : responselist[index].name ,
-                                                                                                      "speciality" : responselist[index].speciality ,
-                                                                                                      "experience" : (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
-                                                                                                  } ,
-                                                                                                );
-                                                                                              },
-                                                                                            ),
-                                                                                          );
-                                                                                          // Navigator.of(context, rootNavigator: true).pop();
-                                                                                        },
-                                                                                        child: Container(
-                                                                                          padding: new EdgeInsets
-                                                                                              .only(
-                                                                                              left: MediaQuery
-                                                                                                  .of(
-                                                                                                  context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.01,
-                                                                                              right: MediaQuery
-                                                                                                  .of(
-                                                                                                  context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.01,
-                                                                                              top: MediaQuery
-                                                                                                  .of(
-                                                                                                  context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.005,
-                                                                                              bottom: MediaQuery
-                                                                                                  .of(
-                                                                                                  context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.005),
-                                                                                          decoration: BoxDecoration(
-                                                                                            // color: Colors.grey[300],
-                                                                                            borderRadius: BorderRadius
-                                                                                                .circular(
-                                                                                                5),
-                                                                                            border: Border
-                                                                                                .all(
-                                                                                              color: Color(
-                                                                                                  0xFF126086),
-                                                                                              // Border color
-                                                                                              width: 1, // Border width
-                                                                                            ),
                                                                                           ),
 
+                                                                                        ],
+                                                                                      )
 
-                                                                                          margin: EdgeInsets
-                                                                                              .only(
+
+                                                                                    ]
+                                                                                ),
+
+                                                                              ),
+
+                                                                              // Time
+                                                                              Container(
+                                                                                decoration: BoxDecoration(
+                                                                                  // color:Colors.white,
+                                                                                  borderRadius: BorderRadius
+                                                                                      .circular(
+                                                                                      15),
+                                                                                ),
+                                                                                // color:Colors.green[100],
+                                                                                padding: EdgeInsets
+                                                                                    .only(
+                                                                                    left: MediaQuery
+                                                                                        .of(
+                                                                                        context)
+                                                                                        .size
+                                                                                        .height *
+                                                                                        0.0,
+                                                                                    right: MediaQuery
+                                                                                        .of(
+                                                                                        context)
+                                                                                        .size
+                                                                                        .height *
+                                                                                        0.0,
+                                                                                    top: MediaQuery
+                                                                                        .of(
+                                                                                        context)
+                                                                                        .size
+                                                                                        .height *
+                                                                                        0.00,
+                                                                                    bottom: MediaQuery
+                                                                                        .of(
+                                                                                        context)
+                                                                                        .size
+                                                                                        .height *
+                                                                                        0.00),
+                                                                                child:
+
+                                                                                Row(
+                                                                                  mainAxisAlignment: MainAxisAlignment
+                                                                                      .spaceEvenly,
+                                                                                  children: <
+                                                                                      Widget>[
+                                                                                    GestureDetector(
+                                                                                      onTap: () async {
+                                                                                        Navigator.of(context).push(
+                                                                                          MaterialPageRoute(
+                                                                                          builder:
+                                                                                                (BuildContext context) {
+                                                                                              return DoctorDetilPage(
+                                                                                                  "Practitioner/f002",
+                                                                                                doctorDetail: {
+                                                                                                    "name" : responselist[index].name ,
+                                                                                                    "speciality" : responselist[index].speciality ,
+                                                                                                    "experience" : (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
+                                                                                                } ,
+                                                                                              );
+                                                                                            },
+                                                                                          ),
+                                                                                        );
+                                                                                        // Navigator.of(context, rootNavigator: true).pop();
+                                                                                      },
+                                                                                      child: Container(
+                                                                                        padding: new EdgeInsets
+                                                                                            .only(
                                                                                             left: MediaQuery
                                                                                                 .of(
                                                                                                 context)
                                                                                                 .size
                                                                                                 .height *
-                                                                                                0.00,
-                                                                                            top: MediaQuery
-                                                                                                .of(
-                                                                                                context)
-                                                                                                .size
-                                                                                                .height *
-                                                                                                0.00,
-                                                                                            bottom: MediaQuery
-                                                                                                .of(
-                                                                                                context)
-                                                                                                .size
-                                                                                                .height *
-                                                                                                0.00,
+                                                                                                0.01,
                                                                                             right: MediaQuery
                                                                                                 .of(
                                                                                                 context)
                                                                                                 .size
                                                                                                 .height *
                                                                                                 0.01,
-                                                                                          ),
-                                                                                          // color: Colors.grey[300],
-                                                                                          alignment: Alignment
-                                                                                              .center,
-                                                                                          // height:
-                                                                                          // MediaQuery.of(context).size.height * 0.070,
-                                                                                          child: Text(
-                                                                                              "View Profile",
-                                                                                              textAlign: TextAlign
-                                                                                                  .center,
-                                                                                              style: TextStyle(
-                                                                                                  color: Color(
-                                                                                                      0xFF126086),
-                                                                                                  fontWeight: FontWeight
-                                                                                                      .bold,
-                                                                                                  fontSize: MediaQuery
-                                                                                                      .of(
-                                                                                                      context)
-                                                                                                      .size
-                                                                                                      .height *
-                                                                                                      0.007 )),
-                                                                                        ),
-                                                                                      ),
-                                                                                      GestureDetector(
-                                                                                        onTap: () async {
-                                                                                          Navigator.of(context).push(
-                                                                                            MaterialPageRoute(
-                                                                                              builder:
-                                                                                                  (BuildContext context) {
-                                                                                                return SelectTimeSlot(
-                                                                                                    "Practitioner/f002",
-                                                                                                  doctorDetail: {
-                                                                                                    "name" : responselist[index].name ,
-                                                                                                  "speciality" : responselist[index].speciality ,
-                                                                                                  "experience" : (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
-
-                                                                                                },
-                                                                                                );
-                                                                                              },
-                                                                                            ),
-                                                                                          );
-                                                                                          // Navigator.of(context, rootNavigator: true).pop();
-                                                                                        },
-                                                                                        child: Container(
-                                                                                          padding: new EdgeInsets
-                                                                                              .only(
-                                                                                              left: MediaQuery
-                                                                                                  .of(
-                                                                                                  context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.015,
-                                                                                              right: MediaQuery
-                                                                                                  .of(
-                                                                                                  context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.015,
-                                                                                              top: MediaQuery
-                                                                                                  .of(
-                                                                                                  context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.007,
-                                                                                              bottom: MediaQuery
-                                                                                                  .of(
-                                                                                                  context)
-                                                                                                  .size
-                                                                                                  .height *
-                                                                                                  0.007),
-                                                                                          decoration: BoxDecoration(
-                                                                                            color: Color(
-                                                                                                0xFF126086),
-                                                                                            borderRadius: BorderRadius
-                                                                                                .circular(
-                                                                                                5),
-                                                                                          ),
-
-
-                                                                                          margin: EdgeInsets
-                                                                                              .only(
-                                                                                            left: MediaQuery
-                                                                                                .of(
-                                                                                                context)
-                                                                                                .size
-                                                                                                .height *
-                                                                                                0.00,
                                                                                             top: MediaQuery
                                                                                                 .of(
                                                                                                 context)
                                                                                                 .size
                                                                                                 .height *
-                                                                                                0.00,
+                                                                                                0.005,
                                                                                             bottom: MediaQuery
                                                                                                 .of(
                                                                                                 context)
                                                                                                 .size
                                                                                                 .height *
-                                                                                                0.00,
+                                                                                                0.005),
+                                                                                        decoration: BoxDecoration(
+                                                                                          // color: Colors.grey[300],
+                                                                                          borderRadius: BorderRadius
+                                                                                              .circular(
+                                                                                              5),
+                                                                                          border: Border
+                                                                                              .all(
+                                                                                            color: Color(
+                                                                                                0xFF126086),
+                                                                                            // Border color
+                                                                                            width: 1, // Border width
+                                                                                          ),
+                                                                                        ),
+
+
+                                                                                        margin: EdgeInsets
+                                                                                            .only(
+                                                                                          left: MediaQuery
+                                                                                              .of(
+                                                                                              context)
+                                                                                              .size
+                                                                                              .height *
+                                                                                              0.00,
+                                                                                          top: MediaQuery
+                                                                                              .of(
+                                                                                              context)
+                                                                                              .size
+                                                                                              .height *
+                                                                                              0.00,
+                                                                                          bottom: MediaQuery
+                                                                                              .of(
+                                                                                              context)
+                                                                                              .size
+                                                                                              .height *
+                                                                                              0.00,
+                                                                                          right: MediaQuery
+                                                                                              .of(
+                                                                                              context)
+                                                                                              .size
+                                                                                              .height *
+                                                                                              0.01,
+                                                                                        ),
+                                                                                        // color: Colors.grey[300],
+                                                                                        alignment: Alignment
+                                                                                            .center,
+                                                                                        // height:
+                                                                                        // MediaQuery.of(context).size.height * 0.070,
+                                                                                        child: Text(
+                                                                                            "View Profile",
+                                                                                            textAlign: TextAlign
+                                                                                                .center,
+                                                                                            style: TextStyle(
+                                                                                                color: Color(
+                                                                                                    0xFF126086),
+                                                                                                fontWeight: FontWeight
+                                                                                                    .bold,
+                                                                                                fontSize: MediaQuery
+                                                                                                    .of(
+                                                                                                    context)
+                                                                                                    .size
+                                                                                                    .height *
+                                                                                                    0.007 )),
+                                                                                      ),
+                                                                                    ),
+                                                                                    GestureDetector(
+                                                                                      onTap: () async {
+                                                                                        Navigator.of(context).push(
+                                                                                          MaterialPageRoute(
+                                                                                            builder:
+                                                                                                (BuildContext context) {
+                                                                                              return SelectTimeSlot(
+                                                                                                  "Practitioner/f002",
+                                                                                                doctorDetail: {
+                                                                                                  "name" : responselist[index].name ,
+                                                                                                "speciality" : responselist[index].speciality ,
+                                                                                                "experience" : (responselist![index].experience ?? "") + " - "+   (responselist![index].qualification ??  ""),
+
+                                                                                              },
+                                                                                              );
+                                                                                            },
+                                                                                          ),
+                                                                                        );
+                                                                                        // Navigator.of(context, rootNavigator: true).pop();
+                                                                                      },
+                                                                                      child: Container(
+                                                                                        padding: new EdgeInsets
+                                                                                            .only(
+                                                                                            left: MediaQuery
+                                                                                                .of(
+                                                                                                context)
+                                                                                                .size
+                                                                                                .height *
+                                                                                                0.015,
                                                                                             right: MediaQuery
                                                                                                 .of(
                                                                                                 context)
                                                                                                 .size
                                                                                                 .height *
-                                                                                                0.005,
-                                                                                          ),
-                                                                                          // color: Colors.grey[300],
-                                                                                          alignment: Alignment
-                                                                                              .center,
-                                                                                          // height:
-                                                                                          // MediaQuery.of(context).size.height * 0.070,
-                                                                                          child: Text(
-                                                                                              "Book",
-                                                                                              textAlign: TextAlign
-                                                                                                  .center,
-                                                                                              style: TextStyle(
-                                                                                                  color: Colors
-                                                                                                      .white,
-                                                                                                  fontWeight: FontWeight
-                                                                                                      .bold,
-                                                                                                  fontSize: MediaQuery
-                                                                                                      .of(
-                                                                                                      context)
-                                                                                                      .size
-                                                                                                      .height *
-                                                                                                      0.007)),
+                                                                                                0.015,
+                                                                                            top: MediaQuery
+                                                                                                .of(
+                                                                                                context)
+                                                                                                .size
+                                                                                                .height *
+                                                                                                0.007,
+                                                                                            bottom: MediaQuery
+                                                                                                .of(
+                                                                                                context)
+                                                                                                .size
+                                                                                                .height *
+                                                                                                0.007),
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: Color(
+                                                                                              0xFF126086),
+                                                                                          borderRadius: BorderRadius
+                                                                                              .circular(
+                                                                                              5),
                                                                                         ),
+
+
+                                                                                        margin: EdgeInsets
+                                                                                            .only(
+                                                                                          left: MediaQuery
+                                                                                              .of(
+                                                                                              context)
+                                                                                              .size
+                                                                                              .height *
+                                                                                              0.00,
+                                                                                          top: MediaQuery
+                                                                                              .of(
+                                                                                              context)
+                                                                                              .size
+                                                                                              .height *
+                                                                                              0.00,
+                                                                                          bottom: MediaQuery
+                                                                                              .of(
+                                                                                              context)
+                                                                                              .size
+                                                                                              .height *
+                                                                                              0.00,
+                                                                                          right: MediaQuery
+                                                                                              .of(
+                                                                                              context)
+                                                                                              .size
+                                                                                              .height *
+                                                                                              0.005,
+                                                                                        ),
+                                                                                        // color: Colors.grey[300],
+                                                                                        alignment: Alignment
+                                                                                            .center,
+                                                                                        // height:
+                                                                                        // MediaQuery.of(context).size.height * 0.070,
+                                                                                        child: Text(
+                                                                                            "Book",
+                                                                                            textAlign: TextAlign
+                                                                                                .center,
+                                                                                            style: TextStyle(
+                                                                                                color: Colors
+                                                                                                    .white,
+                                                                                                fontWeight: FontWeight
+                                                                                                    .bold,
+                                                                                                fontSize: MediaQuery
+                                                                                                    .of(
+                                                                                                    context)
+                                                                                                    .size
+                                                                                                    .height *
+                                                                                                    0.007)),
                                                                                       ),
+                                                                                    ),
 
-                                                                                    ],
-                                                                                  ),
-
+                                                                                  ],
                                                                                 ),
 
+                                                                              ),
 
-                                                                              ]
-                                                                          ),
+
+                                                                            ]
                                                                         ),
-                                                                      ]),
-                                                                ),
-                                                              ]),
-                                                        ),
+                                                                      ),
+                                                                    ]),
+                                                              ),
+                                                            ]),
+                                                      ),
 
 
-                                                      ]),
-                                                ),
-
-
+                                                    ]),
                                               ),
+
+
                                             ),
-                                          );
-                                        },
-                                      ),
+                                          ),
+                                        );
+                                      },
                                     ),
-                                    // Additional widgets can be added here
-                                  ],
-                                ),
-                              ],
-                            ),
+                                  ),
+                                  // Additional widgets can be added here
+                                ],
+                              ),
+
+                              SizedBox(height: screenHeight * 0.120,)
+                            ],
                           ),
                         ),
-                          ],
-                        ),
-                    ),
-                    ),
-                  ],
-              ),
-
-                if(!isGuestUser)
-                  GlobalDraggableEmergencyButton(
-                    onPressed: () {
-                      print("Emergency button clicked from screen!");
-                      // Yahan aap emergencycallalert.showticket(context); call kar sakte hain
-                    },
+                      ),
+                        ],
+                      ),
                   ),
-
-                if (_isRefreshing)
-                Positioned(
-                  top: min(_pullDistance, 80) + 50,
-
-                  left: MediaQuery.of(context).size.width / 2 - 15,
-                  child: RotationTransition(
-                    turns: _isRefreshing
-                        ? _rotateController
-                        : const AlwaysStoppedAnimation(0),
-                    child: const Icon(
-                      Icons.refresh,
-                      size: 30,
-                      color: Colors.white,
-                    ),
                   ),
+                ],
+                              ),
+
+                                if(!isGuestUser)
+                GlobalDraggableEmergencyButton(
+                  onPressed: () {
+                    print("Emergency button clicked from screen!");
+                    // Yahan aap emergencycallalert.showticket(context); call kar sakte hain
+                  },
                 ),
-                ]
-            ),
-          ),
+
+
+                                ]
+                            ),
         ),
 
 

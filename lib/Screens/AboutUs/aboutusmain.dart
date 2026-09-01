@@ -270,7 +270,7 @@ class AboutUsMainstate extends State<AboutUsMain> {
                                 ),
                               ),
 
-
+                               SizedBox(height : screenHeight * 0.1),
 
 
                             ],

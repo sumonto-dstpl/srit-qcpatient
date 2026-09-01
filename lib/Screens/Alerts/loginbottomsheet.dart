@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:newfolder/Screens/Login/loginhome.dart';
 import 'package:newfolder/Screens/Login/loginpage.dart';
@@ -8,7 +7,7 @@ import 'package:newfolder/Screens/Registeration/registeration.dart';
 import '../Utils/user_secure_storage.dart';
 
 class LoginBottomSheet {
-  static void show(BuildContext context,bool popStatus) {
+  static void show(BuildContext context, bool popStatus) {
     showModalBottomSheet(
       enableDrag: false,
       isScrollControlled: true,
@@ -21,187 +20,196 @@ class LoginBottomSheet {
       ),
       backgroundColor: Colors.transparent,
       barrierColor: Colors.transparent,
-    transitionAnimationController: AnimationController(
+      transitionAnimationController: AnimationController(
         duration: const Duration(milliseconds: 200),
-    vsync: Navigator.of(context),
-    ),
-      context: context,
-    builder: (BuildContext context) {
-    return Stack(
-    children: [
-    // ✅ Background blur with outside tap-to-dismiss
-    GestureDetector(
-    child: BackdropFilter(
-    filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-    child: Container(
-    color: Colors.transparent,
-    width: double.infinity,
-    height: double.infinity,
-    ),
-    ),
-    ),
-
-    // ✅ Bottom fixed white sheet
-    Align(
-    alignment: Alignment.bottomCenter,
-    child: Container(
-    decoration: const BoxDecoration(
-    borderRadius: BorderRadius.only(
-    topLeft: Radius.circular(24),
-    topRight: Radius.circular(24),
-    ),
-    color: Colors.transparent,
-    ),
-    child: Material(
-    color: Colors.white,
-    borderRadius: const BorderRadius.only(
-    topLeft: Radius.circular(24),
-    topRight: Radius.circular(24),
-    ),
-      child: StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) {
-          return Padding(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-            ),
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.2,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(24),
-                  topRight: Radius.circular(24),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    blurRadius: 10,
-                    spreadRadius: 5,
-                    offset: const Offset(0, -4),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Center(
-                    child: Container(
-                      padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.01,
-                        bottom: MediaQuery.of(context).size.height * 0.03,
-                        left: MediaQuery.of(context).size.height * 0.18,
-                        right: MediaQuery.of(context).size.height * 0.18,
-                      ),
-                      width: MediaQuery.of(context).size.width * 0.23,
-                      height: MediaQuery.of(context).size.height * 0.006,
-                      decoration: BoxDecoration(
-                        color: Color(0x2413678F),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.02,
-                      left: MediaQuery.of(context).size.width * 0.05,
-                      right: MediaQuery.of(context).size.width * 0.05,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded( // Make text take available width
-                          child: Text(
-                            "Please create or Sign-in with an account in order to Access this feature",
-                            style: TextStyle(
-                              color: Color(0xFF000000),
-                              fontWeight: FontWeight.w500,
-                              fontSize: MediaQuery.of(context).size.height * 0.016,
-                            ),
-                            softWrap: true, // Allows wrapping
-                            textAlign: TextAlign.center, // Optional: center text
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.03,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-
-                            Navigator.of(context).pop();
-                            if(popStatus)
-                              Navigator.of(context).pop();
-                          },
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.04,
-                            width: MediaQuery.of(context).size.height * 0.15,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: Color(0xFFA8B1CE),
-                                width: 1,
-                              ),
-                            ),
-                            child: Text(
-                              "Close",
-                              style: TextStyle(
-                                color: Color(0xFF1F1F1F),
-                                fontWeight: FontWeight.w500,
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.013,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: MediaQuery.of(context).size.width * 0.05,),
-                        GestureDetector(
-                          onTap: () async{
-                            // await UserSecureStorage.setIfGuestLogged("No");
-                            await UserSecureStorage.clearAllExceptUsers();
-                            // Navigator.of(context).pushAndRemoveUntil(
-                            //     MaterialPageRoute(builder: (context) => LoginPage()),
-                            //         (Route<dynamic> route) => false
-                            // );
-
-                            Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: (context) => Registration()),(Route<dynamic> route) => false
-                            );
-                          },
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.04,
-                            width: MediaQuery.of(context).size.height * 0.15,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Color(0xFF126086),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                color: Color(0xFFFFFFFF),
-                                fontWeight: FontWeight.w600,
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.016,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
+        vsync: Navigator.of(context),
       ),
-    ),),)]);
-  }); }
+      context: context,
+      builder: (BuildContext context) {
+        return Stack(
+          children: [
+            // ✅ Background blur with outside tap-to-dismiss
+            GestureDetector(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                child: Container(
+                  color: Colors.transparent,
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
+              ),
+            ),
+
+            // ✅ Bottom fixed white sheet
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24),
+                  ),
+                  color: Colors.transparent,
+                ),
+                child: Material(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24),
+                  ),
+                  child: StatefulBuilder(
+                    builder: (BuildContext context, StateSetter setState) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
+                        ),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.2,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(24),
+                              topRight: Radius.circular(24),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                blurRadius: 10,
+                                spreadRadius: 5,
+                                offset: const Offset(0, -4),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Center(
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                    top: MediaQuery.of(context).size.height * 0.01,
+                                    bottom: MediaQuery.of(context).size.height * 0.03,
+                                    left: MediaQuery.of(context).size.height * 0.18,
+                                    right: MediaQuery.of(context).size.height * 0.18,
+                                  ),
+                                  width: MediaQuery.of(context).size.width * 0.23,
+                                  height: MediaQuery.of(context).size.height * 0.006,
+                                  decoration: BoxDecoration(
+                                    color: Color(0x2413678F),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height * 0.02,
+                                  left: MediaQuery.of(context).size.width * 0.05,
+                                  right: MediaQuery.of(context).size.width * 0.05,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        "Please create or Sign-in with an account in order to Access this feature",
+                                        style: TextStyle(
+                                          color: Color(0xFF000000),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: MediaQuery.of(context).size.height * 0.016,
+                                        ),
+                                        softWrap: true,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: MediaQuery.of(context).size.height * 0.03,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        // 🛑 CHANGE 1: Sirf 'close' pass karein
+                                        Navigator.of(context).pop('close');
+                                      },
+                                      child: Container(
+                                        height: MediaQuery.of(context).size.height * 0.04,
+                                        width: MediaQuery.of(context).size.height * 0.15,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(8),
+                                          border: Border.all(
+                                            color: Color(0xFFA8B1CE),
+                                            width: 1,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          "Close",
+                                          style: TextStyle(
+                                            color: Color(0xFF1F1F1F),
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: MediaQuery.of(context).size.height * 0.013,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: MediaQuery.of(context).size.width * 0.05),
+                                    GestureDetector(
+                                      onTap: () async {
+                                        await UserSecureStorage.clearAllExceptUsers();
+
+                                        // 🛑 CHANGE 2: 'signup' pass karein taaki back button logic na chale
+                                        Navigator.of(context).pop('signup');
+
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) => const Registration()),
+                                        );
+                                      },
+                                      child: Container(
+                                        height: MediaQuery.of(context).size.height * 0.04,
+                                        width: MediaQuery.of(context).size.height * 0.15,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFF126086),
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: Text(
+                                          "Sign Up",
+                                          style: TextStyle(
+                                            color: Color(0xFFFFFFFF),
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    ).then((result) {
+      // 🛑 CHANGE 3: Yaha hardware back button aur 'Close' button dono handle honge
+      // Hardware back dabane par result hamesha 'null' aata hai
+      if ( result == null ||  result == 'close') {
+        print("popStatus : $popStatus");
+        if (popStatus) {
+          Navigator.of(context).pop();
+        }
+      }
+    });
+  }
 }

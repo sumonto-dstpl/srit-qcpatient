@@ -607,8 +607,8 @@ class LoginPagestate extends State<LoginPage> {
                                             padding: EdgeInsets.only(left: 0.0),
                                             child: TextButton(
                                               onPressed: () async {
-                                                validateentriesatsubmit(
-                                                    context);
+                                                validateentriesatsubmit(context);
+
                                               },
                                               child: Text("Login",
                                                   textAlign: TextAlign.center,
@@ -1141,21 +1141,17 @@ class LoginPagestate extends State<LoginPage> {
       if (intenet != null && intenet) {
         String input = UserNumberEditTextController.text.trim();
 
-        print("input : $input");
+
         String digitsOnly = input.replaceAll(RegExp(r'\D'), '');
         String last10 = digitsOnly.substring(2);
-        print("last10 : ${last10.length}");
+
         if (input.isEmpty) {
           setState(() {
             hasStartedTyping = true;
             errorMessage = "Please enter a 10-digit mobile number";
             isValid = false;
           });
-          // Timer(Duration(seconds: 2), () {
-          //   setState(() {
-          //     errorMessage = null;
-          //   });
-          // });
+
           return;
         }
 
@@ -1176,8 +1172,8 @@ class LoginPagestate extends State<LoginPage> {
           });
 
         }
-        // if (isValid) {
-          print("input: $input");
+
+
           // Navigator.of(context).push(
           //     MaterialPageRoute(builder: (context) => MpinAccessScreen(mobileNumber: input.substring(3)))
           // );
@@ -1199,15 +1195,7 @@ class LoginPagestate extends State<LoginPage> {
 
          var specificUser = await UserSecureStorage.getUser(last10);
          print("specificUser : $specificUser");
-          dynamic user = await apiService.submitlogin(
-
-              "babureddy921234567@gmail.com",
-              base64Encode(utf8.encode("Test@123456")));
-
-
-
-
-
+          // dynamic user = await apiService.submitlogin("babureddy921234567@gmail.com",base64Encode(utf8.encode("Test@123456")));
 
         if(specificUser != null && specificUser.isNotEmpty) {
           await UserSecureStorage.setIfGuestLogged("NO");
@@ -1261,10 +1249,17 @@ class LoginPagestate extends State<LoginPage> {
         }
       } else {
         // No-Internet Case
-        final snackBar = SnackBar(
-            content: Text("No Internet, Check Connectivity!"),
-            backgroundColor: Colors.red[600]);
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        // final snackBar = SnackBar(
+        //     content: Text("No Internet, Check Connectivity!"),
+        //     backgroundColor: Colors.red[600]);
+        // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+        showTopNotification(
+          context,
+          title: "No Internet",
+          message: "No Internet, Check Connectivity!",
+          type: NotificationType.error,
+        );
       }
     });
   }

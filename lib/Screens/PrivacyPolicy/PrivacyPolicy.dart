@@ -1,54 +1,12 @@
-import 'dart:convert';
 import 'dart:ui';
-import 'package:flutter_emoji_feedback/flutter_emoji_feedback.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:newfolder/Screens/Address/PreferredAddressLocation.dart';
-import 'package:newfolder/Screens/Address/address_screen.dart';
-import 'package:newfolder/Screens/MyReports/myreportsmain.dart';
-import 'package:newfolder/Screens/MyHealth/myhealthmain.dart';
-import 'package:newfolder/Screens/Appointmentsfoot/appointmentsfootmain.dart';
-import 'package:newfolder/Screens/TestAndServices/testandservicesmain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:newfolder/Screens/AddToCart/addtocart.dart';
-import 'package:newfolder/Screens/Alerts/appointmentcancel.dart';
-import 'package:newfolder/Screens/Alerts/emergencycallhome.dart';
-import 'package:newfolder/Screens/Appointments/appointmentsfindspecialities.dart';
-import 'package:newfolder/Screens/Appointments/finddoctorslist.dart';
-import 'package:newfolder/Screens/Appointments/quicksearchwithdata.dart';
-import 'package:newfolder/Screens/Appointments/quicksearchwithoutdata.dart';
-import 'package:newfolder/Screens/Appointments/selecttimeslot.dart';
-import 'package:newfolder/Screens/ForgotPassword/forgotpassword.dart';
-import 'package:newfolder/Screens/Home/homemainscreen.dart';
-import 'package:newfolder/Screens/HomeCare/diagnosticmain.dart';
-import 'package:newfolder/Screens/HomeCare/doctorhcmain.dart';
-import 'package:newfolder/Screens/HomeCare/homecaremain.dart';
-import 'package:newfolder/Screens/HomeCare/medicalequipmentshcmain.dart';
-import 'package:newfolder/Screens/HomeCare/nursehcmain.dart';
-import 'package:newfolder/Screens/HomeCare/physiohcmain.dart';
-import 'package:newfolder/Screens/Login/loginhome.dart';
-import 'package:newfolder/Screens/Medications/medicationselecttime.dart';
-import 'package:newfolder/Screens/Medications/medicationsmybook.dart';
-import 'package:newfolder/Screens/Notifications/notifications.dart';
-import 'package:newfolder/Screens/PaymentHistory/paymenthistory.dart';
-import 'package:newfolder/Screens/Registeration/registeration.dart';
-import 'package:newfolder/Screens/UploadPrescrip/uploadprescrip.dart';
-import 'package:newfolder/Screens/Utils/SizeConfigGlobal.dart';
-import 'package:newfolder/Screens/Widgets/HomeSliderWidget.dart';
-import 'package:newfolder/Screens/Widgets/appointmentbadge.dart';
-import 'package:newfolder/Screens/Widgets/badge.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_emoji_feedback/flutter_emoji_feedback.dart';
-import 'package:newfolder/Screens/Widgets/gradientdivider.dart';
-import 'package:newfolder/Screens/Widgets/tab_item.dart';
-import 'package:newfolder/Screens/Utils/user_secure_storage.dart';
 import 'package:newfolder/Core/Header/header.dart';
 import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
 
 
 class PrivacyPolicyMain extends StatefulWidget {
-  int selectedIndex = 0;
 
   PrivacyPolicyMain({
     super.key,
@@ -59,52 +17,12 @@ class PrivacyPolicyMain extends StatefulWidget {
 }
 
 class PrivacyPolicyMainstate extends State<PrivacyPolicyMain> {
-  bool isGuestUser =false;
-  String usernameValue = "Privacy Policy";
-  String useraddressValue = "QuadraCyte, Qatar 500006";
-  String usernameValuewithoutp = "P";
-  String userprofilepValue = "NA";
   int _selectedIndex = 0;
-
-  int selectedIndex = -1;
-
-
-  TextEditingController? reviewtextcontroller = TextEditingController();
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
-
-  bool _isLoading = false;
-
-  void _loadData() async {
-
-    var guestUser = await UserSecureStorage.getIfGuestLogged();
-    print("guestUser: $guestUser");
-    isGuestUser=guestUser == "YES";
-    setState(() {});
-    if(!isGuestUser){
-      String? username =  await UserSecureStorage.getUsernameid();
-      print("username: $username");
-      Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
-      print("user : $user");
-      final fname = user?['data']['fname'] ?? '';
-      final lname = user?['data']['lname'] ?? '';
-      final trimmedFname = fname.length > 5 ? fname.substring(0, 5) : fname;
-      final trimmedLname = lname.length > 5 ? lname.substring(0, 5) : lname;
-      usernameValue += fname+" "+lname;
-    }else{
-      usernameValue +="Guest";
-    }
-    print("usernameValue: $usernameValue");
-    setState(() {
-      _isLoading = false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
-    TextEditingController SearchEditTextController = TextEditingController();
+
 
     return Scaffold(
       body: Container(
@@ -121,7 +39,7 @@ class PrivacyPolicyMainstate extends State<PrivacyPolicyMain> {
             Column(
               children: <Widget>[
                 // Top Section
-                Header(userName: usernameValue,showProfile: false,),
+                Header(userName: 'Privacy Policy',showProfile: false,),
 
                 // Main Content Section
                 Expanded(

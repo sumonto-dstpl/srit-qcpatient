@@ -46,6 +46,7 @@ class DoctorsListResponse {
   String? experienceYears;
   String? feeRange;
   String? availability;
+  bool? isCallAvailable;
 
   DoctorsListResponse(
       {this.doctorId,
@@ -65,7 +66,8 @@ class DoctorsListResponse {
         this.city,
         this.experienceYears,
         this.feeRange,
-        this.availability
+        this.availability,
+        this.isCallAvailable = false,
 
       });
 
@@ -88,6 +90,8 @@ class DoctorsListResponse {
     feeRange = json['feeRange'];
     availability = json['availability'];
     photo = json['photo'] != null ? new Photo.fromJson(json['photo']) : null;
+
+    isCallAvailable = json['isCallAvailable'];
   }
 
   Map<String, dynamic> toJson() {
@@ -112,12 +116,14 @@ class DoctorsListResponse {
     if (this.photo != null) {
       data['photo'] = this.photo!.toJson();
     }
+
+    data['isCallAvailable'] = this.isCallAvailable;
     return data;
   }
 
   @override
   String toString() {
-    return '{name: $name, speciality: $speciality, experience: $experience}, category: $category';
+    return 'isCallAvailable: $isCallAvailable';
   }
 }
 

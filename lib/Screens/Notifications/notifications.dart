@@ -69,9 +69,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    // int notificationsCount = notifications.where((n) => n.markAllRead == false).length;
-    // int offerCount = offers;
-    // int allCount =  offerCount + notificationsCount;
+
 
     // Purana WidgetsBinding wala code hata dein aur seedha calculate function call karein
     int notificationsCount = globalNotifications.where((n) => n.markAllRead == false).length;
@@ -1598,7 +1596,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
                margin: EdgeInsets.only(
                  right: screenHeight * 0.02,
                  top: screenHeight * 0.0,
-                 bottom: screenHeight * 0.0,
+                 bottom: screenHeight * 0.01,
                  left: screenHeight * 0.02,
                ),// Responsive margin
                height: MediaQuery
@@ -1705,7 +1703,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
 
 
             ...items.map((n) => _notificationTile(context,n)).toList(),
-            const SizedBox(height: 50),
+            SizedBox(height: screenHeight * 0.02),
           ],
         );
       },
@@ -1771,7 +1769,7 @@ class NotificationMainstate extends State<NotificationMain> with SingleTickerPro
 
 
             ...items.map((n) => _notificationTile(context,n)).toList(),
-            const SizedBox(height: 50),
+              SizedBox(height: screenHeight * 0.02),
           ],
         );
       },

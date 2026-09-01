@@ -105,7 +105,7 @@ class ProfileMainstate extends State<ProfileMain> {
     } else {
       String? username = await UserSecureStorage.getUsernameid();
       Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
-      print("user 111: $user");
+
       if (user != null && user['data'] != null) {
         String? fname = user['data']['fname'];
         String? lname = user['data']['lname'];
@@ -129,6 +129,9 @@ class ProfileMainstate extends State<ProfileMain> {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     TextEditingController SearchEditTextController = TextEditingController();
@@ -572,6 +575,8 @@ class ProfileMainstate extends State<ProfileMain> {
                                       },
                                   child: _buildCard(context, 'Settings', 'assets/profileSettings.png'),
                                 ),
+
+
 
                                 // Log out
                                 GestureDetector(

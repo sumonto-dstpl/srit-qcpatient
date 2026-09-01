@@ -113,12 +113,13 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     final bool isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    TextEditingController SearchEditTextController = TextEditingController();
+
 
     return Scaffold(
       body: Container(
@@ -211,8 +212,11 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
                                 bottom: screenHeight * 0.01),
 
                             child: TextFormField(
-                              controller: SearchEditTextController,
-
+                              controller: SearchfilterEditTextController,
+                              onChanged: (value) {
+                                // Jaise hi user type karega, yeh filter function call hoga
+                                _applyActiveFilters(searchQuery: value);
+                              },
                               style: TextStyle(color: Colors.black),
                               keyboardType: TextInputType.emailAddress,
                               validator: (input) => input!.length < 3
@@ -856,7 +860,16 @@ class RecommendedViewAllstate extends State<RecommendedViewAll> {
   void _applyActiveFilters({String searchQuery = ""}) {
     List<Map<String, dynamic>> tmp = pageDataList.where((item) {
 
+      if (searchQuery.isNotEmpty) {
+        final plan = (item['plan'] ?? '').toString().toLowerCase();
+        final test = (item['test'] ?? '').toString().toLowerCase();
+        final searchLower = searchQuery.toLowerCase();
 
+        // Agar plan ya test ke naam me search text nahi milta, toh false return karo
+        if (!plan.contains(searchLower) && !test.contains(searchLower)) {
+          return false;
+        }
+      }
 
       // 2. Category / Speciality Filter
       final selCategoryList = List<String>.from(activeFilters['category'] ?? []);

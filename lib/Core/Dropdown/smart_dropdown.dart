@@ -43,20 +43,15 @@ class _SmartAdaptiveDropdownState extends State<SmartAdaptiveDropdown> {
   }
 
   void _openDropdown() {
-    // 1. Pata karo ki widget abhi screen par kis position par hai
+
     RenderBox renderBox = context.findRenderObject() as RenderBox;
     var size = renderBox.size;
     var offset = renderBox.localToGlobal(Offset.zero);
 
-    // 2. Keyboard height aur bachi hui screen check karo
     double screenHeight = MediaQuery.of(context).size.height;
     double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-
-    // Calculate karo ki field ke neeche (keyboard ko hatakar) kitni jagah bachi hai
     double spaceBelow = screenHeight - keyboardHeight - (offset.dy + size.height);
 
-    // 3. Logic: Agar bachi hui jagah humare dropdown max height (200) se kam hai,
-    // to isko hamesha upar ki taraf (showAbove) open karo.
     bool showAbove = spaceBelow < 200;
 
     _overlayEntry = _createOverlayEntry(size, showAbove);
@@ -72,61 +67,65 @@ class _SmartAdaptiveDropdownState extends State<SmartAdaptiveDropdown> {
 
   OverlayEntry _createOverlayEntry(Size size, bool showAbove) {
     return OverlayEntry(
-      builder: (context) => GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: _closeDropdown,
-        child: Stack(
-          children: [
-            Positioned(
-              width: size.width,
-              child: CompositedTransformFollower(
-                link: _layerLink,
-                showWhenUnlinked: false,
-
-                // YAHAN EXACT OVERLAP WALA LOGIC LAGA HAI
-                targetAnchor: showAbove ? Alignment.bottomCenter : Alignment.topCenter,
-                followerAnchor: showAbove ? Alignment.bottomCenter : Alignment.topCenter,
-                offset: Offset.zero, // Koi gap nahi
-
-                child: Material(
-                  elevation: 6,
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    // constraints: const BoxConstraints(maxHeight: 200),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
+      builder: (context) => SafeArea(
+        child: ClipRect(
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: _closeDropdown,
+            child: Stack(
+              children: [
+                Positioned(
+                  width: size.width,
+                  child: CompositedTransformFollower(
+                    link: _layerLink,
+                    showWhenUnlinked: false,
+          
+                    // YAHAN EXACT OVERLAP WALA LOGIC LAGA HAI
+                    targetAnchor: showAbove ? Alignment.bottomCenter : Alignment.topCenter,
+                    followerAnchor: showAbove ? Alignment.bottomCenter : Alignment.topCenter,
+                    offset: Offset.zero, // Koi gap nahi
+          
+                    child: Material(
+                      elevation: 6,
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: const Color(0xFFF1F1F1)),
-                    ),
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      children: widget.items.map((item) {
-                        return InkWell(
-                          onTap: () {
-                            setState(() => _selectedValue = item);
-                            widget.onChanged(item);
-                            _closeDropdown();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                            child: Text(
-                              item,
-                              style: const TextStyle(
-                                color: Color(0xFF171717),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
+                      child: Container(
+                        // constraints: const BoxConstraints(maxHeight: 200),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: const Color(0xFFF1F1F1)),
+                        ),
+                        child: ListView(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          children: widget.items.map((item) {
+                            return InkWell(
+                              onTap: () {
+                                setState(() => _selectedValue = item);
+                                widget.onChanged(item);
+                                _closeDropdown();
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                                child: Text(
+                                  item,
+                                  style: const TextStyle(
+                                    color: Color(0xFF171717),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        );
-                      }).toList(),
+                            );
+                          }).toList(),
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

@@ -7,10 +7,12 @@ import 'package:newfolder/Core/Image%20Action/delete.dart';
 import 'package:newfolder/Screens/Utils/customNotification.dart';
 
 class UploadBox extends StatefulWidget {
-  // 1. Callback function add karein
   final Function(List<PlatformFile>)? onFilesChanged;
 
-  UploadBox({Key? key, this.onFilesChanged}) : super(key: key);
+  // 1. Edit mode ke liye purani files receive karne ka parameter
+  final List<PlatformFile>? initialFiles;
+
+  UploadBox({Key? key, this.onFilesChanged, this.initialFiles}) : super(key: key);
 
   @override
   _UploadBoxState createState() => _UploadBoxState();
@@ -18,9 +20,21 @@ class UploadBox extends StatefulWidget {
 
 class _UploadBoxState extends State<UploadBox> {
   List<Map<String, dynamic>> uploadedFiles = [];
-  // Each map: {'file': PlatformFile, 'time': DateTime}
 
-  // 2. Parent ko update karne ke liye ek helper method
+  // 2. InitState mein initial files ko load karein
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialFiles != null) {
+      for (var file in widget.initialFiles!) {
+        uploadedFiles.add({
+          'file': file,
+          'time': DateTime.now(), // Aap chaho toh time bhi parent se pass kar sakte ho
+        });
+      }
+    }
+  }
+
   void _notifyParent() {
     if (widget.onFilesChanged != null) {
       List<PlatformFile> files = uploadedFiles.map((e) => e['file'] as PlatformFile).toList();
@@ -33,25 +47,33 @@ class _UploadBoxState extends State<UploadBox> {
       type: FileType.custom,
       allowedExtensions: ['jpg', 'png', 'pdf'],
       withData: true,
+      allowMultiple: true, // 3. Yahan allowMultiple true kar diya
     );
 
     if (result != null) {
-      final file = result.files.first;
-      if (file.size > 10 * 1024 * 1024) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("File must be less than 10MB")),
-        );
-        return;
-      }
+      bool hasLargeFile = false;
 
       setState(() {
-        uploadedFiles.add({
-          'file': file,
-          'time': DateTime.now(),
-        });
+        // 4. Sabhi selected files ke upar loop chalayein
+        for (var file in result.files) {
+          if (file.size > 10 * 1024 * 1024) {
+            hasLargeFile = true;
+            continue; // Agar file 10MB se badi hai toh skip kar do
+          }
+
+          uploadedFiles.add({
+            'file': file,
+            'time': DateTime.now(),
+          });
+        }
       });
 
-      // 3. File add hone ke baad parent ko notify karein
+      if (hasLargeFile) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Some files were larger than 10MB and were skipped.")),
+        );
+      }
+
       _notifyParent();
     }
   }
@@ -154,7 +176,7 @@ class _UploadBoxState extends State<UploadBox> {
               return Column(
                 children: [
                   Dismissible(
-                    key: Key(file.name + uploadTime.toString()),
+                    key: Key(file.name + uploadTime.toString() + index.toString()), // Added index for unique key safety
                     direction: DismissDirection.endToStart,
                     background: AppDeleteIcon(),
                     confirmDismiss: (direction) async {
@@ -175,7 +197,6 @@ class _UploadBoxState extends State<UploadBox> {
                         uploadedFiles.removeAt(index);
                       });
 
-                      // 4. File delete hone ke baad bhi parent ko notify karein
                       _notifyParent();
                     },
                     child: Container(

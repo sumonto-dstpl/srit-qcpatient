@@ -39,6 +39,7 @@ import '../../utils/TimeSlotSelector.dart';
 import 'package:newfolder/Core/Header/header.dart';
 import 'package:newfolder/Core/Image%20Action/floating_action_button.dart';
 import 'package:newfolder/Core/bottom_navigation_bar.dart';
+import 'package:intl/intl.dart';
 class HomecareOtherserviceDetail extends StatefulWidget {
   String usernameValue;
   int selectedIndex = 0;
@@ -139,7 +140,7 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                         homecareBookedSlots: DummyData.homecareCategoryBookedSlots[widget.category.toLowerCase()] ?? {},
                         onDateTimeSelected: (date, time) {
                           print("User selected Date: $date and Time: $time");
-                          // Yahan state update karein aur Book Service button enable karein
+
                           setState(() {
                             slectedDateSlot = DateFormat('dd-MM-yyyy').format(date);
                             selectedSlot = time;
@@ -554,10 +555,35 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
                               DummyData.addNewBookingForHomecare(widget.category, slectedDateSlot, selectedSlot);
                               timeSelectFlag = false;
                             });
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) => HomePageMain(),
-                              ),
+                            // Navigator.of(context).push(
+                            //   MaterialPageRoute(
+                            //     builder: (BuildContext context) => HomePageMain(),
+                            //   ),
+                            // );
+                            // 🔴 NAYA CODE: Date Format change karne ke liye
+                            // 🔴 NAYA CODE: Date Format change karne ke liye
+                            String formattedDate = slectedDateSlot; // Fallback ke liye
+
+                            try {
+                              // STEP 1: Pehle apni date string ko parse karein.
+                              // DHYAN DEIN: Agar aapka slectedDateSlot "10-08-2024" aata hai toh 'dd-MM-yyyy' likhein.
+                              // Agar "10/08/2024" aata hai toh 'dd/MM/yyyy' likhein.
+
+                              DateTime parsedDate = DateFormat('dd-MM-yyyy').parse(slectedDateSlot);
+
+                              // STEP 2: Ab isko apne desired format (August, 10 2024) mein convert karein
+                              formattedDate = DateFormat('MMMM, dd yyyy').format(parsedDate);
+
+                            } catch (e) {
+                              print("Date parse error: $e");
+                            }
+                            print("formattedDate : $formattedDate");
+                            _showSuccessBottomSheet(
+                              context: context,
+                              category: widget.category, // Aapki category
+                              dateSlot: formattedDate, // Selected Date
+                              timeSlot: selectedSlot,    // Selected Time
+                              address: useraddressValue, // Address variable
                             );
                           }
                         },
@@ -576,7 +602,210 @@ class HomecareOtherserviceDetailState extends State<HomecareOtherserviceDetail> 
     );
   }
 
+  // 🔴 Yahan parameters add kiye hain
+  void _showSuccessBottomSheet({
+    required BuildContext context,
+    required String category,
+    required String dateSlot,
+    required String timeSlot,
+    required String address,
+  }) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    print("dateSlot : $dateSlot");
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24),
+                  ),
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.05,
+                  vertical: screenHeight * 0.02,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // 1. Top Drag Handle
+                    Container(
+                      height: 4,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
 
+                    // 2. Success Icon
+                    Image.asset(
+                      'assets/Success_Message_Pop_Up.png',
+                      height: screenHeight * 0.25,
+                      fit: BoxFit.contain,
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+
+                    // 3. Title Text
+                    Text(
+                      "Service Booked",
+                      style: TextStyle(
+                        fontSize: screenHeight * 0.022,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.01),
+
+                    // 4. Subtitle Text
+                    Text(
+                      "You have successfully booked your\nservice appointment",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: screenHeight * 0.016,
+                        color: Color(0x80000000),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+
+                    // 5. Summary Card
+                    Card(
+                      color: Colors.white,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(color: Colors.grey.shade200, width: 1),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.all(screenHeight * 0.015),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(screenHeight * 0.012),
+                              decoration: const BoxDecoration(
+                                color: Color(0x1A116A94),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Image.asset(
+                                'assets/calendercard.png',
+                                height: screenHeight * 0.02,
+                                width: screenHeight * 0.02,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                            SizedBox(width: screenWidth * 0.03),
+
+                            // Details
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Service Booked Summary",
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: screenHeight * 0.014),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    category, // 🔴 Parameter use kiya
+                                    style: TextStyle(color: Color(0x99000000), fontSize: screenHeight * 0.014,fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    address, // 🔴 Parameter use kiya
+                                    style: TextStyle(color: Color(0x99000000), fontSize: screenHeight * 0.014,fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            // Date & Time Box Fix
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: screenWidth * 0.02,
+                                  vertical: screenHeight * 0.008
+                              ),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF126086).withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    dateSlot, // 🔴 Parameter use kiya
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: screenHeight * 0.011,
+                                        color: const Color(0xFF126086),
+                                        fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  SizedBox(height: screenHeight * 0.002),
+                                  Text(
+                                    timeSlot, // 🔴 Parameter use kiya
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: screenHeight * 0.011,
+                                        color: const Color(0xFF126086),
+                                        fontWeight: FontWeight.w400
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.04),
+
+                    // 6. Back to Home Button
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF126086),
+                          padding: EdgeInsets.symmetric(vertical: screenHeight * 0.018),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          elevation: 0,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => HomePageMain(),
+                            ),
+                                (Route<dynamic> route) => false,
+                          );
+                        },
+                        child: Text(
+                          "Back to Home",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: screenHeight * 0.018,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                  ],
+                ),
+              );
+            }
+        );
+      },
+    );
+  }
 
 
 }

@@ -257,6 +257,8 @@ class DummyData {
         "Hospital ${(i % 10) + 1}, ${(i % 5 == 0) ? "Bangalore" : (i % 5 == 1) ? "Hosur" : (i % 5 == 2) ? "Chennai" : (i % 5 == 3) ? "Mumbai" : "Agra"}",
 
         "photo": null,
+
+        "isCallAvailable": (i % 5 == 0) ? true : false,
       }
   ];
   static List<Map<String, dynamic>> getAppointmentsDoctorsByCategory({
@@ -440,24 +442,7 @@ class DummyData {
   }
 
 
-  //  Cart Data
-  // static List<Map<String,dynamic>> cartList = [
-  //   {"id" : 101,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-  //   {"id" : 102,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-  //   {"id" : 103,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
-  //
-  //   {"id" : 104,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-  //   {"id" : 105,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-  //   {"id" : 106,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
-  //
-  //   {"id" : 107,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-  //   {"id" : 108,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-  //   {"id" : 109,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
-  //
-  //   {"id" : 110,"plan" : "QCT Prime Health Plan" , "test" : "89", "qr" : "QR 1999"},
-  //   {"id" : 111,"plan" : "QCT Superoir Health Plan" , "test" : "100" , "qr" : "QR 1999"},
-  //   {"id" : 112,"plan" : "QCT Full Body Checkup Female" , "test" : "100" , "qr" : "QR 1999"},
-  // ];
+
 
   static List<Map<String, dynamic>> cartList = _generateData();
 
@@ -564,5 +549,14 @@ class DummyData {
     return list;
   }
 
+
+  static List<Map<String, dynamic>> healthCheckupList = [
+    for (int i = 1; i <= 100; i++) {
+      "id": i,
+      "name": (i % 2 == 0) ? "QCT Full Body Check Up Male $i" : "QCT Full Body Check Up Female $i",
+      "bookingId": "${10329847982 + i}",
+      "reportReceiveDate": (i % 10 == 1) ? "August 31, 2026" : (i % 10 == 2) ? "August 30, 2026" : (i % 10 == 3) ? "August 29, 2026" : (i % 10 == 4) ? "August 28, 2026" : (i % 10 == 5) ? "August 27, 2026" : (i % 10 == 6) ? "August 26, 2026" : (i % 10 == 7) ? "August 25, 2026" : (i % 10 == 8) ? "August 24, 2026" : (i % 10 == 9) ? "August 23, 2026" : "August 22, 2026",
+      "mustHavetests": (i % 7 == 1) ? "Complete Blood Count" : (i % 7 == 2) ? "Glucose,Post Prandial(PP),2 Hours" : (i % 7 == 3) ? "Complete Urine Examination" : (i % 7 == 4) ? "Thyroid Profile(Total T3,Total T4)" : (i % 7 == 5) ? "Lipid Profile" : (i % 7 == 6) ? "Liver Function Text(I-FT)" : "C-Reactive Protein(Quantitative)",
+      "category": (i % 7 == 1) ? "Pregnancy" : (i % 7 == 2) ? "X - ray MRI CT Ultrasound" : (i % 7 == 3) ? "Blood Studies" : (i % 7 == 4) ? "Allergy" : (i % 7 == 5) ? "Tax Saver" : (i % 7 == 6) ? "Bone" : "Men's Health", } ];
 
 }

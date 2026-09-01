@@ -185,7 +185,7 @@ class UserSecureStorage {
 
   static Future<Map<String, dynamic>?> getUser(String userId) async {
     String? jsonString = await _storage.read(key: _keyAllUsers);
-    print("jsonString: $jsonString");
+
     if (jsonString == null) return null;
 
 
