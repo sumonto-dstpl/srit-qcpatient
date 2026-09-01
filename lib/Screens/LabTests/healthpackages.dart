@@ -4,6 +4,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:newfolder/Core/TextField/textfiled_search_filter.dart';
+import 'package:newfolder/Core/no-data_found.dart';
 import 'package:newfolder/Data/Models/findspecialitiesres.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 
@@ -70,14 +72,33 @@ class HealthCondiViewallstate
   ];
 
 
-  EmergencyHomeCall emergencycallalert = new EmergencyHomeCall();
-  AppointmentCancel appointmentcancelalert = new AppointmentCancel();
-  TextEditingController SearchEditTextController = TextEditingController();
+  List<List<String>> filteredHealthConditions = [];
+  final TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
     // getSharedPrefs();
     super.initState();
+
+    filteredHealthConditions = List.from(mybrowsebyhealthcond);
+  }
+
+  void searchHealthCondition(String query) {
+    final searchText = query.trim().toLowerCase();
+
+    setState(() {
+      if (searchText.isEmpty) {
+        filteredHealthConditions = List.from(mybrowsebyhealthcond);
+      } else {
+        filteredHealthConditions = mybrowsebyhealthcond.where((item) {
+          final healthCondition = item[1].toLowerCase();
+
+          return healthCondition.contains(searchText);
+        }).toList();
+
+        print("filteredHealthConditions lenght : ${filteredHealthConditions.length}");
+      }
+    });
   }
 
   Future getSharedPrefs() async {
@@ -147,60 +168,22 @@ class HealthCondiViewallstate
                   child: ListView(
                     children: [
                       // Search Input Field
-                      Container(
-                        alignment: Alignment.centerRight,
+                      Padding(
                         padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.0,
-                            bottom: MediaQuery.of(context).size.height * 0.01,
-                            left: MediaQuery.of(context).size.height * 0.025,
-                            right: MediaQuery.of(context).size.height * 0.025),
-                        margin: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.height * 0.0,
-                            top: MediaQuery.of(context).size.height * 0.0,
-                            bottom: MediaQuery.of(context).size.height * 0.0,
-                            left: MediaQuery.of(context).size.height * 0.0),
-                        child: TextFormField(
-                          controller: SearchEditTextController,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(15),
-                            FilteringTextInputFormatter.allow(
-                                RegExp('[a-zA-Z0-9]'))
-                          ],
-                          textCapitalization: TextCapitalization.characters,
-                          style: TextStyle(color: Colors.black45),
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (input) => input!.length < 3
-                              ? "Search should be more than 3 characters"
-                              : null,
-                          decoration: InputDecoration(
-                            isDense: true,
-                            contentPadding:
-                            EdgeInsets.all(screenHeight * 0.012),
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            hintText: "Search By health packages",
-                            hintStyle: TextStyle(
-                              color: Colors.black26,
-                              fontSize: screenHeight * 0.016,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                              borderSide: BorderSide(color: Colors.grey),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(5.0)),
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            suffixIcon: Icon(
-                              Icons.search,
-                              color: Colors.black45,
-                              size: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * 0.02,
-                            ),
-                          ),
+                            left: MediaQuery.of(context).size.height * 0.02,
+                            right: MediaQuery.of(context).size.height * 0.02,
+                            bottom: MediaQuery.of(context).size.height * 0.016),
+                        child: CustomTextField(
+                          hintText: "Search by Health Packages",
+                          controller: searchController,
+                          showFilterIcon: false,
+                          onSearchTap: (){
+                            searchHealthCondition(searchController.text.toString());
+                          },
+
+                          onChanged: (val) {
+                            searchHealthCondition(val);
+                          },
                         ),
                       ),
 
@@ -241,7 +224,9 @@ class HealthCondiViewallstate
                       ),
 
                       // Browse by health condition Grid
-                      Container(
+                      filteredHealthConditions.length == 0
+                          ? NoDataFound()
+                      : Container(
                         color: Colors.white,
                         child: GridView.count(
                           shrinkWrap:

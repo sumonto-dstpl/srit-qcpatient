@@ -282,7 +282,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                                                   MaterialPageRoute(
                                                     builder: (
                                                         BuildContext context) {
-                                                      return AppointmentsFootMain();
+                                                      return AppointmentsFootMain(initialIndex: 1,);
                                                     },
                                                   ),
                                                 );

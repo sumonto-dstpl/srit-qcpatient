@@ -54,6 +54,7 @@ class PreviousOrderViewAll extends StatefulWidget {
 class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
   int _selectedIndex = 0;
 
+  TextEditingController SearchEditTextController = TextEditingController();
   List<Map<String, dynamic>> healthCheckupList = [];
   List<Map<String, dynamic>> filterHealthCheckupList = [];
   bool showNoDataFound = false;
@@ -89,7 +90,7 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
     final bool isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    TextEditingController SearchEditTextController = TextEditingController();
+
 
     return Scaffold(
       body: Container(
@@ -182,7 +183,10 @@ class PreviousOrderViewAllstate extends State<PreviousOrderViewAll> {
 
                                     child: TextFormField(
                                       controller: SearchEditTextController,
+                                      onChanged: (value) {
 
+                                        _applyActiveFilters(searchQuery: value);
+                                      },
                                       style: TextStyle(color: Colors.black),
                                       keyboardType: TextInputType.emailAddress,
                                       validator: (input) => input!.length < 3

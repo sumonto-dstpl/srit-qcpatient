@@ -3144,55 +3144,10 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                ),
                SizedBox(height: MediaQuery.of(context).size.height * 0.007),
                // Date and Time
-               Container(
-                 padding: EdgeInsets.symmetric(
-                     horizontal: MediaQuery.of(context).size.height * 0.01,
-                     vertical: MediaQuery.of(context).size.height * 0.005),
-                 width: double.infinity,
-                 child: Container(
-                   decoration: BoxDecoration(
-                     color: const Color(0xFF126086),
-                     borderRadius: BorderRadius.circular(9),
-                   ),
-                   padding: EdgeInsets.symmetric(
-                     horizontal: MediaQuery.of(context).size.height * 0.015,
-                     vertical: MediaQuery.of(context).size.height * 0.01,
-                   ),
-                   child: Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: <Widget>[
-                       // Date
-                       Row(
-                         children: [
-                           Icon(Icons.calendar_month,
-                               color: Colors.white, size: MediaQuery.of(context).size.height * 0.02),
-                           SizedBox(width: MediaQuery.of(context).size.height * 0.005),
-                           Text(
-                             "${doctor['dayDateLabel']}", // DYNAMIC DATE
-                             style: TextStyle(
-                                 color: Colors.white,
-                                 fontWeight: FontWeight.w600,
-                                 fontSize: MediaQuery.of(context).size.height * 0.014),
-                           ),
-                         ],
-                       ),
-                       // Time
-                       Row(
-                         children: [
-                           Icon(Icons.access_time_sharp,
-                               color: Colors.white, size: MediaQuery.of(context).size.height * 0.022),
-                           SizedBox(width: MediaQuery.of(context).size.height * 0.005),
-                           Text(
-                             "${doctor['timeRange']}", // DYNAMIC TIME
-                             style: TextStyle(
-                                 color: Colors.white,
-                                 fontWeight: FontWeight.w600,
-                                 fontSize: MediaQuery.of(context).size.height * 0.014),
-                           ),
-                         ],
-                       ),
-                     ],
-                   ),
+               Padding(
+                 padding:   EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.005),
+                 child: DateTimeWidget(
+                   detail: doctor,
                  ),
                ),
              ],

@@ -4,6 +4,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:newfolder/Core/TextField/textfiled_search_filter.dart';
+import 'package:newfolder/Core/no-data_found.dart';
 import 'package:newfolder/Data/Models/findspecialitiesres.dart';
 import 'package:newfolder/Screens/AddToCart/addtocart.dart';
 
@@ -70,14 +72,37 @@ class HealthCondiViewallstate
     ["assets/Fever.png", "Fever"],
   ];
 
+  List<List<String>> filteredHealthConditions = [];
+  final TextEditingController searchController = TextEditingController();
 
 
-  TextEditingController SearchEditTextController = TextEditingController();
+
+
 
   @override
   void initState() {
     // getSharedPrefs();
     super.initState();
+
+    filteredHealthConditions = List.from(mybrowsebyhealthcond);
+  }
+
+  void searchHealthCondition(String query) {
+    final searchText = query.trim().toLowerCase();
+
+    setState(() {
+      if (searchText.isEmpty) {
+        filteredHealthConditions = List.from(mybrowsebyhealthcond);
+      } else {
+        filteredHealthConditions = mybrowsebyhealthcond.where((item) {
+          final healthCondition = item[1].toLowerCase();
+
+          return healthCondition.contains(searchText);
+        }).toList();
+
+        print("filteredHealthConditions lenght : ${filteredHealthConditions.length}");
+      }
+    });
   }
 
   Future getSharedPrefs() async {
@@ -147,161 +172,22 @@ class HealthCondiViewallstate
                   child: ListView(
                     children: [
                       // Search Input Field
-                      Container(
+                      Padding(
                         padding: EdgeInsets.only(
-                            left: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.02,
-                            right: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.02,
-                            top: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0,
-                            bottom: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.02),
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(screenHeight * 0.03),
-                            topRight: Radius.circular(screenHeight * 0.03),
-                          ),
-                        ),
-                        child:
-                        Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (BuildContext context) {
-                                        return QuickSearchWithoutData();
-                                      },
-                                    ),
-                                  );
-                                },
-                                child:
-                                Container(
-                                  height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.05,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFF7F5F6),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
+                            left: MediaQuery.of(context).size.height * 0.02,
+                            right: MediaQuery.of(context).size.height * 0.02,
+                            bottom: MediaQuery.of(context).size.height * 0.016),
+                        child: CustomTextField(
+                          hintText: "Search by Health Condition",
+                            controller: searchController,
+                          showFilterIcon: false,
+                          onSearchTap: (){
+                            searchHealthCondition(searchController.text.toString());
+                          },
 
-                                  alignment: Alignment.centerRight,
-                                  padding: EdgeInsets.only(
-                                    top: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * 0.0,
-                                    bottom: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * 0.0,
-                                    left: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * 0.00,
-                                    right: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * 0.00,
-                                  ),
-                                  margin: EdgeInsets.only(
-                                    right: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * 0.0,
-                                    top: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * 0.0,
-                                    bottom: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * 0.0,
-                                    left: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * 0.0,
-                                  ),
-                                  child: Row(
-                                    // mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                        padding: EdgeInsets.only(
-                                            left: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height *
-                                                0.02,
-                                            right: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height *
-                                                0.00,
-                                            top: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height *
-                                                0.00,
-                                            bottom: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height *
-                                                0.0),
-                                        child: Text(
-                                          "Search by Health Condition",
-                                          style: TextStyle(
-                                              color: Color(0xFF999999),
-                                              // overflow: TextOverflow.ellipsis,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize:
-                                              MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height *
-                                                  0.014
-                                          ),
-                                        ),
-                                      ),
-
-
-
-
-                                      Spacer(),
-                                      // Pushes the search icon to the end of the Row
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          right: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height * 0.02,
-                                        ),
-                                        child: Icon(
-                                          Icons.search,
-                                          color: Colors.black45,
-                                          size: MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height * 0.02,
-                                        ),
-                                      ),
-
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ]
+                          onChanged: (val) {
+                            searchHealthCondition(val);
+                          },
                         ),
                       ),
 
@@ -341,7 +227,11 @@ class HealthCondiViewallstate
                       ),
 
                       // Browse by health condition Grid
-                      Container(
+
+                      filteredHealthConditions.length == 0
+                      ? NoDataFound()
+
+                       : Container(
                         color: Colors.white,
                         child: GridView.count(
                           shrinkWrap:
@@ -358,7 +248,7 @@ class HealthCondiViewallstate
                           crossAxisSpacing: screenHeight * 0.02,
                           mainAxisSpacing: screenHeight * 0.01,
                           children: List.generate(
-                            mybrowsebyhealthcond.length,
+                            filteredHealthConditions.length,
                                 (index) => Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -371,7 +261,7 @@ class HealthCondiViewallstate
                                           return RecommendedViewAll(
                                             usernameValue: "Health Package",
                                             mode: 'health_condition',
-                                            categoryName: mybrowsebyhealthcond[index][1],
+                                            categoryName: filteredHealthConditions[index][1],
 
                                           );
                                         },
@@ -391,7 +281,7 @@ class HealthCondiViewallstate
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            mybrowsebyhealthcond[index][0]),
+                                            filteredHealthConditions[index][0]),
                                         fit: BoxFit.contain,
                                       ),
                                     ),
@@ -406,7 +296,7 @@ class HealthCondiViewallstate
                                       right: MediaQuery.of(context).size.height * 0.005,
                                     ),
                                     child: Text(
-                                      mybrowsebyhealthcond[index][1],
+                                      filteredHealthConditions[index][1],
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black87,

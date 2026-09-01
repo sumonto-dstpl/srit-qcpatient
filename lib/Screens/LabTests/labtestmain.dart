@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:newfolder/Core/Data/dummy_data.dart';
 import 'package:newfolder/Core/Dialog/delete_dialog.dart';
 import 'package:newfolder/Core/Image%20Action/delete.dart';
+import 'package:newfolder/Core/TextField/textfiled_search_filter.dart';
 import 'package:newfolder/Screens/LabTests/healthcondiviewall.dart';
 import 'package:newfolder/Screens/LabTests/healthpackages.dart';
 import 'package:newfolder/Screens/LabTests/labsmartreportslist.dart';
@@ -38,6 +39,11 @@ class LabTestsMainstate extends State<LabTestsMain> {
 
   String userprofilepValue = "NA";
   int _selectedIndex = 0;
+
+  List<Map<String, dynamic>> previousOrder = [];
+  List<Map<String, dynamic>> filterPreviousOrder = [];
+  bool showNoDataFoundForPreviousOrder = false;
+
   final mybrowsebyhealthcond = [
     ["assets/Harmone.png", "Harmone"],
     ["assets/Diabetes.png", "Diabetes"],
@@ -52,7 +58,6 @@ class LabTestsMainstate extends State<LabTestsMain> {
     ["assets/Kidney.png", "Kidney"],
     ["assets/Fever.png", "Fever"],
   ];
-
   final myhealthpackages = [
     ["assets/Harmone.png", "Full Body Checkup"],
     ["assets/Diabetes.png", "Men’s Wellness"],
@@ -67,6 +72,8 @@ class LabTestsMainstate extends State<LabTestsMain> {
     ["assets/Kidney.png", "Kidney Package"],
     ["assets/Fever.png", "Fever Package"],
   ];
+  List<List<String>> filteredMybrowsebyhealthcond = [];
+  List<List<String>> filteredmyhealthpackages = [];
 
 
   bool new30 = true;
@@ -78,8 +85,14 @@ class LabTestsMainstate extends State<LabTestsMain> {
   List<dynamic> addedList=[];
 
   List<Map<String, dynamic>> recommendedTests = [];
+  List<Map<String, dynamic>> filterRecommendedTests = [];
+  bool showNoDataFoundForRecommendedTests = false;
+
+
   List<Map<String, dynamic>> healthCondition = [];
   List<Map<String, dynamic>> healthPackage = [];
+
+  final TextEditingController searchController = TextEditingController();
 
   @override
   void initState(){
@@ -109,6 +122,96 @@ class LabTestsMainstate extends State<LabTestsMain> {
 
     _loadData();
     Provider.of<CartProvider>(context, listen: false).loadCart();
+
+    filteredMybrowsebyhealthcond = List.from(mybrowsebyhealthcond);
+    filteredmyhealthpackages = List.from(myhealthpackages);
+
+  }
+
+  void searchHealthCondition(String query) {
+    final searchText = query.trim().toLowerCase();
+
+    setState(() {
+      if (searchText.isEmpty) {
+        filteredMybrowsebyhealthcond = List.from(mybrowsebyhealthcond);
+        filteredmyhealthpackages = List.from(myhealthpackages);
+        showNoDataFoundForPreviousOrder = false;
+        showNoDataFoundForRecommendedTests = false;
+
+      } else {
+        filteredMybrowsebyhealthcond = mybrowsebyhealthcond.where((item) {
+          final healthCondition = item[1].toLowerCase();
+
+          return healthCondition.contains(searchText);
+        }).toList();
+        filteredmyhealthpackages = myhealthpackages.where((item) {
+          final healthCondition = item[1].toLowerCase();
+
+          return healthCondition.contains(searchText);
+        }).toList();
+
+
+        
+      }
+      _applyActiveFilters(searchQuery: query);
+    });
+  }
+
+  void _applyActiveFilters({String searchQuery = ""}) {
+    List<Map<String, dynamic>> tmp = previousOrder.where((item) {
+
+      if (searchQuery.isNotEmpty) {
+        final plan = (item['name'] ?? '').toString().toLowerCase();
+        final test = (item['bookingId'] ?? '').toString().toLowerCase();
+        final searchLower = searchQuery.toLowerCase();
+
+        // Agar plan ya test ke naam me search text nahi milta, toh false return karo
+        if (!plan.contains(searchLower) && !test.contains(searchLower)) {
+          return false;
+        }
+      }
+
+
+
+
+
+
+
+      return true;
+    }).toList();
+    setState(() {
+      filterPreviousOrder = tmp;
+      showNoDataFoundForPreviousOrder = tmp.isEmpty;
+
+    });
+
+    List<Map<String, dynamic>> tmp2 = recommendedTests.where((item) {
+
+      if (searchQuery.isNotEmpty) {
+        final plan = (item['plan'] ?? '').toString().toLowerCase();
+
+        final searchLower = searchQuery.toLowerCase();
+
+
+        if (!plan.contains(searchLower)) {
+          return false;
+        }
+      }
+
+
+
+
+
+
+
+      return true;
+    }).toList();
+    setState(() {
+      filterRecommendedTests = tmp2;
+      showNoDataFoundForRecommendedTests = tmp2.isEmpty;
+
+    });
+
   }
 
   void _loadData() async {
@@ -133,6 +236,27 @@ class LabTestsMainstate extends State<LabTestsMain> {
       }
 
     }
+
+    previousOrder = DummyData.healthCheckupList;
+    if(previousOrder.isNotEmpty){
+      filterPreviousOrder = previousOrder ;
+      showNoDataFoundForPreviousOrder = false;
+    }
+    else {
+      filterPreviousOrder = [] ;
+      showNoDataFoundForPreviousOrder = true;
+    }
+
+    if(recommendedTests.isNotEmpty){
+      filterRecommendedTests = recommendedTests ;
+      showNoDataFoundForRecommendedTests = false;
+    }
+    else {
+      filterRecommendedTests = [] ;
+      showNoDataFoundForRecommendedTests = true;
+    }
+
+
   }
 
 
@@ -174,163 +298,27 @@ class LabTestsMainstate extends State<LabTestsMain> {
               children: [
 
               // Main Content Section
-              Container(
-                padding: EdgeInsets.only(
-                        left: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.02,
-                        right: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.02,
-                        top: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.02,
-                        bottom: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.01),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(screenHeight * 0.03),
-                        topRight: Radius.circular(screenHeight * 0.03),
-                      ),
-                    ),
-                child:
-                  Column(
-                    children: [ 
-                       GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return QuickSearchWithoutData();
-                              },
-                            ),
-                          );
-                        },
-                        child:
-                        Container(
-                          height: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.05,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFF7F5F6),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+              
+                SizedBox(height: screenHeight * 0.02,),
+                Padding(
+                  padding: EdgeInsets.symmetric(
 
-                          alignment: Alignment.centerRight,
-                          padding: EdgeInsets.only(
-                            top: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0,
-                            bottom: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0,
-                            left: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.00,
-                            right: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.00,
-                          ),
-                          margin: EdgeInsets.only(
-                            right: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0,
-                            top: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0,
-                            bottom: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0,
-                            left: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0,
-                          ),
-                          child: Row(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height *
-                                        0.02,
-                                    right: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height *
-                                        0.00,
-                                    top: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height *
-                                        0.00,
-                                    bottom: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height *
-                                        0.0),
-                                child: Text(
-                                  "Search by service name",
-                                  style: TextStyle(
-                                      color: Color(0xFF999999),
-                                      // overflow: TextOverflow.ellipsis,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize:
-                                      MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height *
-                                          0.014
-                                  ),
-                                ),
-                              ),
+                      horizontal: screenHeight * 0.02,),
 
+                  child: CustomTextField(
+                    hintText: "Search by service name",
+                    controller: searchController,
+                    showFilterIcon: false,
+                    onSearchTap: (){
+                      searchHealthCondition(searchController.text.toString());
+                    },
 
-
-
-                              Spacer(),
-                              // Pushes the search icon to the end of the Row
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  right: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.02,
-                                ),
-                                child: Icon(
-                                  Icons.search,
-                                  color: Colors.black45,
-                                  size: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.02,
-                                ),
-                              ),
-
-                            ],
-                          ),
-                        ),
-                      ),
-                    ]
+                    onChanged: (val) {
+                      searchHealthCondition(val);
+                    },
                   ),
-              ),
+                ),
+                SizedBox(height: screenHeight * 0.01,),
 
 
               Expanded(
@@ -343,10 +331,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    // borderRadius: BorderRadius.only(
-                    //   topLeft: Radius.circular(screenHeight * 0.03),
-                    //   topRight: Radius.circular(screenHeight * 0.03),
-                    // ),
+
                   ),
                   child: ListView(
                       padding: EdgeInsets.zero,
@@ -438,7 +423,9 @@ class LabTestsMainstate extends State<LabTestsMain> {
                       ),
 
                       // Previous Orders List
-                      Column(
+                      showNoDataFoundForPreviousOrder
+                      ? noservices(searchController.text.toString())
+                      : Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           // Provide a width constraint using SizedBox or Expanded
@@ -454,8 +441,9 @@ class LabTestsMainstate extends State<LabTestsMain> {
                               physics: ScrollPhysics(),  // Ensures scrolling
                               shrinkWrap: true,  // Prevents ListView from taking up extra space
                               scrollDirection: Axis.horizontal,  // Makes the ListView horizontal
-                              itemCount: 3,  // You can adjust the item count
+                              itemCount: filterPreviousOrder.length,  // You can adjust the item count
                               itemBuilder: (BuildContext context, int index) {
+                                final item = filterPreviousOrder[index] ;
                                 return GestureDetector(
                                   onTap: () {
                                     // Add your onTap logic here
@@ -560,7 +548,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                                                 bottom: MediaQuery.of(context).size.height * 0.00),
                                                             child:
                                                             Text(
-                                                              "QCT Full Body Checkup Female ",
+                                                              "${item['name']}",
                                                               style: TextStyle(
                                                                   color: Colors.black87,
                                                                   overflow: TextOverflow.ellipsis,
@@ -581,7 +569,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                                                 bottom: MediaQuery.of(context).size.height * 0.00),
                                                             child:
                                                             Text(
-                                                              "Booking ID : 10329847982",
+                                                              "Booking ID : ${item['bookingId']}",
                                                               style: TextStyle(
                                                                   color: Colors.black54,
                                                                   fontWeight: FontWeight.w500,
@@ -602,7 +590,7 @@ class LabTestsMainstate extends State<LabTestsMain> {
                                                                 bottom: MediaQuery.of(context).size.height * 0.00),
                                                             child:
                                                             Text(
-                                                              "Report Received Date : April 30, 2024",
+                                                              "Report Received Date : ${item['reportReceiveDate']}",
                                                               style: TextStyle(
                                                                   color: Color(0xFF126086),
                                                                   fontWeight: FontWeight.w600,
@@ -957,38 +945,19 @@ class LabTestsMainstate extends State<LabTestsMain> {
                       ),
 
                       // Browse by health condition Grid
-                      Container(
+                      filteredMybrowsebyhealthcond.length == 0
+                      ? noservices(searchController.text.toString())
+                      : Container(
                         color: Colors.white,
-                        padding: EdgeInsets.only(
-                            left: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0,
-                            top: MediaQuery.of(context).size.height *
-                                0.00,
-                            right: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.0,
-                            bottom: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.00
-                        ),
+                         
                         child: GridView.count(
                           shrinkWrap:
                           true, // GridView takes only as much space as needed
                           physics:
                           NeverScrollableScrollPhysics(), // Disable scrolling inside GridView
-                          padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.00,
-                            right: MediaQuery.of(context).size.height * 0.00,
-                            top: MediaQuery.of(context).size.height * 0.00,
-                            bottom: MediaQuery.of(context).size.height * 0.00,
-                          ),
+                          padding: EdgeInsets.zero,
                           crossAxisCount: 4,
-                          // crossAxisSpacing: screenHeight * 0.02,
-                          // mainAxisSpacing: screenHeight * 0.01,
+                          
                           children: List.generate(
                             mybrowsebyhealthcond.length,
                                 (index) => Column(
@@ -1117,6 +1086,9 @@ class LabTestsMainstate extends State<LabTestsMain> {
                       ),
 
                       // Recommended Test List
+                      showNoDataFoundForRecommendedTests
+                          ? noservices(searchController.text.toString())
+                          :
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
@@ -1129,10 +1101,10 @@ class LabTestsMainstate extends State<LabTestsMain> {
                               physics: ScrollPhysics(),  // Ensures scrolling
                               shrinkWrap: true,  // Prevents ListView from taking up extra space
                               scrollDirection: Axis.horizontal,  // Makes the ListView horizontal
-                              itemCount: recommendedTests.length
+                              itemCount: filterRecommendedTests.length
                               ,  // You can adjust the item count
                               itemBuilder: (BuildContext context, int index) {
-                                final item = recommendedTests[index];
+                                final item = filterRecommendedTests[index];
                                 return GestureDetector(
                                   onTap: () {
 
@@ -1631,7 +1603,9 @@ class LabTestsMainstate extends State<LabTestsMain> {
                       ),
 
                       // Health Package Grid
-                      Container(
+                      filteredmyhealthpackages.length == 0
+                          ? noservices(searchController.text.toString())
+                      : Container(
                         color: Colors.white,
                         padding: EdgeInsets.only(
                             left: MediaQuery
@@ -2688,5 +2662,61 @@ class LabTestsMainstate extends State<LabTestsMain> {
       addedList.insert(0, addToCart);
     });
 
+  }
+  
+  Widget noservices(String query) {
+     return Material(
+       type: MaterialType.transparency,
+       child: Container(
+         margin: EdgeInsets.only(bottom : MediaQuery.of(context).size.height * 0.02),
+         padding: EdgeInsets.symmetric(
+           horizontal: MediaQuery.of(context).size.height * 0.02,
+           vertical: MediaQuery.of(context).size.height * 0.015,
+         ),
+         decoration: BoxDecoration(
+           borderRadius: BorderRadius.circular(10),
+           gradient: LinearGradient(
+             begin: Alignment.centerLeft,
+             end: Alignment.centerRight,
+             stops: [0.5, 0.9],
+             colors: [
+               Color(0xB2F7F5F6),
+               Color(0xB2F7F5F6),
+             ],
+           ),
+         ),
+         child: Row(
+           crossAxisAlignment: CrossAxisAlignment.center,
+           children: [
+             Container(
+               width: MediaQuery.of(context).size.height * 0.02,
+               height: MediaQuery.of(context).size.height * 0.020,
+               decoration: BoxDecoration(
+                 image: DecorationImage(
+                   image: AssetImage("assets/nodatasearchicon.png"),
+                   fit: BoxFit.contain,
+                 ),
+               ),
+             ),
+             SizedBox(width: MediaQuery.of(context).size.height * 0.02),
+             Expanded(
+               child: Text(
+                 "No result found for the searched keyword - ${query}",
+                 style: TextStyle(
+                   color: Color(0xFF13658C),
+                   fontWeight: FontWeight.w500,
+                   fontSize: MediaQuery.of(context).size.height * 0.014, // Use fixed size for stability
+                 ),
+                 maxLines: 2, // Avoid overflow by limiting lines
+                 overflow: TextOverflow.ellipsis,
+                 softWrap: true,
+                 textScaleFactor: MediaQuery.of(context).textScaleFactor.clamp(1.0, 1.2),
+                 // Optional: limit font scaling
+               ),
+             ),
+           ],
+         ),
+       ),
+     ) ;
   }
 }
