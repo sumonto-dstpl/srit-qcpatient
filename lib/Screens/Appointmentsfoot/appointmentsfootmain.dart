@@ -1266,10 +1266,12 @@ class AppoinmentsCard extends StatelessWidget {
 
 class DateTimeWidget extends StatelessWidget{
   final Map detail ;
+  final bool decreaseSize ;
 
   DateTimeWidget({
     Key? key,
     required this.detail,
+    this.decreaseSize = false,
 
 
   }) : super(key : key);
@@ -1304,7 +1306,8 @@ class DateTimeWidget extends StatelessWidget{
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                 children: [
                   // DATE SECTION
                   Flexible(
@@ -1312,6 +1315,7 @@ class DateTimeWidget extends StatelessWidget{
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
                           Icons.calendar_month,
@@ -1327,7 +1331,7 @@ class DateTimeWidget extends StatelessWidget{
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
-                              fontSize: height * 0.013,
+                              fontSize: decreaseSize ? height * 0.011 :  height * 0.012,
                             ),
                           ),
                         ),
@@ -1335,34 +1339,30 @@ class DateTimeWidget extends StatelessWidget{
                     ),
                   ),
 
-                  SizedBox(width: height * 0.0), // spacing between date & time
+                  SizedBox(width: height * 0.005), // spacing between date & time
 
                   // TIME SECTION
-                  Flexible(
-                    flex: 1,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Icon(
-                          Icons.access_time_sharp,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.access_time_sharp,
+                        color: Colors.white,
+                        size: height * 0.022,
+                      ),
+                      SizedBox(width: height * 0.008),
+                      Text(
+                        "${detail['timeRange']}",
+                        softWrap: true,
+                        style: TextStyle(
                           color: Colors.white,
-                          size: height * 0.022,
+                          fontWeight: FontWeight.w600,
+                          fontSize: decreaseSize ? height * 0.011 :  height * 0.012,
                         ),
-                        SizedBox(width: height * 0.008),
-                        Expanded(
-                          child: Text(
-                            "${detail['timeRange']}",
-                            softWrap: true,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: height * 0.013,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ),

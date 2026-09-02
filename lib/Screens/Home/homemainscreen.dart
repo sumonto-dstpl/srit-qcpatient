@@ -3152,6 +3152,7 @@ class HomePageMainstate extends State<HomePageMain> with SingleTickerProviderSta
                Padding(
                  padding:   EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.005),
                  child: DateTimeWidget(
+                   decreaseSize: true,
                    detail: doctor,
                  ),
                ),
