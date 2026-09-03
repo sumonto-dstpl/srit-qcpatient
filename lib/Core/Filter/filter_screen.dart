@@ -11,13 +11,13 @@ class FilterScreen {
       BuildContext context, {
         required List<FilterCategory> categories,
         double initialChildSize = 0.55,
-        required double left_right_size ,
-
+        required double left_right_size,
       }) {
     return showModalBottomSheet<Map<String, List<String>>>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
+      enableDrag: false, // User manual drag down disable karne ke liye
       builder: (context) => ReusableFilterSheet(
         initialCategories: categories,
         initialChildSize: initialChildSize,
@@ -45,40 +45,26 @@ class ReusableFilterSheet extends StatefulWidget {
 }
 
 class _ReusableFilterSheetState extends State<ReusableFilterSheet> {
-
   late List<FilterCategory> categories;
-
   int selectedCategoryIndex = 0;
 
   final FocusNode _searchFocusNode = FocusNode();
   final TextEditingController _searchController = TextEditingController();
-  final DraggableScrollableController _sheetController = DraggableScrollableController();
-
-  double _currentChildSize = 0.55;
-  bool _isDismissed = false;
-  double _lastExtent = 0.55;
-
 
   Map<String, String> searchQueries = {};
 
   @override
   void initState() {
     super.initState();
-    // Deep copy of categories to allow local mutation
     categories = widget.initialCategories.map((c) {
       return FilterCategory(
           key: c.key,
           title: c.title,
           options: c.options,
           initialSelectedOptions: List.from(c.selectedOptions),
-          hasSearchBar: c.hasSearchBar// Copy selected options
-      );
+          hasSearchBar: c.hasSearchBar);
     }).toList();
 
-    _currentChildSize = widget.initialChildSize;
-    _lastExtent = widget.initialChildSize;
-
-    // Initialize search queries map
     for (var category in categories) {
       searchQueries[category.key] = '';
     }
@@ -91,22 +77,13 @@ class _ReusableFilterSheetState extends State<ReusableFilterSheet> {
     _searchFocusNode.removeListener(_onFocusChange);
     _searchFocusNode.dispose();
     _searchController.dispose();
-    _sheetController.dispose();
     super.dispose();
   }
 
   void _onFocusChange() {
     if (mounted) {
       setState(() {
-        // Move up when search field is focused
-        _currentChildSize = _searchFocusNode.hasFocus ? 0.9 : widget.initialChildSize;
-        if (_searchFocusNode.hasFocus) {
-          _sheetController.animateTo(
-            0.9,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-          );
-        }
+        // Sirf UI update trigger karenge, AnimatedContainer baki kaam khud kar lega
       });
     }
   }
@@ -125,26 +102,21 @@ class _ReusableFilterSheetState extends State<ReusableFilterSheet> {
     return categories.fold<int>(0, (sum, category) => sum + category.selectedOptions.length);
   }
 
-
   Widget _getFilterOptionsWidget(BuildContext context) {
     if (categories.isEmpty) return const Center(child: Text("No filters available"));
 
     FilterCategory currentCategory = categories[selectedCategoryIndex];
     String currentQuery = searchQueries[currentCategory.key] ?? '';
 
-    // Filter the options list
     List<String> filteredList = currentCategory.options
         .where((opt) => opt.toLowerCase().contains(currentQuery.toLowerCase()))
         .toList();
-    print("hassearch bar : ${currentCategory.hasSearchBar}");
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Search Bar
         if (currentCategory.hasSearchBar)
           _buildSearchBar(currentCategory.key, context),
-
-        // Filtered Chips (Options)
         Expanded(
           child: SingleChildScrollView(
             child: _buildChips(filteredList, currentCategory.selectedOptions),
@@ -166,9 +138,13 @@ class _ReusableFilterSheetState extends State<ReusableFilterSheet> {
       child: TextFormField(
         focusNode: _searchFocusNode,
         controller: _searchController,
+        textInputAction: TextInputAction.done, // Keyboard me 'Done' button dikhane ke liye
+        onEditingComplete: () {
+          // 'Done' par click karne par keyboard hide ho jayega
+          FocusScope.of(context).unfocus();
+        },
         inputFormatters: [
           LengthLimitingTextInputFormatter(15),
-          // FilteringTextInputFormatter.allow(RegExp('[a-zA-Z0-9]')), // Allow all chars for better search
         ],
         style: const TextStyle(color: Colors.black45),
         decoration: InputDecoration(
@@ -176,7 +152,6 @@ class _ReusableFilterSheetState extends State<ReusableFilterSheet> {
           contentPadding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.012),
           filled: true,
           fillColor: const Color(0xFFF7F5F6).withOpacity(0.9),
-          // hintText: "Search ${categoryKey.toUpperCase()}",
           hintText: "Search",
           hintStyle: TextStyle(
               color: const Color(0xFFA8A8A8),
@@ -205,14 +180,12 @@ class _ReusableFilterSheetState extends State<ReusableFilterSheet> {
     );
   }
 
-
   Widget _buildChips(List<String> list, List<String> selection) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.height * 0.01
-      ),
+      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.01),
       child: Wrap(
-          spacing: 8, runSpacing: 8,
+          spacing: 8,
+          runSpacing: 8,
           children: list.map((opt) {
             final selected = selection.contains(opt);
             return GestureDetector(
@@ -228,7 +201,7 @@ class _ReusableFilterSheetState extends State<ReusableFilterSheet> {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 decoration: BoxDecoration(
-                  color: selected ? Color(0x1A116A94) : Color(0x80EEEEEE),
+                  color: selected ? const Color(0x1A116A94) : const Color(0x80EEEEEE),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Row(
@@ -237,14 +210,14 @@ class _ReusableFilterSheetState extends State<ReusableFilterSheet> {
                     Text(
                       opt,
                       style: TextStyle(
-                        color: selected ? Color(0xFF126086) : Colors.black87,
+                        color: selected ? const Color(0xFF126086) : Colors.black87,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
                     if (selected) ...[
-                      SizedBox(width: 6),
-                      Icon(Icons.close, size: 18)
+                      const SizedBox(width: 6),
+                      const Icon(Icons.close, size: 18)
                     ]
                   ],
                 ),
@@ -257,279 +230,237 @@ class _ReusableFilterSheetState extends State<ReusableFilterSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-      controller: _sheetController,
-      initialChildSize: _currentChildSize,
-      minChildSize: _currentChildSize,
-      maxChildSize: 0.9,
-      expand: false,
-      builder: (context, scrollController) {
-        return NotificationListener<DraggableScrollableNotification>(
-          onNotification: (notification) {
-            final currentExtent = notification.extent;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
 
-            // Hide keyboard when dragging down
-            if (currentExtent < _lastExtent - 0.01) {
-              FocusScope.of(context).unfocus();
-            }
+    // Normal base height 55%
+    double innerHeight = screenHeight * widget.initialChildSize;
 
-            // Dismiss the sheet if dragged below threshold
-            if (!_isDismissed && currentExtent < 0.28) {
-              _isDismissed = true;
-              Navigator.of(context).pop();
-            }
+    // Agar text field focus me hai ya keyboard open hai, to screen ko stretch karein (max 90% minus keyboard height)
+    if (_searchFocusNode.hasFocus || keyboardHeight > 0) {
+      double expandedHeight = (screenHeight * 0.9) - keyboardHeight;
+      // Ensure karein ki height kabhi normal base height se kam na ho
+      if (expandedHeight > innerHeight) {
+        innerHeight = expandedHeight;
+      }
+    }
 
-            _lastExtent = currentExtent;
-            return true;
-          },
-          child: Container(
-            // Use a specific shape for the sheet
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: ListView(
-                controller: scrollController,
-                children: <Widget>[
-                  // Handle/Drag Indicator
-                  Center(
-                    child: Container(
-                      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.015, bottom: 8),
-                      width: MediaQuery.of(context).size.width * 0.25,
-                      height: 4.0,
-                      decoration: BoxDecoration(
-                        color: const Color(0x2413678F),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-
-                  // Header (Add Filters / Clear all)
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.02,
-                      right: MediaQuery.of(context).size.height * 0.02,
-
-                    ),
-                    child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Row(
-                            children: [
-                              Container(
-
-                                child: Text(
-                                  "Add Filters",
-                                  style: TextStyle(
-                                    color: Color(0xFF2F3335),
-                                    fontWeight: FontWeight.w600,
-                                    overflow: TextOverflow.ellipsis,
-                                    fontSize:
-                                    MediaQuery.of(context).size.height *
-                                        0.016,
-                                  ),
-                                ),
-                              ),
-                              if(selectedCount > 0)
-                                Container(
-                                  padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.height *
-                                          0.00,
-                                      right: MediaQuery.of(context).size.height *
-                                          0.00,
-                                      top: MediaQuery.of(context).size.height *
-                                          0.00,
-                                      bottom: MediaQuery.of(context).size.height *
-                                          0.00),
-                                  child: Text(
-                                    ' (${selectedCount})',
-                                    style: TextStyle(
-                                      color: Color(0xFF2F3335),
-                                      fontWeight: FontWeight.w600,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontSize:
-                                      MediaQuery.of(context).size.height *
-                                          0.015,
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              clearAll();
-                            },
-                            child: Container(
-
-                              child: Text(
-                                "Clear all",
-                                style: TextStyle(
-                                  color: Color(0xFF126086),
-                                  fontWeight: FontWeight.w600,
-                                  overflow: TextOverflow.ellipsis,
-                                  fontSize:
-                                  MediaQuery.of(context).size.height *
-                                      0.012,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ]),
-                  ),
-
-
-                  // Left & Right Panels
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Left Side: Categories List
-                      Expanded(
-                        flex: 5,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF95C8D6).withOpacity(0.2),
-                            // color : Colors.red,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          margin: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.020,
-                            top: MediaQuery.of(context).size.height * 0.01,
-
-                          ),
-
-
-
-                          height: widget.left_right_size,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: categories.length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    // Clear search bar on category switch
-                                    _searchController.clear();
-                                    searchQueries[categories[selectedCategoryIndex].key] = ''; // Clear query for previous category
-                                    selectedCategoryIndex = index;
-                                  });
-                                },
-                                child: Container(
-
-                                  decoration: BoxDecoration(
-                                    color: selectedCategoryIndex == index
-                                        ? Colors.white
-                                        : Colors.transparent,
-                                    borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(8),
-                                      bottomRight: Radius.circular(8),
-                                    ),
-                                  ),
-                                  child: Stack(
-                                    children: [
-                                      // Blue Side Indicator Line
-                                      if (selectedCategoryIndex == index)
-                                        Positioned(
-                                          top: 6,
-                                          left: 0,
-                                          bottom: 6,
-                                          child: Container(
-                                            width: 3.0,
-                                            color: const Color(0xFF126086),
-                                          ),
-                                        ),
-                                      Container(
-                                        alignment: Alignment.centerLeft,
-                                        padding: EdgeInsets.only(
-                                          left : MediaQuery.of(context).size.height * 0.02,
-
-                                          bottom: MediaQuery.of(context).size.height * 0.01,
-                                          top : MediaQuery.of(context).size.height * 0.01,
-                                        ),
-                                        child: Text(
-                                          categories[index].title,
-                                          style: TextStyle(
-                                            color: selectedCategoryIndex == index
-                                                ? const Color(0xFF126086)
-                                                : Colors.black87,
-                                            fontSize: MediaQuery.of(context).size.height * 0.014,
-                                            fontWeight: selectedCategoryIndex == index
-                                                ? FontWeight.bold
-                                                : FontWeight.normal,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-
-                      // Right Side: Filter Options
-                      Expanded(
-                        flex: 6,
-                        child: Container(
-
-                          height: widget.left_right_size,
-                          padding: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.height * 0.01,
-                            top: MediaQuery.of(context).size.height * 0.01,
-                            bottom: MediaQuery.of(context).size.height * 0.0,
-                          ),
-                          child: _getFilterOptionsWidget(context),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.015,),
-                  // Apply Filters Button
-                  Padding(
-                    padding: EdgeInsets.symmetric( horizontal: MediaQuery.of(context).size.height * 0.03),
-                    child: ElevatedButton(
-                      onPressed: selectedCount > 0 ? () {
-                        // Prepare the result map
-                        final Map<String, List<String>> result = {};
-                        for (var category in categories) {
-                          if (category.selectedOptions.isNotEmpty) {
-                            result[category.key] = category.selectedOptions;
-                          }
-                        }
-                        Navigator.pop(context, result);
-                      } : null, // Disable if no filters are selected
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF126086),
-                        minimumSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.045),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              MediaQuery.of(context).size.height * 0.012),
-                        ),
-                        disabledBackgroundColor: const Color(0x99909090),
-                      ),
-                      child: Text(
-                        "Apply Filters",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.height * 0.02,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+    return GestureDetector(
+      // Bahar kahin bhi click karne par keyboard close ho jayega
+      onTap: () => FocusScope.of(context).unfocus(),
+      // Padding ko bahar rakha hai, taaki container squeeze na ho
+      child: Padding(
+        padding: EdgeInsets.only(bottom: keyboardHeight),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOut,
+          height: innerHeight, // Dynamically adjusted height
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
             ),
           ),
-        );
-      },
+          child: Column(
+            children: <Widget>[
+              // Handle Indicator
+              Center(
+                child: Container(
+                  margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.015, bottom: 8),
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  height: 4.0,
+                  decoration: BoxDecoration(
+                    color: const Color(0x2413678F),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+
+              // Header (Add Filters / Clear all)
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.02,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      children: [
+                        Text(
+                          "Add Filters",
+                          style: TextStyle(
+                            color: const Color(0xFF2F3335),
+                            fontWeight: FontWeight.w600,
+                            fontSize: MediaQuery.of(context).size.height * 0.016,
+                          ),
+                        ),
+                        if (selectedCount > 0)
+                          Text(
+                            ' ($selectedCount)',
+                            style: TextStyle(
+                              color: const Color(0xFF2F3335),
+                              fontWeight: FontWeight.w600,
+                              fontSize: MediaQuery.of(context).size.height * 0.015,
+                            ),
+                          ),
+                      ],
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        FocusScope.of(context).unfocus(); // Close keyboard on Clear All
+                        clearAll();
+                      },
+                      child: Text(
+                        "Clear all",
+                        style: TextStyle(
+                          color: const Color(0xFF126086),
+                          fontWeight: FontWeight.w600,
+                          fontSize: MediaQuery.of(context).size.height * 0.012,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Left & Right Panels
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Left Side
+                    Expanded(
+                      flex: 5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF95C8D6).withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        margin: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.height * 0.020,
+                          top: MediaQuery.of(context).size.height * 0.01,
+                        ),
+                        child: ListView.builder(
+                          itemCount: categories.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                FocusScope.of(context).unfocus(); // MUST DO THIS to avoid overflow
+                                setState(() {
+                                  _searchController.clear();
+                                  searchQueries[categories[selectedCategoryIndex].key] = '';
+                                  selectedCategoryIndex = index;
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: selectedCategoryIndex == index
+                                      ? Colors.white
+                                      : Colors.transparent,
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(8),
+                                    bottomRight: Radius.circular(8),
+                                  ),
+                                ),
+                                child: Stack(
+                                  children: [
+                                    if (selectedCategoryIndex == index)
+                                      Positioned(
+                                        top: 6,
+                                        left: 0,
+                                        bottom: 6,
+                                        child: Container(
+                                          width: 3.0,
+                                          color: const Color(0xFF126086),
+                                        ),
+                                      ),
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      padding: EdgeInsets.only(
+                                        left: MediaQuery.of(context).size.height * 0.02,
+                                        bottom: MediaQuery.of(context).size.height * 0.01,
+                                        top: MediaQuery.of(context).size.height * 0.01,
+                                      ),
+                                      child: Text(
+                                        categories[index].title,
+                                        style: TextStyle(
+                                          color: selectedCategoryIndex == index
+                                              ? const Color(0xFF126086)
+                                              : Colors.black87,
+                                          fontSize: MediaQuery.of(context).size.height * 0.014,
+                                          fontWeight: selectedCategoryIndex == index
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+
+                    // Right Side
+                    Expanded(
+                      flex: 6,
+                      child: Container(
+                        padding: EdgeInsets.only(
+                          right: MediaQuery.of(context).size.height * 0.01,
+                          top: MediaQuery.of(context).size.height * 0.01,
+                        ),
+                        child: _getFilterOptionsWidget(context),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+
+              // Apply Filters Button
+              Padding(
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.height * 0.03,
+                  right: MediaQuery.of(context).size.height * 0.03,
+                  bottom: MediaQuery.of(context).size.height * 0.02,
+                ),
+                child: ElevatedButton(
+                  onPressed: selectedCount > 0 ? () {
+                    final Map<String, List<String>> result = {};
+                    for (var category in categories) {
+                      if (category.selectedOptions.isNotEmpty) {
+                        result[category.key] = category.selectedOptions;
+                      }
+                    }
+                    Navigator.pop(context, result);
+                  } : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF126086),
+                    minimumSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.045),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.012),
+                    ),
+                    disabledBackgroundColor: const Color(0x99909090),
+                  ),
+                  child: Text(
+                    "Apply Filters",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: MediaQuery.of(context).size.height * 0.02,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
