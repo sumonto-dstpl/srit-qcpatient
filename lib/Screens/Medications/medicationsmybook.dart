@@ -402,8 +402,8 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                         ),
                         Container(
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height * 0.0,
-                              right: MediaQuery.of(context).size.height * 0.00,
+                              left: MediaQuery.of(context).size.height * 0.02,
+                              right: MediaQuery.of(context).size.height * 0.02,
                               top: MediaQuery.of(context).size.height * 0.008,
                               bottom:
                               MediaQuery.of(context).size.height * 0.00),
@@ -428,8 +428,8 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                       padding: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.02,
                         bottom: MediaQuery.of(context).size.height * 0.01,
-                        left: MediaQuery.of(context).size.height * 0.01,
-                        right: MediaQuery.of(context).size.height * 0.01,
+                        left: MediaQuery.of(context).size.height * 0.02,
+                        right: MediaQuery.of(context).size.height * 0.02,
                       ),
                       child: DecoratedBox(
                         decoration: BoxDecoration(
@@ -697,9 +697,8 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                     // Hospital Visit
                     Padding(
                       padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.height * 0.015,
-                          right: MediaQuery.of(context).size.height * 0.0,
-                          bottom: MediaQuery.of(context).size.height * 0.00),
+                          left: MediaQuery.of(context).size.height * 0.02,
+                          right: MediaQuery.of(context).size.height * 0.02,),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -719,8 +718,8 @@ class MedicationMyBookingsMainstate extends State<MedicationMyBookingsMain> {
                       padding: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.01,
                         bottom: MediaQuery.of(context).size.height * 0.01,
-                        left: MediaQuery.of(context).size.height * 0.01,
-                        right: MediaQuery.of(context).size.height * 0.01,
+                        left: MediaQuery.of(context).size.height * 0.02,
+                        right: MediaQuery.of(context).size.height * 0.02,
                       ),
                       child: DecoratedBox(
                         decoration: BoxDecoration(

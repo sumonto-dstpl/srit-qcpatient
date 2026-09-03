@@ -366,68 +366,7 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
                   children: [
-                    // Column(
-                    //   crossAxisAlignment: CrossAxisAlignment.center,
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: <Widget>[
-                    //     Container(
-                    //       padding: EdgeInsets.only(
-                    //           left: MediaQuery.of(context).size.height * 0.01,
-                    //           right: MediaQuery.of(context).size.height * 0.01,
-                    //           top: MediaQuery.of(context).size.height * 0.01,
-                    //           bottom:
-                    //               MediaQuery.of(context).size.height * 0.005),
-                    //       child: Text(
-                    //         "Dr. Nutan Bhatt",
-                    //         style: TextStyle(
-                    //             color: Color(0xFF126086),
-                    //             overflow: TextOverflow.ellipsis,
-                    //             fontWeight: FontWeight.bold,
-                    //             fontSize:
-                    //                 MediaQuery.of(context).size.height * 0.02),
-                    //       ),
-                    //     ),
-                    //     Container(
-                    //       padding: EdgeInsets.only(
-                    //           left: MediaQuery.of(context).size.height * 0.01,
-                    //           right: MediaQuery.of(context).size.height * 0.01,
-                    //           top: MediaQuery.of(context).size.height * 0.00,
-                    //           bottom:
-                    //               MediaQuery.of(context).size.height * 0.005),
-                    //       child: Text(
-                    //         "General physician / Internal Medicine",
-                    //         style: TextStyle(
-                    //             color: Colors.black54,
-                    //             fontWeight: FontWeight.bold,
-                    //             overflow: TextOverflow.ellipsis,
-                    //             fontSize:
-                    //                 MediaQuery.of(context).size.height * 0.018),
-                    //       ),
-                    //     ),
-                    //     Container(
-                    //       padding: EdgeInsets.only(
-                    //           left: MediaQuery.of(context).size.height * 0.01,
-                    //           right: MediaQuery.of(context).size.height * 0.01,
-                    //           top: MediaQuery.of(context).size.height * 0.00,
-                    //           bottom:
-                    //               MediaQuery.of(context).size.height * 0.005),
-                    //       child: Text(
-                    //         "41 YEARS Experience- MBBS, DIPLOMA IN FAMILY MEDICINE (123 Reviews)",
-                    //         style: TextStyle(
-                    //             color: Color(0xFF126086),
-                    //             fontWeight: FontWeight.bold,
-                    //             // overflow: TextOverflow.ellipsis,
-                    //             fontSize:
-                    //                 MediaQuery.of(context).size.height * 0.013),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
 
-
-
-                    // top card
-                    // Doctor Details
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -492,14 +431,15 @@ class MyBookingsMainstate extends State<MyBookingsMain> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height * 0.0,
-                              right: MediaQuery.of(context).size.height * 0.00,
+                              left: MediaQuery.of(context).size.height * 0.02,
+                              right: MediaQuery.of(context).size.height * 0.02,
                               top: MediaQuery.of(context).size.height * 0.008,
                               bottom:
                                   MediaQuery.of(context).size.height * 0.00),
                           child: Text(
                             (widget.doctorDetail?['experience'] ?? "41 YEARS Experience- MBBS, DIPLOMA IN FAMILY MEDICINE") + "(123 Reviews)",
                             // qualificationval,
+
                             style: TextStyle(
                               color: Color(0xFF126086),
                               fontWeight: FontWeight.bold,

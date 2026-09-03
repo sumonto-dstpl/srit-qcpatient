@@ -176,7 +176,8 @@ class _ReusableFilterSheetState extends State<ReusableFilterSheet> {
           contentPadding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.012),
           filled: true,
           fillColor: const Color(0xFFF7F5F6).withOpacity(0.9),
-          hintText: "Search ${categoryKey.toUpperCase()}",
+          // hintText: "Search ${categoryKey.toUpperCase()}",
+          hintText: "Search",
           hintStyle: TextStyle(
               color: const Color(0xFFA8A8A8),
               fontSize: MediaQuery.of(context).size.height * 0.012,

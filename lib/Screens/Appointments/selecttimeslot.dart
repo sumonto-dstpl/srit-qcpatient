@@ -464,8 +464,8 @@ class SelectTimeSlotstate extends State<SelectTimeSlot> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height * 0.0,
-                              right: MediaQuery.of(context).size.height * 0.00,
+                              left: MediaQuery.of(context).size.height * 0.02,
+                              right: MediaQuery.of(context).size.height * 0.02,
                               top: MediaQuery.of(context).size.height * 0.008,
                               bottom:
                                   MediaQuery.of(context).size.height * 0.00),

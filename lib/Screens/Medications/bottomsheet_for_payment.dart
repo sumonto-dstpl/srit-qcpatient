@@ -131,277 +131,36 @@ class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymen
                 ),
               ),
 
-              // Payment mode 1
-              Container(
-                margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.height * 0.01,
-                  left: MediaQuery.of(context).size.height * 0.015,
-                  right: MediaQuery.of(context).size.height * 0.015,
-                ),
-                padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.height * 0.01,
-                ),
-                decoration: BoxDecoration(
-                  color: Color(0x24D9D9D9),
-                  border: Border.all(
-                    color: Color(0x0F000000),
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.height * 0.05,
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.0),
-                        image: DecorationImage(
-                          image: AssetImage('assets/visapay.png'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '**** **** 3434',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: MediaQuery.of(context).size.height * 0.016,
-                              color: Color(0xB2000000),
-                            ),
-                          ),
-                          Text(
-                            'Visa',
-                            style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.height * 0.014,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Radio<int>(
-                      value: 1,
-                      groupValue: _selectedValue,
-                      onChanged: (int? value) {
-                        setState(() {
-                          _selectedValue = value;
-                        });
-                      },
-                    ),
-                  ],
-                ),
+              // Reusable Payment Methods Calling
+              _buildPaymentOption(
+                value: 1,
+                imagePath: 'assets/visapay.png',
+                title: '**** **** 3434',
+                subtitle: 'Visa',
               ),
 
-              // Payment mode 2
-              Container(
-                margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.height * 0.01,
-                  left: MediaQuery.of(context).size.height * 0.015,
-                  right: MediaQuery.of(context).size.height * 0.015,
-                ),
-                padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.height * 0.01,
-                ),
-                decoration: BoxDecoration(
-                  color: Color(0x24D9D9D9),
-                  border: Border.all(
-                    color: Color(0x0F000000),
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.height * 0.05,
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.0),
-                        image: DecorationImage(
-                          image: AssetImage('assets/paypalpay.png'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '**** **** 3434',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: MediaQuery.of(context).size.height * 0.016,
-                              color: Color(0xB2000000),
-                            ),
-                          ),
-                          Text(
-                            'Paypal',
-                            style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.height * 0.014,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Radio<int>(
-                      value: 2,
-                      groupValue: _selectedValue,
-                      onChanged: (int? value) {
-                        setState(() {
-                          _selectedValue = value;
-                        });
-                      },
-                    ),
-                  ],
-                ),
+              _buildPaymentOption(
+                value: 2,
+                imagePath: 'assets/paypalpay.png',
+                title: '**** **** 3434',
+                subtitle: 'Paypal',
               ),
 
-              // Payment mode 3
-              Container(
-                margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.height * 0.01,
-                  left: MediaQuery.of(context).size.height * 0.015,
-                  right: MediaQuery.of(context).size.height * 0.015,
-                ),
-                padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.height * 0.01,
-                ),
-                decoration: BoxDecoration(
-                  color: Color(0x24D9D9D9),
-                  border: Border.all(
-                    color: Color(0x0F000000),
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.height * 0.05,
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.0),
-                        image: DecorationImage(
-                          image: AssetImage('assets/applepay.png'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Priya Krishamurty',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: MediaQuery.of(context).size.height * 0.016,
-                              color: Color(0xB2000000),
-                            ),
-                          ),
-                          Text(
-                            'Apple Pay',
-                            style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.height * 0.014,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Radio<int>(
-                      value: 3,
-                      groupValue: _selectedValue,
-                      onChanged: (int? value) {
-                        setState(() {
-                          _selectedValue = value;
-                        });
-                      },
-                    ),
-                  ],
-                ),
+              _buildPaymentOption(
+                value: 3,
+                imagePath: 'assets/applepay.png',
+                title: 'Priya Krishamurty',
+                subtitle: 'Apple Pay',
               ),
+              _buildPaymentOption(
+                value: 4,
+                imagePath: 'assets/googlepay.png',
+                title: 'Priya Krishamurty',
+                subtitle: 'Google Pay',
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
 
-              // Payment mode 4
-              Container(
-                margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.height * 0.02,
-                  left: MediaQuery.of(context).size.height * 0.015,
-                  right: MediaQuery.of(context).size.height * 0.015,
-                ),
-                padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.height * 0.01,
-                ),
-                decoration: BoxDecoration(
-                  color: Color(0x24D9D9D9),
-                  border: Border.all(
-                    color: Color(0x0F000000),
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.height * 0.05,
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.0),
-                        image: DecorationImage(
-                          image: AssetImage('assets/googlepay.png'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Priya Krishamurty',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: MediaQuery.of(context).size.height * 0.016,
-                              color: Color(0xB2000000),
-                            ),
-                          ),
-                          Text(
-                            'Google Pay',
-                            style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.height * 0.014,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Radio<int>(
-                      value: 4,
-                      groupValue: _selectedValue,
-                      onChanged: (int? value) {
-                        setState(() {
-                          _selectedValue = value;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ),
+
 
               // Continue Button
               GestureDetector(
@@ -482,7 +241,89 @@ class BottomSheetForPaymentForMedicationState extends State<BottomSheetForPaymen
     );
   }
 
-
+  Widget _buildPaymentOption({
+    required int value,
+    required String imagePath,
+    required String title,
+    required String subtitle,
+  }) {
+    return GestureDetector(
+      // Row par tap karne se radio button select hoga
+      onTap: () {
+        setState(() {
+          _selectedValue = value;
+        });
+      },
+      // transparent color zaroori hai taaki empty space par bhi click register ho
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height * 0.01,
+          left: MediaQuery.of(context).size.height * 0.015,
+          right: MediaQuery.of(context).size.height * 0.015,
+        ),
+        padding: EdgeInsets.only(
+          left: MediaQuery.of(context).size.height * 0.01,
+        ),
+        decoration: BoxDecoration(
+          color: Color(0x24D9D9D9),
+          border: Border.all(
+            color: Color(0x0F000000),
+            width: 1.0,
+          ),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.height * 0.05,
+              height: MediaQuery.of(context).size.height * 0.05,
+              margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.01),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4.0),
+                image: DecorationImage(
+                  image: AssetImage(imagePath),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: MediaQuery.of(context).size.height * 0.016,
+                      color: Color(0xB2000000),
+                    ),
+                  ),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * 0.014,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Radio<int>(
+              value: value,
+              groupValue: _selectedValue,
+              onChanged: (int? val) {
+                setState(() {
+                  _selectedValue = val;
+                });
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
   void showsucessalertBottomSheet(Map detail,String origin) => showModalBottomSheet(
     enableDrag: false,
     isScrollControlled: true,

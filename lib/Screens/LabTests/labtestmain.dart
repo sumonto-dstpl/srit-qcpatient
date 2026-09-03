@@ -218,45 +218,39 @@ class LabTestsMainstate extends State<LabTestsMain> {
     print("loadData......................................");
     var guestUser = await UserSecureStorage.getIfGuestLogged();
     print("guestUser: $guestUser");
-    final isGuestUser=guestUser == "YES";
-    setState(() {});
+    final isGuestUser = guestUser == "YES";
+
     if(!isGuestUser) {
       String? username = await UserSecureStorage.getUsernameid();
-      print("username: $username");
-      // Map<String, dynamic>? user = await UserSecureStorage.getUser(username!);
-      // print("user : $user");
       List<dynamic> _loadedCart2  = await UserSecureStorage.getAddToCart("addToCart2",username ?? '');
 
       if(_loadedCart2.isNotEmpty){
         print("_loadedCart2.length:${_loadedCart2.length}");
         setState(() {
-
           addedList = _loadedCart2 ?? [];
         });
       }
-
     }
 
-    previousOrder = DummyData.healthCheckupList;
-    if(previousOrder.isNotEmpty){
-      filterPreviousOrder = previousOrder ;
-      showNoDataFoundForPreviousOrder = false;
-    }
-    else {
-      filterPreviousOrder = [] ;
-      showNoDataFoundForPreviousOrder = true;
-    }
+    // ✅ YAHAN SETSTATE ADD KIYA GAYA HAI
+    setState(() {
+      previousOrder = DummyData.healthCheckupList;
+      if(previousOrder.isNotEmpty){
+        filterPreviousOrder = previousOrder;
+        showNoDataFoundForPreviousOrder = false;
+      } else {
+        filterPreviousOrder = [];
+        showNoDataFoundForPreviousOrder = true;
+      }
 
-    if(recommendedTests.isNotEmpty){
-      filterRecommendedTests = recommendedTests ;
-      showNoDataFoundForRecommendedTests = false;
-    }
-    else {
-      filterRecommendedTests = [] ;
-      showNoDataFoundForRecommendedTests = true;
-    }
-
-
+      if(recommendedTests.isNotEmpty){
+        filterRecommendedTests = recommendedTests;
+        showNoDataFoundForRecommendedTests = false;
+      } else {
+        filterRecommendedTests = [];
+        showNoDataFoundForRecommendedTests = true;
+      }
+    });
   }
 
 
