@@ -49,6 +49,9 @@ class _CustomDateTimePickerState extends State<CustomDateTimePicker> {
       _selectedTime = widget.initialTime;
       _setCategoryBasedOnTime(widget.initialTime!);
     }
+    else{
+      _setCategoryBasedOnCurrentTime(_selectedDate);
+    }
   }
 
   // Time ke hisaab se correct tab (Morning/Afternoon/Evening) set karne ka logic
@@ -66,6 +69,24 @@ class _CustomDateTimePickerState extends State<CustomDateTimePicker> {
       } catch (e) {
         _selectedCategory = 'Evening';
       }
+    }
+  }
+  void _setCategoryBasedOnCurrentTime(DateTime dateToCheck) {
+    DateTime today = DateTime.now();
+
+    // Agar selected date aaj ki hai, toh current time check karein
+    if (DateUtils.isSameDay(dateToCheck, today)) {
+      int currentHour = today.hour;
+      if (currentHour >= 12 && currentHour < 15) {
+        _selectedCategory = 'Afternoon';
+      } else if (currentHour >= 15) {
+        _selectedCategory = 'Evening';
+      } else {
+        _selectedCategory = 'Morning';
+      }
+    } else {
+      // Future date ke liye by-default Morning open rakhein
+      _selectedCategory = 'Morning';
     }
   }
 
@@ -178,6 +199,7 @@ class _CustomDateTimePickerState extends State<CustomDateTimePicker> {
                     setState(() {
                       _selectedDate = date;
                       _selectedTime = null;
+                      _setCategoryBasedOnCurrentTime(date);
                     });
                   },
                   child: Container(
@@ -320,6 +342,9 @@ class _CustomDateTimePickerMedicationState extends State<CustomDateTimePickerMed
       _selectedTime = widget.initialTime;
       _setCategoryBasedOnTime(widget.initialTime!);
     }
+    else{
+      _setCategoryBasedOnCurrentTime(_selectedDate);
+    }
   }
 
   // Time ke hisaab se correct tab (Morning/Afternoon/Evening) set karne ka logic
@@ -337,6 +362,25 @@ class _CustomDateTimePickerMedicationState extends State<CustomDateTimePickerMed
       } catch (e) {
         _selectedCategory = 'Evening';
       }
+    }
+  }
+  // Naya function: Current time ke hisaab se tab set karne ke liye
+  void _setCategoryBasedOnCurrentTime(DateTime dateToCheck) {
+    DateTime today = DateTime.now();
+
+    // Agar selected date aaj ki hai, toh current time check karein
+    if (DateUtils.isSameDay(dateToCheck, today)) {
+      int currentHour = today.hour;
+      if (currentHour >= 12 && currentHour < 15) {
+        _selectedCategory = 'Afternoon';
+      } else if (currentHour >= 15) {
+        _selectedCategory = 'Evening';
+      } else {
+        _selectedCategory = 'Morning';
+      }
+    } else {
+      // Future date ke liye by-default Morning open rakhein
+      _selectedCategory = 'Morning';
     }
   }
 
@@ -376,6 +420,7 @@ class _CustomDateTimePickerMedicationState extends State<CustomDateTimePickerMed
         _listStartDate = result['date'];
         _selectedDate = result['date'];
         _selectedTime = null;
+        _setCategoryBasedOnCurrentTime(result['date']);
       });
     }
   }
@@ -449,6 +494,7 @@ class _CustomDateTimePickerMedicationState extends State<CustomDateTimePickerMed
                     setState(() {
                       _selectedDate = date;
                       _selectedTime = null;
+                      _setCategoryBasedOnCurrentTime(date);
                     });
                   },
                   child: Container(
