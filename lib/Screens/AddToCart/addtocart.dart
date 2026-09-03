@@ -226,56 +226,134 @@ class AddToCartMainstate extends State<AddToCartMain> {
                                           extentRatio: 0.15,
                                           motion: const ScrollMotion(),
                                           children: [
-                                            Container(
-                                              width: 50,
-                                              height: double.infinity,
+                                            // Container(
+                                            //   width: 50,
+                                            //   height: double.infinity,
+                                            //
+                                            //   child: Column(
+                                            //     children: [
+                                            //       // Upper icon (Save)
+                                            //       Expanded(
+                                            //         child: GestureDetector(
+                                            //           onTap: (){
+                                            //             showTopNotification(context, title: "Cart Save For Later", message: "Cart is Saved for Later Successfully", type: NotificationType.success,);
+                                            //             if (index >= _currentList.length) {
+                                            //               savedbottomlist.add(_currentList.last);
+                                            //               _currentList.removeLast();
+                                            //               setState(() {});
+                                            //               return;
+                                            //             }
+                                            //             setState(() {
+                                            //               addToCart(item['id'],item['plan'],item['test'],item['qr'],key: saveForLaterKey);
+                                            //               _currentList.removeAt(index);
+                                            //             });
+                                            //             _deleteCart(item['id'],index);
+                                            //           },
+                                            //           child: Container(
+                                            //             alignment: Alignment.center,
+                                            //             child: Image.asset("assets/addtofoldersaveicon.png", width: 20, height: 20, color: Colors.black, colorBlendMode: BlendMode.srcIn,),
+                                            //           ),
+                                            //         ),
+                                            //       ),
+                                            //
+                                            //       // Lower icon (Delete)
+                                            //       Expanded(
+                                            //         child: GestureDetector(
+                                            //           // onTap: () async {
+                                            //           //   final result = await DeleteDialog.show(
+                                            //           //     context: context,
+                                            //           //     barrierLabel: "InsuranceDelete",
+                                            //           //     message: "Are you sure to Remove the Selected Cart ?",
+                                            //           //   );
+                                            //           //   if(result!) {
+                                            //           //
+                                            //           //     _deleteCart(item['id'],index);
+                                            //           //     showTopNotification(context, title: "Cart Delete", message: "Cart is deleted Successfully", type: NotificationType.error,);
+                                            //           //   }
+                                            //           // },
+                                            //
+                                            //           onTap : () {
+                                            //             _deleteCart(item['id'],index);
+                                            //             showTopNotification(context, title: "Cart Delete", message: "Cart is deleted Successfully", type: NotificationType.error,);
+                                            //           },
+                                            //           child: AppDeleteIcon(isCenter: true,),
+                                            //
+                                            //         ),
+                                            //       ),
+                                            //     ],
+                                            //   ),
+                                            // ),
 
-                                              child: Column(
-                                                children: [
-                                                  // Upper icon (Save)
-                                                  Expanded(
-                                                    child: GestureDetector(
-                                                      onTap: (){
-                                                        showTopNotification(context, title: "Cart Save For Later", message: "Cart is Saved for Later Successfully", type: NotificationType.success,);
-                                                        if (index >= _currentList.length) {
-                                                          savedbottomlist.add(_currentList.last);
-                                                          _currentList.removeLast();
-                                                          setState(() {});
-                                                          return;
-                                                        }
-                                                        setState(() {
-                                                          addToCart(item['id'],item['plan'],item['test'],item['qr'],key: saveForLaterKey);
-                                                          _currentList.removeAt(index);
-                                                        });
-                                                        _deleteCart(item['id'],index);
-                                                      },
-                                                      child: Container(
-                                                        alignment: Alignment.center,
-                                                        child: Image.asset("assets/addtofoldersaveicon.png", width: 20, height: 20, color: Colors.black, colorBlendMode: BlendMode.srcIn,),
-                                                      ),
-                                                    ),
-                                                  ),
+                                            // ActionPane ke children list ke andar Container ko Builder se wrap karein:
+                                            Builder(
+                                                builder: (slidableContext) {
+                                                  return Container(
+                                                    width: 50,
+                                                    height: double.infinity,
+                                                    child: Column(
+                                                      children: [
+                                                        // Upper icon (Save)
+                                                        Expanded(
+                                                          child: GestureDetector(
+                                                            onTap: () {
+                                                              // Save karte time bhi pehle close karein
+                                                              Slidable.of(slidableContext)?.close();
 
-                                                  // Lower icon (Delete)
-                                                  Expanded(
-                                                    child: GestureDetector(
-                                                      onTap: () async {
-                                                        final result = await DeleteDialog.show(
-                                                          context: context,
-                                                          barrierLabel: "InsuranceDelete",
-                                                          message: "Are you sure to Remove the Selected Cart ?",
-                                                        );
-                                                        if(result!) {
-                                                          showTopNotification(context, title: "Cart Delete", message: "Cart is deleted Successfully", type: NotificationType.error,);
-                                                          _deleteCart(item['id'],index);
-                                                        }
-                                                      },
-                                                      child: AppDeleteIcon(isCenter: true,),
+                                                              showTopNotification(context, title: "Cart Save For Later", message: "Cart is Saved for Later Successfully", type: NotificationType.success,);
+                                                              if (index >= _currentList.length) {
+                                                                savedbottomlist.add(_currentList.last);
+                                                                _currentList.removeLast();
+                                                                setState(() {});
+                                                                return;
+                                                              }
+                                                              setState(() {
+                                                                addToCart(item['id'],item['plan'],item['test'],item['qr'],key: saveForLaterKey);
+                                                                _currentList.removeAt(index);
+                                                              });
+                                                              _deleteCart(item['id'],index);
+                                                            },
+                                                            child: Container(
+                                                              alignment: Alignment.center,
+                                                              child: Image.asset("assets/addtofoldersaveicon.png", width: 20, height: 20, color: Colors.black, colorBlendMode: BlendMode.srcIn,),
+                                                            ),
+                                                          ),
+                                                        ),
+
+                                                        // Lower icon (Delete)
+                                                        Expanded(
+                                                          child: GestureDetector(
+                                                            onTap: () async {
+                                                              // 1. Dialog kholne se pehle Slidable ko smoothly close karein
+                                                              Slidable.of(slidableContext)?.close();
+
+                                                              // 2. 250ms wait karein taaki close animation poora ho jaye
+                                                              // Isse BackdropFilter (blur) aur UI freeze nahi hoga
+                                                              await Future.delayed(const Duration(milliseconds: 250));
+
+                                                              // 3. Ab aaram se Dialog show karein
+                                                              final result = await DeleteDialog.show(
+                                                                context: context,
+                                                                barrierLabel: "InsuranceDelete",
+                                                                message: "Are you sure to Remove the Selected Cart ?",
+                                                              );
+
+                                                              if(result!) {
+                                                                // 4. Delete confirm hone par UI ko turant list se remove karein
+                                                                setState(() {
+                                                                  _currentList.removeAt(index);
+                                                                });
+                                                                _deleteCart(item['id'],index);
+                                                                showTopNotification(context, title: "Cart Delete", message: "Cart is deleted Successfully", type: NotificationType.error,);
+                                                              }
+                                                            },
+                                                            child: AppDeleteIcon(isCenter: true,),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
+                                                  );
+                                                }
+                                            )
                                           ],
                                         ),
                                         child: GestureDetector(
